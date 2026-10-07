@@ -3,7 +3,7 @@
 const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } = window.INGLY;
 import { $, T, L, setL, toast } from './utils.js';
 import * as u from './utils.js';
-import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda } from './navigation.js';
+import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda, BASE } from './navigation.js';
 import { initAnimations, observeAll, refreshMagnets } from './animations.js';
 import * as prod from './products.js';
 import { renderUrg, initForms } from './forms.js';
@@ -412,7 +412,7 @@ function renderVertStrip(){
   box.innerHTML='<h3 class="vert-tit">'+(L==='it'?'Soluzioni per il tuo settore':'Solutions for your sector')+'</h3>'
     +'<div class="vert-grid">'+lista.map(v=>{
       const m=VERT.meta(v,{L});
-      return `<a class="vert-card reveal" href="/business/${v.id}" data-vert="${v.id}">
+      return `<a class="vert-card reveal" href="${BASE.replace(/\/+$/,'')}/business/${v.id}" data-vert="${v.id}">
         <span class="vert-ic" aria-hidden="true">${v.icona||'▸'}</span>
         <b>${escHtml(VERT.lingua(v.n,L))}</b>
         <span class="vert-sub">${VERT.lingua(v.sottotitolo,L).slice(0,95)}</span>
@@ -434,9 +434,9 @@ function renderVerticale(id){
   const e=escHtml;
 
   pagina.innerHTML=`
-    <nav class="vert-back"><a href="/business" data-nav="business">← ${L==='it'?'Tutti i settori':'All sectors'}</a></nav>
+    <nav class="vert-back"><a href="${BASE.replace(/\/+$/,'')}/business" data-nav="business">← ${L==='it'?'Tutti i settori':'All sectors'}</a></nav>
     <span class="eyebrow">${v.icona||''} ${e(VERT.lingua(v.n,L))}</span>
-    <h2 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${e(VERT.lingua(v.titolo,L))}</h2>
+    <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${e(VERT.lingua(v.titolo,L))}</h1>
     <p class="sub">${e(VERT.lingua(v.sottotitolo,L))}</p>
     ${VERT.lingua(v.intro,L)?`<p class="vert-intro">${e(VERT.lingua(v.intro,L))}</p>`:''}
     <div class="hero-ctas">

@@ -13,6 +13,14 @@
 
 import * as LAB from './lab.js';
 import { observeAll } from './animations.js';
+import { BASE } from './navigation.js';
+
+/* Gli indirizzi nascono sempre sotto la base del sito. Scritti assoluti
+   funzionavano solo perché il router intercetta il clic: tasto centrale,
+   "apri in una nuova scheda" e "copia link" finivano su un 404 ovunque il
+   sito non stia nella radice del dominio — cioè in ogni anteprima su
+   GitHub Pages, che serve il repository in una sottocartella. */
+const via = p => BASE.replace(/\/+$/, '') + p;
 
 const esc = t => String(t == null ? '' : t)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -50,7 +58,7 @@ function faqHtml(faq, L) {
    e il colore è quello già dichiarato nei dati, non uno inventato qui. */
 function tesseraMateriale(m, L, n) {
   const g = String(m.grad || '#3a2f26,#6b543e').split(',');
-  return `<a class="vert-card lab-card reveal" href="/materiali/${esc(m.id)}">
+  return `<a class="vert-card lab-card reveal" href="${via('/materiali/' + esc(m.id))}">
     <span class="lab-swatch" style="--a:${esc(g[0] || '#333')};--b:${esc(g[1] || g[0] || '#111')}" aria-hidden="true"></span>
     <b>${esc(LAB.lingua(m.n, L))}</b>
     <span class="vert-sub">${esc(LAB.lingua(m.sommario, L))}</span>
@@ -59,7 +67,7 @@ function tesseraMateriale(m, L, n) {
 }
 
 function tesseraTecnologia(t, L) {
-  return `<a class="vert-card lab-card reveal" href="/tecnologie/${esc(t.id)}">
+  return `<a class="vert-card lab-card reveal" href="${via('/tecnologie/' + esc(t.id))}">
     <b>${esc(LAB.lingua(t.n, L))}</b>
     <span class="vert-sub">${esc(LAB.lingua(t.sommario, L))}</span>
     <span class="vert-go">${t2('Scopri', 'Explore', L)} <i class="arr">→</i></span>
@@ -99,7 +107,7 @@ export function renderMateriale(id, L, cardProdotto) {
   const g = String(m.grad || '').split(',');
 
   pagina.innerHTML = `
-    <nav class="vert-back"><a href="/materiali" data-nav="materiali">← ${t2('Tutti i materiali', 'All materials', L)}</a></nav>
+    <nav class="vert-back"><a href="${via('/materiali')}" data-nav="materiali">← ${t2('Tutti i materiali', 'All materials', L)}</a></nav>
     <span class="lab-swatch lab-swatch--lg" style="--a:${esc(g[0] || '#333')};--b:${esc(g[1] || g[0] || '#111')}" aria-hidden="true"></span>
     <span class="eyebrow">${t2('Material Lab', 'Material Lab', L)}</span>
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${esc(LAB.lingua(m.n, L))}</h1>
@@ -108,7 +116,7 @@ export function renderMateriale(id, L, cardProdotto) {
 
     ${tecs.length ? `<h3 class="vert-tit">${t2('Come lo lavoriamo', 'How we work it', L)}</h3>
       <div class="b2b-cards">${tecs.map((t, i) => `
-        <a class="rcard reveal lab-rel" href="/tecnologie/${esc(t.id)}" style="transition-delay:${i * .06}s">
+        <a class="rcard reveal lab-rel" href="${via('/tecnologie/' + esc(t.id))}" style="transition-delay:${i * .06}s">
           <h3 class="lab-h3">${esc(LAB.lingua(t.n, L))}</h3>
           <p class="lab-p">${esc(LAB.lingua(t.sommario, L))}</p>
           <span class="vert-go">${t2('La tecnologia', 'The technology', L)} <i class="arr">→</i></span>
@@ -135,7 +143,7 @@ export function renderMateriale(id, L, cardProdotto) {
     <div class="hero-ctas lab-ctas">
       <button class="btn btn-primary magnetic" data-action="go" data-arg="quote">
         ${t2('Richiedi un progetto in ' + LAB.lingua(m.n, 'it'), 'Request a project', L)} <span class="arr">→</span></button>
-      <a class="btn btn-ghost magnetic" href="/shop">${t2('Vedi il catalogo', 'Browse the catalogue', L)}</a>
+      <a class="btn btn-ghost magnetic" href="${via('/shop')}">${t2('Vedi il catalogo', 'Browse the catalogue', L)}</a>
     </div>`;
 
   observeAll();
@@ -167,7 +175,7 @@ export function renderTecnologia(id, L, cardProdotto) {
   const prods = LAB.prodottiDiTecnologia(d, t, { max: 8 });
 
   pagina.innerHTML = `
-    <nav class="vert-back"><a href="/tecnologie" data-nav="tecnologie">← ${t2('Tutte le tecnologie', 'All technologies', L)}</a></nav>
+    <nav class="vert-back"><a href="${via('/tecnologie')}" data-nav="tecnologie">← ${t2('Tutte le tecnologie', 'All technologies', L)}</a></nav>
     <span class="eyebrow">${t2('Technology Hub', 'Technology Hub', L)}</span>
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${esc(LAB.lingua(t.n, L))}</h1>
     <p class="sub">${esc(LAB.lingua(t.sommario, L))}</p>
@@ -288,7 +296,7 @@ export function renderTrovaSoluzione(L) {
       return;
     }
     esito.innerHTML = '<div class="vert-grid">' + r.slice(0, 3).map(s => `
-      <a class="vert-card lab-card reveal" href="/tecnologie/${esc(s.tecnologia.id)}">
+      <a class="vert-card lab-card reveal" href="${via('/tecnologie/' + esc(s.tecnologia.id))}">
         <b>${esc(LAB.lingua(s.tecnologia.n, L))}</b>
         <span class="vert-sub">${esc(LAB.lingua(s.tecnologia.sommario, L))}</span>
         <span class="vert-go">${t2('Scopri', 'Explore', L)} <i class="arr">→</i></span>

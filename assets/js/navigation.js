@@ -120,7 +120,13 @@ export function initNav(){
     const href=a.getAttribute('href');
     if(!href||href.startsWith('http')||href.startsWith('mailto')||href.startsWith('tel')||href.startsWith('wa.'))return;
     const clean=href.replace(/^#\//,'/').replace(/^#/,'/');
-    const percorso=clean.replace(/^\/+/,'').split('?')[0]||'home';
+    /* Un collegamento scritto sotto la base ("/Il-sito-AI/materiali/legno")
+       va letto togliendo la base, altrimenti il primo segmento è il nome del
+       repository e nessuna rotta corrisponde: il clic sfugge all'intercettore
+       e ricarica tutto il sito. Succedeva ovunque il sito non stia nella
+       radice del dominio, cioè in ogni anteprima su GitHub Pages. */
+    const senzaBase = (BASE !== '/' && clean.startsWith(BASE)) ? clean.slice(BASE.length) : clean;
+    const percorso=senzaBase.replace(/^\/+/,'').split('?')[0]||'home';
     /* /business/ristoranti è una pagina di settore e resta dentro la sezione
        Business. Senza questo ramo il collegamento ricarica tutto il sito da
        capo: funziona — il file statico esiste — ma è un secondo di attesa e

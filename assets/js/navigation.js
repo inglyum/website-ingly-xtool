@@ -6,7 +6,7 @@ import { F, renderRV, renderChips, renderShop, currentProduct } from './products
 import { updateSeo } from './seo.js';
 import { L, T } from './utils.js';
 
-export const PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote'];
+export const PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote','materiali','tecnologie','macchine'];
 
 /* ===== PERCORSO BASE =====
    In produzione il sito sta nella radice del dominio ("/"), ma su GitHub Pages
@@ -41,6 +41,14 @@ export function currentPage(){
 export function currentVerticale(){
   const seg=relPath().split('?')[0].split('/').filter(Boolean);
   return (seg[0]==='business' && seg[1] && /^[a-z0-9-]+$/.test(seg[1])) ? seg[1] : null;
+}
+
+/* Scheda del Lab nell'indirizzo: /materiali/legno → 'legno'.
+   Stessa forma di currentVerticale(): la scheda è un approfondimento della
+   sezione, non un ramo separato, così l'autorità della pagina resta una. */
+export function currentScheda(sezione){
+  const seg=relPath().split('?')[0].split('/').filter(Boolean);
+  return (seg[0]===sezione && seg[1] && /^[a-z0-9-]+$/.test(seg[1])) ? seg[1] : null;
 }
 
 /* Estrai ?id=xxx dal pathname o dalla query string */
@@ -118,6 +126,15 @@ export function initNav(){
        capo: funziona — il file statico esiste — ma è un secondo di attesa e
        uno sfarfallio per niente. */
     const seg=percorso.split('/');
+    /* Le schede del Lab si comportano come i settori Business: restano
+       dentro la loro sezione invece di ricaricare tutto il sito. */
+    if(['materiali','tecnologie'].includes(seg[0]) && seg[1] && /^[a-z0-9-]+$/.test(seg[1])){
+      e.preventDefault();
+      const dest=BASE+seg[0]+'/'+seg[1];
+      if(location.pathname.replace(/\/$/,'')!==dest.replace(/\/$/,'')) history.pushState({page:seg[0]},'',dest);
+      show(seg[0]);
+      return;
+    }
     if(seg[0]==='business' && seg[1] && /^[a-z0-9-]+$/.test(seg[1])){
       e.preventDefault();
       const dest=BASE+seg[0]+'/'+seg[1];

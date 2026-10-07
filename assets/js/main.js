@@ -3,7 +3,7 @@
 const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } = window.INGLY;
 import { $, T, L, setL, toast } from './utils.js';
 import * as u from './utils.js';
-import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale } from './navigation.js';
+import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda } from './navigation.js';
 import { initAnimations, observeAll, refreshMagnets } from './animations.js';
 import * as prod from './products.js';
 import { renderUrg, initForms } from './forms.js';
@@ -13,6 +13,7 @@ import * as wish from './wishlist.js';
 import { initReferral, shareRef } from './referral.js';
 import { initShare, initFomo, openWhatsApp, renderInstagramFeed } from './social.js';
 import * as VERT from './verticali.js';
+import * as LABUI from './lab-ui.js';
 import * as SFONDI from './sfondi.js';
 import * as PREZZI from './prezzi.js';
 
@@ -387,6 +388,23 @@ const escHtml = t => String(t == null ? '' : t)
   .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
   .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
+/* ===== LAB: materiali, tecnologie, macchine =====
+   Le sezioni si disegnano una volta sola al caricamento; la scheda aperta
+   la decide l'indirizzo, come per i settori Business. */
+function renderLab(){
+  try{
+    LABUI.renderMateriali(L);
+    LABUI.renderTecnologie(L);
+    LABUI.renderMacchine(L);
+    LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
+    LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
+  }catch(err){
+    /* Il Lab è una sezione in più: se i suoi dati mancano o sono malformati
+       non deve portarsi dietro il resto del sito. */
+    console.warn('[INGLY] Lab non disegnato:',err);
+  }
+}
+
 function renderVertStrip(){
   const box=$('vertStrip'); if(!box) return;
   const lista=VERTICALI();
@@ -469,7 +487,7 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
+function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={
@@ -627,6 +645,10 @@ if(currentPage()==='product'){
    dall'indirizzo, non dai dati */
 document.addEventListener('ingly:pagina',e=>{
   if(e.detail && e.detail.pagina==='business') renderVerticale(currentVerticale());
+  /* Le schede del Lab si aprono e si chiudono come i settori Business:
+     l'indirizzo decide, non un bottone. */
+  if(e.detail && e.detail.pagina==='materiali') LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
+  if(e.detail && e.detail.pagina==='tecnologie') LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
 });
 
 /* Il blocco pre-scritto ha fatto il suo lavoro (farsi leggere dai crawler):

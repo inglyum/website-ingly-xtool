@@ -1,0 +1,972 @@
+{
+  "_nota": "Il Material Lab. `cat` è il valore che i prodotti usano nel campo `mat`: è il filo che collega un materiale alle creazioni reali del catalogo, quindi non va cambiato senza cambiare anche i prodotti. `tech` rimanda agli id di data/tecnologie.json e `macchine` a quelli di data/macchine.json: le relazioni sono dichiarate una volta sola e il sito le legge, non le indovina. Un materiale senza almeno una tecnologia che lo lavora non va pubblicato.",
+  "materiali": [
+    {
+      "id": "legno",
+      "cat": "Legno",
+      "n": {
+        "it": "Legno",
+        "en": "Wood"
+      },
+      "sommario": {
+        "it": "Rovere, noce, faggio, betulla. Il materiale che invecchia meglio di come nasce.",
+        "en": "Oak, walnut, beech, birch. The material that ages better than it starts."
+      },
+      "descrizione": {
+        "it": "Il legno non è un materiale: sono venti materiali con lo stesso nome. Il rovere incide scuro e netto, la betulla chiarissima perdona poco, il noce mangia il contrasto. Ogni essenza ha i suoi parametri e ogni lotto li sposta un po', per questo la taratura si fa su uno scarto dello stesso pannello e non su uno simile.",
+        "en": "Wood is not one material: it is twenty materials sharing a name. Oak engraves dark and crisp, birch is pale and unforgiving, walnut eats contrast. Every species has its own settings and every batch shifts them."
+      },
+      "grad": "#e8d5b0,#c9a876",
+      "tech": [
+        "co2",
+        "uv"
+      ],
+      "macchine": [
+        "p3",
+        "uv"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Taglio fino a 20 mm",
+          "Incisione fotografica",
+          "Stampa UV a colori",
+          "Incastri e sagome"
+        ],
+        "en": [
+          "Cutting up to 20 mm",
+          "Photographic engraving",
+          "Full-colour UV printing",
+          "Joints and custom shapes"
+        ]
+      },
+      "spessori": [
+        "3 mm",
+        "5 mm",
+        "8 mm",
+        "12 mm",
+        "18 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Grezzo",
+          "Levigato",
+          "Olio naturale",
+          "Cera",
+          "Tinta a mordente"
+        ],
+        "en": [
+          "Raw",
+          "Sanded",
+          "Natural oil",
+          "Wax",
+          "Stain"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Taglieri e oggetti da tavola",
+          "Portamenù e cartellonistica",
+          "Targhe e insegne",
+          "Bomboniere e partecipazioni",
+          "Arredo e complementi"
+        ],
+        "en": [
+          "Boards and tableware",
+          "Menu holders and signage",
+          "Plaques and signs",
+          "Favours and invitations",
+          "Furniture and accents"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Per una fotografia scegli un'essenza chiara: sul noce il contrasto non c'è.",
+          "Il bordo tagliato esce con l'alone del fumo. Si pulisce a mano: è parte del lavoro.",
+          "Un pezzo che andrà in lavastoviglie va oliato, e va rioliato ogni tanto. Non è per sempre."
+        ],
+        "en": [
+          "For a photograph pick a light species: walnut gives no contrast.",
+          "A cut edge comes out with smoke residue, removed by hand.",
+          "A piece destined for the dishwasher must be oiled, and re-oiled over time."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Il legno si muove con l'umidità: un pannello grande può imbarcarsi.",
+          "I nodi tagliano in modo diverso dal resto e si vedono."
+        ],
+        "en": [
+          "Wood moves with humidity: a large panel can warp.",
+          "Knots cut differently from the rest and it shows."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Posso lavarlo in lavastoviglie?",
+            "en": "Is it dishwasher safe?"
+          },
+          "r": {
+            "it": "Meglio di no. Il calore e la lunga esposizione all'acqua aprono le fibre e sbiadiscono l'incisione. A mano, asciugato subito, dura anni.",
+            "en": "Better not. Heat and long water exposure open the grain and fade the engraving. Washed by hand and dried at once it lasts years."
+          }
+        },
+        {
+          "d": {
+            "it": "Quale legno per un'incisione fine?",
+            "en": "Which wood for fine engraving?"
+          },
+          "r": {
+            "it": "Betulla o acero: chiari, a fibra regolare, danno il contrasto più alto. Il rovere è bellissimo ma la venatura compete con il disegno.",
+            "en": "Birch or maple: pale, even-grained, highest contrast. Oak is beautiful but the grain competes with the artwork."
+          }
+        }
+      ]
+    },
+    {
+      "id": "plexiglass",
+      "cat": "Plexiglass",
+      "n": {
+        "it": "Plexiglass",
+        "en": "Acrylic"
+      },
+      "sommario": {
+        "it": "Colato, colorato, specchiato. Il bordo tagliato a laser esce lucido come fosse levigato.",
+        "en": "Cast, coloured, mirrored. A laser-cut edge comes out polished."
+      },
+      "descrizione": {
+        "it": "Il plexiglass colato e quello estruso si somigliano finché non li incidi: il colato diventa bianco satinato, l'estruso resta quasi trasparente. È la differenza fra una scritta che si legge e una che non si vede, e per questo il tipo si sceglie prima, non dopo. Tagliato a laser il bordo esce già lucido, senza lucidatura.",
+        "en": "Cast and extruded acrylic look alike until you engrave them: cast turns satin white, extruded stays nearly clear. That is the difference between legible lettering and none."
+      },
+      "grad": "#dbe9ff,#aac6f5",
+      "tech": [
+        "co2",
+        "uv"
+      ],
+      "macchine": [
+        "p3",
+        "uv"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Taglio fino a 25 mm",
+          "Incisione satinata",
+          "Stampa UV a colori con bianco",
+          "Piegatura a caldo"
+        ],
+        "en": [
+          "Cutting up to 25 mm",
+          "Satin engraving",
+          "UV colour printing with white",
+          "Heat bending"
+        ]
+      },
+      "spessori": [
+        "2 mm",
+        "3 mm",
+        "5 mm",
+        "8 mm",
+        "10 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Trasparente",
+          "Colorato",
+          "Specchiato",
+          "Satinato",
+          "Fluorescente"
+        ],
+        "en": [
+          "Clear",
+          "Coloured",
+          "Mirrored",
+          "Frosted",
+          "Fluorescent"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Targhe e insegne",
+          "Tableau e segnaposto",
+          "Espositori e portamenù",
+          "Lampade e retroilluminati",
+          "Premi e trofei"
+        ],
+        "en": [
+          "Plaques and signs",
+          "Seating charts and place cards",
+          "Displays and menu holders",
+          "Lamps and backlit pieces",
+          "Awards and trophies"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Per incidere e vedere la scritta serve il colato. L'estruso va bene se il pezzo si taglia soltanto.",
+          "Si incide sul retro e si guarda dal davanti: il pezzo acquista profondità.",
+          "La pellicola protettiva si toglie dopo la lavorazione, non prima."
+        ],
+        "en": [
+          "To engrave visibly you need cast acrylic. Extruded is fine if the piece is only cut.",
+          "Engrave on the back and view from the front: the piece gains depth.",
+          "Remove the protective film after machining, not before."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Si riga facilmente: un premio va maneggiato con un panno.",
+          "Sotto i 3 mm un pezzo grande flette."
+        ],
+        "en": [
+          "Scratches easily: handle an award with a cloth.",
+          "Below 3 mm a large piece flexes."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Posso avere una stampa a colori su plexiglass trasparente?",
+            "en": "Can I have full colour on clear acrylic?"
+          },
+          "r": {
+            "it": "Sì, con uno strato di bianco sotto il colore, altrimenti i colori spariscono contro il fondo. Se invece vuoi l'effetto vetro colorato, il bianco si toglie apposta.",
+            "en": "Yes, with a white layer under the colour, otherwise the colours disappear against the background."
+          }
+        }
+      ]
+    },
+    {
+      "id": "metallo",
+      "cat": "Metallo",
+      "n": {
+        "it": "Metallo",
+        "en": "Metal"
+      },
+      "sommario": {
+        "it": "Acciaio, alluminio, ottone, titanio. Si marca in modo permanente, non si taglia.",
+        "en": "Steel, aluminium, brass, titanium. Permanently marked, not cut."
+      },
+      "descrizione": {
+        "it": "Il metallo in officina si marca, non si taglia: i pezzi arrivano già nella loro misura e qui prendono il segno. La fibra incide in nero permanente, il MOPA fa comparire il colore sull'acciaio inox variando la durata dell'impulso. In nessuno dei due casi c'è un inchiostro: c'è il metallo che cambia.",
+        "en": "Here metal is marked, not cut: parts arrive already sized and receive their mark. The fibre engraves permanent black; MOPA brings colour out of stainless steel."
+      },
+      "grad": "#4a4a55,#23232c",
+      "tech": [
+        "fiber",
+        "mopa",
+        "uv"
+      ],
+      "macchine": [
+        "f2",
+        "uv"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Marcatura permanente",
+          "Colore su acciaio inox",
+          "Incisione profonda",
+          "Stampa UV con primer"
+        ],
+        "en": [
+          "Permanent marking",
+          "Colour on stainless steel",
+          "Deep engraving",
+          "UV printing with primer"
+        ]
+      },
+      "spessori": [
+        "0,5 mm",
+        "1 mm",
+        "1,5 mm",
+        "2 mm",
+        "3 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Lucido",
+          "Spazzolato",
+          "Anodizzato",
+          "Verniciato",
+          "Grezzo"
+        ],
+        "en": [
+          "Polished",
+          "Brushed",
+          "Anodised",
+          "Painted",
+          "Raw"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Targhette tecniche e numeri di serie",
+          "Portachiavi e medagliette",
+          "Biglietti da visita in metallo",
+          "Premi e riconoscimenti",
+          "Segnaletica durevole"
+        ],
+        "en": [
+          "Technical plates and serial numbers",
+          "Keyrings and tags",
+          "Metal business cards",
+          "Awards",
+          "Durable signage"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Il colore MOPA dipende dalla lega: su un acciaio diverso lo stesso parametro dà un altro colore.",
+          "Sull'alluminio anodizzato la marcatura toglie il colore e riporta il bianco: si progetta al contrario.",
+          "Lo spazzolato nasconde le impronte, il lucido le mostra tutte."
+        ],
+        "en": [
+          "MOPA colour depends on the alloy: the same setting gives another colour on different steel.",
+          "On anodised aluminium marking removes colour and reveals white: design in reverse.",
+          "Brushed hides fingerprints, polished shows every one."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Non si taglia: la forma la decide il pezzo che si acquista.",
+          "Area di marcatura 115 × 115 mm: i pezzi grandi si marcano a settori."
+        ],
+        "en": [
+          "It is not cut: the shape is decided by the blank you buy.",
+          "Marking area 115 × 115 mm: larger parts are marked in sectors."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Si può incidere un oggetto che ho già?",
+            "en": "Can you engrave an object I already own?"
+          },
+          "r": {
+            "it": "Se sta nell'area di marcatura e la superficie è piana o leggermente curva, sì. Un oggetto unico a cui tieni si valuta insieme prima: una marcatura non si cancella.",
+            "en": "If it fits the marking area and the surface is flat or gently curved, yes. A one-of-a-kind object is assessed together first: marking cannot be undone."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pelle",
+      "cat": "Pelle",
+      "n": {
+        "it": "Pelle",
+        "en": "Leather"
+      },
+      "sommario": {
+        "it": "Conciata al vegetale e similpelle. Si scurisce dove il laser passa.",
+        "en": "Vegetable-tanned and synthetic. It darkens where the laser passes."
+      },
+      "descrizione": {
+        "it": "Sulla pelle conciata al vegetale il laser non toglie materiale: lo scurisce, come farebbe un ferro caldo. Il risultato ha la stessa profondità di una marchiatura tradizionale e resta nel tempo. La similpelle invece fonde, e il bordo tagliato si sigilla da solo.",
+        "en": "On vegetable-tanned leather the laser does not remove material: it darkens it, like a hot iron. Synthetic leather melts instead, and the cut edge seals itself."
+      },
+      "grad": "#b9825a,#8a5a38",
+      "tech": [
+        "co2"
+      ],
+      "macchine": [
+        "p3"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Taglio netto",
+          "Marchiatura a scuro",
+          "Traforo decorativo"
+        ],
+        "en": [
+          "Clean cutting",
+          "Dark branding",
+          "Decorative perforation"
+        ]
+      },
+      "spessori": [
+        "1 mm",
+        "1,5 mm",
+        "2 mm",
+        "3 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Naturale",
+          "Ingrassata",
+          "Scamosciata",
+          "Stampata"
+        ],
+        "en": [
+          "Natural",
+          "Waxed",
+          "Suede",
+          "Embossed"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Portachiavi e portacarte",
+          "Etichette e patch",
+          "Sottobicchieri e tovagliette",
+          "Cinturini e accessori"
+        ],
+        "en": [
+          "Keyrings and card holders",
+          "Labels and patches",
+          "Coasters and placemats",
+          "Straps and accessories"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "La pelle conciata al vegetale dà il marrone più caldo. Le pelli cromate reagiscono male e odorano.",
+          "Il colore finale dipende dalla pelle: la prova si fa sullo stesso pellame del lavoro."
+        ],
+        "en": [
+          "Vegetable-tanned leather gives the warmest brown. Chrome-tanned hides react poorly and smell.",
+          "The final colour depends on the hide: test on the same leather as the job."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Ogni pelle è diversa, anche nello stesso pezzo: il tono può variare da zona a zona."
+        ],
+        "en": [
+          "Every hide differs, even within one piece: tone can vary from area to area."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "La marchiatura si consuma con l'uso?",
+            "en": "Does the branding wear off?"
+          },
+          "r": {
+            "it": "Si attenua nei punti di sfregamento, come tutta la pelle. Non si stacca, perché non c'è niente sopra: è la pelle stessa.",
+            "en": "It softens where the leather rubs, as all leather does. It cannot peel: there is nothing on top — it is the leather itself."
+          }
+        }
+      ]
+    },
+    {
+      "id": "vetro",
+      "cat": "Vetro",
+      "n": {
+        "it": "Vetro",
+        "en": "Glass"
+      },
+      "sommario": {
+        "it": "Bicchieri, bottiglie, lastre. L'incisione lo rende satinato, non lo buca.",
+        "en": "Glasses, bottles, sheets. Engraving frosts it rather than cutting it."
+      },
+      "descrizione": {
+        "it": "Il laser non taglia il vetro: ne micro-frattura la superficie, che diventa satinata e opaca. È l'effetto della sabbiatura, ottenuto senza sabbia e con un dettaglio molto più fine. Sulle superfici curve — un calice, una bottiglia — si lavora a settori perché il fuoco resti costante.",
+        "en": "The laser does not cut glass: it micro-fractures the surface, which turns frosted. The sandblasted look, without sand and with far finer detail."
+      },
+      "grad": "#eef7f7,#cfe6e8",
+      "tech": [
+        "co2",
+        "uv"
+      ],
+      "macchine": [
+        "p3",
+        "uv"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Incisione satinata",
+          "Stampa UV con primer",
+          "Personalizzazione su oggetti curvi"
+        ],
+        "en": [
+          "Frosted engraving",
+          "UV printing with primer",
+          "Personalising curved objects"
+        ]
+      },
+      "spessori": [
+        "3 mm",
+        "4 mm",
+        "6 mm",
+        "oggetti finiti"
+      ],
+      "finiture": {
+        "it": [
+          "Trasparente",
+          "Satinato",
+          "Colorato",
+          "Specchiato"
+        ],
+        "en": [
+          "Clear",
+          "Frosted",
+          "Coloured",
+          "Mirrored"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Bicchieri e calici personalizzati",
+          "Bottiglie per eventi",
+          "Targhe in vetro",
+          "Specchi incisi"
+        ],
+        "en": [
+          "Personalised glasses",
+          "Event bottles",
+          "Glass plaques",
+          "Engraved mirrors"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Su un calice conviene un disegno a tratto: le grandi campiture piene smerigliate sembrano sporche.",
+          "Il vetro temperato si lavora, ma se è già sotto tensione può incrinarsi: si avvisa prima."
+        ],
+        "en": [
+          "On a wine glass a line drawing works best: large frosted fills look dirty.",
+          "Tempered glass can be worked, but if already stressed it may crack: we say so first."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Non si taglia né si fora.",
+          "L'incisione è sempre bianca: il colore si ottiene solo con la stampa UV."
+        ],
+        "en": [
+          "It cannot be cut or drilled.",
+          "Engraving is always white: colour only comes from UV printing."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Posso portare i miei bicchieri?",
+            "en": "Can I bring my own glasses?"
+          },
+          "r": {
+            "it": "Sì, ed è la via normale per un servizio già comprato. Si chiede un pezzo in più per la prova: il primo bicchiere serve a tarare, non a consegnare.",
+            "en": "Yes, and it is the normal route for a set you already own. We ask for one spare piece: the first glass is for calibration, not delivery."
+          }
+        }
+      ]
+    },
+    {
+      "id": "bamboo",
+      "cat": "Bamboo",
+      "n": {
+        "it": "Bambù",
+        "en": "Bamboo"
+      },
+      "sommario": {
+        "it": "Duro, stabile, chiaro. Incide con un contrasto che il legno non raggiunge.",
+        "en": "Hard, stable, pale. Engraves with a contrast wood cannot match."
+      },
+      "descrizione": {
+        "it": "Tecnicamente è un'erba, non un legno, e si comporta meglio: più duro, più stabile all'umidità, con una fibra regolare che non ha nodi. Incide scurissimo su fondo chiaro, e per questo è la scelta migliore quando l'incisione deve leggersi da lontano.",
+        "en": "Technically a grass, not a wood, and it behaves better: harder, more humidity-stable, with an even grain and no knots. It engraves very dark on a pale ground."
+      },
+      "grad": "#e3d9a8,#b9a95f",
+      "tech": [
+        "co2",
+        "uv"
+      ],
+      "macchine": [
+        "p3",
+        "uv"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Taglio",
+          "Incisione ad alto contrasto",
+          "Stampa UV a colori"
+        ],
+        "en": [
+          "Cutting",
+          "High-contrast engraving",
+          "UV colour printing"
+        ]
+      },
+      "spessori": [
+        "3 mm",
+        "5 mm",
+        "9 mm",
+        "12 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Naturale",
+          "Carbonizzato",
+          "Oliato"
+        ],
+        "en": [
+          "Natural",
+          "Carbonised",
+          "Oiled"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Taglieri e vassoi",
+          "Utensili da cucina",
+          "Portamenù",
+          "Oggetti per la tavola"
+        ],
+        "en": [
+          "Boards and trays",
+          "Kitchen utensils",
+          "Menu holders",
+          "Tableware"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "È il materiale giusto quando l'incisione deve leggersi a distanza.",
+          "I pannelli sono lamellari: il taglio mostra le lamelle sul bordo."
+        ],
+        "en": [
+          "The right material when engraving must read from a distance.",
+          "Panels are laminated: the cut edge shows the strips."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "È duro: il taglio è più lento che sul compensato, e questo pesa sui grandi numeri."
+        ],
+        "en": [
+          "It is hard: cutting is slower than plywood, which matters on large runs."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Meglio bambù o legno per un tagliere?",
+            "en": "Bamboo or wood for a cutting board?"
+          },
+          "r": {
+            "it": "Bambù se deve durare in cucina: assorbe meno e si muove meno. Legno massello se conta il calore dell'aspetto.",
+            "en": "Bamboo if it must survive a kitchen: it absorbs less and moves less. Solid wood if looks matter more."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mdf",
+      "cat": "MDF",
+      "n": {
+        "it": "MDF e compensato",
+        "en": "MDF and plywood"
+      },
+      "sommario": {
+        "it": "Stabili, economici, perfetti per prototipi e grandi quantità.",
+        "en": "Stable, affordable, ideal for prototypes and volume."
+      },
+      "descrizione": {
+        "it": "Non hanno il fascino del massello e non pretendono di averlo: sono pannelli tecnici, piatti, che non si imbarcano e costano poco. È il materiale su cui si prova un progetto prima di tagliarlo nel legno buono, e quello giusto quando i pezzi sono trecento e verranno verniciati.",
+        "en": "They lack the charm of solid wood and do not pretend otherwise: flat technical panels that stay flat and cost little. The material to prototype on, and the right one for three hundred pieces that will be painted."
+      },
+      "grad": "#d8c3a0,#a98c62",
+      "tech": [
+        "co2",
+        "uv"
+      ],
+      "macchine": [
+        "p3",
+        "uv"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Taglio",
+          "Incisione",
+          "Stampa UV",
+          "Verniciatura"
+        ],
+        "en": [
+          "Cutting",
+          "Engraving",
+          "UV printing",
+          "Painting"
+        ]
+      },
+      "spessori": [
+        "3 mm",
+        "4 mm",
+        "6 mm",
+        "10 mm",
+        "18 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Grezzo",
+          "Verniciato",
+          "Impiallacciato"
+        ],
+        "en": [
+          "Raw",
+          "Painted",
+          "Veneered"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Prototipi e verifiche",
+          "Sagome e dime",
+          "Allestimenti temporanei",
+          "Serie da verniciare"
+        ],
+        "en": [
+          "Prototypes and fit checks",
+          "Templates and jigs",
+          "Temporary installations",
+          "Painted production runs"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Il bordo dell'MDF tagliato è scuro e poroso: se resta a vista va sigillato prima di verniciare.",
+          "Per un prototipo è la scelta ovvia: costa poco e si comporta come il pannello definitivo."
+        ],
+        "en": [
+          "A cut MDF edge is dark and porous: seal it before painting if it stays visible.",
+          "For a prototype it is the obvious choice: cheap and it behaves like the final panel."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Teme l'acqua: si gonfia e non torna indietro. Mai per l'esterno o per la cucina."
+        ],
+        "en": [
+          "It fears water: it swells and does not recover. Never outdoors or in a kitchen."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Si vede che è MDF?",
+            "en": "Does it look like MDF?"
+          },
+          "r": {
+            "it": "Sul bordo sì, sempre. Verniciato a copertura il frontale è indistinguibile; il bordo si sigilla o si nasconde nel progetto.",
+            "en": "On the edge, always. Fully painted the face is indistinguishable; the edge is sealed or designed out of sight."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pla",
+      "cat": "PLA",
+      "n": {
+        "it": "PLA e PETG",
+        "en": "PLA and PETG"
+      },
+      "sommario": {
+        "it": "Le plastiche della stampa 3D: il pezzo che non esiste in commercio.",
+        "en": "The 3D-printing plastics: the part that is not on the market."
+      },
+      "descrizione": {
+        "it": "Il PLA è facile, preciso e rigido, e per questo è il materiale dei prototipi e degli oggetti da interno. Il PETG costa un po' di più ma regge il calore e si piega invece di rompersi: è quello dei pezzi che devono lavorare. Nessuno dei due ama il sole.",
+        "en": "PLA is easy, precise and rigid — the material of prototypes and indoor objects. PETG costs a little more but takes heat and bends instead of snapping."
+      },
+      "grad": "#cfe9d8,#8fc6a6",
+      "tech": [
+        "stampa3d"
+      ],
+      "macchine": [],
+      "lavorazioni": {
+        "it": [
+          "Produzione additiva",
+          "Prototipazione rapida",
+          "Pezzi su misura"
+        ],
+        "en": [
+          "Additive manufacturing",
+          "Rapid prototyping",
+          "Custom parts"
+        ]
+      },
+      "spessori": [
+        "strato 0,12 mm",
+        "strato 0,20 mm",
+        "strato 0,28 mm"
+      ],
+      "finiture": {
+        "it": [
+          "Grezzo di stampa",
+          "Levigato",
+          "Verniciato"
+        ],
+        "en": [
+          "As printed",
+          "Sanded",
+          "Painted"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Prototipi e verifiche di incastro",
+          "Ricambi fuori produzione",
+          "Supporti e componenti",
+          "Dime di lavorazione"
+        ],
+        "en": [
+          "Prototypes and fit checks",
+          "Discontinued spares",
+          "Brackets and components",
+          "Production jigs"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Come il pezzo è orientato decide dove si rompe: la resistenza cambia con la direzione degli strati.",
+          "Per un pezzo che deve incastrare servono misure, non una foto."
+        ],
+        "en": [
+          "Part orientation decides where it breaks: strength follows layer direction.",
+          "A part that must fit needs measurements, not a photo."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Il PLA si deforma in auto d'estate e sotto il sole diretto.",
+          "Non è un materiale per contatto alimentare prolungato: gli strati trattengono i residui."
+        ],
+        "en": [
+          "PLA deforms in a car in summer and in direct sun.",
+          "Not a material for prolonged food contact: the layers trap residue."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Quanto resiste un pezzo stampato?",
+            "en": "How strong is a printed part?"
+          },
+          "r": {
+            "it": "Nella direzione giusta quanto una plastica stampata a iniezione. Nella direzione sbagliata si sfoglia come un mazzo di carte: è l'orientamento che decide, e si sceglie insieme.",
+            "en": "In the right direction, as strong as injection-moulded plastic. In the wrong one it delaminates like a deck of cards: orientation decides, and we choose it together."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tessuto",
+      "cat": "Tessuto",
+      "n": {
+        "it": "Tessuto",
+        "en": "Textile"
+      },
+      "sommario": {
+        "it": "Cotone, poliestere, felpa. Colore pieno senza minimi d'ordine.",
+        "en": "Cotton, polyester, fleece. Full colour with no minimum order."
+      },
+      "descrizione": {
+        "it": "Sul tessuto non si incide: si applica. Il disegno viene stampato a colori pieni su un trasferimento, curato in forno e fissato al capo con la pressa a caldo. Non ci sono telai da preparare, quindi un grembiule singolo costa quanto un grembiule singolo: è la tecnologia giusta per una divisa o per i venti capi di una squadra, non per diecimila magliette.",
+        "en": "Textiles are not engraved: they are printed onto. Artwork is printed in full colour on a transfer, cured, then fixed to the garment with a heat press. No screens to prepare, so a single apron costs what a single apron should."
+      },
+      "grad": "#e6dcef,#b7a6cf",
+      "tech": [
+        "dtf"
+      ],
+      "macchine": [
+        "uv",
+        "wonderpress"
+      ],
+      "lavorazioni": {
+        "it": [
+          "Stampa a colori pieni",
+          "Applicazione a caldo",
+          "Capi singoli e piccole serie"
+        ],
+        "en": [
+          "Full-colour printing",
+          "Heat application",
+          "Single pieces and short runs"
+        ]
+      },
+      "spessori": [
+        "capi finiti"
+      ],
+      "finiture": {
+        "it": [
+          "Cotone",
+          "Poliestere",
+          "Misto",
+          "Felpa",
+          "Tela"
+        ],
+        "en": [
+          "Cotton",
+          "Polyester",
+          "Blend",
+          "Fleece",
+          "Canvas"
+        ]
+      },
+      "usi": {
+        "it": [
+          "Grembiuli e divise per la ristorazione",
+          "Capi aziendali e squadre",
+          "Tote bag e merchandising",
+          "Capi singoli personalizzati"
+        ],
+        "en": [
+          "Hospitality aprons and uniforms",
+          "Corporate and team garments",
+          "Tote bags and merchandise",
+          "One-off personalised garments"
+        ]
+      },
+      "consigli": {
+        "it": [
+          "Il capo si porta, oppure lo si compra qui: in entrambi i casi serve un pezzo in più per la prova di pressa.",
+          "Il cotone e il poliestere non si pressano uguale: tempo e temperatura cambiano, e sul misto si tara sul più delicato dei due."
+        ],
+        "en": [
+          "Bring the garment or buy it here: either way one spare piece is needed for the press test.",
+          "Cotton and polyester are not pressed alike: on a blend, settings follow the more delicate of the two."
+        ]
+      },
+      "limiti": {
+        "it": [
+          "Non è ricamo: resta un film sottile sul tessuto, si sente al tatto.",
+          "Asciugatrice e ferro diretto sul disegno ne accorciano la vita."
+        ],
+        "en": [
+          "It is not embroidery: a thin film remains on the fabric and can be felt.",
+          "Tumble drying and ironing directly on the print shorten its life."
+        ]
+      },
+      "faq": [
+        {
+          "d": {
+            "it": "Posso portare i miei capi?",
+            "en": "Can I bring my own garments?"
+          },
+          "r": {
+            "it": "Sì. Serve un capo in più per tarare la pressa: la prima applicazione serve a trovare tempo e temperatura di quel tessuto, non a consegnare.",
+            "en": "Yes. One spare garment is needed to calibrate the press: the first application finds the time and temperature for that fabric, it is not for delivery."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanti lavaggi regge?",
+            "en": "How many washes does it survive?"
+          },
+          "r": {
+            "it": "Applicato bene, il lavaggio domestico a rovescio a 40 gradi non lo intacca. È il calore diretto — asciugatrice e ferro sul disegno — a rovinarlo.",
+            "en": "Applied properly, domestic washing inside out at 40 °C does not affect it. Direct heat is what ruins it."
+          }
+        }
+      ]
+    }
+  ],
+  "maiLavorare": {
+    "titolo": {
+      "it": "Quello che non lavoriamo, e perché",
+      "en": "What we do not work, and why"
+    },
+    "intro": {
+      "it": "Non è una lista di capricci. Alcuni materiali, tagliati a laser, liberano gas che rovinano chi lavora e la macchina. Se il tuo progetto ne prevede uno, si cambia materiale: la risposta onesta è questa, non un preventivo che nessuno eseguirà.",
+      "en": "Not a list of preferences. Some materials, laser cut, release gases that harm both operator and machine. If your project calls for one, we change material."
+    }
+  }
+}

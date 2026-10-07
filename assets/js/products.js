@@ -420,7 +420,13 @@ const SIZE_MULS={
   'S':0.8,'XS':0.7,'M':1.0,'L':1.25,'XL':1.5,'XXL':1.8,
   'A4':1.0,'A3':1.4,'A2':1.8,'A1':2.4,'A0':3.0,
   '15 cm':0.7,'20 cm':0.85,'25 cm':1.0,'30 cm':1.25,'40 cm':1.6,'50 cm':2.0,'60 cm':2.5,
-  'Piccolo':0.75,'Medio':1.0,'Grande':1.35,'XL':1.6,
+  'Piccolo':0.75,'Medio':1.0,'Grande':1.35,
+  /* 'XL' stava scritto due volte: 1.5 fra le taglie dei capi e 1.6 qui.
+     In un oggetto letterale vince l'ultimo, quindi ogni capo in XL veniva
+     prezzato con il moltiplicatore della scala Piccolo/Medio/Grande, e
+     nessuno poteva accorgersene guardando la riga giusta.
+     Resta il valore delle taglie, che è quello usato dai capi. */
+  'Extra large':1.6,
 };
 function renderConfigurator(){
   const cfg=$('ppConfigurator');

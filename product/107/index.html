@@ -215,6 +215,8 @@ setTimeout(function(){
     <nav class="nav-links" aria-label="Main">
       <a href="/home" data-nav="home" class="active"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
       <a href="/shop" data-nav="shop"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
+      <a href="/materiali" data-nav="materiali"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
+      <a href="/tecnologie" data-nav="tecnologie"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
       <a href="/digital" data-nav="digital"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
       <a href="/business" data-nav="business"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
       <a href="/portfolio" data-nav="portfolio"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
@@ -234,6 +236,9 @@ setTimeout(function(){
   <button class="mclose" data-action="menu-close">✕</button>
   <a href="/home" data-nav="home" class="dly1"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
   <a href="/shop" data-nav="shop" class="dly15"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
+  <a href="/materiali" data-nav="materiali" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
+  <a href="/tecnologie" data-nav="tecnologie" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
+  <a href="/macchine" data-nav="macchine" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Macchine</a>
   <a href="/digital" data-nav="digital" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
   <a href="/business" data-nav="business" class="dly25"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
   <a href="/portfolio" data-nav="portfolio" class="dly3"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
@@ -363,7 +368,7 @@ setTimeout(function(){
 <section class="page" id="page-shop">
   <div class="wrap phero">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-shop"></use></svg> Shop</span>
-    <h2 class="h2" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h2>
+    <h1 class="h2" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h1>
     <p class="sub" data-i18n="shopSub">12 categorie, sottocategorie e materiali — cerca, filtra, personalizza.</p>
     <div class="shop-layout">
       <aside class="filters">
@@ -451,7 +456,7 @@ setTimeout(function(){
     </div>
     <div class="sec pb-40" id="relSec">
       <span class="eyebrow" data-i18n="relEye">Abbinamenti</span>
-      <h2 class="h2" style="font-size:clamp(1.8rem,3.4vw,2.6rem)" data-i18n="relH2">Stanno bene insieme</h2>
+      <h1 class="h2" style="font-size:clamp(1.8rem,3.4vw,2.6rem)" data-i18n="relH2">Stanno bene insieme</h1>
       <div class="pgrid pgrid-6" id="relGrid"></div>
     </div>
   </div>
@@ -475,7 +480,7 @@ setTimeout(function(){
 <section class="page" id="page-digital">
   <div class="wrap phero">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-digital"></use></svg> <span data-i18n="digEye">Prodotti digitali</span></span>
-    <h2 class="h2" data-i18n="digH2">File pronti al <span class="hl on">taglio.</span></h2>
+    <h1 class="h2" data-i18n="digH2">File pronti al <span class="hl on">taglio.</span></h1>
     <p class="sub" data-i18n="digSub">SVG, DXF, STL e progetti premium per CO₂, Fiber F2 e MOPA. Download istantaneo, licenza commerciale inclusa.</p>
     <div class="pgrid" id="digGrid"></div>
   </div>
@@ -492,7 +497,7 @@ setTimeout(function(){
 <section class="page" id="page-business">
   <div class="wrap phero">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-b2b"></use></svg> Ingly Business</span>
-    <h2 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)" data-i18n="bizH2">Il tuo brand,<br>marcato <span class="hl on">per sempre.</span></h2>
+    <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)" data-i18n="bizH2">Il tuo brand,<br>marcato <span class="hl on">per sempre.</span></h1>
     <p class="sub" data-i18n="bizSub">Gadget aziendali, targhe professionali, produzione conto terzi, incisioni industriali e prototipazione laser — da 50 a 50.000 pezzi.</p>
     <!-- chi arriva da qui è un'azienda: il modulo si apre già nella sua forma -->
     <div class="hero-ctas"><button class="btn btn-primary magnetic" data-action="go" data-arg="quote" data-search="tipo=azienda"><span data-i18n="bizCta1">Richiedi preventivo</span> <span class="arr">→</span></button><button class="btn btn-ghost magnetic" data-action="go" data-arg="quote" data-search="tipo=azienda" data-i18n="bizCta2">Richiedi il catalogo</button></div>
@@ -507,11 +512,47 @@ setTimeout(function(){
   <div class="wrap" id="vertPage" hidden></div>
 </section>
 
+<!-- MATERIAL LAB -->
+<section class="page" id="page-materiali">
+  <div class="wrap phero">
+    <span class="eyebrow">Material Lab</span>
+    <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Ogni materiale<br>si comporta <span class="hl on">a modo suo.</span></h1>
+    <p class="sub">Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati. Perché scegliere il materiale è la prima decisione di progetto, non l&#39;ultima.</p>
+    <div id="labMatGrid"></div>
+    <div id="labTrova"></div>
+  </div>
+  <!-- riempita quando l'indirizzo è /materiali/<id> -->
+  <div class="wrap" id="matPage" hidden></div>
+</section>
+
+<!-- TECHNOLOGY HUB -->
+<section class="page" id="page-tecnologie">
+  <div class="wrap phero">
+    <span class="eyebrow">Technology Hub</span>
+    <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Sei tecnologie,<br>un solo <span class="hl on">laboratorio.</span></h1>
+    <p class="sub">Laser CO&#8322;, fibra, MOPA, stampa UV, DTF e stampa 3D. Ognuna fa una cosa che le altre non sanno fare: qui c&#39;è scritto quale, e quando conviene.</p>
+    <div id="labTecGrid"></div>
+  </div>
+  <!-- riempita quando l'indirizzo è /tecnologie/<id> -->
+  <div class="wrap" id="tecPage" hidden></div>
+</section>
+
+<!-- MACHINE LAB -->
+<section class="page" id="page-macchine">
+  <div class="wrap phero">
+    <span class="eyebrow">Machine Lab</span>
+    <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Il parco macchine,<br>senza <span class="hl on">giri di parole.</span></h1>
+    <p class="sub">Cosa c&#39;è in officina, cosa fa ciascuna, cosa si sblocca mettendole insieme — e l&#39;elenco onesto di quello che non lavoriamo e perché.</p>
+    <div id="labMacGrid"></div>
+  </div>
+</section>
+
 <!-- PORTFOLIO -->
+
 <section class="page" id="page-portfolio">
   <div class="wrap phero">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-portfolio"></use></svg> Portfolio</span>
-    <h2 class="h2" data-i18n="portH2">Fatto con la <span class="hl on">luce.</span></h2>
+    <h1 class="h2" data-i18n="portH2">Fatto con la <span class="hl on">luce.</span></h1>
     <p class="sub" data-i18n="portSub">Una selezione di lavori reali: incisioni, tagli, stampe UV e progetti 3D.</p>
     <div class="portgrid" id="portGrid"></div>
   </div>
@@ -522,7 +563,7 @@ setTimeout(function(){
   <div class="wrap phero about-grid" style="align-items:center">
     <div>
       <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-about"></use></svg> <span data-i18n="nAbout">Chi Siamo</span></span>
-      <h2 class="h2" data-i18n="abH2">Artigianato,<br>guidato dai <span class="hl on">laser.</span></h2>
+      <h1 class="h2" data-i18n="abH2">Artigianato,<br>guidato dai <span class="hl on">laser.</span></h1>
       <p class="sub" style="margin-bottom:34px" data-i18n="abSub">INGLY DESIGN è uno studio di personalizzazione dove l'istinto del design italiano incontra la precisione industriale. Ogni pezzo — uno o mille — passa per le stesse mani, gli stessi raggi, la stessa ossessione per il dettaglio.</p>
       <div class="counters">
         <div class="counter"><b><span class="count" data-to="12400">0</span><i>+</i></b><span data-i18n="c1">Pezzi prodotti</span></div>
@@ -549,7 +590,7 @@ setTimeout(function(){
 <section class="page" id="page-faq">
   <div class="wrap phero" style="text-align:center">
     <span class="eyebrow eyebrow--c">❓ FAQ</span>
-    <h2 class="h2" data-i18n="faqH2">Domande, risposte.</h2>
+    <h1 class="h2" data-i18n="faqH2">Domande, risposte.</h1>
     <div class="faq" id="faqList" style="text-align:left"></div>
   </div>
 </section>
@@ -558,7 +599,7 @@ setTimeout(function(){
 <section class="page" id="page-quote">
   <div class="wrap phero">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-custom"></use></svg> <span data-i18n="qEye">Custom su richiesta</span></span>
-    <h2 class="h2" data-i18n="qH2">Se lo immagini,<br>lo <span class="hl on">incidiamo.</span></h2>
+    <h1 class="h2" data-i18n="qH2">Se lo immagini,<br>lo <span class="hl on">incidiamo.</span></h1>
     <p class="sub" data-i18n="qSub">Prodotti su misura, incisione su oggetti tuoi, progettazione 3D, prototipazione laser. Raccontaci il progetto: preventivo entro 24 ore.</p>
     <!-- Chi sta chiedendo: da questa scelta dipendono i campi mostrati e la
          casella dove arriva la richiesta. Un ristorante e un privato non

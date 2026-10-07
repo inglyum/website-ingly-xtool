@@ -5,10 +5,14 @@ import { cpSync, mkdirSync, rmSync, readdirSync, existsSync, readFileSync, write
 
 const J = f => JSON.parse(readFileSync('data/'+f+'.json','utf8'));
 const cfg=J('config'), D=J('texts'), SOC=J('social'), P=J('products'), CATS=J('categories'), C=J('content');
+/* Il Lab viaggia con la riserva: senza, su file:// o quando i JSON non si
+   caricano le sezioni Materiali/Tecnologie/Macchine sparirebbero in silenzio
+   e il menu porterebbe a pagine vuote. */
+const MATERIALI=J('materiali'), TECNOLOGIE=J('tecnologie'), MACCHINE=J('macchine');
 writeFileSync('data/config.js',`/* GENERATO dai JSON — non modificare a mano */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.CONFIG=${JSON.stringify(cfg)};\n`);
 writeFileSync('data/i18n.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.D=${JSON.stringify(D)};\n`);
 writeFileSync('data/socials.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.SOCIALS=${JSON.stringify(SOC)};\n`);
-writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)}});\n`);
+writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)}});\n`);
 
 await build({ entryPoints:['assets/js/app.js'], bundle:true, minify:true, format:'iife',
   target:'es2018', outfile:'assets/js/app.fallback.js',

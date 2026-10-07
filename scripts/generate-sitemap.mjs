@@ -18,6 +18,7 @@ import { readFileSync, writeFileSync, existsSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import * as PRE from '../assets/js/prerender-engine.js';
+import * as LAB from '../assets/js/lab.js';
 
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT  = join(__dir, '..');
@@ -62,7 +63,20 @@ const modificata = file => {
   return existsSync(f) ? statSync(f).mtime.toISOString().slice(0,10) : OGGI;
 };
 
-const pagine = PRE.elenco({ prodotti, verticali: contenuti.VERTICALI || [] });
+/* Il Lab genera pagine vere quanto le altre: se restassero fuori dalla
+   sitemap esisterebbero sul disco e non verrebbero dichiarate a nessuno.
+   L'elenco si chiede a lab.js, lo stesso che le genera, perché le due liste
+   non possano divergere. */
+const DLAB = {
+  MATERIALI: JSON.parse(readFileSync(join(ROOT, 'data/materiali.json'), 'utf8')),
+  TECNOLOGIE: JSON.parse(readFileSync(join(ROOT, 'data/tecnologie.json'), 'utf8')),
+  MACCHINE: JSON.parse(readFileSync(join(ROOT, 'data/macchine.json'), 'utf8')),
+  PRODUCTS: prodotti
+};
+const pagine = [
+  ...PRE.elenco({ prodotti, verticali: contenuti.VERTICALI || [] }),
+  ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', id: v.id }))
+];
 const mancanti = [];
 const righe = [];
 

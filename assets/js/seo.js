@@ -5,6 +5,7 @@
 import * as ENG from './seo-engine.js';
 import * as SCH from './schema-engine.js';
 import * as FAQ from './faq-engine.js';
+import * as LAB from './lab.js';
 import * as VERT from './verticali.js';
 import * as PR from './prezzi.js';
 const { CONFIG } = window.INGLY;
@@ -58,7 +59,10 @@ export function initSeo(){
 export function updateSeo(page, L, T, product){
   const titles = {
     home:S.titolo||document.title, shop:T('shopH2'), digital:T('digEye'), business:T('bizH2'),
-    portfolio:T('portH2'), about:T('abH2'), faq:T('faqH2'), quote:T('qH2')
+    portfolio:T('portH2'), about:T('abH2'), faq:T('faqH2'), quote:T('qH2'),
+    materiali:(L==='en'?'Materials':'Materiali'),
+    tecnologie:(L==='en'?'Technologies':'Tecnologie'),
+    macchine:(L==='en'?'Machines':'Macchine')
   };
   const isProd = page==='product' && product;
   /* Pagina di settore aperta? Si legge dall'indirizzo invece di importare il
@@ -67,6 +71,21 @@ export function updateSeo(page, L, T, product){
      Senza questo blocco la pagina statica nasceva col titolo giusto e
      l'applicazione, appena partita, lo sostituiva con quello generico di
      Business — buttando via il motivo per cui la pagina esiste. */
+  /* Scheda del Lab aperta? Stessa lettura dall'indirizzo del settore B2B:
+     senza questo, la scheda del materiale nascerebbe col titolo giusto nella
+     pagina statica e l'applicazione lo sostituirebbe un istante dopo con
+     quello generico della sezione — buttando via il motivo per cui la
+     pagina esiste. */
+  const scheda = (() => {
+    if(page!=='materiali' && page!=='tecnologie') return null;
+    const seg=location.pathname.split('?')[0].split('/').filter(Boolean);
+    const i=seg.indexOf(page);
+    const id=i>=0 ? seg[i+1] : null;
+    if(!id || !/^[a-z0-9-]+$/.test(id)) return null;
+    const e = page==='materiali' ? LAB.materiale(window.INGLY||{},id) : LAB.tecnologia(window.INGLY||{},id);
+    return e ? { sezione:page, e } : null;
+  })();
+
   const vert = (() => {
     if(page!=='business') return null;
     const seg=location.pathname.split('?')[0].split('/').filter(Boolean);
@@ -81,7 +100,16 @@ export function updateSeo(page, L, T, product){
      schema fisso. Se un prodotto ha un titolo scritto a mano (p.seoTitolo)
      quello vince sempre: il modello è un buon default, non una gabbia. */
   let title, desc;
-  if(vert){
+  if(scheda){
+    const nome = LAB.lingua(scheda.e.n, L);
+    const somm = LAB.lingua(scheda.e.sommario, L);
+    title = scheda.sezione==='materiali'
+      ? (L==='en' ? `${nome} — laser cutting, engraving and printing | ${azienda}`
+                  : `${nome} — taglio, incisione e stampa laser | ${azienda}`)
+      : (L==='en' ? `${nome} — what it does and what it makes | ${azienda}`
+                  : `${nome} — cosa fa e cosa realizza | ${azienda}`);
+    desc = somm;
+  } else if(vert){
     const m=VERT.meta(vert,{L,azienda,citta:S.citta||''});
     title=m.titolo; desc=m.descrizione;
   } else if(isProd){
@@ -109,6 +137,7 @@ export function updateSeo(page, L, T, product){
      rispecchiarli, e per il prodotto includere l'id, altrimenti tutte le schede
      dichiarano lo stesso canonico e Google ne indicizza una sola. */
   const url = page==='home' ? base()+'/'
+            : scheda        ? base()+'/'+scheda.sezione+'/'+scheda.e.id
             : vert          ? VERT.indirizzo(vert, base())
             : isProd        ? base()+'/product/'+product.id+'/'
             :                 base()+'/'+page;

@@ -1,0 +1,168 @@
+{
+  "_nota": "Le sei tecnologie in casa, ognuna con la sua pagina. I campi n/d/s/badge/mats vengono da content.json → TECH e restano la stessa fonte: qui si aggiunge quello che serve a una pagina vera (processo, applicazioni, macchine, FAQ). Le macchine citate sono quelle di data/macchine.json: se una tecnologia non ha una macchina che la esegue, non va dichiarata.",
+  "tecnologie": [
+    {
+      "id": "co2",
+      "n": { "it": "Laser CO₂", "en": "CO₂ laser" },
+      "sommario": {
+        "it": "Taglia e incide i materiali organici: legno, plexiglass, pelle, carta, sughero.",
+        "en": "Cuts and engraves organic materials: wood, acrylic, leather, paper, cork."
+      },
+      "descrizione": {
+        "it": "Un raggio infrarosso a 10.600 nm che i materiali organici assorbono quasi del tutto: per questo il CO₂ taglia il legno di venti millimetri e il metallo non lo scalfisce. È la tecnologia che dà la forma — la sagoma, il contorno, l'incastro — e incide con un dettaglio sufficiente a riprodurre una fotografia.",
+        "en": "A 10,600 nm infrared beam that organic materials absorb almost entirely: this is why CO₂ cuts twenty millimetres of wood and does not mark metal. It is the technology that gives shape, and engraves finely enough to reproduce a photograph."
+      },
+      "macchine": ["p3"],
+      "materiali": ["legno", "plexiglass", "pelle", "mdf", "bamboo", "vetro"],
+      "lavorazioni": ["taglio", "incisione", "marcatura"],
+      "processo": [
+        { "t": { "it": "File vettoriale", "en": "Vector file" }, "d": { "it": "Il contorno da tagliare è un vettore, non un'immagine: una linea sfocata diventa un taglio sfocato.", "en": "The cut outline is a vector, not an image: a blurred line becomes a blurred cut." } },
+        { "t": { "it": "Prova su scarto", "en": "Test on offcut" }, "d": { "it": "Ogni lotto di legno assorbe diversamente. Si tara su un ritaglio dello stesso pannello, mai su uno simile.", "en": "Every batch of wood absorbs differently. Settings are calibrated on an offcut of the same panel." } },
+        { "t": { "it": "Taglio e incisione", "en": "Cut and engrave" }, "d": { "it": "Prima si incide, poi si taglia: a pezzo staccato il materiale si muove e il registro salta.", "en": "Engrave first, cut last: once the piece is free it shifts and registration is lost." } },
+        { "t": { "it": "Pulizia del bordo", "en": "Edge cleaning" }, "d": { "it": "Il legno esce con un alone di fumo sul bordo. Si toglie a mano, è parte del lavoro, non un difetto.", "en": "Wood comes out with smoke residue on the edge. It is removed by hand — part of the job, not a defect." } }
+      ],
+      "applicazioni": {
+        "it": ["Portamenù e cartellonistica", "Targhe e insegne", "Taglieri e oggetti da tavola", "Bomboniere e partecipazioni", "Prototipi e sagome su misura"],
+        "en": ["Menu holders and signage", "Plaques and signs", "Boards and tableware", "Favours and invitations", "Prototypes and custom shapes"]
+      },
+      "faq": [
+        { "d": { "it": "Il CO₂ taglia il metallo?", "en": "Does CO₂ cut metal?" }, "r": { "it": "No. Il metallo riflette questa lunghezza d'onda. Per il metallo serve la fibra, che marca ma non taglia: i pezzi metallici si comprano già tagliati e si personalizzano.", "en": "No. Metal reflects this wavelength. Metal needs the fibre laser, which marks but does not cut: metal parts are bought cut to size and then personalised." } },
+        { "d": { "it": "Quanto dettaglio si ottiene?", "en": "How fine is the detail?" }, "r": { "it": "0,025 mm di risoluzione: abbastanza per una fotografia riconoscibile su legno chiaro. Sul legno scuro il contrasto cala e conviene semplificare l'immagine prima.", "en": "0.025 mm resolution: enough for a recognisable photograph on light wood. On dark wood contrast drops and the image is better simplified first." } }
+      ]
+    },
+    {
+      "id": "fiber",
+      "n": { "it": "Laser a fibra", "en": "Fibre laser" },
+      "sommario": {
+        "it": "Marcatura permanente sui metalli: non è inchiostro, è il metallo che cambia.",
+        "en": "Permanent marking on metals: not ink — the metal itself changes."
+      },
+      "descrizione": {
+        "it": "A 1.064 nm il metallo assorbe invece di riflettere. Il segno non sta sopra la superficie: è la superficie, alterata. Non si graffia via, non sbiadisce, resiste ai lavaggi industriali. È la tecnologia delle targhette tecniche, dei numeri di serie e dei dettagli metallici dei pezzi premium.",
+        "en": "At 1,064 nm metal absorbs instead of reflecting. The mark is not on the surface: it is the surface, altered. It cannot be scratched off, does not fade, and survives industrial washing."
+      },
+      "macchine": ["f2"],
+      "materiali": ["metallo"],
+      "lavorazioni": ["marcatura", "incisione"],
+      "processo": [
+        { "t": { "it": "Pezzo già in misura", "en": "Part cut to size" }, "d": { "it": "La fibra marca, non taglia: il supporto metallico arriva già nelle sue dimensioni.", "en": "The fibre marks, it does not cut: the metal blank arrives already sized." } },
+        { "t": { "it": "Messa a fuoco", "en": "Focus" }, "d": { "it": "Un decimo di millimetro fuori fuoco e il nero diventa grigio. Su pezzi curvi si lavora a settori.", "en": "A tenth of a millimetre out of focus turns black into grey. Curved parts are marked in sectors." } },
+        { "t": { "it": "Marcatura", "en": "Marking" }, "d": { "it": "Più passaggi leggeri invece di uno pesante: il segno è più nero e il pezzo non si deforma.", "en": "Several light passes instead of one heavy one: a blacker mark and no warping." } }
+      ],
+      "applicazioni": {
+        "it": ["Targhette tecniche e numeri di serie", "Medagliette e portachiavi in acciaio", "Biglietti da visita in metallo", "Dettagli metallici su premi e trofei"],
+        "en": ["Technical plates and serial numbers", "Steel tags and keyrings", "Metal business cards", "Metal details on awards and trophies"]
+      },
+      "faq": [
+        { "d": { "it": "Resiste alla lavastoviglie?", "en": "Is it dishwasher safe?" }, "r": { "it": "Sì. Non c'è nulla da staccare: il segno è il metallo stesso.", "en": "Yes. There is nothing to detach: the mark is the metal itself." } }
+      ]
+    },
+    {
+      "id": "mopa",
+      "n": { "it": "Laser MOPA", "en": "MOPA laser" },
+      "sommario": {
+        "it": "Fibra a impulso regolabile: sull'acciaio inox fa comparire il colore.",
+        "en": "Fibre with adjustable pulse: brings colour out of stainless steel."
+      },
+      "descrizione": {
+        "it": "Una fibra in cui la durata dell'impulso si può variare. Cambiandola cambia lo spessore dello strato di ossido che si forma, e quindi il colore che l'occhio vede — senza un grammo di pigmento. Sull'alluminio anodizzato fa l'opposto: toglie il colore e riporta il bianco.",
+        "en": "A fibre laser whose pulse duration can be varied. Changing it changes the oxide layer thickness, and so the colour the eye sees — without a gram of pigment."
+      },
+      "macchine": ["f2"],
+      "materiali": ["metallo"],
+      "lavorazioni": ["marcatura", "colore su metallo"],
+      "processo": [
+        { "t": { "it": "Campionario", "en": "Swatch" }, "d": { "it": "Il colore dipende dalla lega: ogni acciaio ha il suo campionario, fatto una volta e tenuto.", "en": "Colour depends on the alloy: every steel gets its own swatch, made once and kept." } },
+        { "t": { "it": "Marcatura a colore", "en": "Colour marking" }, "d": { "it": "Velocità e frequenza decidono la tinta. Una passata in più la cambia: non si corregge, si rifà.", "en": "Speed and frequency decide the hue. One extra pass changes it: there is no correcting, only redoing." } }
+      ],
+      "applicazioni": {
+        "it": ["Loghi a colori su acciaio", "Premi e riconoscimenti", "Oggettistica premium in metallo"],
+        "en": ["Colour logos on steel", "Awards and recognitions", "Premium metal objects"]
+      },
+      "faq": [
+        { "d": { "it": "Il colore sbiadisce?", "en": "Does the colour fade?" }, "r": { "it": "È uno strato di ossido, non una vernice: resiste all'uso e ai lavaggi. Può cambiare tono sotto anni di sole diretto.", "en": "It is an oxide layer, not a paint: it survives use and washing. It can shift in tone after years of direct sun." } }
+      ]
+    },
+    {
+      "id": "uv",
+      "n": { "it": "Stampa UV diretta", "en": "Direct UV printing" },
+      "sommario": {
+        "it": "Colore pieno direttamente sull'oggetto, anche rigido e irregolare.",
+        "en": "Full colour straight onto the object, even rigid and uneven."
+      },
+      "descrizione": {
+        "it": "L'inchiostro si asciuga sotto lampada UV nell'istante in cui tocca la superficie: non ha tempo di assorbire o colare. Si stampa su plexiglass, legno, metallo, vetro, ceramica. Il bianco si stampa come colore, quindi funziona anche su fondo scuro o trasparente — ed è la differenza che la serigrafia non ti dà senza minimi d'ordine.",
+        "en": "The ink cures under a UV lamp the instant it touches the surface. White prints as a colour, so it works on dark or transparent substrates too."
+      },
+      "macchine": ["uv"],
+      "materiali": ["plexiglass", "legno", "metallo", "vetro"],
+      "lavorazioni": ["stampa a colori", "stampa su rilievo", "trasferimento DTF"],
+      "processo": [
+        { "t": { "it": "Livello del bianco", "en": "White layer" }, "d": { "it": "Su fondo scuro o trasparente serve una base bianca sotto il colore, o i colori spariscono.", "en": "On dark or transparent substrates a white base goes under the colour, or the colours vanish." } },
+        { "t": { "it": "Primer dove serve", "en": "Primer where needed" }, "d": { "it": "Vetro e metallo lucido non trattengono l'inchiostro: senza primer si stacca con l'unghia.", "en": "Glass and polished metal do not hold ink: without primer it lifts with a fingernail." } },
+        { "t": { "it": "Stampa e cura", "en": "Print and cure" }, "d": { "it": "L'oggetto esce asciutto e maneggiabile: non c'è tempo di asciugatura da aspettare.", "en": "The object comes out dry and handleable: there is no drying time to wait for." } }
+      ],
+      "applicazioni": {
+        "it": ["Insegne e pannelli a colori", "Gadget aziendali personalizzati", "Portamenù con logo a colori", "Stampa su oggetti già finiti"],
+        "en": ["Colour signs and panels", "Custom corporate gifts", "Menu holders with full-colour logo", "Printing onto finished objects"]
+      },
+      "faq": [
+        { "d": { "it": "Si può stampare su un oggetto che ho già?", "en": "Can you print on an object I already have?" }, "r": { "it": "Se sta nel piano di stampa e la superficie è compatibile, sì. Si fa sempre una prova su un pezzo di scorta prima di toccare il tuo.", "en": "If it fits the print bed and the surface is compatible, yes. We always test on a spare piece before touching yours." } }
+      ]
+    },
+    {
+      "id": "dtf",
+      "n": { "it": "Stampa DTF su tessuto", "en": "DTF textile printing" },
+      "sommario": {
+        "it": "Colore pieno sui capi, senza minimi d'ordine e senza telai.",
+        "en": "Full colour on garments, with no minimum order and no screens."
+      },
+      "descrizione": {
+        "it": "Si stampa un trasferimento, lo si cura, e la pressa a caldo lo applica al capo. Niente telai da preparare, quindi un pezzo solo costa come un pezzo solo: è la tecnologia giusta per una divisa, un grembiule o venti capi di una squadra, non per diecimila magliette.",
+        "en": "A transfer is printed, cured, then applied with a heat press. No screens to prepare, so a single piece costs what a single piece should."
+      },
+      "macchine": ["uv", "wonderpress"],
+      "materiali": ["tessuto"],
+      "lavorazioni": ["stampa a colori", "applicazione a caldo"],
+      "processo": [
+        { "t": { "it": "Grafica in quadricromia", "en": "CMYK artwork" }, "d": { "it": "Il file nasce in CMYK con il bianco separato: in RGB i colori accesi non si ottengono.", "en": "Artwork starts in CMYK with white separated: bright RGB colours cannot be reproduced." } },
+        { "t": { "it": "Stampa e cura del trasferimento", "en": "Print and cure the transfer" }, "d": { "it": "La polvere adesiva si attiva in forno: curata male, il disegno si stacca al primo lavaggio.", "en": "The adhesive powder is activated in the oven: badly cured, the print lifts at the first wash." } },
+        { "t": { "it": "Pressa a caldo", "en": "Heat press" }, "d": { "it": "Tempo, temperatura e pressione dipendono dal tessuto. Il cotone e il poliestere non si pressano uguale.", "en": "Time, temperature and pressure depend on the fabric. Cotton and polyester are not pressed alike." } }
+      ],
+      "applicazioni": {
+        "it": ["Divise e grembiuli per la ristorazione", "Capi aziendali e squadre", "Tote bag e merchandising", "Capi singoli personalizzati"],
+        "en": ["Hospitality uniforms and aprons", "Corporate and team garments", "Tote bags and merchandise", "One-off personalised garments"]
+      },
+      "faq": [
+        { "d": { "it": "Quanti lavaggi regge?", "en": "How many washes does it survive?" }, "r": { "it": "Applicato bene, resiste al lavaggio domestico a rovescio a 40 gradi. Asciugatrice e stiratura diretta sul disegno lo accorciano.", "en": "Applied properly it survives domestic washing inside out at 40 °C. Tumble drying and ironing directly on the print shorten its life." } }
+      ]
+    },
+    {
+      "id": "stampa3d",
+      "n": { "it": "Stampa 3D", "en": "3D printing" },
+      "sommario": {
+        "it": "Il pezzo che non esiste in commercio: prototipo, ricambio, componente.",
+        "en": "The part that does not exist on the market: prototype, spare, component."
+      },
+      "descrizione": {
+        "it": "Serve quando la forma non si ottiene tagliando un piano. Un supporto che non esiste, un ricambio fuori produzione, un prototipo da tenere in mano prima di impegnare una serie. Non è la tecnologia delle grandi quantità: è quella del pezzo giusto, uno o pochi.",
+        "en": "Needed when the shape cannot be obtained by cutting a flat sheet. A bracket that does not exist, a discontinued spare, a prototype to hold before committing to a run."
+      },
+      "macchine": [],
+      "materiali": ["pla"],
+      "lavorazioni": ["produzione additiva", "prototipazione"],
+      "processo": [
+        { "t": { "it": "Modello 3D", "en": "3D model" }, "d": { "it": "Si parte da un modello o da misure reali. Una foto non basta per ricavare un pezzo che incastra.", "en": "We start from a model or real measurements. A photo is not enough to derive a part that fits." } },
+        { "t": { "it": "Orientamento e supporti", "en": "Orientation and supports" }, "d": { "it": "Come il pezzo è appoggiato decide dove si rompe: la resistenza cambia con la direzione degli strati.", "en": "How the part sits decides where it breaks: strength changes with layer direction." } },
+        { "t": { "it": "Stampa e finitura", "en": "Print and finish" }, "d": { "it": "Supporti rimossi a mano e piani di appoggio rifiniti: il pezzo esce dal piatto, non finito.", "en": "Supports removed by hand and contact faces cleaned up: a part leaves the bed, not finished." } }
+      ],
+      "applicazioni": {
+        "it": ["Prototipi e verifiche di incastro", "Ricambi fuori produzione", "Supporti e componenti su misura", "Stampi e dime di lavorazione"],
+        "en": ["Prototypes and fit checks", "Discontinued spare parts", "Custom brackets and components", "Jigs and production fixtures"]
+      },
+      "faq": [
+        { "d": { "it": "Il PLA regge all'aperto?", "en": "Does PLA survive outdoors?" }, "r": { "it": "Male. Sotto il sole si deforma e con gli anni infragilisce. Per l'esterno si cambia materiale o si cambia tecnologia.", "en": "Poorly. It deforms in the sun and becomes brittle over the years. For outdoor use we change material or technology." } }
+      ]
+    }
+  ]
+}

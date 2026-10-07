@@ -18,6 +18,7 @@ import * as SCH from '../assets/js/schema-engine.js';
 import * as FAQ from '../assets/js/faq-engine.js';
 import * as VERT from '../assets/js/verticali.js';
 import * as PR from '../assets/js/prezzi.js';
+import * as LAB from '../assets/js/lab.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const SOLO_VERIFICA = process.argv.includes('--check');
@@ -28,7 +29,14 @@ const prodotti = await leggi('data/products.json');
 const categorie= await leggi('data/categories.json');
 const contenuti= await leggi('data/content.json');
 const testi    = await leggi('data/texts.json');
+const materiali = await leggi('data/materiali.json');
+const tecnologie= await leggi('data/tecnologie.json');
+const macchine  = await leggi('data/macchine.json');
 const guscio   = await readFile(join(ROOT, 'index.html'), 'utf8');
+
+/* La stessa forma che il browser si trova in window.INGLY: lab.js non sa
+   se gira in Node o nel browser, e non deve saperlo. */
+const DLAB = { MATERIALI: materiali, TECNOLOGIE: tecnologie, MACCHINE: macchine, PRODUCTS: prodotti };
 
 const S = cfg.seo || {};
 const base = String(S.dominio || 'https://www.inglydesign.it').replace(/\/+$/, '');
@@ -114,8 +122,44 @@ function paginaVerticale(v){
   return P.componi(guscio, { titolo, descrizione, canonico, contenuto, jsonld });
 }
 
+/* ===== LAB: materiali, tecnologie, macchine =====
+   Una scheda materiale è la pagina che intercetta «si può incidere il
+   plexiglass» o «quale legno per un'incisione fine»: ricerche che il
+   catalogo non può soddisfare, perché non parla quella lingua. */
+const TITOLI_LAB = {
+  materiali: { t: 'Materiali', d: 'Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati.' },
+  tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
+  macchine: { t: 'Macchine', d: 'Il parco macchine, cosa si sblocca mettendole insieme, e cosa non lavoriamo.' }
+};
+
+function paginaLabSezione(sezione){
+  const canonico = base + '/' + sezione;
+  const info = TITOLI_LAB[sezione];
+  const titolo = info.t + ' — ' + azienda;
+  const contenuto = LAB.corpoSezione(DLAB, sezione, { L, base, titolo: info.t, descrizione: info.d });
+  const jsonld = SCH.grafo([...entitaBase, LAB.briciole(sezione, null, { L, base })]);
+  return P.componi(guscio, { titolo, descrizione: info.d, canonico, contenuto, jsonld });
+}
+
+function paginaLabScheda(sezione, id){
+  const e = sezione === 'materiali' ? LAB.materiale(DLAB, id) : LAB.tecnologia(DLAB, id);
+  const canonico = base + '/' + sezione + '/' + id;
+  const meta = sezione === 'materiali'
+    ? LAB.metaMateriale(e, { L, azienda })
+    : LAB.metaTecnologia(e, { L, azienda });
+  const contenuto = sezione === 'materiali'
+    ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: P.prezzo })
+    : LAB.corpoTecnologia(DLAB, e, { L, base, prezzo: P.prezzo });
+  const schema = sezione === 'materiali'
+    ? LAB.schemaMateriale(DLAB, e, { L, base, azienda, idAzienda: SCH.ID.org })
+    : LAB.schemaTecnologia(DLAB, e, { L, base, idAzienda: SCH.ID.org });
+  const jsonld = SCH.grafo([...entitaBase, ...schema, LAB.briciole(sezione, e, { L, base })]);
+  return P.componi(guscio, { titolo: meta.titolo, descrizione: meta.descrizione, canonico, contenuto, jsonld });
+}
+
 const verticali = contenuti.VERTICALI || [];
-const lista = P.elenco({ prodotti, verticali });
+const lista = [...P.elenco({ prodotti, verticali }),
+  ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', sezione: v.sezione, id: v.id }))];
 let scritti = 0, problemi = [];
 
 /* la cartella si rigenera da zero: pagine di prodotti eliminati non devono
@@ -123,6 +167,14 @@ let scritti = 0, problemi = [];
 if(!SOLO_VERIFICA && existsSync(join(ROOT, 'product'))) await rm(join(ROOT, 'product'), { recursive: true, force: true });
 /* stesso motivo per i settori: uno spento o rinominato non deve sopravvivere
    sul disco e restare indicizzato */
+/* stesso motivo per il Lab: un materiale tolto dai dati non deve lasciare
+   la sua pagina sul disco, indicizzata e irraggiungibile dal sito */
+if(!SOLO_VERIFICA){
+  for(const sez of ['materiali','tecnologie','macchine']){
+    const dir = join(ROOT, sez);
+    if(existsSync(dir)) await rm(dir, { recursive: true, force: true });
+  }
+}
 if(!SOLO_VERIFICA){
   for(const v of verticali){
     const dir = join(ROOT, 'business', String(v && v.id || ''));
@@ -132,9 +184,10 @@ if(!SOLO_VERIFICA){
 
 for(const voce of lista){
   if(voce.file === 'index.html') continue;      /* la home resta il guscio originale */
-  const p = voce.id != null ? prodotti.find(x => x.id === voce.id) : null;
+  const p = (voce.pagina !== 'lab' && voce.id != null) ? prodotti.find(x => x.id === voce.id) : null;
   const html = voce.pagina === 'product' ? paginaProdotto(p)
              : voce.pagina === 'verticale' ? paginaVerticale(VERT.perId(verticali, voce.id))
+             : voce.pagina === 'lab' ? (voce.id ? paginaLabScheda(voce.sezione, voce.id) : paginaLabSezione(voce.sezione))
              : paginaSito(voce.pagina);
 
   if(!/<h1>/.test(html)) problemi.push(voce.file + ': manca il titolo principale');

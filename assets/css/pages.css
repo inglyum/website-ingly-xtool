@@ -315,3 +315,20 @@ body::after{content:none}
 .lab-esito{margin-top:22px}
 .lab-nulla{font-size:14.5px;line-height:1.6;color:var(--ink-soft);
   border-left:2px solid var(--blue);padding-left:14px;margin:0}
+
+/* ---- vendita, academy, demo ---- */
+
+.lab-filtri{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin:26px 0 10px}
+@media(max-width:860px){.lab-filtri{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.lab-filtri{grid-template-columns:1fr}}
+.lab-campo--cerca input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+  background:var(--white);color:var(--ink);font:inherit;font-size:14.5px}
+.lab-conteggio{font-family:var(--fm,monospace);font-size:12.5px;color:var(--ink-soft);margin:0 0 22px}
+
+.lab-vendita{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 26px;margin-top:4px}
+.lab-prezzo-riga{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:20px}
+.lab-prezzo{font-family:var(--fd);font-size:clamp(1.3rem,3vw,1.75rem);font-weight:700;color:var(--ink)}
+.lab-gratis{display:inline-block;font-family:var(--fd);font-weight:700;font-size:14px;
+  padding:7px 16px;border-radius:999px;background:var(--blue);color:#fff;margin:0 0 20px}
+.lab-vuoto{margin-top:26px}

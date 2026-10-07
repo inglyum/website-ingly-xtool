@@ -9,9 +9,9 @@
    pubblicazione parziale — il sito deve continuare a funzionare senza di
    loro, con le sezioni del Lab semplicemente assenti. Per questo stanno
    qui dentro e non in un caricamento separato che potrebbe fallire da solo. */
-const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine'];
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi'];
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',
-  materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE'};
+  materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE',corsi:'CORSI'};
 
 export const dataStatus={mode:'',version:null,missing:[],warnings:[]};
 
@@ -45,7 +45,7 @@ function healData(e){
     ['PORT','TECH','BIZ','FAQS','REVIEWS','STEPS','MATERIALS','DIG'].forEach(k=>{if(!Array.isArray(e[k]))e[k]=[]});
     /* Il Lab è facoltativo: senza i suoi file le sue sezioni non si
        disegnano, ma il resto del sito non deve accorgersene. */
-    ['MATERIALI','TECNOLOGIE','MACCHINE'].forEach(k=>{
+    ['MATERIALI','TECNOLOGIE','MACCHINE','CORSI'].forEach(k=>{
       if(!e[k]||typeof e[k]!=='object'||Array.isArray(e[k]))e[k]={};
     });
     if(heal.length)console.warn('[INGLY] dati riparati in memoria:',heal.join(' | '));

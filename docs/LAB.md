@@ -99,3 +99,75 @@ per guadagnare un rich result è il modo più veloce di perdere fiducia.
 | Scheda materiale | `Article` + `ItemList` (le creazioni) + `FAQPage` + `BreadcrumbList` |
 | Scheda tecnologia | `Service` + `HowTo` (solo con almeno due passi) + `FAQPage` + `BreadcrumbList` |
 | Indici | `BreadcrumbList` |
+
+---
+
+# I quattro verticali commerciali
+
+## 1. Materiali in vendita
+
+Ogni materiale ha un blocco `vendita`:
+
+```json
+"vendita": {
+  "attivo": false,
+  "unita": "lastra",
+  "varianti": [
+    { "id": "plexiglass-1", "formato": "300×200 mm", "spessore": "3 mm",
+      "colore": "Trasparente", "prezzo": null, "compareAt": null, "stock": null }
+  ]
+}
+```
+
+**27 varianti, nessun prezzo.** `prezzo: null` non è un errore: è l'unica
+risposta onesta finché una persona non lo decide. Finché resta così la scheda
+dice «su richiesta» e il bottone diventa *Richiedi disponibilità e prezzo*.
+
+Per aprire la vendita servono **due cose insieme**: i prezzi, e `attivo: true`.
+`inVendita()` pretende entrambe, così si pubblica quando si è pronti e non
+quando si è inserito il primo numero.
+
+Il carrello è **quello del sito**. La riga del Lab entra accanto ai prodotti
+fisici e ai file digitali, con lo stesso totale, la stessa soglia di
+spedizione gratuita e lo stesso checkout. Nessun secondo carrello.
+
+## 2. INGLY Academy
+
+`data/corsi.json` ha la struttura e il catalogo **vuoto**. Un corso ha una
+durata, un programma e un prezzo che decide chi lo eroga: inventarli
+significherebbe pubblicare un'offerta che non esiste. Lo schema di un corso è
+in `_modello`, pronto da copiare.
+
+Un corso con `stato: "pubblicato"` fa comparire da sé la scheda, il link dalla
+sua macchina e dalla sua tecnologia, la pagina statica e la voce in sitemap.
+
+## 3. Machine Lab
+
+`data/macchine.json → catalogo`: 13 modelli xTool.
+
+| Campo | Significato |
+|---|---|
+| `inOfficina` | **ce l'abbiamo davvero** — solo queste si possono provare |
+| `assistenza` | centro ufficiale: vale su tutta la gamma |
+| `daCompletare` | specifiche non verificate da noi: la pagina lo dichiara |
+
+Le 9 macchine che non abbiamo hanno `specs: {}` **vuoto**. Riempirlo con
+numeri presi da un catalogo sarebbe scrivere dati che non abbiamo misurato.
+
+## 4. Demo gratuita
+
+`config.json → demo`. Il campo che conta è `bookingUrl`, **vuoto di
+proposito**:
+
+| Stato | Cosa fa il sito |
+|---|---|
+| `bookingUrl` vuoto | niente calendario finto: propone WhatsApp ed email |
+| URL valido (http, mailto, tel) | il bottone apre quel link |
+| `attiva: false` | la sezione demo sparisce |
+
+Funziona con Calendly, Google Calendar, una pagina di prenotazione o un link
+WhatsApp. Un indirizzo malformato viene rifiutato: **un bottone che non porta
+da nessuna parte è peggio di un bottone che non c'è.**
+
+Ogni macchina con `inOfficina` e `demoDisponibile` mostra da sé il blocco
+«Provala».

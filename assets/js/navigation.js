@@ -6,7 +6,7 @@ import { F, renderRV, renderChips, renderShop, currentProduct } from './products
 import { updateSeo } from './seo.js';
 import { L, T } from './utils.js';
 
-export const PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote','materiali','tecnologie','macchine'];
+export const PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote','materiali','tecnologie','macchine','academy','demo'];
 
 /* ===== PERCORSO BASE =====
    In produzione il sito sta nella radice del dominio ("/"), ma su GitHub Pages
@@ -134,7 +134,7 @@ export function initNav(){
     const seg=percorso.split('/');
     /* Le schede del Lab si comportano come i settori Business: restano
        dentro la loro sezione invece di ricaricare tutto il sito. */
-    if(['materiali','tecnologie'].includes(seg[0]) && seg[1] && /^[a-z0-9-]+$/.test(seg[1])){
+    if(['materiali','tecnologie','macchine','academy'].includes(seg[0]) && seg[1] && /^[a-z0-9-]+$/.test(seg[1])){
       e.preventDefault();
       const dest=BASE+seg[0]+'/'+seg[1];
       if(location.pathname.replace(/\/$/,'')!==dest.replace(/\/$/,'')) history.pushState({page:seg[0]},'',dest);

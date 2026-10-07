@@ -121,7 +121,59 @@
             "en": "Birch or maple: pale, even-grained, highest contrast. Oak is beautiful but the grain competes with the artwork."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "pannello",
+        "varianti": [
+          {
+            "id": "legno-1",
+            "formato": "300×200 mm",
+            "spessore": "3 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "legno-2",
+            "formato": "300×200 mm",
+            "spessore": "5 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "legno-3",
+            "formato": "600×400 mm",
+            "spessore": "3 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "legno-4",
+            "formato": "600×400 mm",
+            "spessore": "5 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "legno-5",
+            "formato": "600×400 mm",
+            "spessore": "8 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "plexiglass",
@@ -233,7 +285,68 @@
             "en": "Yes, with a white layer under the colour, otherwise the colours disappear against the background."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "lastra",
+        "varianti": [
+          {
+            "id": "plexiglass-1",
+            "formato": "300×200 mm",
+            "spessore": "3 mm",
+            "colore": "Trasparente",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "plexiglass-2",
+            "formato": "300×200 mm",
+            "spessore": "3 mm",
+            "colore": "Nero",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "plexiglass-3",
+            "formato": "300×200 mm",
+            "spessore": "3 mm",
+            "colore": "Bianco",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "plexiglass-4",
+            "formato": "600×400 mm",
+            "spessore": "3 mm",
+            "colore": "Trasparente",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "plexiglass-5",
+            "formato": "600×400 mm",
+            "spessore": "5 mm",
+            "colore": "Trasparente",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "plexiglass-6",
+            "formato": "600×400 mm",
+            "spessore": "5 mm",
+            "colore": "Specchiato",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "metallo",
@@ -346,7 +459,41 @@
             "en": "If it fits the marking area and the surface is flat or gently curved, yes. A one-of-a-kind object is assessed together first: marking cannot be undone."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "pezzo",
+        "varianti": [
+          {
+            "id": "metallo-1",
+            "formato": "Targhetta 76×50 mm",
+            "spessore": "1 mm",
+            "colore": "Acciaio inox",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "metallo-2",
+            "formato": "Targhetta 76×50 mm",
+            "spessore": "1 mm",
+            "colore": "Alluminio anodizzato nero",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "metallo-3",
+            "formato": "Portachiavi 60×25 mm",
+            "spessore": "1,5 mm",
+            "colore": "Acciaio inox",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "pelle",
@@ -445,7 +592,32 @@
             "en": "It softens where the leather rubs, as all leather does. It cannot peel: there is nothing on top — it is the leather itself."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "foglio",
+        "varianti": [
+          {
+            "id": "pelle-1",
+            "formato": "200×300 mm",
+            "spessore": "1,5 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "pelle-2",
+            "formato": "200×300 mm",
+            "spessore": "2 mm",
+            "colore": "Testa di moro",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "vetro",
@@ -548,7 +720,12 @@
             "en": "Yes, and it is the normal route for a set you already own. We ask for one spare piece: the first glass is for calibration, not delivery."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "unita": null,
+        "varianti": []
+      }
     },
     {
       "id": "bamboo",
@@ -647,7 +824,32 @@
             "en": "Bamboo if it must survive a kitchen: it absorbs less and moves less. Solid wood if looks matter more."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "pannello",
+        "varianti": [
+          {
+            "id": "bamboo-1",
+            "formato": "300×200 mm",
+            "spessore": "3 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "bamboo-2",
+            "formato": "600×400 mm",
+            "spessore": "5 mm",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "mdf",
@@ -749,7 +951,41 @@
             "en": "On the edge, always. Fully painted the face is indistinguishable; the edge is sealed or designed out of sight."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "pannello",
+        "varianti": [
+          {
+            "id": "mdf-1",
+            "formato": "300×200 mm",
+            "spessore": "3 mm",
+            "colore": "Grezzo",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "mdf-2",
+            "formato": "600×400 mm",
+            "spessore": "3 mm",
+            "colore": "Grezzo",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "mdf-3",
+            "formato": "600×400 mm",
+            "spessore": "6 mm",
+            "colore": "Grezzo",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "pla",
@@ -845,7 +1081,41 @@
             "en": "In the right direction, as strong as injection-moulded plastic. In the wrong one it delaminates like a deck of cards: orientation decides, and we choose it together."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "bobina",
+        "varianti": [
+          {
+            "id": "pla-1",
+            "formato": "1 kg",
+            "spessore": "—",
+            "colore": "Nero",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "pla-2",
+            "formato": "1 kg",
+            "spessore": "—",
+            "colore": "Bianco",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "pla-3",
+            "formato": "1 kg",
+            "spessore": "—",
+            "colore": "Naturale",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     },
     {
       "id": "tessuto",
@@ -956,7 +1226,41 @@
             "en": "Applied properly, domestic washing inside out at 40 °C does not affect it. Direct heat is what ruins it."
           }
         }
-      ]
+      ],
+      "vendita": {
+        "attivo": false,
+        "_nota": "attivo:false finché prezzi e giacenze non sono stati inseriti. Il sito mostra il materiale e invita a chiedere, invece di fingere un acquisto.",
+        "unita": "capo",
+        "varianti": [
+          {
+            "id": "tessuto-1",
+            "formato": "Grembiule",
+            "spessore": "—",
+            "colore": "Nero",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "tessuto-2",
+            "formato": "T-shirt M",
+            "spessore": "—",
+            "colore": "Bianco",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          },
+          {
+            "id": "tessuto-3",
+            "formato": "T-shirt L",
+            "spessore": "—",
+            "colore": "Bianco",
+            "prezzo": null,
+            "compareAt": null,
+            "stock": null
+          }
+        ]
+      }
     }
   ],
   "maiLavorare": {

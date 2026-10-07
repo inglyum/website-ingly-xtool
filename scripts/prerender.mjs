@@ -32,11 +32,12 @@ const testi    = await leggi('data/texts.json');
 const materiali = await leggi('data/materiali.json');
 const tecnologie= await leggi('data/tecnologie.json');
 const macchine  = await leggi('data/macchine.json');
+const corsiJson = await leggi('data/corsi.json');
 const guscio   = await readFile(join(ROOT, 'index.html'), 'utf8');
 
 /* La stessa forma che il browser si trova in window.INGLY: lab.js non sa
    se gira in Node o nel browser, e non deve saperlo. */
-const DLAB = { MATERIALI: materiali, TECNOLOGIE: tecnologie, MACCHINE: macchine, PRODUCTS: prodotti };
+const DLAB = { MATERIALI: materiali, TECNOLOGIE: tecnologie, MACCHINE: macchine, CORSI: corsiJson, CONFIG: cfg, PRODUCTS: prodotti };
 
 const S = cfg.seo || {};
 const base = String(S.dominio || 'https://www.inglydesign.it').replace(/\/+$/, '');
@@ -129,30 +130,43 @@ function paginaVerticale(v){
 const TITOLI_LAB = {
   materiali: { t: 'Materiali', d: 'Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati.' },
   tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
-  macchine: { t: 'Macchine', d: 'Il parco macchine, cosa si sblocca mettendole insieme, e cosa non lavoriamo.' }
+  macchine: { t: 'Macchine', d: 'Il parco macchine, cosa si sblocca mettendole insieme, e cosa non lavoriamo.' },
+  academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Cesena o collegati.' },
+  demo: { t: 'Demo gratuita', d: 'Un\'ora in officina con la macchina accesa: la provi davvero prima di sceglierla.' }
 };
 
 function paginaLabSezione(sezione){
   const canonico = base + '/' + sezione;
   const info = TITOLI_LAB[sezione];
   const titolo = info.t + ' — ' + azienda;
-  const contenuto = LAB.corpoSezione(DLAB, sezione, { L, base, titolo: info.t, descrizione: info.d });
+  const contenuto = sezione === 'demo'
+    ? LAB.corpoDemo(DLAB, { L, base })
+    : LAB.corpoSezione(DLAB, sezione, { L, base, titolo: info.t, descrizione: info.d });
   const jsonld = SCH.grafo([...entitaBase, LAB.briciole(sezione, null, { L, base })]);
   return P.componi(guscio, { titolo, descrizione: info.d, canonico, contenuto, jsonld });
 }
 
 function paginaLabScheda(sezione, id){
-  const e = sezione === 'materiali' ? LAB.materiale(DLAB, id) : LAB.tecnologia(DLAB, id);
+  const e = sezione === 'materiali' ? LAB.materiale(DLAB, id)
+          : sezione === 'tecnologie' ? LAB.tecnologia(DLAB, id)
+          : sezione === 'macchine' ? LAB.modello(DLAB, id)
+          : LAB.corso(DLAB, id);
   const canonico = base + '/' + sezione + '/' + id;
-  const meta = sezione === 'materiali'
-    ? LAB.metaMateriale(e, { L, azienda })
-    : LAB.metaTecnologia(e, { L, azienda });
-  const contenuto = sezione === 'materiali'
-    ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: P.prezzo })
-    : LAB.corpoTecnologia(DLAB, e, { L, base, prezzo: P.prezzo });
-  const schema = sezione === 'materiali'
-    ? LAB.schemaMateriale(DLAB, e, { L, base, azienda, idAzienda: SCH.ID.org })
-    : LAB.schemaTecnologia(DLAB, e, { L, base, idAzienda: SCH.ID.org });
+  const nome = LAB.lingua(e && e.n, L);
+  const meta = sezione === 'materiali' ? LAB.metaMateriale(e, { L, azienda })
+    : sezione === 'tecnologie' ? LAB.metaTecnologia(e, { L, azienda })
+    : sezione === 'macchine'
+      ? { titolo: `${nome} — ${e.inOfficina ? 'in officina, assistenza e demo' : 'assistenza, riparazione e ricambi'} | ${azienda}`,
+          descrizione: LAB.lingua(e.ruolo, L) }
+      : { titolo: `${nome} | ${azienda}`, descrizione: LAB.lingua(e.sommario, L) };
+  const contenuto = sezione === 'materiali' ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: P.prezzo })
+    : sezione === 'tecnologie' ? LAB.corpoTecnologia(DLAB, e, { L, base, prezzo: P.prezzo })
+    : sezione === 'macchine' ? LAB.corpoMacchina(DLAB, e, { L, base })
+    : LAB.corpoCorso(DLAB, e, { L, base });
+  const schema = sezione === 'materiali' ? LAB.schemaMateriale(DLAB, e, { L, base, azienda, idAzienda: SCH.ID.org })
+    : sezione === 'tecnologie' ? LAB.schemaTecnologia(DLAB, e, { L, base, idAzienda: SCH.ID.org })
+    : sezione === 'macchine' ? LAB.schemaMacchina(DLAB, e, { L, base, idAzienda: SCH.ID.org })
+    : LAB.schemaCorso(DLAB, e, { L, base, azienda, idAzienda: SCH.ID.org });
   const jsonld = SCH.grafo([...entitaBase, ...schema, LAB.briciole(sezione, e, { L, base })]);
   return P.componi(guscio, { titolo: meta.titolo, descrizione: meta.descrizione, canonico, contenuto, jsonld });
 }
@@ -170,7 +184,7 @@ if(!SOLO_VERIFICA && existsSync(join(ROOT, 'product'))) await rm(join(ROOT, 'pro
 /* stesso motivo per il Lab: un materiale tolto dai dati non deve lasciare
    la sua pagina sul disco, indicizzata e irraggiungibile dal sito */
 if(!SOLO_VERIFICA){
-  for(const sez of ['materiali','tecnologie','macchine']){
+  for(const sez of ['materiali','tecnologie','macchine','academy','demo']){
     const dir = join(ROOT, sez);
     if(existsSync(dir)) await rm(dir, { recursive: true, force: true });
   }

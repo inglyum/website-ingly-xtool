@@ -1,0 +1,69 @@
+{
+  "_nota": "INGLY ACADEMY. Il catalogo è VUOTO di proposito: un corso ha una durata, un programma e un prezzo che decide chi lo eroga, e inventarli significherebbe pubblicare un'offerta che non esiste. Qui c'è la struttura perché l'Admin possa riempirla: aggiungere una voce a `corsi` fa comparire da sola la scheda, i collegamenti da macchina e tecnologia, la voce in sitemap e la pagina statica. Lo schema di un corso è documentato in `_modello`.",
+
+  "attiva": true,
+
+  "intro": {
+    "eyebrow": { "it": "INGLY Academy", "en": "INGLY Academy" },
+    "titolo": { "it": "Imparare a usarle, non solo a comprarle.", "en": "Learning to use them, not just to buy them." },
+    "sommario": {
+      "it": "Le stesse macchine con cui produciamo tutti i giorni, insegnate da chi ci lavora. In officina a Cesena o collegati, su una macchina sola o su tutto il flusso di lavoro.",
+      "en": "The same machines we produce with every day, taught by the people who run them. In the workshop or online, on a single machine or across the whole workflow."
+    },
+    "vuoto": {
+      "it": "Il calendario dei corsi è in preparazione. Se c'è una macchina o una lavorazione su cui ti serve formazione, scrivici: i primi percorsi nascono dalle richieste che arrivano.",
+      "en": "The course calendar is being prepared. If there is a machine or a process you need training on, write to us: the first courses come from the requests we receive."
+    }
+  },
+
+  "livelli": [
+    { "id": "base", "n": { "it": "Base", "en": "Beginner" } },
+    { "id": "intermedio", "n": { "it": "Intermedio", "en": "Intermediate" } },
+    { "id": "avanzato", "n": { "it": "Avanzato", "en": "Advanced" } }
+  ],
+
+  "formati": [
+    { "id": "presenza", "n": { "it": "In officina", "en": "In the workshop" } },
+    { "id": "online", "n": { "it": "Online", "en": "Online" } },
+    { "id": "misto", "n": { "it": "Online + officina", "en": "Online + workshop" } }
+  ],
+
+  "tipi": [
+    { "id": "macchina", "n": { "it": "Corso su una macchina", "en": "Machine course" } },
+    { "id": "tecnologia", "n": { "it": "Corso su una tecnologia", "en": "Technology course" } },
+    { "id": "materiali", "n": { "it": "Corso sui materiali", "en": "Materials course" } },
+    { "id": "progettazione", "n": { "it": "Progettazione e file", "en": "Design and files" } },
+    { "id": "business", "n": { "it": "Avviare e far quadrare un laboratorio", "en": "Running a workshop" } },
+    { "id": "consulenza", "n": { "it": "Consulenza individuale", "en": "One-to-one consulting" } },
+    { "id": "percorso", "n": { "it": "Percorso completo", "en": "Full programme" } }
+  ],
+
+  "_modello": {
+    "id": "p3-base",
+    "n": { "it": "xTool P3 — dal file al pezzo finito", "en": "" },
+    "sommario": { "it": "Una frase: cosa saprai fare alla fine.", "en": "" },
+    "descrizione": { "it": "Il testo lungo della scheda.", "en": "" },
+    "tipo": "macchina",
+    "macchina": "p3",
+    "tecnologia": "co2",
+    "livello": "base",
+    "formato": "presenza",
+    "durata": { "it": "4 ore", "en": "4 hours" },
+    "lezioni": 1,
+    "aChi": { "it": ["Chi ha appena comprato la macchina"], "en": [] },
+    "obiettivi": { "it": ["Tarare su un materiale nuovo"], "en": [] },
+    "programma": [{ "t": { "it": "Titolo della lezione" }, "d": { "it": "Cosa si fa" } }],
+    "requisiti": { "it": ["Nessuno"], "en": [] },
+    "materiali": { "it": ["Compresi nel corso"], "en": [] },
+    "progetto": { "it": "Il pezzo che porti a casa.", "en": "" },
+    "prezzo": null,
+    "compareAt": null,
+    "posti": null,
+    "faq": [{ "d": { "it": "" }, "r": { "it": "" } }],
+    "stato": "bozza",
+    "inEvidenza": false,
+    "seo": { "titolo": "", "descrizione": "" }
+  },
+
+  "corsi": []
+}

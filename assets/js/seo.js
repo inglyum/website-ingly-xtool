@@ -61,6 +61,8 @@ export function updateSeo(page, L, T, product){
     home:S.titolo||document.title, shop:T('shopH2'), digital:T('digEye'), business:T('bizH2'),
     portfolio:T('portH2'), about:T('abH2'), faq:T('faqH2'), quote:T('qH2'),
     materiali:(L==='en'?'Materials':'Materiali'),
+    academy:'INGLY Academy',
+    demo:(L==='en'?'Free demo':'Demo gratuita'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),
     macchine:(L==='en'?'Machines':'Macchine')
   };
@@ -77,12 +79,16 @@ export function updateSeo(page, L, T, product){
      quello generico della sezione — buttando via il motivo per cui la
      pagina esiste. */
   const scheda = (() => {
-    if(page!=='materiali' && page!=='tecnologie') return null;
+    if(!['materiali','tecnologie','macchine','academy'].includes(page)) return null;
     const seg=location.pathname.split('?')[0].split('/').filter(Boolean);
     const i=seg.indexOf(page);
     const id=i>=0 ? seg[i+1] : null;
     if(!id || !/^[a-z0-9-]+$/.test(id)) return null;
-    const e = page==='materiali' ? LAB.materiale(window.INGLY||{},id) : LAB.tecnologia(window.INGLY||{},id);
+    const D=window.INGLY||{};
+    const e = page==='materiali' ? LAB.materiale(D,id)
+            : page==='tecnologie' ? LAB.tecnologia(D,id)
+            : page==='macchine' ? LAB.modello(D,id)
+            : LAB.corso(D,id);
     return e ? { sezione:page, e } : null;
   })();
 
@@ -103,12 +109,18 @@ export function updateSeo(page, L, T, product){
   if(scheda){
     const nome = LAB.lingua(scheda.e.n, L);
     const somm = LAB.lingua(scheda.e.sommario, L);
-    title = scheda.sezione==='materiali'
-      ? (L==='en' ? `${nome} — laser cutting, engraving and printing | ${azienda}`
-                  : `${nome} — taglio, incisione e stampa laser | ${azienda}`)
-      : (L==='en' ? `${nome} — what it does and what it makes | ${azienda}`
-                  : `${nome} — cosa fa e cosa realizza | ${azienda}`);
-    desc = somm;
+    const sez = scheda.sezione;
+    title = sez==='materiali'
+        ? (L==='en' ? `${nome} — laser cutting, engraving and printing | ${azienda}`
+                    : `${nome} — taglio, incisione e stampa laser | ${azienda}`)
+      : sez==='tecnologie'
+        ? (L==='en' ? `${nome} — what it does and what it makes | ${azienda}`
+                    : `${nome} — cosa fa e cosa realizza | ${azienda}`)
+      : sez==='macchine'
+        ? (L==='en' ? `${nome} — service, repair and parts | ${azienda}`
+                    : `${nome} — assistenza, riparazione e ricambi | ${azienda}`)
+        : `${nome} | ${azienda}`;
+    desc = somm || LAB.lingua(scheda.e.ruolo, L);
   } else if(vert){
     const m=VERT.meta(vert,{L,azienda,citta:S.citta||''});
     title=m.titolo; desc=m.descrizione;

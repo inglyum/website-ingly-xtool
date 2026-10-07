@@ -71,6 +71,8 @@ const DLAB = {
   MATERIALI: JSON.parse(readFileSync(join(ROOT, 'data/materiali.json'), 'utf8')),
   TECNOLOGIE: JSON.parse(readFileSync(join(ROOT, 'data/tecnologie.json'), 'utf8')),
   MACCHINE: JSON.parse(readFileSync(join(ROOT, 'data/macchine.json'), 'utf8')),
+  CORSI: JSON.parse(readFileSync(join(ROOT, 'data/corsi.json'), 'utf8')),
+  CONFIG: config,
   PRODUCTS: prodotti
 };
 const pagine = [

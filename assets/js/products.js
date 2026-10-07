@@ -499,8 +499,28 @@ const FREE_SHIP=79; /* soglia spedizione gratuita */
 const COUPONS={'INGLY10':{pct:.10,label:'−10%'},'INGLY15':{pct:.15,label:'−15%'},'LASER20':{pct:.20,label:'−20% Laser'}};
 let activeCoupon=null;
 
-function saveCart(){try{localStorage.setItem('ingly_cart',JSON.stringify(cart.map(i=>i.dig?{dig:i.dig.id,q:i.q,u:i.u}:{id:i.p.id,q:i.q,mat:i.mat,txt:i.txt,u:i.u})))}catch(e){}}
-function loadCart(){try{const c=localStorage.getItem('ingly_cart');if(!c)return;JSON.parse(c).forEach(i=>{if(i.dig){const d=DIG.find(x=>x.id===i.dig);if(d)cart.push({dig:d,q:i.q,u:i.u})}else{const p=P.find(x=>x.id===i.id);if(p)cart.push({p,q:i.q,mat:i.mat,txt:i.txt,u:i.u})}})}catch(e){}}
+/* Il carrello conosce tre tipi di riga: prodotto fisico, file digitale e
+   — da qui — una riga del Lab (una variante di materiale, un corso).
+   Un secondo carrello avrebbe significato due checkout, due totali e due
+   soglie di spedizione: la riga del Lab porta con sé quel che serve a
+   disegnarla, e tutto il resto del carrello resta uno solo. */
+function saveCart(){try{localStorage.setItem('ingly_cart',JSON.stringify(cart.map(i=>
+  i.dig?{dig:i.dig.id,q:i.q,u:i.u}
+  :i.lab?{lab:i.lab,q:i.q,u:i.u}
+  :{id:i.p.id,q:i.q,mat:i.mat,txt:i.txt,u:i.u})))}catch(e){}}
+function loadCart(){try{const c=localStorage.getItem('ingly_cart');if(!c)return;JSON.parse(c).forEach(i=>{
+  if(i.dig){const d=DIG.find(x=>x.id===i.dig);if(d)cart.push({dig:d,q:i.q,u:i.u})}
+  else if(i.lab&&i.lab.tipo&&i.lab.nome){cart.push({lab:i.lab,q:i.q,u:i.u})}
+  else{const p=P.find(x=>x.id===i.id);if(p)cart.push({p,q:i.q,mat:i.mat,txt:i.txt,u:i.u})}})}catch(e){}}
+
+/* Aggiunge una riga del Lab. `rif` identifica la riga: due varianti diverse
+   dello stesso materiale sono due righe, la stessa variante si somma. */
+export function addLab(lab,q=1,u=0){
+  if(!lab||!lab.tipo||!lab.nome) return;
+  const ex=cart.find(i=>i.lab&&i.lab.rif===lab.rif);
+  if(ex) ex.q+=q; else cart.push({lab,q,u:u??0});
+  renderCart();saveCart();toast(T('added'));openCart();
+}
 
 export function addToCart(id,q=1,mat,txt,u){
   const x=P.find(k=>k.id===+id); if(!x) return;
@@ -529,10 +549,10 @@ export function renderCart(){
   /* items */
   $('drItems').innerHTML=cart.length
     ? cart.map((i,x)=>{
-        const nm=i.dig?i.dig.n[L]:i.p.n[L];
-        const ic=i.dig?i.dig.icon:i.p.icon;
-        const bg=i.dig?MAT_ART.File.bg:matArt(i.p.mat).bg;
-        const meta=i.dig?i.dig.f.join(' · '):i.mat+(i.txt?' · “'+i.txt+'”':'');
+        const nm=i.dig?i.dig.n[L]:i.lab?i.lab.nome:i.p.n[L];
+        const ic=i.dig?i.dig.icon:i.lab?(i.lab.icon||'▪'):i.p.icon;
+        const bg=i.dig?MAT_ART.File.bg:i.lab?(i.lab.bg||matArt().bg):matArt(i.p.mat).bg;
+        const meta=i.dig?i.dig.f.join(' · '):i.lab?(i.lab.meta||''):i.mat+(i.txt?' · “'+i.txt+'”':'');
         const unitPrice=prezzo(i.u);
         return `<div class="ditem">
           <div class="di-img" style="background:${bg}">${ic}</div>
@@ -540,7 +560,7 @@ export function renderCart(){
             <h4>${nm}</h4>
             <div class="di-meta">${meta}</div>
             <div class="di-actions">
-              ${i.dig?'':`<div class="qty"><button data-action="cart-qty" data-i="${x}" data-d="-1" aria-label="−">−</button><b>${i.q}</b><button data-action="cart-qty" data-i="${x}" data-d="1" aria-label="+">+</button></div>`}
+              ${(i.dig)?'':`<div class="qty"><button data-action="cart-qty" data-i="${x}" data-d="-1" aria-label="−">−</button><b>${i.q}</b><button data-action="cart-qty" data-i="${x}" data-d="1" aria-label="+">+</button></div>`}
               <button class="di-rm" data-action="cart-rm" data-i="${x}">${T('rm')}</button>
             </div>
           </div>

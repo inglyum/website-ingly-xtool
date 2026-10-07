@@ -163,5 +163,122 @@ check('ogni materiale dichiara i campi che la pagina mostra',
 check('ogni tecnologia dichiara i campi che la pagina mostra',
   LAB.tecnologie(D).every(t => t.sommario && t.descrizione && t.processo && t.processo.length && t.faq));
 
+/* ---- i quattro verticali commerciali ---- */
+
+D.CORSI = leggi('data/corsi.json');
+D.CONFIG = leggi('data/config.json');
+
+console.log('\n=== MATERIALI IN VENDITA ===');
+const conVarianti = LAB.materiali(D).filter(m => LAB.varianti(m).length);
+check('i materiali hanno varianti vendibili', conVarianti.length >= 8, String(conVarianti.length));
+/* Un prezzo inventato è peggio di nessun prezzo: finché non lo mette una
+   persona, la scheda deve dire «su richiesta», non zero. */
+check('nessun prezzo inventato nei dati',
+  LAB.materiali(D).every(m => LAB.varianti(m).every(v => v.prezzo === null || typeof v.prezzo === 'number')));
+check('un materiale senza prezzi non risulta in vendita',
+  LAB.materiali(D).every(m => !LAB.inVendita(m)),
+  'oggi nessun prezzo è stato inserito: giusto che nessuno sia vendibile');
+check('daPrezzo torna null quando non c\'è nessun prezzo', LAB.daPrezzo(LAB.materiale(D, 'legno')) === null);
+
+const finto = JSON.parse(JSON.stringify(D));
+const fl = finto.MATERIALI.materiali.find(m => m.id === 'legno');
+fl.vendita.attivo = true; fl.vendita.varianti[0].prezzo = 12.5; fl.vendita.varianti[1].prezzo = 18;
+check('con prezzi e interruttore acceso diventa vendibile', LAB.inVendita(fl));
+check('daPrezzo prende il minimo', LAB.daPrezzo(fl) === 12.5);
+check('le opzioni si ricavano dalle varianti', LAB.opzioni(fl).spessore.length >= 2);
+/* L'interruttore conta quanto i prezzi: si pubblica quando si è pronti. */
+const spento = JSON.parse(JSON.stringify(fl)); spento.vendita.attivo = false;
+check('con l\'interruttore spento non è vendibile, anche con i prezzi', !LAB.inVendita(spento));
+
+console.log('\n=== FILTRI E RICERCA (§8, §32) ===');
+const es = [['plexiglass trasparente', 'plexiglass'], ['legno 3 mm', 'legno'],
+  ['materiale per co2', 'legno'], ['metallo per incisione', 'metallo'], ['acciaio inox', 'metallo']];
+for (const [q, atteso] of es) {
+  check(`"${q}" trova ${atteso}`, LAB.filtra(D, { q }).some(m => m.id === atteso),
+    LAB.filtra(D, { q }).map(m => m.id).join(',') || 'nessuno');
+}
+/* «CO₂» si scrive col pedice e si cerca «co2»: senza normalizzare, la
+   ricerca più ovvia del sito non trovava niente. */
+check('il pedice di CO₂ non impedisce la ricerca', LAB.filtra(D, { q: 'co2' }).length > 0);
+check('filtro per tecnologia', LAB.filtra(D, { tecnologia: 'fiber' }).every(m => m.tech.includes('fiber')));
+check('filtro per spessore', LAB.filtra(D, { spessore: '3 mm' }).length > 0);
+check('la ricerca trasversale trova la macchina p3', LAB.cerca(D, 'p3')[0].tipo === 'macchina');
+check('e porta anche ai materiali che lavora', LAB.cerca(D, 'p3').some(r => r.tipo === 'materiale'));
+check('una query troppo corta non restituisce tutto', LAB.cerca(D, 'a').length === 0);
+
+console.log('\n=== ACADEMY ===');
+check('l\'Academy è accesa', LAB.academyAttiva(D));
+/* Vuota di proposito: un corso ha durata, programma e prezzo che decide chi
+   lo eroga. Inventarli vuol dire pubblicare un\'offerta che non esiste. */
+check('nessun corso inventato', LAB.corsi(D).length === 0);
+const conCorso = JSON.parse(JSON.stringify(D));
+conCorso.CORSI.corsi = [{ id: 'p3-base', n: { it: 'Corso P3' }, sommario: { it: 'x' },
+  macchina: 'p3', tecnologia: 'co2', prezzo: 180, stato: 'pubblicato' },
+  { id: 'bozza', n: { it: 'Bozza' }, stato: 'bozza' }];
+check('un corso pubblicato compare', LAB.corsi(conCorso).length === 1);
+check('una bozza non compare', !LAB.corsi(conCorso).some(c => c.id === 'bozza'));
+check('un corso si trova dalla sua macchina', LAB.corsiDiMacchina(conCorso, 'p3').length === 1);
+check('e dalla sua tecnologia', LAB.corsiDiTecnologia(conCorso, 'co2').length === 1);
+check('un corso pubblicato genera la sua pagina',
+  LAB.elencoPagine(conCorso).some(v => v.file === 'academy/p3-base/index.html'));
+
+console.log('\n=== CATALOGO MACCHINE ===');
+check('il catalogo ha più modelli delle macchine possedute',
+  LAB.catalogo(D).length > LAB.inOfficina(D).length);
+check('solo le macchine davvero in officina sono provabili',
+  LAB.macchineDaProvare(D).every(m => m.inOfficina));
+/* Siamo centro assistenza ufficiale: vale su tutta la gamma, anche su quello
+   che non abbiamo. Ma le specifiche che non abbiamo verificato restano
+   dichiarate come tali invece di essere riempite con numeri plausibili. */
+check('l\'assistenza vale su tutta la gamma', LAB.catalogo(D).every(m => m.assistenza === true));
+check('le schede senza specifiche verificate lo dichiarano',
+  LAB.catalogo(D).filter(m => !m.inOfficina).every(m => m.daCompletare === true));
+check('nessuna specifica inventata sulle macchine non possedute',
+  LAB.catalogo(D).filter(m => m.daCompletare).every(m => !m.specs || !Object.keys(m.specs).length));
+check('una macchina porta alle sue tecnologie',
+  LAB.tecnologieDiModello(D, LAB.modello(D, 'p3')).some(t => t.id === 'co2'));
+check('e ai materiali che quelle tecnologie lavorano',
+  LAB.materialiDiModello(D, LAB.modello(D, 'p3')).length > 0);
+
+console.log('\n=== DEMO ===');
+const dm = LAB.demo(D);
+check('la demo è accesa e gratuita', dm.attiva && dm.gratuita);
+/* Il punto di tutto il blocco: senza link NON si finge un calendario. */
+check('senza link configurato non è prenotabile', !dm.prenotabile && dm.motivo === 'nessun link configurato');
+check('e non si inventa un indirizzo', dm.url === '');
+const conLink = JSON.parse(JSON.stringify(D));
+conLink.CONFIG.demo.bookingUrl = 'https://calendly.com/ingly/demo';
+check('con un link valido diventa prenotabile', LAB.demo(conLink).prenotabile);
+const rotto = JSON.parse(JSON.stringify(D));
+rotto.CONFIG.demo.bookingUrl = 'prenota-qui';
+check('un link malformato non viene accettato', !LAB.demo(rotto).prenotabile,
+  'un bottone che non porta da nessuna parte è peggio di un bottone che non c\'è');
+const spentaDemo = JSON.parse(JSON.stringify(conLink));
+spentaDemo.CONFIG.demo.attiva = false;
+check('spenta resta spenta anche con il link', !LAB.demo(spentaDemo).prenotabile);
+check('WhatsApp va bene come prenotazione',
+  LAB.demo({ CONFIG: { demo: { attiva: true, bookingUrl: 'https://wa.me/393296904627' } } }).prenotabile);
+
+console.log('\n=== PAGINE GENERATE ===');
+const pag = LAB.elencoPagine(D);
+for (const f of ['materiali/index.html', 'macchine/index.html', 'demo/index.html', 'macchine/p3/index.html'])
+  check('viene generata ' + f, pag.some(v => v.file === f));
+check('l\'Academy senza corsi genera comunque la sua pagina', pag.some(v => v.file === 'academy/index.html'));
+check('ogni modello del catalogo ha la sua pagina',
+  LAB.catalogo(D).every(m => pag.some(v => v.file === 'macchine/' + m.id + '/index.html')));
+
+console.log('\n=== CORPI STATICI ===');
+const cm = LAB.corpoMacchina(D, LAB.modello(D, 'p3'), { base: '' });
+check('la scheda macchina ha un h1 e del testo', /<h1>/.test(cm) && cm.length > 200);
+check('una macchina non posseduta dichiara l\'assistenza',
+  /assistenza/i.test(LAB.corpoMacchina(D, LAB.modello(D, 'm1'), { base: '' })));
+const cd = LAB.corpoDemo(D, { base: '' });
+check('la pagina demo ha un h1 e nomina le macchine provabili',
+  /<h1>/.test(cd) && /P3/.test(cd));
+check('lo schema di un corso è Course, non Product',
+  LAB.schemaCorso(conCorso, LAB.corsi(conCorso)[0], { base: '' })[0]['@type'] === 'Course');
+check('lo schema di una macchina non la dichiara in vendita',
+  LAB.schemaMacchina(D, LAB.modello(D, 'p3'), { base: '' })[0]['@type'] === 'Article');
+
 console.log(`\n=========== LAB: ${pass} passati, ${fail} falliti ===========\n`);
 process.exit(fail ? 1 : 0);

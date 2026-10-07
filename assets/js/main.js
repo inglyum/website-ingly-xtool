@@ -393,11 +393,16 @@ const escHtml = t => String(t == null ? '' : t)
    la decide l'indirizzo, come per i settori Business. */
 function renderLab(){
   try{
+    LABUI.renderFiltriMateriali(L);
     LABUI.renderMateriali(L);
     LABUI.renderTecnologie(L);
     LABUI.renderMacchine(L);
+    LABUI.renderCorsi(L);
+    LABUI.renderDemo(L);
     LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
     LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
+    LABUI.renderMacchina(currentScheda('macchine'),L,p=>prod.card(p));
+    LABUI.renderCorso(currentScheda('academy'),L);
   }catch(err){
     /* Il Lab è una sezione in più: se i suoi dati mancano o sono malformati
        non deve portarsi dietro il resto del sito. */
@@ -649,6 +654,8 @@ document.addEventListener('ingly:pagina',e=>{
      l'indirizzo decide, non un bottone. */
   if(e.detail && e.detail.pagina==='materiali') LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
   if(e.detail && e.detail.pagina==='tecnologie') LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
+  if(e.detail && e.detail.pagina==='macchine') LABUI.renderMacchina(currentScheda('macchine'),L,p=>prod.card(p));
+  if(e.detail && e.detail.pagina==='academy') LABUI.renderCorso(currentScheda('academy'),L);
 });
 
 /* Il blocco pre-scritto ha fatto il suo lavoro (farsi leggere dai crawler):

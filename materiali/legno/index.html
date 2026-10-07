@@ -217,6 +217,8 @@ setTimeout(function(){
       <a href="/shop" data-nav="shop"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
       <a href="/materiali" data-nav="materiali"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
       <a href="/tecnologie" data-nav="tecnologie"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
+      <a href="/macchine" data-nav="macchine"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Macchine</a>
+      <a href="/academy" data-nav="academy"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
       <a href="/digital" data-nav="digital"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
       <a href="/business" data-nav="business"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
       <a href="/portfolio" data-nav="portfolio"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
@@ -239,6 +241,8 @@ setTimeout(function(){
   <a href="/materiali" data-nav="materiali" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
   <a href="/tecnologie" data-nav="tecnologie" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
   <a href="/macchine" data-nav="macchine" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Macchine</a>
+  <a href="/academy" data-nav="academy" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
+  <a href="/demo" data-nav="demo" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Demo gratuita</a>
   <a href="/digital" data-nav="digital" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
   <a href="/business" data-nav="business" class="dly25"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
   <a href="/portfolio" data-nav="portfolio" class="dly3"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
@@ -524,6 +528,7 @@ setTimeout(function(){
     <span class="eyebrow">Material Lab</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Ogni materiale<br>si comporta <span class="hl on">a modo suo.</span></h1>
     <p class="sub">Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati. Perché scegliere il materiale è la prima decisione di progetto, non l&#39;ultima.</p>
+    <div id="labMatFiltri"></div>
     <div id="labMatGrid"></div>
     <div id="labTrova"></div>
   </div>
@@ -550,6 +555,30 @@ setTimeout(function(){
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Il parco macchine,<br>senza <span class="hl on">giri di parole.</span></h1>
     <p class="sub">Cosa c&#39;è in officina, cosa fa ciascuna, cosa si sblocca mettendole insieme — e l&#39;elenco onesto di quello che non lavoriamo e perché.</p>
     <div id="labMacGrid"></div>
+  </div>
+  <!-- riempita quando l'indirizzo è /macchine/<id> -->
+  <div class="wrap" id="macPage" hidden></div>
+</section>
+
+<!-- INGLY ACADEMY -->
+<section class="page" id="page-academy">
+  <div class="wrap phero">
+    <span class="eyebrow">INGLY Academy</span>
+    <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Imparare a usarle,<br>non solo a <span class="hl on">comprarle.</span></h1>
+    <p class="sub">Le stesse macchine con cui produciamo tutti i giorni, insegnate da chi ci lavora. In officina a Cesena o collegati, su una macchina sola o su tutto il flusso di lavoro.</p>
+    <div id="labCorsiGrid"></div>
+  </div>
+  <!-- riempita quando l'indirizzo è /academy/<id> -->
+  <div class="wrap" id="corsoPage" hidden></div>
+</section>
+
+<!-- DEMO GRATUITA -->
+<section class="page" id="page-demo">
+  <div class="wrap phero">
+    <span class="eyebrow">Demo gratuita</span>
+    <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Vedila lavorare,<br>poi <span class="hl on">decidi.</span></h1>
+    <p class="sub">Un&#39;ora in officina con la macchina accesa: porti un&#39;idea o un pezzo, si prova davvero, e alla fine sai se fa al caso tuo. Non si vende niente in quell&#39;ora.</p>
+    <div id="labDemo"></div>
   </div>
 </section>
 

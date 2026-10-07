@@ -1,0 +1,8 @@
+# Questo è il repository di EVOLUZIONE di INGLY DESIGN, non il sito in
+# produzione. Finché non viene promosso, non deve essere indicizzato:
+# avrebbe gli stessi contenuti del sito vivo e gli farebbe concorrenza
+# nei risultati di ricerca.
+# Per metterlo online: togliere le due righe qui sotto e rimettere la
+# Sitemap con il dominio definitivo.
+User-agent: *
+Disallow: /

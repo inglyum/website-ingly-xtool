@@ -1,0 +1,275 @@
+/* ============ IMMERSIVE THEME SKIN ============
+   Pelle scura del sito: carica DOPO components. */
+
+/* ============ INGLY IMMERSIVE THEME ============ */
+
+body{background:radial-gradient(ellipse at 50% 0%, #131a33 0%, #0a0d18 55%) fixed;color:var(--ink)}
+:root[data-mode="light"] body{background:radial-gradient(ellipse at 50% 0%, #ffffff 0%, #eef1f7 60%) fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(59,125,224,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,125,224,.05) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 80%)}
+main,footer,.topbar,.nav{position:relative;z-index:2}
+canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:1}
+h1,h2,h3,.pp-info h1{font-style:italic;letter-spacing:-.01em}
+h1,h2{font-weight:900}
+.btn,.tab,.chip,.pill{font-style:italic}
+.eyebrow{color:#8fa6d9}
+.eyebrow::before{background:linear-gradient(90deg,var(--laser),var(--spark),var(--blue))}
+::selection{background:var(--laser);color:#0a0d18}
+
+/* nav & topbar */
+.topbar{background:var(--bg-deep,#070a14);border-bottom:1px solid rgba(140,160,220,.08)}
+.nav.scrolled{background:var(--glass-dark,rgba(10,13,24,.72));box-shadow:0 1px 0 var(--line),0 14px 40px rgba(0,0,0,.5)}
+.nav-links a:hover,.nav-links a.active{background:rgba(59,125,224,.14)}
+.icon-btn:hover{background:rgba(59,125,224,.14)}
+.brand img{filter:drop-shadow(0 0 10px rgba(59,125,224,.55))}
+.mobile-menu{background:var(--bg-deep,#070a14)}
+
+/* buttons */
+.btn-primary{background:linear-gradient(135deg,#4a89ea,#2b5fc0);color:#fff;box-shadow:0 8px 30px rgba(59,125,224,.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-primary:hover{background:linear-gradient(135deg,#5a95f0,#3b6fd0);box-shadow:0 14px 44px rgba(59,125,224,.55)}
+.btn-ghost{border-color:rgba(140,160,220,.35);background:rgba(18,22,42,.5);backdrop-filter:blur(8px)}
+.btn-ghost:hover{border-color:var(--laser);color:var(--laser)}
+.btn-blue{box-shadow:0 8px 30px rgba(59,125,224,.35)}
+
+/* dark sections & bands */
+.dark,.mobile-menu{background:#0d1124;color:var(--ink)}
+.dark{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.news,.cta-band{background:linear-gradient(160deg,#111737,#0b0f22);border:1px solid rgba(90,120,200,.25);box-shadow:0 0 80px rgba(59,125,224,.12) inset}
+footer{background:var(--bg-deep,#070a14);border-top:1px solid rgba(140,160,220,.08)}
+.toast{background:var(--white);border:1px solid rgba(90,120,200,.4);box-shadow:0 0 30px rgba(59,125,224,.35)}
+.watermark{color:rgba(140,170,240,.05);font-style:italic}
+
+/* hero */
+.hero-tag{background:rgba(18,22,42,.6);border-color:rgba(140,160,220,.25)}
+.blob.b1{background:rgba(59,125,224,.18)}
+.blob.b2{background:rgba(245,217,78,.10)}
+.grid-lines{opacity:.35}
+.fcard{background:var(--card-glass,rgba(17,21,39,.72));border-color:rgba(140,160,220,.28);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 30px rgba(59,125,224,.08)}
+.fcard p{color:var(--ink-soft)}
+.scroll-cue{color:var(--ink-soft)}
+.scroll-cue::after{background:linear-gradient(var(--ink-soft),transparent)}
+
+/* H1 hero — gradient text animato */
+/* TITOLO DELLA HERO — niente gradiente ritagliato sul testo.
+   Qui c'era «background-clip:text» + «-webkit-text-fill-color:transparent»:
+   il colore delle lettere veniva dal gradiente dell'H1, ritagliato sulle
+   lettere stesse. Ma ogni parola del titolo è dentro uno span animato
+   (animation:wordup, con transform), e un elemento trasformato viene disegnato
+   su un livello suo: il gradiente dell'H1 non lo raggiunge, le lettere restano
+   con riempimento trasparente e IL TITOLO SPARISCE — in chiaro e in scuro.
+   Il titolo torna a usare il colore del testo, come sul sito in produzione.
+   La parola incisa resta blu, disegnata da .engrave .fill. */
+#heroH1{color:var(--ink)}
+
+/* laser ring attorno all'hero visual */
+.hero-visual::before,.hero-visual::after{content:'';position:absolute;border-radius:50%;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%)}
+.hero-visual::before{width:88%;aspect-ratio:1;border:1.5px dashed rgba(59,125,224,.28);animation:spinc 32s linear infinite}
+.hero-visual::after{width:108%;aspect-ratio:1;border:1px dashed rgba(245,217,78,.14);animation:spinc 55s linear infinite reverse}
+
+/* fcard glow intensificato */
+.fc1{filter:drop-shadow(0 0 20px rgba(59,125,224,.25))}
+.fc2{filter:drop-shadow(0 0 20px rgba(245,217,78,.2))}
+.fc3{filter:drop-shadow(0 0 16px rgba(255,138,60,.18))}
+
+/* coin logo (from ingly-logo-animato) */
+.coin-scene{position:absolute;inset:0;display:grid;place-items:center;transform-style:preserve-3d;perspective:1100px}
+.cring{position:absolute;border-radius:50%;pointer-events:none;left:50%;top:50%;transform:translate(-50%,-50%)}
+.cring.r1{width:118%;aspect-ratio:1;border:2px dashed rgba(59,125,224,.35);animation:spinc 40s linear infinite}
+.cring.r2{width:138%;aspect-ratio:1;border:1.5px dashed rgba(245,217,78,.18);animation:spinc 70s linear infinite reverse}
+
+.coin{width:min(360px,72%);transition:transform .25s ease-out;transform-style:preserve-3d;animation:fluttua 6.5s ease-in-out infinite;cursor:pointer}
+
+.coin img{width:100%;animation:respiro 4.2s ease-in-out infinite}
+
+.fc1{top:2%;left:0}.fc2{top:56%;right:-2%}.fc3{bottom:-4%;left:6%}
+.fcard{z-index:3}
+
+/* laser sweep */
+.laserfx{position:fixed;top:50%;left:-30%;width:160%;height:2px;pointer-events:none;z-index:1;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(200,220,255,.9) 45%,var(--blue) 50%,rgba(200,220,255,.9) 55%,transparent);
+  box-shadow:0 0 18px rgba(59,125,224,.9),0 0 60px rgba(59,125,224,.5);
+  transform:rotate(-14deg) translateX(-120vw);animation:sweepfx 11s ease-in-out infinite}
+
+
+/* cards: 3D-ready */
+.pcard,.bcard,.dcard,.rcard,.counter,.matcard{will-change:transform;transform-style:preserve-3d;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.pcard:hover,.dcard:hover{box-shadow:0 28px 70px rgba(0,0,0,.65),0 0 50px rgba(59,125,224,.18);border-color:rgba(90,140,230,.55);transform:translateY(-4px)}
+.bcard:hover{box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 34px rgba(59,125,224,.12);transform:translateY(-3px)}
+.pcard .pimg::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 48%,transparent 62%);transform:translateX(-120%);transition:transform .7s var(--ease);pointer-events:none}
+.pcard:hover .pimg::after{transform:translateX(130%)}
+.ptag{background:var(--glass-dark,rgba(10,13,24,.75));color:#eef1fb;backdrop-filter:blur(8px)}
+.ptag.y{animation:glowPulse 2.5s ease-in-out infinite}
+.ptag.y{background:var(--laser);color:#0a0d18}.ptag.b{background:var(--blue);color:#fff}
+.wish{background:var(--glass-dark,rgba(10,13,24,.72))}.wish svg{stroke:#eef1fb}
+.qadd{background:linear-gradient(135deg,#4a89ea,#2b5fc0);color:#fff}
+.mcard{background:linear-gradient(135deg,#0f1428 0%,#131c3a 100%);border-color:rgba(90,120,200,.28)}
+.mcard:hover{border-color:rgba(120,160,255,.55);box-shadow:0 0 50px rgba(59,125,224,.22),0 0 0 1px rgba(120,160,255,.15) inset}
+.mcard .spec i{border-color:rgba(140,160,220,.3);color:#b9c2e6;background:rgba(120,150,255,.06)}
+.mcard p{color:#9aa3c7}
+.step .n{background:var(--white);border-color:rgba(140,160,220,.3)}
+.step:hover .n{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 0 26px rgba(59,125,224,.6)}
+.nform input{background:rgba(255,255,255,.06);border-color:rgba(140,160,220,.25)}
+.searchbar:focus-within,.txtin:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(59,125,224,.18),0 0 22px rgba(59,125,224,.15)}
+.fitem.open .pl{background:var(--laser);color:#0a0d18}
+.rcard .q{color:#cdd4ef}
+.gtile .lbl{background:var(--glass-dark,rgba(10,13,24,.78));color:#eef1fb}
+.preview-txt{color:rgba(20,20,32,.78)}
+.pp-main{box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 60px rgba(59,125,224,.1)}
+.pp-main .bstamp{background:var(--glass-dark,rgba(10,13,24,.75));color:#eef1fb}
+.crumb a:hover{color:var(--laser)}
+.dr-note,.rescount{color:var(--ink-soft)}
+.drawer{box-shadow:-30px 0 80px rgba(0,0,0,.7);border-left:1px solid var(--line)}
+.glow{background:radial-gradient(circle,rgba(59,125,224,.14),transparent 65%)}
+.about-art{background:linear-gradient(150deg,#131a33,#0d1124);border:1px solid var(--line)}
+.logo-strip{opacity:.4}
+
+.pimgph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.ppdesc{color:var(--ink-soft);font-size:15px;margin-top:12px;max-width:52ch}
+/* loader */
+.loader{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#131a33,#070a14);z-index:200;display:grid;place-items:center;transition:opacity .8s var(--ease),visibility .8s}
+.loader.off{opacity:0;visibility:hidden}
+.loader .lin{display:flex;flex-direction:column;align-items:center;gap:22px}
+.loader img{width:130px;filter:drop-shadow(0 0 30px rgba(59,125,224,.6));animation:respiro 2.4s ease-in-out infinite}
+.loader .lbar{width:180px;height:2px;background:rgba(140,160,220,.2);border-radius:2px;overflow:hidden}
+.loader .lbar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--blue),var(--laser));border-radius:2px;animation:lload 1.2s var(--ease) infinite}
+
+.loader span{font-family:var(--fd);font-style:italic;font-size:12px;letter-spacing:.34em;color:#8fa6d9;text-transform:uppercase}
+
+/* shop pro */
+.sortsel{background:var(--white);border:1.5px solid var(--line);border-radius:100px;color:var(--ink);font-family:var(--fd);font-style:italic;font-weight:600;font-size:13.5px;padding:11px 18px;outline:none;cursor:pointer}
+.rv-wrap{margin-top:22px;display:none}
+.rv-wrap.show{display:block}
+.rv-wrap h5{font-family:var(--fd);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.rv-strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px}
+.rv-it{flex:0 0 auto;display:flex;gap:10px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:8px 14px 8px 8px;cursor:pointer;transition:.3s}
+.rv-it:hover{border-color:var(--blue);transform:translateY(-3px)}
+.rv-it .ri{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:19px}
+.rv-it b{font-family:var(--fd);font-size:12.5px;font-style:italic;white-space:nowrap}
+.rv-it span{font-size:11.5px;color:var(--ink-soft)}
+
+/* sticky buy bar (mobile product) */
+.stickybuy{position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(10,13,24,.85);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;gap:14px;transform:translateY(110%);transition:transform .5s var(--ease)}
+body.on-product .stickybuy{transform:none}
+.stickybuy .sb-i b{font-family:var(--fd);font-style:italic;font-size:17px;display:block}
+.stickybuy .sb-i span{font-size:11.5px;color:var(--ink-soft);display:block;max-width:38vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stickybuy .btn{flex:1;justify-content:center;padding:13px 20px}
+@media(max-width:940px){.stickybuy{display:flex}}
+
+
+/* ================== PAGINE DI SETTORE (B2B) ================== */
+.vert-tit{font-family:var(--fd);font-size:clamp(1.3rem,2.6vw,1.75rem);font-weight:700;
+ letter-spacing:-.02em;margin:56px 0 18px}
+.vert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.vert-card{display:flex;flex-direction:column;gap:7px;padding:22px;border-radius:18px;
+ border:1px solid var(--line);background:var(--card-glass);transition:transform .5s var(--ease),border-color .3s}
+.vert-card:hover{transform:translateY(-5px);border-color:var(--blue)}
+.vert-ic{font-size:26px;line-height:1}
+.vert-card b{font-family:var(--fd);font-size:16.5px;line-height:1.25}
+.vert-sub{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+.vert-go{font-family:var(--fd);font-size:13.5px;font-weight:600;color:var(--blue);margin-top:4px}
+.vert-card:hover .arr{transform:translateX(4px);display:inline-block;transition:transform .35s var(--ease)}
+.vert-back{margin-bottom:20px}
+.vert-back a{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--ink-soft)}
+.vert-back a:hover{color:var(--ink)}
+.vert-intro{max-width:62ch;color:var(--ink-soft);line-height:var(--lh-base);margin:18px 0 6px}
+#vertPage{padding-top:120px}
+#vertPage[hidden]{display:none}
+
+/* ================== SFONDI SELEZIONABILI ==================
+   Tre per tema. Il predefinito è quello di sempre: senza scelta, o con una
+   scelta che non esiste più, il sito resta identico a com'era.
+
+   Prima versione: le intensità erano così basse (.10–.20) che cambiando
+   sfondo non si notava niente — un'opzione che non si vede è un'opzione che
+   non c'è. Qui i valori sono quelli che si riconoscono a colpo d'occhio,
+   tenendo il testo leggibile: nel tema scuro le luci restano sotto al testo
+   chiaro, nel chiaro sono tinte tenui perché basta pochissimo per rendere
+   faticosa la lettura su carta.
+
+   Lo strato vive su body::after, con z-index 0 — NON negativo, ed è il punto
+   che ha fatto perdere la prima versione: `html` ha uno sfondo suo
+   (components.css: html{background-color:var(--paper)}), quindi il fondo del
+   body non si propaga al canvas ma viene disegnato come sfondo del body. Uno
+   strato a z-index -1 finisce dietro a quel fondo e non si vede: una prova
+   con rosso pieno al 90% risultava invisibile.
+   Con z-index 0 lo strato sta sopra al fondo e sotto al contenuto, che è già
+   a z-index 2 (main, nav, footer, topbar). È lo stesso valore che usa
+   body::before per la griglia — che infatti si è sempre vista.
+   pointer-events:none: non può intercettare un clic.
+
+   Nessuna libreria: niente WebGL, niente three.js, nessuna richiesta a server
+   esterni. Sono gradienti che si spostano, disegnati dalla scheda grafica
+   senza far girare JavaScript. */
+body::after{content:none}
+:root[data-sfondo-scuro]:not([data-sfondo-scuro="default"]) body::after,
+:root[data-sfondo-chiaro]:not([data-sfondo-chiaro="default"]) body::after{
+  content:"";position:fixed;inset:-25%;z-index:0;pointer-events:none;
+  background-repeat:no-repeat}
+/* lo strato serve al tema a cui appartiene, non all'altro */
+:root[data-mode="light"][data-sfondo-chiaro="default"] body::after,
+:root[data-mode="dark"][data-sfondo-scuro="default"] body::after,
+:root:not([data-mode="light"])[data-sfondo-scuro="default"] body::after{content:none}
+
+/* ---------- TEMA SCURO ---------- */
+/* Aurora: veli di luce che scorrono in diagonale. */
+:root[data-mode="dark"][data-sfondo-scuro="aurora"] body::after,
+:root:not([data-mode="light"])[data-sfondo-scuro="aurora"] body::after{
+  background-image:
+    radial-gradient(ellipse 65% 42% at 22% 22%, rgba(59,125,224,.58), transparent 66%),
+    radial-gradient(ellipse 58% 38% at 80% 68%, rgba(128,72,214,.50), transparent 64%),
+    radial-gradient(ellipse 52% 34% at 52%  8%, rgba(56,208,182,.34), transparent 62%),
+    radial-gradient(ellipse 46% 30% at 12% 88%, rgba(88,150,255,.30), transparent 60%);
+  animation:sfAurora 26s ease-in-out infinite alternate}
+@keyframes sfAurora{
+  0%  {transform:translate3d(-5%,-3%,0) scale(1)}
+  50% {transform:translate3d(3%,4%,0)   scale(1.14)}
+  100%{transform:translate3d(6%,-4%,0)  scale(1.06)}}
+
+/* Nebbia: banchi che respirano, illuminati dal basso. */
+:root[data-mode="dark"][data-sfondo-scuro="nebbia"] body::after,
+:root:not([data-mode="light"])[data-sfondo-scuro="nebbia"] body::after{
+  background-image:
+    radial-gradient(ellipse 95% 48% at 50% 102%, rgba(92,146,238,.62), transparent 68%),
+    radial-gradient(ellipse 62% 34% at 18% 80%,  rgba(160,182,255,.38), transparent 64%),
+    radial-gradient(ellipse 58% 32% at 84% 86%,  rgba(64,110,200,.48), transparent 62%),
+    radial-gradient(ellipse 70% 26% at 50% 20%,  rgba(120,150,220,.20), transparent 66%);
+  animation:sfNebbia 22s ease-in-out infinite alternate}
+@keyframes sfNebbia{
+  0%  {transform:translate3d(-6%,2%,0) scale(1.06);opacity:.8}
+  100%{transform:translate3d(6%,-3%,0) scale(1.2);opacity:1}}
+
+/* ---------- TEMA CHIARO ----------
+   Valori più bassi che nello scuro: su carta basta pochissimo per rendere un
+   testo faticoso, e il testo qui è scuro su fondo chiaro. */
+:root[data-mode="light"][data-sfondo-chiaro="alba"] body::after{
+  background-image:
+    radial-gradient(ellipse 70% 42% at 18% 10%, rgba(255,176,86,.52), transparent 64%),
+    radial-gradient(ellipse 60% 38% at 86% 24%, rgba(255,124,150,.42), transparent 62%),
+    radial-gradient(ellipse 66% 42% at 56% 98%, rgba(122,170,255,.40), transparent 64%),
+    radial-gradient(ellipse 44% 28% at 34% 58%, rgba(255,214,140,.28), transparent 60%);
+  animation:sfAlba 24s ease-in-out infinite alternate}
+@keyframes sfAlba{
+  0%  {transform:translate3d(-4%,-3%,0) scale(1)}
+  100%{transform:translate3d(5%,3%,0)   scale(1.14)}}
+
+:root[data-mode="light"][data-sfondo-chiaro="nuvole"] body::after{
+  background-image:
+    radial-gradient(ellipse 50% 24% at 16% 18%, rgba(255,255,255,1),   transparent 62%),
+    radial-gradient(ellipse 42% 20% at 60% 10%, rgba(255,255,255,.96), transparent 60%),
+    radial-gradient(ellipse 56% 26% at 90% 34%, rgba(168,200,240,.62), transparent 62%),
+    radial-gradient(ellipse 64% 30% at 36% 84%, rgba(180,206,240,.58), transparent 64%),
+    linear-gradient(180deg, rgba(206,224,246,.55), transparent 45%);
+  animation:sfNuvole 40s linear infinite alternate}
+@keyframes sfNuvole{
+  0%  {transform:translate3d(-8%,0,0)  scale(1.04)}
+  100%{transform:translate3d(8%,-3%,0) scale(1.12)}}
+
+/* Chi ha chiesto meno animazioni le riceve ferme, non spente: lo sfondo
+   resta, smette solo di muoversi. */
+@media (prefers-reduced-motion:reduce){
+  body::after{animation:none!important}
+}
+/* In stampa uno sfondo colorato è solo inchiostro sprecato. */
+@media print{ body::after{display:none} }

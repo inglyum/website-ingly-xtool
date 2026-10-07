@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>INGLY DESIGN</title>
+<!-- GitHub Pages SPA — History API clean URL redirect
+     /shop        → encodes as /?p=/shop       → index.html decodes → history.replaceState('/shop')
+     /product?id=5 → /?p=/product&id=5         → index.html decodes → '/product?id=5'
+-->
+<script>
+(function(){
+  var loc=window.location;
+  var path=loc.pathname;
+  var search=loc.search;
+  // Se è un file con estensione (es. .js, .css, .webp) non fare redirect — è un 404 reale
+  if(/\.[a-zA-Z]{2,5}$/.test(path)) return;
+  // Su GitHub Pages un repository di sviluppo è servito in una sottocartella
+  // (inglyum.github.io/Il-sito-AI/…): quella cartella fa parte della base e va
+  // conservata, altrimenti il redirect finisce fuori dal sito.
+  // Riconoscimento deterministico: se il primo segmento NON è una pagina nota,
+  // allora è la cartella di installazione. Nessuna dipendenza dal dominio.
+  var PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote'];
+  var seg=path.replace(/^\/+/,'').split('/');
+  var base='/';
+  if(seg[0] && PAGES.indexOf(seg[0])===-1){ base='/'+seg[0]+'/'; seg=seg.slice(1); }
+  path='/'+seg.join('/');
+  // Rimuovi il trailing slash
+  path=path.replace(/\/$/,'') || '/';
+  // Encode il percorso come query param, poi redirect alla base
+  var dest=loc.origin+base+'?p='+encodeURIComponent(path)+(search?'&'+search.slice(1):'');
+  window.location.replace(dest);
+})();
+</script>
+</head>
+<body></body>
+</html>

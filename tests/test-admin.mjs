@@ -548,6 +548,28 @@ if (campoNome) {
 }
 closeAll();
 
+/* La riserva data/catalog.js viene rigenerata in DUE posti: scripts/build.mjs
+   quando si lavora da riga di comando, e admin.html quando si pubblica dal
+   pannello. Se divergono, pubblicare dall'Admin produce una riserva senza
+   una parte dei dati: il sito caricato dalla riserva mostra il menu e sezioni
+   vuote, e nessun errore avvisa nessuno. */
+{
+  const admin = readFileSync(ROOT + '/admin.html', 'utf8');
+  const build = readFileSync(ROOT + '/scripts/build.mjs', 'utf8');
+  const chiavi = ['MATERIALI', 'TECNOLOGIE', 'MACCHINE', 'CORSI'];
+  const mancanti = chiavi.filter(k => !(admin.includes(k + ':${jstr(S.') ));
+  check('la riserva rigenerata dall\'Admin contiene tutti i dataset',
+    mancanti.length === 0, mancanti.join(', '));
+  const inBuild = chiavi.filter(k => !build.includes(k + ':${JSON.stringify('));
+  check('e lo stesso vale per quella rigenerata da npm run build',
+    inBuild.length === 0, inBuild.join(', '));
+  const nelRegistro = chiavi.length;
+  check('i file del Lab sono nel registro dell\'Admin, quindi pubblicabili',
+    admin.includes("'materiali','tecnologie','macchine','corsi'"));
+  check('e l\'anteprima li passa al sito',
+    admin.includes('MATERIALI:S.MAT'));
+}
+
 console.log(`\n=========== RISULTATO: ${pass} passati, ${fail} falliti ===========`);
 if (errors.length) { console.log('\nErrori raccolti:'); errors.slice(0, 8).forEach(e => console.log(' - ' + e.slice(0, 200))); }
 process.exit(fail ? 1 : 0);

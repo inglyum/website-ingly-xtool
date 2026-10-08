@@ -15,7 +15,7 @@ coprire quella distanza.
 
 | File | Cosa contiene |
 |---|---|
-| `data/materiali.json` | 10 materiali: descrizione, spessori, finiture, usi, consigli, limiti, FAQ |
+| `data/materiali.json` | 9 materiali: descrizione, spessori, finiture, usi, consigli, limiti, FAQ |
 | `data/tecnologie.json` | 6 tecnologie: processo passo per passo, applicazioni, FAQ |
 | `data/macchine.json` | il parco macchine reale, le combinazioni, i materiali vietati |
 | `assets/js/lab.js` | il motore: funzioni pure, nessun DOM |

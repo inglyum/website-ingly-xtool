@@ -548,6 +548,21 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
     <div id="techList"></div>
   </section>
 
+  <!-- ============ LAB: MATERIALI, TECNOLOGIE, MACCHINE, CORSI ============ -->
+  <section class="view" id="v-lab">
+    <div class="searchrow">
+      <span class="hint">Le quattro sezioni del Lab. Qui si cambiano i testi, i prezzi dei materiali, i corsi e il link della demo: il sito li legge, non sono scritti nel codice.</span>
+    </div>
+    <div class="searchrow" id="labTabs" style="gap:6px">
+      <button class="btn sm pri" data-labtab="mat">🧱 Materiali</button>
+      <button class="btn sm" data-labtab="tec">⚡ Tecnologie</button>
+      <button class="btn sm" data-labtab="mac">🛠 Macchine</button>
+      <button class="btn sm" data-labtab="cor">🎓 Corsi</button>
+      <button class="btn sm" data-labtab="demo">📅 Demo gratuita</button>
+    </div>
+    <div id="labBody"></div>
+  </section>
+
   <!-- ============ SOCIAL HUB ============ -->
   <section class="view" id="v-sochub">
     <div class="searchrow">
@@ -1043,9 +1058,14 @@ function ghErrHint(e){const m=String(e.message||e);
  return m}
 
 /* ---------- stato ---------- */
-const FILES=['config','texts','social','products','categories','content'];
-const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',content:'C'};
-const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null};
+/* I quattro file del Lab entrano nel registro esistente: così il motore
+   che già carica, confronta e pubblica li tratta come tutti gli altri.
+   Un secondo CMS accanto a questo avrebbe significato due pubblicazioni,
+   due cronologie e due modi di sbagliare. */
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi'];
+const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',content:'C',
+  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR'};
+const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null};
 let SNAP={},MEDIA=[],REPO_IMG=null,LOADED_FROM='',BOOTED=false,DATA_OK=false,MISSING=[],LOAD_LOG=[];
 const jstr=o=>JSON.stringify(o);
 function changedFiles(){const out=[];for(const f of FILES){if(S[KEY[f]]&&SNAP[f]!==undefined&&jstr(S[KEY[f]])!==SNAP[f])out.push(f)}return out}
@@ -1368,7 +1388,12 @@ function genLegacy(){return{
  'data/config.js':`/* GENERATO dai JSON — non modificare a mano */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.CONFIG=${jstr(S.CONFIG)};\n`,
  'data/i18n.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.D=${jstr(S.D)};\n`,
  'data/socials.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.SOCIALS=${jstr(S.SOCIALS)};\n`,
- 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)}});\n`}}
+ /* La riserva deve contenere ANCHE il Lab. Senza, pubblicando dall'Admin
+    il file rigenerato usciva senza materiali, tecnologie, macchine e corsi:
+    chi carica il sito dalla riserva — su file:// o quando i JSON non
+    arrivano — avrebbe trovato il menu che porta a sezioni vuote, senza un
+    errore da nessuna parte. */
+ 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})}});\n`}}
 
 /* ---------- binding automatico dei form ---------- */
 function getPath(obj,path){return path.split('.').reduce((o,k)=>o&&o[k],obj)}
@@ -1398,7 +1423,7 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
 /* ---------- navigazione ---------- */
 const NAV=[['Panoramica',[['dash','📊','Dashboard']]],
  ['Catalogo',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['dig','💾','Digitali'],['prezzi','🏷','Prezzi in vetrina']]],
- ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
+ ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
  ['Configurazione',[['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['bg','🎨','Sfondo Sito'],['set','⚙️','Impostazioni']]],
  ['Sistema',[['pub','🚀','Pubblica & Deploy'],['hist','🕘','Cronologia'],['health','🩺','Health Center'],['backup','💾','Backup']]]];
 const TITLES={};let VIEW='dash';
@@ -1408,14 +1433,15 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
 /* ANTEPRIMA: apre il sito reale usando i dati in bozza (sessionStorage, solo per te) */
 $('goPrev').onclick=()=>{
  try{
-  const payload=Object.assign({CONFIG:S.CONFIG,D:S.D,SOCIALS:S.SOCIALS,P:S.P,CATS:S.CATS},S.C);
+  const payload=Object.assign({CONFIG:S.CONFIG,D:S.D,SOCIALS:S.SOCIALS,P:S.P,CATS:S.CATS,
+    MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR},S.C);
   sessionStorage.setItem('__INGLY_PREVIEW__',JSON.stringify(payload));
   const base=location.pathname.replace(/admin\.html?$/,'').replace(/admin\/?$/,'');
   const w=window.open(base+'index.html?__preview=1#/home','_ingly_preview');
@@ -3307,6 +3333,212 @@ function renderTech(){const T=(S.C.TECH=S.C.TECH||[]);
  document.querySelectorAll('[data-tcm]').forEach(b=>b.onclick=()=>{const[i,d]=b.dataset.tcm.split(',').map(Number);const j=i+d;if(j<0||j>=S.C.TECH.length)return;[S.C.TECH[i],S.C.TECH[j]]=[S.C.TECH[j],S.C.TECH[i]];markDirty();renderTech()});
  document.querySelectorAll('[data-tcx]').forEach(b=>b.onclick=()=>{if(confirm('Eliminare la tecnologia?')){S.C.TECH.splice(+b.dataset.tcx,1);markDirty();renderTech()}})}
 $('techNew').onclick=()=>{S.C.TECH.push({t:'LASER',n:'Nuova tecnologia',d:{it:'Descrizione.',en:'Description.'},s:['spec 1','spec 2']});markDirty();renderTech()};
+
+/* ================== LAB: MATERIALI · TECNOLOGIE · MACCHINE · CORSI ==================
+   Quattro dataset nuovi, un solo pannello. Non duplica niente: usa lo stesso
+   stato, lo stesso markDirty(), la stessa anteprima e lo stesso motore di
+   pubblicazione di tutte le altre sezioni.
+
+   La regola che vale dappertutto qui: un campo vuoto resta vuoto. Un prezzo
+   non inserito è «su richiesta» sul sito, non zero; un corso senza programma
+   resta in bozza; un link di prenotazione vuoto non diventa un calendario
+   finto. L'Admin non riempie i buchi al posto di chi scrive. */
+
+let LABTAB='mat';
+const labL=(o,k)=>((o&&o[k])||'');
+
+function renderLab(){
+ document.querySelectorAll('[data-labtab]').forEach(b=>b.classList.toggle('pri',b.dataset.labtab===LABTAB));
+ const B=$('labBody');
+ if(!S.MAT||!S.TEC||!S.MAC){B.innerHTML='<div class="card hint">I file del Lab non sono stati caricati. Controlla data/materiali.json, tecnologie.json e macchine.json.</div>';return}
+ if(LABTAB==='mat')return labMateriali(B);
+ if(LABTAB==='tec')return labTecnologie(B);
+ if(LABTAB==='mac')return labMacchine(B);
+ if(LABTAB==='cor')return labCorsi(B);
+ if(LABTAB==='demo')return labDemo(B);
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-labtab]');if(!b)return;LABTAB=b.dataset.labtab;renderLab()});
+
+/* ---- materiali: testi, e soprattutto i prezzi delle varianti ---- */
+function labMateriali(B){
+ const L=(S.MAT.materiali=S.MAT.materiali||[]);
+ B.innerHTML=L.map((m,i)=>{
+  const v=m.vendita||{varianti:[]};
+  const conPrezzo=(v.varianti||[]).filter(x=>x.prezzo!=null).length;
+  return `<div class="card"><h3>${esc(labL(m.n,'it')||m.id)} <span class="chip">${esc(m.cat||'')}</span>
+   ${v.attivo?'<span class="chip laser">in vendita</span>':''}
+   <span class="chip">${conPrezzo}/${(v.varianti||[]).length} con prezzo</span>
+   <span class="sp"></span><button class="btn sm" data-lmm="${i},-1">↑</button><button class="btn sm" data-lmm="${i},1">↓</button></h3>
+  <div class="row c2">
+    <div><label>Nome IT</label><input type="text" value="${esc(labL(m.n,'it'))}" data-lmf="${i},n,it"></div>
+    <div><label>Nome EN</label><input type="text" value="${esc(labL(m.n,'en'))}" data-lmf="${i},n,en"></div></div>
+  <div class="row c2">
+    <div><label>Sommario IT <span class="hint">— la riga sotto il nome</span></label><textarea data-lmf="${i},sommario,it">${esc(labL(m.sommario,'it'))}</textarea></div>
+    <div><label>Summary EN</label><textarea data-lmf="${i},sommario,en">${esc(labL(m.sommario,'en'))}</textarea></div></div>
+  <div class="row c2">
+    <div><label>Descrizione IT</label><textarea data-lmf="${i},descrizione,it" style="min-height:110px">${esc(labL(m.descrizione,'it'))}</textarea></div>
+    <div><label>Description EN</label><textarea data-lmf="${i},descrizione,en" style="min-height:110px">${esc(labL(m.descrizione,'en'))}</textarea></div></div>
+
+  <label style="display:flex;gap:7px;align-items:center;font-weight:500;margin-top:10px">
+    <input type="checkbox" style="width:auto" data-lmv="${i}" ${v.attivo?'checked':''}>
+    Vendi questo materiale sul sito</label>
+  <p class="hint">Si accende solo quando i prezzi ci sono: finché una variante non ha prezzo, il sito scrive «su richiesta» e invita a chiedere. Meglio di un carrello che vende a zero euro.</p>
+
+  ${(v.varianti||[]).length?`<table class="tbl" style="margin-top:10px"><thead><tr>
+     <th>Formato</th><th>Spessore</th><th>Colore</th><th style="width:110px">Prezzo €</th><th style="width:110px">Giacenza</th></tr></thead><tbody>
+   ${v.varianti.map((x,j)=>`<tr>
+     <td>${esc(x.formato||'')}</td><td>${esc(x.spessore||'')}</td><td>${esc(x.colore||'')}</td>
+     <td><input type="number" step="0.01" min="0" value="${x.prezzo!=null?x.prezzo:''}" placeholder="—" data-lmp="${i},${j}"></td>
+     <td><input type="number" step="1" min="0" value="${x.stock!=null?x.stock:''}" placeholder="—" data-lms="${i},${j}"></td>
+   </tr>`).join('')}</tbody></table>`:'<p class="hint">Nessuna variante definita per questo materiale.</p>'}
+  </div>`}).join('');
+
+ document.querySelectorAll('[data-lmf]').forEach(el=>el.oninput=()=>{
+  const[i,campo,lang]=el.dataset.lmf.split(',');const m=S.MAT.materiali[+i];
+  m[campo]=m[campo]&&typeof m[campo]==='object'?m[campo]:{};m[campo][lang]=el.value;markDirty()});
+ document.querySelectorAll('[data-lmv]').forEach(el=>el.onchange=()=>{
+  const m=S.MAT.materiali[+el.dataset.lmv];m.vendita=m.vendita||{varianti:[]};
+  m.vendita.attivo=el.checked;markDirty();renderLab()});
+ /* Un campo svuotato torna null, non zero: «senza prezzo» e «gratis» sono
+    due cose molto diverse per chi guarda il sito. */
+ document.querySelectorAll('[data-lmp]').forEach(el=>el.oninput=()=>{
+  const[i,j]=el.dataset.lmp.split(',').map(Number);
+  S.MAT.materiali[i].vendita.varianti[j].prezzo=el.value===''?null:Number(el.value);markDirty()});
+ document.querySelectorAll('[data-lms]').forEach(el=>el.oninput=()=>{
+  const[i,j]=el.dataset.lms.split(',').map(Number);
+  S.MAT.materiali[i].vendita.varianti[j].stock=el.value===''?null:Number(el.value);markDirty()});
+ document.querySelectorAll('[data-lmm]').forEach(b=>b.onclick=()=>{
+  const[i,d]=b.dataset.lmm.split(',').map(Number);const j=i+d;const A=S.MAT.materiali;
+  if(j<0||j>=A.length)return;[A[i],A[j]]=[A[j],A[i]];markDirty();renderLab()});
+}
+
+/* ---- tecnologie ---- */
+function labTecnologie(B){
+ const L=(S.TEC.tecnologie=S.TEC.tecnologie||[]);
+ B.innerHTML=L.map((t,i)=>`<div class="card"><h3>${esc(labL(t.n,'it')||t.id)}
+   <span class="chip">${(t.materiali||[]).length} materiali</span>
+   <span class="sp"></span><button class="btn sm" data-ltm="${i},-1">↑</button><button class="btn sm" data-ltm="${i},1">↓</button></h3>
+  <div class="row c2">
+   <div><label>Nome IT</label><input type="text" value="${esc(labL(t.n,'it'))}" data-ltf="${i},n,it"></div>
+   <div><label>Nome EN</label><input type="text" value="${esc(labL(t.n,'en'))}" data-ltf="${i},n,en"></div></div>
+  <div class="row c2">
+   <div><label>Sommario IT</label><textarea data-ltf="${i},sommario,it">${esc(labL(t.sommario,'it'))}</textarea></div>
+   <div><label>Summary EN</label><textarea data-ltf="${i},sommario,en">${esc(labL(t.sommario,'en'))}</textarea></div></div>
+  <div class="row c2">
+   <div><label>Descrizione IT</label><textarea data-ltf="${i},descrizione,it" style="min-height:110px">${esc(labL(t.descrizione,'it'))}</textarea></div>
+   <div><label>Description EN</label><textarea data-ltf="${i},descrizione,en" style="min-height:110px">${esc(labL(t.descrizione,'en'))}</textarea></div></div>
+  <p class="hint">Processo, applicazioni e domande frequenti si modificano in «🧩 Avanzate», dove c'è l'editor JSON con la validazione.</p>
+  </div>`).join('');
+ document.querySelectorAll('[data-ltf]').forEach(el=>el.oninput=()=>{
+  const[i,campo,lang]=el.dataset.ltf.split(',');const t=S.TEC.tecnologie[+i];
+  t[campo]=t[campo]&&typeof t[campo]==='object'?t[campo]:{};t[campo][lang]=el.value;markDirty()});
+ document.querySelectorAll('[data-ltm]').forEach(b=>b.onclick=()=>{
+  const[i,d]=b.dataset.ltm.split(',').map(Number);const j=i+d;const A=S.TEC.tecnologie;
+  if(j<0||j>=A.length)return;[A[i],A[j]]=[A[j],A[i]];markDirty();renderLab()});
+}
+
+/* ---- macchine: la distinzione fra quelle che abbiamo e quelle che ripariamo ---- */
+function labMacchine(B){
+ const L=(S.MAC.catalogo=S.MAC.catalogo||[]);
+ B.innerHTML='<div class="card hint">«In officina» significa che la macchina è qui e si può provare: solo queste compaiono nella pagina della demo. «Assistenza» vale su tutta la gamma, perché siamo centro ufficiale.</div>'
+ +L.map((m,i)=>`<div class="card"><h3>${esc(labL(m.n,'it')||m.id)} <span class="chip">serie ${esc(m.serie||'')}</span>
+   ${m.inOfficina?'<span class="chip laser">in officina</span>':''}${m.daCompletare?'<span class="chip">specifiche da verificare</span>':''}
+   <span class="sp"></span><button class="btn sm" data-lcm="${i},-1">↑</button><button class="btn sm" data-lcm="${i},1">↓</button></h3>
+  <div class="row c2">
+   <div><label>Nome</label><input type="text" value="${esc(labL(m.n,'it'))}" data-lcf="${i},n,it"></div>
+   <div><label>In una riga (IT)</label><input type="text" value="${esc(labL(m.ruolo,'it'))}" data-lcf="${i},ruolo,it"></div></div>
+  <div class="row c3" style="margin-top:8px">
+   <label style="display:flex;gap:7px;align-items:center;font-weight:500"><input type="checkbox" style="width:auto" data-lco="${i}" ${m.inOfficina?'checked':''}> È in officina da noi</label>
+   <label style="display:flex;gap:7px;align-items:center;font-weight:500"><input type="checkbox" style="width:auto" data-lcd="${i}" ${m.demoDisponibile?'checked':''}> Si può prenotare una demo</label>
+   <label style="display:flex;gap:7px;align-items:center;font-weight:500"><input type="checkbox" style="width:auto" data-lca="${i}" ${m.assistenza?'checked':''}> Facciamo assistenza</label>
+  </div></div>`).join('');
+ document.querySelectorAll('[data-lcf]').forEach(el=>el.oninput=()=>{
+  const[i,campo,lang]=el.dataset.lcf.split(',');const m=S.MAC.catalogo[+i];
+  m[campo]=m[campo]&&typeof m[campo]==='object'?m[campo]:{};m[campo][lang]=el.value;markDirty()});
+ document.querySelectorAll('[data-lco]').forEach(el=>el.onchange=()=>{S.MAC.catalogo[+el.dataset.lco].inOfficina=el.checked;markDirty();renderLab()});
+ document.querySelectorAll('[data-lcd]').forEach(el=>el.onchange=()=>{S.MAC.catalogo[+el.dataset.lcd].demoDisponibile=el.checked;markDirty()});
+ document.querySelectorAll('[data-lca]').forEach(el=>el.onchange=()=>{S.MAC.catalogo[+el.dataset.lca].assistenza=el.checked;markDirty()});
+ document.querySelectorAll('[data-lcm]').forEach(b=>b.onclick=()=>{
+  const[i,d]=b.dataset.lcm.split(',').map(Number);const j=i+d;const A=S.MAC.catalogo;
+  if(j<0||j>=A.length)return;[A[i],A[j]]=[A[j],A[i]];markDirty();renderLab()});
+}
+
+/* ---- corsi: si creano qui, e nascono in bozza ---- */
+function labCorsi(B){
+ if(!S.COR){B.innerHTML='<div class="card hint">data/corsi.json non caricato.</div>';return}
+ const L=(S.COR.corsi=S.COR.corsi||[]);
+ const mac=(S.MAC&&S.MAC.catalogo)||[], tec=(S.TEC&&S.TEC.tecnologie)||[];
+ B.innerHTML='<div class="searchrow"><span class="hint">Un corso nuovo nasce in <b>bozza</b>: non compare sul sito finché non lo pubblichi. Senza prezzo la scheda scrive «su richiesta» invece di un bottone che non si può premere.</span><button class="btn pri" id="corNew" style="margin-left:auto">➕ Nuovo corso</button></div>'
+ +(L.length?L.map((c,i)=>`<div class="card"><h3>${esc(labL(c.n,'it')||c.id)}
+   <span class="chip${c.stato==='pubblicato'?' laser':''}">${c.stato==='pubblicato'?'pubblicato':'bozza'}</span>
+   ${c.prezzo!=null?`<span class="chip">€ ${c.prezzo}</span>`:'<span class="chip">su richiesta</span>'}
+   <span class="sp"></span><button class="btn sm err" data-cox="${i}">🗑</button></h3>
+  <div class="row c2">
+   <div><label>Titolo IT</label><input type="text" value="${esc(labL(c.n,'it'))}" data-cof="${i},n,it"></div>
+   <div><label>Identificativo <span class="hint">— finisce nell'indirizzo</span></label><input type="text" value="${esc(c.id||'')}" data-coid="${i}"></div></div>
+  <div class="row c2">
+   <div><label>Sommario IT <span class="hint">— cosa saprai fare alla fine</span></label><textarea data-cof="${i},sommario,it">${esc(labL(c.sommario,'it'))}</textarea></div>
+   <div><label>Descrizione IT</label><textarea data-cof="${i},descrizione,it">${esc(labL(c.descrizione,'it'))}</textarea></div></div>
+  <div class="row c4">
+   <div><label>Macchina</label><select data-coref="${i},macchina"><option value="">—</option>${mac.map(m=>`<option value="${esc(m.id)}" ${c.macchina===m.id?'selected':''}>${esc(labL(m.n,'it'))}</option>`).join('')}</select></div>
+   <div><label>Tecnologia</label><select data-coref="${i},tecnologia"><option value="">—</option>${tec.map(t=>`<option value="${esc(t.id)}" ${c.tecnologia===t.id?'selected':''}>${esc(labL(t.n,'it'))}</option>`).join('')}</select></div>
+   <div><label>Durata</label><input type="text" value="${esc(labL(c.durata,'it'))}" placeholder="4 ore" data-cof="${i},durata,it"></div>
+   <div><label>Prezzo €</label><input type="number" step="0.01" min="0" value="${c.prezzo!=null?c.prezzo:''}" placeholder="su richiesta" data-coprz="${i}"></div></div>
+  <div class="row c3" style="margin-top:8px">
+   <div><label>Livello</label><select data-cosel="${i},livello">${['','base','intermedio','avanzato'].map(x=>`<option value="${x}" ${c.livello===x?'selected':''}>${x||'—'}</option>`).join('')}</select></div>
+   <div><label>Dove</label><select data-cosel="${i},formato">${['','presenza','online','misto'].map(x=>`<option value="${x}" ${c.formato===x?'selected':''}>${x||'—'}</option>`).join('')}</select></div>
+   <div><label>Stato</label><select data-cosel="${i},stato"><option value="bozza" ${c.stato!=='pubblicato'?'selected':''}>bozza — non sul sito</option><option value="pubblicato" ${c.stato==='pubblicato'?'selected':''}>pubblicato</option></select></div></div>
+  </div>`).join('')
+ :'<div class="card hint">Nessun corso. Il sito lo dice e invita a scrivere, invece di mostrare un catalogo vuoto. Aggiungine uno ↑</div>');
+
+ $('corNew').onclick=()=>{S.COR.corsi.push({id:'corso-'+(S.COR.corsi.length+1),n:{it:'Nuovo corso'},sommario:{it:''},descrizione:{it:''},prezzo:null,stato:'bozza'});markDirty();renderLab()};
+ document.querySelectorAll('[data-cof]').forEach(el=>el.oninput=()=>{
+  const[i,campo,lang]=el.dataset.cof.split(',');const c=S.COR.corsi[+i];
+  c[campo]=c[campo]&&typeof c[campo]==='object'?c[campo]:{};c[campo][lang]=el.value;markDirty()});
+ /* L'identificativo finisce in un indirizzo: si ripulisce mentre si scrive,
+    altrimenti uno spazio produce una pagina irraggiungibile. */
+ document.querySelectorAll('[data-coid]').forEach(el=>el.oninput=()=>{
+  S.COR.corsi[+el.dataset.coid].id=el.value.toLowerCase().replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'');markDirty()});
+ document.querySelectorAll('[data-coprz]').forEach(el=>el.oninput=()=>{
+  S.COR.corsi[+el.dataset.coprz].prezzo=el.value===''?null:Number(el.value);markDirty()});
+ document.querySelectorAll('[data-coref]').forEach(el=>el.onchange=()=>{
+  const[i,campo]=el.dataset.coref.split(',');S.COR.corsi[+i][campo]=el.value||null;markDirty()});
+ document.querySelectorAll('[data-cosel]').forEach(el=>el.onchange=()=>{
+  const[i,campo]=el.dataset.cosel.split(',');S.COR.corsi[+i][campo]=el.value;markDirty();renderLab()});
+ document.querySelectorAll('[data-cox]').forEach(b=>b.onclick=()=>{
+  if(confirm('Eliminare il corso?')){S.COR.corsi.splice(+b.dataset.cox,1);markDirty();renderLab()}});
+}
+
+/* ---- demo: un campo solo, ed è quello che conta ---- */
+function labDemo(B){
+ const d=(S.CONFIG.demo=S.CONFIG.demo||{attiva:true,gratuita:true,bookingUrl:''});
+ const url=String(d.bookingUrl||'').trim();
+ const valido=/^(https?:\/\/|mailto:|tel:)/i.test(url);
+ B.innerHTML=`<div class="card">
+  <h3>Prenotazione della demo</h3>
+  <p class="hint">Finché questo campo è vuoto il sito <b>non finge un calendario</b>: propone WhatsApp ed email, che funzionano da subito. Appena incolli un link valido, tutti i bottoni della demo — pagina demo e schede macchina — puntano lì.</p>
+  <div class="row c2" style="margin-top:10px">
+   <div><label>Link di prenotazione</label>
+    <input type="url" value="${esc(url)}" placeholder="https://calendly.com/…" id="demoUrl">
+    <p class="hint" id="demoStato"></p></div>
+   <div><label>Etichetta del bottone (IT)</label>
+    <input type="text" value="${esc(labL(d.etichetta,'it'))}" id="demoEt"></div></div>
+  <div class="row c3" style="margin-top:8px">
+   <label style="display:flex;gap:7px;align-items:center;font-weight:500"><input type="checkbox" style="width:auto" id="demoOn" ${d.attiva!==false?'checked':''}> La demo è attiva</label>
+   <label style="display:flex;gap:7px;align-items:center;font-weight:500"><input type="checkbox" style="width:auto" id="demoFree" ${d.gratuita!==false?'checked':''}> È gratuita</label>
+   <div><label>Dove</label><input type="text" value="${esc(labL(d.luogo,'it'))}" id="demoLuogo"></div></div>
+  </div>`;
+ const stato=()=>{const u=$('demoUrl').value.trim();
+  $('demoStato').innerHTML=!u?'Vuoto: il sito propone WhatsApp ed email.'
+   :/^(https?:\/\/|mailto:|tel:)/i.test(u)?'<b style="color:var(--ok)">Link valido:</b> i bottoni della demo porteranno qui.'
+   :'<b style="color:var(--err)">Non è un indirizzo valido.</b> Deve iniziare con https://, mailto: o tel: — un bottone che non porta da nessuna parte è peggio di un bottone che non c\'è.'};
+ $('demoUrl').oninput=()=>{d.bookingUrl=$('demoUrl').value.trim();stato();markDirty()};
+ $('demoEt').oninput=()=>{d.etichetta=d.etichetta||{};d.etichetta.it=$('demoEt').value;markDirty()};
+ $('demoLuogo').oninput=()=>{d.luogo=d.luogo||{};d.luogo.it=$('demoLuogo').value;markDirty()};
+ $('demoOn').onchange=()=>{d.attiva=$('demoOn').checked;markDirty()};
+ $('demoFree').onchange=()=>{d.gratuita=$('demoFree').checked;markDirty()};
+ stato();
+}
 
 /* ================== SOCIAL HUB ================== */
 function renderSocialHub(){

@@ -176,22 +176,11 @@ setTimeout(function(){
   </a>
 </div>
 <script>
-(function(){
-  var cfgUrl='data/config.json?v='+Date.now();
-  fetch(cfgUrl).then(function(r){return r.json()}).then(function(cfg){
-    var m=cfg.maintenance;
-    if(!m||!m.attivo)return;
-    var ov=document.getElementById('maintenanceOverlay');
-    var L=(navigator.language||'it').startsWith('it')?'it':'en';
-    var t=m.titolo&&(m.titolo[L]||m.titolo.it)||'Sito in manutenzione';
-    var msg=m.messaggio&&(m.messaggio[L]||m.messaggio.it)||'';
-    document.getElementById('mntTitle').textContent=t;
-    document.getElementById('mntMsg').innerHTML=msg.replace(/\n/g,'<br>');
-    if(m.mostraWhatsapp===false)document.getElementById('mntWa').style.display='none';
-    ov.hidden=false; ov.style.display='flex';
-    document.body.style.overflow='hidden';
-  }).catch(function(){});
-})();
+/* La manutenzione non è più decisa qui con un fetch per conto suo e un
+   catch vuoto: la decide il sito, dentro la sua pipeline dati, in
+   assets/js/stato-sito.js. Prima poteva succedere il contrario di quel che
+   serviva — il file non arrivava e la manutenzione accesa non compariva;
+   oppure compariva sopra un sito che sotto continuava a funzionare. */
 </script>
 <div class="loader" id="loader"><div class="lin"><img src="assets/images/logo.png" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
 <canvas id="fx" aria-hidden="true"></canvas>
@@ -599,12 +588,10 @@ setTimeout(function(){
       <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-about"></use></svg> <span data-i18n="nAbout">Chi Siamo</span></span>
       <h1 class="h2" data-i18n="abH2">Artigianato,<br>guidato dai <span class="hl on">laser.</span></h1>
       <p class="sub" style="margin-bottom:34px" data-i18n="abSub">INGLY DESIGN è uno studio di personalizzazione dove l'istinto del design italiano incontra la precisione industriale. Ogni pezzo — uno o mille — passa per le stesse mani, gli stessi raggi, la stessa ossessione per il dettaglio.</p>
-      <div class="counters">
-        <div class="counter"><b><span class="count" data-to="12400">0</span><i>+</i></b><span data-i18n="c1">Pezzi prodotti</span></div>
-        <div class="counter"><b><span class="count" data-to="640">0</span><i>+</i></b><span data-i18n="c2">Clienti business</span></div>
-        <div class="counter"><b><span class="count" data-to="8">0</span></b><span data-i18n="c3">Materiali</span></div>
-        <div class="counter"><b><span class="count" data-to="98">0</span><i>%</i></b><span data-i18n="c4">Consegne puntuali</span></div>
-      </div>
+      <!-- I numeri arrivano dai dati, non da qui: «Materiali 8» con nove
+           materiali in catalogo è il genere di bugia che nessuno nota.
+           Riempito da renderContatori() in main.js. -->
+      <div class="counters" id="counters"></div>
     </div>
     <div class="about-art"><div class="logo-big"><img src="assets/images/logo.png" alt="INGLY badge" width="420" height="420" loading="lazy"></div></div>
   </div>

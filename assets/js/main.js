@@ -15,6 +15,7 @@ import { initShare, initFomo, openWhatsApp, renderInstagramFeed } from './social
 import * as VERT from './verticali.js';
 import * as LABUI from './lab-ui.js';
 import { initNavIA } from './nav-mega.js';
+import * as STATO from './stato-sito.js';
 import * as SFONDI from './sfondi.js';
 import * as PREZZI from './prezzi.js';
 
@@ -392,6 +393,43 @@ const escHtml = t => String(t == null ? '' : t)
 /* ===== LAB: materiali, tecnologie, macchine =====
    Le sezioni si disegnano una volta sola al caricamento; la scheda aperta
    la decide l'indirizzo, come per i settori Business. */
+/* ===== CONTATORI =====
+   Il valore a riposo è già quello giusto: l'animazione lo riporta a zero e
+   lo risale soltanto se l'elemento entra davvero nello schermo. Prima
+   partiva da uno zero scritto nel markup, e chi non vedeva l'animazione —
+   sezione già a schermo, scroll veloce, pagina statica senza JavaScript —
+   leggeva zero prodotti su un catalogo pieno. */
+const escTxt = t => String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function renderContatori(){
+  const box=$('counters'); if(!box) return;
+  const voci=STATO.contatori(window.INGLY||{},L);
+  if(!voci.length){ box.innerHTML=''; return }
+  box.innerHTML=voci.map(v=>`<div class="counter"><b><span class="count" data-to="${v.n}">${
+    v.n.toLocaleString(L==='it'?'it-IT':'en-US')}</span>${v.suffisso?`<i>${v.suffisso}</i>`:''}</b><span>${
+    escTxt(v.etichetta)}</span></div>`).join('');
+}
+
+/* ===== MANUTENZIONE =====
+   Se è accesa il sito NON si avvia: un catalogo che continua a caricare
+   sotto un velo non è un sito in manutenzione, è un sito funzionante con
+   un cartello davanti. */
+export function fermaPerManutenzione(D,L2){
+  const m=STATO.manutenzione(D,L2||'it');
+  if(!m.attiva) return false;
+  const ov=document.getElementById('maintenanceOverlay');
+  if(ov){
+    const t=document.getElementById('mntTitle'); if(t) t.textContent=m.titolo;
+    const g=document.getElementById('mntMsg'); if(g) g.textContent=m.messaggio;
+    const w=document.getElementById('mntWa'); if(w&&!m.whatsapp) w.style.display='none';
+    ov.hidden=false; ov.style.display='flex';
+  }
+  document.body.style.overflow='hidden';
+  /* Il contenuto non resta sotto a caricare: si toglie di mezzo. */
+  const main=document.querySelector('main'); if(main) main.hidden=true;
+  const ldr=document.getElementById('loader'); if(ldr) ldr.classList.add('off');
+  return true;
+}
+
 /* La navigazione a famiglie: se fallisce, resta quella piatta. */
 function renderNavIA(){
   try{ initNavIA(window.INGLY||{},L) }
@@ -499,7 +537,7 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
+function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={

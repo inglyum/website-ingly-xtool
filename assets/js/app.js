@@ -2,6 +2,7 @@
    Carica i dati (JSON con versioning) e poi avvia il sito. */
 window.__INGLY_ESM__ = true;
 import { loadData } from './data-loader.js';
+import { modalita, manutenzione } from './stato-sito.js';
 
 /* AUTO-RIPARAZIONE — il sito non deve MAI restare bloccato su una schermata di errore.
    Causa storica: una cache del service worker che continuava a servire moduli JS
@@ -27,7 +28,27 @@ async function selfHeal(){
   return true;
 }
 
-loadData().then(()=>import('./main.js')).then(()=>{
+loadData().then(D=>{
+  /* La manutenzione si decide QUI, con i dati del sito in mano: se è
+     accesa il sito non parte proprio. Prima la decideva uno script a parte
+     che leggeva config.json per conto suo, e il risultato era un velo
+     sopra un sito che sotto continuava a caricare il catalogo. */
+  if(modalita(D)==='ferma'){
+    const m=manutenzione(D, (navigator.language||'it').startsWith('it')?'it':'en');
+    const ov=document.getElementById('maintenanceOverlay');
+    if(ov){
+      const t=document.getElementById('mntTitle'); if(t) t.textContent=m.titolo;
+      const g=document.getElementById('mntMsg'); if(g) g.textContent=m.messaggio;
+      const w=document.getElementById('mntWa'); if(w&&!m.whatsapp) w.style.display='none';
+      ov.hidden=false; ov.style.display='flex';
+    }
+    const main=document.querySelector('main'); if(main) main.hidden=true;
+    const ldr=document.getElementById('loader'); if(ldr) ldr.classList.add('off');
+    document.body.style.overflow='hidden';
+    return null;                       /* il sito non si avvia */
+  }
+  return import('./main.js');
+}).then(()=>{
   /* boot riuscito: la prossima anomalia potrà di nuovo tentare la riparazione */
   try{ sessionStorage.removeItem(RECOVER_KEY) }catch(e){}
 }).catch(async err=>{

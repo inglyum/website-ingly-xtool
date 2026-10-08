@@ -865,6 +865,7 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
           <span id="sMaintLabel">Manutenzione DISATTIVA — sito online ✅</span>
         </label>
       </div>
+      <p class="hint" style="margin:-8px 0 14px">Con la manutenzione <b>attiva il sito non si avvia</b>: niente catalogo, niente immagini, niente da scorrere sotto l'avviso. Prima restava tutto a caricare dietro il velo, e bastava chiudere l'avviso per trovarsi davanti un negozio funzionante: il messaggio diceva una cosa e il sito ne faceva un'altra.</p>
       <div class="row c2">
         <div><label>Titolo (IT)</label><input type="text" id="sMaintTitIT" placeholder="Sito in manutenzione"></div>
         <div><label>Titolo (EN)</label><input type="text" id="sMaintTitEN" placeholder="Site under maintenance"></div>
@@ -876,6 +877,14 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
       <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="checkbox" id="sMaintWa" checked style="width:auto"> Mostra pulsante WhatsApp</label>
         <button class="btn" id="sMaintSave">💾 Salva e pubblica</button>
+      </div>
+
+      <h3 style="margin-top:26px">Numeri in vetrina</h3>
+      <p class="hint">I contatori della pagina «Chi siamo». Materiali e tecnologie si contano da soli dal catalogo e non stanno qui. Questi tre sono <b>dichiarazioni</b>: se lasci un campo vuoto il contatore non compare, invece di mostrare un numero che nessuno ha scelto.</p>
+      <div class="row c3" style="margin-top:10px">
+        <div><label>Pezzi prodotti</label><input type="number" min="0" step="1" id="sStPezzi" placeholder="— non mostrare"></div>
+        <div><label>Clienti business</label><input type="number" min="0" step="1" id="sStClienti" placeholder="— non mostrare"></div>
+        <div><label>Consegne puntuali %</label><input type="number" min="0" max="100" step="1" id="sStPunt" placeholder="— non mostrare"></div>
         <span class="hint" id="sMaintOut"></span>
       </div>
     </div>
@@ -4005,6 +4014,15 @@ $('bkImp').onchange=async e=>{const f=e.target.files[0];if(!f)return;
 /* ================== IMPOSTAZIONI ================== */
 function renderSet(){
  /* --- Manutenzione --- */
+ /* I numeri dichiarati: vuoto significa «non mostrare», non zero.
+    Uno zero in vetrina è un traguardo dichiarato, e nessuno lo ha scelto. */
+ const st=S.CONFIG.stats=S.CONFIG.stats||{};
+ const campi={sStPezzi:'pezzi',sStClienti:'clienti',sStPunt:'puntualita'};
+ for(const [id,k] of Object.entries(campi)){
+   const el=$(id); if(!el)continue;
+   el.value=st[k]==null?'':st[k];
+   el.oninput=()=>{st[k]=el.value===''?null:Number(el.value);markDirty()};
+ }
  const mnt=S.CONFIG.maintenance||{};
  $('sMaintActive').checked=!!mnt.attivo;
  $('sMaintTitIT').value=(mnt.titolo&&mnt.titolo.it)||'Sito in manutenzione';

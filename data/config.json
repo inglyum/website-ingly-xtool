@@ -156,5 +156,11 @@
       "it": "Su appuntamento, così c'è tempo per parlare e per provare davvero.",
       "en": "By appointment, so there is time to talk and to actually try."
     }
+  },
+  "stats": {
+    "_nota": "I numeri dichiarati dei contatori. Sono affermazioni commerciali, non conteggi: li scrive una persona nell'Admin e se un campo è vuoto il contatore non compare. Materiali e tecnologie invece si contano dai dati e non stanno qui.",
+    "pezzi": null,
+    "clienti": null,
+    "puntualita": null
   }
 }

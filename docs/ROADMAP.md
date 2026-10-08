@@ -1,5 +1,159 @@
 # ROADMAP INGLY — sito, Admin e stile
 
+> La mappa dei sistemi (cosa esiste, cosa si riusa, cosa **non** esiste) è in
+> `docs/MAPPA-SISTEMI.md`. Qui c'è l'ordine dei lavori.
+
+---
+
+# Creative Commerce Platform — stato dei lavori
+
+Aggiornato il 2026-10-08. Una voce è **fatta** solo se funziona da un capo
+all'altro: un visitatore la usa, i dati la alimentano, l'Admin la governa e
+un test la difende. Non basta che la pagina esista.
+
+## ✅ Fatto
+
+### Commerce OS — il modello unico
+`assets/js/commerce.js` · 129 controlli
+
+Cinque tipi (`physical`, `material`, `digital`, `course`, `custom`) dedotti
+dai dati: i 97 prodotti pubblicati non prendono campi nuovi. Una sola forma
+di riga di carrello, un solo motore di totali, un adattatore di checkout
+(WhatsApp / preventivo / link di pagamento / checkout esterno) scelto
+nell'Admin. I carrelli salvati nelle tre forme vecchie tornano su interi.
+
+Difetto chiuso: il messaggio di checkout non gestiva le righe del Lab — una
+variante di materiale nel carrello **fermava il bottone WhatsApp** con un
+errore, senza dirlo a nessuno.
+
+### Collection Engine
+`assets/js/collezioni.js` + `data/collezioni.json` · 90 controlli
+
+Una collezione è un criterio sul catalogo, non un secondo elenco. Sette
+collezioni pubblicate — best seller, novità, edizioni limitate, stagionale,
+sotto €20, matrimonio, casa — tutte garantite non vuote, perché una
+collezione senza prodotti **non si pubblica**.
+
+Difetti chiusi:
+- due delle quattro schede della home («Edizioni Limitate», «Stagionale»)
+  aprivano una **griglia vuota**: nessun prodotto portava quei valori;
+- il campo `coll` diceva 7 best e 2 novità mentre `tag`, sulla stessa riga,
+  diceva 10 e 3: due verità mantenute a mano;
+- due voci del **menu principale** (`?coll=regalo`, `?coll=limited`)
+  puntavano a valori inesistenti che lo shop non leggeva affatto.
+
+Riusa `categories.json` senza inventare categorie: `/shop?coll=matrimonio`
+è la sottocategoria **Nozze di Eventi**, non una categoria nuova. «Turismo»
+non è stata creata, perché nei dati non esiste.
+
+### Movimento e tipografia
+`assets/js/animations.js`, CSS
+
+Quattro cicli `requestAnimationFrame` **permanenti** → zero. Erano: il
+canvas di particelle con i fasci laser agganciati al cursore, **due** aloni
+di cursore sovrapposti (uno dei due ignorava `prefers-reduced-motion`), e i
+blob di gradiente dell'hero. Due di essi giravano anche su telefono, dove un
+cursore non esiste.
+
+Rimossi anche: bottoni magnetici, parallasse dell'hero, tilt 3D su sei tipi
+di scheda, il raggio laser che attraversava ogni pagina ogni 11 secondi, e
+lo «skeleton» che scorreva **all'infinito su ogni scheda prodotto** anche
+dopo che la foto era arrivata. Tolto `will-change:transform` +
+`transform-style:preserve-3d` da tutte le schede: tenevano un livello di
+composizione per ognuna, per sempre, e servivano al tilt che non c'è più.
+
+Tipografia: titoli e bottoni non sono più tutti in corsivo. Il corsivo resta
+negli occhielli, nelle didascalie e nelle note, dove significa qualcosa.
+
+Verificato a 1440 / 1200 / 1024 / 768 / 480 / 390 / 360: nessun overflow, un
+solo `h1` visibile per pagina, zero errori JS.
+
+## Da fare, in ordine
+
+### 1. Il flag «personalizzabile» e la sezione Personalizza
+Il più piccolo e il più bloccante: **nessuno dei 97 prodotti dichiara se si
+può personalizzare.** Serve il campo sul prodotto, la casella nell'Admin e
+la destinazione `/personalizza`. La collezione `personalizzabili` è già
+scritta e aspetta solo il dato: oggi è in bozza e si accende da sé.
+
+### 2. INGLY Creator — il pezzo grosso
+Non c'è nulla da «evolvere»: l'attuale configuratore è una fila di pastiglie
+per la taglia. Da costruire: canvas, livelli, testo (font, dimensione,
+colore, posizione, rotazione), immagine (upload, crop, zoom, trascinamento),
+area di sicurezza, mockup sul prodotto, annulla/ripeti, prezzo che cambia
+mentre si configura, e la configurazione completa che entra nel carrello con
+la sua anteprima.
+
+Le fondamenta ci sono: `tipo: 'custom'`, il campo `conf` della riga, il
+`rif` che distingue due configurazioni diverse, il motore dei prezzi unico.
+
+Da decidere prima di cominciare: **dove finisce l'immagine caricata dal
+cliente.** Per l'anteprima basta il browser; per allegarla a un ordine serve
+un posto dove metterla, e un sito statico non ce l'ha.
+
+### 3. Pagine collezione proprie
+Oggi una collezione filtra lo shop con la sua intestazione. Manca
+`/collezioni/<slug>` con hero, descrizione lunga, dati strutturati
+`CollectionPage` (lo schema è già scritto in `collezioni.js`), voce in
+sitemap e pagina statica per i crawler.
+
+### 4. Shop landing
+«Cosa stai cercando?» in cima, poi le vetrine, poi il catalogo. Filtri
+professionali su desktop, cassetto su mobile. Card con hover image e
+«Personalizza» quando disponibile — che dipende dal punto 1.
+
+### 5. Material Commerce completo
+Le varianti ci sono, **27 prezzi sono `null`**: finché restano così la
+scheda dice «su richiesta», ed è l'unica cosa onesta da dire. Mancano
+«Compatibile con», «Testato da INGLY», «Puoi realizzare», e il Material
+Finder con le domande (macchina, obiettivo, finitura, spessore).
+
+### 6. Digital Store
+`DIG` ha 2 bundle con cinque campi. Serve il modello completo (categorie,
+compatibilità, licenza, versione, changelog, bundle), i filtri e il
+`DigitalDeliveryAdapter`. **Nessun download protetto verrà simulato**: in un
+sito statico un link «segreto» è un link pubblico.
+
+### 7. Academy
+Il motore è pronto, il catalogo è vuoto perché durata, programma e prezzo
+non sono dati nostri. Serve il contenuto, poi il Course Manager a form.
+
+### 8. xTOOL LAB e comparatore macchine
+Delle 13 macchine, 9 non le abbiamo e hanno `specs` vuoto. Il comparatore
+confronterà quello che sappiamo; per il resto la pagina dichiara che non è
+verificato da noi, invece di copiare numeri da un catalogo altrui.
+
+### 9. Home riprogettata
+La nuova gerarchia (hero → «cosa vuoi fare?» → categorie → Personalizza →
+best seller → Material Lab → Digital → Academy → xTool → Business →
+portfolio → prove → newsletter) ha senso **dopo** che Personalizza e Creator
+esistono: una sezione «Personalizza» in home che porta a un modulo di
+preventivo è una promessa non mantenuta.
+
+### 10. Admin Visual Commerce Control
+Riordinare le 26 viste esistenti in COMMERCE / LAB / WEBSITE / MARKETING /
+SYSTEM — riordino, non riscrittura. Poi: merchandising della home
+(aggiungi/sposta/spegni sezione, con anteprima desktop-tablet-telefono),
+ruoli e usage tracking nella Media Library, Material/Course/Digital manager
+a form, Customizer Builder.
+
+## Aspettano una decisione, non un commit
+
+| Cosa | Perché blocca |
+|---|---|
+| **27 prezzi delle varianti di materiale** | senza, i materiali non si vendono: la scheda può solo dire «su richiesta» |
+| **Contenuto dei corsi** | il catalogo Academy resta vuoto |
+| **`bookingUrl` della demo** | senza, il bottone propone WhatsApp ed email invece di un calendario |
+| **3 endpoint Formspree** | preventivo e newsletter non recapitano |
+| **Quale repository tiene `inglydesign.it`** | `config.site.url` dichiara ancora il dominio dell'altro |
+| **`/materiali/` oppure `/materials/`** | gli indirizzi italiani sono già in sitemap: rinominarli costa il posizionamento acquisito. È una scelta commerciale, non tecnica |
+| **46 foto prodotto mancanti** | le schede mostrano il segnaposto del materiale |
+
+---
+
+# Storico precedente
+
+
 ## ✅ v2.7 (oggi) — Temi pronti all'uso, con sfondo incluso
 
 **Artwork Engine**: 15 stili di sfondo **generati vettorialmente** dalla palette di ogni tema.

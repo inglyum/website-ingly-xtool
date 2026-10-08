@@ -183,8 +183,6 @@ setTimeout(function(){
    oppure compariva sopra un sito che sotto continuava a funzionare. */
 </script>
 <div class="loader" id="loader"><div class="lin"><img src="assets/images/logo.png" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
-<canvas id="fx" aria-hidden="true"></canvas>
-<div class="laserfx" aria-hidden="true"></div>
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>
 
@@ -301,12 +299,12 @@ setTimeout(function(){
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="collEye">Collezioni</span>
       <h2 class="h2" data-i18n="collH2">Scelti da <span class="hl">migliaia.</span></h2>
-      <div class="tabs" id="collTabs">
-        <button class="tab active" data-action="coll" data-coll="best" data-i18n="tBest">Più venduti</button>
-        <button class="tab" data-action="coll" data-coll="new" data-i18n="tNew">Novità</button>
-        <button class="tab" data-action="coll" data-coll="limited" data-i18n="tLim"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-limited"></use></svg> Edizioni Limitate</button>
-        <button class="tab" data-action="coll" data-coll="season" data-i18n="tSeas"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-stagionale"></use></svg> Stagionale</button>
-      </div></div>
+      <!-- Le schede nascono da data/collezioni.json: prima erano quattro
+           scritte a mano, e due di esse — Edizioni Limitate e Stagionale —
+           aprivano una griglia VUOTA, perché nessun prodotto portava quei
+           valori nel campo `coll`. Il motore pubblica solo collezioni che
+           contengono qualcosa, quindi una scheda vuota non può più esistere. -->
+      <div class="tabs" id="collTabs"></div></div>
       <div class="pgrid" id="collGrid"></div>
     </div>
   </div>
@@ -382,6 +380,9 @@ setTimeout(function(){
         <button class="btn btn-ghost" style="justify-content:center" data-action="reset-filters" data-i18n="fReset">Azzera filtri</button>
       </aside>
       <div>
+        <!-- Intestazione della collezione attiva: compare solo quando una
+             collezione filtra il catalogo, e offre la via d'uscita. -->
+        <div class="shop-coll" id="shopCollBanner" hidden></div>
         <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><select class="sortsel" id="sortSel" aria-label="Ordina"></select></div>
         <div class="subwrap" id="subWrap"><h5 data-i18n="subH">Sottocategorie</h5><div id="fSub"></div></div>
         <div class="rv-wrap" id="rvWrap"><h5 data-i18n="rvH">Visti di recente</h5><div class="rv-strip" id="rvStrip"></div></div>
@@ -890,7 +891,7 @@ setTimeout(function(){
         <div id="exitPopProdPrice" style="font-size:15px;color:#9897b8;margin-top:2px"></div>
       </div>
       <div id="exitPopEmoji" style="font-size:2.8rem;margin-bottom:8px">🎁</div>
-      <h3 id="exitPopTitle" style="font-family:var(--fd,'Exo 2',sans-serif);font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800;font-style:italic;color:var(--accent,#f5d94e);margin:0 0 10px"></h3>
+      <h3 id="exitPopTitle" style="font-family:var(--fd,'Exo 2',sans-serif);font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800;color:var(--accent,#f5d94e);margin:0 0 10px"></h3>
       <p id="exitPopMsg" style="color:#9897b8;font-size:15px;margin:0 0 20px;line-height:1.55"></p>
       <button type="button" id="exitPopCode" title="Copia il codice" style="display:none;align-items:center;justify-content:space-between;gap:14px;width:100%;margin:0 0 16px;padding:12px 16px;border:2px dashed var(--accent,#f5d94e);border-radius:12px;background:rgba(245,217,78,.07);color:#eae8f5;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:17px;letter-spacing:.16em;cursor:pointer">
         <span id="exitPopCodeTxt"></span><span aria-hidden="true" style="opacity:.6;letter-spacing:0;font-size:15px">⧉ copia</span>

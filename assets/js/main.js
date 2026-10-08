@@ -4,7 +4,7 @@ const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } =
 import { $, T, L, setL, toast } from './utils.js';
 import * as u from './utils.js';
 import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda, BASE } from './navigation.js';
-import { initAnimations, observeAll, refreshMagnets } from './animations.js';
+import { initAnimations, observeAll } from './animations.js';
 import * as prod from './products.js';
 import { renderUrg, initForms } from './forms.js';
 import { initLazy } from './lazyload.js';
@@ -503,7 +503,7 @@ function renderVerticale(id){
       ${(v.faq||[]).map(f=>`<details class="fitem reveal"><summary>${e(VERT.lingua(f[0],L))}<span class="pl" aria-hidden="true">+</span></summary>
         <div class="fbody"><p>${e(VERT.lingua(f[1],L))}</p></div></details>`).join('')}`:''}
   `;
-  observeAll(); refreshMagnets();
+  observeAll();
 }
 
 function renderFaq(){$('faqList').innerHTML=FAQS.map(f=>`<details class="fitem reveal"><summary>${f[0][L]}<span class="pl" aria-hidden="true">+</span></summary><div class="fbody"><p>${f[1][L]}</p></div></details>`).join('')}
@@ -537,7 +537,7 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
+function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll()}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={
@@ -574,7 +574,9 @@ const actions={
   'dig-add':el=>prod.addDigital(el.dataset.id),
   'cart-qty':el=>prod.cQty(el.dataset.i,el.dataset.d),
   'cart-rm':el=>prod.rmCart(el.dataset.i),
-  'coll':el=>prod.setColl(el.dataset.coll,el),
+  'coll':el=>prod.setColl(el.dataset.coll),
+  'open-coll':el=>prod.openColl(el.dataset.coll),
+  'coll-clear':()=>prod.clearColl(),
   'pill':el=>{el.parentNode.querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));el.classList.add('on')},
   'fake-upload':el=>{el.classList.toggle('done');el.textContent=el.classList.contains('done')?('✓ '+(el.dataset.done||'file')):el.dataset.t},
   'toast-soon':()=>toast(T('soon')),

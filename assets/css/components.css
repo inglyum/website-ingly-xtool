@@ -52,7 +52,7 @@
 .counter b i{font-style:normal;color:var(--blue)}
 .counter span{font-size:13.5px;color:var(--ink-soft)}.about-art{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:1/1.05}
 .about-art .logo-big{position:absolute;inset:0;display:grid;place-items:center}
-.about-art .logo-big img{width:62%;filter:drop-shadow(0 30px 60px rgba(33,31,46,.25));animation:floaty 8s ease-in-out infinite}
+.about-art .logo-big img{width:62%;filter:drop-shadow(0 30px 60px rgba(33,31,46,.25))}
 
 /* ---------- tech ticker ---------- */
 .tech-ticker{overflow:hidden;background:var(--ticker-bg);padding:0;position:relative}
@@ -93,7 +93,7 @@
 .mcard:hover::after{opacity:1}
 .mcard.m-lg{grid-column:span 3}
 .mcard-sweep{position:absolute;top:0;left:-80%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);pointer-events:none;transform:skewX(-20deg)}
-.mcard:hover .mcard-sweep{animation:lightSweep .75s ease forwards}
+
 .mcard .mtype{
   font-family:var(--fd);font-size:10px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;
   color:var(--laser);display:flex;align-items:center;gap:8px;margin-bottom:16px
@@ -466,7 +466,7 @@ textarea.txtin{resize:vertical;min-height:110px}
 .pp-info .pp-title{font-size:clamp(2rem,3.6vw,2.9rem);letter-spacing:-.03em;margin:8px 0 10px;line-height:1.05}
 
 /* FAQ native <details>/<summary> (stesso aspetto del vecchio accordion) */
-.fitem summary{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 4px;font-family:var(--fd);font-size:17.5px;font-weight:600;text-align:left;cursor:pointer;list-style:none;font-style:italic}
+.fitem summary{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 4px;font-family:var(--fd);font-size:17.5px;font-weight:600;text-align:left;cursor:pointer;list-style:none}
 .fitem summary::-webkit-details-marker{display:none}
 details.fitem>.fbody{max-height:none;overflow:visible}
 details.fitem[open] .pl{transform:rotate(45deg);background:var(--laser);border-color:var(--laser);color:#0a0d18}
@@ -508,13 +508,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 img.pimgph{ opacity:1; animation: imgfade .4s var(--ease); }
 @keyframes imgfade{ from{ opacity:0 } to{ opacity:1 } }
 
-/* Skeleton discreto mentre l'immagine non è ancora arrivata (percepito più veloce) */
+/* Lo «skeleton» era un gradiente che scorreva all'infinito su OGNI
+   scheda prodotto — non si fermava quando la foto arrivava, quindi su una
+   griglia da sessanta prodotti restavano sessanta animazioni accese sopra
+   sessanta immagini già caricate. Lo sfondo del materiale fa già da
+   segnaposto: non serve niente che si muova. */
 .pimg, .ph{ position:relative; overflow:hidden; }
-.pimg::before, .ph::before{
-  content:''; position:absolute; inset:0;
-  background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.06) 50%, transparent 70%);
-  background-size: 200% 100%; animation: shimmer 2.2s linear infinite; pointer-events:none;
-}
 @media (prefers-reduced-motion: reduce){ .pimg::before, .ph::before{ animation:none } img.pimgph{ animation:none; opacity:1 } }
 @keyframes shimmer{ from{ background-position:200% 0 } to{ background-position:-200% 0 } }
 
@@ -588,7 +587,7 @@ body.on-product .wa-fab{bottom:84px}
 .bcard:hover .bimg{transform:scale(1.1);filter:saturate(1.08)}
 .bcard--photo::before{content:'';position:absolute;top:0;left:-60%;width:45%;height:100%;z-index:3;pointer-events:none;
  background:linear-gradient(100deg,transparent,rgba(255,255,255,.16),transparent);transform:skewX(-14deg);opacity:0;transition:opacity .2s}
-.bcard--photo:hover::before{opacity:1;animation:shine 1.05s ease-out}
+.bcard--photo:hover::before{opacity:1}
 @keyframes shine{from{left:-60%}to{left:120%}}
 .bcard .ic{transition:transform .45s cubic-bezier(.2,.7,.3,1)}
 .bcard:hover .ic{transform:scale(1.12) rotate(-4deg)}
@@ -858,7 +857,7 @@ html.theme-anim, html.theme-anim *{ transition:background-color .35s ease, borde
 .proj-hero{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:16px;margin-bottom:8px;background:var(--gray)}
 .proj-eyebrow{font-family:var(--fd);font-style:italic;letter-spacing:.16em;text-transform:uppercase;
  font-size:var(--fs-2xs);color:var(--blue-hi)}
-.proj-title{font-family:var(--fd);font-style:italic;font-weight:800;font-size:clamp(1.7rem,3.4vw,2.4rem);
+.proj-title{font-family:var(--fd);font-weight:800;font-size:clamp(1.7rem,3.4vw,2.4rem);
  line-height:1.05;margin:6px 0 14px}
 .proj-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;
  padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:14px 0}
@@ -980,32 +979,10 @@ body{background-color:var(--paper)}
 /* ===== GLOW ORB CURSOR =====
    Orb luminoso che segue il mouse con lerp. NON nasconde il cursore nativo.
    pointer-events:none garantisce zero interferenza con selezione e click. */
-#glow-orb {
-  position: fixed;
-  top: 0; left: 0;
-  width: 120px; height: 120px;
-  margin: -60px 0 0 -60px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9000;
-  opacity: 0;
-  will-change: transform;
-  background: radial-gradient(circle, rgba(59,125,224,.18) 0%, rgba(59,125,224,.06) 50%, transparent 72%);
-  transition: opacity .4s ease, background .35s ease;
-  mix-blend-mode: screen;
-}
-#glow-orb.hot {
-  background: radial-gradient(circle, rgba(245,217,78,.22) 0%, rgba(255,138,60,.10) 45%, transparent 72%);
-  width: 160px; height: 160px;
-  margin: -80px 0 0 -80px;
-}
-:root[data-mode="light"] #glow-orb {
-  background: radial-gradient(circle, rgba(27,79,181,.12) 0%, rgba(27,79,181,.04) 50%, transparent 72%);
-  mix-blend-mode: multiply;
-}
-:root[data-mode="light"] #glow-orb.hot {
-  background: radial-gradient(circle, rgba(184,134,11,.16) 0%, rgba(212,83,10,.07) 45%, transparent 72%);
-}
+
+
+:root[data-mode="light"] 
+:root[data-mode="light"] 
 
 /* ===== WISHLIST DRAWER ===== */
 .drawer--wish{right:0;left:auto}
@@ -1092,8 +1069,9 @@ behold-widget{display:block;min-height:240px}
 .coin-scene{position:relative;z-index:1}
 
 /* ===== LASER CURSOR GLOW ===== */
-#glow-orb{position:fixed;top:0;left:0;width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;background:radial-gradient(circle,rgba(255,165,40,.12) 0%,transparent 70%);pointer-events:none;z-index:9000;opacity:0;transition:opacity .6s;will-change:transform}
-#glow-orb.hot{background:radial-gradient(circle,rgba(255,100,20,.22) 0%,transparent 70%)}
+/* Il SECONDO alone del cursore è stato rimosso: ce n'erano due, uno
+   sopra l'altro, ognuno con il proprio ciclo di animazione permanente, e
+   questo non guardava nemmeno prefers-reduced-motion. */
 
 /* ===== PRODUCT CONFIGURATOR ===== */
 .cfg-chip{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--bg-card);color:var(--ink);font-size:13px;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;white-space:nowrap}

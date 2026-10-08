@@ -1,0 +1,318 @@
+{
+  "_nota": "Una collezione è una DOMANDA sul catalogo, non un secondo elenco di prodotti. Dichiari un criterio in `query` e i prodotti arrivano da soli: aggiungi un prodotto al catalogo e le collezioni si aggiornano. In alternativa `prodotti: [id,...]` per una vetrina curata, dove l'ordine è quello che scrivi. Una collezione senza prodotti NON viene pubblicata, anche se `stato` dice pubblicata: una pagina di collezione vuota è un vicolo cieco con un titolo.",
+  "_schema": {
+    "id": "identificatore stabile, usato nelle rotte se manca slug",
+    "slug": "la parte di URL: /collezioni/<slug>",
+    "n": "titolo { it, en }",
+    "s": "descrizione breve { it, en }",
+    "query": "criterio: cat[], sub[], mat[], tag[], coll[], prezzoMax, prezzoMin, hero, personalizzabile, inStock. In AND fra loro, in OR dentro ciascuno",
+    "prodotti": "elenco di id per una collezione manuale; se c'è, vince su query",
+    "ordine": "rilevanza | prezzoSu | prezzoGiu | novita | recensioni | manuale",
+    "max": "quanti prodotti al massimo (0 o assente = tutti)",
+    "cover": "immagine di copertina, dalla Media Library",
+    "hero": "immagine grande della pagina collezione",
+    "evidenza": "true per mostrarla in home e nel mega menu",
+    "posizione": "ordine fra quelle in evidenza",
+    "stato": "pubblicata | bozza | archiviata",
+    "seo": "{ titolo, descrizione } — se assenti si usano n e s"
+  },
+  "collezioni": [
+    {
+      "id": "best-seller",
+      "slug": "best-seller",
+      "n": {
+        "it": "Best seller",
+        "en": "Best sellers"
+      },
+      "s": {
+        "it": "I pezzi che escono più spesso dall'officina.",
+        "en": "The pieces that leave the workshop most often."
+      },
+      "query": {
+        "tag": [
+          "Best"
+        ]
+      },
+      "ordine": "recensioni",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 1,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "novita",
+      "slug": "novita",
+      "n": {
+        "it": "Novità",
+        "en": "New in"
+      },
+      "s": {
+        "it": "Gli ultimi arrivati in catalogo.",
+        "en": "The latest additions to the catalogue."
+      },
+      "query": {
+        "tag": [
+          "New"
+        ]
+      },
+      "ordine": "novita",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 2,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "limited",
+      "slug": "edizioni-limitate",
+      "n": {
+        "it": "Edizioni limitate",
+        "en": "Limited editions"
+      },
+      "s": {
+        "it": "Serie speciali e collaborazioni: finite quelle, finite.",
+        "en": "Special series and collaborations: once they are gone, they are gone."
+      },
+      "query": {
+        "tag": [
+          "Limited"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 3,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "stagionale",
+      "slug": "stagionale",
+      "n": {
+        "it": "Stagionale",
+        "en": "Seasonal"
+      },
+      "s": {
+        "it": "Natale, Halloween, San Valentino: quello che vale adesso.",
+        "en": "Christmas, Halloween, Valentine's: what matters right now."
+      },
+      "query": {
+        "cat": [
+          "stagionale"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 4,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "sotto-20",
+      "slug": "sotto-20",
+      "n": {
+        "it": "Sotto €20",
+        "en": "Under €20"
+      },
+      "s": {
+        "it": "Regali e pensieri che costano poco e non sembrano poco.",
+        "en": "Gifts that cost little and do not look like it."
+      },
+      "query": {
+        "prezzoMax": 20
+      },
+      "ordine": "prezzoSu",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 5,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "wedding",
+      "slug": "matrimonio",
+      "n": {
+        "it": "Matrimonio",
+        "en": "Wedding"
+      },
+      "s": {
+        "it": "Tableau, segnaposto, bomboniere: tutto quello che ha il nome degli invitati sopra.",
+        "en": "Seating charts, place cards, favours: everything with your guests' names on it."
+      },
+      "query": {
+        "cat": [
+          "eventi"
+        ],
+        "sub": [
+          2
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 6,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "casa",
+      "slug": "casa",
+      "n": {
+        "it": "Casa",
+        "en": "Home"
+      },
+      "s": {
+        "it": "Targhe, quadri incisi, lampade, decorazioni con il nome.",
+        "en": "Signs, engraved art, lamps, name decorations."
+      },
+      "query": {
+        "cat": [
+          "casa"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": true,
+      "posizione": 7,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "id": "b2b",
+      "slug": "aziende",
+      "n": {
+        "it": "Per le aziende",
+        "en": "For business"
+      },
+      "s": {
+        "it": "Gadget, targhe e regalistica aziendale, dal pezzo singolo alla serie.",
+        "en": "Corporate gifts, signage and giveaways, from one piece to a full run."
+      },
+      "query": {
+        "cat": [
+          "b2b"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 8,
+      "stato": "pubblicata",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    },
+    {
+      "_nota": "BOZZA DI PROPOSITO. Nei dati non esiste ancora un campo che dica quali prodotti si possono personalizzare dal Creator: il criterio è pronto e legge `personalizzabile` sul prodotto, ma nessun prodotto lo dichiara, quindi la collezione è vuota e non viene pubblicata. Si accende quando il Creator è collegato ai prodotti e l'Admin può marcarli. Metterla pubblicata adesso vorrebbe dire una voce di menu verso una pagina vuota.",
+      "id": "personalizzabili",
+      "slug": "personalizzabili",
+      "n": {
+        "it": "Personalizzabili",
+        "en": "Customisable"
+      },
+      "s": {
+        "it": "I pezzi che puoi comporre tu, e vedere prima di ordinarli.",
+        "en": "The pieces you compose yourself, and see before ordering."
+      },
+      "query": {
+        "personalizzabile": true
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 9,
+      "stato": "bozza",
+      "seo": {
+        "titolo": {
+          "it": "",
+          "en": ""
+        },
+        "descrizione": {
+          "it": "",
+          "en": ""
+        }
+      }
+    }
+  ]
+}

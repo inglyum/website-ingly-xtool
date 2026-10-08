@@ -17,10 +17,13 @@ main,footer{position:relative;z-index:var(--z-base)}
    disegnato correttamente — ma gli ultimi trenta pixel erano morti su ogni
    pagina il cui contenuto parte in alto. Ora l'header sta al suo livello. */
 .topbar,.nav{position:relative;z-index:var(--z-nav)}
-canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:1}
-h1,h2,h3,.pp-info h1{font-style:italic;letter-spacing:-.01em}
+/* I titoli NON sono in corsivo. Lo erano tutti, insieme ai bottoni, alle
+   schede e alle pastiglie: un corsivo applicato a tutto non dice più
+   niente, e su un titolo lungo si legge peggio. Il corsivo resta dove ha
+   un senso: occhielli, didascalie, citazioni. */
+h1,h2,h3,.pp-info h1{letter-spacing:-.01em}
 h1,h2{font-weight:900}
-.btn,.tab,.chip,.pill{font-style:italic}
+.btn,.tab,.chip,.pill{font-style:normal}
 .eyebrow{color:#8fa6d9}
 .eyebrow::before{background:linear-gradient(90deg,var(--laser),var(--spark),var(--blue))}
 ::selection{background:var(--laser);color:#0a0d18}
@@ -88,26 +91,28 @@ footer{background:var(--bg-deep,#070a14);border-top:1px solid rgba(140,160,220,.
 
 .coin{width:min(360px,72%);transition:transform .25s ease-out;transform-style:preserve-3d;animation:fluttua 6.5s ease-in-out infinite;cursor:pointer}
 
-.coin img{width:100%;animation:respiro 4.2s ease-in-out infinite}
+.coin img{width:100%}
 
 .fc1{top:2%;left:0}.fc2{top:56%;right:-2%}.fc3{bottom:-4%;left:6%}
 .fcard{z-index:3}
 
-/* laser sweep */
-.laserfx{position:fixed;top:50%;left:-30%;width:160%;height:2px;pointer-events:none;z-index:1;opacity:0;
-  background:linear-gradient(90deg,transparent,rgba(200,220,255,.9) 45%,var(--blue) 50%,rgba(200,220,255,.9) 55%,transparent);
-  box-shadow:0 0 18px rgba(59,125,224,.9),0 0 60px rgba(59,125,224,.5);
-  transform:rotate(-14deg) translateX(-120vw);animation:sweepfx 11s ease-in-out infinite}
+/* Il raggio laser che attraversava ogni pagina ogni 11 secondi non è
+   più qui: era un'animazione infinita sopra il contenuto, e arrivava
+   sempre mentre si stava leggendo qualcosa d'altro. */
 
 
-/* cards: 3D-ready */
-.pcard,.bcard,.dcard,.rcard,.counter,.matcard{will-change:transform;transform-style:preserve-3d;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+/* Le schede: una transizione, non un piano 3D.
+   `will-change:transform` più `transform-style:preserve-3d` tenevano un
+   livello di composizione dedicato per OGNI scheda, per sempre — su una
+   griglia da sessanta prodotti sono sessanta livelli — e servivano al tilt
+   3D, che non c'è più. */
+.pcard,.bcard,.dcard,.rcard,.counter,.matcard{transition:transform var(--dur-ui,220ms) var(--ease-out,ease),box-shadow var(--dur-ui,220ms) var(--ease-out,ease),border-color var(--dur-ui,220ms) var(--ease-out,ease)}
 .pcard:hover,.dcard:hover{box-shadow:0 28px 70px rgba(0,0,0,.65),0 0 50px rgba(59,125,224,.18);border-color:rgba(90,140,230,.55);transform:translateY(-4px)}
 .bcard:hover{box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 34px rgba(59,125,224,.12);transform:translateY(-3px)}
 .pcard .pimg::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 48%,transparent 62%);transform:translateX(-120%);transition:transform .7s var(--ease);pointer-events:none}
 .pcard:hover .pimg::after{transform:translateX(130%)}
 .ptag{background:var(--glass-dark,rgba(10,13,24,.75));color:#eef1fb;backdrop-filter:blur(8px)}
-.ptag.y{animation:glowPulse 2.5s ease-in-out infinite}
+.ptag.y{/* il badge non pulsa: è un'etichetta, non un allarme */}
 .ptag.y{background:var(--laser);color:#0a0d18}.ptag.b{background:var(--blue);color:#fff}
 .wish{background:var(--glass-dark,rgba(10,13,24,.72))}.wish svg{stroke:#eef1fb}
 .qadd{background:linear-gradient(135deg,#4a89ea,#2b5fc0);color:#fff}
@@ -150,7 +155,7 @@ footer{background:var(--bg-deep,#070a14);border-top:1px solid rgba(140,160,220,.
 .loader span{font-family:var(--fd);font-style:italic;font-size:12px;letter-spacing:.34em;color:#8fa6d9;text-transform:uppercase}
 
 /* shop pro */
-.sortsel{background:var(--white);border:1.5px solid var(--line);border-radius:100px;color:var(--ink);font-family:var(--fd);font-style:italic;font-weight:600;font-size:13.5px;padding:11px 18px;outline:none;cursor:pointer}
+.sortsel{background:var(--white);border:1.5px solid var(--line);border-radius:100px;color:var(--ink);font-family:var(--fd);font-weight:600;font-size:13.5px;padding:11px 18px;outline:none;cursor:pointer}
 .rv-wrap{margin-top:22px;display:none}
 .rv-wrap.show{display:block}
 .rv-wrap h5{font-family:var(--fd);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
@@ -158,13 +163,13 @@ footer{background:var(--bg-deep,#070a14);border-top:1px solid rgba(140,160,220,.
 .rv-it{flex:0 0 auto;display:flex;gap:10px;align-items:center;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:8px 14px 8px 8px;cursor:pointer;transition:.3s}
 .rv-it:hover{border-color:var(--blue);transform:translateY(-3px)}
 .rv-it .ri{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:19px}
-.rv-it b{font-family:var(--fd);font-size:12.5px;font-style:italic;white-space:nowrap}
+.rv-it b{font-family:var(--fd);font-size:12.5px;white-space:nowrap}
 .rv-it span{font-size:11.5px;color:var(--ink-soft)}
 
 /* sticky buy bar (mobile product) */
 .stickybuy{position:fixed;left:0;right:0;bottom:0;z-index:80;background:rgba(10,13,24,.85);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;gap:14px;transform:translateY(110%);transition:transform .5s var(--ease)}
 body.on-product .stickybuy{transform:none}
-.stickybuy .sb-i b{font-family:var(--fd);font-style:italic;font-size:17px;display:block}
+.stickybuy .sb-i b{font-family:var(--fd);font-size:17px;display:block}
 .stickybuy .sb-i span{font-size:11.5px;color:var(--ink-soft);display:block;max-width:38vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stickybuy .btn{flex:1;justify-content:center;padding:13px 20px}
 @media(max-width:940px){.stickybuy{display:flex}}
@@ -344,3 +349,15 @@ body::after{content:none}
 .lab-gratis{display:inline-block;font-family:var(--fd);font-weight:700;font-size:14px;
   padding:7px 16px;border-radius:999px;background:var(--blue);color:#fff;margin:0 0 20px}
 .lab-vuoto{margin-top:26px}
+
+/* ---- intestazione della collezione nello shop ----
+   Compare solo quando una collezione filtra il catalogo. Serve a dire dove
+   si è: un filtro attivo che non si vede fa credere che il catalogo sia
+   mezzo vuoto, e nessuno pensa a toglierlo. */
+.shop-coll{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4,20px);
+  flex-wrap:wrap;padding:var(--sp-4,20px) var(--sp-5,24px);margin-bottom:var(--sp-4,20px);
+  background:var(--bg-card);border:1px solid var(--line);border-radius:18px}
+.shop-coll h2{font-size:clamp(1.2rem,2.4vw,1.6rem);margin:0}
+.shop-coll p{color:var(--ink-soft);margin:6px 0 0;max-width:62ch;font-size:14.5px}
+.shop-coll .btn{flex:0 0 auto}
+@media (max-width:640px){.shop-coll{padding:var(--sp-3,16px)}.shop-coll .btn{width:100%}}

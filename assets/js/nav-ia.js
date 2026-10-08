@@ -21,6 +21,8 @@
 
    Funzioni pure: nessun DOM. Verificate in tests/test-nav-ia.mjs. */
 
+import * as CL from './collezioni.js';
+
 const esc = t => String(t == null ? '' : t)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -71,10 +73,20 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
         col(t('Categorie', 'Categories'),
           cats.slice(0, max).map(c => ({ n: L10n(c.n, L), href: via(base, 'shop?cat=' + c.id) })),
           { n: t('Tutto il catalogo', 'Full catalogue'), href: via(base, 'shop') }),
-        col(t('Per occasione', 'By occasion'), [
+        /* Le collezioni arrivano dai dati e sono garantite non vuote.
+           Prima questa colonna portava a `shop?coll=regalo` e
+           `shop?coll=limited`: due valori che nessun prodotto ha e che lo
+           shop non leggeva affatto, quindi due voci del menu principale
+           aprivano il catalogo intero come se il filtro non esistesse. */
+        col(t('Collezioni', 'Collections'),
+          CL.inEvidenza(D, max).map(c => ({
+            n: CL.lingua(c.n, L),
+            href: via(base, 'shop?coll=' + CL.rifDi(c)),
+            nota: String(CL.conta(c, D))
+          })),
+          { n: t('Tutto il catalogo', 'Full catalogue'), href: via(base, 'shop') }),
+        col(t('Oppure', 'Or'), [
           { n: t('Personalizzati su misura', 'Made to measure'), href: via(base, 'quote') },
-          { n: t('Regali e ricorrenze', 'Gifts and occasions'), href: via(base, 'shop?coll=regalo') },
-          { n: t('Edizioni limitate', 'Limited editions'), href: via(base, 'shop?coll=limited') },
           { n: t('File digitali', 'Digital files'), href: via(base, 'digital') }
         ])
       ],

@@ -5,6 +5,7 @@ import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, icon, toast, L } from './u
 import { refTag, onOrderPlaced } from './referral.js';
 import * as PR from './prezzi.js';
 import * as CM from './commerce.js';
+import * as CL from './collezioni.js';
 const { MAT_ART, MATN, CATS, P, DIG, CONFIG } = window.INGLY;
 
 /* Con l'interruttore dei prezzi spento ogni cifra diventa «Prezzo su
@@ -19,9 +20,9 @@ const matArt = m => MAT_ART[m] || MAT_ART[Object.keys(MAT_ART)[0]] || { bg:'#3a2
 import { go } from './navigation.js';
 
 /* ---- stato ---- */
-export const F={cat:new Set(),mat:new Set(),sub:new Set()};
+export const F={cat:new Set(),mat:new Set(),sub:new Set(),coll:''};
 const VIS = () => P.filter(x=>!x.hidden);   /* prodotti visibili sul sito */
-let cart=[], cur=P[0], sel={qty:1}, collCur='best', SORT='rel', RV=[];
+let cart=[], cur=P[0], sel={qty:1}, collCur='best-seller', SORT='rel', RV=[];
 /* wish è in wishlist.js come source-of-truth; qui leggiamo localStorage per il render */
 const lsWish=()=>{try{return new Set(JSON.parse(localStorage.getItem('ingly_wish')||'[]'))}catch(e){return new Set()}}
 
@@ -131,8 +132,37 @@ export function renderHero(){
   });
 }
 
-/* ---- collezioni ---- */
-export function renderColl(){$('collGrid').innerHTML=VIS().filter(x=>x.coll&&x.coll.includes(collCur)).slice(0,4).map(card).join('')}
+/* ---- collezioni ----
+   Le vetrine della home non sono più un elenco scritto a mano: sono le
+   collezioni di data/collezioni.json, cioè criteri che leggono il catalogo.
+
+   Prima le schede erano quattro, fisse nell'HTML, e il filtro era il campo
+   `coll` del prodotto. Due di quelle schede — «Edizioni Limitate» e
+   «Stagionale» — non corrispondevano a nessun valore presente nei dati, e
+   aprivano una griglia vuota in mezzo alla home. Il campo `coll`, poi,
+   diceva 7 best e 2 novità mentre il campo `tag` sulla stessa riga diceva
+   10 Best e 3 New: due verità mantenute a mano sullo stesso prodotto.
+
+   Il motore pubblica solo collezioni che contengono qualcosa: una scheda
+   vuota non è più possibile. */
+const collVive = () => CL.pubblicate(window.INGLY).filter(c => c.evidenza);
+
+export function renderColl(){
+  const tabs=$('collTabs'), grid=$('collGrid');
+  if(!grid) return;
+  const vive=collVive();
+  if(!vive.length){ if(tabs) tabs.innerHTML=''; grid.innerHTML=''; return }
+  /* la scheda scelta può essere sparita (una collezione svuotata da una
+     modifica nell'Admin): si ricade sulla prima, non sul vuoto */
+  if(!vive.some(c=>c.id===collCur)) collCur=vive[0].id;
+
+  if(tabs) tabs.innerHTML=vive.map(c=>
+    `<button class="tab${c.id===collCur?' active':''}" data-action="coll" data-coll="${c.id}">${CL.lingua(c.n,L)}</button>`
+  ).join('');
+
+  const c=CL.trova(collCur,window.INGLY);
+  grid.innerHTML=CL.prodottiDi(c,window.INGLY).slice(0,4).map(card).join('');
+}
 
 /* ---- shop ---- */
 const MATKEYS=Object.keys(MAT_ART).filter(k=>k!=='File');
@@ -171,12 +201,49 @@ export function togCat(id){F.cat.has(id)?F.cat.delete(id):F.cat.add(id);F.sub.cl
 export function togMat(m){F.mat.has(m)?F.mat.delete(m):F.mat.add(m);renderChips();renderShop()}
 export function togSub(i){i=+i;F.sub.has(i)?F.sub.delete(i):F.sub.add(i);renderChips();renderShop()}
 export function resetFilters(){F.cat.clear();F.mat.clear();F.sub.clear();$('q').value='';$('pRange').value=120;$('pv').textContent='€120';renderChips();renderShop()}
+/* Gli id della collezione attiva, calcolati una volta per passata di
+   filtro e non una per prodotto: il criterio rilegge tutto il catalogo. */
+let collCache={id:null,set:new Set()};
+function collSet(){
+  if(collCache.id===F.coll) return collCache.set;
+  const c=CL.trova(F.coll,window.INGLY);
+  collCache={id:F.coll,set:new Set(c?CL.prodottiDi(c,window.INGLY).map(p=>p.id):[])};
+  return collCache.set;
+}
+
+/* L'intestazione della collezione: dice dove si è e come uscirne.
+   Un filtro attivo che non si vede è il modo più rapido di far credere a
+   qualcuno che il catalogo sia mezzo vuoto. */
+function renderCollBanner(){
+  const box=$('shopCollBanner');
+  if(!box) return;
+  const c=F.coll?CL.trova(F.coll,window.INGLY):null;
+  if(!c){ box.hidden=true; box.innerHTML=''; return }
+  box.hidden=false;
+  box.innerHTML=`<div class="scb-txt"><h2>${CL.lingua(c.n,L)}</h2>${
+    CL.lingua(c.s,L)?`<p>${CL.lingua(c.s,L)}</p>`:''}</div>
+    <button class="btn" data-action="coll-clear">${L==='it'?'Tutto il catalogo':'Full catalogue'}</button>`;
+}
+
+/* Apre lo shop su una collezione. */
+export function openColl(rif){
+  const c=CL.trova(rif,window.INGLY);
+  F.coll=c?c.id:'';
+  F.cat.clear(); F.mat.clear(); F.sub.clear();
+  go('shop'); renderShop(); renderChips();
+}
+export function clearColl(){ F.coll=''; renderShop(); renderChips(); }
+
 function filterProducts(){
   const q=$('q').value.trim().toLowerCase(),max=+$('pRange').value;
   return VIS().filter(x=>{
     const c=CATS.find(k=>k.id===x.cat), sub=c.sub[x.sub];
     const hay=(x.n.it+' '+x.n.en+' '+c.n.it+' '+c.n.en+' '+MATN[x.mat].it+' '+MATN[x.mat].en+(sub?' '+sub.it+' '+sub.en:'')).toLowerCase();
-    return (!q||hay.includes(q))&&(F.cat.size===0||F.cat.has(x.cat))&&(F.mat.size===0||F.mat.has(x.mat))&&(F.sub.size===0||F.sub.has(x.sub))&&x.price<=max});
+    /* La collezione è un filtro come gli altri, non una pagina a parte:
+       restano validi ricerca, categorie, materiali e fascia di prezzo, e
+       si torna al catalogo pieno senza cambiare pagina. */
+    const inColl=!F.coll||collSet().has(x.id);
+    return inColl&&(!q||hay.includes(q))&&(F.cat.size===0||F.cat.has(x.cat))&&(F.mat.size===0||F.mat.has(x.mat))&&(F.sub.size===0||F.sub.has(x.sub))&&x.price<=max});
 }
 export function renderShop(){
   const res=filterProducts();
@@ -185,6 +252,7 @@ export function renderShop(){
   if(SORT==='rv')res.sort((a,b)=>b.rev-a.rev);
   if(SORT==='nw')res.sort((a,b)=>b.id-a.id);   /* novità: gli ID più alti sono i più recenti */
   syncFiltersToURL();
+  renderCollBanner();
   $('resN').textContent=res.length;
   $('shopGrid').innerHTML=res.length?res.map(card).join(''):`<div class="empty">
     <div class="empty-ill"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M19 19l-4.3-4.3"/><path d="M7.5 10h5" opacity=".5"/></svg></div>
@@ -697,7 +765,7 @@ export function checkoutEmail(){
 }
 
 /* ---- controlli statici dello shop ---- */
-export function setColl(c,btn){collCur=c;document.querySelectorAll('#collTabs .tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderColl()}
+export function setColl(c){collCur=c;renderColl()}
 export function initShopControls(){
   loadCart();renderCart();
   $('q').addEventListener('input',()=>{renderShop();renderChips()});
@@ -759,6 +827,9 @@ export function syncFiltersToURL(){
     if(F.cat.size) q.push('cat='+[...F.cat].join(','));
     if(F.mat.size) q.push('mat='+[...F.mat].join(','));
     if(F.sub.size) q.push('sub='+[...F.sub].join(','));
+    /* nell'indirizzo va lo slug, non l'id: è quello che si legge e si
+       incolla, e il motore accetta entrambi in lettura */
+    if(F.coll) q.push('coll='+encodeURIComponent(CL.rifDi(CL.trova(F.coll,window.INGLY))||F.coll));
     const pr=$('pRange'); if(pr && +pr.value<120) q.push('max='+pr.value);
     if(SORT&&SORT!=='rel') q.push('sort='+SORT);
     const next='/shop'+(q.length?'?'+q.join('&'):'');
@@ -770,7 +841,11 @@ export function readFiltersFromURL(){
     const raw=location.search.slice(1)||location.hash.split('?')[1]; if(!raw) return false;
     const pr=new URLSearchParams(raw);
     URL_LOCK=true;
-    F.cat.clear(); F.mat.clear(); F.sub.clear();
+    F.cat.clear(); F.mat.clear(); F.sub.clear(); F.coll='';
+    /* Una collezione che non esiste più non deve svuotare lo shop: il
+       parametro viene ignorato e si vede il catalogo intero. */
+    const cPar=pr.get('coll')?CL.trova(pr.get('coll'),window.INGLY):null;
+    if(cPar) F.coll=cPar.id;
     if(pr.get('cat')) pr.get('cat').split(',').filter(Boolean).forEach(v=>F.cat.add(v));
     if(pr.get('mat')) pr.get('mat').split(',').filter(Boolean).forEach(v=>F.mat.add(v));
     if(pr.get('sub')) pr.get('sub').split(',').filter(Boolean).forEach(v=>F.sub.add(+v));

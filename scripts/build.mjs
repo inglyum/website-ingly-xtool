@@ -9,10 +9,13 @@ const cfg=J('config'), D=J('texts'), SOC=J('social'), P=J('products'), CATS=J('c
    caricano le sezioni Materiali/Tecnologie/Macchine sparirebbero in silenzio
    e il menu porterebbe a pagine vuote. */
 const MATERIALI=J('materiali'), TECNOLOGIE=J('tecnologie'), MACCHINE=J('macchine'), CORSI=J('corsi');
+/* Le collezioni sono criteri sul catalogo: senza di loro il mega menu e la
+   home perderebbero le vetrine, quindi viaggiano nella riserva come il Lab. */
+const COLLEZIONI=J('collezioni');
 writeFileSync('data/config.js',`/* GENERATO dai JSON — non modificare a mano */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.CONFIG=${JSON.stringify(cfg)};\n`);
 writeFileSync('data/i18n.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.D=${JSON.stringify(D)};\n`);
 writeFileSync('data/socials.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.SOCIALS=${JSON.stringify(SOC)};\n`);
-writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)},CORSI:${JSON.stringify(CORSI)}});\n`);
+writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)},CORSI:${JSON.stringify(CORSI)},COLLEZIONI:${JSON.stringify(COLLEZIONI)}});\n`);
 
 await build({ entryPoints:['assets/js/app.js'], bundle:true, minify:true, format:'iife',
   target:'es2018', outfile:'assets/js/app.fallback.js',

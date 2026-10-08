@@ -1088,10 +1088,10 @@ function ghErrHint(e){const m=String(e.message||e);
    che già carica, confronta e pubblica li tratta come tutti gli altri.
    Un secondo CMS accanto a questo avrebbe significato due pubblicazioni,
    due cronologie e due modi di sbagliare. */
-const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi'];
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni'];
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',content:'C',
-  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR'};
-const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null};
+  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR',collezioni:'COLL'};
+const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null,COLL:null};
 let SNAP={},MEDIA=[],REPO_IMG=null,LOADED_FROM='',BOOTED=false,DATA_OK=false,MISSING=[],LOAD_LOG=[];
 const jstr=o=>JSON.stringify(o);
 function changedFiles(){const out=[];for(const f of FILES){if(S[KEY[f]]&&SNAP[f]!==undefined&&jstr(S[KEY[f]])!==SNAP[f])out.push(f)}return out}
@@ -1419,7 +1419,7 @@ function genLegacy(){return{
     chi carica il sito dalla riserva — su file:// o quando i JSON non
     arrivano — avrebbe trovato il menu che porta a sezioni vuote, senza un
     errore da nessuna parte. */
- 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})}});\n`}}
+ 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})},COLLEZIONI:${jstr(S.COLL||{})}});\n`}}
 
 /* ---------- binding automatico dei form ---------- */
 function getPath(obj,path){return path.split('.').reduce((o,k)=>o&&o[k],obj)}

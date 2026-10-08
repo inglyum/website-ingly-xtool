@@ -23,7 +23,7 @@
 
 /* laser beam divider */
 .beam{position:relative;height:2px;background:linear-gradient(90deg,transparent,var(--laser) 30%,var(--blue) 70%,transparent);border-radius:2px;overflow:visible}
-.beam::after{content:'';position:absolute;top:50%;left:0;width:9px;height:9px;border-radius:50%;background:var(--laser);box-shadow:0 0 14px 4px rgba(244,223,87,.8);transform:translate(-50%,-50%);animation:beamdot 5s var(--ease) infinite}
+.beam::after{content:'';position:absolute;top:50%;left:0;width:9px;height:9px;border-radius:50%;background:var(--laser);box-shadow:0 0 14px 4px rgba(244,223,87,.8);transform:translate(-50%,-50%);}
 
 
 /* ---------- nav ---------- */
@@ -62,7 +62,10 @@
 /* ---------- hero ---------- */
 .hero{min-height:100vh;display:flex;align-items:center;position:relative;padding-top:120px;overflow:hidden}
 .hero-bg{position:absolute;inset:0;pointer-events:none}
-.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none;animation:drift 14s ease-in-out infinite alternate}.blob.b1{width:520px;height:520px;top:-140px;right:-80px}.blob.b2{width:420px;height:420px;bottom:-120px;left:-100px;animation-delay:-6s}.grid-lines{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,black 20%,transparent 75%)}
+/* I blob restano come velo di colore, fermi: quattro forme sfocate che
+   si muovevano per sempre dietro al titolo erano il movimento più
+   costoso della pagina e il meno utile. */
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}.blob.b1{width:520px;height:520px;top:-140px;right:-80px}.blob.b2{width:420px;height:420px;bottom:-120px;left:-100px;animation-delay:-6s}.grid-lines{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,black 20%,transparent 75%)}
 .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;position:relative;z-index:2}
 .hero-tag{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.6);backdrop-filter:blur(12px);border:1px solid var(--line);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;font-family:var(--fd);letter-spacing:.06em}
 .hero-tag .dot{width:8px;height:8px;border-radius:50%;background:var(--laser);box-shadow:0 0 10px 2px rgba(244,223,87,.9);animation:pulse 1.6s infinite}
@@ -91,7 +94,7 @@
 .hm b{font-size:1.5rem;font-weight:700;display:block}
 .hm span{font-size:12.5px;color:var(--ink-soft);letter-spacing:.05em}
 /* floating product cards */
-.hero-visual{position:relative;height:560px}.fcard{position:absolute;backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.7);border-radius:var(--radius);padding:16px;width:230px;animation:floaty 7s ease-in-out infinite;transition:transform .6s var(--ease)}
+.hero-visual{position:relative;height:560px}.fcard{position:absolute;backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.7);border-radius:var(--radius);padding:16px;width:230px;transition:transform .6s var(--ease)}
 .fcard:hover{transform:scale(1.05) rotate(0deg)!important;z-index:5}
 .fcard .ph{height:140px;border-radius:14px;margin-bottom:12px;position:relative;overflow:hidden}
 .fcard h4{font-size:15px;margin-bottom:2px}.fcard p{font-size:12.5px}

@@ -9,7 +9,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:linear-gradient(rgba(59,125,224,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,125,224,.05) 1px,transparent 1px);
   background-size:56px 56px;
   mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 80%)}
-main,footer,.topbar,.nav{position:relative;z-index:2}
+main,footer{position:relative;z-index:var(--z-base)}
+
+/* La barra e l'annuncio stavano sullo STESSO livello di <main>, e il
+   contenuto viene dopo nel documento: la parte bassa dell'header finiva
+   sotto la pagina e non rispondeva ai clic. Non si vedeva — l'header era
+   disegnato correttamente — ma gli ultimi trenta pixel erano morti su ogni
+   pagina il cui contenuto parte in alto. Ora l'header sta al suo livello. */
+.topbar,.nav{position:relative;z-index:var(--z-nav)}
 canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:1}
 h1,h2,h3,.pp-info h1{font-style:italic;letter-spacing:-.01em}
 h1,h2{font-weight:900}
@@ -129,7 +136,12 @@ footer{background:var(--bg-deep,#070a14);border-top:1px solid rgba(140,160,220,.
 .ppdesc{color:var(--ink-soft);font-size:15px;margin-top:12px;max-width:52ch}
 /* loader */
 .loader{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#131a33,#070a14);z-index:200;display:grid;place-items:center;transition:opacity .8s var(--ease),visibility .8s}
-.loader.off{opacity:0;visibility:hidden}
+.loader.off{opacity:0;visibility:hidden;pointer-events:none}
+
+/* Il velo di caricamento copre tutta la pagina. Spento resta trasparente,
+   ma per tutta la durata della dissolvenza continuava a intercettare i
+   clic: per un secondo il sito sembrava funzionante e non rispondeva a
+   niente. Il puntatore lo attraversa da subito, l'animazione resta. */
 .loader .lin{display:flex;flex-direction:column;align-items:center;gap:22px}
 .loader img{width:130px;filter:drop-shadow(0 0 30px rgba(59,125,224,.6));animation:respiro 2.4s ease-in-out infinite}
 .loader .lbar{width:180px;height:2px;background:rgba(140,160,220,.2);border-radius:2px;overflow:hidden}

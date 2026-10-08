@@ -128,7 +128,7 @@ function paginaVerticale(v){
    plexiglass» o «quale legno per un'incisione fine»: ricerche che il
    catalogo non può soddisfare, perché non parla quella lingua. */
 const TITOLI_LAB = {
-  materiali: { t: 'Materiali', d: 'Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati.' },
+  materiali: { t: 'Materiali', d: 'Dieci materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati.' },
   tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
   macchine: { t: 'Macchine', d: 'Il parco macchine, cosa si sblocca mettendole insieme, e cosa non lavoriamo.' },
   academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Cesena o collegati.' },

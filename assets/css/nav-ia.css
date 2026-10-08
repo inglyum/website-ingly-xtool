@@ -1,0 +1,178 @@
+/* ============================================================
+   NAVIGAZIONE — barra, mega-pannello, cassetto mobile
+   Tutto costruito sui token: nessuna misura inventata qui dentro.
+   ============================================================ */
+
+/* ---- la barra: cinque voci, e basta ---- */
+
+.ia-barra{display:flex;align-items:center;gap:var(--sp-xs)}
+.ia-voce{display:inline-flex;align-items:center;gap:7px;position:relative;
+  font-family:var(--fd);font-size:15px;font-weight:600;letter-spacing:-.005em;
+  padding:10px 16px;border-radius:var(--radius-pill);
+  transition:background var(--dur-micro) var(--ease-out),color var(--dur-micro) var(--ease-out)}
+.ia-caret{width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;
+  transform:rotate(45deg) translateY(-1px);opacity:.45;
+  transition:transform var(--dur-ui) var(--ease-out),opacity var(--dur-micro)}
+.ia-voce[aria-expanded="true"] .ia-caret{transform:rotate(225deg) translateY(-2px);opacity:1}
+
+/* Il filo sotto la voce aperta: dice da dove scende il pannello. */
+.ia-voce::after{content:'';position:absolute;left:16px;right:16px;bottom:4px;height:2px;border-radius:2px;
+  background:var(--blue);transform:scaleX(0);transform-origin:center;
+  transition:transform var(--dur-ui) var(--ease-out)}
+.ia-voce[aria-expanded="true"]::after,.ia-voce.active::after{transform:scaleX(1)}
+
+/* ---- il mega-pannello ---- */
+
+.ia-pannello{position:absolute;left:0;right:0;top:100%;z-index:var(--z-mega);
+  /* Pieno, non traslucido: sotto ci passa l'hero, e un pannello
+     semitrasparente trasforma un menu in una sovrapposizione illeggibile.
+     Il vetro resta alla barra, dove serve. */
+  background:var(--card-solid);border-top:1px solid var(--line);
+  box-shadow:var(--shadow-lift);
+  opacity:0;transform:translateY(-10px);pointer-events:none;
+  transition:opacity var(--dur-ui) var(--ease-out),transform var(--dur-ui) var(--ease-out)}
+.ia-pannello[hidden]{display:none}
+.ia-pannello.aperto{opacity:1;transform:none;pointer-events:auto}
+
+.ia-pannello-in{display:grid;grid-template-columns:1fr auto;gap:var(--sp-2xl);
+  padding-top:var(--sp-xl);padding-bottom:var(--sp-xl);align-items:start}
+.ia-colonne{display:grid;gap:var(--sp-xl)}
+.ia-colonne[data-col="1"]{grid-template-columns:1fr}
+.ia-colonne[data-col="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ia-colonne[data-col="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.ia-col-tit{font-family:var(--fd);font-size:11.5px;font-weight:700;letter-spacing:var(--ls-caps);
+  text-transform:uppercase;opacity:.5;margin:0 0 var(--sp-md)}
+.ia-lista{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.ia-lista a{display:flex;align-items:baseline;gap:8px;padding:7px 10px;margin-left:-10px;
+  border-radius:var(--radius-sm);font-size:15px;line-height:1.35;
+  transition:background var(--dur-micro) var(--ease-out),transform var(--dur-micro) var(--ease-out)}
+.ia-lista a:hover{transform:translateX(3px)}
+/* La nota «in officina» sta sulla stessa riga del nome o va a capo da
+   sola: spezzata a metà di un nome lungo sembrava parte del nome. */
+.ia-lista a{flex-wrap:wrap}
+.ia-lista em{font-style:normal;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.55;white-space:nowrap;padding:2px 7px;border:1px solid var(--line);border-radius:var(--radius-pill)}
+.ia-tutto{display:inline-flex;align-items:center;gap:7px;margin-top:var(--sp-md);
+  font-family:var(--fd);font-size:13.5px;font-weight:600;color:var(--blue)}
+.ia-tutto .arr{transition:transform var(--dur-micro) var(--ease-out)}
+.ia-tutto:hover .arr{transform:translateX(4px)}
+
+/* La colonna editoriale: una sola idea, non un secondo elenco. */
+.ia-evidenza{width:300px;background:var(--card-glass);padding:var(--sp-lg);border-radius:var(--radius);
+  border:1px solid var(--line);background:var(--card-glass,transparent)}
+.ia-ev-occhiello{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);
+  text-transform:uppercase;color:var(--blue);margin:0 0 var(--sp-sm)}
+.ia-ev-tit{font-family:var(--fd);font-size:19px;font-weight:700;line-height:1.25;margin:0 0 var(--sp-sm)}
+.ia-ev-testo{font-size:14px;line-height:1.55;opacity:.7;margin:0 0 var(--sp-md)}
+.ia-ev-cta{display:inline-flex;align-items:center;gap:7px;font-family:var(--fd);
+  font-size:14px;font-weight:600;color:var(--blue)}
+.ia-ev-cta:hover .arr{transform:translateX(4px)}
+
+/* Il velo dietro il pannello: separa senza spegnere la pagina. */
+/* Il velo sta SOTTO l'header, non sopra.
+   L'header ha un suo livello, quindi crea un contesto di impilamento: il
+   pannello dentro di lui non può salire sopra un elemento che nel
+   documento sta più in alto, per quanto grande sia il suo z-index. Con il
+   velo a 94 il pannello era coperto da un vetro invisibile e cliccare una
+   voce chiudeva il menu invece di aprire la pagina. */
+.ia-velo{position:fixed;inset:0;z-index:calc(var(--z-nav) - 2);background:rgba(10,13,24,.28);
+  opacity:0;pointer-events:none;transition:opacity var(--dur-ui) var(--ease-out)}
+.ia-velo.on{opacity:1;pointer-events:auto}
+
+@media(max-width:1100px){
+  .ia-barra{display:none}
+  .ia-pannello{display:none!important}
+}
+
+/* ---- il cassetto mobile ---- */
+
+.dr-item{border-bottom:1px solid var(--line)}
+.dr-fam{display:flex;align-items:center;justify-content:space-between;width:100%;
+  font-family:var(--fd);font-size:22px;font-weight:700;letter-spacing:-.01em;
+  padding:var(--sp-md) 0;background:none;border:0;color:inherit;text-align:left;cursor:pointer}
+.dr-piu{position:relative;width:14px;height:14px;flex:none;opacity:.5}
+.dr-piu::before,.dr-piu::after{content:'';position:absolute;background:currentColor;border-radius:2px}
+.dr-piu::before{left:0;right:0;top:6px;height:2px}
+.dr-piu::after{top:0;bottom:0;left:6px;width:2px;
+  transition:transform var(--dur-ui) var(--ease-out)}
+.dr-fam[aria-expanded="true"] .dr-piu::after{transform:scaleY(0)}
+
+/* grid-template-rows anima senza costringere a misurare l'altezza a mano */
+.dr-sub{display:grid;grid-template-rows:0fr;overflow:hidden;
+  transition:grid-template-rows var(--dur-ui) var(--ease-out)}
+.dr-sub > *{min-height:0}
+.dr-sub.aperto{grid-template-rows:1fr}
+.dr-sub-in{padding-bottom:0;transition:padding-bottom var(--dur-ui) var(--ease-out)}
+/* Il padding del figlio non viene schiacciato da grid-template-rows:0fr:
+   restavano sedici pixel di riga aperta sotto ogni voce chiusa, e dentro
+   ci si leggeva la prima riga del sottomenu. Il respiro arriva solo da
+   aperto. */
+.dr-sub.aperto .dr-sub-in{padding-bottom:var(--sp-md)}
+.dr-claim{font-size:14px;line-height:1.5;opacity:.6;margin:0 0 var(--sp-md)}
+.dr-col-tit{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:var(--ls-caps);
+  text-transform:uppercase;opacity:.45;margin:var(--sp-md) 0 var(--sp-sm)}
+.dr-sub a{display:block;font-size:16px;padding:8px 0;opacity:.85}
+.dr-tutto{font-family:var(--fd);font-weight:600;color:var(--blue);opacity:1!important}
+
+/* ---- convivenza con la barra vecchia ----
+   La nuova navigazione sostituisce la vecchia solo quando è montata
+   davvero: finché html non ha .ia-attiva resta visibile quella piatta.
+   È la differenza fra un errore che degrada e un sito senza menu. */
+.ia-barra:empty{display:none}
+html.ia-attiva .nav-links{display:none!important}
+html.ia-attiva .dr-rete{display:none}
+html:not(.ia-attiva) .ia-barra{display:none}
+
+/* ---- header: due stati ---- */
+.nav{transition:padding var(--dur-ui) var(--ease-out),background var(--dur-ui),
+  box-shadow var(--dur-ui),backdrop-filter var(--dur-ui)}
+.nav.compatto{padding-top:8px;padding-bottom:8px}
+.nav.compatto .brand img{width:34px;height:34px}
+.brand img{transition:width var(--dur-ui) var(--ease-out),height var(--dur-ui) var(--ease-out)}
+
+/* ---- cassetto mobile: una pagina, non una lista ---- */
+.dr-testa{padding:0 0 var(--sp-lg)}
+.dr-eyebrow{font-family:var(--fd);font-size:11px;font-weight:700;
+  letter-spacing:var(--ls-caps);text-transform:uppercase;opacity:.45}
+.dr-corpo{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.dr-fondo{padding-top:var(--sp-lg);display:grid;gap:var(--sp-md);justify-items:start}
+
+/* Il menu mobile è un pannello a tutta altezza: intestazione ferma,
+   voci che scorrono, azione principale sempre raggiungibile in fondo. */
+@media(max-width:1100px){
+  .mobile-menu{justify-content:flex-start;padding:92px var(--gutter) var(--sp-xl)}
+}
+
+/* ============================================================
+   FOOTER — la chiusura del sito
+   Prima erano quattro colonne di link e un copyright: la fine di una
+   pagina, non la fine di una visita. Ora la prima cosa che si legge
+   è una domanda, e tutto il resto viene dopo.
+   ============================================================ */
+
+.ft-closing{padding:var(--sp-2xl) 0 var(--sp-xl);border-bottom:1px solid var(--line);
+  display:grid;gap:var(--sp-lg);justify-items:start}
+.ft-eyebrow{font-family:var(--fd);font-size:12px;font-weight:700;
+  letter-spacing:var(--ls-caps);text-transform:uppercase;opacity:.5;margin:0}
+.ft-claim{font-family:var(--fd);font-weight:700;letter-spacing:-.035em;line-height:1.02;
+  font-size:clamp(2.4rem,6.5vw,5rem);margin:0;max-width:16ch}
+
+.ft-cols{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:var(--sp-xl);
+  padding:var(--sp-2xl) 0 var(--sp-xl)}
+.ft-col h4{font-family:var(--fd);font-size:11.5px;font-weight:700;
+  letter-spacing:var(--ls-caps);text-transform:uppercase;opacity:.45;margin:0 0 var(--sp-md)}
+.ft-col a,.ft-luogo{display:block;font-size:14.5px;padding:5px 0;opacity:.75;
+  transition:opacity var(--dur-micro) var(--ease-out),transform var(--dur-micro) var(--ease-out)}
+.ft-col a:hover{opacity:1;transform:translateX(3px)}
+.ft-luogo{opacity:.45}
+.ft-col--brand .ft-desc{font-size:14px;line-height:1.6;opacity:.6;margin:var(--sp-md) 0 var(--sp-lg);max-width:34ch}
+.ft-col--brand .socials{margin-top:var(--sp-md)}
+
+@media(max-width:1100px){
+  .ft-cols{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-xl) var(--sp-lg)}
+  .ft-col--brand{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .ft-cols{grid-template-columns:1fr}
+}

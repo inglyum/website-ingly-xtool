@@ -14,6 +14,7 @@ import { initReferral, shareRef } from './referral.js';
 import { initShare, initFomo, openWhatsApp, renderInstagramFeed } from './social.js';
 import * as VERT from './verticali.js';
 import * as LABUI from './lab-ui.js';
+import { initNavIA } from './nav-mega.js';
 import * as SFONDI from './sfondi.js';
 import * as PREZZI from './prezzi.js';
 
@@ -391,6 +392,12 @@ const escHtml = t => String(t == null ? '' : t)
 /* ===== LAB: materiali, tecnologie, macchine =====
    Le sezioni si disegnano una volta sola al caricamento; la scheda aperta
    la decide l'indirizzo, come per i settori Business. */
+/* La navigazione a famiglie: se fallisce, resta quella piatta. */
+function renderNavIA(){
+  try{ initNavIA(window.INGLY||{},L) }
+  catch(err){ console.warn('[INGLY] navigazione a famiglie non montata:',err) }
+}
+
 function renderLab(){
   try{
     LABUI.renderFiltriMateriali(L);
@@ -492,7 +499,7 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
+function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll();refreshMagnets()}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={

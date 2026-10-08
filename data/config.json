@@ -162,5 +162,9 @@
     "pezzi": null,
     "clienti": null,
     "puntualita": null
+  },
+  "checkout": {
+    "modo": "WHATSAPP",
+    "url": ""
   }
 }

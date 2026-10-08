@@ -4,6 +4,7 @@
 import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, icon, toast, L } from './utils.js';
 import { refTag, onOrderPlaced } from './referral.js';
 import * as PR from './prezzi.js';
+import * as CM from './commerce.js';
 const { MAT_ART, MATN, CATS, P, DIG, CONFIG } = window.INGLY;
 
 /* Con l'interruttore dei prezzi spento ogni cifra diventa «Prezzo su
@@ -492,45 +493,57 @@ export function renderDigital(){$('digGrid').innerHTML=DIG.map(d=>{
   <div class="fmt">${d.f.map(f=>`<i>${f}</i>`).join('')}</div>
   <span class="lic">${T('lic')}</span>
   <div class="dl"><span class="price">${prezzo(d.price)}</span>${buyBtn}</div></div>`}).join('')}
-export function addDigital(id){const d=DIG.find(x=>x.id===+id);cart.push({dig:d,q:1,u:d.price});renderCart();saveCart();toast(T('added'));openCart()}
+export function addDigital(id){
+  const d=DIG.find(x=>x.id===+id); if(!d) return;
+  cart=CM.aggiungi(cart,{...CM.daDigitale(d),bg:MAT_ART.File.bg});
+  renderCart();saveCart();toast(T('added'));openCart();
+}
 
 /* ---- carrello ---- */
 const FREE_SHIP=79; /* soglia spedizione gratuita */
 const COUPONS={'INGLY10':{pct:.10,label:'−10%'},'INGLY15':{pct:.15,label:'−15%'},'LASER20':{pct:.20,label:'−20% Laser'}};
 let activeCoupon=null;
 
-/* Il carrello conosce tre tipi di riga: prodotto fisico, file digitale e
-   — da qui — una riga del Lab (una variante di materiale, un corso).
-   Un secondo carrello avrebbe significato due checkout, due totali e due
-   soglie di spedizione: la riga del Lab porta con sé quel che serve a
-   disegnarla, e tutto il resto del carrello resta uno solo. */
-function saveCart(){try{localStorage.setItem('ingly_cart',JSON.stringify(cart.map(i=>
-  i.dig?{dig:i.dig.id,q:i.q,u:i.u}
-  :i.lab?{lab:i.lab,q:i.q,u:i.u}
-  :{id:i.p.id,q:i.q,mat:i.mat,txt:i.txt,u:i.u})))}catch(e){}}
-function loadCart(){try{const c=localStorage.getItem('ingly_cart');if(!c)return;JSON.parse(c).forEach(i=>{
-  if(i.dig){const d=DIG.find(x=>x.id===i.dig);if(d)cart.push({dig:d,q:i.q,u:i.u})}
-  else if(i.lab&&i.lab.tipo&&i.lab.nome){cart.push({lab:i.lab,q:i.q,u:i.u})}
-  else{const p=P.find(x=>x.id===i.id);if(p)cart.push({p,q:i.q,mat:i.mat,txt:i.txt,u:i.u})}})}catch(e){}}
+/* Il carrello ha UNA forma di riga, per tutti e cinque i tipi — oggetto,
+   materiale, file, corso, pezzo su misura. La costruisce commerce.js, e da
+   quel momento nessuno qui chiede più «che tipo sei»: chiede il nome, il
+   prezzo unitario, la quantità.
 
-/* Aggiunge una riga del Lab. `rif` identifica la riga: due varianti diverse
-   dello stesso materiale sono due righe, la stessa variante si somma. */
+   Prima ogni tipo portava la propria forma, e la catena di ternari che le
+   distingueva stava scritta in quattro posti. In uno dei quattro — il
+   messaggio di checkout — il ramo del Lab non c'era: un carrello con una
+   variante di materiale leggeva `i.p.n` su una riga senza `p` e il bottone
+   si fermava con un errore, senza dire niente a nessuno. */
+function saveCart(){try{localStorage.setItem('ingly_cart',JSON.stringify(CM.serializza(cart)))}catch(e){}}
+function loadCart(){
+  try{
+    const c=localStorage.getItem('ingly_cart'); if(!c) return;
+    /* legge anche le tre forme vecchie: chi aveva il carrello pieno al
+       momento dell'aggiornamento non deve trovarlo vuoto */
+    CM.deserializza(c,{P,DIG}).forEach(r=>cart.push(r));
+  }catch(e){}
+}
+
+/* Aggiunge una riga del Lab (variante di materiale, posto a un corso). */
 export function addLab(lab,q=1,u=0){
   if(!lab||!lab.tipo||!lab.nome) return;
-  const ex=cart.find(i=>i.lab&&i.lab.rif===lab.rif);
-  if(ex) ex.q+=q; else cart.push({lab,q,u:u??0});
+  cart=CM.aggiungi(cart,CM.daLab(lab,{q,unitario:u??0}));
   renderCart();saveCart();toast(T('added'));openCart();
 }
 
 export function addToCart(id,q=1,mat,txt,u){
   const x=P.find(k=>k.id===+id); if(!x) return;
-  /* aggrega se già nel carrello con stesso materiale */
-  const ex=cart.find(i=>!i.dig&&i.p.id===x.id&&i.mat===(mat||MATN[x.mat][L]));
-  if(ex){ ex.q+=q; } else { cart.push({p:x,q,mat:mat||MATN[x.mat][L],txt:txt||'',u:u??x.price}); }
+  cart=CM.aggiungi(cart,CM.daProdotto(x,{
+    q, mat:mat||MATN[x.mat][L], txt:txt||'',
+    unitario:u??x.price, bg:matArt(x.mat).bg,
+  }));
   renderCart();saveCart();toast(T('added'));openCart();
 }
 export function rmCart(i){cart.splice(+i,1);renderCart();saveCart()}
-export function cQty(i,d){i=+i;cart[i].q=Math.max(1,cart[i].q+ +d);renderCart();saveCart()}
+export function cQty(i,d){
+  i=+i; const r=cart[i]; if(!r||r.qFissa) return;
+  r.q=Math.max(1,r.q+ +d);renderCart();saveCart();
+}
 
 export function applyCoupon(){
   const code=($('drCouponInput').value||'').trim().toUpperCase();
@@ -542,30 +555,35 @@ export function applyCoupon(){
 }
 
 export function renderCart(){
-  const n=cart.reduce((s,i)=>s+i.q,0);
+  /* un solo calcolo per il badge, la barra della spedizione e i totali:
+     tre reduce separati sono tre occasioni di mostrare tre numeri diversi */
+  const tot=CM.totali(cart,{coupon:activeCoupon,soglia:FREE_SHIP});
+  const n=tot.pezzi;
   const b=$('cartBadge'); b.textContent=n; b.classList.toggle('on',n>0);
   const dc=$('drCount'); if(dc) dc.textContent=n?n+(L==='it'?' articoli':' items'):'';
 
   /* items */
   $('drItems').innerHTML=cart.length
     ? cart.map((i,x)=>{
-        const nm=i.dig?i.dig.n[L]:i.lab?i.lab.nome:i.p.n[L];
-        const ic=i.dig?i.dig.icon:i.lab?(i.lab.icon||'▪'):i.p.icon;
-        const bg=i.dig?MAT_ART.File.bg:i.lab?(i.lab.bg||matArt().bg):matArt(i.p.mat).bg;
-        const meta=i.dig?i.dig.f.join(' · '):i.lab?(i.lab.meta||''):i.mat+(i.txt?' · “'+i.txt+'”':'');
-        const unitPrice=prezzo(i.u);
+        /* la riga sa già dirsi: nessun ramo per tipo, quindi nessun tipo
+           che resta fuori quando se ne aggiunge uno */
+        const nm=CM.nomeIn(i.nome,L);
+        const ic=i.icon;
+        const bg=i.bg||matArt().bg;
+        const meta=CM.nomeIn(i.meta,L);
+        const unitPrice=prezzo(i.unitario);
         return `<div class="ditem">
           <div class="di-img" style="background:${bg}">${ic}</div>
           <div style="flex:1;min-width:0">
             <h4>${nm}</h4>
             <div class="di-meta">${meta}</div>
             <div class="di-actions">
-              ${(i.dig)?'':`<div class="qty"><button data-action="cart-qty" data-i="${x}" data-d="-1" aria-label="−">−</button><b>${i.q}</b><button data-action="cart-qty" data-i="${x}" data-d="1" aria-label="+">+</button></div>`}
+              ${(i.qFissa)?'':`<div class="qty"><button data-action="cart-qty" data-i="${x}" data-d="-1" aria-label="−">−</button><b>${i.q}</b><button data-action="cart-qty" data-i="${x}" data-d="1" aria-label="+">+</button></div>`}
               <button class="di-rm" data-action="cart-rm" data-i="${x}">${T('rm')}</button>
             </div>
           </div>
           <div class="di-price-col">
-            <span class="di-price">${prezzo(i.u*i.q)}</span>
+            <span class="di-price">${prezzo(CM.prezzoRiga(i))}</span>
             ${(prezziVisibili()&&i.q>1)?`<span class="di-unit">${unitPrice} cad.</span>`:''}
           </div>
         </div>`;
@@ -577,29 +595,27 @@ export function renderCart(){
       </div>`;
 
   /* barra spedizione gratuita */
-  const sub=cart.reduce((s,i)=>s+i.u*i.q,0);
+  const sub=tot.subtotale;
   const bar=$('drShipBar'), fill=$('drShipFill'), msg=$('drShipMsg');
   if(bar){
     /* la barra «ti mancano X€» presuppone dei prezzi: senza, non dice niente */
     if(!cart.length||!prezziVisibili()){ bar.style.display='none'; }
-    else if(sub>=FREE_SHIP){
+    else if(tot.spedizioneGratis){
       bar.style.display='';
       fill.style.width='100%';
       msg.textContent=L==='it'?'🎉 Spedizione gratuita inclusa!':'🎉 Free shipping included!';
       msg.className='dr-ship-msg ok';
     } else {
       bar.style.display='';
-      const pct=Math.min(100,Math.round(sub/FREE_SHIP*100));
-      fill.style.width=pct+'%';
-      const manca=prezzo(FREE_SHIP-sub);
+      fill.style.width=tot.percorso+'%';
+      const manca=prezzo(tot.mancanti);
       msg.textContent=(L==='it'?`Aggiungi ancora ${manca} per la spedizione gratuita`:`Add ${manca} more for free shipping`);
       msg.className='dr-ship-msg';
     }
   }
 
   /* totali con coupon */
-  const discountAmt=activeCoupon?Math.round(sub*activeCoupon.pct*100)/100:0;
-  const total=sub-discountAmt;
+  const discountAmt=tot.sconto, total=tot.totale;
   const subEl=$('drSubtotal'); if(subEl) subEl.textContent=prezzo(sub);
   const dr=$('drDiscountRow');
   if(dr){
@@ -626,21 +642,27 @@ export function closeCart(){$('drawer').classList.remove('open');$('overlay').cl
 
 export function checkoutWhatsApp(){
   if(!cart.length){ toast(T('crtE')); return }
-  const num=(CONFIG.whatsapp||'').replace(/\D/g,'');
-  if(!num){ toast('Numero WhatsApp non configurato in admin'); return }
-  const sub=cart.reduce((s,i)=>s+i.u*i.q,0);
-  const discountAmt=activeCoupon?Math.round(sub*activeCoupon.pct*100)/100:0;
-  const total=sub-discountAmt;
-  const ship=sub>=FREE_SHIP?(L==='it'?'Spedizione: GRATUITA':'Shipping: FREE'):(L==='it'?'Spedizione: da concordare':'Shipping: to be agreed');
+  /* Il canale è una scelta dell'Admin, non una costante del codice: il
+     modello dice quale si può usare davvero e, se quello chiesto è
+     configurato a metà, quale lo sostituisce. Un bottone «Paga ora» con un
+     link vuoto è peggio di un bottone che non c'è. */
+  const ad=CM.adattatore(CONFIG);
+  if(ad.modo==='PAYMENT_LINK'||ad.modo==='EXTERNAL_CHECKOUT'){
+    window.open(ad.url,'_blank','noopener'); onOrderPlaced(); return;
+  }
+  if(ad.modo!=='WHATSAPP'){ checkoutEmail(); return }
+  const num=ad.numero;
+  const tot=CM.totali(cart,{coupon:activeCoupon,soglia:FREE_SHIP});
+  const total=tot.totale;
+  const ship=tot.spedizioneGratis?(L==='it'?'Spedizione: GRATUITA':'Shipping: FREE'):(L==='it'?'Spedizione: da concordare':'Shipping: to be agreed');
   let msg=(prezziVisibili()
     ?(L==='it'?'👋 Ciao INGLY Design! Vorrei ordinare:':'👋 Hi INGLY Design! I would like to order:')
     :(L==='it'?'👋 Ciao INGLY Design! Vorrei un preventivo per:':'👋 Hi INGLY Design! I would like a quote for:'))+'\n\n';
-  cart.forEach(i=>{
-    const nm=i.dig?i.dig.n[L]:i.p.n[L];
-    const meta=i.dig?'':(i.mat?' ['+i.mat+']':'')+(i.txt?' “'+i.txt+'”':'');
-    const sku=(!i.dig&&i.p.sku)?` (${i.p.sku})`:'';
-    msg+=`• ${i.q}× ${nm}${meta}${sku}${prezziVisibili()?' — '+eur(i.u*i.q):''}\n`;
-  });
+  /* Una sola funzione descrive il carrello, così il messaggio non può
+     raccontare un carrello diverso da quello disegnato e nessun tipo di
+     riga resta fuori. Era esattamente il difetto: qui mancava il ramo del
+     Lab, e una variante di materiale nel carrello fermava il bottone. */
+  msg+=CM.descriviCarrello(cart,{L,prezzi:prezziVisibili(),eur})+'\n';
   if(prezziVisibili()){
     msg+='\n'+ship;
     if(activeCoupon) msg+=`\n${L==='it'?'Codice sconto':'Discount code'}: ${activeCoupon.code} (${activeCoupon.label})`;
@@ -665,7 +687,7 @@ export function checkoutWhatsApp(){
 export function checkoutEmail(){
   if(!cart.length){ toast(T('crtE')); return }
   /* porta alla pagina preventivo con prodotti pre-compilati nel campo note */
-  const summary=cart.map(i=>`${i.q}× ${i.dig?i.dig.n[L]:i.p.n[L]}`).join(', ');
+  const summary=cart.map(i=>CM.descriviRiga(i,L)).join(', ');
   go('quote');
   setTimeout(()=>{
     const note=document.getElementById('qNote');

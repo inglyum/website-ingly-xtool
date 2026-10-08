@@ -72,8 +72,10 @@ check('il subtotale passa dall\'interruttore', /drSubtotal'\); if\(subEl\) subEl
 /* senza prezzi il pulsante «+ €29.90» del catalogo non ha senso */
 check('il pulsante rapido sparisce senza prezzi', /!prezziVisibili\(\)\)\?'':`<button class="qadd"/.test(prodotti));
 check('l\'ordinamento per prezzo sparisce senza prezzi', /o\[0\]!=='pa'&&o\[0\]!=='pd'/.test(prodotti));
+/* il messaggio del carrello si scrive in un posto solo (commerce.js):
+   l'interruttore dei prezzi va passato lì, o le cifre tornano da sole */
 check('il messaggio WhatsApp non spedisce cifre inventate',
-  /prezziVisibili\(\)\?' — '\+eur/.test(prodotti));
+  /descriviCarrello\(cart,\{L,prezzi:prezziVisibili\(\)/.test(prodotti));
 check('senza prezzi non si accumulano punti su un totale che non c\'è',
   /pts = prezziVisibili\(\)\?Math\.floor\(total\):0/.test(prodotti));
 const seo = readFileSync('assets/js/seo.js', 'utf8');

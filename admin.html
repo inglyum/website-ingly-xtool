@@ -377,6 +377,23 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
     </div>
 
     <div class="card">
+      <h3>🛒 Dove finisce il carrello</h3>
+      <p class="hint" style="margin-bottom:14px">Il carrello è uno solo — oggetti, materiali del Lab, file, corsi — e questo decide come si chiude l'ordine. Si cambia da qui, senza toccare il sito.</p>
+      <div class="grid2">
+        <label>Modo
+          <select id="ckModo">
+            <option value="WHATSAPP">WhatsApp — l'ordine arriva come messaggio</option>
+            <option value="EMAIL">Preventivo — porta al modulo di richiesta</option>
+            <option value="PAYMENT_LINK">Link di pagamento (Stripe, PayPal, SumUp…)</option>
+            <option value="EXTERNAL_CHECKOUT">Checkout esterno (altra piattaforma)</option>
+          </select>
+        </label>
+        <label>Indirizzo del link<input type="text" id="ckUrl" placeholder="https://…"></label>
+      </div>
+      <p class="hint" id="ckStato" style="margin-top:12px"></p>
+    </div>
+
+    <div class="card">
       <h3>👁 Come si vedrà</h3>
       <div class="hint" style="margin-bottom:10px">La stessa scheda prodotto, con la scelta appena fatta.</div>
       <div id="pzAnteprima"></div>
@@ -1714,10 +1731,38 @@ function renderPrezzi(){
   el.oninput=()=>{ ogg[k]=el.value.trim(); markDirty(); pzDisegnaAnteprima() }; });
  $('pzTesti').style.display=pz.mostra?'none':'';
 
+ renderCheckout();
  pzDisegnaAnteprima();
  $('pzStato').innerHTML=pz.mostra
   ? 'In bozza: i prezzi <b>si vedono</b>. Il carrello funziona come un ordine.'
   : 'In bozza: <b>prezzo su richiesta</b>. Il carrello diventa una richiesta di preventivo e i dati per Google non dichiarano nessuna cifra.';
+}
+
+/* Dove finisce il carrello. Il pannello non si limita a salvare la scelta:
+   dice se quella scelta è davvero usabile. Un «Link di pagamento» senza
+   indirizzo non è un errore di compilazione che si scopre dal cliente — qui
+   si vede subito che il sito ricadrà su un altro canale, e quale. */
+function renderCheckout(){
+ const sel=$('ckModo'), url=$('ckUrl'), stato=$('ckStato');
+ if(!sel||!url||!stato||!S.CONFIG) return;
+ const ck=S.CONFIG.checkout=Object.assign({modo:'WHATSAPP',url:''},S.CONFIG.checkout||{});
+ sel.value=ck.modo||'WHATSAPP';
+ url.value=ck.url||'';
+ const serve=()=>['PAYMENT_LINK','EXTERNAL_CHECKOUT'].includes(sel.value);
+ const avvisa=()=>{
+  url.closest('label').style.display=serve()?'':'none';
+  const M=window.COMMERCE_MOD;
+  if(!M){ stato.textContent=''; return }
+  const a=M.adattatore({whatsapp:S.CONFIG.whatsapp,checkout:ck});
+  stato.innerHTML=a.ricaduta
+   ? `⚠️ <b>${esc(ck.modo)}</b> non è utilizzabile così: `+
+     (serve()?'manca un indirizzo che cominci con https://':'manca il numero WhatsApp nei Contatti')+
+     `. Il sito userà <b>${esc(a.modo)}</b> — il cliente non vedrà un pulsante rotto, ma non sta usando quello che hai scelto.`
+   : `In bozza: il carrello si chiude con <b>${esc(a.modo)}</b>.`;
+ };
+ sel.onchange=()=>{ ck.modo=sel.value; markDirty(); avvisa() };
+ url.oninput=()=>{ ck.url=url.value.trim(); markDirty(); avvisa() };
+ avvisa();
 }
 
 function pzDisegnaAnteprima(){
@@ -4466,6 +4511,8 @@ $('seoAiGen').onclick=async()=>{
   window.SFONDI_MOD = SF;      /* catalogo degli sfondi, uno per tema */
   import * as PZ from './assets/js/prezzi.js';
   window.PREZZI_MOD = PZ;      /* prezzi esposti oppure «su richiesta» */
+  import * as CMM from './assets/js/commerce.js';
+  window.COMMERCE_MOD = CMM;   /* il modello unico: tipi, righe, totali, checkout */
   /* il pannello può essere già aperto quando il modulo arriva: ridisegnalo
      (renderPrezzi si tira indietro da solo se i dati non ci sono ancora) */
   if(typeof renderPrezzi === 'function') renderPrezzi();

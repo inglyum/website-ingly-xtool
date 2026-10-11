@@ -576,6 +576,8 @@ const actions={
   'cart-rm':el=>prod.rmCart(el.dataset.i),
   'coll':el=>prod.setColl(el.dataset.coll),
   'open-coll':el=>prod.openColl(el.dataset.coll),
+  'filtri-apri':()=>prod.apriFiltri(),
+  'filtri-chiudi':()=>prod.chiudiFiltri(),
   'coll-clear':()=>prod.clearColl(),
   'pill':el=>{el.parentNode.querySelectorAll('.pill').forEach(x=>x.classList.remove('on'));el.classList.add('on')},
   'fake-upload':el=>{el.classList.toggle('done');el.textContent=el.classList.contains('done')?('✓ '+(el.dataset.done||'file')):el.dataset.t},

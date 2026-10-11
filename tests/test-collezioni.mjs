@@ -214,5 +214,55 @@ check('le schede della home non sono più scritte a mano',
   /id="collTabs"><\/div>/.test(idx.replace(/\s+/g, '')) || /id="collTabs"\s*><\/div>/.test(idx));
 check('c\'è l\'intestazione della collezione nello shop', /id="shopCollBanner"/.test(idx));
 
+console.log('\n=== LO SHOP: INGRESSO E FILTRI DEL TELEFONO ===');
+const idx2 = readFileSync('index.html', 'utf8');
+const prod2 = readFileSync('assets/js/products.js', 'utf8');
+const css2 = readFileSync('assets/css/pages.css', 'utf8');
+const resp2 = readFileSync('assets/css/responsive.css', 'utf8');
+
+/* Lo shop apriva direttamente su 63 prodotti in griglia: chi arriva senza
+   sapere cosa vuole non ha un punto di partenza. */
+check('lo shop ha un ingresso visivo', /id="shopIntro"/.test(idx2));
+check('le categorie dell\'ingresso arrivano dai dati', /id="shopCats"/.test(idx2) && /renderShopIntro/.test(prod2));
+check('le collezioni dell\'ingresso arrivano dal motore', /CL\.inEvidenza\(window\.INGLY/.test(prod2));
+/* una tessera che apre il vuoto è un vicolo cieco con una bella foto */
+check('solo le categorie che hanno prodotti', /catCount\(c\.id\) ?> ?0/.test(prod2));
+/* con un filtro attivo la domanda «cosa stai cercando?» ha già risposta e
+   tenerla sopra spinge i risultati sotto la piega */
+check('l\'ingresso si ritira quando un filtro è attivo', /intro\.hidden ?= ?filtriAttivi\(\) ?> ?0/.test(prod2));
+
+/* IL DIFETTO: sotto gli 820px `.filters` era display:none e NESSUNO
+   metteva la classe `open`. Su telefono un catalogo da 63 prodotti non si
+   poteva né cercare né filtrare. */
+check('esisteva la regola che nasconde i filtri', /\.filters\{display:none\}/.test(resp2));
+check('ora c\'è il pulsante che li apre', /data-action="filtri-apri"/.test(idx2));
+check('e l\'azione è collegata', /'filtri-apri':/.test(readFileSync('assets/js/main.js', 'utf8')));
+check('il pannello ha una via d\'uscita', /data-action="filtri-chiudi"/.test(idx2));
+check('Esc chiude il pannello', /e\.key==='Escape'&&\$\('shopFiltri'\)/.test(prod2));
+check('il pulsante dice quanti filtri sono attivi', /export function filtriAttivi/.test(prod2));
+/* un pannello che non dice quanti prodotti restano obbliga a chiuderlo
+   per scoprirlo */
+check('il pannello dice quanti risultati restano', /id="fVediN"/.test(idx2));
+/* un secondo insieme di filtri avrebbe voluto dire due verità su cosa è
+   filtrato: il pannello è la STESSA colonna, spostata */
+check('non c\'è un secondo insieme di filtri',
+  (idx2.match(/id="fCat"/g) || []).length === 1 && (idx2.match(/id="q"/g) || []).length === 1);
+check('le due tendine di ordinamento condividono lo stato',
+  /\[\$\('sortSel'\),\$\('sortSelM'\)\]\.forEach\(riempiSort\)/.test(prod2));
+
+/* `section.page` ha transform e filter per la transizione fra pagine, e un
+   elemento con transform diventa il blocco contenitore dei suoi
+   discendenti `fixed`: il pannello veniva alto 25.040 pixel — l'altezza
+   della pagina, non dello schermo — con il ✕ fuori dalla portata. */
+check('il pannello viene spostato sotto body quando si apre',
+  /document\.body\.appendChild\(f\)/.test(prod2));
+check('e torna al suo posto quando si chiude',
+  /postoFiltri\.genitore\.insertBefore/.test(prod2));
+check('il commento spiega perché, con la misura', /25\.040/.test(prod2));
+check('anche il velo sta fuori dalla pagina',
+  idx2.indexOf('class="filters-velo"') < idx2.indexOf('class="page" id="page-shop"'));
+check('il pannello sta sotto il toast e sopra il contenuto',
+  /z-index:var\(--z-overlay,110\)/.test(css2));
+
 console.log(`\n=========== COLLEZIONI: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

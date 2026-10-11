@@ -285,6 +285,106 @@ function filterProducts(){
     const inColl=!F.coll||collSet().has(x.id);
     return inColl&&(!q||hay.includes(q))&&(F.cat.size===0||F.cat.has(x.cat))&&(F.mat.size===0||F.mat.has(x.mat))&&(F.sub.size===0||F.sub.has(x.sub))&&x.price<=max});
 }
+/* ---- COSA STAI CERCANDO: l'ingresso visivo al catalogo ----
+   Lo shop apriva direttamente su 63 prodotti in griglia. Chi arriva senza
+   sapere già cosa vuole non ha un punto di partenza, e la griglia è il
+   posto peggiore per cominciare a capire cosa fa questo laboratorio.
+   Categorie e collezioni arrivano dai dati: una categoria svuotata non
+   lascia una tessera che porta a zero risultati. */
+export function renderShopIntro(){
+  const cats=$('shopCats'), colls=$('shopColls'), intro=$('shopIntro');
+  if(!cats||!colls) return;
+
+  /* Solo le categorie che hanno prodotti: una tessera che apre il vuoto è
+     un vicolo cieco con una bella foto. */
+  const vive=CATS.filter(c=>c&&c.id&&!c.go&&catCount(c.id)>0);
+  cats.innerHTML=vive.map(c=>{
+    const n=catCount(c.id);
+    const light=isLightBg(c.bg);
+    const art=c.img;
+    const ph=art?`<img class="bimg" src="${imgV(art)}"${srcsetFor(art)}${focalOf(art)} alt="" loading="lazy">`:'';
+    return `<button class="scat${light&&!art?' scat--light':''}${art?' scat--photo':''}" data-action="go-shop" data-arg="${c.id}"
+      style="${c.bg?'background:'+c.bg+';':''}">
+      ${ph}<span class="scat-ic">${icon(c.icon,c.ic)}</span>
+      <span class="scat-n">${c.n[L]}</span><span class="scat-c">${n}</span></button>`;
+  }).join('');
+
+  /* Le collezioni in evidenza: sono criteri sul catalogo, quindi non
+     possono essere vuote (lo garantisce collezioni.js). */
+  const vetrine=CL.inEvidenza(window.INGLY,7);
+  colls.innerHTML=vetrine.length?`<h3 class="shop-intro-h2">${L==='it'?'Oppure parti da qui':'Or start here'}</h3>
+    <div class="scoll-row">${vetrine.map(c=>
+      `<button class="scoll" data-action="open-coll" data-coll="${CL.rifDi(c)}">
+        <span class="scoll-n">${CL.lingua(c.n,L)}</span><span class="scoll-c">${CL.conta(c,window.INGLY)}</span></button>`
+    ).join('')}</div>`:'';
+
+  /* L'intestazione sparisce quando un filtro è attivo: a quel punto la
+     domanda «cosa stai cercando?» ha già una risposta, e tenerla sopra ai
+     risultati li spinge sotto la piega. */
+  if(intro) intro.hidden=filtriAttivi()>0;
+}
+
+/* ---- il pannello filtri del telefono ---- */
+
+/** Quanti filtri sta applicando l'utente. Serve al numero sul pulsante:
+ *  un pannello chiuso che nasconde tre filtri attivi fa sembrare il
+ *  catalogo mezzo vuoto senza dire perché. */
+export function filtriAttivi(){
+  const q=($('q')&&$('q').value||'').trim();
+  const max=$('pRange')?+$('pRange').value:120;
+  const maxPieno=$('pRange')?+$('pRange').max:120;
+  return F.cat.size+F.mat.size+F.sub.size+(F.coll?1:0)+(q?1:0)+(max<maxPieno?1:0);
+}
+
+/* Dove tornare quando il pannello si chiude. */
+let postoFiltri=null;
+
+/**
+ * Apre il pannello dei filtri sul telefono.
+ *
+ * Il nodo viene SPOSTATO sotto <body>, e questo non è un vezzo:
+ * `section.page` porta `transform` e `filter` (servono alla transizione fra
+ * le pagine), e un elemento con transform o filter diventa il blocco
+ * contenitore di tutti i suoi discendenti `position:fixed`. Risultato
+ * misurato: il pannello era `fixed` con `top:0;bottom:0` e veniva alto
+ * **25.040 pixel** — l'altezza della pagina, non dello schermo — con il ✕
+ * fuori dalla portata del dito.
+ *
+ * Vale per qualunque cosa `fixed` dentro una `.page`: è una trappola di
+ * questo CSS, non un caso particolare dei filtri.
+ *
+ * Si sposta il nodo invece di duplicarlo: è lo stesso insieme di filtri,
+ * con lo stesso stato e gli stessi valori nei campi. Un secondo pannello
+ * avrebbe voluto dire due verità su cosa è filtrato.
+ */
+export function apriFiltri(){
+  const f=$('shopFiltri'); if(!f) return;
+  if(!postoFiltri){ postoFiltri={ genitore:f.parentNode, prima:f.nextSibling }; }
+  document.body.appendChild(f);
+  f.classList.add('open');
+  document.documentElement.classList.add('filtri-aperti');
+  document.querySelector('[data-action="filtri-apri"]')?.setAttribute('aria-expanded','true');
+  f.querySelector('.filters-x')?.focus();
+}
+export function chiudiFiltri(){
+  const f=$('shopFiltri'); if(!f) return;
+  f.classList.remove('open');
+  document.documentElement.classList.remove('filtri-aperti');
+  /* Torna al suo posto nella colonna: su schermo largo è la barra
+     laterale, e lasciarlo appeso a <body> la farebbe sparire. */
+  if(postoFiltri&&postoFiltri.genitore){
+    postoFiltri.genitore.insertBefore(f,postoFiltri.prima||null);
+  }
+  const b=document.querySelector('[data-action="filtri-apri"]');
+  if(b){ b.setAttribute('aria-expanded','false'); b.focus(); }
+}
+
+function renderBarraFiltri(n){
+  const el=$('fbarN');
+  if(el){ const q=filtriAttivi(); el.hidden=q===0; el.textContent=q; }
+  const v=$('fVediN'); if(v) v.textContent=n;
+}
+
 export function renderShop(){
   const res=filterProducts();
   if(SORT==='pa')res.sort((a,b)=>a.price-b.price);
@@ -293,6 +393,8 @@ export function renderShop(){
   if(SORT==='nw')res.sort((a,b)=>b.id-a.id);   /* novità: gli ID più alti sono i più recenti */
   syncFiltersToURL();
   renderCollBanner();
+  renderBarraFiltri(res.length);
+  renderShopIntro();
   $('resN').textContent=res.length;
   $('shopGrid').innerHTML=res.length?res.map(card).join(''):`<div class="empty">
     <div class="empty-ill"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.5"/><path d="M19 19l-4.3-4.3"/><path d="M7.5 10h5" opacity=".5"/></svg></div>
@@ -300,7 +402,13 @@ export function renderShop(){
   renderRV();
 }
 export function setSort(v){SORT=v;renderShop()}
-export function fillSort(){const s=$('sortSel');if(!s)return;
+export function fillSort(){
+  /* Due tendine, un solo stato: quella della colonna e quella della barra
+     del telefono. Riempirne una sola avrebbe lasciato l'altra vuota, e
+     sarebbe sembrata rotta. */
+  [$('sortSel'),$('sortSelM')].forEach(riempiSort);
+}
+function riempiSort(s){if(!s)return;
   /* «prezzo crescente» non ha senso in una vetrina senza prezzi */
   const voci=[['rel','sortRel'],['nw','sortNw'],['pa','sortPa'],['pd','sortPd'],['rv','sortRv']]
     .filter(o=>prezziVisibili()||(o[0]!=='pa'&&o[0]!=='pd'));
@@ -811,6 +919,15 @@ export function initShopControls(){
   $('q').addEventListener('input',()=>{renderShop();renderChips()});
   $('pRange').addEventListener('input',e=>{$('pv').textContent='€'+e.target.value;renderShop();renderChips()});
   $('sortSel').addEventListener('change',e=>setSort(e.target.value));
+  /* L'ordinamento del telefono sta nella barra sopra la griglia, non nel
+     pannello: si cambia più spesso dei filtri e non vale aprire un
+     pannello per farlo. È lo stesso stato, non un secondo controllo. */
+  $('sortSelM')?.addEventListener('change',e=>setSort(e.target.value));
+  /* Esc chiude il pannello: su un pannello a schermo pieno è l'unica via
+     d'uscita per chi usa la tastiera. */
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&$('shopFiltri')?.classList.contains('open')) chiudiFiltri();
+  });
 }
 
 

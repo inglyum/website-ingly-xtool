@@ -193,6 +193,11 @@ setTimeout(function(){
    serviva — il file non arrivava e la manutenzione accesa non compariva;
    oppure compariva sopra un sito che sotto continuava a funzionare. */
 </script>
+<!-- Il velo dei filtri sta a livello di <body>, non dentro la pagina:
+     `section.page` ha transform e filter per la transizione, e qualunque
+     elemento `position:fixed` dentro una .page prende quella come blocco
+     contenitore invece dello schermo. -->
+<div class="filters-velo" data-action="filtri-chiudi" aria-hidden="true"></div>
 <div class="loader" id="loader"><div class="lin"><img src="assets/images/logo.png" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>
@@ -383,15 +388,51 @@ setTimeout(function(){
   <div class="wrap phero">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-shop"></use></svg> Shop</span>
     <h1 class="h2" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h1>
-    <p class="sub" data-i18n="shopSub">12 categorie, sottocategorie e materiali — cerca, filtra, personalizza.</p>
+    <p class="sub" data-i18n="shopSub">13 categorie, sottocategorie e materiali — cerca, filtra, ordina.</p>
+  </div>
+
+  <!-- COSA STAI CERCANDO — l'ingresso visivo al catalogo.
+       Prima lo shop apriva direttamente su 63 prodotti in griglia: chi non
+       sa già cosa vuole non ha un punto di partenza. Le categorie e le
+       collezioni arrivano dai dati, non da un elenco scritto a mano. -->
+  <div class="wrap shop-intro" id="shopIntro">
+    <h2 class="shop-intro-h" data-i18n="shopIntroH">Cosa stai cercando?</h2>
+    <div class="shop-cats" id="shopCats"></div>
+    <div class="shop-colls" id="shopColls"></div>
+  </div>
+
+  <div class="wrap">
     <div class="shop-layout">
-      <aside class="filters">
+      <!-- Barra filtri del telefono: sotto gli 820px la colonna laterale
+           era `display:none` e NESSUNO metteva la classe che la riapriva,
+           quindi su telefono non si poteva né cercare né filtrare un
+           catalogo da 63 pezzi. Questo pulsante apre la stessa colonna
+           come pannello: un solo insieme di filtri, non due. -->
+      <div class="fbar">
+        <button class="btn btn-ghost fbar-btn" data-action="filtri-apri" aria-expanded="false" aria-controls="shopFiltri">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+          <span data-i18n="fOpen">Filtri</span><i class="fbar-n" id="fbarN" hidden></i>
+        </button>
+        <select class="sortsel" id="sortSelM" aria-label="Ordina"></select>
+      </div>
+      <aside class="filters" id="shopFiltri" aria-label="Filtri del catalogo">
+        <div class="filters-testa">
+          <b data-i18n="fTitle">Filtri</b>
+          <button class="filters-x" data-action="filtri-chiudi" aria-label="Chiudi i filtri">✕</button>
+        </div>
         <div class="searchbar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="q" type="search" data-ph="searchPh" placeholder="Ricerca live…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sugg"><div class="sugg" id="sugg" role="listbox" hidden></div></div>
         <div class="fgroup"><h4 data-i18n="fCatH">Categoria</h4><div id="fCat"></div></div>
         <div class="fgroup"><h4 data-i18n="fMatH">Materiale</h4><div id="fMat"></div></div>
         <div class="fgroup"><h4><span data-i18n="fPrH">Prezzo max</span> <span class="range-val" id="pv">€120</span></h4><input type="range" class="range" id="pRange" min="5" max="120" value="120"></div>
         <button class="btn btn-ghost" style="justify-content:center" data-action="reset-filters" data-i18n="fReset">Azzera filtri</button>
+        <!-- Nel pannello del telefono: quanti risultati dà questa scelta.
+             Un pannello di filtri che non dice quanti prodotti restano
+             obbliga a chiuderlo per scoprirlo. -->
+        <button class="btn btn-primary filters-vedi" data-action="filtri-chiudi">
+          <span data-i18n="fSee">Vedi</span> <b id="fVediN">0</b> <span data-i18n="fSeeTail">risultati</span>
+        </button>
       </aside>
+
       <div>
         <!-- Intestazione della collezione attiva: compare solo quando una
              collezione filtra il catalogo, e offre la via d'uscita. -->

@@ -65,6 +65,36 @@ intercetta la richiesta prima del service worker, quindi quel ramo non si
 può esercitare qui. È corretto nel codice (base assoluta, `ignoreSearch`)
 ma non lo dichiaro provato.
 
+### P1/FASE 3 — lo Shop come ecommerce
+`index.html`, `assets/js/products.js`, CSS · 109 controlli
+
+**Il difetto che contava più di tutti: sotto gli 820px ricerca e filtri
+erano `display:none` e nessuno metteva la classe che li riapriva.** Il CSS
+prevedeva `.filters.open`, ma nessun pulsante e nessuna azione la
+aggiungevano. Su telefono un catalogo da 63 prodotti **non si poteva né
+cercare né filtrare**. Verificato a 820, 768 e 390 px.
+
+Ora c'è un pannello: pulsante «Filtri» con il numero dei filtri attivi,
+pannello a schermo con la sua intestazione e il suo ✕, «Vedi N risultati»
+che si aggiorna mentre scegli, Esc per chiudere. È la **stessa colonna**
+dei filtri, spostata — non un secondo insieme, che avrebbe voluto dire due
+verità su cosa è filtrato.
+
+Dentro si è aperto un difetto più generale: `section.page` porta
+`transform` e `filter` per la transizione fra le pagine, e un elemento con
+transform diventa il **blocco contenitore** dei suoi discendenti
+`position:fixed`. Il pannello risultava alto **25.040 pixel** — l'altezza
+della pagina, non dello schermo — con il ✕ fuori dalla portata del dito.
+Vale per qualunque cosa `fixed` dentro una `.page`: è una trappola di
+questo CSS, non un caso dei filtri. Pannello e velo vivono sotto `<body>`.
+
+**L'ingresso al catalogo**: lo shop apriva direttamente su 63 prodotti in
+griglia. Ora apre con «Cosa stai cercando?» — 9 tessere categoria con il
+conteggio (solo quelle che hanno prodotti: una tessera che apre il vuoto è
+un vicolo cieco con una bella foto) e 7 collezioni. L'intestazione si
+ritira appena un filtro è attivo, perché a quel punto la domanda ha già
+una risposta e tenerla sopra spinge i risultati sotto la piega.
+
 ### P1 — navigazione per obiettivo, e la rotta Personalizza
 `assets/js/nav-ia.js`, `assets/js/rotte.js`, `admin.html` · 52 + 64 controlli
 

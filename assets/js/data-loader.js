@@ -9,9 +9,9 @@
    pubblicazione parziale — il sito deve continuare a funzionare senza di
    loro, con le sezioni del Lab semplicemente assenti. Per questo stanno
    qui dentro e non in un caricamento separato che potrebbe fallire da solo. */
-const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni'];
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni','immagini'];
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',
-  materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE',corsi:'CORSI',collezioni:'COLLEZIONI'};
+  materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE',corsi:'CORSI',collezioni:'COLLEZIONI',immagini:'IMMAGINI'};
 
 export const dataStatus={mode:'',version:null,missing:[],warnings:[]};
 

@@ -84,12 +84,14 @@ export function initAnimations(){
     prog.style.width=(h>0?scrollY/h*100:0)+'%';
   },{passive:true});
 
-  /* Il velo di caricamento se ne va al load, e comunque entro 3,5 secondi:
-     un sito che resta dietro un velo perché un'immagine non arriva è un
-     sito irraggiungibile. */
+  /* Il velo se ne va quando il sito è USABILE, non quando è arrivata
+     l'ultima sottorisorsa. `load` aspetta anche i font di Google e ogni
+     immagine: su una connessione lenta sono secondi di pagina che sembra
+     pronta e non risponde. Il primo disegno lo chiama già (main.js);
+     questi due sono le reti di sicurezza. */
   const via=()=>document.getElementById('loader')?.classList.add('off');
-  addEventListener('load',()=>setTimeout(via,600));
-  setTimeout(via,3500);
+  addEventListener('load',()=>setTimeout(via,200));
+  setTimeout(via,2500);
 }
 
 /* ============ ZOOM GALLERIA PRODOTTO ============

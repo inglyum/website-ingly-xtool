@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <base href="../../">
+<base href="./">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apribottiglie Inciso Personalizzato — INGLY DESIGN</title>
@@ -13,9 +14,9 @@
 
 <!-- Canonical + hreflang IT/EN -->
 <link rel="canonical" href="https://www.inglydesign.it/product/22/">
-<link rel="alternate" hreflang="it" href="https://www.inglydesign.it/">
-<link rel="alternate" hreflang="en" href="https://www.inglydesign.it/?lang=en">
-<link rel="alternate" hreflang="x-default" href="https://www.inglydesign.it/">
+<link rel="alternate" hreflang="it" href="https://www.inglydesign.it/product/22/">
+<link rel="alternate" hreflang="en" href="https://www.inglydesign.it/product/22/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://www.inglydesign.it/product/22/">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
@@ -73,6 +74,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=Exo+2:ital,wght@0,600;0,700;1,600;1,700;1,800;1,900&family=Inter:wght@400;500;600&family=Caveat:wght@600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 
 <script>(function(){try{var m=localStorage.getItem("ingly_mode");if(!m)m=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-mode",m)}catch(e){}})();</script>
+<!-- LA BASE DEL DOCUMENTO, SEMPRE E PRIMA DI TUTTO.
+     Tutti i link interni sono scritti relativi (`href="shop"`), perché un
+     link assoluto come `/shop` esce dal sito quando il sito è pubblicato in
+     una sottocartella: erano 44 su 99, e rispondevano tutti 404.
+     Un link relativo si risolve rispetto a QUESTA cartella, e resta giusto
+     anche dopo che il router ha cambiato l'indirizzo con pushState, perché
+     <base> si risolve una volta sola quando la pagina viene letta.
+     Prima questo tag veniva inserito solo nel ramo del redirect `?p=`:
+     su un caricamento normale non c'era, e dopo il primo pushState verso
+     /shop/ ogni link relativo avrebbe puntato dentro /shop/. -->
 <!-- GitHub Pages SPA: decodifica /?p=/shop → history '/shop' prima del caricamento -->
 <script>(function(){try{var s=new URLSearchParams(location.search);var p=s.get('p');if(p){s.delete('p');var rest=s.toString();
 /* la base è la cartella in cui vive questa pagina: "/" in produzione,
@@ -199,22 +210,22 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" style="top:36px">
   <div class="wrap nav-in">
-    <a href="/home" class="brand" data-nav="home"><img src="assets/images/logo.png" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand" data-nav="home"><img src="assets/images/logo.png" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
-      <a href="/home" data-nav="home" class="active"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
-      <a href="/shop" data-nav="shop"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
-      <a href="/materiali" data-nav="materiali"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
-      <a href="/tecnologie" data-nav="tecnologie"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
-      <a href="/macchine" data-nav="macchine"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Macchine</a>
-      <a href="/academy" data-nav="academy"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
-      <a href="/digital" data-nav="digital"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
-      <a href="/business" data-nav="business"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
-      <a href="/portfolio" data-nav="portfolio"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
-      <a href="/about" data-nav="about"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V10l6 4V10l6 4V8l6 4v9z"/><path d="M3 21h18"/></svg></i> <span data-i18n="nAbout">Chi Siamo</span></a>
-      <a href="/faq" data-nav="faq"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2.2"/><circle cx="12" cy="17.3" r=".4" fill="currentColor"/></svg></i> FAQ</a>
-      <a href="/quote" data-nav="quote"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
+      <a href="./" data-nav="home" class="active"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
+      <a href="shop" data-nav="shop"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
+      <a href="materiali" data-nav="materiali"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
+      <a href="tecnologie" data-nav="tecnologie"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
+      <a href="macchine" data-nav="macchine"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Macchine</a>
+      <a href="academy" data-nav="academy"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
+      <a href="digital" data-nav="digital"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
+      <a href="business" data-nav="business"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
+      <a href="portfolio" data-nav="portfolio"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
+      <a href="about" data-nav="about"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V10l6 4V10l6 4V8l6 4v9z"/><path d="M3 21h18"/></svg></i> <span data-i18n="nAbout">Chi Siamo</span></a>
+      <a href="faq" data-nav="faq"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2.2"/><circle cx="12" cy="17.3" r=".4" fill="currentColor"/></svg></i> FAQ</a>
+      <a href="quote" data-nav="quote"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
     </nav>
     <div class="nav-acts">
       <button class="icon-btn" aria-label="Wishlist" data-action="open-wish"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg><span class="badge" id="wishBadge">0</span></button>
@@ -229,20 +240,20 @@ setTimeout(function(){
   <button class="mclose" data-action="menu-close">✕</button>
   <div class="dr-testa"><span class="dr-eyebrow">INGLY DESIGN</span></div>
   <div class="dr-corpo"></div>
-  <div class="dr-fondo"><a class="btn btn-primary" href="/quote" data-nav="quote">Richiedi un preventivo <span class="arr">→</span></a><div class="socials" id="soc4"></div></div>
-  <div class="dr-rete"><a href="/home" data-nav="home" class="dly1"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
-  <a href="/shop" data-nav="shop" class="dly15"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
-  <a href="/materiali" data-nav="materiali" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
-  <a href="/tecnologie" data-nav="tecnologie" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
-  <a href="/macchine" data-nav="macchine" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Macchine</a>
-  <a href="/academy" data-nav="academy" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
-  <a href="/demo" data-nav="demo" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Demo gratuita</a>
-  <a href="/digital" data-nav="digital" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
-  <a href="/business" data-nav="business" class="dly25"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
-  <a href="/portfolio" data-nav="portfolio" class="dly3"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
-  <a href="/about" data-nav="about" class="dly35"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V10l6 4V10l6 4V8l6 4v9z"/><path d="M3 21h18"/></svg></i> <span data-i18n="nAbout">Chi Siamo</span></a>
-  <a href="/faq" data-nav="faq" class="dly4"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2.2"/><circle cx="12" cy="17.3" r=".4" fill="currentColor"/></svg></i> FAQ</a>
-  <a href="/quote" data-nav="quote" class="dly45"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
+  <div class="dr-fondo"><a class="btn btn-primary" href="quote" data-nav="quote">Richiedi un preventivo <span class="arr">→</span></a><div class="socials" id="soc4"></div></div>
+  <div class="dr-rete"><a href="./" data-nav="home" class="dly1"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
+  <a href="shop" data-nav="shop" class="dly15"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></i> Shop</a>
+  <a href="materiali" data-nav="materiali" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5-8 4.5-8-4.5z"/><path d="M4 12l8 4.5 8-4.5"/><path d="M4 16.5L12 21l8-4.5"/></svg></i> Materiali</a>
+  <a href="tecnologie" data-nav="tecnologie" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Tecnologie</a>
+  <a href="macchine" data-nav="macchine" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Macchine</a>
+  <a href="academy" data-nav="academy" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
+  <a href="demo" data-nav="demo" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Demo gratuita</a>
+  <a href="digital" data-nav="digital" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
+  <a href="business" data-nav="business" class="dly25"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
+  <a href="portfolio" data-nav="portfolio" class="dly3"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
+  <a href="about" data-nav="about" class="dly35"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21V10l6 4V10l6 4V8l6 4v9z"/><path d="M3 21h18"/></svg></i> <span data-i18n="nAbout">Chi Siamo</span></a>
+  <a href="faq" data-nav="faq" class="dly4"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2.2"/><circle cx="12" cy="17.3" r=".4" fill="currentColor"/></svg></i> FAQ</a>
+  <a href="quote" data-nav="quote" class="dly45"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
   <div class="socials" id="soc2"></div></div>
 </div>
 
@@ -394,11 +405,11 @@ setTimeout(function(){
 <section class="page" id="page-product">
   <div class="wrap pp">
     <nav class="crumb" aria-label="Percorso">
-      <a href="/home" data-nav="home">Home</a>
+      <a href="./" data-nav="home">Home</a>
       <span aria-hidden="true">/</span>
-      <a href="/shop" data-nav="shop">Shop</a>
+      <a href="shop" data-nav="shop">Shop</a>
       <span aria-hidden="true" id="crumbSubSep" style="display:none">/</span>
-      <a href="/shop" id="crumbCatLink" style="display:none"></a>
+      <a href="shop" id="crumbCatLink" style="display:none"></a>
       <span aria-hidden="true">/</span>
       <span id="crumbName"></span>
     </nav>
@@ -682,32 +693,32 @@ setTimeout(function(){
     <div class="ft-closing">
       <p class="ft-eyebrow" data-i18n="ftClaim">Hai un'idea?</p>
       <h2 class="ft-claim">Si parte<br>dal tuo disegno.</h2>
-      <a class="btn btn-primary magnetic" href="/quote" data-nav="quote">
+      <a class="btn btn-primary magnetic" href="quote" data-nav="quote">
         <span data-i18n="nQuote">Richiedi un preventivo</span> <span class="arr">→</span></a>
     </div>
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="/home" data-nav="home" class="brand"><img src="assets/images/logo.png" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand"><img src="assets/images/logo.png" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>
       <div class="ft-col"><h4>Shop</h4>
-        <a href="/shop" data-nav="shop" data-i18n="ftAll">Tutti i prodotti</a>
-        <a href="/digital" data-nav="digital" data-i18n="nDig">Digitale</a>
-        <a href="/quote" data-nav="quote">Su misura</a></div>
+        <a href="shop" data-nav="shop" data-i18n="ftAll">Tutti i prodotti</a>
+        <a href="digital" data-nav="digital" data-i18n="nDig">Digitale</a>
+        <a href="quote" data-nav="quote">Su misura</a></div>
       <div class="ft-col"><h4>Lab</h4>
-        <a href="/materiali" data-nav="materiali">Materiali</a>
-        <a href="/tecnologie" data-nav="tecnologie">Tecnologie</a>
-        <a href="/macchine" data-nav="macchine">Macchine</a>
-        <a href="/demo" data-nav="demo">Demo gratuita</a></div>
+        <a href="materiali" data-nav="materiali">Materiali</a>
+        <a href="tecnologie" data-nav="tecnologie">Tecnologie</a>
+        <a href="macchine" data-nav="macchine">Macchine</a>
+        <a href="demo" data-nav="demo">Demo gratuita</a></div>
       <div class="ft-col"><h4 data-i18n="ftCo">Studio</h4>
-        <a href="/about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>
-        <a href="/portfolio" data-nav="portfolio">Portfolio</a>
-        <a href="/business" data-nav="business">Business</a>
-        <a href="/academy" data-nav="academy">Academy</a></div>
+        <a href="about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>
+        <a href="portfolio" data-nav="portfolio">Portfolio</a>
+        <a href="business" data-nav="business">Business</a>
+        <a href="academy" data-nav="academy">Academy</a></div>
       <div class="ft-col"><h4 data-i18n="ftSup">Contatti</h4>
-        <a href="/faq" data-nav="faq">FAQ</a>
+        <a href="faq" data-nav="faq">FAQ</a>
         <a href="mailto:inglydesign@gmail.com">inglydesign@gmail.com</a>
         <a href="https://wa.me/393296904627" target="_blank" rel="noopener">WhatsApp</a>
         <span class="ft-luogo">Cesena (FC) · Italia</span></div>

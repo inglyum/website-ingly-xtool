@@ -19,7 +19,14 @@
   // conservata, altrimenti il redirect finisce fuori dal sito.
   // Riconoscimento deterministico: se il primo segmento NON è una pagina nota,
   // allora è la cartella di installazione. Nessuna dipendenza dal dominio.
-  var PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote'];
+  /* GENERATO da scripts/build.mjs dalla mappa in assets/js/rotte.js —
+     non modificare a mano. Era una copia scritta a mano dell'elenco di
+     navigation.js, e si era fermata indietro di cinque rotte: materiali,
+     tecnologie, macchine, academy e demo non c'erano. In una sottocartella
+     non si notava; nella radice di un dominio il primo segmento di
+     /materiali veniva preso per il nome della cartella d'installazione e
+     la richiesta finiva sulla home. */
+  var PAGES=/*ROTTE*/["home","shop","materiali","digital","academy","macchine","business","tecnologie","demo","portfolio","about","faq","quote","product"]/*FINE-ROTTE*/;
   var seg=path.replace(/^\/+/,'').split('/');
   var base='/';
   if(seg[0] && PAGES.indexOf(seg[0])===-1){ base='/'+seg[0]+'/'; seg=seg.slice(1); }

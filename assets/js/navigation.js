@@ -6,7 +6,11 @@ import { F, renderRV, renderChips, renderShop, currentProduct } from './products
 import { updateSeo } from './seo.js';
 import { L, T } from './utils.js';
 
-export const PAGES=['home','shop','product','digital','business','portfolio','about','faq','quote','materiali','tecnologie','macchine','academy','demo'];
+/* L'elenco delle rotte non vive più qui: vive in rotte.js, e `404.html` lo
+   riceve dal build. Erano due copie, e la seconda era rimasta indietro di
+   cinque rotte. */
+import { ID as PAGES_ID } from './rotte.js';
+export const PAGES = PAGES_ID;
 
 /* ===== PERCORSO BASE =====
    In produzione il sito sta nella radice del dominio ("/"), ma su GitHub Pages

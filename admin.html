@@ -1088,10 +1088,10 @@ function ghErrHint(e){const m=String(e.message||e);
    che già carica, confronta e pubblica li tratta come tutti gli altri.
    Un secondo CMS accanto a questo avrebbe significato due pubblicazioni,
    due cronologie e due modi di sbagliare. */
-const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni'];
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni','immagini'];
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',content:'C',
-  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR',collezioni:'COLL'};
-const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null,COLL:null};
+  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR',collezioni:'COLL',immagini:'IMG'};
+const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null,COLL:null,IMG:null};
 let SNAP={},MEDIA=[],REPO_IMG=null,LOADED_FROM='',BOOTED=false,DATA_OK=false,MISSING=[],LOAD_LOG=[];
 const jstr=o=>JSON.stringify(o);
 function changedFiles(){const out=[];for(const f of FILES){if(S[KEY[f]]&&SNAP[f]!==undefined&&jstr(S[KEY[f]])!==SNAP[f])out.push(f)}return out}
@@ -1409,6 +1409,18 @@ async function generaPagineStatiche(dominio){
   return out;
 }
 
+/* L'elenco delle foto presenti, aggiornato con quelle che si stanno
+   pubblicando adesso. Il sito non chiede una foto che non è in questo
+   elenco: se la pubblicazione non lo aggiornasse, una foto appena caricata
+   resterebbe invisibile fino al prossimo build da riga di comando. */
+function elencoImmagini(){
+ const base=(S.IMG&&Array.isArray(S.IMG.file))?S.IMG.file.slice():[];
+ const nuove=(typeof MEDIA!=='undefined'?MEDIA:[]).map(m=>String(m&&(m.nome||m.name)||'').replace(/^.*\//,'')).filter(Boolean);
+ const via=new Set((typeof DELETES!=='undefined'?DELETES:[]).map(d=>String(d).replace(/^.*\//,'')));
+ const tutte=[...new Set(base.concat(nuove))].filter(f=>!via.has(f)).sort();
+ return { _nota:'GENERATO alla pubblicazione: i file presenti in img/.', file:tutte };
+}
+
 /* ---------- rigenerazione legacy .js (stessa logica di scripts/build.mjs) ---------- */
 function genLegacy(){return{
  'data/config.js':`/* GENERATO dai JSON — non modificare a mano */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.CONFIG=${jstr(S.CONFIG)};\n`,
@@ -1419,7 +1431,7 @@ function genLegacy(){return{
     chi carica il sito dalla riserva — su file:// o quando i JSON non
     arrivano — avrebbe trovato il menu che porta a sezioni vuote, senza un
     errore da nessuna parte. */
- 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})},COLLEZIONI:${jstr(S.COLL||{})}});\n`}}
+ 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})},COLLEZIONI:${jstr(S.COLL||{})},IMMAGINI:${jstr(elencoImmagini())}});\n`}}
 
 /* ---------- binding automatico dei form ---------- */
 function getPath(obj,path){return path.split('.').reduce((o,k)=>o&&o[k],obj)}

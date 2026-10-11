@@ -119,6 +119,20 @@ export function componi(guscio, opt = {}){
     '<meta name="description" content="' + esc(descrizione) + '">');
   out = out.replace(/<link rel="canonical" href="[^"]*">/i,
     '<link rel="canonical" href="' + esc(canonico) + '">');
+  /* Le alternative di lingua devono puntare a QUESTA pagina.
+     Il guscio le porta con l'indirizzo della home, e nessuno le riscriveva:
+     tutte le 108 pagine statiche dichiaravano la home come proprio
+     equivalente italiano — compresa la scheda del plexiglass. A Google si
+     dichiarava che ogni pagina del sito è la stessa pagina. */
+  if(canonico){
+    out = out.replace(/<link rel="alternate" hreflang="it" href="[^"]*">/i,
+      '<link rel="alternate" hreflang="it" href="' + esc(canonico) + '">');
+    out = out.replace(/<link rel="alternate" hreflang="en" href="[^"]*">/i,
+      '<link rel="alternate" hreflang="en" href="' + esc(canonico + (canonico.includes('?') ? '&' : '?') + 'lang=en') + '">');
+    out = out.replace(/<link rel="alternate" hreflang="x-default" href="[^"]*">/i,
+      '<link rel="alternate" hreflang="x-default" href="' + esc(canonico) + '">');
+  }
+
   out = out.replace(/<meta property="og:url" content="[^"]*">/i,
     '<meta property="og:url" content="' + esc(canonico) + '">');
   out = out.replace(/<meta property="og:title" content="[^"]*">/i,

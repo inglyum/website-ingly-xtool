@@ -13,6 +13,58 @@ un test la difende. Non basta che la pagina esista.
 
 ## ✅ Fatto
 
+### P0 — la versione pubblicata, le rotte, i link, le foto
+`assets/js/rotte.js`, `404.html`, `sw.js`, `index.html` · 57 controlli
+
+**Il sito pubblicato non contiene questo lavoro.** Pages serve `main`
+(`a3048c5`); tutto quanto segue sta sul ramo
+`claude/html-prompt-application-x8zf8s`. Il sito live non è raggiungibile da
+qui (la politica di rete blocca `inglyum.github.io`), quindi i difetti sono
+stati riprodotti servendo il repository **in sottocartella**, come fa Pages.
+
+Difetti riprodotti e chiusi:
+
+- **44 link interni su 99 uscivano dal sito, tutti con risposta 404.**
+  Erano scritti assoluti (`href="/shop"`, `href="/home"`) e il sito è
+  pubblicato in una sottocartella. Non si vedeva perché il clic normale lo
+  intercetta il router: il difetto compariva aprendo in una nuova scheda,
+  col clic centrale, copiando l'indirizzo — e per ogni crawler senza
+  JavaScript, cioè per le 108 pagine statiche che esistono per loro.
+  Ora i link sono relativi e ogni documento dichiara la propria base.
+- **`/home` era una rotta che risponde 404.** La home è la radice.
+- **L'elenco delle rotte era scritto due volte** (`navigation.js` e
+  `404.html`) e la seconda copia era indietro di cinque rotte: `materiali`,
+  `tecnologie`, `macchine`, `academy`, `demo`. In sottocartella non si
+  notava; puntando `inglydesign.it` qui sopra, `/materiali` sarebbe stato
+  preso per il nome della cartella e avrebbe portato alla home. Ora
+  `404.html` riceve l'elenco dal build.
+- **Il precache del service worker era vuoto.** I percorsi erano assoluti
+  (`/index.html`), quindi fuori dal progetto; `addAll` falliva tutto al
+  primo e il `catch` lo nascondeva. Misurato: zero voci. Ora 30, tutte
+  dentro al progetto, e il precache aggiunge una voce alla volta.
+- **`hreflang` dichiarava la home come equivalente italiano di tutte le
+  108 pagine**, scheda del plexiglass compresa.
+- **43 richieste immagine a vuoto sul catalogo.** 90 prodotti dichiarano
+  una foto, 13 ce l'hanno: per ognuna mancante il sito faceva due richieste
+  (`.webp`, poi `.jpg`) e poi rimuoveva l'elemento. Ora `data/immagini.json`
+  elenca le foto presenti e il sito non chiede quello che sa non esserci:
+  **43 → 0**, risultato visivo identico.
+- **Il velo di caricamento ingoiava i clic** finché non era arrivata
+  l'ultima sottorisorsa, font di Google compresi: il ✕ del menu mobile era
+  visibile e il clic finiva nel velo.
+- **`version.json` non si alzava pubblicando da git**, quindi i JSON
+  restavano in cache con la stessa query. Ora il build ne cambia la
+  versione quando i dati cambiano.
+
+Verificato: 9 rotte × 5 larghezze (1440/1024/768/390/360), apertura diretta
+e refresh di 16 rotte, avanti/indietro, zero link che escono, zero errori
+JS, menu mobile con 84 link tutti interni.
+
+**Non verificato:** il fallback offline del service worker. Playwright
+intercetta la richiesta prima del service worker, quindi quel ramo non si
+può esercitare qui. È corretto nel codice (base assoluta, `ignoreSearch`)
+ma non lo dichiaro provato.
+
 ### Commerce OS — il modello unico
 `assets/js/commerce.js` · 129 controlli
 

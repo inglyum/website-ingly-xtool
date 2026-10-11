@@ -13,54 +13,77 @@
    nuovi e codice vecchio rompeva il sito e rendeva ogni deploy invisibile agli
    utenti già passati sul sito. Non riportare CSS/JS a cache-first. */
 
-const CACHE_VER   = 'ingly-v6';
+/* ATTENZIONE 2 — I PERCORSI QUI SONO RELATIVI ALLO SCOPE, NON ALLA RADICE.
+   Erano scritti assoluti ('/index.html', '/assets/js/app.js'). Il sito però
+   è pubblicato in una sottocartella (inglyum.github.io/website-ingly-xtool/),
+   quindi quei percorsi puntavano fuori dal progetto:
+     - `addAll()` fallisce TUTTO al primo percorso mancante, e il catch
+       silenziava l'errore: il precache era vuoto. Misurato: zero voci
+       precachate, né /index.html né /website-ingly-xtool/index.html.
+     - il fallback offline `cache.match('/index.html')` non poteva mai
+       corrispondere, quindi al posto della pagina usciva un «Offline» nudo.
+   La cache a runtime funzionava per caso, perché i suoi controlli guardano
+   il suffisso del percorso (`.json`, `.css`) e non il prefisso.
+   BASE si ricava dallo scope del service worker, che è la cartella in cui
+   sta questo file: giusto in sottocartella e giusto nella radice. */
+const BASE = new URL('./', self.location).pathname;
+const via  = p => BASE + String(p).replace(/^\/+/, '');
+
+const CACHE_VER   = 'ingly-v7';
 const CACHE_ASSETS= CACHE_VER + '-assets';
 const CACHE_DATA  = CACHE_VER + '-data';
 const CACHE_IMG   = CACHE_VER + '-img';
 
 /* risorse precachate all'install */
 const PRECACHE = [
-  '/',
-  '/index.html',
-  '/assets/css/reset.css',
-  '/assets/css/variables.css',
-  '/assets/css/layout.css',
-  '/assets/css/components.css',
-  '/assets/css/pages.css',
-  '/assets/css/animations.css',
-  '/assets/css/responsive.css',
-  '/assets/js/app.js',
-  '/assets/js/data-loader.js',
-  '/assets/js/main.js',
-  '/assets/js/utils.js',
-  '/assets/js/products.js',
-  '/assets/js/navigation.js',
-  '/assets/js/animations.js',
-  '/assets/js/forms.js',
-  '/assets/js/seo.js',
-  '/assets/js/lazyload.js',
-  '/assets/js/wishlist.js',
-  '/assets/js/referral.js',
-  '/assets/js/artwork.js',
-  '/manifest.webmanifest',
-  '/favicon/favicon-32.png',
+  via(''),
+  via('index.html'),
+  via('assets/css/reset.css'),
+  via('assets/css/variables.css'),
+  via('assets/css/layout.css'),
+  via('assets/css/components.css'),
+  via('assets/css/pages.css'),
+  via('assets/css/animations.css'),
+  via('assets/css/responsive.css'),
+  via('assets/js/app.js'),
+  via('assets/js/data-loader.js'),
+  via('assets/js/main.js'),
+  via('assets/js/utils.js'),
+  via('assets/js/products.js'),
+  via('assets/js/navigation.js'),
+  via('assets/js/animations.js'),
+  via('assets/js/forms.js'),
+  via('assets/js/seo.js'),
+  via('assets/js/lazyload.js'),
+  via('assets/js/wishlist.js'),
+  via('assets/js/referral.js'),
+  via('assets/js/artwork.js'),
+  via('manifest.webmanifest'),
+  via('favicon/favicon-32.png'),
 ];
 
 const DATA_URLS = [
-  '/data/config.json',
-  '/data/products.json',
-  '/data/categories.json',
-  '/data/content.json',
-  '/data/social.json',
-  '/data/texts.json',
-  '/data/version.json',
+  via('data/config.json'),
+  via('data/products.json'),
+  via('data/categories.json'),
+  via('data/content.json'),
+  via('data/social.json'),
+  via('data/texts.json'),
+  via('data/version.json'),
 ];
 
 /* ---- Install: precache assets statici ---- */
 self.addEventListener('install', e => {
+  /* Una voce alla volta, non `addAll`: addAll fallisce TUTTO al primo
+     percorso che non risponde, e il catch rendeva la cosa invisibile. Un
+     file rinominato non deve svuotare il precache degli altri trenta. */
   e.waitUntil(
     caches.open(CACHE_ASSETS)
-      .then(c => c.addAll(PRECACHE).catch(() => {}))
+      .then(c => Promise.all(PRECACHE.map(u =>
+        fetch(u, { cache: 'reload' })
+          .then(r => (r.ok ? c.put(u, r) : null))
+          .catch(() => null)
+      )))
       .then(() => self.skipWaiting())
   );
 });
@@ -83,7 +106,7 @@ self.addEventListener('fetch', e => {
 
   /* Il service worker e la versione dei dati non passano mai dalla cache:
      sono i due canali con cui il sito si accorge di un nuovo deploy. */
-  if(url.pathname === '/sw.js' || url.pathname.endsWith('/version.json')) return;
+  if(url.pathname === via('sw.js') || url.pathname.endsWith('/version.json')) return;
   const isFont = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
   if(url.origin !== self.location.origin && !isFont) return;
 
@@ -119,8 +142,25 @@ self.addEventListener('fetch', e => {
   }
 
   /* HTML / navigazione → Network-first con offline fallback */
-  e.respondWith(networkFirst(e.request, CACHE_ASSETS, 5000, '/index.html'));
+  e.respondWith(networkFirst(e.request, CACHE_ASSETS, 5000, via('index.html')));
 });
+
+/* Il guscio dichiara `<base href="./">`, che è giusto quando è servito dal
+   suo indirizzo. Offline però lo serviamo al posto di una rotta profonda —
+   per esempio /academy — e lì `./` diventa /academy/, quindi CSS e JS
+   verrebbero cercati dentro /academy/ e la pagina resterebbe bianca.
+   Nel fallback la base va scritta assoluta. */
+async function conBaseAssoluta(res){
+  try{
+    const tipo = res.headers.get('Content-Type') || '';
+    if(!/text\/html/i.test(tipo)) return res;
+    const testo = await res.text();
+    return new Response(
+      testo.replace(/<base href="[^"]*">/i, '<base href="' + BASE + '">'),
+      { status: res.status, statusText: res.statusText, headers: res.headers }
+    );
+  }catch(e){ return res }
+}
 
 /* Cache-first: prova cache, poi rete (aggiorna cache) */
 async function cacheFirst(req, cacheName){
@@ -148,8 +188,11 @@ async function networkFirst(req, cacheName, timeout=4000, fallback=null){
     const cached = await cache.match(req);
     if(cached) return cached;
     if(fallback){
-      const fb = await cache.match(fallback);
-      if(fb) return fb;
+      /* ignoreSearch: la pagina salvata è `index.html`, la richiesta può
+         portarsi dietro `?p=/shop` o `?v=...` e senza questo non
+         corrisponderebbe mai */
+      const fb = await cache.match(fallback, {ignoreSearch:true});
+      if(fb) return await conBaseAssoluta(fb);
     }
     return new Response('<h1>Offline</h1>', {status: 503, headers:{'Content-Type':'text/html'}});
   }

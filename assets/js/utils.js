@@ -29,7 +29,18 @@ export const srcsetFor = src => {
 };
 export const focalOf = src => { const f = window.INGLY && window.INGLY.FOCAL; const v = f && f[src];
   return v ? ` style="object-position:${v}"` : ''; };
+/* Una foto si chiede solo se esiste.
+   `data/immagini.json` elenca i file presenti in img/. Se l'elenco non c'è
+   — repository vecchio, pubblicazione parziale — si chiede comunque, come
+   prima: meglio una richiesta in più che una foto vera non mostrata. */
+export const esiste = s => {
+  const el = (window.INGLY && window.INGLY.IMMAGINI && window.INGLY.IMMAGINI.file);
+  if (!Array.isArray(el) || !el.length) return true;          /* nessun elenco: fiducia */
+  return el.includes(String(s || '').replace(/^.*\//, '').split('?')[0]);
+};
+
 export const imgTag = x => { const s = x.img||CONFIG.cartellaImmagini+x.id+'.webp';
+  if(!esiste(s)) return '';                                    /* resta il segnaposto del materiale */
   return `<img class="pimgph" src="${imgV(s)}"${srcsetFor(s)}${focalOf(s)} alt="" loading="lazy">` };
 
 let toastT;

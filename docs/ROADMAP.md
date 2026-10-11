@@ -65,6 +65,38 @@ intercetta la richiesta prima del service worker, quindi quel ramo non si
 può esercitare qui. È corretto nel codice (base assoluta, `ignoreSearch`)
 ma non lo dichiaro provato.
 
+### FASE 4 (parte 1) — Personalizza è una destinazione vera
+`data/products.json`, `scripts/marca-personalizzabili.mjs`, `index.html` · 124 controlli
+
+**53 prodotti su 63 sono marcati «si personalizza»** — e non l'ho deciso
+io guardando il catalogo: è quello che i prodotti **dichiarano già nel
+proprio nome e nella propria descrizione**. «Targa Nascita
+Personalizzata», «Borraccia Incisa con Logo Aziendale», «Lettere 3D Nome
+Cameretta»: stanno dicendo che aspettano qualcosa dal cliente.
+
+La regola vive in `scripts/marca-personalizzabili.mjs`, non a mano nei
+dati: si rilegge (si vede *perché* un prodotto è marcato), si ricorre, e
+**la spunta nell'Admin la vince sempre** — lo script non tocca chi è già
+stato deciso a mano. I 10 rimasti fuori (action figure da collezione,
+serie speciali, collab) non dichiarano niente che il cliente debba
+fornire: si spuntano a mano se è il caso.
+
+Da quel dato si accendono **da sé**: la settima voce di menu, la sezione
+`/personalizza` e la collezione «Personalizzabili». Smarcando tutto
+spariscono di nuovo — c'è un test che lo pretende nei due versi.
+
+**Le immagini sono fotografie di pezzi usciti davvero dall'officina**,
+prese dal portfolio: nessuna immagine di repertorio, nessun mockup
+generato. Una foto che non esiste non diventa una tessera. I passi della
+lavorazione sono quelli già dichiarati in `content.json → STEPS`, non un
+secondo racconto.
+
+Due claim falsi corretti mentre li riusavo:
+- il primo passo prometteva «o costruiscila **nel configuratore**» — un
+  configuratore che non esiste, promesso per giunta sulla pagina
+  Personalizza;
+- il secondo dichiarava «**otto** materiali certificati»: sono nove.
+
 ### P1/FASE 3 — lo Shop come ecommerce
 `index.html`, `assets/js/products.js`, CSS · 109 controlli
 

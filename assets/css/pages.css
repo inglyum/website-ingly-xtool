@@ -440,3 +440,36 @@ body::after{content:none}
   html.filtri-aperti .filters-velo{display:block;position:fixed;inset:0;
     z-index:calc(var(--z-overlay,110) - 1);background:rgba(4,7,16,.6);border:0}
 }
+
+/* ============ PERSONALIZZA ============ */
+/* La vetrina: fotografie di pezzi usciti davvero dall'officina. */
+.per-vetrina{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-3,14px);margin-top:var(--sp-5,28px)}
+.pv-t{position:relative;margin:0;grid-column:span 2;aspect-ratio:1;overflow:hidden;border-radius:16px;
+  border:1px solid var(--line);background:var(--bg-card)}
+.pv-t--grande{grid-column:span 4;grid-row:span 2;aspect-ratio:auto}
+.pv-t img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform var(--dur-edit,420ms) var(--ease-out,ease)}
+.pv-t:hover img{transform:scale(1.03)}
+.pv-t figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;color:#fff;
+  font-size:12.5px;line-height:1.35;background:linear-gradient(transparent,rgba(0,0,0,.72))}
+@media (max-width:820px){
+  .per-vetrina{grid-template-columns:repeat(2,1fr)}
+  .pv-t,.pv-t--grande{grid-column:span 1;grid-row:span 1;aspect-ratio:1}
+  .pv-t--grande{grid-column:span 2;aspect-ratio:16/10}
+}
+
+/* I passi: gli stessi della lavorazione, non un secondo racconto. */
+.per-passi{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:var(--sp-5,26px);
+  margin-top:var(--sp-5,28px)}
+.per-passo h3{font-size:1.05rem;margin:10px 0 6px}
+.per-passo p{color:var(--ink-soft);font-size:14.5px;line-height:var(--lh-loose,1.65);margin:0}
+.per-n{font-family:var(--fd);font-size:12px;letter-spacing:.22em;color:var(--accent);font-weight:700}
+
+.per-filtri{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:var(--sp-5,26px)}
+
+/* Quello che il catalogo non copre si chiede: il modulo esiste e recapita. */
+.per-coda{margin-top:var(--sp-7,56px)}
+.per-coda-in{text-align:center;padding:var(--sp-6,40px) var(--sp-4,20px);border:1px solid var(--line);
+  border-radius:20px;background:var(--bg-card)}
+.per-coda-in h3{font-size:clamp(1.15rem,2.4vw,1.5rem);margin:0 0 8px}
+.per-coda-in p{color:var(--ink-soft);margin:0 0 var(--sp-4,20px)}

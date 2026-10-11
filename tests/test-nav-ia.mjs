@@ -57,9 +57,20 @@ check('la barra disegnata non la contiene',
   !/data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
 check('e la contiene quando c\'è', 
   /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [{ id: 1, personalizzabile: true }] }, { L: 'it', base: '' })));
-/* i dati veri: oggi nessuno è marcato, e il sito non deve prometterlo */
-check('sui dati pubblicati oggi la voce non c\'è',
-  !IA.famiglieVive({ ...D, P: leggi('data/products.json') }).some(f => f.id === 'personalizza'));
+/* I dati veri: i prodotti che dichiarano nel proprio testo di aspettare
+   qualcosa dal cliente — un nome, una data, una foto, un logo — sono
+   marcati, quindi oggi la voce C'È. La regola sta in
+   scripts/marca-personalizzabili.mjs e la spunta nell'Admin la vince. */
+const PV = leggi('data/products.json');
+check('sui dati pubblicati la voce compare',
+  IA.famiglieVive({ ...D, P: PV }).some(f => f.id === 'personalizza'));
+check('e ha dietro dei prodotti veri',
+  PV.filter(p => p.personalizzabile === true && !p.hidden).length > 0,
+  String(PV.filter(p => p.personalizzabile === true && !p.hidden).length));
+/* togliendo le spunte deve tornare a sparire: la voce segue il dato, non
+   è stata semplicemente accesa */
+check('smarcando tutto la voce sparisce di nuovo',
+  !IA.famiglieVive({ ...D, P: PV.map(p => ({ ...p, personalizzabile: false })) }).some(f => f.id === 'personalizza'));
 
 console.log('\n=== I PANNELLI NASCONO DAI DATI ===');
 const lab = IA.pannello('materiali', D);

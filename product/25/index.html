@@ -542,10 +542,26 @@ setTimeout(function(){
     <h1 class="h2" data-i18n="perH1">Tu scegli il pezzo. <span class="hl on">Il resto lo scrivi tu.</span></h1>
     <p class="sub" data-i18n="perSub">Un nome, una data, un logo: su questi pezzi la personalizzazione è prevista dal progetto, non aggiunta dopo.</p>
   </div>
+  <!-- La vetrina: fotografie di pezzi usciti davvero dall'officina, prese
+       dal portfolio. Nessuna immagine di repertorio e nessun mockup
+       generato: quello che si vede qui è stato fatto. -->
+  <div class="wrap per-vetrina" id="perVetrina"></div>
+
+  <!-- Come funziona: gli stessi passi della lavorazione che il sito già
+       dichiara altrove (content.json → STEPS), non un secondo racconto. -->
+  <div class="sec sec-band">
+    <div class="wrap">
+      <h2 class="h2" data-i18n="perComeH">Come funziona</h2>
+      <div class="per-passi" id="perPassi"></div>
+    </div>
+  </div>
+
   <div class="sec">
     <div class="wrap">
       <div id="perVuoto" hidden></div>
+      <div id="perFiltri" class="per-filtri"></div>
       <div class="pgrid" id="perGrid"></div>
+      <div class="per-coda" id="perCoda" hidden></div>
     </div>
   </div>
 </section>

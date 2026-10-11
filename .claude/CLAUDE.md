@@ -27,11 +27,19 @@ The development environment is the FIRST product. The ecommerce platform is the 
 | Phone/WA      | +39 329 690 4627                       |
 | Location      | Cesena, Emilia-Romagna, Italia         |
 | Domain        | https://www.inglydesign.it             |
-| Repo          | inglyum/Ingly-standalone-html          |
+| Repo          | **inglyum/website-ingly-xtool**        |
 | Branch        | main (production)                      |
 | Hosting       | GitHub Pages → Cloudflare CDN          |
 | Admin         | admin.html (Git-based CMS)             |
 | Languages     | Italian (default) + English            |
+
+> **IL REPOSITORY DI QUESTO SITO È UNO SOLO E NON CAMBIA:**
+> **https://github.com/inglyum/website-ingly-xtool**
+> Indicazione del proprietario, 2026-10-11: «repository deve essere questo
+> sempre e per sempre di questo progetto del sito».
+> Qui si sviluppa, qui si pubblica, qui vive l'Admin. La tabella sopra
+> diceva `inglyum/Ingly-standalone-html`, che era il repository precedente:
+> non va più usato per questo progetto.
 
 ---
 

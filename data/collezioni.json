@@ -283,7 +283,6 @@
       }
     },
     {
-      "_nota": "BOZZA DI PROPOSITO. Nei dati non esiste ancora un campo che dica quali prodotti si possono personalizzare dal Creator: il criterio è pronto e legge `personalizzabile` sul prodotto, ma nessun prodotto lo dichiara, quindi la collezione è vuota e non viene pubblicata. Si accende quando il Creator è collegato ai prodotti e l'Admin può marcarli. Metterla pubblicata adesso vorrebbe dire una voce di menu verso una pagina vuota.",
       "id": "personalizzabili",
       "slug": "personalizzabili",
       "n": {
@@ -300,9 +299,9 @@
       "ordine": "rilevanza",
       "cover": "",
       "hero": "",
-      "evidenza": false,
+      "evidenza": true,
       "posizione": 9,
-      "stato": "bozza",
+      "stato": "pubblicata",
       "seo": {
         "titolo": {
           "it": "",
@@ -312,7 +311,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "_nota": "Si accende da sé: i prodotti marcati «si personalizza» nell'Admin. Se nessuno è marcato, la collezione resta vuota e NON viene pubblicata."
     }
   ]
 }

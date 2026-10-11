@@ -1,7 +1,13 @@
 /* ============ PRODUCTS (modulo) ============
    Catalogo, shop (filtri/ricerca/ordinamento), pagina prodotto con
    configuratore e prezzo live, digitale, carrello, wishlist. */
-import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, icon, toast, L } from './utils.js';
+import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, icon, toast, L, esiste as esisteFoto } from './utils.js';
+
+/* I titoli del portfolio li scrive una persona nell'Admin: entrano in un
+   attributo alt e in una didascalia, quindi passano da qui. */
+const esc = t => String(t == null ? '' : t)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 import { refTag, onOrderPlaced } from './referral.js';
 import * as PR from './prezzi.js';
 import * as CM from './commerce.js';
@@ -124,6 +130,10 @@ export const personalizzabili = () => VIS().filter(x => x.personalizzabile === t
  * dove qualcosa funziona per davvero, cioè la richiesta su misura. Il
  * preventivo è una funzione che esiste e recapita.
  */
+/* Quale categoria è selezionata nella sezione Personalizza. */
+let perCat='';
+export function setPerCat(id){ perCat=(perCat===id?'':String(id||'')); renderPersonalizza(); }
+
 export function renderPersonalizza(){
   const grid=$('perGrid'), vuoto=$('perVuoto');
   if(!grid) return;
@@ -131,9 +141,38 @@ export function renderPersonalizza(){
   if(items.length){
     if(vuoto){ vuoto.hidden=true; vuoto.innerHTML=''; }
     grid.hidden=false;
-    grid.innerHTML=items.map(card).join('');
+    renderPerVetrina();
+    renderPerPassi();
+
+    /* Filtri per categoria: 53 pezzi in una griglia sola sono troppi per
+       trovarci quello che serve, e qui la categoria è l'unica cosa che
+       distingue davvero (il materiale lo sceglie la lavorazione). */
+    const perCount={};
+    items.forEach(x=>{ perCount[x.cat]=(perCount[x.cat]||0)+1 });
+    const f=$('perFiltri');
+    if(f) f.innerHTML=CATS.filter(c=>perCount[c.id]).map(c=>
+      `<button class="chip${perCat===c.id?' on':''}" data-action="per-cat" data-arg="${c.id}">${c.n[L]} <i>${perCount[c.id]}</i></button>`
+    ).join('');
+
+    const mostrati=perCat?items.filter(x=>x.cat===perCat):items;
+    grid.innerHTML=mostrati.map(card).join('');
+
+    /* Quello che non è in catalogo si chiede: è la parte di «personalizza»
+       che un catalogo non può coprire, e il modulo esiste e recapita. */
+    const coda=$('perCoda');
+    if(coda){
+      coda.hidden=false;
+      coda.innerHTML=`<div class="per-coda-in">
+        <h3>${L==='it'?'Non c\'è il pezzo che hai in mente?':'Not the piece you had in mind?'}</h3>
+        <p>${L==='it'?'Si parte dal tuo disegno. Un pezzo solo è un ordine valido.'
+                     :'We start from your drawing. A single piece is a valid order.'}</p>
+        <button class="btn btn-primary" data-action="go" data-arg="quote">${
+          L==='it'?'Richiedi un pezzo su misura':'Request a bespoke piece'} <span class="arr">→</span></button>
+      </div>`;
+    }
     return;
   }
+  ['perVetrina','perPassi','perFiltri','perCoda'].forEach(id=>{ const e=$(id); if(e){ e.innerHTML=''; e.hidden=true } });
   grid.hidden=true; grid.innerHTML='';
   if(!vuoto) return;
   vuoto.hidden=false;
@@ -322,6 +361,38 @@ export function renderShopIntro(){
      domanda «cosa stai cercando?» ha già una risposta, e tenerla sopra ai
      risultati li spinge sotto la piega. */
   if(intro) intro.hidden=filtriAttivi()>0;
+}
+
+/* La vetrina: fotografie di pezzi usciti davvero dall'officina, prese dal
+   portfolio. Nessuna immagine di repertorio, nessun mockup generato:
+   quello che si vede è stato fatto. Se una foto manca, la tessera non
+   compare — meglio cinque vere che sei con un buco. */
+function renderPerVetrina(){
+  const box=$('perVetrina'); if(!box) return;
+  const port=(window.INGLY.PORT||[])
+    .filter(r=>Array.isArray(r)&&r[3]&&esisteFoto(r[3]))
+    .slice(0,6);
+  if(!port.length){ box.hidden=true; box.innerHTML=''; return }
+  box.hidden=false;
+  box.innerHTML=port.map((r,i)=>{
+    const titolo=(r[1]&&(r[1][L]||r[1].it))||'';
+    return `<figure class="pv-t${i===0?' pv-t--grande':''}">
+      <img src="${imgV(r[3])}"${srcsetFor(r[3])}${focalOf(r[3])} alt="${esc(titolo)}" loading="lazy">
+      <figcaption>${esc(titolo)}</figcaption></figure>`;
+  }).join('');
+}
+
+/* I passi della lavorazione sono già dichiarati in content.json → STEPS e
+   disegnati in home: qui si riusano, non si riscrivono. Due racconti dello
+   stesso processo divergono al primo aggiornamento di uno solo. */
+function renderPerPassi(){
+  const box=$('perPassi'); if(!box) return;
+  const passi=(window.INGLY.STEPS||[]).map(p=>p&&(p[L]||p.it)).filter(Boolean);
+  if(!passi.length){ box.hidden=true; box.innerHTML=''; return }
+  box.hidden=false;
+  box.innerHTML=passi.map((p,i)=>`<div class="per-passo reveal">
+    <span class="per-n">${String(i+1).padStart(2,'0')}</span>
+    <h3>${esc(p[0]||'')}</h3><p>${esc(p[1]||'')}</p></div>`).join('');
 }
 
 /* ---- il pannello filtri del telefono ---- */

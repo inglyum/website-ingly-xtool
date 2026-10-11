@@ -576,6 +576,7 @@ const actions={
   'cart-rm':el=>prod.rmCart(el.dataset.i),
   'coll':el=>prod.setColl(el.dataset.coll),
   'open-coll':el=>prod.openColl(el.dataset.coll),
+  'per-cat':el=>prod.setPerCat(el.dataset.arg),
   'filtri-apri':()=>prod.apriFiltri(),
   'filtri-chiudi':()=>prod.chiudiFiltri(),
   'coll-clear':()=>prod.clearColl(),

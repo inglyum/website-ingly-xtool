@@ -182,9 +182,18 @@ check('ogni collezione pubblicata ha titolo in due lingue',
    in silenzio, ed è il modo più facile di rompere un menu */
 check('le categorie citate esistono tutte',
   vive.every(c => (c.query && c.query.cat || []).every(id => VERI.CATS.some(k => k.id === id))));
-check('«personalizzabili» è ancora in bozza, perché il dato non c\'è',
-  C.trova('personalizzabili', VERI).stato === 'bozza');
-check('e quindi non è pubblicata', !vive.some(c => c.id === 'personalizzabili'));
+/* Era in bozza perché nessun prodotto dichiarava di essere
+   personalizzabile. Ora che lo dichiarano, si è accesa da sé — ed è il
+   punto: la collezione segue il dato, non un interruttore. */
+check('«personalizzabili» si è accesa', C.trova('personalizzabili', VERI).stato === 'pubblicata');
+check('ed è pubblicata perché ha prodotti dentro',
+  vive.some(c => c.id === 'personalizzabili') && C.conta(C.trova('personalizzabili', VERI), VERI) > 0,
+  String(C.conta(C.trova('personalizzabili', VERI), VERI)));
+/* togliendo le spunte tornerebbe vuota, e una collezione vuota non si
+   pubblica: la regola regge nei due versi */
+check('senza prodotti marcati tornerebbe fuori dalle pubblicate',
+  !C.pubblicate({ ...VERI, P: VERI.P.map(p => ({ ...p, personalizzabile: false })) })
+    .some(c => c.id === 'personalizzabili'));
 /* /collezioni/matrimonio è la sottocategoria Nozze di Eventi: nessuna
    categoria «wedding» è stata inventata */
 const wed = C.trova('wedding', VERI);
@@ -263,6 +272,45 @@ check('anche il velo sta fuori dalla pagina',
   idx2.indexOf('class="filters-velo"') < idx2.indexOf('class="page" id="page-shop"'));
 check('il pannello sta sotto il toast e sopra il contenuto',
   /z-index:var\(--z-overlay,110\)/.test(css2));
+
+console.log('\n=== PERSONALIZZA: I PEZZI, LE FOTO VERE, NESSUNA PROMESSA ===');
+const PV = JSON.parse(readFileSync('data/products.json', 'utf8'));
+const marcati = PV.filter(p => p.personalizzabile === true && !p.hidden);
+check('ci sono prodotti marcati «si personalizza»', marcati.length > 0, String(marcati.length));
+/* la regola è scritta in uno script, non a mano nei dati: si rilegge, si
+   ricorre e si corregge dall'Admin */
+const rego = readFileSync('scripts/marca-personalizzabili.mjs', 'utf8');
+check('la regola è uno script verificabile', /SEGNALI/.test(rego));
+check('lo script non tocca chi è già stato deciso a mano',
+  /hasOwnProperty\.call\(p, 'personalizzabile'\)/.test(rego));
+check('lo script ha un\'anteprima prima di scrivere', /--scrivi/.test(rego));
+/* ogni prodotto marcato deve dire nel PROPRIO testo che aspetta qualcosa
+   dal cliente: se non lo dice, è una promessa che non viene dal catalogo */
+const SEG = /personalizzat|personalizzabil|su misura|\bnome\b|con il tuo|a tua scelta|con scritta|con frase|dedica|con data|anniversario|nascita|battesimo|laurea|matrimonio|nozze|comunione|compleanno|ritratto|con foto|da foto|silhouette|litofania|logo|branding|aziendal|corporate|\bqr\b|profilo digitale|menu digitale|monogramm|iniziali/i;
+const senzaProva = marcati.filter(p => !SEG.test([p.n && p.n.it, p.n && p.n.en, p.desc && p.desc.it, p.desc && p.desc.en].filter(Boolean).join(' ')));
+check('ogni marcato lo dichiara nel proprio testo', senzaProva.length === 0, senzaProva.map(p => p.id).join());
+
+const perJs = readFileSync('assets/js/products.js', 'utf8');
+/* la vetrina usa fotografie di pezzi usciti davvero dall'officina: niente
+   immagini di repertorio, niente mockup generati */
+check('la vetrina viene dal portfolio vero', /window\.INGLY\.PORT/.test(perJs));
+check('una foto che non esiste non diventa una tessera', /esisteFoto\(r\[3\]\)/.test(perJs));
+/* due racconti dello stesso processo divergono al primo aggiornamento */
+check('i passi sono quelli già dichiarati in content.json', /window\.INGLY\.STEPS/.test(perJs));
+check('i titoli del portfolio sono messi al sicuro', /const esc = t =>/.test(perJs));
+check('53 pezzi non stanno in una griglia sola: ci sono i filtri', /'per-cat'/.test(readFileSync('assets/js/main.js', 'utf8')));
+check('quello che il catalogo non copre porta al preventivo', /perCoda/.test(perJs));
+
+console.log('\n=== I PASSI NON PROMETTONO QUELLO CHE NON C\'È ===');
+const steps = JSON.parse(readFileSync('data/content.json', 'utf8')).STEPS || [];
+const testoPassi = JSON.stringify(steps);
+/* il configuratore non esiste ancora: prometterlo nel primo passo della
+   lavorazione, per giunta sulla pagina Personalizza, è la bugia più
+   facile da raccontare e la più cara da scoprire */
+check('non promettono un configuratore che non esiste', !/configurator/i.test(testoPassi));
+/* i materiali sono nove: un numero scritto a mano invecchia da solo */
+check('non dichiarano «otto materiali»', !/otto material|eight certified material/i.test(testoPassi));
+check('i passi ci sono ancora', steps.length >= 4, String(steps.length));
 
 console.log(`\n=========== COLLEZIONI: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

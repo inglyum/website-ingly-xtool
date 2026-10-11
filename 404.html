@@ -26,7 +26,7 @@
      non si notava; nella radice di un dominio il primo segmento di
      /materiali veniva preso per il nome della cartella d'installazione e
      la richiesta finiva sulla home. */
-  var PAGES=/*ROTTE*/["home","shop","materiali","digital","academy","macchine","business","tecnologie","demo","portfolio","about","faq","quote","product"]/*FINE-ROTTE*/;
+  var PAGES=/*ROTTE*/["home","shop","personalizza","materiali","digital","academy","macchine","business","tecnologie","demo","portfolio","about","faq","quote","product"]/*FINE-ROTTE*/;
   var seg=path.replace(/^\/+/,'').split('/');
   var base='/';
   if(seg[0] && PAGES.indexOf(seg[0])===-1){ base='/'+seg[0]+'/'; seg=seg.slice(1); }

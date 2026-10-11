@@ -368,3 +368,12 @@ body::after{content:none}
 .shop-coll p{color:var(--ink-soft);margin:6px 0 0;max-width:62ch;font-size:14.5px}
 .shop-coll .btn{flex:0 0 auto}
 @media (max-width:640px){.shop-coll{padding:var(--sp-3,16px)}.shop-coll .btn{width:100%}}
+
+/* ---- Personalizza: lo stato in cui non c'è ancora nulla di pronto ----
+   Non è un «presto disponibile»: è la strada che funziona davvero, cioè la
+   richiesta su misura, che recapita. */
+.per-vuoto{max-width:62ch;margin:0 auto;text-align:center;padding:var(--sp-6,40px) var(--sp-4,20px)}
+.per-vuoto h2{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 var(--sp-3,16px)}
+.per-vuoto p{color:var(--ink-soft);line-height:var(--lh-loose,1.7);margin:0 0 var(--sp-5,28px)}
+.per-ctas{display:flex;gap:var(--sp-3,14px);justify-content:center;flex-wrap:wrap}
+@media (max-width:480px){.per-ctas .btn{width:100%;justify-content:center}}

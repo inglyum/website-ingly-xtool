@@ -2062,6 +2062,13 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
    <input type="checkbox" id="ep_hidden" style="width:18px;height:18px;accent-color:var(--err)" ${p.hidden?'checked':''}>
    <span><b>Prodotto nascosto</b> — non appare nel catalogo né nei filtri (utile per bozze o prodotti esauriti)</span>
   </label>
+  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:4px">
+   <input type="checkbox" id="ep_person" style="width:18px;height:18px;accent-color:var(--ok)" ${p.personalizzabile?'checked':''}>
+   <span><b>Si personalizza</b> — il cliente può metterci un nome, una data, un logo</span>
+  </label>
+  <div class="hint" style="margin:0 0 12px 30px">Spuntandolo questo prodotto entra nella sezione <b>Personalizza</b> e nella
+   collezione «Personalizzabili». Se nessun prodotto è spuntato, quella sezione <b>non compare affatto</b> nel sito: una voce di
+   menu verso una pagina vuota è peggio di una voce che non c'è.</div>
   <div style="border:1px solid rgba(120,180,255,.3);border-radius:10px;padding:12px;margin:14px 0;background:rgba(120,180,255,.06)">
    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
     <button class="btn pri" id="ep_aiAll">🤖 Compila con l'AI i campi mancanti</button>
@@ -2104,6 +2111,10 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
   fresh.prod=+$('ep_prod').value||fresh.prod;
   fresh.rev=+$('ep_rev').value||0;
   const hid=$('ep_hidden');if(hid)fresh.hidden=hid.checked;
+  /* `personalizzabile` si scrive solo se è vero: un `false` su 97 record
+     sarebbe rumore in 97 righe di dati corretti */
+  const per=$('ep_person');
+  if(per){ if(per.checked) fresh.personalizzabile=true; else delete fresh.personalizzabile; }
   const dit=$('ep_dit').value.trim(),den=$('ep_den').value.trim();
   if(dit||den)fresh.desc={it:dit,en:den||dit};else delete fresh.desc;
   const sku=$('ep_sku').value.trim();sku?fresh.sku=sku:delete fresh.sku;

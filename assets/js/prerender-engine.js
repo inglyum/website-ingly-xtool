@@ -18,6 +18,7 @@
    l'unico modo di avere davvero una pagina per prodotto.
 
    Funzioni pure: nessun DOM, nessun filesystem. Testabili da riga di comando. */
+import { PAGINE_STATICHE } from './rotte.js';
 
 import { soloTesto } from './seo-engine.js';
 
@@ -159,8 +160,11 @@ export function componi(guscio, opt = {}){
 
 /* Elenco completo delle pagine da generare, con il percorso del file. */
 export function elenco(dati = {}, opt = {}){
-  const { prodotti = [], verticali = [],
-          pagine = ['shop','digital','business','portfolio','about','faq','quote'] } = dati;
+  /* L'elenco arriva dalla mappa delle rotte: era scritto a mano qui, e si
+     era fermato indietro di sei rotte. Una rotta che il prerender non
+     conosce non ha pagina statica, quindi per un crawler senza JavaScript
+     non esiste. */
+  const { prodotti = [], verticali = [], pagine = PAGINE_STATICHE } = dati;
   const out = [{ file: 'index.html', pagina: 'home', id: null }];
   for(const pg of pagine) out.push({ file: pg + '/index.html', pagina: pg, id: null });
   /* Le pagine di settore stanno SOTTO business (/business/ristoranti): sono un

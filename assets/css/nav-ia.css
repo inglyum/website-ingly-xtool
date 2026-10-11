@@ -176,3 +176,11 @@ html:not(.ia-attiva) .ia-barra{display:none}
 @media(max-width:560px){
   .ft-cols{grid-template-columns:1fr}
 }
+
+/* Le voci secondarie in fondo al cassetto mobile: portfolio, chi siamo,
+   FAQ, contatti. Non sono meno importanti, sono di un altro momento — si
+   cercano dopo aver deciso, non prima. Nella barra occupavano una delle
+   posizioni principali. */
+.dr-sec{border-top:1px solid var(--line);margin-top:var(--sp-3,16px);padding-top:var(--sp-3,16px)}
+.dr-sec a{display:block;padding:10px 0;color:var(--ink-soft);font-size:14.5px;text-decoration:none}
+.dr-sec a:hover,.dr-sec a:focus-visible{color:var(--ink)}

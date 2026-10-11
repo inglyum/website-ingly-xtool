@@ -121,6 +121,30 @@ const ver = JSON.parse(readFileSync('data/version.json', 'utf8'));
 check('version.json porta l\'impronta dei dati', Number.isFinite(ver.impronta));
 check('version.json ha una versione', Number.isFinite(ver.v) && ver.v > 0);
 
+console.log('\n=== OGNI ROTTA HA LA SUA PAGINA STATICA ===');
+/* Era una TERZA copia dell'elenco rotte, scritta a mano in
+   prerender-engine.js, e come quella di 404.html si era fermata indietro.
+   Una rotta che il prerender non conosce risponde 404 e viene salvata solo
+   dal redirect JavaScript: per un crawler senza JavaScript non esiste. */
+const engine2 = readFileSync('assets/js/prerender-engine.js', 'utf8');
+check('il prerender non ha più la sua lista',
+  !/pagine = \['shop','digital'/.test(engine2));
+check('il prerender prende la lista dalla mappa', /PAGINE_STATICHE/.test(engine2));
+check('le pagine statiche escludono la home e i prodotti',
+  !R.PAGINE_STATICHE.includes('') && !R.PAGINE_STATICHE.includes('product'));
+/* il confine è «chi la genera»: business ha le pagine di settore ma la
+   genera questo elenco, e marcarla come rotta del Lab l'aveva fatta
+   sparire dal prerender */
+check('business è fra le pagine statiche', R.PAGINE_STATICHE.includes('business'));
+check('le rotte del Lab non sono nell\'elenco statico',
+  ['materiali', 'tecnologie', 'macchine', 'academy', 'demo'].every(x => !R.PAGINE_STATICHE.includes(x)));
+/* la prova che conta: ogni rotta ha un file su disco */
+const senzaPagina = R.ROTTE
+  .filter(r => r.percorso && r.id !== 'product')
+  .filter(r => !statiche.some(f => f.replace(/\\/g, '/').replace(/^\.\//, '') === r.percorso + '/index.html'));
+check('ogni rotta ha la sua pagina su disco', senzaPagina.length === 0, senzaPagina.map(r => r.id).join());
+check('personalizza ha la sua pagina', statiche.some(f => /personalizza\/index\.html$/.test(f)));
+
 console.log('\n=== NON SI CHIEDE UNA FOTO CHE NON ESISTE ===');
 /* 90 prodotti su 97 dichiarano una foto, 13 ce l'hanno davvero. Il sito le
    chiedeva tutte, e per ciascuna faceva DUE richieste fallite: il .webp e

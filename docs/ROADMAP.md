@@ -65,6 +65,42 @@ intercetta la richiesta prima del service worker, quindi quel ramo non si
 può esercitare qui. È corretto nel codice (base assoluta, `ignoreSearch`)
 ma non lo dichiaro provato.
 
+### P1 — navigazione per obiettivo, e la rotta Personalizza
+`assets/js/nav-ia.js`, `assets/js/rotte.js`, `admin.html` · 52 + 64 controlli
+
+**Barra da 5 a 7 famiglie**: Shop · Personalizza · Materiali · File
+digitali · Academy · xTOOL Lab · Business. Prima «Lab» teneva materiali,
+tecnologie E macchine in una tendina sola — tre mondi commerciali distinti
+— mentre i file digitali, che si vendono, non avevano voce propria.
+«Studio» (chi siamo, portfolio, FAQ, contatti) occupava una delle cinque
+posizioni per contenuti che nessuno cerca prima di aver deciso di
+comprare: ora vive in fondo al cassetto mobile e nel piè di pagina.
+
+**Il prerequisito del Creator è sbloccato.** Il campo `personalizzabile`
+esiste sul prodotto e si spunta nell'Admin («Si personalizza»). Da quel
+flag dipendono, da sé: la voce di menu, la sezione `/personalizza` e la
+collezione «Personalizzabili».
+
+Oggi **nessuno dei 97 prodotti è spuntato**, quindi la voce di menu non
+compare: non la decido io, è un dato commerciale. Chi arriva su
+`/personalizza` con l'indirizzo diretto non trova un «presto disponibile»
+ma la strada che funziona davvero — la richiesta su misura, che recapita.
+
+Altri due difetti trovati strada facendo:
+
+- **Una TERZA copia dell'elenco rotte**, scritta a mano in
+  `prerender-engine.js`, indietro di sei rotte. Una rotta che il prerender
+  non conosce risponde 404 e viene salvata solo dal redirect JavaScript:
+  per un crawler senza JavaScript non esiste. Ora la lista arriva dalla
+  mappa, e un test pretende che **ogni rotta abbia la sua pagina su disco**.
+- **Una macchina restava fuori dal menu**: la colonna era tagliata a otto
+  voci e le macchine non in officina sono nove. La nona era una pagina che
+  esiste e dal menu non si raggiungeva.
+
+Verificato: 10 rotte × 5 larghezze, 6 pannelli che si aprono con 81 voci e
+zero link che escono, menu mobile con 99 link tutti interni, zero errori
+JS, **zero richieste 404**.
+
 ### Commerce OS — il modello unico
 `assets/js/commerce.js` · 129 controlli
 

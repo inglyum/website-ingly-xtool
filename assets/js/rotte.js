@@ -40,14 +40,20 @@
  */
 export const ROTTE = [
   { id: 'home',       percorso: '',            menu: 'nascosta' },
-  { id: 'shop',       percorso: 'shop',        menu: 'principale' },
-  { id: 'materiali',  percorso: 'materiali',   menu: 'principale', schede: true },
+  { id: 'shop',         percorso: 'shop',         menu: 'principale' },
+  /* La rotta esiste perché il router e `404.html` devono conoscerla. La
+     VOCE DI MENU invece compare solo se almeno un prodotto è marcato
+     «si personalizza» nell'Admin: una voce verso una pagina vuota è
+     peggio di una voce che non c'è. Vedi `personalizzabili()` in
+     products.js. */
+  { id: 'personalizza', percorso: 'personalizza', menu: 'principale', condizionata: true },
+  { id: 'materiali',  percorso: 'materiali',   menu: 'principale', lab: true },
   { id: 'digital',    percorso: 'digital',     menu: 'principale' },
-  { id: 'academy',    percorso: 'academy',     menu: 'principale', schede: true },
-  { id: 'macchine',   percorso: 'macchine',    menu: 'principale', schede: true },
-  { id: 'business',   percorso: 'business',    menu: 'principale', schede: true },
-  { id: 'tecnologie', percorso: 'tecnologie',  menu: 'secondaria', schede: true },
-  { id: 'demo',       percorso: 'demo',        menu: 'secondaria' },
+  { id: 'academy',    percorso: 'academy',     menu: 'principale', lab: true },
+  { id: 'macchine',   percorso: 'macchine',    menu: 'principale', lab: true },
+  { id: 'business',   percorso: 'business',    menu: 'principale' },
+  { id: 'tecnologie', percorso: 'tecnologie',  menu: 'secondaria', lab: true },
+  { id: 'demo',       percorso: 'demo',        menu: 'secondaria', lab: true },
   { id: 'portfolio',  percorso: 'portfolio',   menu: 'secondaria' },
   { id: 'about',      percorso: 'about',       menu: 'secondaria' },
   { id: 'faq',        percorso: 'faq',         menu: 'secondaria' },
@@ -99,3 +105,24 @@ export function daPercorso(p) {
 
 /** Le rotte di un livello di menu, nell'ordine dichiarato. */
 export const perMenu = livello => ROTTE.filter(r => r.menu === livello);
+
+/**
+ * Le rotte che hanno una pagina statica propria, generata dal prerender.
+ *
+ * Era una TERZA copia dell'elenco delle rotte, scritta a mano in
+ * `prerender-engine.js`, e come la copia in `404.html` si era fermata
+ * indietro: non conosceva `materiali`, `tecnologie`, `macchine`, `academy`,
+ * `demo` (quelle arrivano da `lab.js`) né `personalizza`. Una rotta che il
+ * prerender non conosce non ha una pagina statica: risponde 404 e viene
+ * salvata solo dal redirect JavaScript — quindi per un crawler senza
+ * JavaScript non esiste.
+ *
+ * Restano fuori: la home (è `index.html`), `product` (una pagina per
+ * prodotto, generata a parte) e le rotte marcate `lab`, che genera
+ * `lab.js` insieme alle loro schede. Il confine è «chi la genera», non
+ * «ha delle schede»: `business` ha le pagine di settore ma la genera
+ * questo elenco, e marcarla `lab` l'aveva fatta sparire dal prerender.
+ */
+export const PAGINE_STATICHE = ROTTE
+  .filter(r => r.percorso && r.id !== 'product' && !r.lab)
+  .map(r => r.percorso);

@@ -15,7 +15,7 @@
       barra resta nel markup come rete, e viene nascosta solo quando la
       nuova è montata davvero. */
 
-import { barraHtml, pannelloHtml, cassettoHtml, FAMIGLIE } from './nav-ia.js';
+import { barraHtml, pannelloHtml, cassettoHtml, famiglieVive } from './nav-ia.js';
 import { BASE } from './navigation.js';
 
 const $ = id => document.getElementById(id);
@@ -36,7 +36,7 @@ export function initNavIA(D, L = 'it') {
 
   const opt = { L, base: base() };
   barra.innerHTML = barraHtml(D, opt);
-  host.innerHTML = FAMIGLIE.map(f => pannelloHtml(f, D, opt)).join('');
+  host.innerHTML = famiglieVive(D).map(f => pannelloHtml(f, D, opt)).join('');
 
   chiudi({ fuoco: false });          /* una lingua nuova chiude ciò che era aperto */
   let velo = document.querySelector('.ia-velo');

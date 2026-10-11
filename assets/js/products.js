@@ -109,6 +109,46 @@ export function card(x){const a=matArt(x.mat);
 
 export const currentProduct = () => cur;
 
+/* ---- PERSONALIZZA ----
+   I prodotti che il cliente può far suoi. Non è una lista a parte: è il
+   campo `personalizzabile` che si spunta nell'Admin sulla scheda del
+   prodotto. Nessuno dei 97 record lo dichiarava, e senza quel dato non si
+   può dire quali pezzi si personalizzano — inventarlo avrebbe significato
+   promettere una lavorazione su un prodotto che forse non la prevede. */
+export const personalizzabili = () => VIS().filter(x => x.personalizzabile === true || x.creator === true);
+
+/**
+ * Disegna la sezione Personalizza.
+ *
+ * Con zero prodotti marcati non si scrive «presto disponibile»: si manda
+ * dove qualcosa funziona per davvero, cioè la richiesta su misura. Il
+ * preventivo è una funzione che esiste e recapita.
+ */
+export function renderPersonalizza(){
+  const grid=$('perGrid'), vuoto=$('perVuoto');
+  if(!grid) return;
+  const items=personalizzabili();
+  if(items.length){
+    if(vuoto){ vuoto.hidden=true; vuoto.innerHTML=''; }
+    grid.hidden=false;
+    grid.innerHTML=items.map(card).join('');
+    return;
+  }
+  grid.hidden=true; grid.innerHTML='';
+  if(!vuoto) return;
+  vuoto.hidden=false;
+  vuoto.innerHTML=`<div class="per-vuoto">
+    <h2>${L==='it'?'Si parte dal tuo disegno.':'We start from your drawing.'}</h2>
+    <p>${L==='it'
+      ? 'Nel catalogo non c\'è ancora un pezzo con la personalizzazione già impostata. Non è un limite della lavorazione: un pezzo solo è un ordine valido, e si parte da quello che hai in mente — un nome, una data, un logo, un file.'
+      : 'No catalogue piece has customisation set up yet. That is not a limit of the process: a single piece is a valid order, and we start from what you have in mind — a name, a date, a logo, a file.'}</p>
+    <div class="per-ctas">
+      <button class="btn btn-primary" data-action="go" data-arg="quote">${L==='it'?'Richiedi un pezzo su misura':'Request a bespoke piece'} <span class="arr">→</span></button>
+      <button class="btn btn-ghost" data-action="go" data-arg="shop">${L==='it'?'Guarda il catalogo':'Browse the catalogue'}</button>
+    </div>
+  </div>`;
+}
+
 /* ---- HERO: card evidenziate lette dal CATALOGO (nessun dato duplicato) ----
    Quali prodotti: CONFIG.heroFeatured = [id,id,id] (gestibile dall'admin).
    Se manca, usa i primi 3 prodotti marcati con hero:true, poi i primi 3 in evidenza. */

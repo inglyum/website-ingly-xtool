@@ -24,30 +24,75 @@ const D = {
   VERTICALI: leggi('data/content.json').VERTICALI || []
 };
 
-console.log('\n=== LE CINQUE FAMIGLIE ===');
-check('la barra ha cinque voci, non tredici', IA.FAMIGLIE.length === 5, String(IA.FAMIGLIE.length));
+console.log('\n=== LE SETTE FAMIGLIE, PER OBIETTIVO ===');
+/* Prima erano cinque e mettevano sullo stesso piano cose di natura
+   diversa: «Lab» conteneva materiali, tecnologie E macchine — tre mondi
+   commerciali in una tendina — mentre i file digitali, che si vendono, non
+   avevano voce propria. «Studio» occupava una delle cinque posizioni per
+   contenuti che nessuno cerca prima di aver deciso di comprare. */
+check('la barra ha sette voci, non tredici', IA.FAMIGLIE.length === 7, String(IA.FAMIGLIE.length));
 check('ogni famiglia porta a una pagina sua', IA.FAMIGLIE.every(f => f.rotta && /^[a-z-]+$/.test(f.rotta)));
 /* Un gruppo che si apre soltanto è una trappola per chi usa la tastiera. */
 check('nessuna famiglia è un contenitore vuoto',
   IA.FAMIGLIE.every(f => IA.pannello(f.id, D).colonne.length > 0 || f.rotta));
+check('i file digitali hanno una voce propria', IA.FAMIGLIE.some(f => f.id === 'digital'));
+check('le macchine hanno una voce propria', IA.FAMIGLIE.some(f => f.id === 'xtool'));
+check('lo studio è uscito dalla barra', !IA.FAMIGLIE.some(f => f.id === 'studio'));
+check('ed è finito fra le secondarie', IA.SECONDARIE.map(v => v.id).includes('about'));
+check('le secondarie sono le quattro attese',
+  IA.SECONDARIE.map(v => v.id).join() === 'portfolio,about,faq,quote');
+
+console.log('\n=== PERSONALIZZA COMPARE SOLO SE C\'È QUALCOSA ===');
+/* Una voce di menu verso una pagina vuota è peggio di una voce che non
+   c'è. Nessuno dei 97 prodotti pubblicati dichiara di essere
+   personalizzabile, quindi oggi la voce non si vede. */
+check('senza prodotti marcati la voce non c\'è',
+  !IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
+check('con un prodotto marcato compare',
+  IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
+check('un prodotto nascosto non la fa comparire',
+  !IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
+check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 6);
+check('la barra disegnata non la contiene',
+  !/data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
+check('e la contiene quando c\'è', 
+  /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [{ id: 1, personalizzabile: true }] }, { L: 'it', base: '' })));
+/* i dati veri: oggi nessuno è marcato, e il sito non deve prometterlo */
+check('sui dati pubblicati oggi la voce non c\'è',
+  !IA.famiglieVive({ ...D, P: leggi('data/products.json') }).some(f => f.id === 'personalizza'));
 
 console.log('\n=== I PANNELLI NASCONO DAI DATI ===');
-const lab = IA.pannello('lab', D);
-check('il Lab mostra tre colonne', lab.colonne.length === 3);
+const lab = IA.pannello('materiali', D);
+check('Materiali mostra due colonne', lab.colonne.length === 2);
 check('i materiali del menu sono quelli veri',
   lab.colonne[0].voci.some(v => /Plexiglass/i.test(v.n)));
 check('le tecnologie del menu sono quelle vere',
   lab.colonne[1].voci.length === D.TECNOLOGIE.tecnologie.length);
-/* Le macchine che abbiamo vengono prima: sono le uniche che si possono
-   venire a vedere, ed è l'informazione che conta di più. */
-check('le macchine in officina sono in cima',
-  lab.colonne[2].voci[0].nota !== '' && lab.colonne[2].voci[0].nota != null);
-check('ogni colonna ha il suo «vedi tutto»', lab.colonne.every(c => c.tutto && c.tutto.href));
+const xt = IA.pannello('xtool', D);
+/* Le macchine che abbiamo vengono prima e in una colonna loro: sono le
+   uniche che si possono venire a vedere. */
+check('xTOOL Lab separa quelle in officina dal resto', xt.colonne.length === 2);
+/* una macchina tagliata dalla fetta sarebbe una pagina che esiste e dal
+   menu non si raggiunge */
+check('nessuna macchina resta fuori dal menu',
+  xt.colonne[0].voci.length + xt.colonne[1].voci.length === D.MACCHINE.catalogo.length);
+check('la prima colonna sono solo quelle in officina',
+  xt.colonne[0].voci.length === D.MACCHINE.catalogo.filter(m => m.inOfficina).length);
+check('e lo dichiara su ogni voce', xt.colonne[0].voci.every(v => v.nota));
+check('la seconda colonna è il resto della gamma',
+  xt.colonne[1].voci.length === D.MACCHINE.catalogo.filter(m => !m.inOfficina).length);
+check('porta alla demo', /demo/.test(xt.evidenza.cta.href));
+const dg = IA.pannello('digital', { ...D, DIG: leggi('data/content.json').DIG || [] });
+check('i file digitali hanno il loro pannello', dg.colonne.length === 2);
+/* i formati arrivano dai file che esistono: un elenco a mano prometterebbe
+   tipi che nessun file fornisce */
+check('i formati arrivano dai file veri',
+  dg.colonne[1].voci.every(v => (leggi('data/content.json').DIG || []).some(d => (d.f || []).includes(v.n))));
 
 const shop = IA.pannello('shop', D);
 check('lo Shop elenca le categorie vere', shop.colonne[0].voci.length > 3);
 check('un materiale nuovo entrerebbe nel menu da solo',
-  IA.pannello('lab', { ...D, MATERIALI: { materiali: [{ id: 'x', n: { it: 'Nuovo' } }] } })
+  IA.pannello('materiali', { ...D, MATERIALI: { materiali: [{ id: 'x', n: { it: 'Nuovo' } }] } })
     .colonne[0].voci[0].n === 'Nuovo');
 
 console.log('\n=== ACADEMY VUOTA ===');
@@ -103,8 +148,14 @@ check('gli indirizzi rispettano la base del sito',
 const velenoso = { ...D, CATS: [{ id: 'x', n: { it: '<img src=x onerror=alert(1)>' } }] };
 check('un nome con dentro del codice non diventa codice',
   !IA.pannelloHtml({ id: 'shop' }, velenoso, {}).includes('<img src=x'));
-check('il cassetto mobile ha le stesse famiglie',
-  (IA.cassettoHtml(D, { base: '' }).match(/class="dr-fam"/g) || []).length === 5);
+check('il cassetto mobile ha le stesse famiglie della barra',
+  (IA.cassettoHtml(D, { base: '' }).match(/class="dr-fam"/g) || []).length === IA.famiglieVive(D).length);
+/* le secondarie sono uscite dalla barra, non dal sito: nel cassetto
+   restano, in un gruppo a parte in fondo */
+check('il cassetto chiude con le voci secondarie',
+  /class="dr-sec"/.test(IA.cassettoHtml(D, { base: '' })));
+check('e le contiene tutte e quattro',
+  IA.SECONDARIE.every(v => IA.cassettoHtml(D, { base: '' }).includes('data-nav="' + v.rotta + '"')));
 
 console.log(`\n=========== NAV IA: ${pass} passati, ${fail} falliti ===========\n`);
 process.exit(fail ? 1 : 0);

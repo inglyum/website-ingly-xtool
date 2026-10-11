@@ -537,7 +537,7 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll()}
+function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderPersonalizza();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll()}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={

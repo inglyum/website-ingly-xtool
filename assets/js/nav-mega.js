@@ -23,6 +23,7 @@ const base = () => BASE.replace(/\/+$/, '');
 
 let aperto = null;      /* id della famiglia aperta */
 let ultimoTrigger = null;
+let mobileLegato = false;
 /* initNavIA viene richiamata a ogni cambio lingua, perché il menu va
    riscritto. Gli ascoltatori sul documento invece vanno messi una volta
    sola: alla seconda chiamata ogni clic veniva gestito due volte e il
@@ -56,13 +57,15 @@ export function initNavIA(D, L = 'it') {
   legato = true;
 
   barra.addEventListener('click', (e) => {
-    const voce = e.target.closest('.ia-voce[data-fam]');
-    if (!voce) return;
-    const fam = voce.dataset.fam;
+    /* Il testo è un link reale alla landing. Soltanto il piccolo pulsante
+       con la freccia apre il pannello: non annullare mai il click sul link. */
+    const toggle = e.target.closest('.ia-toggle[data-fam]');
+    if (!toggle) return;
+    const fam = toggle.dataset.fam;
     const pan = $('ia-pan-' + fam);
-    if (!pan) return;                      /* famiglia senza pannello: è un link */
+    if (!pan) return;
     e.preventDefault();
-    aperto === fam ? chiudi() : apri(fam, voce);
+    aperto === fam ? chiudi() : apri(fam, toggle);
   });
 
   /* Un clic fuori chiude. Dentro il pannello no: ci si sta navigando. */
@@ -99,6 +102,8 @@ function apri(fam, trigger) {
      perché l'elemento è appena uscito da display:none. */
   requestAnimationFrame(() => pan.classList.add('aperto'));
   trigger.setAttribute('aria-expanded', 'true');
+  if (trigger.dataset.closeLabel) trigger.setAttribute('aria-label', trigger.dataset.closeLabel);
+  trigger.closest('.ia-navitem')?.classList.add('menu-aperto');
   document.querySelector('.ia-velo')?.classList.add('on');
   aperto = fam;
   ultimoTrigger = trigger;
@@ -113,7 +118,12 @@ export function chiudi({ fuoco = true } = {}) {
     pan.addEventListener('transitionend', via);
     setTimeout(via, 500);            /* se la transizione non parte, nascondi comunque */
   }
-  document.querySelector(`.ia-voce[data-fam="${aperto}"]`)?.setAttribute('aria-expanded', 'false');
+  const toggle = document.querySelector(`.ia-toggle[data-fam="${aperto}"]`);
+  if (toggle) {
+    toggle.setAttribute('aria-expanded', 'false');
+    if (toggle.dataset.openLabel) toggle.setAttribute('aria-label', toggle.dataset.openLabel);
+  }
+  document.querySelector(`.ia-navitem[data-navitem="${aperto}"]`)?.classList.remove('menu-aperto');
   document.querySelector('.ia-velo')?.classList.remove('on');
   aperto = null;
   if (fuoco && ultimoTrigger) ultimoTrigger.focus();
@@ -138,13 +148,20 @@ function montaCassetto(D, L) {
     sub.appendChild(dentro);
   });
 
+  /* Il corpo viene ricostruito al cambio lingua, ma questo listener
+     delegato resta sul contenitore: registrarlo ogni volta faceva aprire
+     e richiudere il sottomenu nello stesso click. */
+  if (mobileLegato) return;
+  mobileLegato = true;
   corpo.addEventListener('click', (e) => {
-    const b = e.target.closest('.dr-fam[data-apri]');
+    const b = e.target.closest('.dr-toggle[data-apri]');
     if (!b) return;
     const sub = $(b.dataset.apri);
     if (!sub) return;
     const on = sub.classList.toggle('aperto');
     b.setAttribute('aria-expanded', String(on));
+    if (on && b.dataset.closeLabel) b.setAttribute('aria-label', b.dataset.closeLabel);
+    if (!on && b.dataset.openLabel) b.setAttribute('aria-label', b.dataset.openLabel);
   });
 }
 

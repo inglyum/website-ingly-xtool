@@ -37,6 +37,7 @@ const base = () => BASE.replace(/\/+$/, '');
 
 let aperto = null;      /* id della famiglia aperta */
 let ultimoTrigger = null;
+let mobileLegato = false;
 /* initNavIA viene richiamata a ogni cambio lingua, perché il menu va
    riscritto. Gli ascoltatori sul documento invece vanno messi una volta
    sola: alla seconda chiamata ogni clic veniva gestito due volte e il
@@ -203,6 +204,11 @@ function montaCassetto(D, L) {
     sub.appendChild(dentro);
   });
 
+  /* Il contenitore resta lo stesso quando il menu viene rigenerato al
+     cambio lingua. Un solo listener delegato evita il doppio toggle
+     (apri e richiudi nello stesso tap) dopo il primo cambio lingua. */
+  if (mobileLegato) return;
+  mobileLegato = true;
   corpo.addEventListener('click', (e) => {
     const b = e.target.closest('.dr-freccia[data-apri]');
     if (!b) return;
@@ -210,6 +216,8 @@ function montaCassetto(D, L) {
     if (!sub) return;
     const on = sub.classList.toggle('aperto');
     b.setAttribute('aria-expanded', String(on));
+    if (on && b.dataset.closeLabel) b.setAttribute('aria-label', b.dataset.closeLabel);
+    if (!on && b.dataset.openLabel) b.setAttribute('aria-label', b.dataset.openLabel);
   });
 }
 

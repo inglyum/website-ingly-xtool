@@ -151,16 +151,30 @@ check('nessun link del menu porta a una pagina inesistente', rotti.length === 0,
 
 console.log('\n=== MARKUP ===');
 const barra = IA.barraHtml(D, { base: '' });
-check('ogni voce dichiara se si apre', (barra.match(/aria-haspopup/g) || []).length >= 4);
-check('e parte da chiusa', !/aria-expanded="true"/.test(barra));
+check('ogni famiglia ha un link diretto alla propria landing',
+  IA.FAMIGLIE.every(f => barra.includes(`href="/${f.rotta}"`) && barra.includes(`data-nav="${f.rotta}"`)));
+check('il link primario è separato dal pulsante del sottomenu',
+  barra.includes('class="ia-navitem"') && barra.includes('class="ia-voce"') && barra.includes('class="ia-toggle"'));
+check('solo il pulsante dichiara lo stato espandibile',
+  (barra.match(/aria-expanded="false"/g) || []).length >= 4 && !/class="ia-voce"[^>]*aria-expanded/.test(barra));
+check('il pulsante del sottomenu è etichettato e collegato al pannello',
+  barra.includes('aria-label="Apri il sottomenu Shop"') && barra.includes('aria-controls="ia-pan-shop"'));
+check('la barra parte con tutti i pannelli chiusi', !/aria-expanded="true"/.test(barra));
 check('gli indirizzi rispettano la base del sito',
   IA.barraHtml(D, { base: '/anteprima' }).includes('href="/anteprima/shop"'));
 /* I nomi arrivano dai dati, che li scrive una persona nell'Admin. */
 const velenoso = { ...D, CATS: [{ id: 'x', n: { it: '<img src=x onerror=alert(1)>' } }] };
 check('un nome con dentro del codice non diventa codice',
   !IA.pannelloHtml({ id: 'shop' }, velenoso, {}).includes('<img src=x'));
+const mobile = IA.cassettoHtml(D, { base: '' });
 check('il cassetto mobile ha le stesse famiglie della barra',
-  (IA.cassettoHtml(D, { base: '' }).match(/class="dr-fam"/g) || []).length === IA.famiglieVive(D).length);
+  (mobile.match(/class="dr-fam"/g) || []).length === IA.famiglieVive(D).length);
+check('ogni famiglia mobile ha il link diretto alla landing',
+  IA.FAMIGLIE.every(f => mobile.includes(`href="/${f.rotta}"`)));
+check('il sottomenu mobile ha un pulsante distinto dal link',
+  mobile.includes('class="dr-toggle"') && mobile.includes('data-apri="dr-shop"'));
+check('i toggle mobile hanno etichetta e stato accessibile',
+  mobile.includes('aria-label="Apri il sottomenu Shop"') && mobile.includes('aria-expanded="false"'));
 /* le secondarie sono uscite dalla barra, non dal sito: nel cassetto
    restano, in un gruppo a parte in fondo */
 check('il cassetto chiude con le voci secondarie',

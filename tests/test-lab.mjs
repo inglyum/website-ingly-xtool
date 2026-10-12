@@ -243,9 +243,16 @@ check('e ai materiali che quelle tecnologie lavorano',
 console.log('\n=== DEMO ===');
 const dm = LAB.demo(D);
 check('la demo è accesa e gratuita', dm.attiva && dm.gratuita);
-/* Il punto di tutto il blocco: senza link NON si finge un calendario. */
-check('senza link configurato non è prenotabile', !dm.prenotabile && dm.motivo === 'nessun link configurato');
-check('e non si inventa un indirizzo', dm.url === '');
+/* Il link c'è: INGLY è host della Demo Room xTool. */
+check('la demo è prenotabile', dm.prenotabile, dm.motivo || '');
+check('e porta a un indirizzo valido', /^https?:\/\//.test(dm.url || ''), dm.url || '');
+/* Il punto di tutto il blocco resta: TOGLIENDO il link non si finge un
+   calendario, si torna ai canali che funzionano davvero. */
+const senza = JSON.parse(JSON.stringify(D));
+senza.CONFIG.demo.bookingUrl = '';
+check('svuotando il link non è più prenotabile',
+  !LAB.demo(senza).prenotabile && LAB.demo(senza).motivo === 'nessun link configurato');
+check('e non si inventa un indirizzo', LAB.demo(senza).url === '');
 const conLink = JSON.parse(JSON.stringify(D));
 conLink.CONFIG.demo.bookingUrl = 'https://calendly.com/ingly/demo';
 check('con un link valido diventa prenotabile', LAB.demo(conLink).prenotabile);

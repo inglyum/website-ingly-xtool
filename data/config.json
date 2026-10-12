@@ -137,8 +137,8 @@
   "demo": {
     "attiva": true,
     "gratuita": true,
-    "_nota": "bookingUrl vuoto di proposito: il link lo mette l'Admin. Finché è vuoto il sito NON finge un calendario — propone i canali che esistono davvero, WhatsApp ed email. Funziona con Calendly, Google Calendar, una pagina di prenotazione o un link WhatsApp.",
-    "bookingUrl": "",
+    "_nota": "Collegamento alla Demo Room xTool di cui INGLY è host. Se un giorno si usa Calendly o un'altra pagina, si cambia solo questo campo: il sito non ha indirizzi scritti nel codice. Se lo si svuota, il bottone torna a proporre WhatsApp ed email invece di fingere un calendario.",
+    "bookingUrl": "https://support.xtool.com/demo-room/host-instruction?id=2528&name=Giuseppe%20Inglima",
     "esterno": true,
     "etichetta": {
       "it": "Prenota la demo gratuita",

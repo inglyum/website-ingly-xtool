@@ -240,10 +240,25 @@ function fotoMac(m, L, grande) {
     </figure>`;
   }
   if (!grande) return '';
-  /* Niente foto: si dice perché, e si manda dove la foto c'è davvero. */
-  return `<p class="lab-nulla">${t2(
-    'Di questo modello non pubblichiamo una fotografia: quelle ufficiali sono del produttore e le mostriamo solo con il suo consenso.',
-    'We do not publish a photograph of this model: the official ones belong to the manufacturer and we show them only with consent.', L)}
+
+  /* Niente foto: si dice il motivo VERO, non un motivo generico.
+     «Non abbiamo il permesso» e «il permesso c'è ma il file non è ancora
+     stato scaricato» sono due cose diverse, e scrivere la prima quando
+     vale la seconda è raccontare male il proprio lavoro. */
+  const spiegazione =
+    f.motivo === 'non-scaricata'
+      ? t2('La fotografia ufficiale di questo modello non è ancora stata caricata sul sito.',
+           'The official photograph of this model has not been uploaded to the site yet.', L)
+      : f.motivo === 'licenza-negato'
+      ? t2('Di questo modello non pubblichiamo la fotografia ufficiale.',
+           'We do not publish the official photograph of this model.', L)
+      : f.motivo === 'non-in-manifest'
+      ? t2('Di questo modello non abbiamo ancora una fotografia.',
+           'We do not have a photograph of this model yet.', L)
+      : t2('La fotografia ufficiale è del produttore e la mostriamo solo con il suo consenso.',
+           'The official photograph belongs to the manufacturer and we show it only with consent.', L);
+
+  return `<p class="lab-nulla">${spiegazione}
     ${f.ufficiale ? ` <a href="${esc(f.ufficiale)}" target="_blank" rel="noopener">${t2('Vedila sul sito xTool', 'See it on the xTool site', L)} →</a>` : ''}</p>`;
 }
 

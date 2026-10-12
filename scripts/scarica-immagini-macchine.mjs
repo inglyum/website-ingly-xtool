@@ -98,8 +98,15 @@ for (const r of righe) {
     console.log('  ✔ ' + etichetta + (buf.length / 1024).toFixed(0).padStart(5) + ' KB  ' + vero + '  → ' + r.destinazione);
     ok++;
   } catch (e) {
-    console.log('  ✖ ' + etichetta + String(e.message));
-    problemi.push(r.modello + ': ' + e.message);
+    /* «fetch failed» non dice niente a chi legge. Le due cause sono molto
+       diverse: o la rete non lascia uscire (succede in ambienti con una
+       lista di indirizzi consentiti), o l'indirizzo non va più bene. */
+    const m = String(e.message);
+    const spiegato = /fetch failed|ENOTFOUND|ECONNREFUSED|EAI_AGAIN|403/.test(m)
+      ? m + '  ← la rete non raggiunge l\'indirizzo: riprova da una connessione senza restrizioni'
+      : m;
+    console.log('  ✖ ' + etichetta + spiegato);
+    problemi.push(r.modello + ': ' + m);
     ko++;
   }
 }

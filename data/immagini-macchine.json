@@ -1,8 +1,6 @@
 {
   "_nota": "MANIFEST DELLE IMMAGINI DELLE MACCHINE. Una riga per modello: da dove viene l'immagine, quando è stata presa, a cosa serve e — la cosa che conta di più — se abbiamo il diritto di ridistribuirla dal nostro sito. Nessun file viene scaricato né mostrato finché `licenza.stato` non dice che si può.",
-
   "_perche": "Le fotografie dei prodotti xTool sono materiale di xTool. Pubblicarle su inglydesign.it è ridistribuzione: è una cosa che si fa con il permesso del produttore (di solito compreso in un accordo da rivenditore o partner), non perché l'immagine è raggiungibile. Qui si tiene traccia di quel permesso, modello per modello, così nessuno pubblica per sbaglio ciò che non può.",
-
   "_comeSiUsa": [
     "1. Verifica con xTool che il riuso sia consentito (contratto da rivenditore/partner, o autorizzazione scritta).",
     "2. Metti `licenza.stato` a 'consentito' e scrivi in `licenza.prova` dove sta il permesso.",
@@ -10,19 +8,16 @@
     "4. Lo script scarica, verifica che siano immagini vere, le mette in assets/images/machines/ e aggiorna `file` e `presaIl`.",
     "5. npm run build && node scripts/prerender.mjs"
   ],
-
   "_statiLicenza": {
     "da-verificare": "nessuno ha ancora chiesto. Il sito NON mostra l'immagine e lo script non la scarica.",
     "consentito": "xTool ha dato il permesso, e in `licenza.prova` c'è scritto dove sta.",
     "negato": "il permesso non c'è. Serve una fotografia nostra o un collegamento alla pagina ufficiale."
   },
-
   "_campi": {
     "tipoAsset": "official-machine | illustrative-example | licensed-stock | customer-work | ingly-original",
     "sostituibile": "true = l'Admin può caricare al suo posto una fotografia nostra",
     "file": "il percorso locale, scritto dallo script solo dopo il download riuscito"
   },
-
   "macchine": [
     {
       "id": "p3",
@@ -34,7 +29,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_p3_1219-5482_e4bbd1a7-6988-4465-b4de-e7be5b75330f.webp?v=1778491125",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool P3, macchina laser CO₂ da banco",
         "en": "xTool P3, desktop CO₂ laser machine"
@@ -50,7 +49,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2_1219-5500.webp?v=1778491125",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool F2, incisore laser a fibra",
         "en": "xTool F2, fiber laser engraver"
@@ -66,7 +69,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f1u_1219-5464_41d72632-e6f8-470b-8238-445cb6421a68.webp?v=1779355728",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool F1 Ultra, incisore laser portatile",
         "en": "xTool F1 Ultra, portable laser engraver"
@@ -82,7 +89,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2u_1219-5494_7af8d064-beb7-44da-b113-fff4963aba7f.webp?v=1781150197",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool F2 Ultra, incisore laser a fibra e diodo",
         "en": "xTool F2 Ultra, fiber and diode laser engraver"
@@ -98,7 +109,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2uuv_1219-5506_47338e68-d14e-4d5c-a31e-6e505e2bb61b.webp?v=1779355728",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool F2 Ultra UV, incisore laser con sorgente UV",
         "en": "xTool F2 Ultra UV, laser engraver with UV source"
@@ -114,7 +129,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_s1_1219-5317_6ba2463d-e9d0-46a5-9729-f39b43dfc675.webp?v=1779355728",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool S1, laser a diodo chiuso",
         "en": "xTool S1, enclosed diode laser"
@@ -130,7 +149,11 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_uv_2034-6365_214b9e4c-82e3-4f84-8cf5-b6f1eb8cf445.webp?v=1783306125",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "_attenzione": "L'indirizzo contiene «uv» ma non il nome del modello: prima di pubblicarla va guardata e confrontata con la pagina ufficiale della O1 Omni. Una foto della macchina sbagliata su una scheda è peggio di nessuna foto.",
       "alt": {
         "it": "xTool O1 Omni Dual UV, stampante UV da banco",
@@ -147,13 +170,17 @@
       "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-a-reyaji_us_pc_wonderpress_9476-24404_78b96c46-66bf-4d63-bedd-f7993e22cbe2.webp?v=1782372892",
       "paginaUfficiale": "https://www.xtool.com/pages/xtool-laser",
       "presaIl": "",
-      "licenza": { "stato": "da-verificare", "titolare": "xTool", "prova": "" },
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528"
+      },
       "alt": {
         "it": "xTool WonderPress, pressa a caldo",
         "en": "xTool WonderPress, heat press"
       }
     }
   ],
-
-  "_senzaImmagine": "M1, M1 Ultra, M2, F1 e P2 sono in catalogo ma non hanno un indirizzo ufficiale in questo manifest. Finché non ce l'hanno, le loro schede mostrano il segnaposto: meglio di una foto presa a caso che potrebbe ritrarre un altro modello."
+  "_senzaImmagine": "M1, M1 Ultra, M2, F1 e P2 sono in catalogo ma non hanno un indirizzo ufficiale in questo manifest. Finché non ce l'hanno, le loro schede mostrano il segnaposto: meglio di una foto presa a caso che potrebbe ritrarre un altro modello.",
+  "_notaLicenza": "Permesso dato dal titolare in quanto membro xTool Squad. Se il rapporto con xTool cambia, qui si rimette 'da-verificare' o 'negato' e il sito smette di mostrare le fotografie da solo, senza toccare il codice."
 }

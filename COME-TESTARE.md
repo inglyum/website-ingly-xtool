@@ -1,6 +1,6 @@
 # Come testare il sito e l'Admin
 
-Questo è il repository **di sviluppo** (`Il-sito-AI`).
+Questo è il repository **di sviluppo** (`website-ingly-xtool`).
 Il sito in produzione vive in `Sito-claude-code-` e **non viene toccato**.
 
 ---
@@ -14,15 +14,15 @@ rimosso — vedi `.github-pages-note.md`.
 
 **2. L'Admin ricorda il repository nel browser, non nel file.**
 Se sullo stesso computer hai già usato l'Admin di produzione, la destinazione
-resta salvata. Questo Admin se ne accorge, la riporta su `Il-sito-AI` e te lo
+resta salvata. Questo Admin se ne accorge, la riporta su `website-ingly-xtool` e te lo
 dice con un messaggio. Prima di premere **Pubblica**, controlla comunque in
-**Impostazioni** che il repository indicato sia `inglyum / Il-sito-AI`.
+**Impostazioni** che il repository indicato sia `inglyum / website-ingly-xtool`.
 
 ---
 
 ## Metodo 1 — Anteprima online (consigliato)
 
-1. Vai su **Settings → Pages** del repository `Il-sito-AI`
+1. Vai su **Settings → Pages** del repository `website-ingly-xtool`
 2. *Source*: **Deploy from a branch**
 3. *Branch*: `main` — cartella `/ (root)` → **Save**
 4. **Non impostare alcun dominio personalizzato**
@@ -42,8 +42,8 @@ riconosciuto da solo, non c'è niente da configurare.
 Serve Python (già presente su Mac e Linux):
 
 ```bash
-git clone https://github.com/inglyum/Il-sito-AI
-cd Il-sito-AI
+git clone https://github.com/inglyum/website-ingly-xtool
+cd website-ingly-xtool
 node scripts/dev-server.mjs
 ```
 
@@ -88,7 +88,7 @@ Poi apri `http://localhost:8080`.
 Apri `…/admin.html`.
 
 ### Prima di tutto
-- [ ] **Impostazioni** → il repository è `inglyum / Il-sito-AI` (⚠️ **non** `Sito-claude-code-`)
+- [ ] **Impostazioni** → il repository è `inglyum / website-ingly-xtool` (⚠️ **non** `Sito-claude-code-`)
 
 ### Prodotti — le correzioni di questa settimana
 - [ ] **Nuovo prodotto** → compila → **Salva**: il prodotto resta nella lista

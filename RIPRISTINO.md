@@ -12,11 +12,11 @@ così tornare indietro è una cosa di due minuti e non una notte in bianco.
 | `backup-prima-anteprima-2026-07-31` | Versione precedente, prima dei lavori di agosto. |
 
 Per vedere tutti i salvataggi:
-`https://github.com/inglyum/Il-sito-AI/branches`
+`https://github.com/inglyum/website-ingly-xtool/branches`
 
 ## Ripristino dal browser, senza riga di comando
 
-1. Apri `https://github.com/inglyum/Il-sito-AI/compare`
+1. Apri `https://github.com/inglyum/website-ingly-xtool/compare`
 2. **base:** `main` — **compare:** il ramo di salvataggio che vuoi
 3. «Create pull request» → «Merge»
 
@@ -27,8 +27,8 @@ la procedura qui sotto.
 ## Ripristino completo (sostituisce `main`)
 
 ```bash
-git clone https://github.com/inglyum/Il-sito-AI.git
-cd Il-sito-AI
+git clone https://github.com/inglyum/website-ingly-xtool.git
+cd website-ingly-xtool
 
 # mette al sicuro com'è adesso, prima di toccare qualsiasi cosa
 git push origin main:refs/heads/prima-del-ripristino-$(date +%Y-%m-%d-%H%M)

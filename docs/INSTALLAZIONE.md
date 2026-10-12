@@ -1,7 +1,7 @@
 # INSTALLAZIONE E AVVIO — guida in 5 minuti
 
 ## PASSO 1 — Carica i file nel repository
-1. Vai su `https://github.com/inglyum/Sito-ingly` (o il repository che usi).
+1. Vai su `https://github.com/inglyum/website-ingly-xtool` (o il repository che usi).
 2. **Add file → Upload files** → trascina **tutto il contenuto** della cartella del progetto
    (importante: i file devono stare nella **radice**, non dentro una sottocartella:
    `index.html` deve vedersi subito nella lista).

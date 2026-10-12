@@ -27,7 +27,7 @@ You don't add complexity for compliance theater. You fix the threats that actual
 ### GitHub Token Security
 ```
 ✓ Fine-grained personal access token (not classic token)
-✓ Scoped to: inglyum/Ingly-standalone-html only
+✓ Scoped to: inglyum/website-ingly-xtool only
 ✓ Permissions: Contents R/W (minimum required)
 ✓ Stored in: Admin sessionStorage (default) or localStorage (user choice)
 ✓ Never transmitted: token never leaves browser → GitHub API

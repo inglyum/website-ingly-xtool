@@ -4,7 +4,7 @@ Guida completa dal file zip al sito online. Nessuna competenza tecnica richiesta
 
 ## Cosa ti serve
 - Un account GitHub (gratuito) — se non ce l'hai, crealo su github.com.
-- Il tuo repository: `https://github.com/inglyum/Sito-ingly` (già esistente).
+- Il tuo repository: `https://github.com/inglyum/website-ingly-xtool` (già esistente).
 - 15 minuti la prima volta. Le volte successive: pochi secondi per pubblicare.
 
 ---
@@ -35,7 +35,7 @@ serve una «chiave» personale di GitHub, chiamata token.
 - Vai su github.com → clicca la tua foto (alto a destra) → «Settings».
 - In fondo a sinistra: «Developer settings» → «Personal access tokens» → «Fine-grained tokens».
 - «Generate new token». Dai un nome (es. «INGLY Admin»), scadenza a piacere.
-- Alla voce «Repository access» scegli «Only select repositories» e seleziona **Sito-ingly**.
+- Alla voce «Repository access» scegli «Only select repositories» e seleziona **website-ingly-xtool**.
 - Alla voce «Permissions» → «Repository permissions» → «Contents»: metti **Read and write**.
 - Premi «Generate token» e **copia** il codice che appare (inizia con `github_pat_...`).
   ⚠️ Lo vedi una volta sola: copialo subito.

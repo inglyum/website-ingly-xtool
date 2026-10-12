@@ -172,6 +172,22 @@ check('e lo mette nel wrapper legacy', /IMMAGINI:\$\{jstr\(elencoImmagini\(\)\)\
 check('l\'Admin carica l\'elenco esistente', /immagini:'IMG'/.test(adm));
 check('e tiene conto delle foto cancellate', /DELETES/.test(adm.slice(adm.indexOf('function elencoImmagini'), adm.indexOf('function elencoImmagini') + 700)));
 
+console.log('\n=== LO SBLOCCO CACHE E IL SERVICE WORKER DICONO LA STESSA VERSIONE ===');
+/* Il difetto: ho alzato CACHE_VER in sw.js a v7 e lasciato CACHE_WANT a v6
+   in index.html. Lo sblocco cerca le cache che NON cominciano per la
+   versione voluta: con v6 scritto lì, le cache v6 del browser non
+   risultavano vecchie e non venivano toccate — mentre le cache v7 appena
+   create dal service worker nuovo risultavano vecchie e venivano
+   CANCELLATE, con il worker disiscritto, a ogni sessione. I due si
+   combattevano, e sullo schermo restava il sito di prima. */
+const swTxt = readFileSync('sw.js', 'utf8');
+const idxTxt = readFileSync('index.html', 'utf8');
+const verSw = (swTxt.match(/CACHE_VER\s*=\s*'([^']+)'/) || [])[1];
+const verIdx = (idxTxt.match(/CACHE_WANT\s*=\s*'([^']+)'/) || [])[1];
+check('sw.js dichiara una versione di cache', !!verSw, String(verSw));
+check('index.html dichiara quale versione vuole', !!verIdx, String(verIdx));
+check('le due versioni COMBACIANO', verSw === verIdx, `sw.js=${verSw} index.html=${verIdx}`);
+
 console.log('\n=== IL VELO DI CARICAMENTO NON INGOIA I CLIC ===');
 /* Era sopra tutto con i clic attivi e se ne andava solo all'evento `load`,
    cioè quando era arrivata l'ultima sottorisorsa — font di Google compresi.

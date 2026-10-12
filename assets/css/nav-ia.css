@@ -184,3 +184,64 @@ html:not(.ia-attiva) .ia-barra{display:none}
 .dr-sec{border-top:1px solid var(--line);margin-top:var(--sp-3,16px);padding-top:var(--sp-3,16px)}
 .dr-sec a{display:block;padding:10px 0;color:var(--ink-soft);font-size:14.5px;text-decoration:none}
 .dr-sec a:hover,.dr-sec a:focus-visible{color:var(--ink)}
+
+
+/* ============================================================
+   PREMIUM UX — link di sezione indipendente dal disclosure
+   Superfici calme, accenti champagne e focus leggibile.
+   ============================================================ */
+.ia-barra{gap:2px}
+.ia-navitem{display:inline-flex;align-items:center;position:relative;min-width:0;border-radius:var(--radius-pill)}
+.ia-voce{padding:10px clamp(7px,.72vw,12px);font-size:14px;white-space:nowrap;text-decoration:none}
+.ia-voce:hover,.ia-voce:focus-visible,.ia-navitem.menu-aperto .ia-voce{
+  background:rgba(195,164,107,.09);color:var(--ink)
+}
+.ia-voce::after{left:10px;right:10px;background:var(--laser,#c3a46b)}
+.ia-voce.active::after,.ia-navitem.menu-aperto .ia-voce::after{transform:scaleX(1)}
+.ia-toggle{appearance:none;-webkit-appearance:none;flex:none;width:27px;height:35px;margin-left:-4px;
+  display:grid;place-items:center;border:0;border-radius:var(--radius-pill);
+  background:transparent;color:inherit;cursor:pointer;
+  transition:background var(--dur-micro) var(--ease-out),color var(--dur-micro) var(--ease-out)}
+.ia-toggle .ia-caret{width:6px;height:6px;display:block;transform:rotate(45deg) translateY(-1px);
+  transition:transform var(--dur-ui) var(--ease-out),opacity var(--dur-micro) var(--ease-out)}
+.ia-toggle[aria-expanded="true"] .ia-caret{transform:rotate(225deg) translateY(-2px);opacity:1}
+.ia-toggle:hover,.ia-toggle[aria-expanded="true"]{background:rgba(195,164,107,.12);color:var(--laser,#c3a46b)}
+.ia-toggle:focus-visible,.ia-voce:focus-visible,.dr-toggle:focus-visible,.dr-fam:focus-visible{
+  outline:2px solid var(--laser,#c3a46b);outline-offset:3px
+}
+.ia-pannello{border-top-color:rgba(195,164,107,.28)}
+.ia-evidenza{border-color:rgba(195,164,107,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.ia-ev-occhiello,.ia-tutto,.ia-ev-cta{color:var(--laser,#c3a46b)}
+.ia-velo{background:rgba(7,9,13,.36)}
+
+/* Il link principale mobile naviga; la freccia espande. Due target, due azioni. */
+.dr-riga{display:flex;align-items:center;gap:10px}
+.dr-riga .dr-fam{flex:1;min-width:0;width:auto;text-decoration:none;cursor:pointer}
+.dr-toggle{appearance:none;-webkit-appearance:none;flex:none;width:44px;height:44px;
+  display:grid;place-items:center;padding:0;border:1px solid var(--line);
+  border-radius:var(--radius-pill);background:transparent;color:inherit;cursor:pointer;
+  transition:background var(--dur-micro) var(--ease-out),border-color var(--dur-micro) var(--ease-out)}
+.dr-toggle:hover,.dr-toggle[aria-expanded="true"]{background:rgba(195,164,107,.10);border-color:rgba(195,164,107,.32)}
+.dr-toggle[aria-expanded="true"] .dr-piu::after{transform:scaleY(0)}
+.dr-riga .dr-fam:hover{color:var(--laser,#c3a46b)}
+.dr-riga .dr-fam:focus-visible{outline-offset:0}
+
+/* Fondo editoriale dell'hero: profondità morbida invece di glow aggressivi.
+   I temi continuano a governare le superfici principali del resto del sito. */
+.hero-bg{
+  background:
+    radial-gradient(ellipse at 13% 34%,rgba(195,164,107,.085),transparent 42%),
+    radial-gradient(ellipse at 82% 22%,rgba(59,125,224,.09),transparent 43%),
+    linear-gradient(155deg,var(--paper),var(--white))
+}
+.hero-bg .grid-lines{opacity:.13;mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.58) 58%,transparent 100%)}
+.hero-bg .blob{opacity:.17!important;filter:blur(82px)}
+.ia-pannello,.ia-evidenza,.dr-toggle,.ia-toggle{-webkit-tap-highlight-color:transparent}
+
+@media(max-width:1350px) and (min-width:1101px){
+  .ia-voce{font-size:13.2px;padding-inline:7px}
+  .ia-toggle{width:23px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ia-voce,.ia-toggle,.ia-pannello,.ia-caret,.dr-toggle,.dr-piu,.dr-sub{transition:none!important}
+}

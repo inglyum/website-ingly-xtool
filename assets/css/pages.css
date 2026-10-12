@@ -109,8 +109,11 @@ footer{background:var(--bg-deep,#070a14);border-top:1px solid rgba(140,160,220,.
 .pcard,.bcard,.dcard,.rcard,.counter,.matcard{transition:transform var(--dur-ui,220ms) var(--ease-out,ease),box-shadow var(--dur-ui,220ms) var(--ease-out,ease),border-color var(--dur-ui,220ms) var(--ease-out,ease)}
 .pcard:hover,.dcard:hover{box-shadow:0 28px 70px rgba(0,0,0,.65),0 0 50px rgba(59,125,224,.18);border-color:rgba(90,140,230,.55);transform:translateY(-4px)}
 .bcard:hover{box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 34px rgba(59,125,224,.12);transform:translateY(-3px)}
-.pcard .pimg::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.28) 48%,transparent 62%);transform:translateX(-120%);transition:transform .7s var(--ease);pointer-events:none}
-.pcard:hover .pimg::after{transform:translateX(130%)}
+/* Il lampo che attraversava la foto al passaggio del mouse non c'è più:
+   la scheda ha già la sua interazione (si solleva), e due effetti sullo
+   stesso elemento sono il contrario di quello che si vuole. Liberando
+   questo pseudo-elemento ci sta la trama delle schede senza fotografia,
+   che prima perdeva il confronto di specificità e non si vedeva. */
 .ptag{background:var(--glass-dark,rgba(10,13,24,.75));color:#eef1fb;backdrop-filter:blur(8px)}
 .ptag.y{/* il badge non pulsa: è un'etichetta, non un allarme */}
 .ptag.y{background:var(--laser);color:#0a0d18}.ptag.b{background:var(--blue);color:#fff}

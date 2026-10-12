@@ -1117,3 +1117,4 @@ behold-widget{display:block;min-height:240px}
 :root.senza-prezzi #ppUnit{display:none}
 /* il filtro «prezzo massimo» non può filtrare quello che non si vede */
 :root.senza-prezzi .fgroup:has(#pRange){display:none}
+

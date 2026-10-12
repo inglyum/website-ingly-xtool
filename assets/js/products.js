@@ -102,12 +102,25 @@ function stockBadge(x){
   return '';}
 /* esportata perché le pagine di settore mostrano gli stessi prodotti del
    catalogo: una sola tessera, così restano identiche ovunque */
+/* NOTA sul segnaposto delle schede senza fotografia.
+   43 prodotti visibili su 63 non hanno una foto — né in `img`, né come
+   `img/<id>.webp`, né in gallery: non esiste proprio, in nessuna parte del
+   progetto. Ho provato a riempire quel vuoto con una trama generata dal
+   motore grafico del sito, scelta dal materiale. Il risultato era PEGGIO
+   dell'originale: i pattern dipingono un fondo pieno e spengono il
+   gradiente del materiale, lasciando una tessera piatta e fangosa.
+   Il segnaposto attuale — gradiente del materiale più icona — è pulito e
+   leggibile. Quello che manca non è un effetto grafico: sono 43
+   fotografie, e inventarle sarebbe mostrare al cliente un pezzo che non
+   riceverà. */
+
 export function card(x){const a=matArt(x.mat);
+  const foto=imgTag(x);
   return `<article class="pcard reveal in" data-action="open-product" data-id="${x.id}">
     <div class="pimg" style="background:${a.bg}">
       ${x.tag?`<span class="ptag ${x.tag==='Limited'?'y':x.tag==='B2B'?'b':''}">${x.tag}</span>`:''}
       <button class="wish ${lsWish().has(x.id)?'on':''}" aria-label="Wishlist" data-action="wish" data-id="${x.id}"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg></button>
-      <div class="art">${x.icon}</div>${imgTag(x)}${stockBadge(x)}
+      <div class="art">${x.icon}</div>${foto}${stockBadge(x)}
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
     <div class="pbody"><span class="mat">${MATN[x.mat][L]} · ${CATS.find(c=>c.id===x.cat).n[L]}</span><h3>${x.n[L]}</h3>

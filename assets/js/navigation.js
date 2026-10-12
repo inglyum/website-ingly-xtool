@@ -71,6 +71,11 @@ let _leaveTimer=null;
 const reduceMotion=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function show(page){
+  /* La barra deve dire dove ci si trova. `show()` è il solo punto da cui
+     passa ogni cambio di pagina — clic, indirizzo diretto, indietro — ed è
+     quindi l'unico posto in cui aggiornarlo una volta per tutte. */
+  try{ dispatchEvent(new CustomEvent('ingly:pagina', { detail: { page } })) }catch(e){}
+
   const next=document.getElementById('page-'+page);
   if(!next) return;
   const cur=document.querySelector('.page.active');

@@ -184,3 +184,32 @@ html:not(.ia-attiva) .ia-barra{display:none}
 .dr-sec{border-top:1px solid var(--line);margin-top:var(--sp-3,16px);padding-top:var(--sp-3,16px)}
 .dr-sec a{display:block;padding:10px 0;color:var(--ink-soft);font-size:14.5px;text-decoration:none}
 .dr-sec a:hover,.dr-sec a:focus-visible{color:var(--ink)}
+
+/* ---- IL NOME PORTA ALLA PAGINA, LA FRECCIA APRE IL MENU ----
+   Due controlli distinti e affiancati, non uno dentro l'altro: un pulsante
+   annidato in un link non è markup valido e i lettori di schermo lo
+   annunciano a caso. Prima il clic sul nome veniva annullato per aprire la
+   tendina — chi voleva lo Shop doveva prima scegliere una sottosezione. */
+.ia-gruppo{display:inline-flex;align-items:center;gap:2px}
+.ia-freccia{display:grid;place-items:center;width:26px;height:26px;padding:0;
+  border:0;background:transparent;color:inherit;cursor:pointer;border-radius:8px;
+  transition:background var(--dur-micro,160ms) var(--ease-out,ease),
+             transform var(--dur-micro,160ms) var(--ease-out,ease)}
+.ia-freccia:hover{background:var(--glass,rgba(255,255,255,.07))}
+.ia-freccia[aria-expanded="true"]{transform:rotate(180deg)}
+.ia-freccia:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* La sezione in cui ci si trova si vede. */
+.ia-gruppo.qui .ia-voce{color:var(--ink)}
+.ia-gruppo.qui .ia-voce::after{transform:scaleX(1)}
+
+/* Nel cassetto: il nome a sinistra porta alla pagina, la freccia a destra
+   apre i sottolink. Prima il nome era un pulsante che apriva soltanto, e
+   dal telefono alla pagina Shop non ci si arrivava affatto. */
+.dr-riga{display:flex;align-items:center;gap:8px}
+.dr-riga .dr-fam{flex:1;min-width:0}
+.dr-freccia{flex:0 0 auto;display:grid;place-items:center;width:44px;height:44px;
+  padding:0;border:1px solid var(--line);border-radius:12px;background:transparent;
+  color:var(--ink);cursor:pointer;transition:transform var(--dur-ui,220ms) var(--ease-out,ease)}
+.dr-freccia[aria-expanded="true"]{transform:rotate(45deg)}
+.dr-freccia:focus-visible{outline:2px solid var(--accent);outline-offset:2px}

@@ -282,13 +282,25 @@ export function destinazioni(D = {}, opt = {}) {
 /* ---------- markup ---------- */
 
 /** La barra: le famiglie vive, e nient'altro. */
-export function barraHtml(D, { L = 'it', base = '' } = {}) {
+export function barraHtml(D, { L = 'it', base = '', attiva = '' } = {}) {
   return famiglieVive(D).map(f => {
     const p = pannello(f.id, D, { L, base });
     const apribile = p.colonne.length > 0;
-    return `<a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"
-      ${apribile ? 'aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-' + esc(f.id) + '"' : ''}>
-      <span>${esc(L10n(f.n, L))}</span>${apribile ? '<i class="ia-caret" aria-hidden="true"></i>' : ''}</a>`;
+    const qui = attiva && (attiva === f.id || attiva === f.rotta);
+    /* Il TESTO è un link e basta: un clic ci porta. La freccia è un
+       PULSANTE separato, fratello del link, non annidato dentro — un
+       bottone dentro un link non è markup valido e i lettori di schermo
+       lo annunciano a caso.
+       Prima il clic sul link veniva annullato con preventDefault() per
+       aprire il pannello: chi voleva lo Shop doveva prima scegliere una
+       sottosezione. */
+    return `<span class="ia-gruppo${qui ? ' qui' : ''}">
+      <a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"
+        ${qui ? 'aria-current="page"' : ''}>${esc(L10n(f.n, L))}</a>
+      ${apribile ? `<button type="button" class="ia-freccia" data-apri="${esc(f.id)}"
+        aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-${esc(f.id)}"
+        aria-label="${esc(L === 'en' ? 'Open the ' + L10n(f.n, L) + ' menu' : 'Apri il menu ' + L10n(f.n, L))}"><i class="ia-caret" aria-hidden="true"></i></button>` : ''}
+    </span>`;
   }).join('');
 }
 
@@ -324,16 +336,26 @@ export function pannelloHtml(f, D, { L = 'it', base = '' } = {}) {
 
 /** Il cassetto mobile: le stesse famiglie, aperte a fisarmonica, più le
  *  voci secondarie che nella barra non entrano. */
+
+/** Il cassetto mobile: le stesse famiglie, aperte a fisarmonica, più le
+ *  voci secondarie che nella barra non entrano. */
 export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
   return famiglieVive(D).map(f => {
     const p = pannello(f.id, D, { L, base });
     const voci = p.colonne.flatMap(c => [...c.voci, ...(c.tutto ? [c.tutto] : [])]);
     if (!voci.length) {
-      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}">${esc(L10n(f.n, L))}</a></div>`;
+      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a></div>`;
     }
+    /* Due controlli distinti, affiancati: il NOME porta alla pagina, la
+       freccia apre i sottolink. Prima il nome era un pulsante che apriva
+       soltanto: dal cassetto del telefono alla pagina Shop non ci si
+       arrivava affatto — si poteva solo scendere in una sottosezione. */
     return `<div class="dr-item">
-      <button type="button" class="dr-fam" aria-expanded="false" data-apri="dr-${esc(f.id)}">
-        <span>${esc(L10n(f.n, L))}</span><i class="dr-piu" aria-hidden="true"></i></button>
+      <div class="dr-riga">
+        <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a>
+        <button type="button" class="dr-freccia" aria-expanded="false" data-apri="dr-${esc(f.id)}"
+          aria-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"><i class="dr-piu" aria-hidden="true"></i></button>
+      </div>
       <div class="dr-sub" id="dr-${esc(f.id)}">
         <p class="dr-claim">${esc(L10n(f.claim, L))}</p>
         ${p.colonne.map(c => `

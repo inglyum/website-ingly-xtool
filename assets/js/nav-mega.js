@@ -15,10 +15,24 @@
       barra resta nel markup come rete, e viene nascosta solo quando la
       nuova è montata davvero. */
 
-import { barraHtml, pannelloHtml, cassettoHtml, famiglieVive } from './nav-ia.js';
+import { barraHtml, pannelloHtml, cassettoHtml, famiglieVive, FAMIGLIE } from './nav-ia.js';
 import { BASE } from './navigation.js';
 
 const $ = id => document.getElementById(id);
+
+/* Quale famiglia copre la pagina che si sta guardando. Una famiglia può
+   coprire più rotte — xTOOL Lab vale per /macchine e /demo — quindi non
+   basta confrontare il percorso con la rotta della voce. */
+const COPERTE = { xtool: ['macchine', 'demo'], materiali: ['materiali', 'tecnologie'], shop: ['shop', 'product'] };
+function famigliaCorrente() {
+  const p = location.pathname.replace(BASE, '').replace(/^\/+/, '').split('/')[0] || '';
+  if (!p) return '';
+  for (const f of FAMIGLIE) {
+    if (f.rotta === p) return f.id;
+    if ((COPERTE[f.id] || []).includes(p)) return f.id;
+  }
+  return '';
+}
 const base = () => BASE.replace(/\/+$/, '');
 
 let aperto = null;      /* id della famiglia aperta */
@@ -28,13 +42,19 @@ let ultimoTrigger = null;
    sola: alla seconda chiamata ogni clic veniva gestito due volte e il
    pannello si apriva e si richiudeva nello stesso istante. */
 let legato = false;
+/* L'apertura al passaggio del mouse è ritardata; il clic sul nome deve
+   poterla annullare, altrimenti si naviga e il pannello si apre lo stesso
+   sopra la pagina appena aperta. */
+let attesa = null;
 
 export function initNavIA(D, L = 'it') {
   const barra = $('iaBarra');
   const host = $('iaPannelli');
   if (!barra || !host) return false;
 
-  const opt = { L, base: base() };
+  /* La sezione in cui ci si trova va detta, non lasciata indovinare: la
+     voce prende `aria-current="page"` e il segno visivo. */
+  const opt = { L, base: base(), attiva: famigliaCorrente() };
   barra.innerHTML = barraHtml(D, opt);
   host.innerHTML = famiglieVive(D).map(f => pannelloHtml(f, D, opt)).join('');
 
@@ -55,15 +75,35 @@ export function initNavIA(D, L = 'it') {
   if (legato) return true;           /* markup rifatto, ascoltatori già a posto */
   legato = true;
 
+  /* LA FRECCIA apre il pannello. Il LINK accanto non viene toccato: un
+     clic sul nome porta alla pagina, sempre, con un solo clic.
+     Prima questo gestore faceva preventDefault() sul link per aprire la
+     tendina: chi voleva lo Shop doveva prima scegliere una sottosezione. */
   barra.addEventListener('click', (e) => {
-    const voce = e.target.closest('.ia-voce[data-fam]');
-    if (!voce) return;
-    const fam = voce.dataset.fam;
-    const pan = $('ia-pan-' + fam);
-    if (!pan) return;                      /* famiglia senza pannello: è un link */
+    const freccia = e.target.closest('.ia-freccia[data-apri]');
+    if (!freccia) return;
     e.preventDefault();
-    aperto === fam ? chiudi() : apri(fam, voce);
+    const fam = freccia.dataset.apri;
+    if (!$('ia-pan-' + fam)) return;
+    aperto === fam ? chiudi() : apri(fam, freccia);
   });
+
+  /* Su schermo largo il pannello si apre anche sfiorando il gruppo: è il
+     gesto che la gente si aspetta da un mega menu. Resta un di più — chi
+     usa tastiera o tocco ha la freccia, che è un vero pulsante. */
+  if (window.matchMedia && matchMedia('(hover:hover) and (min-width:821px)').matches) {
+    barra.addEventListener('pointerenter', (e) => {
+      const g = e.target.closest ? e.target.closest('.ia-gruppo') : null;
+      if (!g) return;
+      const fam = g.querySelector('.ia-voce')?.dataset.fam;
+      if (!fam || !$('ia-pan-' + fam)) return;
+      clearTimeout(attesa);
+      /* un filo di attesa: passare sopra la barra per andare altrove non
+         deve far comparire tre pannelli uno dopo l'altro */
+      attesa = setTimeout(() => apri(fam, g.querySelector('.ia-freccia') || g), 120);
+    }, true);
+    barra.addEventListener('pointerleave', () => clearTimeout(attesa), true);
+  }
 
   /* Un clic fuori chiude. Dentro il pannello no: ci si sta navigando. */
   velo.addEventListener('click', chiudi);
@@ -74,6 +114,15 @@ export function initNavIA(D, L = 'it') {
   });
   /* Seguire un link del pannello lo chiude: la pagina sotto è cambiata. */
   host.addEventListener('click', (e) => { if (e.target.closest('a')) chiudi({ fuoco: false }); });
+  /* E lo chiude anche un clic sul nome della famiglia: prima si navigava
+     ALLA pagina e il pannello restava aperto sopra, coprendola. */
+  barra.addEventListener('click', (e) => {
+    if (!e.target.closest('.ia-voce')) return;
+    clearTimeout(attesa);          /* annulla l'apertura al passaggio del mouse */
+    chiudi({ fuoco: false });
+  });
+  /* Qualunque cambio di pagina chiude: vale anche per indietro/avanti. */
+  addEventListener('popstate', () => chiudi({ fuoco: false }));
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && aperto) chiudi();
@@ -87,7 +136,23 @@ export function initNavIA(D, L = 'it') {
   });
 
   statiHeader();
+  /* Il segno «sei qui» si aggiorna a ogni cambio di pagina, non solo al
+     primo disegno: altrimenti resta acceso sulla sezione di partenza. */
+  addEventListener('ingly:pagina', segnaAttiva);
+  segnaAttiva();
   return true;
+}
+
+/* Accende la voce della sezione corrente. Tocca solo classe e aria: non
+   ridisegna il menu, che a ogni navigazione sarebbe uno spreco. */
+export function segnaAttiva() {
+  const fam = famigliaCorrente();
+  document.querySelectorAll('.ia-gruppo').forEach(g => {
+    const v = g.querySelector('.ia-voce');
+    const qui = !!v && v.dataset.fam === fam;
+    g.classList.toggle('qui', qui);
+    if (v) { qui ? v.setAttribute('aria-current', 'page') : v.removeAttribute('aria-current'); }
+  });
 }
 
 function apri(fam, trigger) {
@@ -98,7 +163,7 @@ function apri(fam, trigger) {
   /* Un fotogramma prima di animare: senza, il browser salta la transizione
      perché l'elemento è appena uscito da display:none. */
   requestAnimationFrame(() => pan.classList.add('aperto'));
-  trigger.setAttribute('aria-expanded', 'true');
+  (trigger.closest('.ia-gruppo')?.querySelector('.ia-freccia') || trigger).setAttribute('aria-expanded', 'true');
   document.querySelector('.ia-velo')?.classList.add('on');
   aperto = fam;
   ultimoTrigger = trigger;
@@ -113,7 +178,7 @@ export function chiudi({ fuoco = true } = {}) {
     pan.addEventListener('transitionend', via);
     setTimeout(via, 500);            /* se la transizione non parte, nascondi comunque */
   }
-  document.querySelector(`.ia-voce[data-fam="${aperto}"]`)?.setAttribute('aria-expanded', 'false');
+  document.querySelector(`.ia-freccia[data-apri="${aperto}"]`)?.setAttribute('aria-expanded', 'false');
   document.querySelector('.ia-velo')?.classList.remove('on');
   aperto = null;
   if (fuoco && ultimoTrigger) ultimoTrigger.focus();
@@ -139,7 +204,7 @@ function montaCassetto(D, L) {
   });
 
   corpo.addEventListener('click', (e) => {
-    const b = e.target.closest('.dr-fam[data-apri]');
+    const b = e.target.closest('.dr-freccia[data-apri]');
     if (!b) return;
     const sub = $(b.dataset.apri);
     if (!sub) return;

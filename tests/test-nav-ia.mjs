@@ -151,7 +151,11 @@ check('nessun link del menu porta a una pagina inesistente', rotti.length === 0,
 
 console.log('\n=== MARKUP ===');
 const barra = IA.barraHtml(D, { base: '' });
-check('ogni voce dichiara se si apre', (barra.match(/aria-haspopup/g) || []).length >= 4);
+/* `aria-haspopup` sta sul PULSANTE che apre il pannello, non sul link
+   che naviga: è il pulsante ad aprire un popup, il link va a una pagina. */
+check('ogni voce apribile dichiara il suo pannello', (barra.match(/aria-haspopup/g) || []).length >= 4);
+check('il link che naviga NON dichiara un popup',
+  !/<a class="ia-voce"[^>]*aria-haspopup/.test(barra));
 check('e parte da chiusa', !/aria-expanded="true"/.test(barra));
 check('gli indirizzi rispettano la base del sito',
   IA.barraHtml(D, { base: '/anteprima' }).includes('href="/anteprima/shop"'));
@@ -167,6 +171,56 @@ check('il cassetto chiude con le voci secondarie',
   /class="dr-sec"/.test(IA.cassettoHtml(D, { base: '' })));
 check('e le contiene tutte e quattro',
   IA.SECONDARIE.every(v => IA.cassettoHtml(D, { base: '' }).includes('data-nav="' + v.rotta + '"')));
+
+console.log('\n=== IL NOME PORTA ALLA PAGINA, LA FRECCIA APRE IL MENU ===');
+/* La regola: un clic sul nome deve aprire la landing, subito. Prima il
+   gestore faceva preventDefault() sul link per aprire la tendina — chi
+   voleva lo Shop doveva prima scegliere una sottosezione — e sul telefono
+   il nome era un BOTTONE che espandeva soltanto: dal cassetto alla pagina
+   Shop non ci si arrivava affatto. */
+const barraHtm = IA.barraHtml(D, { L: 'it', base: '' });
+check('ogni voce della barraHtm è un link', (barraHtm.match(/<a class="ia-voce"/g) || []).length === IA.famiglieVive(D).length);
+check('ogni link porta alla sua rotta', IA.famiglieVive(D).every(f => barraHtm.includes('href="/' + f.rotta + '"')));
+check('la freccia è un pulsante separato', /<button type="button" class="ia-freccia"/.test(barraHtm));
+/* un bottone dentro un link non è markup valido e i lettori di schermo lo
+   annunciano a caso */
+check('la freccia NON sta dentro il link',
+  !/<a class="ia-voce"[^>]*>[^<]*<button/.test(barraHtm) &&
+  barraHtm.indexOf('<button') > barraHtm.indexOf('</a>'));
+check('la freccia dice cosa apre', /aria-controls="ia-pan-/.test(barraHtm) && /aria-label="/.test(barraHtm));
+check('la freccia dichiara se è aperta', /aria-expanded="false"/.test(barraHtm));
+/* una famiglia senza pannello è solo un link: niente freccia che non apre nulla */
+const senzaPannello = IA.famiglieVive(D).filter(f => IA.pannello(f.id, D).colonne.length === 0);
+check('una famiglia senza pannello non ha la freccia',
+  (barraHtm.match(/class="ia-freccia"/g) || []).length === IA.famiglieVive(D).length - senzaPannello.length);
+
+const megaJs = readFileSync('assets/js/nav-mega.js', 'utf8');
+/* il difetto nominato dal brief, in una riga */
+check('nessun preventDefault sul link della barraHtm',
+  !/\.ia-voce\[data-fam\][\s\S]{0,200}preventDefault/.test(megaJs));
+check('il pannello lo apre la freccia', /\.ia-freccia\[data-apri\]/.test(megaJs));
+check('il pannello si chiude quando si naviga', /closest\('\.ia-voce'\)/.test(megaJs));
+check('e anche con indietro/avanti', /popstate'?, *\(\) => chiudi|popstate', *\(\) *=> *chiudi/.test(megaJs.replace(/\s+/g, ' ')));
+
+console.log('\n=== IL CASSETTO DEL TELEFONO ===');
+const cassHtm = IA.cassettoHtml(D, { base: '' });
+check('il nome è un link, non un pulsante', /<a class="dr-fam"/.test(cassHtm));
+check('non è più un pulsante che apre soltanto', !/<button[^>]*class="dr-fam"/.test(cassHtm));
+check('la freccia è un pulsante a parte', /<button type="button" class="dr-freccia"/.test(cassHtm));
+check('la freccia dice cosa fa', /class="dr-freccia"[^>]*aria-label="/.test(cassHtm));
+check('ogni nome porta alla sua rotta',
+  IA.famiglieVive(D).every(f => cassHtm.includes('href="/' + f.rotta + '"')));
+
+console.log('\n=== LA SEZIONE CORRENTE SI VEDE ===');
+check('la barra sa segnare dove ci si trova', /aria-current="page"/.test(IA.barraHtml(D, { L: 'it', base: '', attiva: 'shop' })));
+check('e solo su una voce',
+  (IA.barraHtml(D, { L: 'it', base: '', attiva: 'shop' }).match(/aria-current/g) || []).length === 1);
+check('senza sezione attiva nessuna voce è segnata', !/aria-current/.test(barraHtm));
+/* una famiglia copre più rotte: xTOOL Lab vale per /macchine e per /demo */
+check('il segno si aggiorna a ogni cambio pagina', /ingly:pagina/.test(megaJs));
+check('una famiglia può coprire più rotte', /COPERTE/.test(megaJs));
+const navjs = readFileSync('assets/js/navigation.js', 'utf8');
+check('il router annuncia il cambio di pagina', /ingly:pagina/.test(navjs));
 
 console.log(`\n=========== NAV IA: ${pass} passati, ${fail} falliti ===========\n`);
 process.exit(fail ? 1 : 0);

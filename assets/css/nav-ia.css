@@ -213,3 +213,65 @@ html:not(.ia-attiva) .ia-barra{display:none}
   color:var(--ink);cursor:pointer;transition:transform var(--dur-ui,220ms) var(--ease-out,ease)}
 .dr-freccia[aria-expanded="true"]{transform:rotate(45deg)}
 .dr-freccia:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+
+/* INGLY PREMIUM NAV — il testo naviga, la freccia espande. */
+.ia-barra{gap:3px}
+.ia-gruppo{gap:0;border-radius:999px;transition:background 180ms ease}
+.ia-voce{
+  padding:10px clamp(7px,.72vw,12px);font-size:14px;white-space:nowrap;
+  color:var(--ink);text-decoration:none;letter-spacing:-.012em
+}
+.ia-gruppo:hover,.ia-gruppo:focus-within,.ia-gruppo.qui{background:rgba(195,164,107,.075)}
+.ia-gruppo.qui .ia-voce{color:var(--ink)}
+.ia-gruppo.qui .ia-voce::after{background:var(--premium-gold,#c3a46b)}
+.ia-voce::after{left:10px;right:10px;background:var(--premium-gold,#c3a46b)}
+.ia-freccia{
+  display:grid;place-items:center;flex:none;width:27px;height:35px;margin-left:-4px;
+  padding:0;border:0;border-radius:999px;background:transparent;color:var(--ink);
+  cursor:pointer;transition:background 180ms ease,color 180ms ease
+}
+.ia-freccia .ia-caret{width:6px;height:6px;display:block}
+.ia-freccia:hover,.ia-freccia[aria-expanded="true"]{
+  background:rgba(195,164,107,.13);color:var(--premium-gold,#c3a46b)
+}
+.ia-freccia[aria-expanded="true"] .ia-caret{transform:rotate(225deg) translateY(-2px);opacity:1}
+.ia-gruppo:focus-within{outline:1px solid rgba(195,164,107,.42);outline-offset:1px}
+.ia-voce:focus-visible,.ia-freccia:focus-visible,.dr-fam:focus-visible,.dr-freccia:focus-visible{
+  outline:2px solid var(--premium-gold,#c3a46b);outline-offset:3px
+}
+.ia-pannello{border-top-color:rgba(195,164,107,.28)}
+.ia-evidenza{border-color:rgba(195,164,107,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.ia-ev-occhiello,.ia-tutto,.ia-ev-cta{color:var(--premium-gold,#c3a46b)}
+.ia-velo{background:rgba(7,9,13,.36)}
+
+/* Mobile drawer: il nome apre la landing, il comando circolare apre i sottolink. */
+.dr-riga{display:flex;align-items:center;gap:10px}
+.dr-riga .dr-fam{flex:1;min-width:0;width:auto;text-decoration:none;cursor:pointer}
+.dr-freccia{
+  appearance:none;-webkit-appearance:none;flex:none;width:44px;height:44px;
+  display:grid;place-items:center;padding:0;border:1px solid var(--line);
+  border-radius:999px;background:transparent;color:inherit;cursor:pointer;
+  transition:background 180ms ease,border-color 180ms ease,color 180ms ease
+}
+.dr-freccia:hover,.dr-freccia[aria-expanded="true"]{
+  background:rgba(195,164,107,.1);border-color:rgba(195,164,107,.34);color:var(--premium-gold,#c3a46b)
+}
+.dr-freccia[aria-expanded="true"] .dr-piu::after{transform:scaleY(0)}
+.dr-riga .dr-fam:hover{color:var(--premium-gold,#c3a46b)}
+.dr-riga .dr-fam:focus-visible{outline-offset:0}
+.dr-fam{font-size:clamp(19px,3.8vw,22px)}
+.ia-pannello-in{gap:clamp(20px,3vw,40px)}
+.ia-col-tit{color:var(--ink-soft)}
+.ia-lista a:hover{background:rgba(195,164,107,.075)}
+.ia-lista a:focus-visible,.ia-tutto:focus-visible,.ia-ev-cta:focus-visible{
+  outline:2px solid var(--premium-gold,#c3a46b);outline-offset:2px
+}
+
+@media(max-width:1350px) and (min-width:1101px){
+  .ia-voce{font-size:13px;padding-inline:7px}
+  .ia-freccia{width:23px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ia-voce,.ia-freccia,.ia-pannello,.ia-caret,.dr-freccia,.dr-piu,.dr-sub{transition:none!important}
+}

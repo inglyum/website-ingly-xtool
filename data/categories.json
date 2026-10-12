@@ -361,11 +361,11 @@
    "en": "Materials"
   },
   "s": {
-   "it": "8 materiali lavorabili",
-   "en": "8 workable materials"
+   "it": "Materiali selezionati per le tue lavorazioni",
+   "en": "Selected materials for your projects"
   },
   "sub": [],
-  "go": "about",
+  "go": "materiali",
   "icon": "materiali",
   "img": "img/cat-materiali.webp",
   "big": "",
@@ -379,11 +379,11 @@
    "en": "Technologies"
   },
   "s": {
-   "it": "CO₂, F2, MOPA, UV, DTF, 3D",
-   "en": "CO₂, F2, MOPA, UV, DTF, 3D"
+   "it": "Laser, UV, DTF e stampa 3D",
+   "en": "Laser, UV, DTF and 3D printing"
   },
   "sub": [],
-  "go": "about",
+  "go": "tecnologie",
   "icon": "tecnologie",
   "img": "img/cat-tecnologie.webp",
   "big": "",
@@ -424,11 +424,11 @@
   "ic": "✨",
   "n": {
    "it": "Supereroi e Anime",
-   "en": "New category"
+   "en": "Superheroes & Anime"
   },
   "s": {
-   "it": "Descrizione",
-   "en": "Description"
+   "it": "Decorazioni, nomi e idee per chi ama i mondi pop",
+   "en": "Decor, names and ideas inspired by pop culture"
   },
   "sub": [
    {
@@ -445,7 +445,7 @@
    }
   ],
   "big": "✨",
-  "bg": "#e8d5b0,#c9a876",
+  "bg": "linear-gradient(145deg,#30261d 0%,#64513a 48%,#b89b68 100%)",
   "img": "img/cat-nuova-ms3k34dc.webp",
   "icon": "limited"
  }

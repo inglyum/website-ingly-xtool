@@ -538,3 +538,242 @@ body::after{content:none}
   .dig-barra{flex-direction:column;align-items:stretch}
   .dig-getic{min-width:0;width:100%}
 }
+
+
+/* ============================================================
+   INGLY PREMIUM FINISH — graphite, warm white, champagne
+   Logo statico, atmosfere sobrie, superfici editoriali.
+   Gli sfondi scelti nell'Admin restano attivi.
+   ============================================================ */
+:root{
+  --paper:#0c0e10;
+  --white:#17191c;
+  --graphite:#202226;
+  --gray:#222428;
+  --ink:#f3f0e8;
+  --ink-soft:#aaa69c;
+  --line:rgba(195,164,107,.17);
+  --blue:#c3a46b;
+  --blue-hi:#ddc38d;
+  --laser:#c3a46b;
+  --spark:#c3a46b;
+  --shadow-soft:0 10px 34px rgba(0,0,0,.28);
+  --shadow-lift:0 20px 54px rgba(0,0,0,.36);
+  --premium-gold:#c3a46b;
+  --premium-edge:rgba(195,164,107,.2);
+}
+:root[data-mode="light"]{
+  --paper:#f5f2ec;
+  --white:#fffefa;
+  --graphite:#eae5dc;
+  --gray:#ede8df;
+  --ink:#202124;
+  --ink-soft:#68645c;
+  --line:rgba(48,41,29,.13);
+  --blue:#886a37;
+  --blue-hi:#a18149;
+  --laser:#967440;
+  --spark:#967440;
+  --premium-gold:#967440;
+  --premium-edge:rgba(113,85,39,.2);
+  --shadow-soft:0 8px 28px rgba(32,29,23,.07);
+  --shadow-lift:0 18px 44px rgba(32,29,23,.12);
+}
+
+/* Fondo globale più profondo ma quasi impercettibile:
+   una luce calda, una base grafite, la griglia ridotta a texture. */
+body{
+  background:
+    radial-gradient(ellipse at 78% 2%,rgba(195,164,107,.075),transparent 32%),
+    radial-gradient(ellipse at 12% 20%,rgba(103,111,126,.075),transparent 31%),
+    linear-gradient(180deg,#111316 0%,#0c0e10 50%,#111214 100%) fixed;
+  color:var(--ink);
+}
+body::before{
+  background-image:
+    linear-gradient(rgba(195,164,107,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(195,164,107,.022) 1px,transparent 1px);
+  background-size:84px 84px;
+  mask-image:radial-gradient(ellipse at 50% 20%,#000 0%,rgba(0,0,0,.48) 44%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 0%,rgba(0,0,0,.48) 44%,transparent 78%);
+}
+:root[data-mode="light"] body{
+  background:
+    radial-gradient(ellipse at 84% 0%,rgba(195,164,107,.12),transparent 34%),
+    linear-gradient(180deg,#fbfaf7 0%,#f4f1eb 56%,#fbfaf7 100%) fixed;
+}
+:root[data-mode="light"] body::before{
+  background-image:
+    linear-gradient(rgba(48,41,29,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(48,41,29,.025) 1px,transparent 1px);
+  background-size:84px 84px;
+  mask-image:radial-gradient(ellipse at 50% 18%,#000 0%,rgba(0,0,0,.35) 46%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 18%,#000 0%,rgba(0,0,0,.35) 46%,transparent 78%);
+}
+
+/* Hero: luce architettonica, non neon. Nessuna decorazione gira attorno al logo. */
+.hero-bg{
+  background:
+    radial-gradient(ellipse at 76% 34%,rgba(195,164,107,.105),transparent 34%),
+    radial-gradient(ellipse at 22% 82%,rgba(255,255,255,.025),transparent 39%),
+    linear-gradient(145deg,#151719 0%,#0e1012 57%,#151514 100%);
+}
+:root[data-mode="light"] .hero-bg{
+  background:
+    radial-gradient(ellipse at 78% 24%,rgba(195,164,107,.16),transparent 38%),
+    linear-gradient(145deg,#fffefa 0%,#f4f0e7 72%,#faf8f3 100%);
+}
+.hero-bg .grid-lines{opacity:.22;background-size:84px 84px}
+.hero-bg .blob{opacity:.16;filter:blur(90px)}
+.hero-tag{background:rgba(255,255,255,.035);border-color:var(--premium-edge);backdrop-filter:blur(8px)}
+.hero-tag .dot{animation:none;box-shadow:none}
+:root[data-mode="light"] .hero-tag{background:rgba(255,255,255,.78);border-color:rgba(113,85,39,.18)}
+.hero h1{letter-spacing:-.045em;line-height:.99}
+.hero .sub{max-width:48ch;line-height:1.75}
+.hero-ctas{gap:12px}
+.hero-visual .coin-scene{perspective:none;transform:none}
+.hero-visual .cring{display:none!important;animation:none!important}
+.hero-visual .coin{
+  animation:none!important;transform:none!important;transform-style:flat;
+  transition:none!important;cursor:default;
+}
+.hero-visual .coin img{
+  display:block;width:100%;height:auto;filter:drop-shadow(0 24px 38px rgba(0,0,0,.22));
+}
+.hero-visual .fc1,.hero-visual .fc2,.hero-visual .fc3{
+  transform:none!important;animation:none!important;
+}
+.hero-visual .fcard{
+  background:rgba(24,26,29,.84);border-color:rgba(195,164,107,.2);
+  box-shadow:0 16px 36px rgba(0,0,0,.2);backdrop-filter:blur(12px);
+}
+:root[data-mode="light"] .hero-visual .fcard{
+  background:rgba(255,254,250,.94);border-color:rgba(113,85,39,.16);
+  box-shadow:0 14px 30px rgba(32,29,23,.09);
+}
+.brand img{filter:none!important}
+.glow{display:none!important}
+
+/* Loader: il logo non pulsa né ruota; resta solo una linea di avanzamento. */
+.loader{
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(195,164,107,.08),transparent 40%),
+    linear-gradient(160deg,#151719,#0b0d0f);
+}
+.loader img{animation:none!important;filter:none!important}
+.loader .lbar{background:rgba(195,164,107,.2)}
+.loader .lbar i{background:var(--premium-gold)}
+
+/* Un solo linguaggio per le categorie: fotografia leggibile e hover contenuto. */
+.bento{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:168px;gap:16px;margin-top:42px}
+.bcard{
+  min-width:0;border-radius:20px;border:1px solid rgba(195,164,107,.18);
+  background:var(--white);padding:22px;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);
+  transition:transform 240ms ease,box-shadow 240ms ease,border-color 240ms ease;
+  will-change:auto;
+}
+.bcard:hover,.bcard:focus-visible{
+  transform:translateY(-4px);border-color:rgba(195,164,107,.42);
+  box-shadow:0 16px 34px rgba(0,0,0,.22);
+}
+.bcard .bimg{transform:scale(1.015);filter:saturate(.9);transition:transform 420ms ease,filter 420ms ease}
+.bcard:hover .bimg,.bcard:focus-visible .bimg{transform:scale(1.045);filter:saturate(1.02)}
+.bcard--photo::after{
+  background:linear-gradient(180deg,rgba(8,9,10,.08) 0%,rgba(8,9,10,.34) 43%,rgba(8,9,10,.86) 100%);
+}
+.bcard--photo::before{content:none!important;display:none!important}
+.bcard .ic{top:18px;left:18px;font-size:22px;filter:none!important;opacity:.94}
+.bcard h3{
+  max-width:23ch;font-size:clamp(16px,1.25vw,20px);line-height:1.18;
+  letter-spacing:-.025em;margin:0 0 6px;
+}
+.bcard.b-lg h3{font-size:clamp(20px,1.75vw,27px)}
+.bcard p{font-size:12.5px;line-height:1.45;opacity:.82;margin:0;max-width:31ch}
+.bcard .cnt{
+  top:16px;right:16px;padding:5px 9px;border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;background:rgba(14,15,16,.72);color:#f3f0e8;
+  font-size:10.5px;letter-spacing:.04em;backdrop-filter:blur(8px)
+}
+.bcard--photo h3,.bcard--photo p,.bcard--photo .ic{text-shadow:0 2px 12px rgba(0,0,0,.28)}
+.bcard--light h3{color:#202124}
+.bcard--light p{color:#5f5b53}
+.bcard--gen{background-image:var(--card-bg);background-size:cover;background-position:center}
+.bcard:focus-visible{outline:2px solid var(--premium-gold);outline-offset:3px}
+:root[data-mode="light"] .bcard{
+  border-color:rgba(48,41,29,.12);box-shadow:0 5px 18px rgba(32,29,23,.06)
+}
+:root[data-mode="light"] .bcard:hover,:root[data-mode="light"] .bcard:focus-visible{
+  border-color:rgba(113,85,39,.35);box-shadow:0 14px 28px rgba(32,29,23,.1)
+}
+:root[data-mode="light"] .bcard--photo::after{
+  background:linear-gradient(180deg,rgba(15,15,15,.02) 0%,rgba(15,15,15,.22) 38%,rgba(15,15,15,.78) 100%)
+}
+
+/* Prodotti, materiali e form condividono lo stesso livello di profondità. */
+.pcard,.dcard,.rcard,.matcard,.mcard{
+  border-color:var(--premium-edge);box-shadow:0 5px 20px rgba(0,0,0,.12)
+}
+.pcard:hover,.dcard:hover{
+  box-shadow:0 17px 36px rgba(0,0,0,.22);border-color:rgba(195,164,107,.38)
+}
+.matcard,.pcard{border-radius:18px}
+.mcard{border-radius:20px}
+input,select,textarea,.quote-form input,.quote-form select,.quote-form textarea{accent-color:var(--premium-gold)}
+.btn-primary{
+  background:linear-gradient(135deg,#d8bd82 0%,#b8995f 100%);
+  color:#171613;border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 7px 22px rgba(195,164,107,.16),inset 0 1px 0 rgba(255,255,255,.3)
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,#e3cc9a 0%,#c3a46b 100%);
+  color:#111214;box-shadow:0 11px 28px rgba(195,164,107,.22);transform:translateY(-2px)
+}
+.btn-ghost{border-color:var(--premium-edge);box-shadow:none}
+.btn-ghost:hover{border-color:var(--premium-gold);color:var(--premium-gold);background:rgba(195,164,107,.05)}
+.news,.cta-band{
+  background:linear-gradient(145deg,#191b1e,#101113);
+  border-color:var(--premium-edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)
+}
+:root[data-mode="light"] .news,:root[data-mode="light"] .cta-band{
+  background:linear-gradient(145deg,#fffefa,#f0ebe1);border-color:rgba(113,85,39,.18)
+}
+footer{border-top-color:var(--premium-edge)}
+:root[data-mode="light"] footer{background:#f0ece4;border-top-color:rgba(48,41,29,.12)}
+
+/* Responsive: griglia ben leggibile su tablet e smartphone. */
+@media(max-width:980px){
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:158px;gap:13px}
+}
+@media(max-width:560px){
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:145px;gap:10px;margin-top:28px}
+  .bcard{padding:14px;border-radius:16px}
+  .bcard .ic{top:12px;left:12px;font-size:19px}
+  .bcard .cnt{top:11px;right:10px;padding:4px 6px;font-size:9.5px}
+  .bcard h3{font-size:15px;line-height:1.16}
+  .bcard.b-lg h3{font-size:19px}
+  .bcard p{font-size:11px;line-height:1.32}
+  .b-lg,.b-w{grid-column:span 2}
+  .hero{min-height:auto;padding-bottom:76px}
+  .hero-visual{height:350px}
+  .hero-visual .coin{width:min(280px,68%)}
+  .hero-visual .fcard{padding:11px;width:clamp(130px,42vw,180px)}
+  .hero-visual .fcard .ph{height:86px}
+}
+@media(max-width:380px){
+  .bcard h3{font-size:14px}
+  .bcard.b-lg h3{font-size:17px}
+  .hero-visual{height:310px}
+}
+
+/* Focus evidente e rispetto sistematico della preferenza di movimento ridotto. */
+:where(a,button,[role="link"],input,select,textarea):focus-visible{
+  outline:2px solid var(--premium-gold);outline-offset:3px
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-visual .cring,.hero-visual .coin,.hero-visual .fcard,
+  .loader img,.hero-tag .dot,.bcard,.bcard .bimg,.bcard::before,
+  .pcard,.pcard .pimgph,.btn{animation:none!important;transition:none!important}
+  .hero-visual .coin{transform:none!important}
+  .bcard:hover,.bcard:focus-visible{transform:none!important}
+}

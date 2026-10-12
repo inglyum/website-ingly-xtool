@@ -24,15 +24,25 @@ import * as PREZZI from './prezzi.js';
 function initHeroVideo(){
   const url=(CONFIG.heroVideo||'').trim();
   const scene=document.querySelector('.coin-scene');
-  if(!url || !scene) return;                 // nessun video configurato: hero invariata
+  if(!url || !scene) return;
+  /* Il pannello Admin può contenere un permalink Instagram o YouTube.
+     Una pagina HTML non è un media <video>: in quel caso manteniamo il logo. */
+  const diretto=/\.(?:mp4|webm|ogv)(?:[?#]|$)/i.test(url)
+    || /^(?:blob:|data:video\/)/i.test(url);
+  if(!diretto) return;
   const reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
   const v=document.createElement('video');
-  v.className='hero-video'; v.muted=true; v.playsInline=true; v.loop=true;
+  v.className='hero-video'; v.muted=true; v.playsInline=true; v.loop=true; v.preload='metadata';
   v.setAttribute('aria-hidden','true');
+  v.addEventListener('loadeddata',()=>{
+    scene.classList.add('hero-video-ready');
+    scene.style.display='none';
+  },{once:true});
+  v.addEventListener('error',()=>v.remove(),{once:true});
   v.src=url;
   scene.parentNode.insertBefore(v, scene);
-  scene.style.display='none';                // il video sostituisce la moneta 3D, non si sovrappone
-  if(!reduce){ v.autoplay=true; try{ const p=v.play&&v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){} }
+  try{ const p=v.play&&v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
 }
 
 function applyConfig(){

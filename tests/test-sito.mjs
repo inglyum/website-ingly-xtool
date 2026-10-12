@@ -206,6 +206,59 @@ check('categoria CON immagine mostra la foto', bento && bento.querySelector('.bc
 check('immagine categoria con cache-busting (?v=)', bento && /\.webp\?v=\d/.test(bento.innerHTML));
 check('ogni card riceve uno sfondo (foto o generato)', bento && bento.querySelectorAll('.bcard--photo').length >= 12);
 
+/* INGLY PREMIUM: logo fermo, superfici coerenti e nessun copy provvisorio. */
+const premiumCss = readFileSync(ROOT + '/assets/css/pages.css', 'utf8');
+const premiumNavCss = readFileSync(ROOT + '/assets/css/nav-ia.css', 'utf8');
+const themeCss = readFileSync(ROOT + '/assets/css/components.css', 'utf8');
+const fallbackJs = readFileSync(ROOT + '/assets/js/app.fallback.js', 'utf8');
+const swSource = readFileSync(ROOT + '/sw.js', 'utf8');
+const catsSource = JSON.parse(readFileSync(ROOT + '/data/categories.json', 'utf8'));
+const copySource = JSON.parse(readFileSync(ROOT + '/data/texts.json', 'utf8'));
+const cacheWant = (sorgente.match(/CACHE_WANT='([^']+)'/) || [,''])[1];
+const cacheVerLine = swSource.split('\n').find(line => line.includes('const CACHE_VER'));
+const cacheVer = cacheVerLine ? (cacheVerLine.split("'")[1] || '') : '';
+check('gli anelli attorno al logo sono disattivati',
+  premiumCss.includes('.hero-visual .cring{display:none!important;animation:none!important}'));
+check('il logo non galleggia più nella hero',
+  premiumCss.includes('.hero-visual .coin{') && premiumCss.includes('animation:none!important;transform:none!important'));
+check('il logo del loader non pulsa né emette bagliori',
+  premiumCss.includes('.loader img{animation:none!important;filter:none!important}'));
+check('palette graphite e champagne presente nel design system',
+  premiumCss.includes('--premium-gold:#c3a46b') && premiumCss.includes('--premium-edge:rgba(195,164,107,.2)'));
+check('le immagini categoria non hanno più il riflesso diagonale',
+  premiumCss.includes('.bcard--photo::before{content:none!important;display:none!important}'));
+check('il CSS di base conserva gli sfondi selezionati dall Admin',
+  /data-sfondo-scuro[^\\n]*body::after/.test(premiumCss)
+  && /data-sfondo-chiaro[^\\n]*body::after/.test(premiumCss));
+check('il permalink Instagram non viene trattato come file video',
+  fallbackJs.includes('mp4|webm|ogv') && fallbackJs.includes('loadeddata')
+  && fallbackJs.includes('prefers-reduced-motion: reduce'));
+const videoReady = fallbackJs.indexOf('loadeddata');
+const videoHide = fallbackJs.indexOf('style.display="none"', videoReady);
+check('il video nasconde il logo solo dopo aver caricato un frame',
+  videoReady >= 0 && videoHide > videoReady && videoHide - videoReady < 200);
+check('HTML e service worker usano la stessa versione cache',
+  !!cacheWant && cacheWant === cacheVer, cacheWant + ' / ' + cacheVer);
+check('tessera Materiali porta alla sezione Materiali',
+  catsSource.find(c => c.id === 'materiali')?.go === 'materiali');
+check('tessera Tecnologie porta alla sezione Tecnologie',
+  catsSource.find(c => c.id === 'tecnologie')?.go === 'tecnologie');
+const pop = catsSource.find(c => c.id === 'nuova-ms3k34dc');
+check('Supereroi e Anime ha nome e descrizione IT/EN completi',
+  pop?.n?.en === 'Superheroes & Anime' && /mondi pop/.test(pop?.s?.it || '')
+  && /pop culture/.test(pop?.s?.en || '') && !/^(Descrizione|Description|New category)$/.test(pop?.s?.it || ''));
+check('titolo categorie evergreen, senza conteggio obsoleto',
+  /Ogni idea ha il suo/.test(copySource.it.catH2)
+  && /One world for every/.test(copySource.en.catH2)
+  && !/12 mondi|12 worlds/.test(copySource.it.catH2 + copySource.en.catH2));
+check('titoli collezioni senza social proof non documentata',
+  /ispirarti/.test(copySource.it.collH2) && /inspire/.test(copySource.en.collH2)
+  && !/migliaia|thousands/i.test(copySource.it.collH2 + copySource.en.collH2));
+check('menu premium con controlli distinti e focus accessibile',
+  premiumNavCss.includes('.ia-freccia:focus-visible') && premiumNavCss.includes('.dr-freccia:focus-visible'));
+check('il tema genera ancora uno sfondo editoriale per hero e CTA',
+  themeCss.includes('.has-theme-bg .hero-bg::after') && themeCss.includes('.has-theme-bg .cta-band::before'));
+
 const fab = $('waFab');
 check('pulsante WhatsApp presente nel DOM', !!fab);
 check('pulsante WhatsApp visibile', fab && fab.style.display !== 'none', 'display=' + (fab && fab.style.display));

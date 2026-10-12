@@ -206,6 +206,57 @@ check('categoria CON immagine mostra la foto', bento && bento.querySelector('.bc
 check('immagine categoria con cache-busting (?v=)', bento && /\.webp\?v=\d/.test(bento.innerHTML));
 check('ogni card riceve uno sfondo (foto o generato)', bento && bento.querySelectorAll('.bcard--photo').length >= 12);
 
+/* INGLY PREMIUM: logo fermo, superfici coerenti e nessun copy provvisorio. */
+const premiumCss = readFileSync(ROOT + '/assets/css/pages.css', 'utf8');
+const premiumNavCss = readFileSync(ROOT + '/assets/css/nav-ia.css', 'utf8');
+const themeCss = readFileSync(ROOT + '/assets/css/components.css', 'utf8');
+const fallbackJs = readFileSync(ROOT + '/assets/js/app.fallback.js', 'utf8');
+const swSource = readFileSync(ROOT + '/sw.js', 'utf8');
+const catsSource = JSON.parse(readFileSync(ROOT + '/data/categories.json', 'utf8'));
+const copySource = JSON.parse(readFileSync(ROOT + '/data/texts.json', 'utf8'));
+const cacheWant = (sorgente.match(/CACHE_WANT='([^']+)'/) || [,''])[1];
+const cacheVer = (swSource.match(/const CACHE_VER\\s*=\\s*'([^']+)'/) || [,''])[1];
+check('gli anelli attorno al logo sono disattivati',
+  /\\.hero-visual \\.cring\\{display:none!important;animation:none!important\\}/.test(premiumCss));
+check('il logo non galleggia più nella hero',
+  /\\.hero-visual \\.coin\\{[\\s\\S]{0,150}animation:none!important;transform:none!important/.test(premiumCss));
+check('il logo del loader non pulsa né emette bagliori',
+  /\\.loader img\\{animation:none!important;filter:none!important\\}/.test(premiumCss));
+check('palette graphite e champagne presente nel design system',
+  /--premium-gold:#c3a46b/.test(premiumCss) && /--premium-edge:rgba\\(195,164,107/.test(premiumCss));
+check('le immagini categoria non hanno più il riflesso diagonale',
+  /\\.bcard--photo::before\\{content:none!important;display:none!important\\}/.test(premiumCss));
+check('lo sfondo stagionale dell Admin continua a funzionare',
+  /has-theme-bg \\.hero-bg::after/.test(themeCss) && /data-sfondo-scuro/.test(premiumCss) === false);
+check('il permalink Instagram non viene trattato come file video',
+  /mp4\\|webm\\|ogv/.test(fallbackJs) && /loadeddata/.test(fallbackJs)
+  && /loadeddata[^}]{0,180}style\\.display="none"/.test(fallbackJs));
+check('il fallback video rispetta prefers-reduced-motion',
+  /prefers-reduced-motion: reduce/.test(fallbackJs));
+check('HTML e service worker usano la stessa versione cache',
+  !!cacheWant && cacheWant === cacheVer, cacheWant + ' / ' + cacheVer);
+check('tessera Materiali porta alla sezione Materiali',
+  catsSource.find(c => c.id === 'materiali')?.go === 'materiali');
+check('tessera Tecnologie porta alla sezione Tecnologie',
+  catsSource.find(c => c.id === 'tecnologie')?.go === 'tecnologie');
+const pop = catsSource.find(c => c.id === 'nuova-ms3k34dc');
+check('Supereroi e Anime ha nome e descrizione IT/EN completi',
+  pop?.n?.en === 'Superheroes & Anime' && /mondi pop/.test(pop?.s?.it || '')
+  && /pop culture/.test(pop?.s?.en || '') && !/^(Descrizione|Description|New category)$/.test(pop?.s?.it || ''));
+check('titolo categorie evergreen, senza conteggio obsoleto',
+  /Ogni idea ha il suo/.test(copySource.it.catH2)
+  && /One world for every/.test(copySource.en.catH2)
+  && !/12 mondi|12 worlds/.test(copySource.it.catH2 + copySource.en.catH2));
+check('titoli collezioni senza social proof non documentata',
+  /ispirarti/.test(copySource.it.collH2) && /inspire/.test(copySource.en.collH2)
+  && !/migliaia|thousands/i.test(copySource.it.collH2 + copySource.en.collH2));
+check('menu premium con controlli distinti e focus accessibile',
+  /\\.ia-freccia:focus-visible/.test(premiumNavCss)
+  && /\\.dr-freccia:focus-visible/.test(premiumNavCss));
+check('il tema genera ancora uno sfondo editoriale per hero e CTA',
+  /has-theme-bg \\.hero-bg::after/.test(themeCss)
+  && /has-theme-bg \\.cta-band::before/.test(themeCss));
+
 const fab = $('waFab');
 check('pulsante WhatsApp presente nel DOM', !!fab);
 check('pulsante WhatsApp visibile', fab && fab.style.display !== 'none', 'display=' + (fab && fab.style.display));

@@ -267,7 +267,7 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 
   <!-- ============ DIGITALI ============ -->
   <section class="view" id="v-dig">
-    <div class="searchrow"><span class="hint">File digitali in vendita (SVG, DXF, STL…).</span><button class="btn pri" id="dNew" style="margin-left:auto">➕ Nuovo digitale</button></div>
+    <div class="searchrow"><span class="hint">File digitali — <b>data/digitale.json</b>. Un bundle compare sul sito solo se <b>pubblicato</b>, e mostra il bottone d’acquisto solo se dichiara <b>come arriva al cliente</b>.</span><button class="btn pri" id="dNew" style="margin-left:auto">➕ Nuovo digitale</button></div>
     <div class="card" style="padding:8px 12px"><table id="dTable"></table></div>
   </section>
 
@@ -1088,10 +1088,11 @@ function ghErrHint(e){const m=String(e.message||e);
    che già carica, confronta e pubblica li tratta come tutti gli altri.
    Un secondo CMS accanto a questo avrebbe significato due pubblicazioni,
    due cronologie e due modi di sbagliare. */
-const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni','immagini'];
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni','immagini','immagini-macchine','digitale'];
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',content:'C',
-  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR',collezioni:'COLL',immagini:'IMG'};
-const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null,COLL:null,IMG:null};
+  materiali:'MAT',tecnologie:'TEC',macchine:'MAC',corsi:'COR',collezioni:'COLL',immagini:'IMG',
+  'immagini-macchine':'IMGMAC',digitale:'DIGI'};
+const S={CONFIG:null,D:null,SOCIALS:null,P:null,CATS:null,C:null,MAT:null,TEC:null,MAC:null,COR:null,COLL:null,IMG:null,IMGMAC:null,DIGI:null};
 let SNAP={},MEDIA=[],REPO_IMG=null,LOADED_FROM='',BOOTED=false,DATA_OK=false,MISSING=[],LOAD_LOG=[];
 const jstr=o=>JSON.stringify(o);
 function changedFiles(){const out=[];for(const f of FILES){if(S[KEY[f]]&&SNAP[f]!==undefined&&jstr(S[KEY[f]])!==SNAP[f])out.push(f)}return out}
@@ -1346,7 +1347,10 @@ function loadDiagHtml(){
 function loadLegacyScripts(){window.INGLY={};return new Promise((res,rej)=>{const fl=['config','i18n','socials','catalog'];let i=0;
  const next=()=>{if(i>=fl.length){const g=window.INGLY;if(!g.CATS)return rej(new Error('riserva incompleta'));
   S.CONFIG=g.CONFIG;S.D=g.D;S.SOCIALS=g.SOCIALS;S.P=g.P;S.CATS=g.CATS;
-  const C={};for(const k of ['MAT_ART','MATN','DIG','TECH','MATERIALS','STEPS','REVIEWS','BIZ','FAQS','PORT','FONTS','MOPT'])if(g[k]!==undefined)C[k]=g[k];S.C=C;return res()}
+  const C={};/* DIG non e' piu' qui dentro: i file digitali stanno in data/digitale.json.
+     Lasciarlo avrebbe fatto rientrare la vecchia lista in content.json alla
+     prima pubblicazione, e dalla volta dopo le due liste divergono. */
+  for(const k of ['MAT_ART','MATN','TECH','MATERIALS','STEPS','REVIEWS','BIZ','FAQS','PORT','FONTS','MOPT'])if(g[k]!==undefined)C[k]=g[k];S.C=C;if(g.DIGITALE)S.DIGI=g.DIGITALE;if(g.IMMAGINI_MACCHINE)S.IMGMAC=g.IMMAGINI_MACCHINE;return res()}
   const s=document.createElement('script');s.src='data/'+fl[i++]+'.js';s.onload=next;s.onerror=()=>rej(new Error('manca '+s.src));document.head.appendChild(s)}
  ;next()})}
 
@@ -1431,7 +1435,7 @@ function genLegacy(){return{
     chi carica il sito dalla riserva — su file:// o quando i JSON non
     arrivano — avrebbe trovato il menu che porta a sezioni vuote, senza un
     errore da nessuna parte. */
- 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})},COLLEZIONI:${jstr(S.COLL||{})},IMMAGINI:${jstr(elencoImmagini())}});\n`}}
+ 'data/catalog.js':`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${jstr(Object.assign({P:S.P,CATS:S.CATS},S.C))},{P:${jstr(S.P)},CATS:${jstr(S.CATS)},MATERIALI:${jstr(S.MAT||{})},TECNOLOGIE:${jstr(S.TEC||{})},MACCHINE:${jstr(S.MAC||{})},CORSI:${jstr(S.COR||{})},COLLEZIONI:${jstr(S.COLL||{})},IMMAGINI:${jstr(elencoImmagini())},IMMAGINI_MACCHINE:${jstr(S.IMGMAC||{})},DIGITALE:${jstr(S.DIGI||{})},DIG:${jstr((S.DIGI&&S.DIGI.bundle)||[])}});\n`}}
 
 /* ---------- binding automatico dei form ---------- */
 function getPath(obj,path){return path.split('.').reduce((o,k)=>o&&o[k],obj)}
@@ -1479,7 +1483,8 @@ $('goPub').onclick=()=>go('pub');
 $('goPrev').onclick=()=>{
  try{
   const payload=Object.assign({CONFIG:S.CONFIG,D:S.D,SOCIALS:S.SOCIALS,P:S.P,CATS:S.CATS,
-    MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR},S.C);
+    MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR,COLLEZIONI:S.COLL,
+    IMMAGINI_MACCHINE:S.IMGMAC,DIGITALE:S.DIGI,DIG:(S.DIGI&&S.DIGI.bundle)||[]},S.C);
   sessionStorage.setItem('__INGLY_PREVIEW__',JSON.stringify(payload));
   const base=location.pathname.replace(/admin\.html?$/,'').replace(/admin\/?$/,'');
   const w=window.open(base+'index.html?__preview=1#/home','_ingly_preview');
@@ -1501,7 +1506,7 @@ $('goPrev').onclick=()=>{
 
 /* ================== DASHBOARD ================== */
 function renderDash(){
- const P=S.P||[],dig=(S.C&&S.C.DIG)||[],port=(S.C&&S.C.PORT)||[];
+ const P=S.P||[],dig=(S.DIGI&&S.DIGI.bundle)||[],port=(S.C&&S.C.PORT)||[];
  const vis=P.filter(p=>!p.hidden).length;
  const noPhoto=P.filter(p=>!p.img&&!hasStaged('img/'+p.id+'.webp')&&!(REPO_IMG||[]).includes(p.id+'.webp')).length;
  const noDesc=P.filter(p=>!p.desc||!p.desc.it||!p.desc.it.trim()).length;
@@ -2323,23 +2328,144 @@ function editCat(i){const c=S.CATS[i];
  $('ec_save').onclick=()=>{ecCattura();
   markDirty();closeModal();renderCats();toast('Categoria salvata in bozza')}}
 
-/* ================== DIGITALI ================== */
-function renderDig(){const D=(S.C.DIG=S.C.DIG||[]);
- $('dTable').innerHTML='<tr><th></th><th>ID</th><th>Nome</th><th>Formati</th><th>Prezzo</th><th></th></tr>'+D.map((d,i)=>`<tr><td style="font-size:17px">${esc(d.icon||'')}</td><td class="mono">${d.id}</td><td><b>${esc(d.n.it)}</b><br><small class="hint">${esc(d.n.en)}</small></td><td>${(d.f||[]).map(f=>'<span class="pill">'+esc(f)+'</span>').join(' ')}</td><td>€${d.price}</td><td><button class="btn sm" data-de="${i}">✎</button> <button class="btn sm err" data-dd="${i}">🗑</button></td></tr>`).join('');
+/* ================== DIGITALI ==================
+   I file digitali stanno in data/digitale.json, non piu' in content.json.
+   L'editor ha quattro campi che prima non c'erano, e sono quelli che
+   decidono se il bundle esce:
+
+   · `consegna`  — come il file arriva al cliente. Finche' e' «nessuna» il
+     sito non mostra il bottone d'acquisto. Non e' una preferenza: senza
+     consegna, «Aggiungi» prometterebbe un file che nessuno manda.
+   · `contenuto` — cosa c'e' dentro. Un bundle pubblicato senza questo viene
+     bloccato dalla validazione.
+   · `compatibilita` — macchine e software su cui e' stato provato.
+   · `licenza`   — quale, fra quelle definite nel file.
+
+   `stato` resta 'bozza' finche' i primi tre ci sono: cosi' un bundle
+   incompleto puo' stare nei dati senza finire sul sito. */
+function digRoot(){return S.DIGI}
+function digList(){const R=digRoot();if(!R)return null;R.bundle=R.bundle||[];return R.bundle}
+function renderDig(){
+ const D=digList();
+ if(!D){$('dTable').innerHTML='<tr><td class="hint">data/digitale.json non caricato.</td></tr>';return}
+ const R=digRoot();
+ const nLic=(R.licenze||[]).length, nCat=(R.categorie||[]).length;
+ const consLab={nessuna:'<span style="color:var(--warn)">non dichiarata</span>',email:'per email',link:'link di download'};
+ $('dTable').innerHTML='<tr><th></th><th>ID</th><th>Nome</th><th>Formati</th><th>Prezzo</th><th>Consegna</th><th>Stato</th><th></th></tr>'
+  +D.map((d,i)=>{
+   const cons=(d.consegna||{}).modo||'nessuna';
+   const pub=d.stato==='pubblicato';
+   return `<tr><td style="font-size:17px">${esc(d.icon||'')}</td><td class="mono">${esc(d.id)}</td>`
+   +`<td><b>${esc((d.n&&d.n.it)||'')}</b><br><small class="hint">${esc((d.n&&d.n.en)||'')}</small></td>`
+   +`<td>${(d.f||[]).map(f=>'<span class="pill">'+esc(f)+'</span>').join(' ')}</td>`
+   +`<td>${d.price==null||d.price===''?'<span class="hint">—</span>':'€'+esc(d.price)}</td>`
+   +`<td>${consLab[cons]||esc(cons)}</td>`
+   +`<td>${pub?'<span class="chip" style="color:var(--ok)">pubblicato</span>':'<span class="chip hint">bozza</span>'}</td>`
+   +`<td><button class="btn sm" data-de="${i}">✎</button> <button class="btn sm err" data-dd="${i}">🗑</button></td></tr>`}).join('')
+  +`<tr><td colspan="8" class="hint">${D.length} bundle · ${D.filter(d=>d.stato==='pubblicato').length} pubblicati · ${nCat} categorie · ${nLic} licenze definite</td></tr>`;
  document.querySelectorAll('[data-de]').forEach(b=>b.onclick=()=>editDig(+b.dataset.de));
- document.querySelectorAll('[data-dd]').forEach(b=>b.onclick=()=>{if(confirm('Eliminare?')){S.C.DIG.splice(+b.dataset.dd,1);markDirty();renderDig()}})}
-$('dNew').onclick=()=>{const id=Math.max(100,...(S.C.DIG||[]).map(d=>d.id))+1;S.C.DIG.push({id,n:{it:'Nuovo file',en:'New file'},f:['SVG'],price:9,icon:'📁'});markDirty();editDig(S.C.DIG.length-1)};
-function editDig(i){const d=S.C.DIG[i];
- modal(`<h3>✎ Prodotto digitale <span class="mono">#${d.id}</span></h3>
- <div class="row c2"><div><label>Nome (IT)</label><input type="text" id="ed_it" value="${esc(d.n.it)}"></div><div><label>Nome (EN)</label><input type="text" id="ed_en" value="${esc(d.n.en)}"></div></div>
- <div class="row c3"><div><label>Formati (virgola)</label><input type="text" id="ed_f" value="${esc((d.f||[]).join(','))}"></div><div><label>Prezzo €</label><input type="number" id="ed_p" value="${d.price}"></div><div><label>Icona</label><input type="text" id="ed_ic" class="emoji-in" value="${esc(d.icon||'')}"></div></div>
+ document.querySelectorAll('[data-dd]').forEach(b=>b.onclick=()=>{if(confirm('Eliminare?')){digList().splice(+b.dataset.dd,1);markDirty();renderDig()}})}
+$('dNew').onclick=()=>{
+ const D=digList();if(!D){toast('data/digitale.json non caricato');return}
+ const id=Math.max(100,...D.map(d=>+d.id||0))+1;
+ D.push({id,n:{it:'Nuovo file',en:'New file'},cat:'',sommario:{it:'',en:''},descrizione:{it:'',en:''},
+  f:['SVG'],price:9,compareAt:null,icon:'📁',img:'',anteprime:[],contenuto:[],
+  compatibilita:{macchine:[],software:[],note:{it:'',en:''}},licenza:'commerciale',
+  versione:'',aggiornatoIl:'',changelog:[],consegna:{modo:'nessuna',url:'',tempi:{it:'',en:''}},
+  peso:'',stato:'bozza',inEvidenza:false});
+ markDirty();editDig(D.length-1)};
+function editDig(i){
+ const R=digRoot(),d=digList()[i];
+ const cats=R.categorie||[],lics=R.licenze||[],sws=R.software||[];
+ const macs=((S.MAC&&S.MAC.catalogo)||[]);
+ const opt=(lista,sel,eti)=>lista.map(x=>`<option value="${esc(x.id)}"${x.id===sel?' selected':''}>${esc(eti(x))}</option>`).join('');
+ const spunte=(lista,scelti,nome,eti)=>lista.length
+  ?`<div style="display:flex;gap:8px;flex-wrap:wrap">`+lista.map(x=>
+    `<label class="pill" style="cursor:pointer"><input type="checkbox" data-${nome}="${esc(x.id)}"${(scelti||[]).includes(x.id)?' checked':''}> ${esc(eti(x))}</label>`).join('')+`</div>`
+  :'<span class="hint">nessuno definito</span>';
+ const cont=(d.contenuto||[]);
+ const cons=d.consegna||(d.consegna={modo:'nessuna',url:'',tempi:{it:'',en:''}});
+ modal(`<h3>✎ File digitale <span class="mono">#${esc(d.id)}</span></h3>
+ <div class="row c2"><div><label>Nome (IT)</label><input type="text" id="ed_it" value="${esc((d.n&&d.n.it)||'')}"></div><div><label>Nome (EN)</label><input type="text" id="ed_en" value="${esc((d.n&&d.n.en)||'')}"></div></div>
+ <div class="row c3"><div><label>Formati (virgola)</label><input type="text" id="ed_f" value="${esc((d.f||[]).join(','))}"></div><div><label>Prezzo €</label><input type="number" step="0.01" id="ed_p" value="${d.price==null?'':esc(d.price)}"></div><div><label>Icona</label><input type="text" id="ed_ic" class="emoji-in" value="${esc(d.icon||'')}"></div></div>
+ <div class="row c2"><div><label>Categoria</label><select id="ed_cat"><option value="">—</option>${opt(cats,d.cat,c=>(c.n&&c.n.it)||c.id)}</select></div>
+  <div><label>Licenza</label><select id="ed_lic"><option value="">—</option>${opt(lics,d.licenza,l=>(l.n&&l.n.it)||l.id)}</select></div></div>
+ <div><label>Sommario (IT)</label><input type="text" id="ed_som" value="${esc((d.sommario&&d.sommario.it)||'')}"></div>
+ <div><label>Descrizione (IT)</label><textarea id="ed_desc" rows="3">${esc((d.descrizione&&d.descrizione.it)||'')}</textarea></div>
+
+ <hr class="hr"><h3 style="font-size:13.5px">Cosa c'è dentro</h3>
+ <div class="hint" style="margin-bottom:6px">Una riga per gruppo di file: <b>quantità</b> e <b>cosa contiene</b>. Un bundle pubblicato senza questo viene bloccato dalla validazione: è l'elenco che il cliente legge prima di pagare.</div>
+ <div id="ed_cont">${cont.map((c,k)=>`<div class="row c3" data-cr="${k}" style="align-items:end">
+   <div><label>Gruppo</label><input type="text" data-cot="${k}" value="${esc((c.t&&c.t.it)||'')}"></div>
+   <div><label>Quantità</label><input type="number" data-coq="${k}" value="${esc(c.q==null?'':c.q)}"></div>
+   <div><label>Nota</label><input type="text" data-cod="${k}" value="${esc((c.d&&c.d.it)||'')}"></div>
+  </div>`).join('')||'<span class="hint">niente di dichiarato</span>'}</div>
+ <button class="btn sm" id="ed_cadd">➕ Riga</button>
+
+ <hr class="hr"><h3 style="font-size:13.5px">Su cosa è stato provato</h3>
+ <div><label>Macchine</label>${spunte(macs,(d.compatibilita||{}).macchine,'cmac',m=>(m.n&&m.n.it)||m.id)}</div>
+ <div style="margin-top:10px"><label>Software</label>${spunte(sws,(d.compatibilita||{}).software,'csw',x=>x.n||x.id)}</div>
+
+ <hr class="hr"><h3 style="font-size:13.5px">Come arriva al cliente</h3>
+ <div class="hint" style="margin-bottom:6px">Finché resta «non dichiarata» il sito <b>non mostra il bottone d'acquisto</b> e scrive «in preparazione». Non è una scelta grafica: senza consegna, «Aggiungi» prometterebbe un file che nessuno manda.</div>
+ <div class="row c2"><div><label>Consegna</label><select id="ed_cons">
+   <option value="nessuna"${cons.modo==='nessuna'?' selected':''}>Non dichiarata — non in vendita</option>
+   <option value="email"${cons.modo==='email'?' selected':''}>Per email dopo l'ordine</option>
+   <option value="link"${cons.modo==='link'?' selected':''}>Link di download (serve l'indirizzo)</option>
+  </select></div>
+  <div><label>Indirizzo del download</label><input type="text" id="ed_cursl" value="${esc(cons.url||'')}" placeholder="https://…"></div></div>
+ <div class="row c3"><div><label>Tempi (IT)</label><input type="text" id="ed_ctem" value="${esc((cons.tempi&&cons.tempi.it)||'')}" placeholder="entro 24 ore"></div>
+  <div><label>Versione</label><input type="text" id="ed_ver" value="${esc(d.versione||'')}" placeholder="1.0"></div>
+  <div><label>Peso</label><input type="text" id="ed_peso" value="${esc(d.peso||'')}" placeholder="48 MB"></div></div>
+
+ <hr class="hr"><div class="row c2"><div><label>Stato</label><select id="ed_stato">
+   <option value="bozza"${d.stato!=='pubblicato'?' selected':''}>Bozza — non compare sul sito</option>
+   <option value="pubblicato"${d.stato==='pubblicato'?' selected':''}>Pubblicato</option>
+  </select></div>
+  <div><label>In evidenza</label><select id="ed_ev"><option value="0"${d.inEvidenza?'':' selected'}>No</option><option value="1"${d.inEvidenza?' selected':''}>Sì</option></select></div></div>
+ <div id="ed_avv" class="hint" style="margin-top:8px"></div>
  <hr class="hr"><button class="btn pri" id="ed_save">✔ Salva</button> <button class="btn" onclick="closeModal()">Annulla</button>`);
+
  function edCattura(){
   if(!document.getElementById('ed_it')) return;
-  d.n.it=$('ed_it').value;d.n.en=$('ed_en').value;
-  d.f=$('ed_f').value.split(',').map(s=>s.trim()).filter(Boolean);
-  d.price=+$('ed_p').value||0;d.icon=$('ed_ic').value;
+  d.n=d.n||{};d.n.it=$('ed_it').value;d.n.en=$('ed_en').value;
+  d.f=$('ed_f').value.split(',').map(x=>x.trim().toUpperCase()).filter(Boolean);
+  d.price=$('ed_p').value===''?null:Number($('ed_p').value);
+  d.icon=$('ed_ic').value;d.cat=$('ed_cat').value;d.licenza=$('ed_lic').value;
+  d.sommario=d.sommario||{};d.sommario.it=$('ed_som').value;
+  d.descrizione=d.descrizione||{};d.descrizione.it=$('ed_desc').value;
+  d.contenuto=[...document.querySelectorAll('#ed_cont [data-cr]')].map(r=>{
+   const k=r.dataset.cr;
+   const t=r.querySelector('[data-cot="'+k+'"]').value.trim();
+   const q=r.querySelector('[data-coq="'+k+'"]').value;
+   const n=r.querySelector('[data-cod="'+k+'"]').value.trim();
+   return t?{t:{it:t},q:q===''?null:Number(q),d:{it:n}}:null}).filter(Boolean);
+  d.compatibilita=d.compatibilita||{macchine:[],software:[],note:{it:'',en:''}};
+  d.compatibilita.macchine=[...document.querySelectorAll('[data-cmac]:checked')].map(c=>c.dataset.cmac);
+  d.compatibilita.software=[...document.querySelectorAll('[data-csw]:checked')].map(c=>c.dataset.csw);
+  d.consegna={modo:$('ed_cons').value,url:$('ed_cursl').value.trim(),tempi:{it:$('ed_ctem').value,en:((d.consegna||{}).tempi||{}).en||''}};
+  d.versione=$('ed_ver').value.trim();d.peso=$('ed_peso').value.trim();
+  d.stato=$('ed_stato').value;d.inEvidenza=$('ed_ev').value==='1';
  }
+ /* Dice subito perche' un bundle non puo' essere pubblicato, invece di
+    farlo scoprire al momento della pubblicazione. */
+ function edAvvisi(){
+  const box=document.getElementById('ed_avv');if(!box)return;
+  const modo=$('ed_cons').value,url=$('ed_cursl').value.trim();
+  const righe=[...document.querySelectorAll('#ed_cont [data-cr]')]
+    .filter(r=>r.querySelector('[data-cot="'+r.dataset.cr+'"]').value.trim()).length;
+  const m=[];
+  if(modo==='nessuna')m.push('consegna non dichiarata: il sito scriverà «in preparazione» invece di mostrare il bottone');
+  if(modo==='link'&&!/^https?:\/\//i.test(url))m.push('consegna «link» senza indirizzo valido: vale come non dichiarata');
+  if(!righe)m.push('non dice cosa c\'è dentro');
+  if($('ed_p').value==='')m.push('senza prezzo');
+  box.innerHTML=$('ed_stato').value==='pubblicato'&&m.length
+   ? '<span style="color:var(--warn)">Non pubblicabile così: '+m.map(esc).join(' · ')+'</span>'
+   : (m.length?'Da completare: '+m.map(esc).join(' · '):'<span style="color:var(--ok)">Completo.</span>');
+ }
+ ['ed_cons','ed_cursl','ed_stato','ed_p'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('input',edAvvisi)});
+ $('ed_cadd').onclick=()=>{edCattura();d.contenuto.push({t:{it:''},q:null,d:{it:''}});markDirty();closeModal();editDig(i)};
+ edAvvisi();
  registraCattura(edCattura);
  $('ed_save').onclick=()=>{edCattura();markDirty();closeModal();renderDig()}}
 
@@ -3089,6 +3215,37 @@ function validaBozza(){
   if(s.link&&!/^https?:\/\//i.test(s.link))err.push('Partner «'+(s.nome||(i+1))+'»: il link deve iniziare con https://');
  });
  ((S.C&&S.C.PORT)||[]).forEach((t,i)=>{if(!t[1]||!t[1].it)warn.push('Tessera portfolio '+(i+1)+': manca il titolo.')});
+ /* I FILE DIGITALI. Stessi controlli di digitale.js, qui perche' l'Admin e'
+    l'unico che pubblica: un bundle che non sa come arrivare al cliente non
+    deve poter uscire «pubblicato», o il sito mostra «Aggiungi» per un file
+    che nessuno manda. */
+ const DR=S.DIGI||{},DB=(DR.bundle)||[];
+ const dIds=DB.map(b2=>String(b2.id));
+ dIds.forEach((id,i)=>{if(dIds.indexOf(id)!==i)err.push('ID file digitale duplicato: #'+id)});
+ DB.forEach(b2=>{
+  const et='File digitale #'+b2.id;
+  if(!b2.n||!b2.n.it)err.push(et+': manca il nome italiano.');
+  if(b2.cat&&!(DR.categorie||[]).some(c=>c.id===b2.cat))err.push(et+': categoria «'+b2.cat+'» inesistente.');
+  if(b2.licenza&&!(DR.licenze||[]).some(l=>l.id===b2.licenza))err.push(et+': licenza «'+b2.licenza+'» inesistente.');
+  if(!(b2.f||[]).length)err.push(et+': nessun formato dichiarato.');
+  ((b2.compatibilita||{}).software||[]).forEach(sw=>{
+   if(!(DR.software||[]).some(x=>x.id===sw))err.push(et+': software «'+sw+'» inesistente.')});
+  ((b2.compatibilita||{}).macchine||[]).forEach(mc=>{
+   if(!((S.MAC&&S.MAC.catalogo)||[]).some(x=>x.id===mc))err.push(et+': macchina «'+mc+'» non in catalogo.')});
+  if(b2.stato==='pubblicato'){
+   const c2=b2.consegna||{},modo=c2.modo||'nessuna';
+   const consegnabile=modo==='email'||(modo==='link'&&/^https?:\/\//i.test(String(c2.url||'')));
+   if(!consegnabile)err.push(et+': pubblicato ma non dice come arriva al cliente (il sito mostrerebbe «in preparazione»).');
+   if(!(b2.contenuto||[]).length)err.push(et+': pubblicato senza dire cosa c’è dentro.');
+   if(!(b2.price>=0))err.push(et+': pubblicato senza prezzo.');
+   if(!((b2.compatibilita||{}).macchine||[]).length)warn.push(et+': non dice su che macchine è stato provato.');
+   if(!b2.versione)warn.push(et+': senza numero di versione.');
+  }
+  if(b2.n&&!b2.n.en)warn.push(et+': manca il nome inglese.');
+ });
+ /* La vecchia lista non deve tornare: se ricompare in content.json le due
+    divergono in silenzio e il sito legge quella sbagliata. */
+ if(S.C&&S.C.DIG!==undefined)err.push('content.json contiene ancora DIG: i file digitali stanno in data/digitale.json. Rimuovilo prima di pubblicare.');
  try{FILES.forEach(f=>JSON.parse(jstr(S[KEY[f]])))}catch(e){err.push('Dati non serializzabili: '+e.message)}
  return {err,warn};
 }

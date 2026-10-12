@@ -1,0 +1,334 @@
+{
+  "_nota": "FILE DIGITALI. Questa è l'unica fonte dei bundle: `DIG` in content.json è stato spostato qui e il sito lo legge da questo file. Un bundle non compare nell'elenco finché `stato` non dice «pubblicato», e non mostra un bottone d'acquisto finché `consegna` non dice come arriva al cliente.",
+
+  "_perche": "Un file digitale si vende su tre promesse: cosa c'è dentro, su che macchina funziona, e cosa puoi farne. Prima qui c'erano sei righe con nome, formato, prezzo e un'emoji: il sito scriveva «Download istantaneo, licenza commerciale inclusa» senza avere né il download né il testo della licenza. Questo file esiste perché quelle tre promesse siano dei dati verificabili e non una frase nel titolo.",
+
+  "attiva": true,
+
+  "_comeSiUsa": [
+    "1. Per ogni bundle, scrivi `contenuto` (cosa c'è dentro, file per file o per gruppi) e `compatibilita` (macchine e software).",
+    "2. Scegli una `licenza` fra quelle in `licenze`: il testo completo compare da solo nella scheda.",
+    "3. Dichiara `consegna`: come arriva il file al cliente. Finché è 'nessuna' il bundle non è acquistabile e il sito lo dice.",
+    "4. Metti `stato` a 'pubblicato'. Prima di allora il bundle non compare.",
+    "5. npm run build && node scripts/prerender.mjs"
+  ],
+
+  "intro": {
+    "eyebrow": { "it": "File digitali", "en": "Digital files" },
+    "titolo": { "it": "File pronti al taglio.", "en": "Files ready to cut." },
+    "sommario": {
+      "it": "Progetti vettoriali e modelli 3D disegnati sulle macchine con cui lavoriamo ogni giorno: parametri già provati, non file generici da ritarare.",
+      "en": "Vector projects and 3D models drawn around the machines we work with every day: parameters already tested, not generic files to re-tune."
+    },
+    "vuoto": {
+      "it": "Il catalogo dei file è in preparazione. Se ti serve un progetto su misura — un formato, un tema, una macchina — scrivici: i primi bundle nascono dalle richieste che arrivano.",
+      "en": "The file catalogue is being prepared. If you need a custom project — a format, a theme, a machine — write to us: the first bundles come from the requests we receive."
+    }
+  },
+
+  "_statiConsegna": {
+    "nessuna": "non è ancora stabilito come il cliente riceve i file. Il bundle NON è acquistabile e la scheda lo dice.",
+    "email": "dopo l'ordine mandiamo noi i file per email. Onesto e funzionante: niente «download istantaneo».",
+    "link": "il cliente riceve un indirizzo di download alla conferma del pagamento. Richiede `consegna.url`."
+  },
+
+  "licenze": [
+    {
+      "id": "personale",
+      "n": { "it": "Uso personale", "en": "Personal use" },
+      "s": {
+        "it": "Puoi produrre pezzi per te, per casa e per regalo. Non puoi venderli.",
+        "en": "You may make pieces for yourself, your home and as gifts. You may not sell them."
+      },
+      "puoi": {
+        "it": [
+          "Tagliare e incidere il progetto quante volte vuoi, sulle tue macchine",
+          "Modificare il file per adattarlo al tuo materiale o al tuo formato",
+          "Regalare i pezzi finiti"
+        ],
+        "en": [
+          "Cut and engrave the project as many times as you like, on your own machines",
+          "Modify the file to suit your material or format",
+          "Give finished pieces away"
+        ]
+      },
+      "nonPuoi": {
+        "it": [
+          "Vendere i pezzi prodotti con il file",
+          "Rivendere, condividere o ridistribuire il file, modificato o no",
+          "Includere il file in un altro bundle o corso"
+        ],
+        "en": [
+          "Sell pieces made with the file",
+          "Resell, share or redistribute the file, modified or not",
+          "Include the file in another bundle or course"
+        ]
+      }
+    },
+    {
+      "id": "commerciale",
+      "n": { "it": "Licenza commerciale", "en": "Commercial license" },
+      "s": {
+        "it": "Puoi vendere i pezzi che produci con il file. Il file in sé resta nostro e non si rivende.",
+        "en": "You may sell the pieces you make with the file. The file itself stays ours and may not be resold."
+      },
+      "puoi": {
+        "it": [
+          "Vendere i pezzi prodotti con il file, senza limite di quantità",
+          "Usarlo in produzione conto terzi e su commessa",
+          "Modificare il file e usarlo come base per i tuoi progetti",
+          "Mostrare i pezzi finiti nelle tue foto e nei tuoi canali"
+        ],
+        "en": [
+          "Sell pieces made with the file, with no quantity limit",
+          "Use it for contract and commissioned production",
+          "Modify the file and use it as a basis for your own projects",
+          "Show finished pieces in your photos and channels"
+        ]
+      },
+      "nonPuoi": {
+        "it": [
+          "Rivendere o ridistribuire il file, modificato o no",
+          "Rivenderlo come tuo progetto o includerlo in un bundle che vendi",
+          "Cederlo a terzi, anche gratuitamente"
+        ],
+        "en": [
+          "Resell or redistribute the file, modified or not",
+          "Resell it as your own project or include it in a bundle you sell",
+          "Pass it to third parties, even for free"
+        ]
+      }
+    }
+  ],
+
+  "categorie": [
+    { "id": "casa", "n": { "it": "Casa e arredo", "en": "Home and decor" }, "ic": "🏠" },
+    { "id": "eventi", "n": { "it": "Eventi e cerimonie", "en": "Events and ceremonies" }, "ic": "💍" },
+    { "id": "insegne", "n": { "it": "Targhe e insegne", "en": "Plaques and signage" }, "ic": "🪧" },
+    { "id": "stampa3d", "n": { "it": "Modelli per stampa 3D", "en": "3D print models" }, "ic": "🧊" },
+    { "id": "progetti", "n": { "it": "Progetti completi", "en": "Full projects" }, "ic": "💡" },
+    { "id": "raccolte", "n": { "it": "Raccolte e bundle", "en": "Collections and bundles" }, "ic": "🧰" }
+  ],
+
+  "software": [
+    { "id": "xcs", "n": "xTool Creative Space", "formati": ["SVG", "DXF", "PNG"] },
+    { "id": "lightburn", "n": "LightBurn", "formati": ["SVG", "DXF", "LBRN", "LBRN2", "PNG"] },
+    { "id": "illustrator", "n": "Adobe Illustrator", "formati": ["SVG", "AI", "PDF", "DXF"] },
+    { "id": "inkscape", "n": "Inkscape", "formati": ["SVG", "PDF", "DXF"] },
+    { "id": "slicer", "n": "Slicer per stampa 3D (Cura, PrusaSlicer, Bambu Studio)", "formati": ["STL", "3MF", "STEP"] }
+  ],
+
+  "_modello": {
+    "id": 0,
+    "n": { "it": "Nome del bundle", "en": "" },
+    "cat": "casa",
+    "sommario": { "it": "Una frase: cosa ci fai.", "en": "" },
+    "descrizione": { "it": "Il testo lungo della scheda.", "en": "" },
+    "f": ["SVG", "DXF"],
+    "price": 0,
+    "compareAt": null,
+    "icon": "🏠",
+    "img": "",
+    "anteprime": [],
+    "contenuto": [{ "t": { "it": "Gruppo di file" }, "q": 0, "d": { "it": "Cosa contiene" } }],
+    "compatibilita": { "macchine": ["p3"], "software": ["xcs"], "note": { "it": "", "en": "" } },
+    "licenza": "commerciale",
+    "versione": "",
+    "aggiornatoIl": "",
+    "changelog": [{ "v": "1.0", "il": "2026-01-01", "cosa": { "it": "Prima pubblicazione" } }],
+    "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+    "peso": "",
+    "stato": "bozza",
+    "inEvidenza": false,
+    "seo": { "titolo": "", "descrizione": "" }
+  },
+
+  "_statoCatalogo": "I sei bundle qui sotto vengono da content.json, dove avevano cinque campi: id, nome, formati, prezzo, emoji. Nome, formati e prezzo sono quelli che c'erano; categoria e compatibilità sono dedotte dal nome e dai formati e vanno confermate. `contenuto`, `anteprime`, `versione` e `changelog` sono VUOTI perché nessuno sa cosa c'è dentro quei file: riempirli a invenzione significherebbe vendere un elenco che non corrisponde all'archivio. Per lo stesso motivo `stato` è 'bozza': finché resta così il bundle non compare sul sito.",
+
+  "bundle": [
+    {
+      "id": 101,
+      "n": { "it": "Bundle 50 File SVG — Casa", "en": "50 SVG Bundle — Home" },
+      "cat": "casa",
+      "sommario": { "it": "", "en": "" },
+      "descrizione": { "it": "", "en": "" },
+      "f": ["SVG", "PDF"],
+      "price": 19,
+      "compareAt": null,
+      "icon": "🏠",
+      "img": "",
+      "anteprime": [],
+      "contenuto": [],
+      "compatibilita": { "macchine": [], "software": ["xcs", "lightburn", "illustrator", "inkscape"], "note": { "it": "", "en": "" } },
+      "licenza": "commerciale",
+      "versione": "",
+      "aggiornatoIl": "",
+      "changelog": [],
+      "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+      "peso": "",
+      "stato": "bozza",
+      "inEvidenza": false,
+      "_daCompletare": ["contenuto", "compatibilita.macchine", "descrizione", "anteprime", "versione", "consegna"]
+    },
+    {
+      "id": 102,
+      "n": { "it": "Template Targhe DXF ×30", "en": "Plaque Templates DXF ×30" },
+      "cat": "insegne",
+      "sommario": { "it": "", "en": "" },
+      "descrizione": { "it": "", "en": "" },
+      "f": ["DXF", "SVG"],
+      "price": 24,
+      "compareAt": null,
+      "icon": "🪧",
+      "img": "",
+      "anteprime": [],
+      "contenuto": [],
+      "compatibilita": { "macchine": [], "software": ["xcs", "lightburn", "illustrator", "inkscape"], "note": { "it": "", "en": "" } },
+      "licenza": "commerciale",
+      "versione": "",
+      "aggiornatoIl": "",
+      "changelog": [],
+      "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+      "peso": "",
+      "stato": "bozza",
+      "inEvidenza": false,
+      "_daCompletare": ["contenuto", "compatibilita.macchine", "descrizione", "anteprime", "versione", "consegna"]
+    },
+    {
+      "id": 103,
+      "n": { "it": "File 3D STL — Decor Pack", "en": "3D STL Files — Decor Pack" },
+      "cat": "stampa3d",
+      "sommario": { "it": "", "en": "" },
+      "descrizione": { "it": "", "en": "" },
+      "f": ["STL"],
+      "price": 29,
+      "compareAt": null,
+      "icon": "🧊",
+      "img": "",
+      "anteprime": [],
+      "contenuto": [],
+      "compatibilita": { "macchine": [], "software": ["slicer"], "note": { "it": "", "en": "" } },
+      "licenza": "commerciale",
+      "versione": "",
+      "aggiornatoIl": "",
+      "changelog": [],
+      "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+      "peso": "",
+      "stato": "bozza",
+      "inEvidenza": false,
+      "_daCompletare": ["contenuto", "descrizione", "anteprime", "versione", "consegna"]
+    },
+    {
+      "id": 104,
+      "n": { "it": "Template Segnaposto Nozze", "en": "Wedding Place Card Templates" },
+      "cat": "eventi",
+      "sommario": { "it": "", "en": "" },
+      "descrizione": { "it": "", "en": "" },
+      "f": ["SVG", "DXF", "AI"],
+      "price": 15,
+      "compareAt": null,
+      "icon": "💍",
+      "img": "",
+      "anteprime": [],
+      "contenuto": [],
+      "compatibilita": { "macchine": [], "software": ["xcs", "lightburn", "illustrator", "inkscape"], "note": { "it": "", "en": "" } },
+      "licenza": "commerciale",
+      "versione": "",
+      "aggiornatoIl": "",
+      "changelog": [],
+      "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+      "peso": "",
+      "stato": "bozza",
+      "inEvidenza": false,
+      "_daCompletare": ["contenuto", "compatibilita.macchine", "descrizione", "anteprime", "versione", "consegna"]
+    },
+    {
+      "id": 105,
+      "n": { "it": "Progetto Laser Premium — Lampada", "en": "Premium Laser Project — Lamp" },
+      "cat": "progetti",
+      "sommario": { "it": "", "en": "" },
+      "descrizione": { "it": "", "en": "" },
+      "f": ["SVG", "DXF", "LBRN"],
+      "price": 39,
+      "compareAt": null,
+      "icon": "💡",
+      "img": "",
+      "anteprime": [],
+      "contenuto": [],
+      "compatibilita": { "macchine": [], "software": ["lightburn", "xcs"], "note": { "it": "", "en": "" } },
+      "licenza": "commerciale",
+      "versione": "",
+      "aggiornatoIl": "",
+      "changelog": [],
+      "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+      "peso": "",
+      "stato": "bozza",
+      "inEvidenza": false,
+      "_daCompletare": ["contenuto", "compatibilita.macchine", "descrizione", "anteprime", "versione", "consegna"]
+    },
+    {
+      "id": 106,
+      "n": { "it": "Bundle Makers CO₂/F2/MOPA", "en": "Makers Bundle CO₂/F2/MOPA" },
+      "cat": "raccolte",
+      "sommario": { "it": "", "en": "" },
+      "descrizione": { "it": "", "en": "" },
+      "f": ["SVG", "DXF", "STL", "LBRN"],
+      "price": 59,
+      "compareAt": null,
+      "icon": "🧰",
+      "img": "",
+      "anteprime": [],
+      "contenuto": [],
+      "compatibilita": { "macchine": [], "software": ["xcs", "lightburn", "slicer"], "note": { "it": "", "en": "" } },
+      "licenza": "commerciale",
+      "versione": "",
+      "aggiornatoIl": "",
+      "changelog": [],
+      "consegna": { "modo": "nessuna", "url": "", "tempi": { "it": "", "en": "" } },
+      "peso": "",
+      "stato": "bozza",
+      "inEvidenza": false,
+      "_daCompletare": ["contenuto", "compatibilita.macchine", "descrizione", "anteprime", "versione", "consegna"]
+    }
+  ],
+
+  "faq": [
+    {
+      "d": { "it": "Come ricevo i file dopo l'ordine?", "en": "How do I receive the files after ordering?" },
+      "r": {
+        "it": "Dipende dal bundle, e la scheda lo dice: alcuni arrivano per email dopo la conferma dell'ordine, altri con un indirizzo di download. Non c'è un download automatico prima del pagamento.",
+        "en": "It depends on the bundle, and the page says so: some arrive by email after the order is confirmed, others with a download link. There is no automatic download before payment."
+      }
+    },
+    {
+      "d": { "it": "Funzionano sulla mia macchina?", "en": "Will they work on my machine?" },
+      "r": {
+        "it": "Ogni scheda elenca le macchine e i software con cui il bundle è stato provato. Se la tua non è in elenco il file di solito si apre comunque — SVG e DXF sono formati aperti — ma i parametri di taglio vanno ritarati.",
+        "en": "Each page lists the machines and software the bundle was tested with. If yours is not listed the file usually still opens — SVG and DXF are open formats — but cutting parameters need re-tuning."
+      }
+    },
+    {
+      "d": { "it": "Posso vendere quello che produco?", "en": "Can I sell what I make?" },
+      "r": {
+        "it": "Con la licenza commerciale sì, senza limite di quantità. Con quella per uso personale no. La licenza di ogni bundle è scritta nella scheda, con l'elenco di cosa puoi e non puoi fare.",
+        "en": "With the commercial license yes, with no quantity limit. With the personal-use one, no. Each bundle's license is stated on its page, with the list of what you may and may not do."
+      }
+    },
+    {
+      "d": { "it": "Gli aggiornamenti sono compresi?", "en": "Are updates included?" },
+      "r": {
+        "it": "Sì: quando un bundle esce in una versione nuova la ricevi senza pagare di nuovo. Le versioni pubblicate sono elencate nella scheda, con la data e cosa è cambiato.",
+        "en": "Yes: when a bundle gets a new version you receive it without paying again. Published versions are listed on the page, with the date and what changed."
+      }
+    },
+    {
+      "d": { "it": "Posso chiedere un progetto che non è in catalogo?", "en": "Can I ask for a project that is not in the catalogue?" },
+      "r": {
+        "it": "Sì. Scrivici cosa ti serve, su che macchina e per che materiale: i file su misura si fanno, e diversi bundle sono nati così.",
+        "en": "Yes. Tell us what you need, for which machine and material: custom files are something we do, and several bundles started that way."
+      }
+    }
+  ],
+
+  "_notaSconto": "Lo sconto «bundle −30%» che compariva nel riquadro in fondo alla pagina è stato rimosso: non esisteva da nessuna parte nel calcolo dei prezzi, né come coupon né come regola. Quando ci sarà uno sconto vero si scrive qui e il sito lo applica."
+}

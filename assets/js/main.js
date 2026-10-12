@@ -14,6 +14,7 @@ import { initReferral, shareRef } from './referral.js';
 import { initShare, initFomo, openWhatsApp, renderInstagramFeed } from './social.js';
 import * as VERT from './verticali.js';
 import * as LABUI from './lab-ui.js';
+import * as DIGUI from './digitale-ui.js';
 import { initNavIA } from './nav-mega.js';
 import * as STATO from './stato-sito.js';
 import * as SFONDI from './sfondi.js';
@@ -537,7 +538,7 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderPersonalizza();prod.renderChips();prod.renderShop();prod.renderPP();prod.renderDigital();renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll()}
+function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderPersonalizza();prod.renderChips();prod.renderShop();prod.renderPP();DIGUI.renderTutto(L);renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll()}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={
@@ -571,7 +572,11 @@ const actions={
   'pp-gal-prev':()=>prod.galPrev(),
   'pp-gal-next':()=>prod.galNext(),
   'pp-tab':el=>prod.ppTabShow(el.dataset.tab),
-  'dig-add':el=>prod.addDigital(el.dataset.id),
+  /* Passa da digitale-ui, che prima di aggiungere controlla che il bundle
+     sappia come arrivare al cliente. */
+  'dig-add':el=>DIGUI.aggiungi(el.dataset.id),
+  'dig-filtro':el=>DIGUI.impostaFiltro(el.dataset.k,el.dataset.v),
+  'dig-lic':el=>DIGUI.vaiAllaLicenza(el.dataset.id),
   'cart-qty':el=>prod.cQty(el.dataset.i,el.dataset.d),
   'cart-rm':el=>prod.rmCart(el.dataset.i),
   'coll':el=>prod.setColl(el.dataset.coll),

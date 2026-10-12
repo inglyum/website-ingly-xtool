@@ -41,7 +41,48 @@ if (CONFIG) {
   hf.forEach(id => { if (!ids.has(+id)) errors.push('config.heroFeatured punta a un prodotto inesistente: ' + id); });
 }
 
-console.log(`Controllati: ${(P || []).length} prodotti, ${(CATS || []).length} categorie.\n`);
+/* ---- FILE DIGITALI ----
+   Gli stessi controlli di assets/js/digitale.js, su cui gira la pagina:
+   qui servono perche' la CI veda un bundle non pubblicabile prima che
+   finisca online, non dopo. Il controllo che conta e' l'ultimo: un bundle
+   «pubblicato» che non dice come arriva al cliente farebbe comparire
+   «Aggiungi» per un file che nessuno manda. */
+let nDig = 0;
+try {
+  const DG = JSON.parse(readFileSync('data/digitale.json', 'utf8'));
+  const B = Array.isArray(DG.bundle) ? DG.bundle : [];
+  nDig = B.length;
+  const vistiD = new Set();
+  B.forEach(b => {
+    const et = `File digitale #${b.id}`;
+    const k = String(b.id);
+    if (vistiD.has(k)) errors.push(`${et}: id duplicato`);
+    vistiD.add(k);
+    if (!b.n || !String(b.n.it || '').trim()) errors.push(`${et}: nome italiano mancante`);
+    if (b.cat && !(DG.categorie || []).some(c => c.id === b.cat)) errors.push(`${et}: categoria "${b.cat}" inesistente`);
+    if (b.licenza && !(DG.licenze || []).some(l => l.id === b.licenza)) errors.push(`${et}: licenza "${b.licenza}" inesistente`);
+    if (!(b.f || []).length) errors.push(`${et}: nessun formato dichiarato`);
+    ((b.compatibilita || {}).software || []).forEach(sw => {
+      if (!(DG.software || []).some(x => x.id === sw)) errors.push(`${et}: software "${sw}" inesistente`);
+    });
+    if (b.stato === 'pubblicato') {
+      const c = b.consegna || {};
+      const ok = c.modo === 'email' || (c.modo === 'link' && /^https?:\/\//i.test(String(c.url || '')));
+      if (!ok) errors.push(`${et}: pubblicato ma senza consegna dichiarata`);
+      if (!(b.contenuto || []).length) errors.push(`${et}: pubblicato senza dire cosa contiene`);
+      if (!(b.price >= 0)) errors.push(`${et}: pubblicato senza prezzo`);
+    } else warn.push(`${et}: in bozza, non compare sul sito`);
+  });
+  /* La lista vecchia non deve tornare in content.json. */
+  try {
+    const C = JSON.parse(readFileSync('data/content.json', 'utf8'));
+    if (C.DIG !== undefined) errors.push('content.json contiene ancora DIG: i file digitali stanno in data/digitale.json');
+  } catch (e) {}
+} catch (e) {
+  warn.push('data/digitale.json non leggibile: ' + e.message);
+}
+
+console.log(`Controllati: ${(P || []).length} prodotti, ${(CATS || []).length} categorie, ${nDig} file digitali.\n`);
 if (warn.length) { console.log('⚠ Avvisi (non bloccanti):'); warn.forEach(w => console.log('  - ' + w)); console.log(''); }
 if (errors.length) {
   console.log('❌ Errori:'); errors.forEach(e => console.log('  - ' + e));

@@ -567,18 +567,22 @@ setTimeout(function(){
 <!-- DIGITAL -->
 <section class="page" id="page-digital">
   <div class="wrap phero">
-    <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-digital"></use></svg> <span data-i18n="digEye">Prodotti digitali</span></span>
-    <h1 class="h2" data-i18n="digH2">File pronti al <span class="hl on">taglio.</span></h1>
-    <p class="sub" data-i18n="digSub">SVG, DXF, STL e progetti premium per CO₂, Fiber F2 e MOPA. Download istantaneo, licenza commerciale inclusa.</p>
+    <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-digital"></use></svg> <span id="digEyebrow" data-i18n="digEye">File digitali</span></span>
+    <h1 class="h2" id="digTitolo" data-i18n="digH2">File pronti al taglio.</h1>
+    <p class="sub" id="digSommario" data-i18n="digSub">Progetti vettoriali e modelli 3D disegnati sulle macchine con cui lavoriamo ogni giorno: parametri già provati, non file generici da ritarare.</p>
+    <!-- come il file arriva al cliente: scritto solo se c'è almeno un bundle
+         davvero consegnabile, altrimenti resta nascosto -->
+    <p class="dig-consegna" id="digConsegna" hidden></p>
+    <div class="dig-barra">
+      <div id="digFiltri"></div>
+      <span class="dig-conta" id="digConta" aria-live="polite"></span>
+    </div>
     <div class="pgrid" id="digGrid"></div>
   </div>
-  <div class="sec" style="padding-top:40px"><div class="wrap">
-    <div class="cta-band reveal">
-      <h2 data-i18n="digCta">Sei un maker?<br><span style="color:var(--laser)">Bundle −30%.</span></h2>
-      <div class="beam"></div>
-      <button class="btn btn-blue magnetic" data-action="go" data-arg="digital" data-i18n="digCtaBtn">Esplora i file digitali</button>
-    </div>
-  </div></div>
+  <!-- La licenza è il motivo per cui si compra un file invece di disegnarlo:
+       sta sulla pagina, per esteso, non in un PDF da cercare dopo. -->
+  <div class="sec"><div class="wrap" id="digLicenze"></div></div>
+  <div class="sec"><div class="wrap" id="digFaq"></div></div>
 </section>
 
 <!-- BUSINESS -->

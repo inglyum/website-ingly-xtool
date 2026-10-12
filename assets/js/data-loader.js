@@ -9,9 +9,9 @@
    pubblicazione parziale — il sito deve continuare a funzionare senza di
    loro, con le sezioni del Lab semplicemente assenti. Per questo stanno
    qui dentro e non in un caricamento separato che potrebbe fallire da solo. */
-const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni','immagini','immagini-macchine'];
+const FILES=['config','texts','social','products','categories','content','materiali','tecnologie','macchine','corsi','collezioni','immagini','immagini-macchine','digitale'];
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',
-  materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE',corsi:'CORSI',collezioni:'COLLEZIONI',immagini:'IMMAGINI','immagini-macchine':'IMMAGINI_MACCHINE'};
+  materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE',corsi:'CORSI',collezioni:'COLLEZIONI',immagini:'IMMAGINI','immagini-macchine':'IMMAGINI_MACCHINE',digitale:'DIGITALE'};
 
 export const dataStatus={mode:'',version:null,missing:[],warnings:[]};
 
@@ -43,6 +43,14 @@ function healData(e){
     if(!e.MV||Array.isArray(e.MV)||typeof e.MV!=='object')e.MV={};
     e.FOCAL=(e.FOCAL&&typeof e.FOCAL==='object'&&!Array.isArray(e.FOCAL))?e.FOCAL:{};
     ['PORT','TECH','BIZ','FAQS','REVIEWS','STEPS','MATERIALS','DIG'].forEach(k=>{if(!Array.isArray(e[k]))e[k]=[]});
+    /* I file digitali hanno una casa sola: data/digitale.json. `DIG` resta
+       perché il carrello e la riserva legacy lo leggono, ma da qui in poi è
+       una VISTA di quel file, non una seconda lista da tenere allineata a
+       mano. Ci entrano tutti i bundle, anche le bozze: un carrello salvato
+       ieri deve ritrovare la sua riga anche se il bundle è tornato in
+       bozza, altrimenti il cliente apre il sito e il carrello è vuoto.
+       È la pagina a filtrare per `stato`, non questo. */
+    if(e.DIGITALE && Array.isArray(e.DIGITALE.bundle)) e.DIG=e.DIGITALE.bundle;
     /* Il Lab è facoltativo: senza i suoi file le sue sezioni non si
        disegnano, ma il resto del sito non deve accorgersene. */
     ['MATERIALI','TECNOLOGIE','MACCHINE','CORSI'].forEach(k=>{

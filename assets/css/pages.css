@@ -489,3 +489,52 @@ body::after{content:none}
 .mac-foto--grande img{aspect-ratio:16/10}
 .mac-credito{padding:7px 12px;font-size:11.5px;color:var(--ink-soft);
   border-top:1px solid var(--line);letter-spacing:.02em}
+
+/* ============ FILE DIGITALI ============
+   Riusa .dcard, .pgrid, .fitem, .rcard, .facc del design system: qui ci
+   sono solo le parti che non esistevano, cioè le quattro informazioni che
+   prima la pagina non diceva — categoria, software, macchine di prova,
+   stato della consegna. */
+.dig-consegna{font-size:var(--fs-sm);color:var(--ink-soft);margin-top:10px}
+.dig-barra{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin:24px 0 20px}
+.dig-barra>div{flex:1 1 auto;min-width:0}
+.dig-conta{font-size:var(--fs-sm);color:var(--ink-soft);white-space:nowrap}
+.dig-gruppo{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px}
+.dig-getic{font-size:var(--fs-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);min-width:84px}
+.dig-chips{display:flex;flex-wrap:wrap;gap:8px}
+.dig-chips .fitem small{opacity:.65;font-weight:400}
+
+.dcard .dig-cop{display:grid;place-items:center;position:relative;height:110px;border-radius:14px;background:var(--glass);border:1px solid var(--line);text-decoration:none}
+.dcard .dig-ic{font-size:42px;line-height:1}
+.dcard .dig-cat{position:absolute;left:10px;top:10px;font-size:var(--fs-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:var(--bg-card);border:1px solid var(--line);border-radius:100px;padding:3px 9px}
+.dig-n{font-size:var(--fs-lg);margin-top:14px;line-height:var(--lh-tight)}
+.dig-n a{color:inherit;text-decoration:none}
+.dig-n a:hover{text-decoration:underline}
+.dig-s{font-size:var(--fs-sm);color:var(--ink-soft);margin-top:6px}
+.dig-meta{font-size:var(--fs-xs);color:var(--ink-soft);margin-top:4px}
+/* Un dato che manca si vede che manca: è un invito a riempirlo, non un buco. */
+.dig-manca{opacity:.6;font-style:italic}
+
+/* L'etichetta della licenza è un bottone perché porta da qualche parte. */
+.lic-apri{background:none;border:0;padding:0;cursor:pointer;font:inherit;text-align:left}
+.lic-apri i{font-style:normal;display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;border:1px solid var(--line);font-size:10px}
+.lic-apri:hover{color:var(--ink)}
+.lic-evid{outline:2px solid var(--accent);outline-offset:4px}
+
+/* «In preparazione» al posto di «Aggiungi»: un bundle che non sa come
+   arrivare al cliente non mostra un bottone d'acquisto. */
+.dig-attesa{font-size:var(--fs-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);border:1px dashed var(--line);border-radius:100px;padding:7px 14px}
+
+.dig-licgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px}
+.dig-puoi,.dig-nonpuoi{list-style:none;padding:0;margin:14px 0 0;font-size:var(--fs-sm);color:var(--ink-soft)}
+.dig-puoi li,.dig-nonpuoi li{display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;line-height:var(--lh-normal)}
+.dig-puoi li::before{content:'✓';color:var(--blue);font-weight:700;flex:0 0 auto}
+.dig-nonpuoi li::before{content:'✕';color:var(--ink-soft);font-weight:700;flex:0 0 auto}
+
+.dig-vuoto,.dig-nessuno{grid-column:1/-1}
+.dig-nessuno{color:var(--ink-soft);padding:30px 0}
+
+@media (max-width:640px){
+  .dig-barra{flex-direction:column;align-items:stretch}
+  .dig-getic{min-width:0;width:100%}
+}

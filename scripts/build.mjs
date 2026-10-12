@@ -12,10 +12,15 @@ const MATERIALI=J('materiali'), TECNOLOGIE=J('tecnologie'), MACCHINE=J('macchine
 /* Le collezioni sono criteri sul catalogo: senza di loro il mega menu e la
    home perderebbero le vetrine, quindi viaggiano nella riserva come il Lab. */
 const COLLEZIONI=J('collezioni'), IMMAGINI_MACCHINE=J('immagini-macchine');
+/* I file digitali stanno in data/digitale.json: `DIG` è una vista di quel
+   file, e nella riserva deve essere ricavato nello stesso modo, o su file://
+   il carrello non ritrova le righe salvate. */
+const DIGITALE=J('digitale');
+const DIG=Array.isArray(DIGITALE.bundle)?DIGITALE.bundle:[];
 writeFileSync('data/config.js',`/* GENERATO dai JSON — non modificare a mano */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.CONFIG=${JSON.stringify(cfg)};\n`);
 writeFileSync('data/i18n.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.D=${JSON.stringify(D)};\n`);
 writeFileSync('data/socials.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.SOCIALS=${JSON.stringify(SOC)};\n`);
-writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)},CORSI:${JSON.stringify(CORSI)},COLLEZIONI:${JSON.stringify(COLLEZIONI)},IMMAGINI:${JSON.stringify(JSON.parse(readFileSync('data/immagini.json','utf8')))},IMMAGINI_MACCHINE:${JSON.stringify(IMMAGINI_MACCHINE)}});\n`);
+writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)},CORSI:${JSON.stringify(CORSI)},COLLEZIONI:${JSON.stringify(COLLEZIONI)},IMMAGINI:${JSON.stringify(JSON.parse(readFileSync('data/immagini.json','utf8')))},IMMAGINI_MACCHINE:${JSON.stringify(IMMAGINI_MACCHINE)},DIGITALE:${JSON.stringify(DIGITALE)},DIG:${JSON.stringify(DIG)}});\n`);
 
 /* ---- L'ELENCO DELLE FOTO CHE ESISTONO DAVVERO ----
    90 prodotti su 97 dichiarano una foto; di quelle, solo 13 esistono su
@@ -60,7 +65,7 @@ const { ID: ROTTE_ID } = await import('../assets/js/rotte.js');
    passato sul sito continuava a ricevere i dati vecchi da cache con la
    stessa query. La versione ora si alza a ogni build che cambia i dati. */
 {
-  const chiave = JSON.stringify([cfg, P, CATS, C, MATERIALI, TECNOLOGIE, MACCHINE, CORSI, COLLEZIONI]);
+  const chiave = JSON.stringify([cfg, P, CATS, C, MATERIALI, TECNOLOGIE, MACCHINE, CORSI, COLLEZIONI, DIGITALE]);
   let somma = 0;
   for (let i = 0; i < chiave.length; i++) somma = (somma * 31 + chiave.charCodeAt(i)) % 2147483647;
   const vecchia = JSON.parse(readFileSync('data/version.json', 'utf8'));

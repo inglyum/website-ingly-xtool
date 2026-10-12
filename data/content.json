@@ -75,89 +75,6 @@
       "en": "Digital file"
     }
   },
-  "DIG": [
-    {
-      "id": 101,
-      "n": {
-        "it": "Bundle 50 File SVG — Casa",
-        "en": "50 SVG Bundle — Home"
-      },
-      "f": [
-        "SVG",
-        "PDF"
-      ],
-      "price": 19,
-      "icon": "🏠"
-    },
-    {
-      "id": 102,
-      "n": {
-        "it": "Template Targhe DXF ×30",
-        "en": "Plaque Templates DXF ×30"
-      },
-      "f": [
-        "DXF",
-        "SVG"
-      ],
-      "price": 24,
-      "icon": "🪧"
-    },
-    {
-      "id": 103,
-      "n": {
-        "it": "File 3D STL — Decor Pack",
-        "en": "3D STL Files — Decor Pack"
-      },
-      "f": [
-        "STL"
-      ],
-      "price": 29,
-      "icon": "🧊"
-    },
-    {
-      "id": 104,
-      "n": {
-        "it": "Template Segnaposto Nozze",
-        "en": "Wedding Place Card Templates"
-      },
-      "f": [
-        "SVG",
-        "DXF",
-        "AI"
-      ],
-      "price": 15,
-      "icon": "💍"
-    },
-    {
-      "id": 105,
-      "n": {
-        "it": "Progetto Laser Premium — Lampada",
-        "en": "Premium Laser Project — Lamp"
-      },
-      "f": [
-        "SVG",
-        "DXF",
-        "LBRN"
-      ],
-      "price": 39,
-      "icon": "💡"
-    },
-    {
-      "id": 106,
-      "n": {
-        "it": "Bundle Makers CO₂/F2/MOPA",
-        "en": "Makers Bundle CO₂/F2/MOPA"
-      },
-      "f": [
-        "SVG",
-        "DXF",
-        "STL",
-        "LBRN"
-      ],
-      "price": 59,
-      "icon": "🧰"
-    }
-  ],
   "TECH": [
     {
       "t": "CO₂ · 100W",
@@ -4557,5 +4474,6 @@
         ]
       ]
     }
-  ]
+  ],
+  "_DIG": "I file digitali sono stati spostati in data/digitale.json, dove ogni bundle dichiara anche cosa contiene, su che macchina funziona, con che licenza e come arriva al cliente. Il sito ricava DIG da quel file: qui non va rimesso, o le due liste divergono."
 }

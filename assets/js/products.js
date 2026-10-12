@@ -781,20 +781,25 @@ export function addFromPP(){
   addToCart(cur.id,sel.qty,matLabel,note,unit());
 }
 
-/* ---- digitale ---- */
-export function renderDigital(){$('digGrid').innerHTML=DIG.map(d=>{
-  const stripeUrl=(CONFIG.stripeLinks||{})[d.id];
-  const buyBtn=stripeUrl
-    ?`<a class="btn btn-blue" href="${stripeUrl}" target="_blank" rel="noopener" style="padding:10px 20px;font-size:13.5px;text-decoration:none">💳 ${T('buy')}</a>`
-    :`<button class="btn btn-blue" style="padding:10px 20px;font-size:13.5px" data-action="dig-add" data-id="${d.id}">⬇ ${T('buy')}</button>`;
-  return `<div class="dcard reveal in">
-  <div style="height:110px;border-radius:14px;background:${MAT_ART.File.bg};display:grid;place-items:center;font-size:42px">${d.icon}</div>
-  <h3 style="font-size:17px;margin-top:14px">${d.n[L]}</h3>
-  <div class="fmt">${d.f.map(f=>`<i>${f}</i>`).join('')}</div>
-  <span class="lic">${T('lic')}</span>
-  <div class="dl"><span class="price">${prezzo(d.price)}</span>${buyBtn}</div></div>`}).join('')}
+/* ---- digitale ----
+   La pagina la disegna digitale-ui.js, su digitale.json: lì un bundle
+   dichiara anche cosa contiene, su che macchina è stato provato, con che
+   licenza e come arriva al cliente. Qui resta solo l'ingresso nel
+   carrello, che è uno per tutti e cinque i tipi.
+
+   Il ramo `stripeLinks` che stava qui è stato tolto: `CONFIG.stripeLinks`
+   non esiste in config.json, quindi era sempre l'altro ramo a scattare.
+   Un pagamento vero si configura in `consegna.modo: "link"`, dove sta
+   anche l'indirizzo con cui il cliente riceve il file. */
 export function addDigital(id){
   const d=DIG.find(x=>x.id===+id); if(!d) return;
+  /* Un bundle che non sa come arrivare al cliente non entra nel carrello,
+     da nessuna strada: né dal bottone, né da tastiera, né da un data-id
+     scritto a mano. Prima della consegna dichiarata, «Aggiungi» avrebbe
+     promesso un file che nessuno manda. */
+  const c=(d.consegna||{}).modo;
+  const ok=c==='email'||(c==='link'&&/^https?:\/\//i.test(String((d.consegna||{}).url||'')));
+  if(!ok){console.warn('[INGLY] bundle #'+d.id+': consegna non dichiarata, non aggiunto');return}
   cart=CM.aggiungi(cart,{...CM.daDigitale(d),bg:MAT_ART.File.bg});
   renderCart();saveCart();toast(T('added'));openCart();
 }

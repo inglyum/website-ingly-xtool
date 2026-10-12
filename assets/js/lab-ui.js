@@ -225,6 +225,28 @@ export function renderTecnologia(id, L, cardProdotto) {
 
 /* ---------- MACCHINE ---------- */
 
+/* L'immagine di una macchina, o la via onesta quando non c'è.
+   Non inventa niente: o la foto che abbiamo il diritto di mostrare, o il
+   collegamento alla pagina ufficiale del produttore — linkare è sempre
+   lecito, copiare no. */
+function fotoMac(m, L, grande) {
+  const f = LAB.fotoMacchina(D(), m.id);
+  if (f.foto) {
+    const alt = (f.alt && (f.alt[L] || f.alt.it)) || LAB.lingua(m.n, L);
+    return `<figure class="mac-foto${grande ? ' mac-foto--grande' : ''}">
+      <img src="${esc(via('/' + f.foto).replace(/^\/+/, '/'))}" alt="${esc(alt)}"
+        ${grande ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
+      ${f.credito ? `<figcaption class="mac-credito">${t2('Fotografia', 'Photograph', L)}: ${esc(f.credito)}</figcaption>` : ''}
+    </figure>`;
+  }
+  if (!grande) return '';
+  /* Niente foto: si dice perché, e si manda dove la foto c'è davvero. */
+  return `<p class="lab-nulla">${t2(
+    'Di questo modello non pubblichiamo una fotografia: quelle ufficiali sono del produttore e le mostriamo solo con il suo consenso.',
+    'We do not publish a photograph of this model: the official ones belong to the manufacturer and we show them only with consent.', L)}
+    ${f.ufficiale ? ` <a href="${esc(f.ufficiale)}" target="_blank" rel="noopener">${t2('Vedila sul sito xTool', 'See it on the xTool site', L)} →</a>` : ''}</p>`;
+}
+
 export function renderMacchine(L) {
   const box = $('labMacGrid');
   if (!box) return;
@@ -236,6 +258,7 @@ export function renderMacchine(L) {
   box.innerHTML = `
     ${lista.length ? `<div class="b2b-cards">${lista.map((m, i) => `
       <div class="rcard reveal" style="transition-delay:${i * .06}s">
+        ${fotoMac(m, L, false)}
         <span class="lab-n">${esc(m.sorgente || '')}</span>
         <h3 class="lab-h3">${esc(LAB.lingua(m.n, L))}</h3>
         <p class="lab-p">${esc(LAB.lingua(m.ruolo, L))}</p>
@@ -560,6 +583,7 @@ export function renderMacchina(id, L, cardProdotto) {
     <span class="eyebrow">INGLY Machine Lab</span>
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${esc(LAB.lingua(m.n, L))}</h1>
     <p class="sub">${esc(LAB.lingua(m.ruolo, L))}</p>
+    ${fotoMac(m, L, true)}
     ${chips([
       m.inOfficina ? t2('In officina da noi', 'In our workshop', L) : t2('Assistenza e riparazione', 'Service and repair', L),
       m.assistenza ? t2('Centro ufficiale xTool', 'Official xTool centre', L) : ''

@@ -478,6 +478,56 @@ export function briciole(sezione, entita, opt = {}) {
 }
 
 /** I file da generare per il Lab. */
+/* ---------- LE FOTOGRAFIE DELLE MACCHINE ----------
+
+   Le foto dei prodotti xTool sono materiale di xTool. Pubblicarle dal
+   nostro sito è ridistribuzione, e si fa con il permesso del produttore —
+   non perché il file è raggiungibile. Questa funzione è il punto in cui
+   quel permesso diventa una condizione tecnica: senza
+   `licenza.stato === 'consentito'` l'immagine non esce, qualunque cosa ci
+   sia sul disco.
+
+   Restituisce sempre qualcosa di utile: o la foto, o l'indirizzo della
+   pagina ufficiale, che linkare è sempre lecito. */
+export function fotoMacchina(D, id) {
+  const man = (D && D.IMMAGINI_MACCHINE) || {};
+  const r = (man.macchine || []).find(x => x && x.id === String(id));
+  if (!r) return { foto: null, ufficiale: '', motivo: 'non-in-manifest' };
+
+  const stato = (r.licenza || {}).stato;
+  if (stato !== 'consentito') {
+    return { foto: null, ufficiale: r.paginaUfficiale || '', motivo: 'licenza-' + (stato || 'non-dichiarata') };
+  }
+  if (!r.file) {
+    return { foto: null, ufficiale: r.paginaUfficiale || '', motivo: 'non-scaricata' };
+  }
+  return {
+    foto: r.file,
+    alt: r.alt || {},
+    tipoAsset: r.tipoAsset || 'official-machine',
+    /* Chi l'ha fatta va detto: è onesto e spesso è una condizione della
+       licenza stessa. */
+    credito: (r.licenza || {}).titolare || '',
+    ufficiale: r.paginaUfficiale || '',
+    sostituibile: r.sostituibile !== false,
+    motivo: ''
+  };
+}
+
+/** Quante foto sono davvero pubblicabili: serve all'Admin e ai test. */
+export function statoFotoMacchine(D) {
+  const righe = ((D && D.IMMAGINI_MACCHINE && D.IMMAGINI_MACCHINE.macchine) || []);
+  const conta = s => righe.filter(r => (r.licenza || {}).stato === s).length;
+  return {
+    totali: righe.length,
+    consentite: conta('consentito'),
+    daVerificare: conta('da-verificare'),
+    negate: conta('negato'),
+    scaricate: righe.filter(r => r.file).length,
+    pubblicabili: righe.filter(r => (r.licenza || {}).stato === 'consentito' && r.file).length
+  };
+}
+
 export function elencoPagine(D) {
   const out = [
     { file: 'materiali/index.html', sezione: 'materiali', id: null },

@@ -65,6 +65,40 @@ intercetta la richiesta prima del service worker, quindi quel ramo non si
 può esercitare qui. È corretto nel codice (base assoluta, `ignoreSearch`)
 ma non lo dichiaro provato.
 
+### Fotografie delle macchine: il meccanismo c'è, le immagini no
+`data/immagini-macchine.json`, `scripts/scarica-immagini-macchine.mjs` · 45 controlli
+
+**Non ho potuto scaricare le immagini xTool.** La rete di questa sessione
+è una lista chiusa: `cdn.shopify.com` e `www.xtool.com` rispondono 403 al
+tentativo di connessione, e nemmeno il recupero pagina ci arriva. Lo dico
+invece di girarci intorno.
+
+Ho costruito tutto il resto, così entrano appena qualcuno le scarica:
+
+- **un manifest** con, per ogni modello: indirizzo ufficiale, destinazione
+  locale, data di acquisizione, tipo di materiale (`official-machine`),
+  sostituibilità, testo alternativo IT/EN e — la cosa che conta — **lo
+  stato del permesso**;
+- **uno script** che scarica e verifica davvero: risposta 200, tipo
+  dichiarato, **i primi byte** (un server che risponde con una pagina
+  d'errore «200 OK» non passa) e la dimensione minima;
+- **una barriera sulla licenza**: senza `licenza.stato: "consentito"` nel
+  manifest, lo script non scarica e il sito non mostra. Non c'è nessun
+  modo di saltarla da riga di comando — va scritto nel file, dove resta e
+  si vede;
+- **la via d'uscita onesta**: senza foto la scheda dice perché e manda
+  alla pagina ufficiale xTool. Linkare è sempre lecito, copiare no.
+
+Perché la barriera: le fotografie dei prodotti xTool sono di xTool.
+Pubblicarle da inglydesign.it è ridistribuzione, e si fa con il permesso
+del produttore — non perché il file è raggiungibile.
+
+Provato in entrambi gli stati simulando una licenza concessa: la foto esce
+col credito e l'alt giusto; tolto il permesso, torna l'avviso e il link. Il
+file di prova è stato rimosso: nel repository non c'è nessuna immagine
+finta, e un test verifica che ogni file in quella cartella sia davvero
+un'immagine e sia dichiarato nel manifest.
+
 ### FASE 4 (parte 1) — Personalizza è una destinazione vera
 `data/products.json`, `scripts/marca-personalizzabili.mjs`, `index.html` · 124 controlli
 

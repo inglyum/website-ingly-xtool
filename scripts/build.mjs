@@ -11,11 +11,11 @@ const cfg=J('config'), D=J('texts'), SOC=J('social'), P=J('products'), CATS=J('c
 const MATERIALI=J('materiali'), TECNOLOGIE=J('tecnologie'), MACCHINE=J('macchine'), CORSI=J('corsi');
 /* Le collezioni sono criteri sul catalogo: senza di loro il mega menu e la
    home perderebbero le vetrine, quindi viaggiano nella riserva come il Lab. */
-const COLLEZIONI=J('collezioni');
+const COLLEZIONI=J('collezioni'), IMMAGINI_MACCHINE=J('immagini-macchine');
 writeFileSync('data/config.js',`/* GENERATO dai JSON — non modificare a mano */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.CONFIG=${JSON.stringify(cfg)};\n`);
 writeFileSync('data/i18n.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.D=${JSON.stringify(D)};\n`);
 writeFileSync('data/socials.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nwindow.INGLY.SOCIALS=${JSON.stringify(SOC)};\n`);
-writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)},CORSI:${JSON.stringify(CORSI)},COLLEZIONI:${JSON.stringify(COLLEZIONI)},IMMAGINI:${JSON.stringify(JSON.parse(readFileSync('data/immagini.json','utf8')))}});\n`);
+writeFileSync('data/catalog.js',`/* GENERATO dai JSON */\nwindow.INGLY=window.INGLY||{};\nObject.assign(window.INGLY,${JSON.stringify({P,CATS,...C})},{P:${JSON.stringify(P)},CATS:${JSON.stringify(CATS)},MATERIALI:${JSON.stringify(MATERIALI)},TECNOLOGIE:${JSON.stringify(TECNOLOGIE)},MACCHINE:${JSON.stringify(MACCHINE)},CORSI:${JSON.stringify(CORSI)},COLLEZIONI:${JSON.stringify(COLLEZIONI)},IMMAGINI:${JSON.stringify(JSON.parse(readFileSync('data/immagini.json','utf8')))},IMMAGINI_MACCHINE:${JSON.stringify(IMMAGINI_MACCHINE)}});\n`);
 
 /* ---- L'ELENCO DELLE FOTO CHE ESISTONO DAVVERO ----
    90 prodotti su 97 dichiarano una foto; di quelle, solo 13 esistono su

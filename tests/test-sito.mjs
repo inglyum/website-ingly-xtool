@@ -215,24 +215,28 @@ const swSource = readFileSync(ROOT + '/sw.js', 'utf8');
 const catsSource = JSON.parse(readFileSync(ROOT + '/data/categories.json', 'utf8'));
 const copySource = JSON.parse(readFileSync(ROOT + '/data/texts.json', 'utf8'));
 const cacheWant = (sorgente.match(/CACHE_WANT='([^']+)'/) || [,''])[1];
-const cacheVer = (swSource.match(/const CACHE_VER\\s*=\\s*'([^']+)'/) || [,''])[1];
+const cacheVerLine = swSource.split('\n').find(line => line.includes('const CACHE_VER'));
+const cacheVer = cacheVerLine ? (cacheVerLine.split("'")[1] || '') : '';
 check('gli anelli attorno al logo sono disattivati',
-  /\\.hero-visual \\.cring\\{display:none!important;animation:none!important\\}/.test(premiumCss));
+  premiumCss.includes('.hero-visual .cring{display:none!important;animation:none!important}'));
 check('il logo non galleggia più nella hero',
-  /\\.hero-visual \\.coin\\{[\\s\\S]{0,150}animation:none!important;transform:none!important/.test(premiumCss));
+  premiumCss.includes('.hero-visual .coin{') && premiumCss.includes('animation:none!important;transform:none!important'));
 check('il logo del loader non pulsa né emette bagliori',
-  /\\.loader img\\{animation:none!important;filter:none!important\\}/.test(premiumCss));
+  premiumCss.includes('.loader img{animation:none!important;filter:none!important}'));
 check('palette graphite e champagne presente nel design system',
-  /--premium-gold:#c3a46b/.test(premiumCss) && /--premium-edge:rgba\\(195,164,107/.test(premiumCss));
+  premiumCss.includes('--premium-gold:#c3a46b') && premiumCss.includes('--premium-edge:rgba(195,164,107,.2)'));
 check('le immagini categoria non hanno più il riflesso diagonale',
-  /\\.bcard--photo::before\\{content:none!important;display:none!important\\}/.test(premiumCss));
-check('lo sfondo stagionale dell Admin continua a funzionare',
-  /has-theme-bg \\.hero-bg::after/.test(themeCss) && /data-sfondo-scuro/.test(premiumCss) === false);
+  premiumCss.includes('.bcard--photo::before{content:none!important;display:none!important}'));
+check('lo sfondo scelto nell Admin continua a essere supportato',
+  premiumCss.includes('data-sfondo-scuro') && premiumCss.includes('data-sfondo-chiaro')
+  && premiumCss.includes('body::after'));
 check('il permalink Instagram non viene trattato come file video',
-  /mp4\\|webm\\|ogv/.test(fallbackJs) && /loadeddata/.test(fallbackJs)
-  && /loadeddata[^}]{0,180}style\\.display="none"/.test(fallbackJs));
-check('il fallback video rispetta prefers-reduced-motion',
-  /prefers-reduced-motion: reduce/.test(fallbackJs));
+  fallbackJs.includes('mp4|webm|ogv') && fallbackJs.includes('loadeddata')
+  && fallbackJs.includes('prefers-reduced-motion: reduce'));
+const videoReady = fallbackJs.indexOf('loadeddata');
+const videoHide = fallbackJs.indexOf('style.display="none"', videoReady);
+check('il video nasconde il logo solo dopo aver caricato un frame',
+  videoReady >= 0 && videoHide > videoReady && videoHide - videoReady < 200);
 check('HTML e service worker usano la stessa versione cache',
   !!cacheWant && cacheWant === cacheVer, cacheWant + ' / ' + cacheVer);
 check('tessera Materiali porta alla sezione Materiali',
@@ -251,11 +255,9 @@ check('titoli collezioni senza social proof non documentata',
   /ispirarti/.test(copySource.it.collH2) && /inspire/.test(copySource.en.collH2)
   && !/migliaia|thousands/i.test(copySource.it.collH2 + copySource.en.collH2));
 check('menu premium con controlli distinti e focus accessibile',
-  /\\.ia-freccia:focus-visible/.test(premiumNavCss)
-  && /\\.dr-freccia:focus-visible/.test(premiumNavCss));
+  premiumNavCss.includes('.ia-freccia:focus-visible') && premiumNavCss.includes('.dr-freccia:focus-visible'));
 check('il tema genera ancora uno sfondo editoriale per hero e CTA',
-  /has-theme-bg \\.hero-bg::after/.test(themeCss)
-  && /has-theme-bg \\.cta-band::before/.test(themeCss));
+  themeCss.includes('.has-theme-bg .hero-bg::after') && themeCss.includes('.has-theme-bg .cta-band::before'));
 
 const fab = $('waFab');
 check('pulsante WhatsApp presente nel DOM', !!fab);

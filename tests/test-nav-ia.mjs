@@ -208,8 +208,11 @@ check('il nome è un link, non un pulsante', /<a class="dr-fam"/.test(cassHtm));
 check('non è più un pulsante che apre soltanto', !/<button[^>]*class="dr-fam"/.test(cassHtm));
 check('la freccia è un pulsante a parte', /<button type="button" class="dr-freccia"/.test(cassHtm));
 check('la freccia dice cosa fa', /class="dr-freccia"[^>]*aria-label="/.test(cassHtm));
+check('la freccia è collegata al pannello che apre', /class="dr-freccia"[^>]*aria-controls="dr-/.test(cassHtm));
 check('ogni nome porta alla sua rotta',
   IA.famiglieVive(D).every(f => cassHtm.includes('href="/' + f.rotta + '"')));
+check('il pannello non perde il listener al cambio lingua', /let mobileLegato = false/.test(megaJs)
+  && /if \(mobileLegato\) return/.test(megaJs));
 
 console.log('\n=== LA SEZIONE CORRENTE SI VEDE ===');
 check('la barra sa segnare dove ci si trova', /aria-current="page"/.test(IA.barraHtml(D, { L: 'it', base: '', attiva: 'shop' })));

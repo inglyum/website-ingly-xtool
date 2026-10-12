@@ -354,7 +354,10 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
       <div class="dr-riga">
         <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a>
         <button type="button" class="dr-freccia" aria-expanded="false" data-apri="dr-${esc(f.id)}"
-          aria-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"><i class="dr-piu" aria-hidden="true"></i></button>
+          aria-controls="dr-${esc(f.id)}"
+          aria-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"
+          data-open-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"
+          data-close-label="${esc(L === 'en' ? 'Hide the ' + L10n(f.n, L) + ' sections' : 'Nascondi le sezioni di ' + L10n(f.n, L))}"><i class="dr-piu" aria-hidden="true"></i></button>
       </div>
       <div class="dr-sub" id="dr-${esc(f.id)}">
         <p class="dr-claim">${esc(L10n(f.claim, L))}</p>

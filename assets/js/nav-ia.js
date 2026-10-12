@@ -286,9 +286,15 @@ export function barraHtml(D, { L = 'it', base = '' } = {}) {
   return famiglieVive(D).map(f => {
     const p = pannello(f.id, D, { L, base });
     const apribile = p.colonne.length > 0;
-    return `<a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"
-      ${apribile ? 'aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-' + esc(f.id) + '"' : ''}>
-      <span>${esc(L10n(f.n, L))}</span>${apribile ? '<i class="ia-caret" aria-hidden="true"></i>' : ''}</a>`;
+    const label = L10n(f.n, L);
+    const openLabel = L === 'en' ? `Open ${label} submenu` : `Apri il sottomenu ${label}`;
+    const closeLabel = L === 'en' ? `Close ${label} submenu` : `Chiudi il sottomenu ${label}`;
+    const toggle = apribile ? `<button class="ia-toggle" type="button" data-fam="${esc(f.id)}"
+      aria-label="${esc(openLabel)}" data-open-label="${esc(openLabel)}" data-close-label="${esc(closeLabel)}"
+      aria-expanded="false" aria-controls="ia-pan-${esc(f.id)}"><i class="ia-caret" aria-hidden="true"></i></button>` : '';
+    return `<div class="ia-navitem" data-navitem="${esc(f.id)}">
+      <a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"><span>${esc(label)}</span></a>${toggle}
+    </div>`;
   }).join('');
 }
 
@@ -327,13 +333,22 @@ export function pannelloHtml(f, D, { L = 'it', base = '' } = {}) {
 export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
   return famiglieVive(D).map(f => {
     const p = pannello(f.id, D, { L, base });
+    const label = L10n(f.n, L);
     const voci = p.colonne.flatMap(c => [...c.voci, ...(c.tutto ? [c.tutto] : [])]);
     if (!voci.length) {
-      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}">${esc(L10n(f.n, L))}</a></div>`;
+      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(label)}</a></div>`;
     }
-    return `<div class="dr-item">
-      <button type="button" class="dr-fam" aria-expanded="false" data-apri="dr-${esc(f.id)}">
-        <span>${esc(L10n(f.n, L))}</span><i class="dr-piu" aria-hidden="true"></i></button>
+    const openLabel = L === 'en' ? `Open ${label} submenu` : `Apri il sottomenu ${label}`;
+    const closeLabel = L === 'en' ? `Close ${label} submenu` : `Chiudi il sottomenu ${label}`;
+    return `<div class="dr-item dr-item--expandable">
+      <div class="dr-riga">
+        <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(label)}</a>
+        <button class="dr-toggle" type="button" data-apri="dr-${esc(f.id)}"
+          aria-controls="dr-${esc(f.id)}" aria-expanded="false"
+          aria-label="${esc(openLabel)}" data-open-label="${esc(openLabel)}" data-close-label="${esc(closeLabel)}">
+          <i class="dr-piu" aria-hidden="true"></i>
+        </button>
+      </div>
       <div class="dr-sub" id="dr-${esc(f.id)}">
         <p class="dr-claim">${esc(L10n(f.claim, L))}</p>
         ${p.colonne.map(c => `

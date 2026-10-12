@@ -81,6 +81,11 @@ export function show(page){
     document.querySelectorAll('.page').forEach(x=>x.classList.remove('active','leaving'));
     next.classList.add('active');
     document.querySelectorAll('.nav-links [data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===page));
+    document.querySelectorAll('.ia-barra .ia-voce[data-nav]').forEach(a=>{
+      const active=a.dataset.nav===page || (page==='home' && a.dataset.nav==='');
+      a.classList.toggle('active',active);
+      if(active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
     toggleMenu(false);
     document.body.classList.toggle('on-product',page==='product');
     window.scrollTo({top:0,behavior:'instant'});

@@ -151,8 +151,8 @@ check('nessun link del menu porta a una pagina inesistente', rotti.length === 0,
 
 console.log('\n=== MARKUP ===');
 const barra = IA.barraHtml(D, { base: '' });
-check('ogni famiglia ha un link diretto alla propria landing',
-  IA.FAMIGLIE.every(f => barra.includes(`href="/${f.rotta}"`) && barra.includes(`data-nav="${f.rotta}"`)));
+check('ogni famiglia visibile ha un link diretto alla propria landing',
+  IA.famiglieVive(D).every(f => barra.includes(`href="/${f.rotta}"`) && barra.includes(`data-nav="${f.rotta}"`)));
 check('il link primario è separato dal pulsante del sottomenu',
   barra.includes('class="ia-navitem"') && barra.includes('class="ia-voce"') && barra.includes('class="ia-toggle"'));
 check('solo il pulsante dichiara lo stato espandibile',
@@ -169,8 +169,8 @@ check('un nome con dentro del codice non diventa codice',
 const mobile = IA.cassettoHtml(D, { base: '' });
 check('il cassetto mobile ha le stesse famiglie della barra',
   (mobile.match(/class="dr-fam"/g) || []).length === IA.famiglieVive(D).length);
-check('ogni famiglia mobile ha il link diretto alla landing',
-  IA.FAMIGLIE.every(f => mobile.includes(`href="/${f.rotta}"`)));
+check('ogni famiglia mobile visibile ha il link diretto alla landing',
+  IA.famiglieVive(D).every(f => mobile.includes(`href="/${f.rotta}"`)));
 check('il sottomenu mobile ha un pulsante distinto dal link',
   mobile.includes('class="dr-toggle"') && mobile.includes('data-apri="dr-shop"'));
 check('i toggle mobile hanno etichetta e stato accessibile',

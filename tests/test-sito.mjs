@@ -227,9 +227,9 @@ check('palette graphite e champagne presente nel design system',
   premiumCss.includes('--premium-gold:#c3a46b') && premiumCss.includes('--premium-edge:rgba(195,164,107,.2)'));
 check('le immagini categoria non hanno più il riflesso diagonale',
   premiumCss.includes('.bcard--photo::before{content:none!important;display:none!important}'));
-check('lo sfondo scelto nell Admin continua a essere supportato',
-  premiumCss.includes('data-sfondo-scuro') && premiumCss.includes('data-sfondo-chiaro')
-  && premiumCss.includes('body::after'));
+check('il CSS di base conserva gli sfondi selezionati dall Admin',
+  /data-sfondo-scuro[^\\n]*body::after/.test(premiumCss)
+  && /data-sfondo-chiaro[^\\n]*body::after/.test(premiumCss));
 check('il permalink Instagram non viene trattato come file video',
   fallbackJs.includes('mp4|webm|ogv') && fallbackJs.includes('loadeddata')
   && fallbackJs.includes('prefers-reduced-motion: reduce'));

@@ -206,6 +206,48 @@ check('categoria CON immagine mostra la foto', bento && bento.querySelector('.bc
 check('immagine categoria con cache-busting (?v=)', bento && /\.webp\?v=\d/.test(bento.innerHTML));
 check('ogni card riceve uno sfondo (foto o generato)', bento && bento.querySelectorAll('.bcard--photo').length >= 12);
 
+/* INGLY PREMIUM: identità statica, sfondo coerente, categorie vere e cache coerente. */
+const premiumCss = readFileSync(ROOT + '/assets/css/pages.css', 'utf8');
+const componentsCss = readFileSync(ROOT + '/assets/css/components.css', 'utf8');
+const fallbackJs = readFileSync(ROOT + '/assets/js/app.fallback.js', 'utf8');
+const swSource = readFileSync(ROOT + '/sw.js', 'utf8');
+const catsSource = JSON.parse(readFileSync(ROOT + '/data/categories.json', 'utf8'));
+const copySource = JSON.parse(readFileSync(ROOT + '/data/texts.json', 'utf8'));
+const cacheWant = (sorgente.match(/CACHE_WANT='([^']+)'/) || [,''])[1];
+const cacheVer = (swSource.match(/const CACHE_VER\s*=\s*'([^']+)'/) || [,''])[1];
+check('logo principale statico, senza anelli e galleggiamento',
+  /\.hero-visual \.cring\{display:none!important;animation:none!important\}/.test(premiumCss)
+  && /\.hero-visual \.coin\{[\s\S]{0,160}animation:none!important;transform:none!important/.test(premiumCss));
+check('logo del loader senza pulsazioni luminose',
+  /\.loader img\{animation:none!important;filter:none!important\}/.test(premiumCss));
+check('sistema visivo premium graphite e champagne presente',
+  /--premium-gold:#c3a46b/.test(premiumCss) && /linear-gradient\(180deg,rgba\(8,9,10/.test(premiumCss));
+check('effetto riflesso sulle fotografie categoria rimosso',
+  /\.bcard--photo::before\{content:none!important;display:none!important\}/.test(premiumCss));
+check('le impostazioni sfondo del pannello Admin restano supportate',
+  /data-sfondo-scuro/.test(premiumCss) && /data-sfondo-chiaro/.test(premiumCss));
+check('il logo resta visibile quando l’URL configurato è una pagina Instagram',
+  !!doc.querySelector('.coin-scene') && !doc.querySelector('.hero-video')
+  && doc.querySelector('.coin-scene').style.display !== 'none');
+check('bundle di riserva accetta solo URL video diretti e lascia il visual di fallback',
+  /loadeddata/.test(fallbackJs) && /mp4\|webm\|ogv/.test(fallbackJs) && /data:video/.test(fallbackJs));
+check('cache HTML e service worker allineate alla stessa versione',
+  !!cacheWant && cacheWant === cacheVer, cacheWant + ' / ' + cacheVer);
+check('Materiali porta alla sezione Materiali',
+  catsSource.find(c => c.id === 'materiali')?.go === 'materiali');
+check('Tecnologie porta alla sezione Tecnologie',
+  catsSource.find(c => c.id === 'tecnologie')?.go === 'tecnologie');
+check('categoria Supereroi e Anime non usa più testi segnaposto',
+  catsSource.find(c => c.id === 'nuova-ms3k34dc')?.n?.en === 'Superheroes & Anime'
+  && !/^(Descrizione|Description|New category)$/.test(catsSource.find(c => c.id === 'nuova-ms3k34dc')?.s?.it || ''));
+check('titolo categorie senza conteggio obsoleto',
+  /Ogni idea ha il suo/.test(copySource.it.catH2)
+  && /One world for every/.test(copySource.en.catH2)
+  && !/12 mondi|12 worlds/.test(copySource.it.catH2 + copySource.en.catH2));
+check('headline collezioni senza prova sociale non documentata',
+  /ispirarti/.test(copySource.it.collH2) && /inspire/.test(copySource.en.collH2)
+  && !/migliaia|thousands/i.test(copySource.it.collH2 + copySource.en.collH2));
+
 const fab = $('waFab');
 check('pulsante WhatsApp presente nel DOM', !!fab);
 check('pulsante WhatsApp visibile', fab && fab.style.display !== 'none', 'display=' + (fab && fab.style.display));

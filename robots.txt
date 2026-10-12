@@ -1,8 +1,30 @@
-# Questo è il repository di EVOLUZIONE di INGLY DESIGN, non il sito in
-# produzione. Finché non viene promosso, non deve essere indicizzato:
-# avrebbe gli stessi contenuti del sito vivo e gli farebbe concorrenza
-# nei risultati di ricerca.
-# Per metterlo online: togliere le due righe qui sotto e rimettere la
-# Sitemap con il dominio definitivo.
+# INGLY DESIGN — questo è il sito.
+#
+# Il blocco «Disallow: /» è stato tolto il 2026-10-12 su indicazione del
+# proprietario: questo repository non è più un'evoluzione a parte, è il
+# sito. Da qui i motori di ricerca possono leggere.
+#
+# NOTA SUL DOMINIO. Le pagine dichiarano come canonico
+# https://www.inglydesign.it/ — in sitemap, nei canonical, negli hreflang e
+# nei dati strutturati. Finché quel dominio non è servito da QUESTO
+# repository (serve un file CNAME qui e i record DNS che puntano a GitHub
+# Pages), un motore che arriva su inglyum.github.io legge il canonico e
+# attribuisce tutto a inglydesign.it: è il comportamento corretto e non
+# crea contenuti duplicati. Quando il dominio sarà collegato, questo file
+# non andrà cambiato.
+
 User-agent: *
-Disallow: /
+Allow: /
+
+# I crawler dei motori AI leggono le pagine statiche generate dal
+# prerender: esistono apposta per loro, perché non eseguono JavaScript.
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://www.inglydesign.it/sitemap.xml

@@ -488,16 +488,38 @@ export function renderCorsi(L) {
   const lista = LAB.corsi(d);
   const intro = (d.CORSI && d.CORSI.intro) || {};
 
-  /* Nessun corso pubblicato: si dice, e si offre il canale che esiste.
-     Un catalogo finto sarebbe peggio di un catalogo vuoto. */
+  /* Nessun corso a calendario: offriamo aree formative su richiesta, non
+     schede fittizie con date, durate o prezzi che non sono stati approvati. */
   if (!lista.length) {
+    const aree = [
+      { n: t2('Macchine xTool e primi settaggi', 'xTool machines and first setup', L), d: t2('Impostazioni iniziali, messa a punto e flusso di lavoro.', 'Initial setup, calibration and workflow.', L), ic: '01' },
+      { n: t2('Materiali, test e parametri', 'Materials, tests and settings', L), d: t2('Come scegliere il materiale e impostare prove consapevoli.', 'Choosing materials and planning reliable tests.', L), ic: '02' },
+      { n: t2('File, software e progettazione', 'Files, software and design', L), d: t2('Preparare un progetto e portarlo correttamente alla macchina.', 'Prepare a design and send it to the machine correctly.', L), ic: '03' },
+      { n: t2('Tecniche creative laser', 'Creative laser techniques', L), d: t2('Incisione, taglio e idee per sviluppare nuove creazioni.', 'Engraving, cutting and ideas for new creations.', L), ic: '04' },
+      { n: t2('Dal progetto al prodotto', 'From project to finished product', L), d: t2('Materiali, prototipazione, finitura e presentazione.', 'Materials, prototyping, finishing and presentation.', L), ic: '05' },
+      { n: t2('Organizzare il laboratorio', 'Running a workshop', L), d: t2('Costi, tempi e metodo per rendere più ordinato il lavoro.', 'Costs, timing and methods for a more organised workflow.', L), ic: '06' }
+    ];
     box.innerHTML = `
-      <div class="lab-blocco lab-vuoto">
+      <div class="lab-blocco lab-vuoto academy-request">
         <p class="lab-p">${esc(LAB.lingua(intro.vuoto, L))}</p>
+        <div class="academy-paths-head">
+          <span class="eyebrow">${t2('Aree formative su richiesta', 'Training topics on request', L)}</span>
+          <p class="lab-p">${t2('Scegli un tema e costruiremo la richiesta intorno alla tua macchina, al tuo livello e a ciò che vuoi realizzare.', 'Choose a topic and we will shape the request around your machine, experience and goals.', L)}</p>
+        </div>
+        <div class="vert-grid academy-topic-grid">
+          ${aree.map(a => `
+            <a class="vert-card academy-topic-card" href="${via('/quote')}" data-nav="quote">
+              <span class="academy-topic-index">${a.ic}</span>
+              <b>${esc(a.n)}</b>
+              <span class="vert-sub">${esc(a.d)}</span>
+              <span class="vert-go">${t2('Chiedi informazioni', 'Ask for details', L)} <i class="arr">→</i></span>
+            </a>`).join('')}
+        </div>
+        <p class="academy-note">${t2('Percorsi da concordare: nessun prezzo o calendario viene mostrato finché non è confermato.', 'Training is arranged individually: no price or schedule is shown until confirmed.', L)}</p>
         <div class="hero-ctas lab-ctas">
           <button class="btn btn-primary magnetic" data-action="go" data-arg="quote">
-            ${t2('Dimmi cosa ti serve', 'Tell us what you need', L)} <span class="arr">→</span></button>
-          <a class="btn btn-ghost magnetic" href="${via('/macchine')}">${t2('Guarda le macchine', 'See the machines', L)}</a>
+            ${t2('Richiedi un percorso su misura', 'Request a tailored learning path', L)} <span class="arr">→</span></button>
+          <a class="btn btn-ghost magnetic" href="${via('/demo')}" data-nav="demo">${t2('Prova prima una macchina', 'Try a machine first', L)}</a>
         </div>
       </div>`;
     return;
@@ -647,21 +669,33 @@ export function renderMacchina(id, L, cardProdotto) {
 
 /* ---------- demo ---------- */
 
-/** Il bottone della demo, nei tre stati possibili. */
+/** CTA demo: privilegia il collegamento host ufficiale impostato nell'Admin.
+ * Se il link non c'è, ripiega sui canali di contatto reali; mai su un calendario finto. */
 function ctaDemo(dm, L) {
   if (!dm.attiva) return '';
-  const et = esc(LAB.lingua(dm.etichetta, L));
-  if (dm.prenotabile) {
-    return `<a class="btn btn-primary magnetic" href="${esc(dm.url)}"${dm.esterno ? ' target="_blank" rel="noopener"' : ''}>${et} <span class="arr">→</span></a>`;
-  }
-  /* Nessun link configurato: non si finge un calendario. Si offrono i due
-     canali che esistono davvero e funzionano da subito. */
   const cfg = (D().CONFIG || {});
+  const demoCfg = cfg.demo || {};
+  const bookingUrl = String(
+    (demoCfg.attiva !== false && demoCfg.bookingUrl) ||
+    (dm.prenotabile && dm.url) || ''
+  ).trim();
+  const label = esc(LAB.lingua(demoCfg.etichetta || dm.etichetta, L) ||
+    t2('Richiedi la demo gratuita', 'Request the free demo', L));
   const wa = cfg.whatsapp || cfg.contatti?.whatsapp || '';
   const mail = cfg.email || cfg.contatti?.email || 'inglydesign@gmail.com';
+  const external = demoCfg.esterno !== false;
+  const subject = encodeURIComponent(LAB.lingua(demoCfg.etichetta || dm.etichetta, L) || 'Demo xTool INGLY DESIGN');
+
+  if (bookingUrl) {
+    return `
+      <a class="btn btn-primary magnetic" href="${esc(bookingUrl)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}>${label} <span class="arr">→</span></a>
+      ${wa ? `<a class="btn btn-ghost magnetic" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Hai una domanda? Scrivici', 'Have a question? Message us', L)}</a>` : ''}
+      <a class="btn btn-ghost magnetic" href="mailto:${esc(mail)}?subject=${subject}">${t2('Scrivi una email', 'Send an email', L)}</a>`;
+  }
+
   return `
-    ${wa ? `<a class="btn btn-primary magnetic" href="${esc(wa)}" target="_blank" rel="noopener">${t2('Scrivici su WhatsApp', 'Message us on WhatsApp', L)} <span class="arr">→</span></a>` : ''}
-    <a class="btn btn-ghost magnetic" href="mailto:${esc(mail)}?subject=${encodeURIComponent(LAB.lingua(dm.etichetta, 'it'))}">${t2('Scrivi una email', 'Send an email', L)}</a>`;
+    ${wa ? `<a class="btn btn-primary magnetic" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Scrivici su WhatsApp', 'Message us on WhatsApp', L)} <span class="arr">→</span></a>` : ''}
+    <a class="btn btn-ghost magnetic" href="mailto:${esc(mail)}?subject=${subject}">${t2('Scrivi una email', 'Send an email', L)}</a>`;
 }
 
 export function renderDemo(L) {

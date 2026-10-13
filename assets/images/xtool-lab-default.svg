@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="760" viewBox="0 0 960 760" role="img" aria-labelledby="title desc">
+<title id="title">INGLY DESIGN xTOOL Lab</title>
+<desc id="desc">Illustrazione vettoriale di un laboratorio creativo con incisore laser, dettagli champagne e riflessi verde petrolio.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18383a"/><stop offset=".52" stop-color="#102729"/><stop offset="1" stop-color="#091719"/></linearGradient>
+ <radialGradient id="halo"><stop stop-color="#7fb0a4" stop-opacity=".34"/><stop offset="1" stop-color="#7fb0a4" stop-opacity="0"/></radialGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d5e0d5"/><stop offset=".24" stop-color="#a8bbb2"/><stop offset=".62" stop-color="#526b67"/><stop offset="1" stop-color="#203b3c"/></linearGradient>
+ <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#26494a"/><stop offset="1" stop-color="#102526"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0dfb0"/><stop offset=".55" stop-color="#d7bd82"/><stop offset="1" stop-color="#977b48"/></linearGradient>
+ <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f1dca4" stop-opacity=".06"/><stop offset=".85" stop-color="#e4cb8a" stop-opacity=".5"/><stop offset="1" stop-color="#f9e6b1" stop-opacity=".02"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="22"/></filter>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000" flood-opacity=".35"/></filter>
+</defs>
+<rect width="960" height="760" rx="36" fill="url(#bg)"/>
+<ellipse cx="690" cy="210" rx="290" ry="240" fill="url(#halo)"/>
+<ellipse cx="265" cy="580" rx="250" ry="90" fill="#0b1718" opacity=".8" filter="url(#blur)"/>
+<g stroke="#7ea99f" stroke-opacity=".16" stroke-width="1">
+ <path d="M0 95H960M0 175H960M0 255H960M0 335H960M0 415H960M0 495H960M0 575H960M0 655H960"/>
+ <path d="M80 0V760M160 0V760M240 0V760M320 0V760M400 0V760M480 0V760M560 0V760M640 0V760M720 0V760M800 0V760M880 0V760"/>
+</g>
+<g opacity=".68" stroke="#d7bd82" stroke-width="1.3" fill="none">
+ <path d="M96 120h136M96 120v34M864 120H728M864 120v34M96 640h136M96 640v-34M864 640H728M864 640v-34"/>
+ <circle cx="822" cy="188" r="42"/><circle cx="822" cy="188" r="27"/><path d="M822 160v56M794 188h56"/>
+</g>
+<g filter="url(#shadow)" transform="translate(124 194)">
+ <!-- laser machine body -->
+ <path d="M50 78L154 22H614L718 78V405L643 453H125L50 405Z" fill="url(#metal)" stroke="#e3d3a8" stroke-opacity=".52" stroke-width="2"/>
+ <path d="M50 78L154 22H614L718 78L614 132H154Z" fill="#d5dfd4" stroke="#e7d6a7" stroke-opacity=".48" stroke-width="2"/>
+ <path d="M154 132H614V406H154Z" fill="url(#panel)" stroke="#8bb0a4" stroke-opacity=".65" stroke-width="2"/>
+ <path d="M170 148H598V384H170Z" fill="#0a191b" stroke="#537c75" stroke-width="2"/>
+ <path d="M188 166H580V367H188Z" fill="#173233"/>
+ <path d="M188 166H580L546 202H222Z" fill="#91b6a9" opacity=".12"/>
+ <!-- gantry rails -->
+ <path d="M206 208H564" stroke="url(#gold)" stroke-width="12" stroke-linecap="round"/>
+ <path d="M222 208V319M548 208V319" stroke="#668b82" stroke-width="8" stroke-linecap="round"/>
+ <path d="M240 313H530" stroke="#789b8d" stroke-width="7" stroke-linecap="round"/>
+ <!-- laser head -->
+ <g transform="translate(352 174)">
+  <rect x="0" y="0" width="92" height="66" rx="10" fill="url(#metal)" stroke="#e6d4a3" stroke-width="2"/>
+  <rect x="19" y="8" width="54" height="9" rx="4" fill="#345452"/>
+  <rect x="29" y="28" width="34" height="22" rx="4" fill="#18383a"/>
+  <circle cx="46" cy="39" r="6" fill="#d7bd82"/>
+  <path d="M46 66L28 154H64Z" fill="url(#beam)"/>
+  <path d="M46 74V156" stroke="#d7bd82" stroke-width="2" stroke-opacity=".65" stroke-dasharray="5 7"/>
+ </g>
+ <!-- workpiece -->
+ <path d="M268 326L320 306H493L446 346H268Z" fill="#c6a870" stroke="#ecd9a9" stroke-width="1.5"/>
+ <path d="M293 320H458M308 329H442" stroke="#5b4a2e" stroke-opacity=".65" stroke-width="2"/>
+ <path d="M365 313l6 7 13-15" stroke="#6f6547" stroke-width="3" fill="none"/>
+ <!-- front panel / controls -->
+ <path d="M154 406H614L660 443H109Z" fill="#223c3d" stroke="#d7bd82" stroke-opacity=".58" stroke-width="2"/>
+ <rect x="197" y="417" width="156" height="10" rx="5" fill="#5c8178"/>
+ <circle cx="575" cy="423" r="7" fill="#d7bd82"/><circle cx="597" cy="423" r="7" fill="#88b7a7"/>
+ <path d="M125 453H643L643 476H125Z" fill="#091718" opacity=".6"/>
+</g>
+<!-- engraved badge -->
+<g transform="translate(130 103)">
+ <rect width="198" height="74" rx="16" fill="#102426" stroke="#d7bd82" stroke-opacity=".7"/>
+ <text x="20" y="31" fill="#d7bd82" font-family="Arial,sans-serif" font-size="12" letter-spacing="3">INGLY DESIGN</text>
+ <text x="20" y="56" fill="#f2ebd8" font-family="Arial,sans-serif" font-size="19" font-weight="700" letter-spacing="2">xTOOL LAB</text>
+</g>
+<g fill="#d7bd82">
+ <circle cx="738" cy="574" r="3"/><circle cx="755" cy="592" r="2"/><circle cx="724" cy="594" r="1.5"/>
+</g>
+<path d="M622 552l8 20 20 8-20 8-8 20-8-20-20-8 20-8Z" fill="url(#gold)" opacity=".75"/>
+<text x="480" y="687" text-anchor="middle" fill="#d7bd82" font-family="Arial,sans-serif" font-size="14" letter-spacing="5">LASER · DESIGN · MAKING</text>
+</svg>

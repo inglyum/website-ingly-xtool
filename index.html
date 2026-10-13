@@ -131,7 +131,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v11', FLAG='ingly_cachefix';
+  var CACHE_WANT='ingly-v12', FLAG='ingly_cachefix';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -667,6 +667,26 @@ setTimeout(function(){
     <span class="eyebrow">Machine Lab</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Il parco macchine,<br>senza <span class="hl on">giri di parole.</span></h1>
     <p class="sub">Cosa c&#39;è in officina, cosa fa ciascuna, cosa si sblocca mettendole insieme — e l&#39;elenco onesto di quello che non lavoriamo e perché.</p>
+    <section class="xtool-lab-feature" aria-labelledby="xtoolFeatureTitle">
+      <div class="xtool-lab-copy">
+        <span class="eyebrow">INGLY DESIGN · xTOOL LAB</span>
+        <h2 id="xtoolFeatureTitle">Entra nel mondo del laser.<br><span class="xtool-lab-accent">Dagli forma.</span></h2>
+        <p>Se sei interessato e vuoi spingerti nel mondo laser e nella creatività xTool, partiamo dalla tua idea. Con Giuseppe Inglima puoi richiedere una demo gratuita e capire quale macchina, materiale o percorso può aiutarti a realizzarla.</p>
+        <div class="xtool-host" aria-label="Host della Demo Room xTool: Giuseppe Inglima">
+          <span class="xtool-host-mark" aria-hidden="true">GI</span>
+          <span class="xtool-host-text"><strong>Giuseppe Inglima</strong><small>Host Demo Room xTool · INGLY DESIGN</small></span>
+        </div>
+        <div class="hero-ctas lab-ctas xtool-lab-actions">
+          <a class="btn btn-primary magnetic" href="https://support.xtool.com/demo-room/host-instruction?id=2528&amp;name=Giuseppe%20Inglima" target="_blank" rel="noopener noreferrer">Richiedi una demo gratuita <span class="arr">→</span></a>
+          <a class="btn btn-ghost magnetic" href="academy" data-nav="academy">Scopri INGLY Academy <span class="arr">→</span></a>
+        </div>
+        <p class="xtool-lab-note">Porta un progetto, una domanda o anche solo la curiosità. La prima cosa è capire cosa vuoi creare.</p>
+      </div>
+      <div class="xtool-lab-art">
+        <img src="assets/images/xtool-lab-default.svg" alt="Illustrazione di un laboratorio laser e di una macchina per incisione, grafica dimostrativa INGLY DESIGN" width="620" height="520" loading="lazy">
+        <span>LASER · DESIGN · MAKING</span>
+      </div>
+    </section>
     <div id="labMacGrid"></div>
   </div>
   <!-- riempita quando l'indirizzo è /macchine/<id> -->

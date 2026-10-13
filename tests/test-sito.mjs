@@ -347,17 +347,18 @@ check('lo stato dei filtri finisce nell URL',
 console.log('\n=== THEME ENGINE ===');
 check('artwork del tema applicato alla categoria', bento && /theme\/christmas-casa\.webp/.test(bento.innerHTML));
 check('artwork del tema ha priorità sull immagine fissa', bento && !/cat-casa\.webp/.test(bento.innerHTML));
-check('accento del tema applicato al documento', doc.documentElement.style.getPropertyValue('--theme-accent').trim() === '#F5F0E6');
-check('palette stagionale applicata ai token di sfondo e primari',
-  doc.documentElement.style.getPropertyValue('--theme-base').trim() === '#0B1A2E'
-  && doc.documentElement.style.getPropertyValue('--theme-primary').trim() === '#C8A24A');
-check('accenti dei pulsanti seguono il tema e mantengono contrasto',
-  doc.documentElement.style.getPropertyValue('--blue').trim() === '#C8A24A'
-  && doc.documentElement.style.getPropertyValue('--laser').trim() === '#F5F0E6'
-  && doc.documentElement.style.getPropertyValue('--theme-button-ink').trim() === '#0B1A2E');
-check('token per bordi e bagliore stagionale presente',
-  doc.documentElement.style.getPropertyValue('--theme-line').includes('rgba(200, 162, 74, 0.24)')
-  && doc.documentElement.style.getPropertyValue('--theme-glow').includes('rgba(245, 240, 230, 0.18)'));
+check('accento INGLY stabile anche durante il tema stagionale',
+  doc.documentElement.style.getPropertyValue('--theme-accent').trim() === '#C8AD77');
+check('sfondo e primario restano nella palette blu INGLY',
+  doc.documentElement.style.getPropertyValue('--theme-base').trim() === '#0D2043'
+  && doc.documentElement.style.getPropertyValue('--theme-primary').trim() === '#4778BD');
+check('i pulsanti mantengono oro satinato e contrasto',
+  doc.documentElement.style.getPropertyValue('--blue').trim() === '#4778BD'
+  && doc.documentElement.style.getPropertyValue('--laser').trim() === '#C8AD77'
+  && doc.documentElement.style.getPropertyValue('--theme-button-ink').trim() === '#10203B');
+check('bordi e bagliore rispettano la palette di marca',
+  doc.documentElement.style.getPropertyValue('--theme-line').includes('rgba(71, 120, 189, 0.24)')
+  && doc.documentElement.style.getPropertyValue('--theme-glow').includes('rgba(200, 173, 119, 0.18)'));
 check('attributo data-theme impostato', doc.documentElement.getAttribute('data-theme') === 'christmas');
 check('categorie senza artwork restano invariate', bento && bento.querySelectorAll('.bcard').length >= 12);
 check('sfondo generato applicato alle categorie senza foto', bento && /--card-bg:url\('data:image\/svg\+xml/.test(bento.innerHTML));

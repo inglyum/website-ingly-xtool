@@ -3498,7 +3498,89 @@ function promoPreview(){const p=S.C.PROMO||{},c=(p.colori||'#1E3A8A,#111827').sp
   <span>${esc((p.testo&&p.testo.it)||'(testo mancante)')}</span>
   ${(p.cta&&p.cta.it)?`<span style="background:var(--laser);color:#1a1500;border-radius:999px;padding:4px 12px;font-weight:700;font-size:12.5px">${esc(p.cta.it)}</span>`:''}
   </div>${live?'':'<div class="hint" style="margin-top:5px">Non visibile ora: '+(p.attivo?'siamo fuori dal periodo indicato':'la fascia è spenta')+'</div>'}`}
-function renderThemes(){const TH=S.C.THEMES,list=TH.temi;bindAll();promoPreview();
+const VS_PRESET_IDS=['default','christmas','summer','spring','autumn','winter','blackfriday','halloween','valentine','easter','wedding','sicily'];
+let VS_DRAFT_ID='';
+const vsHex=(v,fb)=>/^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):fb;
+const vsTheme=id=>(S.C.THEMES.temi||[]).find(t=>t.id===id)||null;
+function vsColors(t){const p=Array.isArray(t&&t.palette)?t.palette:[];return [vsHex(p[0],'#0c0e10'),vsHex(p[1],'#30343b'),vsHex(p[2],'#c3a46b')]}
+function vsPatternName(id){try{return window.INGLY_ART.label(id).it}catch(e){return id}}
+function renderVisualStudio(){
+ const grid=$('vsPresetGrid');if(!grid)return;
+ const TH=S.C.THEMES,list=Array.isArray(TH.temi)?TH.temi:[];
+ if(!list.length){grid.innerHTML='<span class="hint">Nessun tema disponibile. Crea un tema per iniziare.</span>';return}
+ if(!VS_DRAFT_ID||!list.some(t=>t.id===VS_DRAFT_ID))VS_DRAFT_ID=list.some(t=>t.id===TH.attivo)?TH.attivo:(list[0]||{}).id;
+ const t=vsTheme(VS_DRAFT_ID);if(!t)return;
+ const ids=[...VS_PRESET_IDS.filter(id=>list.some(x=>x.id===id)),...list.filter(x=>!VS_PRESET_IDS.includes(x.id)).slice(0,3).map(x=>x.id)];
+ grid.innerHTML=ids.map(id=>{
+  const x=vsTheme(id),p=vsColors(x);
+  const selected=id===VS_DRAFT_ID;
+  const bg=x.bg&&window.INGLY_ART?window.INGLY_ART.css(x.bg,p,x.id+'-vs-card'):'linear-gradient(125deg,'+p[1]+','+p[0]+')';
+  const date=x.dal&&x.al?x.dal+' → '+x.al:'Preset libero';
+  return `<button type="button" class="vs-preset ${selected?'on':''}" data-vspreset="${esc(x.id)}" aria-pressed="${selected?'true':'false'}">
+   <div class="vs-preset-swatch" style="background-color:${p[0]};background-image:${bg};background-size:cover;background-position:center">
+    <span class="vs-preset-dots"><i style="background:${p[0]}"></i><i style="background:${p[1]}"></i><i style="background:${p[2]}"></i></span></div>
+   <div class="vs-preset-copy"><b>${esc(x.n&&x.n.it||x.id)}</b><span>${esc(x.mood||date)} · ${esc(x.bg?vsPatternName(x.bg):'Palette pura')}</span></div></button>`;
+ }).join('');
+ $('vsThemePick').innerHTML=list.map(x=>`<option value="${esc(x.id)}" ${x.id===VS_DRAFT_ID?'selected':''}>${esc(x.n&&x.n.it||x.id)}</option>`).join('');
+ const [base,primary,accent]=vsColors(t);
+ $('vsColorBase').value=base;$('vsColorPrimary').value=primary;$('vsColorAccent').value=accent;
+ const patterns=window.INGLY_ART&&Array.isArray(window.INGLY_ART.patterns)?window.INGLY_ART.patterns:[];
+ $('vsPattern').innerHTML='<option value="">Solo palette, senza texture</option>'+patterns.map(k=>`<option value="${esc(k)}">${esc(vsPatternName(k))}</option>`).join('');
+ $('vsPattern').value=patterns.includes(t.bg)?t.bg:'';
+ $('vsDal').value=t.dal||'';$('vsAl').value=t.al||'';$('vsPriority').value=Number.isFinite(Number(t.prio))?t.prio:10;
+ $('vsMode').value=t.stato==='attivo'?'schedule':'manual';
+ $('vsPreviewTheme').textContent=(t.n&&t.n.it||t.id)+' · '+(t.stato==='attivo'?'in calendario':'libreria');
+ $('vsStatus').textContent=t.id===TH.attivo?'● Tema selezionato':'● Modifica in anteprima';
+ const refresh=()=>paintVisualPreview();
+ ['vsColorBase','vsColorPrimary','vsColorAccent','vsPattern'].forEach(id=>$(id).oninput=refresh);
+ $('vsThemePick').onchange=()=>{VS_DRAFT_ID=$('vsThemePick').value;renderVisualStudio()};
+ grid.querySelectorAll('[data-vspreset]').forEach(b=>b.onclick=()=>{VS_DRAFT_ID=b.dataset.vspreset;renderVisualStudio()});
+ $('vsSave').onclick=()=>{const x=saveVisualDraft(true);if(!x)return;markDirty();renderThemes();toast('Personalizzazione salvata come bozza. Premi Pubblica tutto per renderla visibile.')};
+ $('vsApply').onclick=()=>{const x=saveVisualDraft(true);if(!x)return;TH.attivo=x.id;TH.auto=false;markDirty();renderThemes();toast('Tema pronto per l’applicazione. Controlla la pubblicazione prima di renderlo live.');go('pub')};
+ $('vsSchedule').onclick=()=>{const x=saveVisualDraft(true);if(!x)return;const dal=$('vsDal').value.trim(),al=$('vsAl').value.trim();
+  if(!vsValidRange(dal,al)){toast('Inserisci entrambe le date valide in formato MM-GG (es. 11-20).');return}
+  x.dal=dal;x.al=al;x.prio=Math.max(1,Math.min(99,Number($('vsPriority').value)||10));x.stato='attivo';TH.attivo=x.id;TH.auto=true;
+  markDirty();renderThemes();toast('Calendario aggiornato. Pubblica tutto per attivare la programmazione sul sito.');go('pub')};
+ $('vsAdvanced').onclick=()=>editTheme(VS_DRAFT_ID);
+ $('vsNew').onclick=()=>{const source=vsTheme(VS_DRAFT_ID)||t;const id='custom-'+Date.now().toString(36).slice(-6);
+  const copy=JSON.parse(JSON.stringify(source));copy.id=id;copy.n={it:'Nuovo tema personalizzato',en:'New custom theme'};copy.mood='personalizzato';copy.kw=[];copy.cats='*';copy.dal='';copy.al='';copy.prio=8;copy.stato='libreria';copy.art={};copy.v=1;
+  S.C.THEMES.temi.unshift(copy);VS_DRAFT_ID=id;markDirty();renderThemes();toast('Preset creato: personalizza colori e sfondo qui sopra.')};
+ paintVisualPreview();
+}
+function paintVisualPreview(){
+ const el=$('vsPreview');if(!el)return;
+ const t=vsTheme(VS_DRAFT_ID),p=[vsHex($('vsColorBase').value,'#0c0e10'),vsHex($('vsColorPrimary').value,'#30343b'),vsHex($('vsColorAccent').value,'#c3a46b')];
+ el.style.setProperty('--vs-base',p[0]);el.style.setProperty('--vs-primary',p[1]);el.style.setProperty('--vs-accent',p[2]);
+ const pattern=$('vsPattern').value;
+ let bg='radial-gradient(ellipse at 80% 0%,color-mix(in srgb,'+p[2]+' 26%,transparent),transparent 45%),linear-gradient(135deg,'+p[1]+','+p[0]+')';
+ try{if(pattern&&window.INGLY_ART)bg=window.INGLY_ART.css(pattern,p,(t&&t.id||'visual')+'-preview')}catch(e){}
+ el.style.backgroundImage=bg;
+ $('vsPreviewLabel').textContent=p[0]+' · '+p[1]+' · '+p[2];
+ $('vsPreviewSwatches').innerHTML=p.map(color=>'<i style="background:'+color+'"></i>').join('');
+ $('vsStatus').textContent='● Anteprima locale';
+}
+function vsValidDate(v){
+ const m=String(v||'').match(/^(\\d{2})-(\\d{2})$/);if(!m)return false;
+ const month=+m[1],day=+m[2];if(month<1||month>12||day<1||day>31)return false;
+ const d=new Date(2000,month-1,day);return d.getMonth()===month-1&&d.getDate()===day;
+}
+function vsValidRange(dal,al){return vsValidDate(dal)&&vsValidDate(al)}
+function saveVisualDraft(saveDates){
+ const t=vsTheme(VS_DRAFT_ID);if(!t){toast('Seleziona prima un tema.');return null}
+ const p=[vsHex($('vsColorBase').value,''),vsHex($('vsColorPrimary').value,''),vsHex($('vsColorAccent').value,'')];
+ if(p.some(v=>!v)){toast('Controlla i tre colori del tema.');return null}
+ const dal=$('vsDal').value.trim(),al=$('vsAl').value.trim();
+ if(saveDates&&(dal||al)&&!vsValidRange(dal,al)){toast('Per salvare date stagionali inserisci entrambe in formato MM-GG.');return null}
+ t.palette=p;
+ const pattern=$('vsPattern').value;
+ if(pattern&&window.INGLY_ART&&window.INGLY_ART.patterns.includes(pattern))t.bg=pattern;else delete t.bg;
+ if(saveDates){
+  if(dal&&al){t.dal=dal;t.al=al}
+  t.prio=Math.max(1,Math.min(99,Number($('vsPriority').value)||10));
+ }
+ return t;
+}
+\nfunction renderThemes(){const TH=S.C.THEMES,list=TH.temi;bindAll();promoPreview();renderVisualStudio();
  const act=themeActive();
  $('thNow').textContent=act.t?act.t.n.it:'nessuno';
  $('thWhy').innerHTML=act.t?`In questo momento il sito userebbe <b>${esc(act.t.n.it)}</b> — ${esc(act.why)}.`

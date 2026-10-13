@@ -598,10 +598,7 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
             <div><label for="vsDal">Inizio stagione (MM-GG)</label><input id="vsDal" placeholder="11-20" maxlength="5"></div>
             <div><label for="vsAl">Fine stagione (MM-GG)</label><input id="vsAl" placeholder="12-27" maxlength="5"></div>
           </div>
-          <div class="row c2" style="gap:8px">
-            <div><label for="vsPriority">Priorità calendario</label><input id="vsPriority" type="number" min="1" max="99" value="10"></div>
-            <div><label for="vsMode">Modalità di attivazione</label><select id="vsMode"><option value="manual">Manuale</option><option value="schedule">Calendario automatico</option></select></div>
-          </div>
+          <div><label for="vsPriority">Priorità calendario</label><input id="vsPriority" type="number" min="1" max="99" value="10"></div>
           <div class="vs-actionbar">
             <button class="btn pri" id="vsSave">✓ Salva personalizzazione</button>
             <button class="btn" id="vsApply">⚡ Applica ora</button>
@@ -3519,7 +3516,7 @@ function promoPreview(){const p=S.C.PROMO||{},c=(p.colori||'#1E3A8A,#111827').sp
   <span>${esc((p.testo&&p.testo.it)||'(testo mancante)')}</span>
   ${(p.cta&&p.cta.it)?`<span style="background:var(--laser);color:#1a1500;border-radius:999px;padding:4px 12px;font-weight:700;font-size:12.5px">${esc(p.cta.it)}</span>`:''}
   </div>${live?'':'<div class="hint" style="margin-top:5px">Non visibile ora: '+(p.attivo?'siamo fuori dal periodo indicato':'la fascia è spenta')+'</div>'}`}
-const VS_PRESET_IDS=['default','christmas','summer','spring','autumn','winter','blackfriday','halloween','valentine','easter','wedding','sicily'];
+const VS_PRESET_IDS=['default','christmas','summer','spring','autumn','winter','newyear','epifania','valentine','carnevale','easter','easterpastel','mothersday','fathersday','ferragosto','halloween','ognissanti','blackfriday','cyber','backtoschool','saldi','wedding','comunione','graduation','sicily'];
 let VS_DRAFT_ID='';
 const vsHex=(v,fb)=>/^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):fb;
 const vsTheme=id=>(S.C.THEMES.temi||[]).find(t=>t.id===id)||null;
@@ -3549,8 +3546,7 @@ function renderVisualStudio(){
  $('vsPattern').innerHTML='<option value="">Solo palette, senza texture</option>'+patterns.map(k=>`<option value="${esc(k)}">${esc(vsPatternName(k))}</option>`).join('');
  $('vsPattern').value=patterns.includes(t.bg)?t.bg:'';
  $('vsDal').value=t.dal||'';$('vsAl').value=t.al||'';$('vsPriority').value=Number.isFinite(Number(t.prio))?t.prio:10;
- $('vsMode').value=t.stato==='attivo'?'schedule':'manual';
- $('vsPreviewTheme').textContent=(t.n&&t.n.it||t.id)+' · '+(t.stato==='attivo'?'in calendario':'libreria');
+  $('vsPreviewTheme').textContent=(t.n&&t.n.it||t.id)+' · '+(t.stato==='attivo'?'in calendario':'libreria');
  $('vsStatus').textContent=t.id===TH.attivo?'● Tema selezionato':'● Modifica in anteprima';
  const refresh=()=>paintVisualPreview();
  ['vsColorBase','vsColorPrimary','vsColorAccent','vsPattern'].forEach(id=>$(id).oninput=refresh);
@@ -3561,7 +3557,7 @@ function renderVisualStudio(){
  $('vsSchedule').onclick=()=>{const dal=$('vsDal').value.trim(),al=$('vsAl').value.trim();
   if(!vsValidRange(dal,al)){toast('Inserisci entrambe le date valide in formato MM-GG (es. 11-20).');return}
   const x=saveVisualDraft(true);if(!x)return;
-  x.dal=dal;x.al=al;x.prio=Math.max(1,Math.min(99,Number($('vsPriority').value)||10));x.stato='attivo';TH.attivo=x.id;TH.auto=true;
+  x.dal=dal;x.al=al;x.prio=Math.max(1,Math.min(99,Number($('vsPriority').value)||10));x.stato='attivo';TH.auto=true;
   markDirty();renderThemes();toast('Calendario aggiornato. Pubblica tutto per attivare la programmazione sul sito.');go('pub')};
  $('vsAdvanced').onclick=()=>editTheme(VS_DRAFT_ID);
  document.querySelectorAll('[data-vs-shortcut]').forEach(b=>b.onclick=()=>{

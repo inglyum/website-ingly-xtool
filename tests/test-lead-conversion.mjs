@@ -18,6 +18,7 @@ assert.match(html,/id="ppMaterialDetails"/,'product page has material details co
 assert.match(products,/function renderMaterialDetails\(/,'product details render technical material information');
 assert.match(products,/function renderProductContactLinks\(/,'product contact links are generated per product');
 assert.match(products,/if\(!prezziVisibili\(\)\)[\s\S]{0,250}renderProductContactLinks/,'hidden-price CTA routes to contact, not cart');
+assert.match(products,/root\.MATERIALI&&Array\.isArray\(root\.MATERIALI\.materiali\)/,'material detail renderer reads the canonical loaded material data');
 assert.match(products,/material\.spessori/,'material thickness/format specs are shown');
 assert.match(products,/material\.finiture/,'material finish specs are shown');
 assert.match(admin,/CONFIG\.conversione\.canalePrimario/,'contact channel is editable in Admin');

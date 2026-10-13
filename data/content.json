@@ -4542,55 +4542,6 @@
       "icona": "✦",
       "attivo": true,
       "ordine": 4
-    },
-    {
-      "id": "scatola-incastri",
-      "modulo": "scatola-incastri",
-      "nome": {
-        "it": "Scatola a incastri",
-        "en": "Finger-joint Box"
-      },
-      "descrizione": {
-        "it": "Genera i cinque pannelli di una scatola con denti e cave parametriche. Controlla gli incastri sul tuo materiale prima del taglio definitivo.",
-        "en": "Generate five box panels with parametric finger joints. Test fit and kerf on your material before final cutting."
-      },
-      "categoria": "Scatole e packaging",
-      "icona": "▣",
-      "attivo": true,
-      "ordine": 5
-    },
-    {
-      "id": "cuttle-templates",
-      "modulo": "link-esterno",
-      "nome": {
-        "it": "Esplora i template Cuttle",
-        "en": "Explore Cuttle templates"
-      },
-      "descrizione": {
-        "it": "Catalogo ufficiale esterno. Account, download e licenze sono gestiti da Cuttle; non è un generatore INGLY.",
-        "en": "External official catalog. Cuttle manages accounts, downloads and licensing; this is not an INGLY generator."
-      },
-      "categoria": "Strumenti esterni · Cuttle",
-      "icona": "↗",
-      "attivo": true,
-      "ordine": 6,
-      "url": "https://cuttle.xyz/templates"
-    },
-    {
-      "id": "ingranaggio",
-      "modulo": "ingranaggio",
-      "nome": {
-        "it": "Ingranaggio parametrico",
-        "en": "Parametric Gear"
-      },
-      "descrizione": {
-        "it": "Genera una ruota dentata trapezoidale per prototipi e progetti decorativi. Il profilo non è un'involuta certificata per trasmissioni meccaniche.",
-        "en": "Generate a trapezoidal-tooth gear for prototypes and decorative projects. The profile is not an involute certified for mechanical transmissions."
-      },
-      "categoria": "Meccanica e design",
-      "icona": "⚙",
-      "attivo": true,
-      "ordine": 7
     }
   ]
 }

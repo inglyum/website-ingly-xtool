@@ -64,12 +64,32 @@ export function activeTheme(){
 export function applyThemeAccent(){
   const t=activeTheme();
   const root=document.documentElement;
-  if(t&&Array.isArray(t.palette)&&t.palette[2]) root.style.setProperty('--theme-accent',t.palette[2]);
+  /* Il tema stagionale governa i veri token del design system, non soltanto
+     una decorazione sulla hero. Colori con provenienza dai dati sono validati
+     prima di finire negli stili inline. */
+  const valido = v => typeof v==='string' && /^#[0-9a-f]{6}$/i.test(v) ? v : null;
+  const palette = t && Array.isArray(t.palette) ? t.palette : [];
+  const base = valido(palette[0]);
+  const primary = valido(palette[1]);
+  const accent = valido(palette[2]);
+  const tokens = {
+    '--theme-base': base,
+    '--theme-primary': primary,
+    '--theme-accent': accent,
+    '--blue': primary,
+    '--blue-hi': primary,
+    '--laser': accent,
+    '--spark': accent
+  };
+  Object.entries(tokens).forEach(([key,value])=>{
+    if(t && value) root.style.setProperty(key,value);
+    else root.style.removeProperty(key);
+  });
   if(t) root.setAttribute('data-theme',t.id); else root.removeAttribute('data-theme');
-  /* 1.3 — lo stesso sfondo generato del tema anche su hero e fasce di sezione,
-     a bassissima opacità: fa "cambiare stagione" a tutta la pagina, non solo alle 12 card. */
+  /* Lo stesso artwork scelto dall'Admin accompagna hero, CTA e texture dello
+     sfondo. Se il tema non ha uno stile generato, si mantiene il look base. */
   if(t&&t.bg&&window.INGLY_ART){
-    root.style.setProperty('--theme-bg',window.INGLY_ART.css(t.bg,t.palette,t.id+'-page'));
+    root.style.setProperty('--theme-bg',window.INGLY_ART.css(t.bg,palette,t.id+'-page'));
     root.classList.add('has-theme-bg');
   }else{
     root.style.removeProperty('--theme-bg');

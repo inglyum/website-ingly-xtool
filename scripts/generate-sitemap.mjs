@@ -23,6 +23,7 @@ import * as LAB from '../assets/js/lab.js';
 const __dir = dirname(fileURLToPath(import.meta.url));
 const ROOT  = join(__dir, '..');
 const SOLO_VERIFICA = process.argv.includes('--verifica');
+const OGGI = new Date().toISOString().slice(0,10);
 
 const config   = JSON.parse(readFileSync(join(ROOT,'data/config.json'),'utf8'));
 const prodotti = JSON.parse(readFileSync(join(ROOT,'data/products.json'),'utf8'));
@@ -33,11 +34,10 @@ const versioneDati = JSON.parse(readFileSync(join(ROOT,'data/version.json'),'utf
    esecuzione, rendendo la sitemap impossibile da verificare il giorno dopo.
    version.json viene aggiornato quando cambia la fonte dati del sito; usiamo
    la sua data come lastmod stabile per le pagine generate. */
-const DATA_LASTMOD = typeof versioneDati.updated === 'string' && /^\\d{4}-\\d{2}-\\d{2}/.test(versioneDati.updated)
+const DATA_LASTMOD = typeof versioneDati.updated === 'string' && /^\d{4}-\d{2}-\d{2}/.test(versioneDati.updated)
   ? versioneDati.updated.slice(0,10) : OGGI;
 
 const BASE = ((config.seo && config.seo.dominio) || 'https://www.inglydesign.it').replace(/\/+$/,'');
-const OGGI = new Date().toISOString().slice(0,10);
 
 /* Quanto spesso cambia e quanto conta, per tipo di pagina. Il catalogo si
    muove di continuo, «chi siamo» quasi mai: dirlo evita che il crawler

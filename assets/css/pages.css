@@ -916,3 +916,295 @@ html[data-mode="light"] body::before{opacity:.38;background:radial-gradient(elli
   transform:none!important;
 }
 .brand img{transition:width var(--dur-ui,220ms) var(--ease-out,ease),height var(--dur-ui,220ms) var(--ease-out,ease)!important}
+
+
+/* ============================================================
+   INGLY DESIGN — BRAND COLOR SYSTEM
+   One visual language: deep navy, layered blue light, champagne gold.
+   This final token layer intentionally wins over legacy black/cream
+   component overrides above, so all routes share the same identity.
+   ============================================================ */
+:root{
+  color-scheme:dark;
+  --brand-navy-980:#08142b;
+  --brand-navy-950:#0a1935;
+  --brand-navy-900:#0d2043;
+  --brand-navy-850:#10264d;
+  --brand-navy-800:#15305e;
+  --brand-blue-700:#204782;
+  --brand-blue-600:#2c5a9f;
+  --brand-blue-500:#4778bd;
+  --brand-blue-glow:#6da0ec;
+  --brand-gold:#c8ad77;
+  --brand-gold-hi:#e0c992;
+  --brand-gold-dim:#9e8250;
+  --paper:var(--brand-navy-950);
+  --white:#142b52;
+  --graphite:#112548;
+  --gray:#19335d;
+  --ink:#edf3ff;
+  --ink-soft:#afc0df;
+  --line:rgba(151,181,231,.18);
+  --blue:var(--brand-blue-500);
+  --blue-hi:var(--brand-blue-glow);
+  --laser:var(--brand-gold);
+  --spark:var(--brand-gold-hi);
+  --premium-gold:var(--brand-gold);
+  --premium-edge:rgba(200,173,119,.24);
+  --glass-dark:rgba(13,32,67,.88);
+  --bg-deep:var(--brand-navy-980);
+  --card-glass:rgba(19,42,81,.91);
+  --card-solid:#142b52;
+  --shadow-soft:0 12px 34px rgba(2,9,23,.28),0 0 30px rgba(47,91,158,.08);
+  --shadow-lift:0 22px 54px rgba(2,8,21,.35),0 0 34px rgba(72,122,192,.10);
+  --elev-1:0 3px 9px rgba(2,9,23,.18);
+  --elev-2:var(--shadow-soft);
+  --elev-3:0 16px 40px rgba(2,9,23,.24),0 4px 18px rgba(37,75,130,.08);
+  --elev-4:var(--shadow-lift);
+  --ticker-bg:#0d2043;
+  --ticker-card:rgba(255,255,255,.045);
+  --ticker-card-hover:rgba(112,158,225,.11);
+  --ticker-bordo:rgba(151,181,231,.16);
+  --ticker-nome:#e8f0ff;
+  --ticker-sub:#a8bce0;
+  --ticker-badge-bg:rgba(200,173,119,.14);
+  --ticker-badge-testo:var(--brand-gold-hi);
+  --ticker-badge-bordo:rgba(200,173,119,.34);
+  --ingly-surface:var(--brand-navy-900);
+  --ingly-surface-raised:var(--brand-navy-850);
+  --ingly-gold:var(--brand-gold);
+}
+:root[data-mode="light"]{
+  color-scheme:light;
+  --paper:#eaf0fb;
+  --white:#f8fbff;
+  --graphite:#e3ebf8;
+  --gray:#dfe8f7;
+  --ink:#152746;
+  --ink-soft:#506789;
+  --line:rgba(41,75,123,.16);
+  --blue:#2d5e9e;
+  --blue-hi:#4778bd;
+  --laser:#9e8250;
+  --spark:#b6975d;
+  --premium-gold:#9e8250;
+  --premium-edge:rgba(158,130,80,.22);
+  --glass-dark:rgba(247,250,255,.9);
+  --bg-deep:#eaf0fb;
+  --card-glass:rgba(248,251,255,.94);
+  --card-solid:#f8fbff;
+  --shadow-soft:0 8px 26px rgba(30,57,97,.08);
+  --shadow-lift:0 18px 42px rgba(30,57,97,.13);
+  --ticker-bg:#dfe8f7;
+  --ticker-card:rgba(255,255,255,.66);
+  --ticker-card-hover:#fff;
+  --ticker-bordo:rgba(41,75,123,.12);
+  --ticker-nome:#152746;
+  --ticker-sub:#506789;
+  --ticker-badge-bg:rgba(158,130,80,.12);
+  --ticker-badge-testo:#765d33;
+  --ticker-badge-bordo:rgba(158,130,80,.27);
+  --ingly-surface:#e4ecf9;
+  --ingly-surface-raised:#f3f7ff;
+  --ingly-gold:#9e8250;
+}
+
+/* Background: deep blue, multi-layered, no dead-black bands. */
+html,body{background-color:var(--paper)}
+body{
+  background:
+    radial-gradient(ellipse 66% 43% at 14% 5%,rgba(48,91,157,.38),transparent 72%),
+    radial-gradient(ellipse 58% 38% at 88% 23%,rgba(57,104,171,.22),transparent 72%),
+    radial-gradient(ellipse 64% 44% at 54% 100%,rgba(31,66,124,.24),transparent 73%),
+    linear-gradient(145deg,#0d2043 0%,#0b1c3b 44%,#10264c 100%) fixed;
+  background-attachment:fixed;
+  color:var(--ink);
+}
+body::before{
+  opacity:.25;
+  background-image:
+    linear-gradient(rgba(126,164,222,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(126,164,222,.055) 1px,transparent 1px),
+    radial-gradient(ellipse 50% 35% at 50% 0%,rgba(111,158,229,.11),transparent 78%);
+  background-size:48px 48px,48px 48px,auto;
+}
+:root[data-mode="light"] body{
+  background:
+    radial-gradient(ellipse 68% 42% at 12% 0%,rgba(96,139,201,.15),transparent 74%),
+    radial-gradient(ellipse 52% 34% at 90% 20%,rgba(126,164,222,.12),transparent 74%),
+    linear-gradient(145deg,#eaf0fb 0%,#e5edf9 52%,#f3f7ff 100%) fixed;
+  color:var(--ink);
+}
+:root[data-mode="light"] body::before{
+  opacity:.32;
+  background-image:
+    linear-gradient(rgba(41,75,123,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(41,75,123,.04) 1px,transparent 1px);
+}
+
+/* Site chrome and mega navigation share exactly the same blue family. */
+.topbar{
+  color:#d9e5fb;
+  background:linear-gradient(100deg,rgba(10,25,53,.98),rgba(17,43,83,.96),rgba(10,25,53,.98))!important;
+  border-bottom:1px solid rgba(147,179,229,.13)!important;
+}
+.nav,.nav.scrolled{
+  background:linear-gradient(110deg,rgba(13,32,67,.96),rgba(17,43,83,.94) 52%,rgba(13,32,67,.97))!important;
+  border-bottom:1px solid rgba(147,179,229,.20)!important;
+  box-shadow:0 10px 34px rgba(3,10,26,.18),inset 0 1px rgba(255,255,255,.025)!important;
+  backdrop-filter:blur(22px);
+}
+.nav .brand span,.nav-links a,.icon-btn,.mode-btn,.ia-voce{color:var(--ink)}
+.nav-links a:hover,.nav-links a.active{
+  color:var(--brand-gold-hi)!important;
+  background:rgba(91,137,202,.14)!important;
+}
+.ia-pannello{
+  background:linear-gradient(142deg,#142e59 0%,#10264c 55%,#0e2144 100%)!important;
+  border-top:1px solid rgba(200,173,119,.26)!important;
+  box-shadow:0 26px 74px rgba(2,8,21,.38),inset 0 1px rgba(255,255,255,.035)!important;
+}
+.ia-pannello .ia-col-tit{color:#9fb5d9}
+.ia-lista a{color:#e5edfc}
+.ia-lista a:hover,.ia-lista a:focus-visible{background:rgba(91,137,202,.17)!important;color:#fff}
+.ia-velo{background:rgba(5,13,30,.52)!important;backdrop-filter:blur(5px)}
+
+/* No abrupt charcoal slabs: all major areas transition through navy shades. */
+.hero-bg{
+  background:
+    radial-gradient(ellipse at 76% 25%,rgba(67,116,190,.28),transparent 39%),
+    radial-gradient(ellipse at 18% 80%,rgba(37,76,139,.24),transparent 44%),
+    linear-gradient(145deg,#163362 0%,#10264d 54%,#0e2144 100%)!important;
+}
+.sec.dark,.tech-ticker{
+  background:linear-gradient(125deg,#11284f 0%,#0f2448 54%,#142d57 100%)!important;
+  border-top:1px solid rgba(143,177,228,.10);
+  border-bottom:1px solid rgba(143,177,228,.10);
+}
+.pcard,.dcard,.rcard,.matcard,.bcard:not(.bcard--photo):not(.bcard--gen){
+  background:linear-gradient(148deg,rgba(23,49,91,.97) 0%,rgba(17,39,76,.98) 55%,rgba(14,32,65,.99) 100%)!important;
+  border-color:rgba(141,174,224,.17)!important;
+  box-shadow:0 12px 30px rgba(3,11,29,.16),inset 0 1px rgba(255,255,255,.035);
+}
+.mcard{
+  background:
+    radial-gradient(ellipse at 88% 5%,rgba(77,126,198,.23),transparent 45%),
+    linear-gradient(145deg,#193b70 0%,#122b54 55%,#102447 100%)!important;
+  border-color:rgba(151,181,231,.23)!important;
+  box-shadow:0 18px 42px rgba(3,10,27,.18),inset 0 1px rgba(255,255,255,.04);
+}
+.pcard:hover,.dcard:hover,.rcard:hover,.matcard:hover,.mcard:hover,
+.bcard:not(.bcard--photo):hover{
+  border-color:rgba(200,173,119,.5)!important;
+  box-shadow:0 18px 42px rgba(3,10,27,.23),0 0 28px rgba(69,112,177,.13),inset 0 1px rgba(255,255,255,.05);
+}
+.tabs .tab,.tab,.filter-chip,.cfg-chip{
+  background:linear-gradient(145deg,rgba(25,52,95,.83),rgba(17,39,76,.91));
+  border-color:rgba(143,177,228,.2);
+  color:var(--ink);
+}
+.tabs .tab.active,.tab.active,.filter-chip.active,.cfg-chip.on{
+  background:linear-gradient(135deg,rgba(200,173,119,.18),rgba(54,94,151,.38));
+  border-color:rgba(200,173,119,.64);
+  color:#f4dfad;
+  box-shadow:0 5px 18px rgba(3,10,27,.12),inset 0 1px rgba(255,255,255,.05);
+}
+.btn-primary,.btn.pri{
+  color:#101f3a!important;
+  background:linear-gradient(135deg,#e0c992 0%,#c8ad77 52%,#a98b54 100%)!important;
+  border:1px solid rgba(245,224,173,.55)!important;
+  box-shadow:0 8px 24px rgba(169,139,84,.20),inset 0 1px rgba(255,255,255,.42)!important;
+}
+.btn-primary:hover,.btn.pri:hover{
+  color:#0b1a35!important;
+  background:linear-gradient(135deg,#ead9a8 0%,#d6bd89 54%,#bd9f68 100%)!important;
+  box-shadow:0 12px 30px rgba(169,139,84,.27),0 0 24px rgba(92,135,196,.12)!important;
+}
+.btn-blue{
+  background:linear-gradient(135deg,#4778bd,#2b5798)!important;
+  color:#fff!important;border-color:rgba(146,184,239,.28)!important;
+  box-shadow:0 9px 24px rgba(35,76,138,.26);
+}
+.btn-ghost{border-color:rgba(157,184,226,.28);color:#dce8fc}
+.btn-ghost:hover{border-color:rgba(200,173,119,.58);color:#f0d9a0;background:rgba(200,173,119,.07)}
+.icon-btn,.wish,.mode-btn{
+  border-color:rgba(151,181,231,.17);
+  transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.icon-btn:hover,.wish:hover,.mode-btn:hover{
+  color:var(--brand-gold-hi);
+  border-color:rgba(200,173,119,.36);
+  background:rgba(71,120,189,.17);
+  box-shadow:0 0 18px rgba(71,120,189,.12);
+}
+footer,.news,.cta-band{
+  background:linear-gradient(140deg,#11274d 0%,#0e2143 58%,#132b53 100%)!important;
+  border-color:rgba(151,181,231,.16);
+}
+footer{color:#dce7fb}
+footer a{color:#c8d7f0}
+footer a:hover{color:var(--brand-gold-hi)}
+:root[data-mode="light"] .topbar{
+  color:#213858;background:linear-gradient(100deg,#e1eaf8,#f4f7ff 55%,#e1eaf8)!important;
+  border-bottom:1px solid rgba(41,75,123,.12)!important;
+}
+:root[data-mode="light"] .nav,:root[data-mode="light"] .nav.scrolled{
+  background:linear-gradient(105deg,rgba(230,238,250,.97),rgba(247,250,255,.96),rgba(226,236,250,.97))!important;
+  border-bottom:1px solid rgba(41,75,123,.14)!important;
+  box-shadow:0 10px 30px rgba(29,55,95,.08)!important;
+}
+:root[data-mode="light"] .nav .brand span,
+:root[data-mode="light"] .nav-links a,
+:root[data-mode="light"] .icon-btn,
+:root[data-mode="light"] .mode-btn,
+:root[data-mode="light"] .ia-voce{color:#173052}
+:root[data-mode="light"] .ia-pannello{
+  background:linear-gradient(142deg,#e2ecfa 0%,#dce7f7 55%,#edf3fd 100%)!important;
+  color:#172f50;border-top-color:rgba(158,130,80,.24)!important;
+}
+:root[data-mode="light"] .ia-lista a{color:#203b61}
+:root[data-mode="light"] .ia-lista a:hover{background:rgba(62,103,162,.10)!important;color:#11294b}
+:root[data-mode="light"] .sec.dark,:root[data-mode="light"] .tech-ticker{
+  background:linear-gradient(125deg,#dce7f8,#eaf1fc 55%,#dfeafa)!important;
+  border-color:rgba(41,75,123,.10);
+}
+:root[data-mode="light"] .pcard,:root[data-mode="light"] .dcard,
+:root[data-mode="light"] .rcard,:root[data-mode="light"] .matcard,
+:root[data-mode="light"] .bcard:not(.bcard--photo):not(.bcard--gen),
+:root[data-mode="light"] .mcard{
+  background:linear-gradient(148deg,#f9fbff 0%,#edf3fd 100%)!important;
+  color:#173052;border-color:rgba(69,103,154,.17)!important;
+  box-shadow:0 12px 28px rgba(35,63,105,.08),inset 0 1px rgba(255,255,255,.82);
+}
+:root[data-mode="light"] .btn-ghost{color:#234366;border-color:rgba(41,75,123,.22)}
+:root[data-mode="light"] .btn-ghost:hover{color:#765d33;background:rgba(158,130,80,.08)}
+:root[data-mode="light"] footer,:root[data-mode="light"] .news,:root[data-mode="light"] .cta-band{
+  background:linear-gradient(140deg,#e2ebf8,#ecf2fc 58%,#dce7f7)!important;
+  color:#173052;border-color:rgba(41,75,123,.12);
+}
+:root[data-mode="light"] footer a{color:#234366}
+
+/* The brand mark is a signature, not a spinner. Keep every logo treatment still. */
+.coin,.hero-visual .coin,.coin img,.brand img,.loader .lin>img,.logo-big img{
+  animation:none!important;transform:none!important;rotate:none!important;
+}
+.coin,.hero-visual .coin{transition:none!important;transform-style:flat!important;cursor:default!important}
+:where(a,button,[role="link"],input,select,textarea):focus-visible{
+  outline:2px solid var(--brand-gold)!important;outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important}
+  .ia-pannello,.ia-lista a,.ia-gruppo,.ia-voce,.ia-freccia,.btn,.pcard,.bcard{transition:none!important}
+}
+
+/* Keep the explicitly configured photo background working over the navy base. */
+html[data-bg-photo="true"][data-mode="dark"] body{
+  background-image:linear-gradient(rgba(8,20,43,var(--ingly-photo-dark-overlay,.48)),rgba(8,20,43,var(--ingly-photo-dark-overlay,.48))),var(--ingly-photo-url)!important;
+  background-position:center,var(--ingly-photo-position,center center)!important;
+  background-size:cover,cover!important;background-repeat:no-repeat!important;
+}
+html[data-bg-photo="true"][data-mode="light"] body{
+  background-image:linear-gradient(rgba(234,240,251,var(--ingly-photo-light-overlay,.64)),rgba(234,240,251,var(--ingly-photo-light-overlay,.64))),var(--ingly-photo-url)!important;
+  background-position:center,var(--ingly-photo-position,center center)!important;
+  background-size:cover,cover!important;background-repeat:no-repeat!important;
+}

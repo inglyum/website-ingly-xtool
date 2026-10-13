@@ -187,6 +187,30 @@ check('cambio stile con un click', doc.querySelector('[data-thbg="laser"]').getA
 check('anteprima sfondo generata come data-uri', doc.querySelector('[data-thbg="laser"] div').getAttribute('style').includes('data:image/svg+xml'));
 closeAll();
 
+console.log('\n=== 3e.1 Visual Studio — temi a clic ===');
+doc.querySelector('.nit[data-go="themes"]').click(); await wait(100);
+check('Visual Studio presente nella sezione temi', !!$('vsStudio') && !!$('vsPresetGrid'));
+check('editor visuale palette / pattern / calendario disponibile',
+  !!$('vsThemePick') && !!$('vsColorBase') && !!$('vsColorPrimary') && !!$('vsColorAccent')
+  && !!$('vsPattern') && !!$('vsDal') && !!$('vsAl') && !!$('vsPriority'));
+check('azioni visuali save / apply / schedule / new presenti',
+  !!$('vsSave') && !!$('vsApply') && !!$('vsSchedule') && !!$('vsNew'));
+check('preset natalizio cliccabile', !!doc.querySelector('[data-vspreset="christmas"]'));
+check('preset estivo cliccabile', !!doc.querySelector('[data-vspreset="summer"]'));
+doc.querySelector('[data-vspreset="christmas"]').click(); await wait(80);
+check('click Natale seleziona il tema nell’editor', $('vsThemePick').value === 'christmas');
+const vsOriginalAccent = $('vsColorAccent').value;
+$('vsColorAccent').value = '#18b6a4'; $('vsColorAccent').dispatchEvent(new win.Event('input')); await wait(30);
+check('preview dal vivo aggiorna l’accento', $('vsPreview').style.getPropertyValue('--vs-accent') === '#18b6a4');
+$('vsSave').click(); await wait(100);
+check('il click Salva memorizza la nuova palette come bozza', $('vsColorAccent').value.toLowerCase() === '#18b6a4');
+$('vsColorAccent').value = vsOriginalAccent; $('vsColorAccent').dispatchEvent(new win.Event('input')); await wait(30);
+$('vsSave').click(); await wait(100);
+check('ripristino della palette del preset funziona', $('vsColorAccent').value.toLowerCase() === vsOriginalAccent.toLowerCase());
+check('dashboard con scorciatoie per foto, prodotti, categorie e temi',
+  !!doc.querySelector('[data-shortcut-view="media"]') && !!doc.querySelector('[data-shortcut-view="prod"]')
+  && !!doc.querySelector('[data-shortcut-view="cats"]') && !!doc.querySelector('[data-shortcut-view="themes"]'));
+
 console.log('\n=== 3f. Fase 2.1 — campi prodotto ===');
 doc.querySelector('.nit[data-go="prod"]').click(); await wait(80);
 doc.querySelector('tr[data-pid] [data-edit]').click(); await wait(100);

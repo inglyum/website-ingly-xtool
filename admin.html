@@ -234,6 +234,26 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 @media(max-width:800px){.admin-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:400px){.admin-launch-grid{grid-template-columns:1fr}}
 
+
+/* INGLY Design System — petrolio profondo, titanio e champagne */
+:root{
+ --bg:#0b171a;--panel:#0d1a1d;--card:#122326;--card2:#172c2e;
+ --ink:#f3efe5;--soft:#b2beb8;--mut:#758b85;--line:rgba(215,189,130,.18);
+ --blue:#638f8c;--laser:#d7bd82;--ok:#82bd9e;--warn:#d7bd82;--err:#dc7777;
+}
+body{background:
+ radial-gradient(ellipse 65% 42% at 14% 0%,rgba(71,122,121,.22),transparent 72%),
+ radial-gradient(ellipse 42% 32% at 92% 18%,rgba(215,189,130,.10),transparent 72%),
+ linear-gradient(145deg,#102427 0%,#0d1d20 52%,#091518 100%) fixed!important;}
+.nit.on{background:rgba(99,143,140,.16)!important;color:#f4f0e7!important}
+.nit.on::before{background:linear-gradient(180deg,#ebd7a7,#b99c63)!important}
+.btn.pri{background:linear-gradient(135deg,#ebd7a7,#d7bd82 52%,#b99c63)!important;border-color:rgba(245,224,173,.58)!important;color:#142322!important}
+.btn.pri:hover{background:linear-gradient(135deg,#f0e0b8,#dec790 54%,#c3a66d)!important}
+input:focus,select:focus,textarea:focus{border-color:var(--laser)!important;box-shadow:0 0 0 3px rgba(99,143,140,.12)}
+.admin-launchpad{border-color:rgba(215,189,130,.22)!important;background:linear-gradient(145deg,var(--card),rgba(215,189,130,.035))!important}
+.admin-launch:hover{border-color:var(--laser)!important}
+:focus-visible{outline-color:var(--laser)!important}
+
 </style>
 
 <style>

@@ -157,7 +157,7 @@ export function card(x){const a=matArt(x.mat);
       <div class="art">${x.icon}</div>${foto}${stockBadge(x)}
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
-    <div class="pbody"><span class="mat">${MATN[x.mat][L]} · ${CATS.find(c=>c.id===x.cat).n[L]}</span><h3>${x.n[L]}</h3>
+    <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
     <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span><span class="stars">★★★★★ <span>(${x.rev})</span></span></div></div></article>`}
 
 export const currentProduct = () => cur;
@@ -559,6 +559,65 @@ export function openProduct(id){
   go('product','id='+id);
 }
 
+function escapeMarkup(value){
+  return String(value==null?'':value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function renderMaterialDetails(){
+  const box=$('ppMaterialDetails');if(!box)return;
+  const root=window.INGLY||{};
+  const list=root.MATERIALS&&Array.isArray(root.MATERIALS.materiali)?root.MATERIALS.materiali:[];
+  const material=list.find(m=>String(m.cat||'').toLowerCase()===String(cur.mat||'').toLowerCase()||String(m.id||'').toLowerCase()===String(cur.mat||'').toLowerCase());
+  if(!material){box.innerHTML='<div class="pp-material-card"><span class="pp-material-kicker">MATERIAL LAB</span><h3>'+(L==='it'?'Dettagli del materiale':'Material details')+'</h3><p>'+(L==='it'?'La scelta di materiale e finitura viene confermata nel preventivo, in base al progetto.':'Material and finish are confirmed with the quote, according to the project.')+'</p></div>';return;}
+  const txt=(o)=>o&&o[L]||o&&o.it||'';
+  const technologies=(root.TECNOLOGIE&&Array.isArray(root.TECNOLOGIE.tecnologie)?root.TECNOLOGIE.tecnologie:[]).filter(t=>(material.tech||[]).includes(t.id));
+  const chips=(arr)=>Array.isArray(arr)&&arr.length?'<div class="pp-material-chips">'+arr.map(v=>'<span>'+escapeMarkup(v)+'</span>').join('')+'</div>':'';
+  const workings=txt(material.lavorazioni), summary=txt(material.sommario), description=txt(material.descrizione);
+  const limits=txt(material.limiti);
+  const operations=Array.isArray(workings)?workings:typeof workings==='string'?[workings]:[];
+  box.innerHTML='<section class="pp-material-card"><div class="pp-material-top"><span class="pp-material-kicker">MATERIAL LAB</span><span class="pp-material-name">'+escapeMarkup(txt(material.n)||material.cat)+'</span></div>'+
+    (summary?'<p class="pp-material-summary">'+escapeMarkup(summary)+'</p>':'')+
+    (description?'<p class="pp-material-description">'+escapeMarkup(description)+'</p>':'')+
+    '<div class="pp-material-spec-grid">'+
+    ((material.spessori||[]).length?'<div><b>'+(L==='it'?'Spessori / formati':'Thickness / formats')+'</b>'+chips(material.spessori)+'</div>':'')+
+    ((material.finiture&&material.finiture[L]||material.finiture&&material.finiture.it||[]).length?'<div><b>'+(L==='it'?'Finiture':'Finishes')+'</b>'+chips(material.finiture[L]||material.finiture.it)+'</div>':'')+
+    (operations.length?'<div><b>'+(L==='it'?'Lavorazioni possibili':'Available processes')+'</b>'+chips(operations)+'</div>':'')+
+    (technologies.length?'<div><b>'+(L==='it'?'Tecnologie compatibili':'Compatible technologies')+'</b>'+chips(technologies.map(t=>txt(t.n)||t.id))+'</div>':'')+
+    '</div>'+
+    (Array.isArray(material.consigli&&material.consigli[L])&&material.consigli[L].length?'<div class="pp-material-note"><b>'+(L==='it'?'Consiglio di lavorazione':'Workshop note')+'</b><p>'+escapeMarkup(material.consigli[L][0])+'</p></div>':'')+
+    (Array.isArray(material.limiti&&material.limiti[L])&&material.limiti[L].length?'<div class="pp-material-limit"><b>'+(L==='it'?'Da sapere':'Please note')+'</b><p>'+escapeMarkup(material.limiti[L][0])+'</p></div>':'')+
+    '<p class="pp-material-foot">'+(L==='it'?'Spessore, finitura e disponibilità vengono confermati prima della produzione.':'Thickness, finish and availability are confirmed before production.')+'</p></section>';
+}
+function renderProductContactLinks(){
+  const c=CONFIG.conversione||{};
+  const wrap=$('productContactActions'),wa=$('productContactWa'),em=$('productContactEmail');
+  if(!wrap||!wa||!em)return;
+  if(c.attiva===false){wrap.hidden=true;return;}
+  wrap.hidden=false;
+  const material=(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||'da definire';
+  const cat=CATS.find(k=>k.id===cur.cat);
+  const catName=cat&&cat.n&&cat.n[L]||cur.cat||'';
+  const url=window.location.href;
+  const qty=String(sel.qty||1);
+  let template=String(c.messaggioProdotto||'Ciao INGLY DESIGN! Vorrei informazioni su: {prodotto}. Materiale: {materiale}. Quantità: {quantita}. Link: {url}');
+  const message=template.replaceAll('{prodotto}',cur.n[L]||cur.n.it||'Prodotto').replaceAll('{materiale}',material).replaceAll('{quantita}',qty).replaceAll('{url}',url)+'\nCategoria: '+catName;
+  const raw=String((CONFIG.whatsappFab&&CONFIG.whatsappFab.numero)||CONFIG.whatsapp||'').replace(/\D/g,'');
+  const waUrl=raw?'https://wa.me/'+raw+'?text='+encodeURIComponent(message):'';
+  const email=String(CONFIG.email||'').trim();
+  const subject=(L==='it'?'Richiesta informazioni — ':'Product enquiry — ')+(cur.n[L]||cur.n.it||'INGLY DESIGN');
+  const body=(L==='it'?'Buongiorno INGLY DESIGN, vorrei informazioni su questo prodotto.':'Hello INGLY DESIGN, I would like information about this product.')+'\n\n'+(L==='it'?'Prodotto: ':'Product: ')+(cur.n[L]||cur.n.it||'')+'\n'+(L==='it'?'Categoria: ':'Category: ')+catName+'\n'+(L==='it'?'Materiale: ':'Material: ')+material+'\n'+(L==='it'?'Quantità indicativa: ':'Estimated quantity: ')+qty+'\n'+(L==='it'?'Link: ':'Link: ')+url+'\n\n'+(L==='it'?'Potete consigliarmi materiale, finitura, tempi e prezzo?':'Could you advise on material, finish, lead time and price?');
+  wa.href=waUrl||'#';wa.hidden=!waUrl;
+  wa.target='_blank';wa.rel='noopener noreferrer';
+  wa.querySelector('span').textContent=(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp');
+  em.href=email?'mailto:'+email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body):'#';
+  em.hidden=c.emailVisibile===false||!email;
+  em.querySelector('span').textContent=(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email');
+  const primary=String(c.canalePrimario||'whatsapp').toLowerCase();
+  wa.classList.toggle('btn-primary',primary!=='email');
+  wa.classList.toggle('btn-ghost',primary==='email');
+  em.classList.toggle('btn-primary',primary==='email');
+  em.classList.toggle('btn-ghost',primary!=='email');
+  const note=$('productContactNote');if(note)note.textContent=L==='it'?'Ti aiutiamo a scegliere materiale, finitura e personalizzazione prima di confermare il preventivo.':'We will help you choose material, finish and personalisation before confirming the quote.';
+}
 function renderVideoEmbed(url,poster){
   // YouTube: watch?v=ID, youtu.be/ID, shorts/ID
   const ytMatch=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
@@ -609,8 +668,10 @@ export function renderPP(){
   $('ppRevCount').textContent='('+((cur.rev||0))+' '+T('revs')+')';
 
   $('ppProd').textContent=cur.prod+' '+T('days');
-  $('ppMat').textContent=MATN[cur.mat][L];
+  $('ppMat').textContent=(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||(L==='it'?'Da definire':'To be confirmed');
   $('ppMain').style.background=a.bg;
+  renderMaterialDetails();
+  renderProductContactLinks();
 
   /* galleria principale con frecce */
   galShots=galleryOf(cur);
@@ -809,7 +870,19 @@ function price(){const u=unit();
   });
   document.documentElement.classList.toggle('senza-prezzi',!visibili);}
 export function addFromPP(){
-  /* il materiale è quello del prodotto, deciso nell'Admin */
+  /* Quando i prezzi sono disattivati, la CTA deve aprire un contatto reale,
+     non aggiungere silenziosamente una riga al carrello. */
+  if(!prezziVisibili()){
+    renderProductContactLinks();
+    const c=CONFIG.conversione||{};
+    const primary=String(c.canalePrimario||'whatsapp').toLowerCase();
+    const target=primary==='email'&&c.emailVisibile!==false?$('productContactEmail'):$('productContactWa');
+    if(target&&!target.hidden&&target.href&&target.getAttribute('href')!=='#'){
+      if(target.id==='productContactEmail')window.location.href=target.href;
+      else window.open(target.href,'_blank','noopener,noreferrer');
+    }else if(typeof go==='function'){go('quote')}
+    return;
+  }
   const matLabel=(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||'';
   const note=(sel.sizeIdx!==undefined&&cur.misure)?(cur.misure[sel.sizeIdx]?.[1]||''):'';
   addToCart(cur.id,sel.qty,matLabel,note,unit());

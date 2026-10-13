@@ -18,6 +18,7 @@ import * as DIGUI from './digitale-ui.js';
 import { initNavIA } from './nav-mega.js';
 import * as STATO from './stato-sito.js';
 import * as SFONDI from './sfondi.js';
+import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
 
 /* ---- config → DOM ---- */
@@ -52,6 +53,7 @@ function applyConfig(){
   try{
     const att=SFONDI.attributi(CONFIG);
     Object.keys(att).forEach(k=>document.documentElement.setAttribute(k,att[k]));
+    APPEARANCE.applica(CONFIG);
   }catch(e){ console.warn('[INGLY] sfondo:',e) }
   /* Prezzi esposti oppure «contattaci»: è una decisione dell'Admin e va presa
      prima del primo disegno, altrimenti il prezzo lampeggia e poi sparisce. */

@@ -874,3 +874,21 @@ footer{border-top-color:var(--premium-edge)}
 :root[data-theme][data-mode="light"] .btn.pri{
   box-shadow:0 7px 20px color-mix(in srgb,var(--theme-accent,#967440) 16%,transparent),inset 0 1px 0 rgba(255,255,255,.6);
 }
+
+/* ============ FOTOGRAFIA DI SFONDO CONFIGURABILE ============ */
+/* Livello decorativo; i veli mantengono la leggibilità e non intercettano click. */
+html[data-bg-photo="true"] body{
+  background-size:cover,cover,cover!important;
+  background-repeat:no-repeat!important;
+  background-position:center,var(--ingly-photo-position,center center),center top!important;
+  background-attachment:fixed,fixed,fixed!important;
+}
+html[data-mode="dark"][data-bg-photo="true"] body,
+html:not([data-mode="light"])[data-bg-photo="true"] body{
+  background-image:linear-gradient(rgba(8,12,26,var(--ingly-photo-dark-overlay,.48)),rgba(8,12,26,var(--ingly-photo-dark-overlay,.48))),var(--ingly-photo-url),radial-gradient(ellipse at 50% 0%,#131a33 0%,#0a0d18 55%)!important;
+}
+html[data-mode="light"][data-bg-photo="true"] body{
+  background-image:linear-gradient(rgba(248,250,255,var(--ingly-photo-light-overlay,.64)),rgba(248,250,255,var(--ingly-photo-light-overlay,.64))),var(--ingly-photo-url),radial-gradient(ellipse at 50% 0%,#fff 0%,#eef1f7 60%)!important;
+}
+@media(prefers-reduced-motion:reduce){html[data-bg-photo="true"] body{background-attachment:scroll,scroll,scroll!important}}
+@media print{html[data-bg-photo="true"] body{background-image:none!important}}

@@ -33,5 +33,18 @@
       attivo: true,
       ordine: index + 1
     };
-  });
+  }).concat([{
+    id: 'cuttle-templates',
+    modulo: 'link-esterno',
+    nome: { it: 'Esplora i template Cuttle', en: 'Explore Cuttle templates' },
+    descrizione: {
+      it: 'Catalogo ufficiale esterno. Account, download e licenze sono gestiti da Cuttle; non è un generatore INGLY.',
+      en: 'External official catalog. Cuttle manages accounts, downloads and licensing; this is not an INGLY generator.'
+    },
+    categoria: 'Strumenti esterni · Cuttle',
+    icona: '↗',
+    attivo: true,
+    ordine: modules.length + 1,
+    url: 'https://cuttle.xyz/templates'
+  }]);
 })(window);

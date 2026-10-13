@@ -52,6 +52,8 @@
         ?'linear-gradient(rgba(248,250,255,'+light+'),rgba(248,250,255,'+light+')),url("'+url+'")'
         :'radial-gradient(ellipse at 70% 0%,#ffffff,#e9edf5)';
     }
+    if(byId('bgPhotoDarkValue'))byId('bgPhotoDarkValue').textContent=Math.round(dark*100)+'%';
+    if(byId('bgPhotoLightValue'))byId('bgPhotoLightValue').textContent=Math.round(light*100)+'%';
     const status=byId('bgPhotoStatus');
     if(status){
       if(c.enabled&&!url)status.textContent='Percorso non valido. Usa img/nome-file.webp, assets/images/nome-file.webp oppure un URL HTTPS.';

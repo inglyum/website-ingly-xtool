@@ -113,7 +113,7 @@ export function renderCats(){
     const th=activeTheme();
     const art=(th&&th.art&&th.art[c.id])||c.img;
     /* nessuna foto caricata ma il tema ha uno stile grafico → sfondo vettoriale generato */
-    const gen=(!art&&th&&th.bg&&window.INGLY_ART)?window.INGLY_ART.css(th.bg,th.palette,th.id+'-'+c.id):'';
+    const gen=(!art&&th&&th.bg&&window.INGLY_ART)?window.INGLY_ART.css(th.bg,['#0D2043','#4778BD','#C8AD77'],th.id+'-'+c.id):'';
     const ph=art?`<img class="bimg" src="${imgV(art)}"${srcsetFor(art)}${focalOf(art)} alt="" loading="lazy" onerror="this.remove()">`:'';
     /* Lo sfondo generato viaggia in una VARIABILE CSS, non in background-image inline:
        scrivere altre proprietà su element.style riserializza l'attributo e farebbe

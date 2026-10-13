@@ -4542,6 +4542,22 @@
       "icona": "✦",
       "attivo": true,
       "ordine": 4
+    },
+    {
+      "id": "scatola-incastri",
+      "modulo": "scatola-incastri",
+      "nome": {
+        "it": "Scatola a incastri",
+        "en": "Finger-joint Box"
+      },
+      "descrizione": {
+        "it": "Genera i cinque pannelli di una scatola con denti e cave parametriche. Controlla gli incastri sul tuo materiale prima del taglio definitivo.",
+        "en": "Generate five box panels with parametric finger joints. Test fit and kerf on your material before final cutting."
+      },
+      "categoria": "Scatole e packaging",
+      "icona": "▣",
+      "attivo": true,
+      "ordine": 5
     }
   ]
 }

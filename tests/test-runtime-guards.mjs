@@ -24,6 +24,5 @@ assert.match(css,/--brand-navy-950:#0a1935/,'brand palette has a single deep nav
 assert.match(css,/--brand-gold:#c8ad77/,'brand palette uses a consistent champagne-gold accent');
 assert.match(css,/linear-gradient\(145deg,#0d2043 0%,#0b1c3b 44%,#10264c 100%\)/,'site background uses a unified multi-layer navy gradient');
 assert.match(css,/\.pcard,\.dcard,\.rcard,\.matcard,\.bcard:not\(\.bcard--photo\):not\(\.bcard--gen\)/,'catalog cards share the blue surface system');
-const root=read('index.html');
 assert.match(root,/id="loader"/,'loader exists in the canonical shell');
 console.log('✓ Runtime guards and cache invalidation checks passed');

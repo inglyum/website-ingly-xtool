@@ -166,7 +166,7 @@ const s=state[active];let w=100,h=60,cut='',engrave='',text='',count=0;
 const rect=(x,y,ww,hh,r)=>'<rect x="'+x+'" y="'+y+'" width="'+ww+'" height="'+hh+'" rx="'+r+'"/>';
 const circle=(x,y,r)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'"/>';
 const line=(x1,y1,x2,y2)=>'<path d="M '+x1+' '+y1+' L '+x2+' '+y2+'"/>';
-const txt=(x,y,t,size,anchor)=>'<text x="'+x+'" y="'+y+'" font-family="Arial,sans-serif" font-size="'+size+'" text-anchor="'+(anchor||'middle')+'" dominant-baseline="middle">'+esc(t)+'</text>';
+const txt=(x,y,t,size,anchor)=>'<text x="'+x+'" y="'+y+'" fill="#68d5ff" stroke="none" font-family="Arial,sans-serif" font-size="'+size+'" text-anchor="'+(anchor||'middle')+'" dominant-baseline="middle">'+esc(t)+'</text>';
 if(active==='portachiavi'){
 w=clamp(s.w,25,180);h=clamp(s.h,15,120);const hole=clamp(s.hole,2,12),m=clamp(s.margin,3,24);let x=0,y=0;
 if(s.shape==='circle'){const d=Math.min(w,h)-hole-4;x=(w-d)/2;y=(h-d)/2;cut+=circle(w/2,h/2,d/2)}

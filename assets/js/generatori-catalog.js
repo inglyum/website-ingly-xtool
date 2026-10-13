@@ -4,7 +4,8 @@
     { id: 'portachiavi', label: 'Portachiavi & tag', icon: '⌁', category: 'Accessori', summary: 'Nome, forma, foro e dimensioni.' },
     { id: 'living-hinge', label: 'Living Hinge Lab', icon: '▦', category: 'Tecnica laser', summary: 'Griglie di taglio flessibili parametriche.' },
     { id: 'test-materiali', label: 'Material Test Grid', icon: '▤', category: 'Test e calibrazione', summary: 'Griglie per confrontare prove di potenza e velocità.' },
-    { id: 'cake-topper', label: 'Cake Topper', icon: '✦', category: 'Feste ed eventi', summary: 'Targhe con picchetto e testo personalizzato.' }
+    { id: 'cake-topper', label: 'Cake Topper', icon: '✦', category: 'Feste ed eventi', summary: 'Targhe con picchetto e testo personalizzato.' },
+    { id: 'scatola-incastri', label: 'Scatola a incastri', icon: '▣', category: 'Scatole e packaging', summary: 'Pannelli con denti parametrici per prototipi laser.' }
   ];
   w.INGLY_GENERATORI_MODULES = modules;
   w.INGLY_GENERATORI_DEFAULTS = modules.map(function (m, index) {
@@ -12,13 +13,15 @@
       portachiavi: ['Portachiavi & tag', 'Keychains & tags', 'Accessori personalizzati'],
       'living-hinge': ['Living Hinge Lab', 'Living Hinge Lab', 'Tecnica laser'],
       'test-materiali': ['Griglia test materiali', 'Material Test Grid', 'Test e calibrazione'],
-      'cake-topper': ['Cake Topper personalizzato', 'Custom Cake Topper', 'Feste ed eventi']
+      'cake-topper': ['Cake Topper personalizzato', 'Custom Cake Topper', 'Feste ed eventi'],
+      'scatola-incastri': ['Scatola a incastri', 'Finger-joint Box', 'Scatole e packaging']
     };
     const descriptions = {
       portachiavi: ['Crea portachiavi, targhette e piccoli gadget con foro, forma e misure regolabili.', 'Create keychains and tags with adjustable shape, hole and dimensions.'],
       'living-hinge': ['Genera un reticolo di tagli con passo, margini e sfalsamento configurabili.', 'Generate a cut pattern with adjustable pitch, margins and row offset.'],
       'test-materiali': ['Prepara una tavola di provini etichettati per documentare i tuoi test.', 'Build a labelled test grid to document your material tests.'],
-      'cake-topper': ['Personalizza una sagoma con picchetto integrato per feste e ricorrenze.', 'Personalize a topper silhouette with an integrated stake.']
+      'cake-topper': ['Personalizza una sagoma con picchetto integrato per feste e ricorrenze.', 'Personalize a topper silhouette with an integrated stake.'],
+      'scatola-incastri': ['Genera i cinque pannelli di una scatola con denti e cave parametriche. Controlla gli incastri sul tuo materiale prima del taglio definitivo.', 'Generate five box panels with parametric finger joints. Test fit and kerf on your material before final cutting.']
     };
     return {
       id: m.id,

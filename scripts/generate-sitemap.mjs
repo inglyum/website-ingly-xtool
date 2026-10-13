@@ -14,7 +14,7 @@
    Uso: node scripts/generate-sitemap.mjs
         node scripts/generate-sitemap.mjs --verifica   (non scrive, controlla)
 */
-import { readFileSync, writeFileSync, existsSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import * as PRE from '../assets/js/prerender-engine.js';
@@ -27,6 +27,14 @@ const SOLO_VERIFICA = process.argv.includes('--verifica');
 const config   = JSON.parse(readFileSync(join(ROOT,'data/config.json'),'utf8'));
 const prodotti = JSON.parse(readFileSync(join(ROOT,'data/products.json'),'utf8'));
 const contenuti = JSON.parse(readFileSync(join(ROOT,'data/content.json'),'utf8'));
+const versioneDati = JSON.parse(readFileSync(join(ROOT,'data/version.json'),'utf8'));
+/* GitHub Actions estrae il repository in un filesystem nuovo: stat.mtime
+   diventa l'ora del checkout e faceva risultare ogni URL modificato a ogni
+   esecuzione, rendendo la sitemap impossibile da verificare il giorno dopo.
+   version.json viene aggiornato quando cambia la fonte dati del sito; usiamo
+   la sua data come lastmod stabile per le pagine generate. */
+const DATA_LASTMOD = typeof versioneDati.updated === 'string' && /^\\d{4}-\\d{2}-\\d{2}/.test(versioneDati.updated)
+  ? versioneDati.updated.slice(0,10) : OGGI;
 
 const BASE = ((config.seo && config.seo.dominio) || 'https://www.inglydesign.it').replace(/\/+$/,'');
 const OGGI = new Date().toISOString().slice(0,10);
@@ -55,13 +63,11 @@ const indirizzo = file => {
   return BASE + '/' + dir + (dir.startsWith('product/') ? '/' : '');
 };
 
-/* lastmod onesto: la data in cui la pagina è stata scritta davvero.
-   Mettere «oggi» ovunque a ogni build è un segnale che Google impara a
-   ignorare, perché dichiara modificate anche pagine ferme da mesi. */
-const modificata = file => {
-  const f = join(ROOT, file);
-  return existsSync(f) ? statSync(f).mtime.toISOString().slice(0,10) : OGGI;
-};
+/* lastmod stabile legato all'ultima revisione dei dati del sito.
+   L'orario del filesystem cambia a ogni checkout GitHub Actions e non è una
+   data editoriale affidabile. Se manca il file, la pagina viene scartata prima
+   che questa funzione venga usata. */
+const modificata = file => existsSync(join(ROOT,file)) ? DATA_LASTMOD : OGGI;
 
 /* Il Lab genera pagine vere quanto le altre: se restassero fuori dalla
    sitemap esisterebbero sul disco e non verrebbero dichiarate a nessuno.

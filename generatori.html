@@ -42,21 +42,23 @@ const defaults=[
 {id:'portachiavi',modulo:'portachiavi',nome:{it:'Portachiavi & tag',en:'Keychains & tags'},descrizione:{it:'Nome, forma, foro e dimensioni.',en:'Name, shape, hole and size.'},categoria:'Accessori',icona:'⌁',attivo:true,ordine:1},
 {id:'living-hinge',modulo:'living-hinge',nome:{it:'Living Hinge Lab',en:'Living Hinge Lab'},descrizione:{it:'Reticoli flessibili parametrici per prove e prototipi.',en:'Parametric flexible patterns for prototypes.'},categoria:'Tecnica laser',icona:'▦',attivo:true,ordine:2},
 {id:'test-materiali',modulo:'test-materiali',nome:{it:'Griglia test materiali',en:'Material Test Grid'},descrizione:{it:'Tavola di provini per confrontare i test.',en:'A grid of samples for comparison tests.'},categoria:'Test e calibrazione',icona:'▤',attivo:true,ordine:3},
-{id:'cake-topper',modulo:'cake-topper',nome:{it:'Cake Topper',en:'Cake Topper'},descrizione:{it:'Sagoma decorativa con picchetto integrato.',en:'Decorative topper with an integrated stake.'},categoria:'Feste ed eventi',icona:'✦',attivo:true,ordine:4}
+{id:'cake-topper',modulo:'cake-topper',nome:{it:'Cake Topper',en:'Cake Topper'},descrizione:{it:'Sagoma decorativa con picchetto integrato.',en:'Decorative topper with an integrated stake.'},categoria:'Feste ed eventi',icona:'✦',attivo:true,ordine:4},
+{id:'scatola-incastri',modulo:'scatola-incastri',nome:{it:'Scatola a incastri',en:'Finger-joint Box'},descrizione:{it:'Cinque pannelli con denti e cave parametriche.',en:'Five panels with parametric finger joints.'},categoria:'Scatole e packaging',icona:'▣',attivo:true,ordine:5}
 ];
 let catalogue=defaults.slice(),active='portachiavi',activeId='portachiavi',filter='Tutti',search='',settings={};
 const state={
 portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
 'living-hinge':{w:100,h:65,pitch:3.5,cut:0.7,margin:5,offset:true},
 'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},
-'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8}
+'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},
+'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5}
 };
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mod=id=>catalogue.find(x=>x.modulo===id)||catalogue.find(x=>x.id===id);
 const label=x=>(x.nome&&x.nome.it)||x.label||x.id;
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2800)}
-function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||'')))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
+function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper','scatola-incastri'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||'')))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
 function renderFilters(){
 const cats=['Tutti',...new Set(activeModules().map(x=>x.categoria||'Altro'))];
 $('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(c)+'</button>').join('');
@@ -98,6 +100,12 @@ h+=field('w','Larghezza corpo · mm','number',s.w,'min="35" max="180"');
 h+=field('h','Altezza corpo · mm','number',s.h,'min="20" max="100"');
 h+=field('stake','Picchetto sotto il corpo · mm','number',s.stake,'min="25" max="120"');
 h+=field('font','Dimensione testo · mm','number',s.font,'min="4" max="16" step=".5"');
+}else if(active==='scatola-incastri'){
+h+='<div class="field"><label>Dimensioni indicative pannelli (mm)</label><div class="pair"><input id="f_w" aria-label="Larghezza" type="number" min="40" max="240" value="'+s.w+'"><input id="f_d" aria-label="Profondità" type="number" min="30" max="200" value="'+s.d+'"></div></div>';
+h+=field('h','Altezza pareti · mm','number',s.h,'min="25" max="180"');
+h+=field('t','Spessore materiale · mm','number',s.t,'min="1" max="10" step=".5"');
+h+=selectField('fingers','Denti per bordo',String(s.fingers),[['3','3 denti'],['5','5 denti'],['7','7 denti'],['9','9 denti'],['11','11 denti']]);
+h+='<div class="notice">Il file contiene base, fronte, retro e due lati separati. Lo spessore determina la profondità nominale dei denti; il gioco reale dipende da kerf, materiale e macchina. Prima del pezzo definitivo, taglia un piccolo campione di prova.</div>';
 }
 $('fields').innerHTML=h;
 $('fields').querySelectorAll('input,select').forEach(el=>el.addEventListener('input',capture));
@@ -111,10 +119,32 @@ if(active==='portachiavi'){s.w=clamp(s.w||80,25,180);s.h=clamp(s.h||35,15,120);s
 if(active==='living-hinge'){s.w=clamp(s.w||100,20,300);s.h=clamp(s.h||65,20,250);s.pitch=clamp(s.pitch||3.5,1.5,15);s.margin=clamp(s.margin||5,2,20)}
 if(active==='test-materiali'){s.cols=clamp(Math.round(s.cols||4),2,8);s.rows=clamp(Math.round(s.rows||3),2,8);s.tileW=clamp(s.tileW||25,12,60);s.tileH=clamp(s.tileH||18,12,50);s.gap=clamp(s.gap||3,1,12)}
 if(active==='cake-topper'){s.w=clamp(s.w||100,35,180);s.h=clamp(s.h||48,20,100);s.stake=clamp(s.stake||45,25,120);s.font=clamp(s.font||8,4,16)}
+if(active==='scatola-incastri'){s.w=clamp(s.w||100,40,240);s.d=clamp(s.d||70,30,200);s.h=clamp(s.h||55,25,180);s.t=clamp(s.t||3,1,10);s.fingers=clamp(Math.round(s.fingers||5),3,11);if(s.fingers%2===0)s.fingers=clamp(s.fingers+1,3,11)}
 renderPreview();
 }
 function svgWrap(w,h,body){
 return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="'+w+'mm" height="'+h+'mm" viewBox="0 0 '+w+' '+h+'"><title>INGLY DESIGN Generator Studio</title><desc>File vettoriale parametrico. Rosso = taglio, azzurro = incisione; verifica colori e lavorazioni nel software macchina.</desc><g fill="none" stroke="#ff5d64" stroke-width=".25" stroke-linejoin="round">'+body.cut+'</g><g fill="none" stroke="#68d5ff" stroke-width=".25" stroke-linejoin="round">'+body.engrave+'</g><g fill="#68d5ff" stroke="none">'+(body.text||'')+'</g></svg>';
+}
+function panelPath(x,y,w,h,edges,n,depth){
+  const pts=[];
+  const walk=(x0,y0,x1,y1,nx,ny,mode)=>{
+    const dx=x1-x0,dy=y1-y0,steps=Math.max(3,Math.round(n));
+    if(!pts.length)pts.push([x0+x,y0+y]);
+    for(let i=0;i<steps;i++){
+      const ax=x0+dx*i/steps,ay=y0+dy*i/steps,bx=x0+dx*(i+1)/steps,by=y0+dy*(i+1)/steps;
+      const sign=mode==='male'?1:mode==='female'?-1:0;
+      if(sign&&i%2===0){
+        pts.push([ax+x+nx*depth*sign,ay+y+ny*depth*sign]);
+        pts.push([bx+x+nx*depth*sign,by+y+ny*depth*sign]);
+        pts.push([bx+x,by+y]);
+      }else pts.push([bx+x,by+y]);
+    }
+  };
+  walk(0,0,w,0,0,-1,edges.top);
+  walk(w,0,w,h,1,0,edges.right);
+  walk(w,h,0,h,0,1,edges.bottom);
+  walk(0,h,0,0,-1,0,edges.left);
+  return '<path d="M '+pts.map(p=>p[0].toFixed(3)+' '+p[1].toFixed(3)).join(' L ')+' Z"/>';
 }
 function buildSvg(){
 const s=state[active];let w=100,h=60,cut='',engrave='',text='',count=0;
@@ -144,6 +174,26 @@ w=clamp(s.w,35,180);const bodyH=clamp(s.h,20,100),stake=clamp(s.stake,25,120),fo
 if(s.shape==='circle'){const d=Math.min(w-1,bodyH-1);cut+=circle(w/2,bodyH/2,d/2);cut+=line(w/2,bodyH/2+d/2,w/2,bodyH+stake)}
 else {cut+=rect(.5,.5,w-1,bodyH, s.shape==='arch'?Math.min(w/2,bodyH/2):2);cut+='<path d="M '+(w*.42)+' '+bodyH+' L '+(w*.46)+' '+(bodyH+stake)+' L '+(w*.54)+' '+(bodyH+stake)+' L '+(w*.58)+' '+bodyH+'"/>'}
 engrave+=txt(w/2,bodyH*.52,s.text||'Auguri!',Math.min(font,bodyH*.34,w/Math.max(4,(s.text||'Auguri!').length)*1.65));count=3;
+}else if(active==='scatola-incastri'){
+const bw=clamp(s.w,40,240),bd=clamp(s.d,30,200),bh=clamp(s.h,25,180),t=clamp(s.t,1,10),n=clamp(Math.round(s.fingers||5),3,11)%2===0?clamp(Math.round(s.fingers||5)+1,3,11):clamp(Math.round(s.fingers||5),3,11);
+const m=8,gap=14;
+const x0=m+t,y0=m+t;
+const frontY=m+bd+2*t+gap;
+const backY=frontY+bh+gap;
+const leftX=m+bw+3*t+gap+4;
+const rightX=leftX+bd+2*t+gap+4;
+w=rightX+bd+t+m;h=backY+bh+m;
+cut+=panelPath(x0,y0,bw,bd,{top:'male',right:'male',bottom:'male',left:'male'},n,t);
+cut+=panelPath(x0,frontY,bw,bh,{top:'plain',right:'female',bottom:'female',left:'male'},n,t);
+cut+=panelPath(x0,backY,bw,bh,{top:'plain',right:'male',bottom:'female',left:'female'},n,t);
+cut+=panelPath(leftX,y0,bd,bh,{top:'plain',right:'male',bottom:'female',left:'female'},n,t);
+cut+=panelPath(rightX,y0,bd,bh,{top:'plain',right:'female',bottom:'female',left:'male'},n,t);
+engrave+=txt(x0+bw/2,y0+bd/2,'BASE',Math.min(5,bd/10));
+engrave+=txt(x0+bw/2,frontY+bh/2,'FRONTE',Math.min(5,bh/9));
+engrave+=txt(x0+bw/2,backY+bh/2,'RETRO',Math.min(5,bh/9));
+engrave+=txt(leftX+bd/2,y0+bh/2,'LATO 1',Math.min(4,bd/9));
+engrave+=txt(rightX+bd/2,y0+bh/2,'LATO 2',Math.min(4,bd/9));
+count=5*n*4;
 }
 const body={cut:cut,engrave:engrave,text:text};
 return {svg:svgWrap(Math.ceil(w*10)/10,Math.ceil(h*10)/10,body),w:Math.ceil(w*10)/10,h:Math.ceil(h*10)/10,count:count};
@@ -167,7 +217,7 @@ function png(){const o=buildSvg(),blob=new Blob([o.svg],{type:'image/svg+xml;cha
 function init(){
 $('year').textContent=new Date().getFullYear();
 $('search').addEventListener('input',e=>{search=e.target.value;renderList()});
-$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:.7,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8}})[active]);renderFields();renderPreview()}};
+$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:.7,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5}})[active]);renderFields();renderPreview()}};
 $('save').onclick=saveDraft;$('download').onclick=downloadSvg;$('download2').onclick=downloadSvg;$('png').onclick=png;
 loadDraft();
 fetch('data/content.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{

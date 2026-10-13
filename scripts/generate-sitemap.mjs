@@ -53,6 +53,7 @@ const REGOLE = {
   quote:     ['monthly', '0.6'],
   about:     ['yearly',  '0.5'],
   product:   ['monthly', '0.6'],
+  tool:      ['monthly', '0.7'],
 };
 
 /* Indirizzo pubblico di una pagina generata:

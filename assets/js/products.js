@@ -565,7 +565,7 @@ function escapeMarkup(value){
 function renderMaterialDetails(){
   const box=$('ppMaterialDetails');if(!box)return;
   const root=window.INGLY||{};
-  const list=root.MATERIALS&&Array.isArray(root.MATERIALS.materiali)?root.MATERIALS.materiali:[];
+  const list=root.MATERIALI&&Array.isArray(root.MATERIALI.materiali)?root.MATERIALI.materiali:[];
   const material=list.find(m=>String(m.cat||'').toLowerCase()===String(cur.mat||'').toLowerCase()||String(m.id||'').toLowerCase()===String(cur.mat||'').toLowerCase());
   if(!material){box.innerHTML='<div class="pp-material-card"><span class="pp-material-kicker">MATERIAL LAB</span><h3>'+(L==='it'?'Dettagli del materiale':'Material details')+'</h3><p>'+(L==='it'?'La scelta di materiale e finitura viene confermata nel preventivo, in base al progetto.':'Material and finish are confirmed with the quote, according to the project.')+'</p></div>';return;}
   const txt=(o)=>o&&o[L]||o&&o.it||'';

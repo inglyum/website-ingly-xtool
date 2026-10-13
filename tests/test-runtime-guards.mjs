@@ -19,6 +19,8 @@ const root=read('index.html');
 assert.match(root,/CACHE_WANT='ingly-v11'/,'HTML recovery requests same cache generation as service worker');
 const nav=read('assets/js/nav-mega.js');
 assert.doesNotMatch(nav,/addEventListener\('pointerenter'/,'mega menu never opens by pointer hover');
+const fallback=read('assets/js/app.fallback.js');
+assert.doesNotMatch(fallback,/addEventListener\("pointerenter"/,'fallback bundle also never opens by pointer hover');
 const css=read('assets/css/pages.css');
 assert.match(css,/--brand-navy-950:#0a1935/,'brand palette has a single deep navy base');
 assert.match(css,/--brand-gold:#c8ad77/,'brand palette uses a consistent champagne-gold accent');

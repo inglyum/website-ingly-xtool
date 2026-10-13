@@ -111,7 +111,7 @@ check('il fallback offline passa dalla base', /via\('index\.html'\)\)\);/.test(s
 check('il fallback ignora la query', /ignoreSearch:\s*true/.test(sw));
 /* addAll fallisce tutto al primo percorso mancante */
 check('il precache aggiunge una voce alla volta', !/addAll\(PRECACHE\)/.test(sw));
-check('la versione della cache è stata alzata', /CACHE_VER\s*=\s*'ingly-v[7-9]/.test(sw));
+check('la versione della cache è stata alzata', sw.includes("const CACHE_VER   = 'ingly-v10';"));
 
 console.log('\n=== LA VERSIONE DEI DATI SI MUOVE ===');
 /* il sito rilegge i JSON con ?v=<versione>: pubblicando da git la versione

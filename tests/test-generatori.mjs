@@ -25,5 +25,7 @@ assert.ok(admin.includes('function renderGenerators()'), 'Admin catalog editor m
 assert.ok(admin.includes('generators:renderGenerators'), 'Admin router must expose the editor');
 assert.ok(admin.includes('function editGenerator('), 'Admin must support create/edit operations');
 assert.ok(sitemap.includes('https://www.inglydesign.it/generatori.html'), 'Generator Studio must be in sitemap');
+assert.ok(data.GENERATORI.some(g => g.id === 'cuttle-templates' && g.modulo === 'link-esterno'), 'Cuttle must remain a clearly external link');
+assert.ok(html.includes('https://cuttle.xyz/templates'), 'Cuttle catalog link must point to the official site');
 
 console.log('✔ Generator Studio catalog, SVG engine, Admin integration and sitemap');

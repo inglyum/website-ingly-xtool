@@ -45,8 +45,11 @@ export const imgTag = x => { const s = x.img||CONFIG.cartellaImmagini+x.id+'.web
 
 let toastT;
 export function toast(msg){
-  $('toastMsg').textContent = msg;
-  const t = $('toast'); t.classList.add('on');
+  const message=$('toastMsg');
+  if(message) message.textContent=String(msg==null?'':msg);
+  const t=$('toast');
+  if(!t) return;
+  t.classList.add('on');
   clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove('on'), 2600);
 }
 

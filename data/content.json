@@ -770,20 +770,20 @@
           "it": "Default INGLY",
           "en": "INGLY Default"
         },
-        "mood": "grafite, champagne, minimalismo premium",
+        "mood": "blu notte profondo, luce blu stratificata, oro champagne satinato",
         "palette": [
-          "#0c0e10",
-          "#30343b",
-          "#c3a46b"
+          "#0D2043",
+          "#4778BD",
+          "#C8AD77"
         ],
         "lighting": "soft warm champagne edge light, restrained cinematic lighting",
-        "elementi": "graphite backgrounds, brushed titanium surfaces, champagne gold accents, precision laser-engraved wood and acrylic details, generous negative space",
+        "elementi": "deep navy gradients, layered blue rim light, restrained champagne-gold accents, graphite-free blue product surfaces, precision laser-cut details, generous negative space",
         "kw": [
           "premium",
           "craft",
-          "laser",
-          "graphite",
-          "champagne"
+          "navy",
+          "champagne",
+          "laser"
         ],
         "cats": "*",
         "dal": "",
@@ -792,7 +792,7 @@
         "stato": "libreria",
         "art": {},
         "v": 1,
-        "bg": "laser"
+        "bg": "aurora"
       },
       {
         "id": "spring",

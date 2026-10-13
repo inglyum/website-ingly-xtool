@@ -4407,6 +4407,7 @@ $('pubGo').onclick=async()=>{
       valeva uno solo e nessuna scheda prodotto era raggiungibile. */
    const urls=[['/','1.0','weekly']];
    ['shop','digital','business','portfolio','about','faq','quote'].forEach(p=>urls.push(['/'+p,'0.8','weekly']));
+   urls.push(['/generatori.html','0.7','monthly']);
    /* pagina statica per prodotto: /product/7/ — è un file vero, quindi
       indicizzabile e leggibile anche da chi non esegue JavaScript */
    (S.P||[]).filter(p=>!p.hidden).forEach(p=>urls.push(['/product/'+p.id+'/','0.7','monthly']));

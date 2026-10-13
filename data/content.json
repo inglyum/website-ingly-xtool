@@ -4575,6 +4575,22 @@
       "attivo": true,
       "ordine": 6,
       "url": "https://cuttle.xyz/templates"
+    },
+    {
+      "id": "ingranaggio",
+      "modulo": "ingranaggio",
+      "nome": {
+        "it": "Ingranaggio parametrico",
+        "en": "Parametric Gear"
+      },
+      "descrizione": {
+        "it": "Genera una ruota dentata trapezoidale per prototipi e progetti decorativi. Il profilo non è un'involuta certificata per trasmissioni meccaniche.",
+        "en": "Generate a trapezoidal-tooth gear for prototypes and decorative projects. The profile is not an involute certified for mechanical transmissions."
+      },
+      "categoria": "Meccanica e design",
+      "icona": "⚙",
+      "attivo": true,
+      "ordine": 7
     }
   ]
 }

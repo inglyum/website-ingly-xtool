@@ -275,3 +275,29 @@ html:not(.ia-attiva) .ia-barra{display:none}
 @media(prefers-reduced-motion:reduce){
   .ia-voce,.ia-freccia,.ia-pannello,.ia-caret,.dr-freccia,.dr-piu,.dr-sub{transition:none!important}
 }
+
+
+/* INGLY DESIGN — menu stabile e palette continua */
+:root{
+  --ingly-surface:#111629;
+  --ingly-surface-raised:#171d34;
+  --ingly-gold:#c3a46b;
+}
+.ia-pannello{
+  background:var(--ingly-surface)!important;
+  color:var(--ink,#f3f1ec);
+  border-top:1px solid rgba(195,164,107,.18);
+  box-shadow:0 24px 70px rgba(0,0,0,.28);
+}
+.ia-pannello-in{background:transparent}
+.ia-velo{background:rgba(5,7,15,.48)!important;backdrop-filter:blur(3px)}
+.ia-gruppo:hover,.ia-gruppo:focus-within,.ia-gruppo.qui{
+  background:rgba(195,164,107,.08)!important;
+}
+.ia-voce,.ia-freccia{transition:background-color 180ms ease,color 180ms ease,border-color 180ms ease}
+.ia-lista a{border-radius:10px;transition:background-color 180ms ease,color 180ms ease}
+.ia-lista a:hover,.ia-lista a:focus-visible{background:rgba(195,164,107,.09)!important}
+.ia-freccia[aria-expanded="true"]{background:rgba(195,164,107,.13)!important}
+@media(prefers-reduced-motion:reduce){
+ .ia-pannello,.ia-lista a,.ia-gruppo,.ia-voce,.ia-freccia{transition:none!important}
+}

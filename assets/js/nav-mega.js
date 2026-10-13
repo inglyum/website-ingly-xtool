@@ -89,22 +89,9 @@ export function initNavIA(D, L = 'it') {
     aperto === fam ? chiudi() : apri(fam, freccia);
   });
 
-  /* Su schermo largo il pannello si apre anche sfiorando il gruppo: è il
-     gesto che la gente si aspetta da un mega menu. Resta un di più — chi
-     usa tastiera o tocco ha la freccia, che è un vero pulsante. */
-  if (window.matchMedia && matchMedia('(hover:hover) and (min-width:821px)').matches) {
-    barra.addEventListener('pointerenter', (e) => {
-      const g = e.target.closest ? e.target.closest('.ia-gruppo') : null;
-      if (!g) return;
-      const fam = g.querySelector('.ia-voce')?.dataset.fam;
-      if (!fam || !$('ia-pan-' + fam)) return;
-      clearTimeout(attesa);
-      /* un filo di attesa: passare sopra la barra per andare altrove non
-         deve far comparire tre pannelli uno dopo l'altro */
-      attesa = setTimeout(() => apri(fam, g.querySelector('.ia-freccia') || g), 120);
-    }, true);
-    barra.addEventListener('pointerleave', () => clearTimeout(attesa), true);
-  }
+  /* Apertura esclusivamente esplicita: niente hover/pointerenter. Evita che
+     il menu lampeggi o si apra mentre il visitatore attraversa la barra. */
+
 
   /* Un clic fuori chiude. Dentro il pannello no: ci si sta navigando. */
   velo.addEventListener('click', chiudi);

@@ -892,3 +892,8 @@ html[data-mode="light"][data-bg-photo="true"] body{
 }
 @media(prefers-reduced-motion:reduce){html[data-bg-photo="true"] body{background-attachment:scroll,scroll,scroll!important}}
 @media print{html[data-bg-photo="true"] body{background-image:none!important}}
+
+/* Ambient studio background — decorative only, never captures input */
+body{isolation:isolate}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.58;background:radial-gradient(ellipse at 8% 12%,rgba(201,173,112,.07),transparent 35%),radial-gradient(ellipse at 92% 35%,rgba(57,106,190,.09),transparent 38%),linear-gradient(120deg,transparent 0%,rgba(255,255,255,.012) 50%,transparent 100%)}
+html[data-mode="light"] body::before{opacity:.38;background:radial-gradient(ellipse at 8% 12%,rgba(170,131,54,.07),transparent 35%),radial-gradient(ellipse at 92% 35%,rgba(57,106,190,.055),transparent 38%)}

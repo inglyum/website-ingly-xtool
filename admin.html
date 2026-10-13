@@ -868,6 +868,23 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
         <div><label>Etichetta (EN)</label><input type="text" data-b="CONFIG.whatsappFab.etichetta.en" placeholder="Chat on WhatsApp"></div>
       </div>
     </div>
+    <div class="card lead-admin-card"><h3>🎯 Conversione clienti — WhatsApp ed email</h3>
+      <p class="hint">Per ora il sito raccoglie richieste: nessun pagamento viene avviato. Le impostazioni future del checkout restano separate e non sono attive.</p>
+      <div class="row c3">
+        <div><label>Contatti prodotto attivi</label><select data-b="CONFIG.conversione.attiva"><option value="true">Attivi</option><option value="false">Disattivati</option></select></div>
+        <div><label>Canale principale</label><select data-b="CONFIG.conversione.canalePrimario"><option value="whatsapp">WhatsApp</option><option value="email">Email</option></select></div>
+        <div><label>Mostra pulsante email</label><select data-b="CONFIG.conversione.emailVisibile"><option value="true">Sì</option><option value="false">No</option></select></div>
+      </div>
+      <div class="row c2">
+        <div><label>Etichetta WhatsApp (IT)</label><input type="text" data-b="CONFIG.conversione.etichettaWhatsApp.it"></div>
+        <div><label>Etichetta WhatsApp (EN)</label><input type="text" data-b="CONFIG.conversione.etichettaWhatsApp.en"></div>
+        <div><label>Etichetta email (IT)</label><input type="text" data-b="CONFIG.conversione.etichettaEmail.it"></div>
+        <div><label>Etichetta email (EN)</label><input type="text" data-b="CONFIG.conversione.etichettaEmail.en"></div>
+      </div>
+      <label>Modello messaggio prodotto WhatsApp</label>
+      <textarea data-b="CONFIG.conversione.messaggioProdotto" rows="3"></textarea>
+      <p class="hint">Segnaposto disponibili: <code>{prodotto}</code>, <code>{materiale}</code>, <code>{quantita}</code>, <code>{url}</code>. Le modifiche diventano pubbliche solo con «Pubblica tutto».</p>
+    </div>
     <div class="card"><h3>🌐 Profili social</h3>
       <div class="row c2">
         <div><label>Instagram</label><input type="url" data-b="CONFIG.social.instagram"></div>

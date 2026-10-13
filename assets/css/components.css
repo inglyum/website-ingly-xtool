@@ -1118,3 +1118,44 @@ behold-widget{display:block;min-height:240px}
 /* il filtro «prezzo massimo» non può filtrare quello che non si vede */
 :root.senza-prezzi .fgroup:has(#pRange){display:none}
 
+
+/* INGLY premium product detail + conversion actions */
+.product-contact-actions{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:10px;margin:16px 0 22px;padding:15px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(215,192,138,.075),rgba(59,125,224,.055));box-shadow:0 12px 34px rgba(0,0,0,.12)}
+.product-contact-actions[hidden]{display:none!important}
+.product-contact-actions .btn{display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px;text-align:center;text-decoration:none;white-space:normal}
+.product-contact-actions .product-contact-wa{background:linear-gradient(135deg,#d8c18c,#b89a5a);color:#17191f;border-color:rgba(255,255,255,.15);box-shadow:0 10px 26px rgba(184,154,90,.2)}
+.product-contact-actions .product-contact-wa svg{width:19px;height:19px;fill:currentColor;flex:0 0 auto}
+.product-contact-actions .product-contact-email{border-color:rgba(184,154,90,.42)}
+.product-contact-note{grid-column:1/-1;margin:0;color:var(--ink-soft);font-size:12px;line-height:1.6}
+.pp-material-details{margin-top:22px}
+.pp-material-card{padding:20px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(215,192,138,.045));box-shadow:0 18px 44px rgba(0,0,0,.10)}
+.pp-material-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pp-material-kicker{font-size:10px;font-weight:800;letter-spacing:.18em;color:#c9ad70}
+.pp-material-name{font-size:12px;font-weight:750;border:1px solid var(--line);border-radius:999px;padding:6px 10px}
+.pp-material-card h3{font-size:19px;margin:8px 0}
+.pp-material-summary{font-size:15px;font-weight:650;line-height:1.55;margin:12px 0 8px}
+.pp-material-description{font-size:13px;color:var(--ink-soft);line-height:1.75;margin:8px 0 16px}
+.pp-material-spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:16px}
+.pp-material-spec-grid>div>b,.pp-material-note>b,.pp-material-limit>b{display:block;font-size:11px;letter-spacing:.04em;margin-bottom:8px}
+.pp-material-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.pp-material-chips span{border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:11px;color:var(--ink-soft);background:rgba(255,255,255,.025)}
+.pp-material-note,.pp-material-limit{margin-top:15px;padding:12px 14px;border-radius:12px;background:rgba(215,192,138,.07);border-left:2px solid #c9ad70}
+.pp-material-limit{background:rgba(239,112,112,.055);border-left-color:rgba(239,112,112,.7)}
+.pp-material-note p,.pp-material-limit p{font-size:12px;line-height:1.65;margin:0;color:var(--ink-soft)}
+.pp-material-foot{margin:15px 0 0;font-size:11px;line-height:1.6;color:var(--ink-soft)}
+/* Depth and icon motion: restrained, fast, accessible. */
+.pcard .pimg .art{filter:drop-shadow(0 10px 18px rgba(0,0,0,.18))}
+.pcard:hover .pimg .art{filter:drop-shadow(0 14px 22px rgba(201,173,112,.22))}
+.navic,.ic-svg,.icon-btn svg,.wish svg{transition:filter .25s ease,transform .25s ease,color .25s ease}
+.nav-links a:hover .navic,.nav-links a:focus-visible .navic{filter:drop-shadow(0 0 8px rgba(201,173,112,.45));transform:translateY(-1px)}
+.icon-btn:hover svg,.icon-btn:focus-visible svg{filter:drop-shadow(0 0 7px rgba(201,173,112,.5))}
+.btn{transition:transform .2s ease,box-shadow .25s ease,border-color .25s ease,background .25s ease}
+.btn:focus-visible,.icon-btn:focus-visible,.wish:focus-visible{outline:2px solid #d7c08a;outline-offset:3px}
+.hero-bg{isolation:isolate}
+.hero-bg::before{content:"";position:absolute;inset:-15%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 15% 18%,rgba(201,173,112,.11),transparent 38%),radial-gradient(ellipse at 85% 55%,rgba(59,125,224,.12),transparent 42%);filter:blur(22px);animation:inglyAmbient 18s ease-in-out infinite alternate}
+.hero-bg .blob{filter:blur(2px);transition:opacity .5s ease,transform .7s ease}
+.hero:hover .hero-bg .b1{transform:translate3d(8px,-6px,0) scale(1.04)}
+.hero:hover .hero-bg .b2{transform:translate3d(-7px,4px,0) scale(1.03)}
+@keyframes inglyAmbient{from{transform:translate3d(-1%,0,0) scale(1)}to{transform:translate3d(1%,1%,0) scale(1.05)}}
+@media(max-width:640px){.product-contact-actions{grid-template-columns:1fr}.pp-material-spec-grid{grid-template-columns:1fr}.pp-material-card{padding:16px}}
+@media(prefers-reduced-motion:reduce){.hero-bg::before{animation:none}.hero-bg .blob,.navic,.ic-svg,.icon-btn svg,.wish svg,.btn{transition:none!important}}

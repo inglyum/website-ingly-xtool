@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a32">
+<title>INGLY DESIGN Generator Studio — File parametrici per laser</title>
+<meta name="description" content="Crea e personalizza file SVG per taglio laser con gli strumenti parametrici INGLY DESIGN. Portachiavi, cake topper, living hinge e griglie test materiali.">
+<style>
+:root{color-scheme:dark;--bg:#080e1c;--panel:#101a30;--panel2:#15213b;--line:rgba(151,180,235,.18);--ink:#f4f7ff;--muted:#a2b0ca;--blue:#3378ed;--cyan:#67e8f9;--gold:#facc15;--green:#70e1b4;--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 12% 0%,rgba(34,81,159,.24),transparent 36%),radial-gradient(ellipse at 90% 25%,rgba(40,179,204,.09),transparent 30%),linear-gradient(145deg,#080e1c,#0b1428 50%,#080e1c);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.wrap{width:min(1460px,calc(100% - 36px));margin:auto}.top{position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line);background:rgba(7,13,27,.82);backdrop-filter:blur(18px)}.topin{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.12em}.brandmark{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#e6f5ff,#6f9cf3 45%,#24448a);color:#081326;box-shadow:0 0 30px #3477ed33;font-size:19px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.18em}.toplinks{display:flex;align-items:center;gap:20px;color:var(--muted);font-size:13px}.toplinks a:hover{color:white}.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#15213b;color:var(--ink);font-weight:750;transition:transform .18s,border-color .18s,background .18s}.btn:hover{transform:translateY(-1px);border-color:#70a9ff;background:#1a2b4d}.btn.primary{background:linear-gradient(120deg,#387deb,#2752b8);border-color:#6198ff;box-shadow:0 10px 28px #2864d933}.btn.gold{color:#161b24;background:linear-gradient(120deg,#fde68a,#facc15);border-color:#ffe58b}.btn.quiet{background:transparent}.hero{padding:64px 0 38px}.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:850;display:flex;align-items:center;gap:9px}.eyebrow:before{content:"";width:26px;height:1px;background:var(--cyan)}h1{font-size:clamp(38px,5.5vw,72px);line-height:1.02;letter-spacing:-.055em;margin:18px 0;max-width:900px}h1 span{background:linear-gradient(100deg,#fff 10%,#97baff 56%,#67e8f9);background-clip:text;-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:17px;max-width:700px;margin:0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.chip{font-size:11px;letter-spacing:.04em;border:1px solid var(--line);padding:7px 10px;border-radius:999px;color:#bdcce4;background:#ffffff05}.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:20px;align-items:start;padding-bottom:65px}.panel{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,rgba(21,34,60,.92),rgba(11,20,39,.92));box-shadow:0 20px 70px #0002}.sidebar{padding:16px;position:sticky;top:90px}.panel-title{font-size:12px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;color:#dce8ff;margin:4px 0 12px}.search{width:100%;border:1px solid var(--line);border-radius:11px;background:#070e1c;color:var(--ink);padding:11px 12px;margin-bottom:14px}.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}.filter{border:1px solid var(--line);border-radius:999px;padding:6px 9px;background:transparent;color:var(--muted);font-size:11px}.filter.active{background:#254a85;color:white;border-color:#5b91f0}.tool-list{display:grid;gap:8px}.tool{width:100%;text-align:left;display:flex;gap:12px;align-items:center;padding:12px;border:1px solid transparent;border-radius:14px;background:#ffffff04;color:var(--ink)}.tool:hover{background:#ffffff08;border-color:var(--line)}.tool.active{border-color:#6e9df1;background:linear-gradient(110deg,#23477c88,#18294399);box-shadow:inset 3px 0 #6ca4ff}.tool-icon{height:42px;width:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#254777,#152440);color:var(--cyan);font-size:21px}.tool b{display:block;font-size:13px}.tool small{color:var(--muted);font-size:11px}.mainpanel{min-width:0;overflow:hidden}.workhead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 25px 18px;border-bottom:1px solid var(--line)}.worktitle{display:flex;gap:12px;align-items:flex-start}.worktitle .tool-icon{width:48px;height:48px;flex-basis:48px;font-size:24px}.worktitle h2{font-size:22px;letter-spacing:-.03em;margin:0}.worktitle p{font-size:12px;color:var(--muted);margin:5px 0 0}.workactions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.workspace{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(270px,.8fr);gap:0;min-height:520px}.preview-side{padding:22px;border-right:1px solid var(--line);min-width:0}.preview-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.preview-top b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}.unit{color:var(--muted);font-size:11px}.canvas{position:relative;min-height:360px;border:1px solid #6682b33b;border-radius:16px;overflow:hidden;background-color:#101a2d;background-image:linear-gradient(#8fb3ed0b 1px,transparent 1px),linear-gradient(90deg,#8fb3ed0b 1px,transparent 1px);background-size:20px 20px;display:grid;place-items:center;padding:16px}.canvas svg{display:block;width:100%;max-height:520px;filter:drop-shadow(0 8px 16px #0003)}.canvas-note{position:absolute;bottom:10px;left:12px;color:#aab7ce;font-size:10px;background:#091121c9;padding:4px 8px;border-radius:7px}.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:13px;color:var(--muted);font-size:11px}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}.stat{padding:10px 12px;border:1px solid var(--line);background:#ffffff04;border-radius:12px;min-width:90px}.stat b{display:block;font-size:17px}.stat span{font-size:10px;color:var(--muted)}.controls{padding:22px;min-width:0}.controls h3{margin:0 0 5px;font-size:15px}.hint{font-size:11px;color:var(--muted);margin:0 0 17px}.field{display:grid;gap:6px;margin:13px 0}.field label{font-weight:750;font-size:11px;color:#d3def2;display:flex;justify-content:space-between;gap:8px}.field label span{font-weight:500;color:var(--muted)}.field input,.field select{width:100%;min-width:0;border:1px solid var(--line);background:#081224;color:var(--ink);padding:10px 11px;border-radius:10px}.field input[type=range]{padding:0;accent-color:#79a9ff}.field .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checkrow{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}.checkrow input{accent-color:var(--blue)}.control-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.notice{margin-top:14px;padding:11px;border-radius:10px;border:1px solid #facc1540;background:#facc150c;color:#f8e8a2;font-size:11px;line-height:1.5}.more{padding:24px 0 60px}.more h2{font-size:25px;margin:0 0 6px}.more>p{color:var(--muted);margin:0 0 20px}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature{padding:18px;border:1px solid var(--line);border-radius:16px;background:#ffffff04}.feature b{display:block;margin:9px 0 5px}.feature p{font-size:12px;color:var(--muted);margin:0}.foot{padding:20px 0 32px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:11px}.toast{position:fixed;right:18px;bottom:18px;z-index:20;max-width:min(360px,calc(100% - 36px));padding:13px 16px;background:#142747;border:1px solid #7ba6ef66;border-radius:12px;box-shadow:0 10px 30px #0006;display:none}.toast.show{display:block;animation:up .2s ease-out}@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}.hidden{display:none!important}
+@media(max-width:1060px){.layout{grid-template-columns:255px minmax(0,1fr)}.workspace{grid-template-columns:1fr}.preview-side{border-right:0;border-bottom:1px solid var(--line)}.controls{padding-top:18px}.canvas{min-height:300px}.feature-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.wrap{width:min(100% - 22px,680px)}.topin{height:62px}.toplinks a:not(.btn){display:none}.hero{padding:42px 0 28px}.layout{grid-template-columns:1fr;gap:12px}.sidebar{position:static}.tool-list{grid-template-columns:1fr 1fr}.tool{padding:9px;gap:8px}.tool-icon{height:34px;width:34px;flex-basis:34px;font-size:17px}.tool b{font-size:11px}.tool small{font-size:9px}.workhead{padding:16px;flex-direction:column}.workactions{justify-content:flex-start}.preview-side,.controls{padding:15px}.canvas{min-height:260px}.feature-grid{grid-template-columns:1fr}.hero p{font-size:15px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topin">
+<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark">I<span style="color:#67e8f9">✳</span></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
+<nav class="toplinks" aria-label="Navigazione"><a href="shop">Shop</a><a href="digital">File digitali</a><a href="academy">Academy</a><a class="btn quiet" href="admin.html">Admin ↗</a></nav>
+</div></header>
+<div class="wrap">
+<section class="hero"><div class="eyebrow">Creative tools · Made for makers</div><h1>Dall’idea al file.<br><span>Pronto per il laser.</span></h1><p>Un laboratorio di strumenti parametrici firmato INGLY DESIGN. Personalizza misure e dettagli, controlla l’anteprima e scarica file SVG da rifinire nel tuo software di lavorazione.</p><div class="chips"><span class="chip">SVG modificabile</span><span class="chip">Anteprima in tempo reale</span><span class="chip">File locale · Privacy first</span><span class="chip">Laser · Craft · Maker</span></div></section>
+<main class="layout">
+<aside class="panel sidebar"><div class="panel-title">Libreria generatori <span id="count" style="float:right;color:var(--cyan)">04</span></div><input id="search" class="search" type="search" placeholder="Cerca uno strumento…" aria-label="Cerca generatori"><div class="filters" id="filters"></div><div class="tool-list" id="toolList"></div><div class="notice">I file generati sono modelli vettoriali: verifica misure, kerf, materiale e impostazioni macchina prima del taglio. Non usare laser su materiali sconosciuti o PVC/vinile.</div></aside>
+<section class="panel mainpanel" aria-label="Area generatore">
+<div class="workhead"><div class="worktitle"><span class="tool-icon" id="activeIcon">⌁</span><div><h2 id="activeTitle">Portachiavi & tag</h2><p id="activeDesc">Nome, forma, foro e dimensioni.</p></div></div><div class="workactions"><button class="btn quiet" id="reset">↺ Ripristina</button><button class="btn" id="save">▣ Salva bozza</button><button class="btn primary" id="download">↓ Esporta SVG</button></div></div>
+<div class="workspace"><div class="preview-side"><div class="preview-top"><b>Anteprima vettoriale</b><span class="unit" id="sizeLabel">80 × 35 mm</span></div><div class="canvas" id="canvas" aria-live="polite"></div><div class="canvas-note">Preview schematica · 1 unità = 1 mm</div><div class="legend"><span><i style="background:#ff5d64"></i>Linee di taglio</span><span><i style="background:#68d5ff"></i>Linee / testi incisi</span></div><div class="stats"><div class="stat"><b id="statW">80</b><span>Larghezza mm</span></div><div class="stat"><b id="statH">35</b><span>Altezza mm</span></div><div class="stat"><b id="statPaths">3</b><span>Elementi vettoriali</span></div></div></div>
+<div class="controls"><h3>Parametri di progetto</h3><p class="hint">Le modifiche aggiornano l’anteprima automaticamente.</p><div id="fields"></div><div class="control-actions"><button class="btn primary" id="download2">Scarica SVG</button><button class="btn" id="png">Esporta PNG</button></div><p class="hint" style="margin:13px 0 0">SVG con tracciati distinti per taglio (rosso) e incisione (azzurro). Il software macchina può richiedere l’assegnazione delle lavorazioni per colore.</p></div></div>
+</section>
+</main>
+<section class="more"><h2>Strumenti pensati per il laboratorio</h2><p>Un catalogo che cresce per moduli indipendenti, guidato dalle esigenze dei maker.</p><div class="feature-grid"><article class="feature"><span class="tool-icon">⌘</span><b>File tuoi, davvero</b><p>Esportazione locale in SVG e PNG. Nessun upload automatico del progetto.</p></article><article class="feature"><span class="tool-icon">◈</span><b>Parametri chiari</b><p>Dimensioni e quantità visibili, con anteprima aggiornata mentre lavori.</p></article><article class="feature"><span class="tool-icon">✳</span><b>Catalogo modulare</b><p>La libreria può essere estesa nel tempo con nuovi generatori proprietari INGLY.</p></article></div></section>
+<footer class="foot"><span>© <span id="year"></span> INGLY DESIGN · Ingegno che illumina la tua visione.</span><span>Gli SVG sono modelli tecnici: verifica sempre il file prima della lavorazione.</span><a href="./">← Torna a INGLY DESIGN</a></footer>
+</div><div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const defaults=[
+{id:'portachiavi',modulo:'portachiavi',nome:{it:'Portachiavi & tag',en:'Keychains & tags'},descrizione:{it:'Nome, forma, foro e dimensioni.',en:'Name, shape, hole and size.'},categoria:'Accessori',icona:'⌁',attivo:true,ordine:1},
+{id:'living-hinge',modulo:'living-hinge',nome:{it:'Living Hinge Lab',en:'Living Hinge Lab'},descrizione:{it:'Reticoli flessibili parametrici per prove e prototipi.',en:'Parametric flexible patterns for prototypes.'},categoria:'Tecnica laser',icona:'▦',attivo:true,ordine:2},
+{id:'test-materiali',modulo:'test-materiali',nome:{it:'Griglia test materiali',en:'Material Test Grid'},descrizione:{it:'Tavola di provini per confrontare i test.',en:'A grid of samples for comparison tests.'},categoria:'Test e calibrazione',icona:'▤',attivo:true,ordine:3},
+{id:'cake-topper',modulo:'cake-topper',nome:{it:'Cake Topper',en:'Cake Topper'},descrizione:{it:'Sagoma decorativa con picchetto integrato.',en:'Decorative topper with an integrated stake.'},categoria:'Feste ed eventi',icona:'✦',attivo:true,ordine:4}
+];
+let catalogue=defaults.slice(),active='portachiavi',filter='Tutti',search='',settings={};
+const state={
+portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
+'living-hinge':{w:100,h:65,pitch:3.5,cut:0.7,margin:5,offset:true},
+'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},
+'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8}
+};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mod=id=>catalogue.find(x=>x.modulo===id)||catalogue.find(x=>x.id===id);
+const label=x=>(x.nome&&x.nome.it)||x.label||x.id;
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2800)}
+function activeModules(){return catalogue.filter(x=>x.attivo!==false&&['portachiavi','living-hinge','test-materiali','cake-topper'].includes(x.modulo)).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
+function renderFilters(){
+const cats=['Tutti',...new Set(activeModules().map(x=>x.categoria||'Altro'))];
+$('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(c)+'</button>').join('');
+$('filters').querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;renderFilters();renderList()});
+}
+function renderList(){
+const mods=activeModules().filter(x=>(filter==='Tutti'||x.categoria===filter)&&((label(x)+' '+(x.descrizione&&x.descrizione.it||'')+' '+x.id).toLowerCase().includes(search.toLowerCase())));
+$('count').textContent=String(activeModules().length).padStart(2,'0');
+$('toolList').innerHTML=mods.map(x=>'<button class="tool '+(x.id===active?'active':'')+'" data-tool="'+esc(x.id)+'"><span class="tool-icon">'+esc(x.icona||'✳')+'</span><span><b>'+esc(label(x))+'</b><small>'+esc(x.categoria||'Generatore')+'</small></span></button>').join('')||'<p class="hint">Nessun generatore in questa categoria.</p>';
+$('toolList').querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>select(b.dataset.tool));
+}
+const field=(key,labelTxt,type,value,attrs)=>'<div class="field"><label for="f_'+key+'">'+labelTxt+(type==='range'?'<span id="out_'+key+'">'+value+'</span>':'')+'</label><input id="f_'+key+'" type="'+type+'" value="'+esc(value)+'" '+(attrs||'')+'></div>';
+const selectField=(key,txt,value,opts)=>'<div class="field"><label for="f_'+key+'">'+txt+'</label><select id="f_'+key+'">'+opts.map(o=>'<option value="'+o[0]+'" '+(o[0]===value?'selected':'')+'>'+o[1]+'</option>').join('')+'</select></div>';
+function renderFields(){
+const s=state[active];let h='';
+if(active==='portachiavi'){
+h+=field('text','Testo da personalizzare','text',s.text,'maxlength="24"');
+h+=selectField('shape','Forma',s.shape,[['rounded','Rettangolo arrotondato'],['circle','Cerchio'],['hex','Esagono']]);
+h+='<div class="field"><label>Dimensioni (mm)</label><div class="pair"><input id="f_w" aria-label="Larghezza" type="number" min="25" max="180" value="'+s.w+'"><input id="f_h" aria-label="Altezza" type="number" min="15" max="120" value="'+s.h+'"></div></div>';
+h+=field('hole','Diametro del foro · mm','number',s.hole,'min="2" max="12" step=".5"');
+h+=field('radius','Raggio angoli · mm','number',s.radius,'min="0" max="15" step=".5"');
+h+=field('margin','Margine incisione · mm','number',s.margin,'min="3" max="24"');
+}else if(active==='living-hinge'){
+h+='<div class="field"><label>Dimensioni pannello (mm)</label><div class="pair"><input id="f_w" aria-label="Larghezza" type="number" min="20" max="300" value="'+s.w+'"><input id="f_h" aria-label="Altezza" type="number" min="20" max="250" value="'+s.h+'"></div></div>';
+h+=field('pitch','Passo tra i tagli · mm','number',s.pitch,'min="1.5" max="15" step=".5"');
+h+=field('cut','Spessore linea in anteprima · mm','number',s.cut,'min=".3" max="2.5" step=".1"');
+h+=field('margin','Margine · mm','number',s.margin,'min="2" max="20"');
+h+='<label class="checkrow"><input id="f_offset" type="checkbox" '+(s.offset?'checked':'')+'> Sfalsa le righe alternate</label>';
+}else if(active==='test-materiali'){
+h+='<div class="field"><label>Numero di provini</label><div class="pair"><input id="f_cols" aria-label="Colonne" type="number" min="2" max="8" value="'+s.cols+'"><input id="f_rows" aria-label="Righe" type="number" min="2" max="8" value="'+s.rows+'"></div></div>';
+h+='<div class="field"><label>Dimensione provino (mm)</label><div class="pair"><input id="f_tileW" aria-label="Larghezza provino" type="number" min="12" max="60" value="'+s.tileW+'"><input id="f_tileH" aria-label="Altezza provino" type="number" min="12" max="50" value="'+s.tileH+'"></div></div>';
+h+=field('gap','Spazio fra provini · mm','number',s.gap,'min="1" max="12" step=".5"');
+h+=field('label','Intestazione tavola','text',s.label,'maxlength="28"');
+h+='<div class="field"><label>Valori di prova</label><div class="pair"><input id="f_start" aria-label="Valore iniziale" type="number" value="'+s.start+'"><input id="f_step" aria-label="Incremento" type="number" value="'+s.step+'"></div></div>';
+}else if(active==='cake-topper'){
+h+=field('text','Testo topper','text',s.text,'maxlength="26"');
+h+=selectField('shape','Sagoma',s.shape,[['arch','Arco'],['rounded','Rettangolo arrotondato'],['circle','Cerchio']]);
+h+=field('w','Larghezza corpo · mm','number',s.w,'min="35" max="180"');
+h+=field('h','Altezza corpo · mm','number',s.h,'min="20" max="100"');
+h+=field('stake','Picchetto sotto il corpo · mm','number',s.stake,'min="25" max="120"');
+h+=field('font','Dimensione testo · mm','number',s.font,'min="4" max="16" step=".5"');
+}
+$('fields').innerHTML=h;
+$('fields').querySelectorAll('input,select').forEach(el=>el.addEventListener('input',capture));
+}
+function capture(){
+const s=state[active];
+$('fields').querySelectorAll('input,select').forEach(el=>{
+const k=el.id.replace(/^f_/,'');if(el.type==='checkbox')s[k]=el.checked;else if(el.type==='number')s[k]=Number(el.value);else s[k]=el.value;
+});
+if(active==='portachiavi'){s.w=clamp(s.w||80,25,180);s.h=clamp(s.h||35,15,120);s.hole=clamp(s.hole||5,2,12);s.margin=clamp(s.margin||9,3,24);s.radius=clamp(s.radius||5,0,15)}
+if(active==='living-hinge'){s.w=clamp(s.w||100,20,300);s.h=clamp(s.h||65,20,250);s.pitch=clamp(s.pitch||3.5,1.5,15);s.margin=clamp(s.margin||5,2,20)}
+if(active==='test-materiali'){s.cols=clamp(Math.round(s.cols||4),2,8);s.rows=clamp(Math.round(s.rows||3),2,8);s.tileW=clamp(s.tileW||25,12,60);s.tileH=clamp(s.tileH||18,12,50);s.gap=clamp(s.gap||3,1,12)}
+if(active==='cake-topper'){s.w=clamp(s.w||100,35,180);s.h=clamp(s.h||48,20,100);s.stake=clamp(s.stake||45,25,120);s.font=clamp(s.font||8,4,16)}
+renderPreview();
+}
+function svgWrap(w,h,body){
+return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="'+w+'mm" height="'+h+'mm" viewBox="0 0 '+w+' '+h+'"><title>INGLY DESIGN Generator Studio</title><desc>File vettoriale parametrico. Rosso = taglio, azzurro = incisione; verifica colori e lavorazioni nel software macchina.</desc><g fill="none" stroke="#ff5d64" stroke-width=".25" stroke-linejoin="round">'+body.cut+'</g><g fill="none" stroke="#68d5ff" stroke-width=".25" stroke-linejoin="round">'+body.engrave+'</g><g fill="#68d5ff" stroke="none">'+(body.text||'')+'</g></svg>';
+}
+function buildSvg(){
+const s=state[active];let w=100,h=60,cut='',engrave='',text='',count=0;
+const rect=(x,y,ww,hh,r)=>'<rect x="'+x+'" y="'+y+'" width="'+ww+'" height="'+hh+'" rx="'+r+'"/>';
+const circle=(x,y,r)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'"/>';
+const line=(x1,y1,x2,y2)=>'<path d="M '+x1+' '+y1+' L '+x2+' '+y2+'"/>';
+const txt=(x,y,t,size,anchor)=>'<text x="'+x+'" y="'+y+'" font-family="Arial,sans-serif" font-size="'+size+'" text-anchor="'+(anchor||'middle')+'" dominant-baseline="middle">'+esc(t)+'</text>';
+if(active==='portachiavi'){
+w=clamp(s.w,25,180);h=clamp(s.h,15,120);const hole=clamp(s.hole,2,12),m=clamp(s.margin,3,24);let x=0,y=0;
+if(s.shape==='circle'){const d=Math.min(w,h)-hole-4;x=(w-d)/2;y=(h-d)/2;cut+=circle(w/2,h/2,d/2)}
+else if(s.shape==='hex'){const pts=[[w*.18,h*.08],[w*.82,h*.08],[w*.98,h*.5],[w*.82,h*.92],[w*.18,h*.92],[w*.02,h*.5]].map(p=>p.join(',')).join(' ');cut+='<polygon points="'+pts+'"/>'}
+else cut+=rect(.5,.5,w-1,h-1,clamp(s.radius,0,Math.min(w,h)/4));
+cut+=circle(Math.max(hole/2+2,Math.min(w*.16,h*.35)),h/2,hole/2);
+engrave+=txt(w/2+2,h*.57,s.text,Math.max(4,Math.min(h*.4,(w-2*m)/Math.max(3,(s.text||'INGLY').length)*1.4)));
+engrave+=line(m,h*.73,w-m,h*.73);count=3;
+}else if(active==='living-hinge'){
+w=clamp(s.w,20,300);h=clamp(s.h,20,250);const m=clamp(s.margin,2,20),pitch=clamp(s.pitch,1.5,15),cutw=clamp(s.cut,.3,2.5);
+cut+=rect(.5,.5,w-1,h-1,0);
+let row=0;for(let y=m;y<h-m;y+=pitch){const offset=s.offset&&row%2?pitch/2:0;for(let x=m+offset;x<w-m;x+=pitch*2){const len=Math.min(pitch*1.2,w-m-x);if(len>0){cut+='<path d="M '+x+' '+y+' h '+len+'" stroke-width="'+cutw+'"/>';count++}}row++}
+engrave+=txt(w/2,h-1.2,'LIVING HINGE · TEST',Math.max(2.5,Math.min(5,w/18)));count++;
+}else if(active==='test-materiali'){
+const cols=clamp(Math.round(s.cols),2,8),rows=clamp(Math.round(s.rows),2,8),tw=clamp(s.tileW,12,60),th=clamp(s.tileH,12,50),gap=clamp(s.gap,1,12);
+w=cols*tw+(cols+1)*gap;h=rows*(th+gap)+gap+10;cut+=rect(.5,.5,w-1,h-1,0);engrave+=txt(w/2,5,s.label||'TEST MATERIALI',Math.min(4,w/25));
+for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const x=gap+c*(tw+gap),y=gap+9+r*(th+gap);cut+=rect(x,y,tw,th,1);engrave+=txt(x+tw/2,y+th*.34,String((Number(s.start)||0)+(r*cols+c)*(Number(s.step)||1)),Math.min(3.5,tw/7));engrave+=line(x+tw*.22,y+th*.62,x+tw*.78,y+th*.62);engrave+=txt(x+tw/2,y+th*.8,'P'+(r*cols+c+1),Math.min(2.8,tw/8));count+=4}
+}else if(active==='cake-topper'){
+w=clamp(s.w,35,180);const bodyH=clamp(s.h,20,100),stake=clamp(s.stake,25,120),font=clamp(s.font,4,16);h=bodyH+stake;
+if(s.shape==='circle'){const d=Math.min(w-1,bodyH-1);cut+=circle(w/2,bodyH/2,d/2);cut+=line(w/2,bodyH/2+d/2,w/2,bodyH+stake)}
+else {cut+=rect(.5,.5,w-1,bodyH, s.shape==='arch'?Math.min(w/2,bodyH/2):2);cut+='<path d="M '+(w*.42)+' '+bodyH+' L '+(w*.46)+' '+(bodyH+stake)+' L '+(w*.54)+' '+(bodyH+stake)+' L '+(w*.58)+' '+bodyH+'"/>'}
+engrave+=txt(w/2,bodyH*.52,s.text||'Auguri!',Math.min(font,bodyH*.34,w/Math.max(4,(s.text||'Auguri!').length)*1.65));count=3;
+}
+const body={cut:cut,engrave:engrave,text:text};
+return {svg:svgWrap(Math.ceil(w*10)/10,Math.ceil(h*10)/10,body),w:Math.ceil(w*10)/10,h:Math.ceil(h*10)/10,count:count};
+}
+function renderPreview(){
+const o=buildSvg();$('canvas').innerHTML=o.svg;$('sizeLabel').textContent=o.w+' × '+o.h+' mm';$('statW').textContent=o.w;$('statH').textContent=o.h;$('statPaths').textContent=o.count;
+}
+function select(id){
+const item=catalogue.find(x=>x.id===id)||catalogue.find(x=>x.modulo===id);if(!item||item.attivo===false)return;
+active=item.modulo||item.id;
+$('activeIcon').textContent=item.icona||'✳';$('activeTitle').textContent=label(item);$('activeDesc').textContent=(item.descrizione&&item.descrizione.it)||'Generatore parametrico INGLY DESIGN.';
+renderList();renderFields();renderPreview();
+}
+function safeName(s){return String(s||'ingly-design').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48)||'ingly-design'}
+function downloadSvg(){const o=buildSvg();const blob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='ingly-'+safeName(active)+'-'+Date.now()+'.svg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1200);toast('SVG esportato. Controlla la scala e le lavorazioni prima del taglio.')}
+function saveDraft(){localStorage.setItem('ingly_generator_draft_v1',JSON.stringify({active:active,state:state}));toast('Bozza salvata su questo dispositivo.')}
+function loadDraft(){try{const d=JSON.parse(localStorage.getItem('ingly_generator_draft_v1')||'null');if(d&&d.state){Object.keys(d.state).forEach(k=>{if(state[k])Object.assign(state[k],d.state[k])});if(d.active&&state[d.active])active=d.active}}catch(e){}}
+function png(){const o=buildSvg(),blob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(blob),im=new Image();im.onload=function(){const scale=4,c=document.createElement('canvas');c.width=Math.ceil(o.w*scale);c.height=Math.ceil(o.h*scale);const cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,c.width,c.height);cx.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(function(b){const p=URL.createObjectURL(b),a=document.createElement('a');a.href=p;a.download='ingly-'+safeName(active)+'.png';a.click();URL.revokeObjectURL(p);toast('PNG esportato.')},'image/png')};im.onerror=function(){URL.revokeObjectURL(u);toast('Esportazione PNG non riuscita: prova SVG.')};im.src=u}
+function init(){
+$('year').textContent=new Date().getFullYear();
+$('search').addEventListener('input',e=>{search=e.target.value;renderList()});
+$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:.7,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8}})[active]);renderFields();renderPreview()}};
+$('save').onclick=saveDraft;$('download').onclick=downloadSvg;$('download2').onclick=downloadSvg;$('png').onclick=png;
+loadDraft();
+fetch('data/content.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{
+if(data&&Array.isArray(data.GENERATORI)&&data.GENERATORI.length){
+const valid=data.GENERATORI.filter(x=>x&&x.id&&x.modulo);
+catalogue=valid.length?valid:defaults.slice();
+}
+}).catch(()=>{}).finally(()=>{if(!catalogue.some(x=>x.id===active&&x.attivo!==false))active=(activeModules()[0]||defaults[0]).id;renderFilters();renderList();select(active)});
+}
+init();
+})();
+</script>
+</body></html>

@@ -79,7 +79,9 @@ export function applyThemeAccent(){
     '--blue': primary,
     '--blue-hi': primary,
     '--laser': accent,
-    '--spark': accent
+    '--spark': accent,
+    '--theme-line': primary ? 'color-mix(in srgb, '+primary+' 24%, transparent)' : null,
+    '--theme-glow': accent ? 'color-mix(in srgb, '+accent+' 18%, transparent)' : null
   };
   Object.entries(tokens).forEach(([key,value])=>{
     if(t && value) root.style.setProperty(key,value);

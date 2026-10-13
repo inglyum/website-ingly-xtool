@@ -55,5 +55,13 @@ loadData().then(D=>{
   console.error(err);
   if(await selfHeal()){ location.reload(); return; }
   const l=document.getElementById('loader');
-  if(l) l.innerHTML='<div class="lin"><span style="font-family:sans-serif;color:#9aa3c7;max-width:420px;text-align:center;line-height:1.6">⚠️ Impossibile caricare i dati del sito.<br>'+ (err&&err.message||'') +'</span></div>';
+  if(l){
+    const msg=document.createElement('div');
+    msg.className='lin';
+    const panel=document.createElement('span');
+    panel.style.cssText='font-family:sans-serif;color:#9aa3c7;max-width:420px;text-align:center;line-height:1.6';
+    panel.append('⚠️ Impossibile caricare i dati del sito. ',String(err&&err.message||'Errore imprevisto.'));
+    msg.appendChild(panel);
+    l.replaceChildren(msg);
+  }
 });

@@ -83,7 +83,10 @@ const DLAB = {
 };
 const pagine = [
   ...PRE.elenco({ prodotti, verticali: contenuti.VERTICALI || [] }),
-  ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', id: v.id }))
+  ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', id: v.id })),
+  /* Strumento autonomo: il Generator Studio è una pagina HTML indipendente,
+     non una rotta SPA, quindi entra nella sitemap con il suo file reale. */
+  { file: 'generatori.html', pagina: 'tool', id: 'generatori' }
 ];
 const mancanti = [];
 const righe = [];

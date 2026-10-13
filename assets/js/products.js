@@ -72,10 +72,17 @@ export function applyThemeAccent(){
   const base = valido(palette[0]);
   const primary = valido(palette[1]);
   const accent = valido(palette[2]);
+  const luminance = color => {
+    if(!color) return 0;
+    const n=parseInt(color.slice(1),16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+    return .2126*r+.7152*g+.0722*b;
+  };
+  const buttonInk = accent ? (luminance(accent)>150 ? (base||'#111827') : '#ffffff') : null;
   const tokens = {
     '--theme-base': base,
     '--theme-primary': primary,
     '--theme-accent': accent,
+    '--theme-button-ink': buttonInk,
     '--blue': primary,
     '--blue-hi': primary,
     '--laser': accent,

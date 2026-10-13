@@ -235,6 +235,37 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 @media(max-width:400px){.admin-launch-grid{grid-template-columns:1fr}}
 
 </style>
+
+<style>
+/* Visual background studio — component styles intentionally isolated */
+.bgp-card{overflow:hidden}
+.bgp-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.bgp-kicker{display:block;color:var(--laser);font-size:10px;letter-spacing:.16em;font-weight:800;margin-bottom:7px}
+.bgp-toggle{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:10px 13px;background:var(--card2);white-space:nowrap}
+.bgp-toggle input{width:auto}
+.bgp-layout{display:grid;grid-template-columns:minmax(260px,.82fr) minmax(280px,1.18fr);gap:22px;margin-top:18px}
+.bgp-controls{min-width:0}
+.bgp-controls>label,.bgp-range>label{display:block;font-size:12px;font-weight:750;margin:13px 0 7px}
+.bgp-url{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.bgp-controls input[type=text],.bgp-controls select{width:100%;min-width:0}
+.bgp-controls input[type=range]{width:100%;accent-color:var(--laser)}
+.bgp-range{margin-top:16px}
+.bgp-range label{display:flex;justify-content:space-between;gap:12px}
+.bgp-range output{color:var(--laser);font-variant-numeric:tabular-nums}
+.bgp-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:19px}
+.bgp-actions .hint{flex:1;min-width:170px}
+.bgp-previews{display:grid;grid-template-columns:1fr;gap:13px;min-width:0}
+.bgp-previews>b,.bgp-previews>div>b{display:block;font-size:12px;margin:0 0 7px}
+.bgp-preview{min-height:150px;border:1px solid var(--line);border-radius:15px;overflow:hidden;padding:20px;display:flex;align-items:flex-end;background:#0a0d18;color:#f5f7ff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02)}
+.bgp-preview>div{display:flex;flex-direction:column;gap:6px;max-width:34ch;text-shadow:0 1px 8px rgba(0,0,0,.3)}
+.bgp-preview strong{font-family:var(--fd);font-size:clamp(18px,2.3vw,27px);line-height:1.1}
+.bgp-preview span{font-size:12px;line-height:1.5}
+.bgp-preview-light{color:#151a27}
+.bgp-preview-light>div{text-shadow:0 1px 8px rgba(255,255,255,.25)}
+@media(max-width:860px){.bgp-layout{grid-template-columns:1fr}.bgp-preview{min-height:125px}}
+@media(max-width:520px){.bgp-url{grid-template-columns:1fr}.bgp-heading{align-items:stretch}.bgp-toggle{align-self:flex-start}}
+</style>
+
 </head>
 <body>
 <script src="assets/js/artwork.js"></script>
@@ -408,6 +439,33 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
         <button class="btn sm" id="sfPrevChiaro">☀️ Chiaro</button>
       </div>
       <div id="sfPrev" class="sf-prev"></div>
+    </div>
+
+    <div class="card bgp-card">
+      <div class="bgp-heading">
+        <div><span class="bgp-kicker">INGLY DESIGN · VISUAL CONTROL</span><h3>🖼 Sfondo fotografico premium</h3>
+          <p class="hint">Usa una fotografia del laboratorio, un dettaglio materico o un’immagine di campagna. L’immagine resta dietro al contenuto: i veli regolabili mantengono il testo leggibile.</p></div>
+        <label class="bgp-toggle"><input type="checkbox" id="bgPhotoEnabled"> Attiva sfondo foto</label>
+      </div>
+      <div class="bgp-layout">
+        <div class="bgp-controls">
+          <label for="bgPhotoUrl">Immagine / percorso nel repository</label>
+          <div class="bgp-url"><input type="text" id="bgPhotoUrl" placeholder="img/sfondo-lab.webp" autocomplete="off"><button class="btn sm" type="button" id="bgPhotoLibrary">Apri Media Library ↗</button></div>
+          <p class="hint">Carica prima il file nella Media Library e usa il percorso assegnato (es. <code>img/sfondo-lab.webp</code>), oppure incolla un URL HTTPS. La foto deve essere tua o avere una licenza idonea.</p>
+          <label for="bgPhotoPosition">Inquadratura</label>
+          <select id="bgPhotoPosition">
+            <option value="center center">Centrata</option><option value="center top">Parte superiore</option><option value="center bottom">Parte inferiore</option><option value="left center">Lato sinistro</option><option value="right center">Lato destro</option>
+          </select>
+          <div class="bgp-range"><label for="bgPhotoDark">Velo scuro — <output id="bgPhotoDarkValue">48%</output></label><input type="range" id="bgPhotoDark" min="0" max="85" step="1" value="48"><p class="hint">Per il tema scuro: aumenta il velo per ottenere più contrasto.</p></div>
+          <div class="bgp-range"><label for="bgPhotoLight">Velo chiaro — <output id="bgPhotoLightValue">64%</output></label><input type="range" id="bgPhotoLight" min="0" max="90" step="1" value="64"><p class="hint">Per il tema chiaro: schiarisce l’immagine sotto testi e schede.</p></div>
+          <div class="bgp-actions"><button class="btn" type="button" id="bgPhotoReset">Disattiva foto</button><span id="bgPhotoStatus" role="status" aria-live="polite" class="hint"></span></div>
+          <p class="hint">Le modifiche sono una bozza locale finché non premi <b>Pubblica tutto</b>. Per provarle sul sito usa prima <b>Anteprima</b>.</p>
+        </div>
+        <div class="bgp-previews">
+          <div><b>🌙 Tema scuro</b><div class="bgp-preview" id="bgPhotoPreviewDark"><div><strong>Segnati dalla luce.</strong><span>Creazioni personalizzate premium, fatte per durare.</span></div></div></div>
+          <div><b>☀️ Tema chiaro</b><div class="bgp-preview bgp-preview-light" id="bgPhotoPreviewLight"><div><strong>Ingegno che illumina la tua visione.</strong><span>Materiali, luce e personalizzazione.</span></div></div></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -4893,6 +4951,7 @@ $('seoAiGen').onclick=async()=>{
 (async()=>{renderPipe();const ok=await loadAll();if(ok){go('dash');if(token())scanRepo().catch(()=>{})}else go('set')})();
 </script>
 <script src="assets/js/admin/seo-engine-panel.js"></script>
+<script src="assets/js/admin/appearance-studio.js"></script>
 <!-- Logica «dove finisce l'immagine»: modulo ES separato (così è testabile da
      riga di comando) reso disponibile allo script principale come MD. Gli
      script type=module sono differiti, quindi MD esiste molto prima che si

@@ -897,3 +897,22 @@ html[data-mode="light"][data-bg-photo="true"] body{
 body{isolation:isolate}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.58;background:radial-gradient(ellipse at 8% 12%,rgba(201,173,112,.07),transparent 35%),radial-gradient(ellipse at 92% 35%,rgba(57,106,190,.09),transparent 38%),linear-gradient(120deg,transparent 0%,rgba(255,255,255,.012) 50%,transparent 100%)}
 html[data-mode="light"] body::before{opacity:.38;background:radial-gradient(ellipse at 8% 12%,rgba(170,131,54,.07),transparent 35%),radial-gradient(ellipse at 92% 35%,rgba(57,106,190,.055),transparent 38%)}
+
+
+/* INGLY brand mark: immobile, pulito, senza rotazione o fluttuazione */
+.coin,.hero-visual .coin{
+  animation:none!important;
+  transform:none!important;
+  transform-style:flat!important;
+  transition:none!important;
+  cursor:default!important;
+}
+.coin img,.hero-visual .coin img{
+  animation:none!important;
+  transform:none!important;
+}
+.brand img,.loader .lin>img,.logo-big img{
+  animation:none!important;
+  transform:none!important;
+}
+.brand img{transition:width var(--dur-ui,220ms) var(--ease-out,ease),height var(--dur-ui,220ms) var(--ease-out,ease)!important}

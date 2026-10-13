@@ -269,6 +269,7 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 </head>
 <body>
 <script src="assets/js/artwork.js"></script>
+<script src="assets/js/generatori-catalog.js"></script>
 <div class="shell" id="shell">
 <aside class="side">
   <div class="brand"><img src="assets/images/logo.png" onerror="this.style.display='none'" alt=""><div><b>INGLY</b><span>Admin 3.0</span></div></div>
@@ -366,6 +367,21 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
   <section class="view" id="v-dig">
     <div class="searchrow"><span class="hint">File digitali — <b>data/digitale.json</b>. Un bundle compare sul sito solo se <b>pubblicato</b>, e mostra il bottone d’acquisto solo se dichiara <b>come arriva al cliente</b>.</span><button class="btn pri" id="dNew" style="margin-left:auto">➕ Nuovo digitale</button></div>
     <div class="card" style="padding:8px 12px"><table id="dTable"></table></div>
+  </section>
+
+  <!-- ============ INGLY GENERATOR STUDIO ============ -->
+  <section class="view" id="v-generators">
+    <div class="card">
+      <h3>✳ INGLY DESIGN Generator Studio</h3>
+      <p class="hint">Gestisci il catalogo pubblico dei generatori: nome, descrizione, categoria, icona, ordine e pubblicazione. Puoi creare varianti basate su un motore già implementato oppure collegare un generatore esterno autorizzato. Un algoritmo completamente nuovo richiede anche il relativo motore software.</p>
+      <div class="searchrow"><span class="hint">Le modifiche rimangono in bozza fino a <b>Pubblica</b>.</span><button class="btn pri" id="genNew" style="margin-left:auto">➕ Nuovo generatore / collegamento</button></div>
+      <div id="genList"></div>
+    </div>
+    <div class="card">
+      <h3>🧩 Motori disponibili</h3>
+      <div class="hint">Questi motori sono già eseguibili nella pagina pubblica. Una nuova voce può riutilizzarne uno oppure indirizzare l'utente a un servizio esterno. Il semplice inserimento di un nome non crea automaticamente un nuovo algoritmo.</div>
+      <div id="genEngines" class="row c2"></div>
+    </div>
   </section>
 
   <!-- ============ MEDIA ============ -->
@@ -1661,6 +1677,7 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
 /* ---------- navigazione ---------- */
 const NAV=[['Panoramica',[['dash','📊','Dashboard']]],
  ['Catalogo',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['dig','💾','Digitali'],['prezzi','🏷','Prezzi in vetrina']]],
+ ['Creative Tools',[['generators','✳','Generatori INGLY']]],
  ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
  ['Configurazione',[['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['bg','🎨','Sfondo Sito'],['set','⚙️','Impostazioni']]],
  ['Sistema',[['pub','🚀','Pubblica & Deploy'],['hist','🕘','Cronologia'],['health','🩺','Health Center'],['backup','💾','Backup']]]];
@@ -1671,7 +1688,7 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
@@ -4180,6 +4197,90 @@ function renderFaq(){const F=(S.C.FAQS=S.C.FAQS||[]),R=(S.C.REVIEWS=S.C.REVIEWS|
 $('fNew').onclick=()=>{S.C.FAQS.push([{it:'Nuova domanda?',en:'New question?'},{it:'Risposta.',en:'Answer.'}]);markDirty();renderFaq()};
 $('rNew').onclick=()=>{S.C.REVIEWS.push({q:{it:'"…"',en:'"…"'},w:'Nome Cognome',s:{it:'Cliente · Città',en:'Customer · City'},
  i:'NC',c:'var(--blue)',st:5,dt:'',ph:[]});markDirty();renderFaq()};
+
+/* ================== INGLY DESIGN GENERATOR STUDIO ================== */
+function genCatalog(){
+  S.C=S.C||{};
+  if(!Array.isArray(S.C.GENERATORI)){
+    const seed=window.INGLY_GENERATORI_DEFAULTS||[];
+    S.C.GENERATORI=JSON.parse(JSON.stringify(seed));
+  }
+  return S.C.GENERATORI;
+}
+function genSlug(v){
+  return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48);
+}
+function renderGenerators(){
+  const G=genCatalog(), engines=window.INGLY_GENERATORI_MODULES||[];
+  $('genList').innerHTML=G.length?G.map((g,i)=>{
+    const ext=g.modulo==='link-esterno';
+    const on=g.attivo!==false;
+    return '<div class="list-it" style="align-items:center;gap:10px;flex-wrap:wrap;padding:12px;margin:8px 0">'
+      +'<span style="font-size:24px;width:32px;text-align:center">'+esc(g.icona||'✳')+'</span>'
+      +'<span style="flex:1;min-width:160px"><b>'+esc((g.nome&&g.nome.it)||g.id)+'</b><br><small class="hint">'+esc((g.nome&&g.nome.en)||'')+' · '+esc(g.categoria||'Altro')+' · '+esc(ext?'Collegamento esterno':((engines.find(e=>e.id===g.modulo)||{}).label||g.modulo||'Motore non riconosciuto'))+'</small></span>'
+      +'<span class="chip '+(on?'ok':'hint')+'">'+(on?'Visibile':'Nascosto')+'</span>'
+      +'<span class="mono hint">#'+esc(g.ordine||i+1)+'</span>'
+      +'<button class="btn sm" data-gen-up="'+i+'" title="Sposta su">↑</button>'
+      +'<button class="btn sm" data-gen-down="'+i+'" title="Sposta giù">↓</button>'
+      +'<button class="btn sm" data-gen-toggle="'+i+'">'+(on?'Nascondi':'Attiva')+'</button>'
+      +'<button class="btn sm" data-gen-edit="'+i+'">✎ Modifica</button>'
+      +'<button class="btn sm err" data-gen-del="'+i+'">🗑</button></div>';
+  }).join(''):'<p class="hint">Nessun generatore configurato. Aggiungi una voce per iniziare.</p>';
+  $('genEngines').innerHTML=engines.map(e=>'<div class="list-it" style="padding:10px;gap:8px"><span style="font-size:20px">'+esc(e.icon||'✳')+'</span><span><b>'+esc(e.label)+'</b><br><small class="hint">'+esc(e.summary||'Motore disponibile')+'</small></span></div>').join('')
+    +'<div class="list-it" style="padding:10px;gap:8px"><span style="font-size:20px">↗</span><span><b>Collegamento esterno</b><br><small class="hint">Apre un tool online in una nuova scheda, senza copiarne il codice.</small></span></div>';
+  $('genNew').onclick=()=>editGenerator(-1);
+  document.querySelectorAll('[data-gen-edit]').forEach(b=>b.onclick=()=>editGenerator(+b.dataset.genEdit));
+  document.querySelectorAll('[data-gen-toggle]').forEach(b=>b.onclick=()=>{
+    const g=G[+b.dataset.genToggle];g.attivo=g.attivo===false;markDirty();renderGenerators();
+  });
+  document.querySelectorAll('[data-gen-up],[data-gen-down]').forEach(b=>b.onclick=()=>{
+    const i=+(b.dataset.genUp??b.dataset.genDown),d=b.hasAttribute('data-gen-up')?-1:1,j=i+d;
+    if(j<0||j>=G.length)return;
+    [G[i],G[j]]=[G[j],G[i]];G.forEach((g,k)=>g.ordine=k+1);markDirty();renderGenerators();
+  });
+  document.querySelectorAll('[data-gen-del]').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.genDel,g=G[i];
+    if(!confirm('Rimuovere "'+((g.nome&&g.nome.it)||g.id)+'" dal catalogo INGLY? Il codice del motore non verrà cancellato.'))return;
+    G.splice(i,1);G.forEach((x,k)=>x.ordine=k+1);markDirty();renderGenerators();toast('Voce rimossa dalla bozza');
+  });
+}
+function editGenerator(index){
+  const G=genCatalog(),isNew=index<0;
+  const base=isNew?{id:'',modulo:'portachiavi',nome:{it:'Nuovo generatore',en:'New generator'},descrizione:{it:'',en:''},categoria:'Personalizzazione',icona:'✳',attivo:false,ordine:G.length+1,url:''}:G[index];
+  const g=JSON.parse(JSON.stringify(base)), engines=window.INGLY_GENERATORI_MODULES||[];
+  const opts=engines.map(e=>'<option value="'+esc(e.id)+'"'+(g.modulo===e.id?' selected':'')+'>'+esc(e.label)+'</option>').join('')
+    +'<option value="link-esterno"'+(g.modulo==='link-esterno'?' selected':'')+'>Collegamento a tool esterno</option>';
+  modal('<h3>✳ '+(isNew?'Nuovo generatore INGLY':'Modifica generatore')+'</h3>'
+    +'<p class="hint">Scegli un motore esistente oppure un link esterno HTTPS. I generatori originali con funzioni nuove si aggiungono sviluppando un motore e registrandolo qui.</p>'
+    +'<div class="row c2"><div><label>ID univoco</label><input id="gen_id" value="'+esc(g.id||'')+'" placeholder="es. scatola-parametrica"></div><div><label>Motore</label><select id="gen_module">'+opts+'</select></div></div>'
+    +'<div class="row c2"><div><label>Nome italiano</label><input id="gen_it" value="'+esc((g.nome&&g.nome.it)||'')+'"></div><div><label>Nome inglese</label><input id="gen_en" value="'+esc((g.nome&&g.nome.en)||'')+'"></div></div>'
+    +'<div><label>Categoria</label><input id="gen_cat" value="'+esc(g.categoria||'Altro')+'"></div>'
+    +'<div class="row c2"><div><label>Descrizione (IT)</label><textarea id="gen_desc_it" rows="2">'+esc((g.descrizione&&g.descrizione.it)||'')+'</textarea></div><div><label>Description (EN)</label><textarea id="gen_desc_en" rows="2">'+esc((g.descrizione&&g.descrizione.en)||'')+'</textarea></div></div>'
+    +'<div class="row c3"><div><label>Icona / emoji</label><input id="gen_icon" value="'+esc(g.icona||'✳')+'"></div><div><label>Ordine</label><input id="gen_order" type="number" min="1" step="1" value="'+esc(g.ordine||G.length+1)+'"></div><div><label>Visibilità</label><label style="display:flex;gap:8px;align-items:center"><input id="gen_active" type="checkbox" style="width:auto" '+(g.attivo!==false?'checked':'')+'> Visibile nel catalogo</label></div></div>'
+    +'<div><label>URL esterno (solo per motore esterno)</label><input id="gen_url" type="url" value="'+esc(g.url||'')+'" placeholder="https://..."></div>'
+    +'<div class="hint" id="gen_error" style="margin-top:8px"></div><div style="display:flex;gap:8px;margin-top:16px"><button class="btn pri" id="gen_save">✔ Salva voce</button><button class="btn" onclick="closeModal()">Annulla</button></div>');
+  $('gen_save').onclick=()=>{
+    const id=genSlug($('gen_id').value),modulo=$('gen_module').value;
+    const url=$('gen_url').value.trim(),err=$('gen_error');
+    if(!id){err.textContent='Inserisci un ID valido.';return}
+    if(!String($('gen_it').value||'').trim()){err.textContent='Il nome italiano è obbligatorio.';return}
+    if(G.some((x,k)=>k!==index&&x.id===id)){err.textContent='Questo ID esiste già. Scegline uno diverso.';return}
+    if(modulo!=='link-esterno'&&!engines.some(e=>e.id===modulo)){err.textContent='Seleziona un motore disponibile.';return}
+    if(modulo==='link-esterno'){
+      try{const u=new URL(url);if(!['https:','http:'].includes(u.protocol))throw new Error('protocollo');}
+      catch(e){err.textContent='Inserisci un URL http:// o https:// valido.';return}
+    }
+    const item={id:id,modulo:modulo,nome:{it:$('gen_it').value.trim(),en:$('gen_en').value.trim()||$('gen_it').value.trim()},
+      descrizione:{it:$('gen_desc_it').value.trim(),en:$('gen_desc_en').value.trim()},
+      categoria:$('gen_cat').value.trim()||'Altro',icona:$('gen_icon').value.trim()||'✳',
+      ordine:Math.max(1,Number($('gen_order').value)||G.length+1),attivo:$('gen_active').checked};
+    if(modulo==='link-esterno')item.url=url;
+    if(isNew)G.push(item);else G[index]=item;
+    G.sort((a,b)=>(a.ordine||0)-(b.ordine||0));G.forEach((x,k)=>x.ordine=k+1);
+    markDirty();closeModal();renderGenerators();toast('Generatore aggiornato in bozza');
+  };
+}
 
 /* ================== AVANZATE (JSON validato) ================== */
 const ADV=['MAT_ART','MATN','MATERIALS','STEPS','FONTS','MOPT'];

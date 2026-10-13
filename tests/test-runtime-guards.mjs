@@ -13,7 +13,7 @@ assert.match(main,/jobs\.forEach\(\(\[label,task\]\)=>safeRun\('render\/'\+label
 assert.match(main,/safeRun\('render iniziale',renderAll\)/,'initial render is guarded');
 assert.match(main,/safeRun\('configurazione contatti',applyConfig\)/,'config boot is guarded');
 assert.match(utils,/if\(message\) message\.textContent/,'toast message setter tolerates absent optional markup');
-assert.match(app,/panel\.append\('⚠️ Impossibile caricare i dati del sito\.'/,'boot error is rendered as text, not raw HTML');
+assert.ok(app.includes("panel.append('⚠️ Impossibile caricare i dati del sito. '"),'boot error is rendered as text, not raw HTML');
 assert.match(sw,/CACHE_VER\s*=\s*'ingly-v10'/,'old service-worker caches are invalidated on deploy');
 const root=read('index.html');
 assert.match(root,/id="loader"/,'loader exists in the canonical shell');

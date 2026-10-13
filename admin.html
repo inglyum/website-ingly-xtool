@@ -3609,7 +3609,8 @@ function saveVisualDraft(saveDates){
  }
  return t;
 }
-\nfunction renderThemes(){const TH=S.C.THEMES,list=TH.temi;bindAll();promoPreview();renderVisualStudio();
+
+function renderThemes(){const TH=S.C.THEMES,list=TH.temi;bindAll();promoPreview();renderVisualStudio();
  const act=themeActive();
  $('thNow').textContent=act.t?act.t.n.it:'nessuno';
  $('thWhy').innerHTML=act.t?`In questo momento il sito userebbe <b>${esc(act.t.n.it)}</b> — ${esc(act.why)}.`

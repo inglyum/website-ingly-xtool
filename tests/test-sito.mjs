@@ -356,8 +356,8 @@ check('accenti dei pulsanti seguono il tema e mantengono contrasto',
   && doc.documentElement.style.getPropertyValue('--laser').trim() === '#F5F0E6'
   && doc.documentElement.style.getPropertyValue('--theme-button-ink').trim() === '#0B1A2E');
 check('token per bordi e bagliore stagionale presente',
-  /color-mix\\(in srgb, #C8A24A 24%, transparent\\)/.test(doc.documentElement.style.getPropertyValue('--theme-line'))
-  && /color-mix/.test(doc.documentElement.style.getPropertyValue('--theme-glow')));
+  doc.documentElement.style.getPropertyValue('--theme-line').includes('rgba(200, 162, 74, 0.24)')
+  && doc.documentElement.style.getPropertyValue('--theme-glow').includes('rgba(245, 240, 230, 0.18)'));
 check('attributo data-theme impostato', doc.documentElement.getAttribute('data-theme') === 'christmas');
 check('categorie senza artwork restano invariate', bento && bento.querySelectorAll('.bcard').length >= 12);
 check('sfondo generato applicato alle categorie senza foto', bento && /--card-bg:url\('data:image\/svg\+xml/.test(bento.innerHTML));

@@ -573,10 +573,10 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
         <span class="vs-status" id="vsStatus">● Anteprima locale</span>
       </div>
       <div class="vs-shortcuts">
-        <button class="btn sm" data-go="media">🖼 Foto e Media Library</button>
-        <button class="btn sm" data-go="prod">📦 Prodotti</button>
-        <button class="btn sm" data-go="cats">🗂 Categorie</button>
-        <button class="btn sm" data-go="bg">🌌 Sfondo base</button>
+        <button class="btn sm" data-vs-shortcut="media">🖼 Foto e Media Library</button>
+        <button class="btn sm" data-vs-shortcut="prod">📦 Prodotti</button>
+        <button class="btn sm" data-vs-shortcut="cats">🗂 Categorie</button>
+        <button class="btn sm" data-vs-shortcut="bg">🌌 Sfondo base</button>
       </div>
       <div class="vs-presets" id="vsPresetGrid" aria-label="Preset visivi stagionali"></div>
       <div class="vs-body">
@@ -3563,6 +3563,10 @@ function renderVisualStudio(){
   x.dal=dal;x.al=al;x.prio=Math.max(1,Math.min(99,Number($('vsPriority').value)||10));x.stato='attivo';TH.attivo=x.id;TH.auto=true;
   markDirty();renderThemes();toast('Calendario aggiornato. Pubblica tutto per attivare la programmazione sul sito.');go('pub')};
  $('vsAdvanced').onclick=()=>editTheme(VS_DRAFT_ID);
+ document.querySelectorAll('[data-vs-shortcut]').forEach(b=>b.onclick=()=>{
+  const nav=document.querySelector('.nit[data-go="'+b.dataset.vsShortcut+'"]');
+  if(nav)nav.click();
+ });
  $('vsNew').onclick=()=>{const source=vsTheme(VS_DRAFT_ID)||t;const id='custom-'+Date.now().toString(36).slice(-6);
   const copy=JSON.parse(JSON.stringify(source));copy.id=id;copy.n={it:'Nuovo tema personalizzato',en:'New custom theme'};copy.mood='personalizzato';copy.kw=[];copy.cats='*';copy.dal='';copy.al='';copy.prio=8;copy.stato='libreria';copy.art={};copy.v=1;
   S.C.THEMES.temi.unshift(copy);VS_DRAFT_ID=id;markDirty();renderThemes();toast('Preset creato: personalizza colori e sfondo qui sopra.')};

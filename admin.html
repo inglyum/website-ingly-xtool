@@ -177,6 +177,51 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 .bg-swatch.on{border-color:var(--laser);box-shadow:0 0 0 3px rgba(245,217,78,.25)}
 .bg-swatch.on::after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;font-size:18px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 .bg-preview{width:100%;height:140px;border-radius:12px;border:1px solid var(--line);margin-top:12px;background:#0a0d18;transition:background .4s}
+
+/* ===== INGLY Visual Studio: editor visuale a clic ===== */
+.vs-studio{border-color:rgba(195,164,107,.28)!important;background:linear-gradient(145deg,var(--card),rgba(195,164,107,.025))}
+.vs-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.vs-eyebrow{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--laser);margin-bottom:5px}
+.vs-title{font-family:var(--fd);font-size:clamp(18px,2.2vw,24px);margin:0 0 6px}
+.vs-intro{font-size:12.5px;color:var(--soft);line-height:1.55;max-width:70ch;margin:0}
+.vs-shortcuts{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.vs-presets{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px;margin:16px 0}
+.vs-preset{min-width:0;overflow:hidden;text-align:left;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);cursor:pointer;transition:border-color .16s,transform .16s,box-shadow .16s}
+.vs-preset:hover{transform:translateY(-2px);border-color:var(--laser)}
+.vs-preset.on{border:2px solid var(--laser);box-shadow:0 0 0 3px rgba(195,164,107,.13)}
+.vs-preset-swatch{height:53px;position:relative;background:#141820}
+.vs-preset-dots{position:absolute;right:7px;bottom:7px;display:flex;gap:4px}
+.vs-preset-dots i{display:block;width:12px;height:12px;border-radius:50%;border:1px solid rgba(255,255,255,.4)}
+.vs-preset-copy{padding:8px 9px 10px}
+.vs-preset-copy b{display:block;font-size:12px;line-height:1.3}
+.vs-preset-copy span{display:block;margin-top:3px;font-size:10.5px;color:var(--soft);line-height:1.35}
+.vs-body{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(310px,1.22fr);gap:14px;align-items:stretch}
+.vs-controls{border:1px solid var(--line);border-radius:13px;padding:13px;background:var(--card2)}
+.vs-controls h4,.vs-preview-wrap h4{font-family:var(--fd);font-size:13px;margin:0 0 10px}
+.vs-palette{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vs-color{display:flex;flex-direction:column;gap:6px;min-width:0}
+.vs-color span{font-size:10.5px;color:var(--soft)}
+.vs-color input[type=color]{width:100%;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--card);padding:3px;cursor:pointer}
+.vs-preview-wrap{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--card2);display:flex;flex-direction:column}
+.vs-preview{--vs-base:#0c0e10;--vs-primary:#30343b;--vs-accent:#c3a46b;min-height:250px;flex:1;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;background:linear-gradient(130deg,var(--vs-primary),var(--vs-base));background-size:cover;background-position:center;position:relative;isolation:isolate}
+.vs-preview::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 80% 0%,color-mix(in srgb,var(--vs-accent) 32%,transparent),transparent 46%),linear-gradient(145deg,color-mix(in srgb,var(--vs-base) 62%,transparent),color-mix(in srgb,var(--vs-primary) 32%,transparent))}
+.vs-preview-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#f7f4ec;font-size:10px;letter-spacing:.07em;text-transform:uppercase}
+.vs-preview-brand{display:flex;align-items:center;gap:7px;font-weight:800}
+.vs-preview-brand i{width:19px;height:19px;display:inline-block;border:1px solid var(--vs-accent);border-radius:6px;background:color-mix(in srgb,var(--vs-accent) 24%,transparent)}
+.vs-preview-menu{display:flex;gap:9px;flex-wrap:wrap;opacity:.78}
+.vs-preview-main{max-width:460px;color:#fff}
+.vs-preview-main small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--vs-accent)}
+.vs-preview-main h4{font-size:clamp(21px,3.1vw,36px);line-height:1.02;letter-spacing:-.04em;margin:10px 0}
+.vs-preview-main p{font-size:11px;line-height:1.55;max-width:38ch;color:rgba(255,255,255,.8);margin:0 0 13px}
+.vs-preview-cta{display:inline-flex;align-items:center;border-radius:999px;background:var(--vs-accent);color:var(--vs-base);font-size:10px;font-weight:800;padding:8px 12px}
+.vs-preview-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;color:rgba(255,255,255,.72);font-size:9px}
+.vs-preview-swatches{display:flex;gap:5px}.vs-preview-swatches i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,.45)}
+.vs-actionbar{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.vs-status{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:5px 9px;border-radius:999px;font-size:10.5px;color:var(--soft)}
+.vs-note{font-size:11px;color:var(--soft);line-height:1.5;margin-top:8px}
+@media(max-width:860px){.vs-body{grid-template-columns:1fr}.vs-preview{min-height:235px}}
+@media(max-width:480px){.vs-presets{grid-template-columns:repeat(2,minmax(0,1fr))}.vs-palette{gap:5px}.vs-preview-menu{display:none}.vs-preview{padding:14px;min-height:220px}}
+
 </style>
 </head>
 <body>
@@ -500,6 +545,64 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 
   <!-- ============ TEMI STAGIONALI ============ -->
   <section class="view" id="v-themes">
+    <div class="card vs-studio" id="vsStudio">
+      <div class="vs-head">
+        <div><div class="vs-eyebrow">INGLY DESIGN · Creative Control</div>
+          <h3 class="vs-title">🎛 Visual Studio</h3>
+          <p class="vs-intro">Personalizza l’atmosfera del sito con un click: colori, sfondo, accento, festività e calendario. L’anteprima qui è locale; le modifiche diventano pubbliche solo dopo aver salvato e pubblicato.</p></div>
+        <span class="vs-status" id="vsStatus">● Anteprima locale</span>
+      </div>
+      <div class="vs-shortcuts">
+        <button class="btn sm" data-go="media">🖼 Foto e Media Library</button>
+        <button class="btn sm" data-go="prod">📦 Prodotti</button>
+        <button class="btn sm" data-go="cats">🗂 Categorie</button>
+        <button class="btn sm" data-go="bg">🌌 Sfondo base</button>
+      </div>
+      <div class="vs-presets" id="vsPresetGrid" aria-label="Preset visivi stagionali"></div>
+      <div class="vs-body">
+        <div class="vs-controls">
+          <h4>Personalizza il preset selezionato</h4>
+          <label for="vsThemePick">Tema da modificare</label>
+          <select id="vsThemePick" style="width:100%;margin-bottom:10px"></select>
+          <div class="vs-palette">
+            <label class="vs-color"><span>Base / background</span><input id="vsColorBase" type="color" value="#0c0e10"></label>
+            <label class="vs-color"><span>Colore primario</span><input id="vsColorPrimary" type="color" value="#30343b"></label>
+            <label class="vs-color"><span>Accento</span><input id="vsColorAccent" type="color" value="#c3a46b"></label>
+          </div>
+          <label for="vsPattern" style="margin-top:11px">Sfondo generato</label>
+          <select id="vsPattern" style="width:100%">
+            <option value="">Solo palette, senza texture</option>
+          </select>
+          <div class="row c2" style="gap:8px">
+            <div><label for="vsDal">Inizio stagione (MM-GG)</label><input id="vsDal" placeholder="11-20" maxlength="5"></div>
+            <div><label for="vsAl">Fine stagione (MM-GG)</label><input id="vsAl" placeholder="12-27" maxlength="5"></div>
+          </div>
+          <div class="row c2" style="gap:8px">
+            <div><label for="vsPriority">Priorità calendario</label><input id="vsPriority" type="number" min="1" max="99" value="10"></div>
+            <div><label for="vsMode">Modalità di attivazione</label><select id="vsMode"><option value="manual">Manuale</option><option value="schedule">Calendario automatico</option></select></div>
+          </div>
+          <div class="vs-actionbar">
+            <button class="btn pri" id="vsSave">✓ Salva personalizzazione</button>
+            <button class="btn" id="vsApply">⚡ Applica ora</button>
+            <button class="btn ok" id="vsSchedule">📅 Programma</button>
+            <button class="btn" id="vsAdvanced">✎ Editor avanzato</button>
+            <button class="btn" id="vsNew">＋ Nuovo preset</button>
+          </div>
+          <p class="vs-note">“Salva personalizzazione” aggiorna il tema e lo segna come bozza. “Applica ora” prepara il tema manuale. “Programma” usa le date e la priorità; in tutti i casi devi poi premere <b>Pubblica tutto</b> per applicare le modifiche ai visitatori.</p>
+        </div>
+        <div class="vs-preview-wrap">
+          <div style="padding:12px 14px 0;display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap">
+            <h4>Anteprima dal vivo</h4><span class="hint" id="vsPreviewTheme">—</span>
+          </div>
+          <div class="vs-preview" id="vsPreview">
+            <div class="vs-preview-nav"><span class="vs-preview-brand"><i></i> INGLY DESIGN</span><span class="vs-preview-menu"><span>Shop</span><span>Personalizza</span><span>Materiali</span><span>xTOOL Lab</span></span></div>
+            <div class="vs-preview-main"><small>Creative Commerce · Made in Italy</small><h4>Le idee prendono forma.</h4><p>Personalizzazioni uniche, materiali selezionati e tecnologia creativa per dare forma alla tua visione.</p><span class="vs-preview-cta" id="vsPreviewCta">SCOPRI LA COLLEZIONE →</span></div>
+            <div class="vs-preview-foot"><span id="vsPreviewLabel">Grafite · Champagne</span><span class="vs-preview-swatches" id="vsPreviewSwatches"></span></div>
+          </div>
+          <div style="padding:10px 14px 14px" class="hint">La texture è generata localmente da INGLY ART. Nessun effetto WebGL esterno o animazione permanente necessaria.</div>
+        </div>
+      </div>
+    </div>
     <div class="card"><h3>🎨 Tema attivo <span class="chip laser sp" id="thNow"></span></h3>
       <div class="row c3" style="align-items:end">
         <div><label>Tema selezionato a mano</label><select id="thSel"></select></div>

@@ -848,3 +848,29 @@ footer{border-top-color:var(--premium-edge)}
   :root[data-theme] body::before,
   :root[data-theme] .hero-bg{animation:none!important}
 }
+
+
+/* Pulsanti stagionali: accento e contrasto sono calcolati dalla palette scelta. */
+:root[data-theme] .btn-primary,
+:root[data-theme] .btn.pri{
+  background:var(--theme-accent,var(--premium-gold,#c3a46b))!important;
+  color:var(--theme-button-ink,var(--theme-base,#111827))!important;
+  border-color:color-mix(in srgb,var(--theme-accent,var(--premium-gold,#c3a46b)) 56%,transparent)!important;
+  box-shadow:0 7px 22px color-mix(in srgb,var(--theme-accent,var(--premium-gold,#c3a46b)) 18%,transparent),inset 0 1px 0 rgba(255,255,255,.22)
+}
+:root[data-theme] .btn-primary:hover,
+:root[data-theme] .btn.pri:hover{
+  background:color-mix(in srgb,var(--theme-accent,var(--premium-gold,#c3a46b)) 88%,white)!important;
+  color:var(--theme-button-ink,var(--theme-base,#111827))!important;
+}
+:root[data-theme] .bcard,
+:root[data-theme] .pcard,
+:root[data-theme] .dcard,
+:root[data-theme] .matcard,
+:root[data-theme] .mcard{
+  border-color:color-mix(in srgb,var(--theme-primary,var(--premium-gold,#c3a46b)) 20%,var(--line));
+}
+:root[data-theme][data-mode="light"] .btn-primary,
+:root[data-theme][data-mode="light"] .btn.pri{
+  box-shadow:0 7px 20px color-mix(in srgb,var(--theme-accent,#967440) 16%,transparent),inset 0 1px 0 rgba(255,255,255,.6);
+}

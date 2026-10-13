@@ -78,6 +78,11 @@ export function applyThemeAccent(){
     return .2126*r+.7152*g+.0722*b;
   };
   const buttonInk = accent ? (luminance(accent)>150 ? (base||'#111827') : '#ffffff') : null;
+  const rgba = (color,opacity) => {
+    if(!color) return null;
+    const n=parseInt(color.slice(1),16);
+    return 'rgba('+((n>>16)&255)+', '+((n>>8)&255)+', '+(n&255)+', '+opacity+')';
+  };
   const tokens = {
     '--theme-base': base,
     '--theme-primary': primary,
@@ -87,8 +92,8 @@ export function applyThemeAccent(){
     '--blue-hi': primary,
     '--laser': accent,
     '--spark': accent,
-    '--theme-line': primary ? 'color-mix(in srgb, '+primary+' 24%, transparent)' : null,
-    '--theme-glow': accent ? 'color-mix(in srgb, '+accent+' 18%, transparent)' : null
+    '--theme-line': rgba(primary,.24),
+    '--theme-glow': rgba(accent,.18)
   };
   Object.entries(tokens).forEach(([key,value])=>{
     if(t && value) root.style.setProperty(key,value);

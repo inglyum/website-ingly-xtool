@@ -770,18 +770,20 @@
           "it": "Default INGLY",
           "en": "INGLY Default"
         },
-        "mood": "sobrio, artigianale, premium",
+        "mood": "grafite, champagne, minimalismo premium",
         "palette": [
-          "#111827",
-          "#1E3A8A",
-          "#FACC15"
+          "#0c0e10",
+          "#30343b",
+          "#c3a46b"
         ],
-        "lighting": "soft cinematic key light from the right, warm rim light",
-        "elementi": "laser-engraved wooden panel, acrylic sheets, brass details, fine wood dust in the light beam",
+        "lighting": "soft warm champagne edge light, restrained cinematic lighting",
+        "elementi": "graphite backgrounds, brushed titanium surfaces, champagne gold accents, precision laser-engraved wood and acrylic details, generous negative space",
         "kw": [
           "premium",
           "craft",
-          "laser"
+          "laser",
+          "graphite",
+          "champagne"
         ],
         "cats": "*",
         "dal": "",

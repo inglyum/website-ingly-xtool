@@ -550,7 +550,36 @@ function renderPort(){
   const g2=$('gal2'); if(g2) g2.style.display=conFoto?'':'none';
   $('portGrid').innerHTML=PORT.map(tile).join('')}
 
-function renderAll(){prod.applyThemeAccent();renderPromo();renderSponsors();renderWaFab();renderAboutArt();prod.renderHero();prod.renderCats();prod.renderColl();prod.renderPersonalizza();prod.renderChips();prod.renderShop();prod.renderPP();DIGUI.renderTutto(L);renderTicker();renderTech();renderSteps();renderReviews();renderBiz();renderVertStrip();renderVerticale(currentVerticale());renderLab();renderNavIA();renderContatori();renderFaq();renderMat();renderPort();renderSocialHub();renderUrg();prod.renderCart();observeAll()}
+/* Un componente non deve poter spegnere l'intera applicazione.
+   Le pagine SEO prerenderizzate possono avere il guscio DOM di una versione
+   precedente: registriamo il nome del componente che fallisce e continuiamo
+   a disegnare le sezioni disponibili. L'errore resta visibile nella console. */
+function safeRun(label, task){
+  try { return task(); }
+  catch(error){
+    const item={label:String(label),message:String(error&&error.message||error),stack:String(error&&error.stack||'')};
+    window.__INGLY_RUNTIME_ERRORS=Array.isArray(window.__INGLY_RUNTIME_ERRORS)?window.__INGLY_RUNTIME_ERRORS:[];
+    window.__INGLY_RUNTIME_ERRORS.push(item);
+    if(window.__INGLY_RUNTIME_ERRORS.length>25)window.__INGLY_RUNTIME_ERRORS.shift();
+    console.error('[INGLY] componente isolato durante l’avvio: '+item.label,error);
+    return undefined;
+  }
+}
+function renderAll(){
+  const jobs=[
+    ['accento tema',()=>prod.applyThemeAccent()],
+    ['promo',renderPromo],['sponsor',renderSponsors],['WhatsApp flottante',renderWaFab],
+    ['media Chi siamo',renderAboutArt],['hero',()=>prod.renderHero()],['categorie',()=>prod.renderCats()],
+    ['collezioni',()=>prod.renderColl()],['personalizzazione',()=>prod.renderPersonalizza()],
+    ['chip catalogo',()=>prod.renderChips()],['catalogo',()=>prod.renderShop()],['scheda prodotto',()=>prod.renderPP()],
+    ['catalogo digitale',()=>DIGUI.renderTutto(L)],['ticker',renderTicker],['tecnologie home',renderTech],
+    ['passaggi',renderSteps],['recensioni',renderReviews],['Business',renderBiz],['settori',renderVertStrip],
+    ['pagina settore',()=>renderVerticale(currentVerticale())],['Lab',renderLab],['navigazione IA',renderNavIA],
+    ['contatori',renderContatori],['FAQ',renderFaq],['materiali home',renderMat],['portfolio',renderPort],
+    ['social hub',renderSocialHub],['urgenza',renderUrg],['carrello',()=>prod.renderCart()],['animazioni',observeAll]
+  ];
+  jobs.forEach(([label,task])=>safeRun('render/'+label,task));
+}
 
 /* ---- delega eventi (niente handler inline) ---- */
 const actions={
@@ -685,18 +714,30 @@ function initBgPicker(){
 
 /* ---- avvio ---- */
 const _mq=$('mq');if(_mq)_mq.innerHTML+=_mq.innerHTML;
-applyConfig();renderSocials();initHeroVideo();
-initSeo();
-initNav();initAnimations();initLazy();initForms();prod.initShopControls();initDelegation();
-initShare();
-initFomo();
-renderInstagramFeed('igFeedSection');
-applyI18n();prod.readFiltersFromURL();renderAll();bindLightbox();bindSuggest();bindMode();
-initBgPicker();
-wish.initWish();
-wish.initPromoPopup();
+safeRun('configurazione contatti',applyConfig);
+safeRun('link social',renderSocials);
+safeRun('video hero',initHeroVideo);
+safeRun('SEO iniziale',initSeo);
+safeRun('navigazione',initNav);
+safeRun('animazioni',initAnimations);
+safeRun('lazy loading',initLazy);
+safeRun('moduli contatto',initForms);
+safeRun('filtri catalogo',()=>prod.initShopControls());
+safeRun('delega eventi',initDelegation);
+safeRun('condivisione',initShare);
+safeRun('FOMO',initFomo);
+safeRun('feed Instagram',()=>renderInstagramFeed('igFeedSection'));
+safeRun('traduzioni',applyI18n);
+safeRun('filtri URL',()=>prod.readFiltersFromURL());
+safeRun('render iniziale',renderAll);
+safeRun('galleria e lightbox',bindLightbox);
+safeRun('ricerca suggerita',bindSuggest);
+safeRun('tema chiaro/scuro',bindMode);
+safeRun('selettore sfondo',initBgPicker);
 window._wish = wish;
-initReferral();
+safeRun('wishlist',()=>wish.initWish());
+safeRun('popup promozionale',()=>wish.initPromoPopup());
+safeRun('referral',initReferral);
 /* rete di sicurezza: nessuna sezione può restare invisibile per un errore di animazione */
 setTimeout(()=>{
   const stuck=[...document.querySelectorAll('.reveal')].filter(el=>{
@@ -709,10 +750,12 @@ setTimeout(()=>{
 },3000);
 /* Deep link prodotto: chi arriva da Google, da una condivisione o dalla sitemap
    su /product?id=5 deve trovarsi davanti il prodotto 5, non il primo del catalogo. */
-if(currentPage()==='product'){
-  const pid=+currentSearch();
-  if(pid && !prod.selectProduct(pid)) go('shop');   /* id inesistente → catalogo */
-}
+safeRun('deep link prodotto',()=>{
+  if(currentPage()==='product'){
+    const pid=+currentSearch();
+    if(pid && !prod.selectProduct(pid)) go('shop');   /* id inesistente → catalogo */
+  }
+});
 /* la pagina di settore si ridisegna a ogni cambio pagina: dipende
    dall'indirizzo, non dai dati */
 document.addEventListener('ingly:pagina',e=>{
@@ -728,7 +771,7 @@ document.addEventListener('ingly:pagina',e=>{
 /* Il blocco pre-scritto ha fatto il suo lavoro (farsi leggere dai crawler):
    ora l'applicazione disegna la pagina vera e quel duplicato va tolto. */
 document.getElementById('prerender')?.remove();
-show(currentPage());
+safeRun('mostra pagina iniziale',()=>show(currentPage()));
 
 /* Bandierina di avvenuto avvio: la usa la rete di sicurezza in index.html per
    decidere se serve il bundle di riserva. Va messa in fondo, quando tutto il

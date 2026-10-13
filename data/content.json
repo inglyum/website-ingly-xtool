@@ -4477,5 +4477,71 @@
       ]
     }
   ],
-  "_DIG": "I file digitali sono stati spostati in data/digitale.json, dove ogni bundle dichiara anche cosa contiene, su che macchina funziona, con che licenza e come arriva al cliente. Il sito ricava DIG da quel file: qui non va rimesso, o le due liste divergono."
+  "_DIG": "I file digitali sono stati spostati in data/digitale.json, dove ogni bundle dichiara anche cosa contiene, su che macchina funziona, con che licenza e come arriva al cliente. Il sito ricava DIG da quel file: qui non va rimesso, o le due liste divergono.",
+  "GENERATORI": [
+    {
+      "id": "portachiavi",
+      "modulo": "portachiavi",
+      "nome": {
+        "it": "Portachiavi & tag",
+        "en": "Keychains & tags"
+      },
+      "descrizione": {
+        "it": "Nome, forma, foro e dimensioni.",
+        "en": "Name, shape, hole and size."
+      },
+      "categoria": "Accessori",
+      "icona": "⌁",
+      "attivo": true,
+      "ordine": 1
+    },
+    {
+      "id": "living-hinge",
+      "modulo": "living-hinge",
+      "nome": {
+        "it": "Living Hinge Lab",
+        "en": "Living Hinge Lab"
+      },
+      "descrizione": {
+        "it": "Reticoli flessibili parametrici per prove e prototipi.",
+        "en": "Parametric flexible patterns for prototypes."
+      },
+      "categoria": "Tecnica laser",
+      "icona": "▦",
+      "attivo": true,
+      "ordine": 2
+    },
+    {
+      "id": "test-materiali",
+      "modulo": "test-materiali",
+      "nome": {
+        "it": "Griglia test materiali",
+        "en": "Material Test Grid"
+      },
+      "descrizione": {
+        "it": "Tavola di provini per confrontare i test.",
+        "en": "A grid of samples for comparison tests."
+      },
+      "categoria": "Test e calibrazione",
+      "icona": "▤",
+      "attivo": true,
+      "ordine": 3
+    },
+    {
+      "id": "cake-topper",
+      "modulo": "cake-topper",
+      "nome": {
+        "it": "Cake Topper",
+        "en": "Cake Topper"
+      },
+      "descrizione": {
+        "it": "Sagoma decorativa con picchetto integrato.",
+        "en": "Decorative topper with an integrated stake."
+      },
+      "categoria": "Feste ed eventi",
+      "icona": "✦",
+      "attivo": true,
+      "ordine": 4
+    }
+  ]
 }

@@ -222,6 +222,17 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
 @media(max-width:860px){.vs-body{grid-template-columns:1fr}.vs-preview{min-height:235px}}
 @media(max-width:480px){.vs-presets{grid-template-columns:repeat(2,minmax(0,1fr))}.vs-palette{gap:5px}.vs-preview-menu{display:none}.vs-preview{padding:14px;min-height:220px}}
 
+
+.admin-launchpad{border-color:rgba(195,164,107,.22)!important;background:linear-gradient(145deg,var(--card),rgba(195,164,107,.035))}
+.admin-launch-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.admin-launch{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card2);color:var(--ink);text-align:left;cursor:pointer;transition:transform .16s,border-color .16s,background .16s}
+.admin-launch>span{font-size:22px}
+.admin-launch b{font-size:12.5px}
+.admin-launch small{font-size:10.5px;line-height:1.45;color:var(--soft)}
+.admin-launch:hover{transform:translateY(-2px);border-color:var(--laser);background:color-mix(in srgb,var(--laser) 5%,var(--card2))}
+@media(max-width:800px){.admin-launch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:400px){.admin-launch-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -246,6 +257,15 @@ tr.rowc.dragging{opacity:.4}tr.rowc.drag-over td{border-top:2px solid var(--lase
   <section class="view" id="v-dash">
     <div id="dashBloccanti"></div>
     <div class="dash" id="dashCards"></div>
+    <div class="card admin-launchpad">
+      <div class="vs-head"><div><div class="vs-eyebrow">Azioni rapide</div><h3 class="vs-title">Gestisci il sito in pochi click</h3><p class="vs-intro">Carica una foto, crea o modifica prodotti e categorie, oppure cambia la stagione del sito.</p></div><span class="vs-status">Admin · controllo visuale</span></div>
+      <div class="admin-launch-grid">
+        <button type="button" class="admin-launch" data-shortcut-view="media"><span>🖼</span><b>Carica / rimuovi foto</b><small>Media Library, assegnazione e sostituzione</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="prod" data-shortcut-action="pNew"><span>📦</span><b>Nuovo prodotto</b><small>Aggiungi, modifica, nascondi o elimina</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="cats" data-shortcut-action="cNew"><span>🗂</span><b>Nuova categoria</b><small>Modifica categorie e sottocategorie</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="themes"><span>🎨</span><b>Visual Studio</b><small>Sfondi, colori, Natale, Estate e campagne</small></button>
+      </div>
+    </div>
     <div class="card"><h3>⚡ Stato del sistema <button class="btn sm sp" data-go="health">Health Center →</button></h3><div class="hlog" id="dashHealth">…</div></div>
     <div id="dashAnalytics"></div>
   </section>
@@ -3630,6 +3650,12 @@ function saveVisualDraft(saveDates){
  document.querySelectorAll('[data-thopen]').forEach(el=>el.onclick=()=>editTheme(el.dataset.thopen))}
 ['thQ'].forEach(id=>$(id).oninput=renderThemes);
 $('thFilter').onchange=renderThemes;
+document.querySelectorAll('[data-shortcut-view]').forEach(button=>button.onclick=()=>{
+ const view=button.dataset.shortcutView,action=button.dataset.shortcutAction;
+ const nav=document.querySelector('.nit[data-go="'+view+'"]');
+ if(nav)nav.click();
+ if(action)setTimeout(()=>{const target=$(action);if(target)target.click()},120);
+});
 
 function editTheme(id){const t=S.C.THEMES.temi.find(x=>x.id===id);if(!t)return;
  const cats=S.CATS||[];

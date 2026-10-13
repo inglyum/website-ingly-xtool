@@ -18,7 +18,7 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 </head>
 <body>
 <header class="top"><div class="wrap topin">
-<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark">I<span style="color:#67e8f9">✳</span></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
+<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark" style="padding:0;background:#fff"><img src="assets/images/logo.png" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:12px"></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
 <nav class="toplinks" aria-label="Navigazione"><a href="shop">Shop</a><a href="digital">File digitali</a><a href="academy">Academy</a><a class="btn quiet" href="admin.html">Admin ↗</a></nav>
 </div></header>
 <div class="wrap">
@@ -44,7 +44,7 @@ const defaults=[
 {id:'test-materiali',modulo:'test-materiali',nome:{it:'Griglia test materiali',en:'Material Test Grid'},descrizione:{it:'Tavola di provini per confrontare i test.',en:'A grid of samples for comparison tests.'},categoria:'Test e calibrazione',icona:'▤',attivo:true,ordine:3},
 {id:'cake-topper',modulo:'cake-topper',nome:{it:'Cake Topper',en:'Cake Topper'},descrizione:{it:'Sagoma decorativa con picchetto integrato.',en:'Decorative topper with an integrated stake.'},categoria:'Feste ed eventi',icona:'✦',attivo:true,ordine:4}
 ];
-let catalogue=defaults.slice(),active='portachiavi',filter='Tutti',search='',settings={};
+let catalogue=defaults.slice(),active='portachiavi',activeId='portachiavi',filter='Tutti',search='',settings={};
 const state={
 portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
 'living-hinge':{w:100,h:65,pitch:3.5,cut:0.7,margin:5,offset:true},
@@ -56,7 +56,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const mod=id=>catalogue.find(x=>x.modulo===id)||catalogue.find(x=>x.id===id);
 const label=x=>(x.nome&&x.nome.it)||x.label||x.id;
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2800)}
-function activeModules(){return catalogue.filter(x=>x.attivo!==false&&['portachiavi','living-hinge','test-materiali','cake-topper'].includes(x.modulo)).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
+function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||'')))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
 function renderFilters(){
 const cats=['Tutti',...new Set(activeModules().map(x=>x.categoria||'Altro'))];
 $('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(c)+'</button>').join('');
@@ -65,7 +65,7 @@ $('filters').querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=
 function renderList(){
 const mods=activeModules().filter(x=>(filter==='Tutti'||x.categoria===filter)&&((label(x)+' '+(x.descrizione&&x.descrizione.it||'')+' '+x.id).toLowerCase().includes(search.toLowerCase())));
 $('count').textContent=String(activeModules().length).padStart(2,'0');
-$('toolList').innerHTML=mods.map(x=>'<button class="tool '+(x.id===active?'active':'')+'" data-tool="'+esc(x.id)+'"><span class="tool-icon">'+esc(x.icona||'✳')+'</span><span><b>'+esc(label(x))+'</b><small>'+esc(x.categoria||'Generatore')+'</small></span></button>').join('')||'<p class="hint">Nessun generatore in questa categoria.</p>';
+$('toolList').innerHTML=mods.map(x=>'<button class="tool '+(x.id===activeId?'active':'')+'" data-tool="'+esc(x.id)+'"><span class="tool-icon">'+esc(x.icona||'✳')+'</span><span><b>'+esc(label(x))+'</b><small>'+esc(x.categoria||'Generatore')+'</small></span></button>').join('')||'<p class="hint">Nessun generatore in questa categoria.</p>';
 $('toolList').querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>select(b.dataset.tool));
 }
 const field=(key,labelTxt,type,value,attrs)=>'<div class="field"><label for="f_'+key+'">'+labelTxt+(type==='range'?'<span id="out_'+key+'">'+value+'</span>':'')+'</label><input id="f_'+key+'" type="'+type+'" value="'+esc(value)+'" '+(attrs||'')+'></div>';
@@ -153,14 +153,16 @@ const o=buildSvg();$('canvas').innerHTML=o.svg;$('sizeLabel').textContent=o.w+' 
 }
 function select(id){
 const item=catalogue.find(x=>x.id===id)||catalogue.find(x=>x.modulo===id);if(!item||item.attivo===false)return;
-active=item.modulo||item.id;
+if(item.modulo==='link-esterno'){const u=String(item.url||'');if(/^https?:\/\//i.test(u)){window.open(u,'_blank','noopener,noreferrer');toast('Strumento esterno aperto in una nuova scheda.')}else toast('Il collegamento esterno non è valido.');return;}
+if(!state[item.modulo]){toast('Motore non ancora implementato: aggiungi prima il modulo software.');return;}
+activeId=item.id;active=item.modulo;
 $('activeIcon').textContent=item.icona||'✳';$('activeTitle').textContent=label(item);$('activeDesc').textContent=(item.descrizione&&item.descrizione.it)||'Generatore parametrico INGLY DESIGN.';
 renderList();renderFields();renderPreview();
 }
 function safeName(s){return String(s||'ingly-design').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48)||'ingly-design'}
 function downloadSvg(){const o=buildSvg();const blob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='ingly-'+safeName(active)+'-'+Date.now()+'.svg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1200);toast('SVG esportato. Controlla la scala e le lavorazioni prima del taglio.')}
-function saveDraft(){localStorage.setItem('ingly_generator_draft_v1',JSON.stringify({active:active,state:state}));toast('Bozza salvata su questo dispositivo.')}
-function loadDraft(){try{const d=JSON.parse(localStorage.getItem('ingly_generator_draft_v1')||'null');if(d&&d.state){Object.keys(d.state).forEach(k=>{if(state[k])Object.assign(state[k],d.state[k])});if(d.active&&state[d.active])active=d.active}}catch(e){}}
+function saveDraft(){localStorage.setItem('ingly_generator_draft_v1',JSON.stringify({active:active,activeId:activeId,state:state}));toast('Bozza salvata su questo dispositivo.')}
+function loadDraft(){try{const d=JSON.parse(localStorage.getItem('ingly_generator_draft_v1')||'null');if(d&&d.state){Object.keys(d.state).forEach(k=>{if(state[k])Object.assign(state[k],d.state[k])});if(d.active&&state[d.active])active=d.active;if(d.activeId)activeId=d.activeId}}catch(e){}}
 function png(){const o=buildSvg(),blob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(blob),im=new Image();im.onload=function(){const scale=4,c=document.createElement('canvas');c.width=Math.ceil(o.w*scale);c.height=Math.ceil(o.h*scale);const cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,c.width,c.height);cx.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(function(b){const p=URL.createObjectURL(b),a=document.createElement('a');a.href=p;a.download='ingly-'+safeName(active)+'.png';a.click();URL.revokeObjectURL(p);toast('PNG esportato.')},'image/png')};im.onerror=function(){URL.revokeObjectURL(u);toast('Esportazione PNG non riuscita: prova SVG.')};im.src=u}
 function init(){
 $('year').textContent=new Date().getFullYear();
@@ -173,7 +175,7 @@ if(data&&Array.isArray(data.GENERATORI)&&data.GENERATORI.length){
 const valid=data.GENERATORI.filter(x=>x&&x.id&&x.modulo);
 catalogue=valid.length?valid:defaults.slice();
 }
-}).catch(()=>{}).finally(()=>{if(!catalogue.some(x=>x.id===active&&x.attivo!==false))active=(activeModules()[0]||defaults[0]).id;renderFilters();renderList();select(active)});
+}).catch(()=>{}).finally(()=>{if(!catalogue.some(x=>x.id===activeId&&x.attivo!==false))activeId=(activeModules()[0]||defaults[0]).id;renderFilters();renderList();select(activeId)});
 }
 init();
 })();

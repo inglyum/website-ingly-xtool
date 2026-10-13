@@ -64,22 +64,16 @@ export function activeTheme(){
 export function applyThemeAccent(){
   const t=activeTheme();
   const root=document.documentElement;
-  /* Il tema stagionale governa i veri token del design system, non soltanto
-     una decorazione sulla hero. Colori con provenienza dai dati sono validati
-     prima di finire negli stili inline. */
-  const valido = v => typeof v==='string' && /^#[0-9a-f]{6}$/i.test(v) ? v : null;
-  const palette = t && Array.isArray(t.palette) ? t.palette : [];
-  const base = valido(palette[0]);
-  const primary = valido(palette[1]);
-  const accent = valido(palette[2]);
-  const luminance = color => {
-    if(!color) return 0;
-    const n=parseInt(color.slice(1),16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
-    return .2126*r+.7152*g+.0722*b;
-  };
-  const buttonInk = accent ? (luminance(accent)>150 ? (base||'#111827') : '#ffffff') : null;
+  /* Il tema stagionale può cambiare artwork e decorazioni, mai l'identità.
+     La palette principale resta INGLY: blu notte, blu luce, oro champagne.
+     Questo evita che Halloween/Natale o una campagna cambino il colore di
+     sfondo, pulsanti, menu e card in tutto il sito. */
+  const palette = ['#0D2043','#4778BD','#C8AD77'];
+  const base = palette[0];
+  const primary = palette[1];
+  const accent = palette[2];
+  const buttonInk = '#10203B';
   const rgba = (color,opacity) => {
-    if(!color) return null;
     const n=parseInt(color.slice(1),16);
     return 'rgba('+((n>>16)&255)+', '+((n>>8)&255)+', '+(n&255)+', '+opacity+')';
   };

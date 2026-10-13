@@ -61,7 +61,7 @@ check('stato sincronizzazione mostrato', !/caricamento/.test($('syncTxt').textCo
 check('nessun errore JS al boot', errors.length === 0, errors.slice(0, 3).join(' | '));
 
 console.log('\n=== 2. Navigazione di TUTTE le sezioni ===');
-const views = ['dash','prod','cats','dig','media','port','biz','sponsor','themes','tech','hero','texts','faq','adv','contacts','seo','pub','hist','health','backup','set'];
+const views = ['dash','prod','cats','dig','generators','media','port','biz','sponsor','themes','tech','hero','texts','faq','adv','contacts','seo','pub','hist','health','backup','set'];
 for (const v of views) {
   const before = errors.length;
   const btn = doc.querySelector(`.nit[data-go="${v}"]`);
@@ -71,6 +71,12 @@ for (const v of views) {
   const shown = sec && sec.classList.contains('on');
   check(`sezione ${v}: apre e non lancia errori`, errors.length === before && (shown || v === 'dash'), errors.slice(before).join(' | '));
 }
+
+console.log('\n=== Generator Studio Admin ===');
+doc.querySelector('.nit[data-go="generators"]').click(); await wait(80);
+check('Generator Studio: la sezione Admin si apre', $('v-generators').classList.contains('on'));
+check('Generator Studio: catalogo dati popolato', $('genList').querySelectorAll('.list-it').length >= 6);
+check('Generator Studio: pulsante nuovo generatore presente', !!$('genNew'));
 
 console.log('\n=== 3. Contenuti effettivamente popolati ===');
 doc.querySelector('.nit[data-go="prod"]').click(); await wait(80);

@@ -777,3 +777,74 @@ footer{border-top-color:var(--premium-edge)}
   .hero-visual .coin{transform:none!important}
   .bcard:hover,.bcard:focus-visible{transform:none!important}
 }
+
+
+/* ============================================================
+   THEME ENGINE — palette stagionale sul sito, non solo sulle card.
+   I colori arrivano da data/content.json → THEMES → palette.
+   Mantiene distinti tema scuro, tema chiaro e sfondo configurato.
+   ============================================================ */
+:root[data-theme] body{
+  background:
+    radial-gradient(ellipse at 82% 2%,color-mix(in srgb,var(--theme-accent,#c3a46b) 12%,transparent),transparent 37%),
+    radial-gradient(ellipse at 12% 22%,color-mix(in srgb,var(--theme-primary,#30343b) 24%,transparent),transparent 42%),
+    linear-gradient(155deg,color-mix(in srgb,var(--theme-primary,#30343b) 16%,var(--theme-base,#0c0e10)),var(--theme-base,#0c0e10)) fixed;
+}
+:root[data-theme] body::before{
+  background-image:
+    linear-gradient(color-mix(in srgb,var(--theme-primary,#30343b) 13%,transparent) 1px,transparent 1px),
+    linear-gradient(90deg,color-mix(in srgb,var(--theme-primary,#30343b) 13%,transparent) 1px,transparent 1px);
+}
+:root[data-theme] .hero-bg{
+  background:
+    radial-gradient(ellipse at 78% 26%,color-mix(in srgb,var(--theme-accent,#c3a46b) 17%,transparent),transparent 39%),
+    radial-gradient(ellipse at 18% 78%,color-mix(in srgb,var(--theme-primary,#30343b) 16%,transparent),transparent 42%),
+    linear-gradient(145deg,color-mix(in srgb,var(--theme-primary,#30343b) 25%,var(--theme-base,#0c0e10)),var(--theme-base,#0c0e10));
+}
+:root[data-theme][data-mode="light"] body{
+  background:
+    radial-gradient(ellipse at 82% 2%,color-mix(in srgb,var(--theme-accent,#967440) 10%,transparent),transparent 39%),
+    radial-gradient(ellipse at 18% 24%,color-mix(in srgb,var(--theme-primary,#967440) 7%,transparent),transparent 43%),
+    linear-gradient(160deg,#fbfaf7,#f4f1eb 58%,#fbfaf7) fixed;
+}
+:root[data-theme][data-mode="light"] .hero-bg{
+  background:
+    radial-gradient(ellipse at 78% 22%,color-mix(in srgb,var(--theme-accent,#967440) 13%,transparent),transparent 40%),
+    linear-gradient(145deg,#fffefa,#f4f0e7 74%,#faf8f3);
+}
+:root[data-theme] .pcard:hover,
+:root[data-theme] .dcard:hover,
+:root[data-theme] .bcard:hover,
+:root[data-theme] .matcard:hover,
+:root[data-theme] .mcard:hover{
+  border-color:color-mix(in srgb,var(--theme-accent,#c3a46b) 54%,var(--line));
+  box-shadow:0 16px 38px color-mix(in srgb,var(--theme-accent,#c3a46b) 11%,transparent),var(--elev-3,0 12px 30px rgba(0,0,0,.2));
+}
+:root[data-theme] .btn-primary,
+:root[data-theme] .btn.pri{
+  border-color:color-mix(in srgb,var(--theme-accent,#c3a46b) 42%,transparent);
+}
+:root[data-theme] .ia-gruppo.qui,
+:root[data-theme] .ia-gruppo:hover,
+:root[data-theme] .ia-gruppo:focus-within{
+  background:color-mix(in srgb,var(--theme-accent,#c3a46b) 9%,transparent);
+}
+:root[data-theme] .ia-gruppo.qui .ia-voce::after,
+:root[data-theme] .ia-voce::after{
+  background:var(--theme-accent,var(--premium-gold,#c3a46b));
+}
+:root[data-theme] .ia-ev-occhiello,
+:root[data-theme] .ia-tutto,
+:root[data-theme] .ia-ev-cta,
+:root[data-theme] .ft-eyebrow{
+  color:var(--theme-accent,var(--premium-gold,#c3a46b));
+}
+:root[data-theme] .news,
+:root[data-theme] .cta-band{
+  border-color:color-mix(in srgb,var(--theme-accent,#c3a46b) 23%,var(--line));
+}
+@media(prefers-reduced-motion:reduce){
+  :root[data-theme] body,
+  :root[data-theme] body::before,
+  :root[data-theme] .hero-bg{animation:none!important}
+}

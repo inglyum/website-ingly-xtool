@@ -26,6 +26,13 @@ data/catalog.js           🗂 categorie, prodotti, digitali, FAQ, recensioni, p
 components/               partial di riferimento (header/hero/footer)
 ```
 
+## INGLY DESIGN Generator Studio
+- Pagina pubblica: `generatori.html` — generatori SVG parametrici in-browser.
+- Catalogo controllato dall’Admin: `data/content.json`, proprietà `GENERATORI`.
+- Scheda Admin: **Creative Tools → Generatori INGLY**; modifiche in bozza fino a **Pubblica**.
+- I motori disponibili sono implementati in `generatori.html`; le voci possono riutilizzare un motore o collegare strumenti esterni via HTTPS. Un nuovo algoritmo richiede il relativo codice, non solo una nuova voce nel catalogo.
+- Gli SVG sono modelli tecnici da verificare su materiale e macchina prima del taglio definitivo.
+
 ## Dove modificare
 - **Contatti/social/numeri** → `data/config.js`
 - **Testi e traduzioni** → `data/i18n.js`

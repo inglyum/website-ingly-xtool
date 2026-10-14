@@ -181,5 +181,10 @@
     },
     "messaggioProdotto": "Ciao INGLY DESIGN! Vorrei informazioni su: {prodotto}. Materiale: {materiale}. Quantità: {quantita}. Link: {url}",
     "_nota": "I pagamenti restano disattivati. I contatti sono il canale attivo; checkout e link di pagamento potranno essere configurati successivamente."
-  }
+  },
+  "heroImage": "img/cat-custom.webp",
+  "heroImageAlt": "Esempio visivo dimostrativo INGLY DESIGN",
+  "heroImageKind": "illustrative-example",
+  "heroImageDemo": true,
+  "heroImageReplaceable": true
 }

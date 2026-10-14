@@ -144,7 +144,8 @@ html {scroll-padding-top:100px;}
   color:var(--at-amber-text)!important;
   -webkit-text-fill-color:currentColor;
 }
-:root[data-mode] :is(.beam,.hl::after){background-color:var(--at-amber);}
+:root[data-mode] .beam,
+:root[data-mode] .hl::after{background-color:var(--at-amber);}
 :root[data-mode] .hero-tag .dot{background:var(--at-amber);box-shadow:none!important;animation:none!important;}
 :root[data-mode] .hero-bg .blob{opacity:.08!important;filter:grayscale(1) blur(95px);}
 :root[data-mode] .hero-bg .grid-lines{opacity:.055!important;}
@@ -268,7 +269,8 @@ html {scroll-padding-top:100px;}
 :root[data-mode] :is(.badge,.cart-count){background:var(--at-amber);color:var(--at-on-amber);}
 
 /* Hero and panels: no decorative infinite animation in the foundation phase. */
-:root[data-mode] :is(.hero-visual::before,.hero-visual::after){animation:none!important;}
+:root[data-mode] .hero-visual::before,
+:root[data-mode] .hero-visual::after{animation:none!important;}
 :root[data-mode] .hero-tag{background:var(--at-surface)!important;border-color:var(--at-edge)!important;}
 @media(hover:hover){
   :root[data-mode] .btn:hover{transform:translateY(-2px);}

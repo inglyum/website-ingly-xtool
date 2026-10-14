@@ -128,7 +128,7 @@ for (const r of ['/shop', '/digital', '/business', '/portfolio', '/about', '/faq
 }
 
 console.log('\n=== IL MENU NON PROMETTE PAGINE CHE NON ESISTONO ===');
-const rotte = new Set(['', 'personalizza', 'shop', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
+const rotte = new Set(['', 'shop', 'personalizza', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
   'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product']);
 const idsMat = new Set(D.MATERIALI.materiali.map(m => m.id));
 const idsTec = new Set(D.TECNOLOGIE.tecnologie.map(t => t.id));

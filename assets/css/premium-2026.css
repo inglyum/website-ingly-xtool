@@ -117,3 +117,44 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 #vertPage>.ingly-biz-cover{max-width:860px;aspect-ratio:16/7;margin:0 0 26px}
 .lab-material-cover img{display:block;width:100%;object-fit:cover}
 @media(max-width:640px){.ingly-biz-service{padding:10px!important}.ingly-biz-service h3{font-size:17px!important}.ingly-biz-cover{border-radius:10px}#vertPage>.ingly-biz-cover{aspect-ratio:3/2}}
+
+/* INGLY editorial design system, 2026 — premium, sober, accessible */
+:root{
+  --ingly-surface:#0a262d;
+  --ingly-contrast:#e9f2ef;
+  --ingly-metal:#bfa47e;
+  --ingly-content-max:1260px;
+  --ingly-display-font:'Space Grotesk','Exo 2',sans-serif;
+}
+:root[data-mode="light"]{--ingly-surface:#f2f4ef;--ingly-contrast:#1b2d2d;--ingly-metal:#856132}
+.wrap{max-width:var(--ingly-content-max)}
+:where(.phero,.hero) h1{font-family:var(--ingly-display-font);font-weight:700;letter-spacing:-.055em;line-height:1.07}
+:where(.phero,.hero) .sub{max-width:64ch;line-height:1.77}
+:where(.rcard,.vert-card,.journey-card,.lab-card){
+  border:1px solid var(--line);border-radius:clamp(16px,2vw,26px);
+  box-shadow:0 8px 30px rgba(0,20,25,.08);
+}
+:where(.journey-card,.vert-card,.rcard) img{display:block;max-width:100%;object-fit:cover}
+:where(.rcard,.vert-card,.journey-card) h3{line-height:1.25;letter-spacing:-.025em}
+:where(.rcard,.vert-card,.journey-card) p{line-height:1.66}
+.ingly-service-centre{
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+  align-items:center;gap:clamp(28px,5vw,72px);
+  padding:clamp(22px,4vw,56px);
+  margin:clamp(42px,6vw,88px) 0;
+  border:1px solid var(--line);
+  border-radius:clamp(22px,3vw,42px);
+  background:linear-gradient(125deg,rgba(31,114,112,.1),transparent 66%),var(--card-solid);
+  box-shadow:0 22px 64px rgba(0,19,25,.14);
+}
+.ingly-service-centre__media{border-radius:22px;overflow:hidden;background:#f5f8f6}
+.ingly-service-centre__media img{display:block;width:100%;height:auto;object-fit:contain}
+.ingly-service-centre__copy h2{font-family:var(--ingly-display-font);font-size:clamp(2rem,4vw,4.6rem);letter-spacing:-.06em;line-height:1.1;margin:15px 0 25px;text-wrap:balance}
+.ingly-service-centre__copy h2 em{font-style:normal;color:var(--ingly-metal)}
+.ingly-service-centre__copy p{max-width:57ch;color:var(--ink-soft);line-height:1.8;font-size:clamp(15px,1.4vw,18px)}
+.ingly-service-centre__scope{font-size:13px!important;opacity:.86;border-left:2px solid var(--ingly-metal);padding-left:15px;margin:22px 0 28px}
+.ingly-service-centre__copy .hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.ingly-service-centre__copy .btn{min-height:48px}
+@media(max-width:900px){.ingly-service-centre{grid-template-columns:1fr;gap:25px}.ingly-service-centre__media{max-width:620px;margin:auto;width:100%}}
+@media(max-width:550px){.ingly-service-centre{padding:18px;margin-block:32px}.ingly-service-centre__copy h2{font-size:clamp(2rem,9vw,3rem)}.ingly-service-centre__copy .hero-ctas{display:grid;grid-template-columns:1fr;width:100%}}
+@media(prefers-reduced-motion:reduce){:where(.rcard,.vert-card,.journey-card,.lab-card){animation:none!important;transition:none!important}}

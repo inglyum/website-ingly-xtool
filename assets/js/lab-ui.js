@@ -748,7 +748,7 @@ export function renderDemo(L) {
 
   const passi = [
     [t2('Prenota', 'Book', L), t2('Dici quale macchina ti interessa e quando puoi.', 'Tell us which machine interests you and when you can come.', L)],
-    [t2('Vieni in officina', 'Come to the workshop', L), t2('A Cesena. Porta un disegno, una foto o il pezzo che vorresti fare.', 'In Cesena. Bring a drawing, a photo, or the piece you want to make.', L)],
+    [t2('Organizziamo la demo', 'Arrange the demo', L), t2('Confermiamo disponibilità, modalità e luogo prima dell’incontro. Puoi portarci un disegno, una foto o un progetto.', 'We confirm availability, format and venue before the session. Bring a drawing, photo or project if you like.', L)],
     [t2('Prova', 'Try it', L), t2('La macchina lavora davanti a te, sul tuo materiale quando si può.', 'The machine works in front of you, on your material where possible.', L)],
     [t2('Chiedi', 'Ask', L), t2('Costi, tempi, cosa non sa fare. Soprattutto cosa non sa fare.', 'Costs, times, what it cannot do. Above all what it cannot do.', L)],
     [t2('Decidi', 'Decide', L), t2('Con calma, anche dopo. Non si vende niente in quell\'ora.', 'In your own time. Nothing is sold in that hour.', L)]

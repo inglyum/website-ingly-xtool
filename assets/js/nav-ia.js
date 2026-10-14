@@ -51,19 +51,19 @@ const L10n = (v, L = 'it') => {
    marcato «si personalizza» nell'Admin. Una voce di menu verso una pagina
    vuota è peggio di una voce che non c'è. */
 export const FAMIGLIE = [
-  { id: 'shop', rotta: 'shop', n: { it: 'Shop', en: 'Shop' },
+  { id: 'shop', rotta: 'shop', icona: 'shop', n: { it: 'Shop', en: 'Shop' },
     claim: { it: 'Pezzi già progettati, pronti da ordinare.', en: 'Pieces already designed, ready to order.' } },
-  { id: 'personalizza', rotta: 'personalizza', condizionata: true, n: { it: 'Personalizza', en: 'Customise' },
+  { id: 'personalizza', rotta: 'personalizza', condizionata: true, icona: 'custom', n: { it: 'Personalizza', en: 'Customise' },
     claim: { it: 'Tu scegli il pezzo, il resto lo scrivi tu.', en: 'You pick the piece, you write the rest.' } },
-  { id: 'materiali', rotta: 'materiali', n: { it: 'Materiali', en: 'Materials' },
+  { id: 'materiali', rotta: 'materiali', icona: 'materiali', n: { it: 'Materiali', en: 'Materials' },
     claim: { it: 'Di cosa è fatto, e come si lavora.', en: 'What it is made of, and how it is worked.' } },
-  { id: 'digital', rotta: 'digital', n: { it: 'File digitali', en: 'Digital files' },
+  { id: 'digital', rotta: 'digital', icona: 'digital', n: { it: 'File digitali', en: 'Digital files' },
     claim: { it: 'Progetti pronti da tagliare e incidere.', en: 'Projects ready to cut and engrave.' } },
-  { id: 'academy', rotta: 'academy', n: { it: 'Academy', en: 'Academy' },
+  { id: 'academy', rotta: 'academy', icona: 'academy', n: { it: 'Academy', en: 'Academy' },
     claim: { it: 'Imparare a usarle, non solo a comprarle.', en: 'Learning to use them, not just to buy them.' } },
-  { id: 'xtool', rotta: 'macchine', n: { it: 'xTOOL Lab', en: 'xTOOL Lab' },
+  { id: 'xtool', rotta: 'macchine', icona: 'laser', n: { it: 'xTOOL Lab', en: 'xTOOL Lab' },
     claim: { it: 'Le macchine, provate in officina.', en: 'The machines, tried in the workshop.' } },
-  { id: 'business', rotta: 'business', n: { it: 'Business', en: 'Business' },
+  { id: 'business', rotta: 'business', icona: 'b2b', n: { it: 'Business', en: 'Business' },
     claim: { it: 'Quando l\u2019ordine non \u00e8 per te ma per l\u2019azienda.', en: 'When the order is for a company.' } }
 ];
 
@@ -298,7 +298,7 @@ export function barraHtml(D, { L = 'it', base = '', attiva = '' } = {}) {
        sottosezione. */
     return `<span class="ia-gruppo${qui ? ' qui' : ''}">
       <a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"
-        ${qui ? 'aria-current="page"' : ''}>${esc(L10n(f.n, L))}</a>
+        ${qui ? 'aria-current="page"' : ''}><svg class="ia-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="${esc(via(base, 'assets/icons/ingly-icons.svg'))}#ic-${esc(f.icona || 'about')}"></use></svg><span>${esc(L10n(f.n, L))}</span></a>
       ${apribile ? `<button type="button" class="ia-freccia" data-apri="${esc(f.id)}"
         aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-${esc(f.id)}"
         aria-label="${esc(L === 'en' ? 'Open the ' + L10n(f.n, L) + ' menu' : 'Apri il menu ' + L10n(f.n, L))}"><i class="ia-caret" aria-hidden="true"></i></button>` : ''}
@@ -346,7 +346,7 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
     const p = pannello(f.id, D, { L, base });
     const voci = p.colonne.flatMap(c => [...c.voci, ...(c.tutto ? [c.tutto] : [])]);
     if (!voci.length) {
-      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a></div>`;
+      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}"><svg class="dr-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="${esc(via(base, 'assets/icons/ingly-icons.svg'))}#ic-${esc(f.icona || 'about')}"></use></svg><span>${esc(L10n(f.n, L))}</span></a></div>`;
     }
     /* Due controlli distinti, affiancati: il NOME porta alla pagina, la
        freccia apre i sottolink. Prima il nome era un pulsante che apriva

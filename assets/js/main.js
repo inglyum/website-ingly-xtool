@@ -63,15 +63,16 @@ function applyConfig(){
   const heroImage=String(CONFIG.heroImage||'img/cat-custom.webp').trim();
   const heroImg=document.querySelector('#heroVisual .coin img');
   if(heroImg){
-    const localPath=heroImage.replace(/^\\.\\//,'').replace(/^\\/+/, '');
-    const local=/^(?:img|assets\\/images)\\/[A-Za-z0-9][A-Za-z0-9/_\\-.]*\\.(?:webp|png|jpe?g|avif|svg)$/i.test(localPath)
+    const localPath=heroImage.replace(/^\.\//,'').replace(/^\/+/, '');
+    const local=/^(?:img|assets\/images)\/[A-Za-z0-9][A-Za-z0-9/_\-.]*\.(?:webp|png|jpe?g|avif|svg)$/i.test(localPath)
       && !localPath.split('/').includes('..');
-    const secureRemote=/^https:\\/\\//i.test(heroImage);
-    const assetUrl=local ? (BASE.replace(/\\/+$/,'')+'/'+localPath) : (secureRemote ? heroImage : (BASE.replace(/\\/+$/,'')+'/img/cat-custom.webp'));
+    const secureRemote=/^https:\/\//i.test(heroImage);
+    const base=BASE.replace(/\/+$/,'');
+    const assetUrl=local ? (base+'/'+localPath) : (secureRemote ? heroImage : (base+'/img/cat-custom.webp'));
     heroImg.src=assetUrl;
-    if(local && /\\.webp$/i.test(localPath)){
-      const stem=localPath.replace(/\\.webp$/i,'');
-      heroImg.srcset=BASE.replace(/\\/+$/,'')+'/'+stem+'-400.webp 400w, '+BASE.replace(/\\/+$/,'')+'/'+stem+'-800.webp 800w, '+assetUrl+' 1200w';
+    if(local && /\.webp$/i.test(localPath)){
+      const stem=localPath.replace(/\.webp$/i,'');
+      heroImg.srcset=base+'/'+stem+'-400.webp 400w, '+base+'/'+stem+'-800.webp 800w, '+assetUrl+' 1200w';
       heroImg.sizes='(max-width: 800px) 90vw, 46vw';
     }else heroImg.removeAttribute('srcset');
     const alt=CONFIG.heroImageAlt;
@@ -81,7 +82,7 @@ function applyConfig(){
       if(heroImg.dataset.fallbackApplied==='1')return;
       heroImg.dataset.fallbackApplied='1';
       heroImg.removeAttribute('srcset');
-      heroImg.src=BASE.replace(/\\/+$/,'')+'/img/cat-custom.webp';
+      heroImg.src=base+'/img/cat-custom.webp';
     };
   }
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];

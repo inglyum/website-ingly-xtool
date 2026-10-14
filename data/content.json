@@ -4560,6 +4560,22 @@
       "ordine": 5
     },
     {
+      "id": "ornamento",
+      "modulo": "ornamento",
+      "nome": {
+        "it": "Ornamenti e Gift Tag",
+        "en": "Ornaments & Gift Tags"
+      },
+      "descrizione": {
+        "it": "Sagome per ricorrenze con foro per nastro e testo inciso.",
+        "en": "Occasion shapes with hanging hole and engraved text."
+      },
+      "categoria": "Feste e stagioni",
+      "icona": "❋",
+      "attivo": true,
+      "ordine": 6
+    },
+    {
       "id": "ingranaggio",
       "modulo": "ingranaggio",
       "nome": {
@@ -4573,7 +4589,7 @@
       "categoria": "Meccanica e design",
       "icona": "⚙",
       "attivo": true,
-      "ordine": 6
+      "ordine": 7
     },
     {
       "id": "cuttle-templates",
@@ -4589,7 +4605,7 @@
       "categoria": "Strumenti esterni",
       "icona": "↗",
       "attivo": true,
-      "ordine": 7,
+      "ordine": 8,
       "url": "https://cuttle.xyz/templates"
     }
   ]

@@ -254,6 +254,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--laser)!important;box-
 .admin-launch:hover{border-color:var(--laser)!important}
 :focus-visible{outline-color:var(--laser)!important}
 
+.nit-icon{width:23px;flex:0 0 23px;display:grid;place-items:center;color:var(--soft);transition:color .18s ease,transform .18s ease}
+.nit-icon svg{display:block}
+.nit.on .nit-icon{color:var(--laser)}
+.nit:hover .nit-icon{transform:translateY(-1px);color:var(--laser)}
+.nit span:first-child:not(.nit-icon){display:none}
+:focus-visible{outline:2px solid var(--laser);outline-offset:2px}
 </style>
 
 <style>
@@ -1762,14 +1768,14 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
  for(const k in map){const url=S.CONFIG.social&&S.CONFIG.social[k];const row=S.SOCIALS.find(r=>r[0]===map[k]);if(row&&url)row[1]=url}}
 
 /* ---------- navigazione ---------- */
-const NAV=[['Panoramica',[['dash','📊','Dashboard']]],
- ['Catalogo',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['dig','💾','Digitali'],['prezzi','🏷','Prezzi in vetrina']]],
- ['Creative Tools',[['generators','✳','Generatori INGLY']]],
- ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
- ['Configurazione',[['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['bg','🎨','Sfondo Sito'],['set','⚙️','Impostazioni']]],
- ['Sistema',[['pub','🚀','Pubblica & Deploy'],['hist','🕘','Cronologia'],['health','🩺','Health Center'],['backup','💾','Backup']]]];
+const NAV=[['Panoramica',[['dash','home','Dashboard']]],
+ ['Catalogo',[['prod','shop','Prodotti'],['cats','casa','Categorie'],['dig','digital','Digitali'],['prezzi','cart','Prezzi in vetrina']]],
+ ['Creative Tools',[['generators','custom','Generatori INGLY']]],
+ ['Contenuti',[['media','portfolio','Media Library'],['port','portfolio','Portfolio'],['biz','b2b','Sezione Business'],['sponsor','shield','Sponsor & Partner'],['themes','limited','Temi stagionali'],['tech','laser','Tecnologie'],['lab','materiali','Lab: materiali, macchine, corsi'],['sochub','instagram','Social Hub'],['hero','custom','Home & Hero'],['texts','about','Testi IT/EN'],['faq','faq','FAQ & Recensioni'],['adv','tecnologie','Avanzate']]],
+ ['Configurazione',[['contacts','contact','Contatti & Social'],['seo','search','SEO'],['seoai','user','SEO & AI Engine'],['bg','custom','Sfondo Sito'],['set','about','Impostazioni']]],
+ ['Sistema',[['pub','check','Pubblica & Deploy'],['hist','portfolio','Cronologia'],['health','shield','Health Center'],['backup','digital','Backup']]]];
 const TITLES={};let VIEW='dash';
-$('nav').innerHTML=NAV.map(([g,items])=>`<div class="navlabel">${g}</div>`+items.map(([id,ic,t])=>{TITLES[id]=t;return `<button class="nit" data-go="${id}"><span>${ic}</span><span class="t">${t}</span>${id==='pub'?'<span class="bdg" id="navPubN"></span>':''}</button>`}).join('')).join('');
+$('nav').innerHTML=NAV.map(([g,items])=>`<div class="navlabel">${g}</div>`+items.map(([id,ic,t])=>{TITLES[id]=t;return `<button class="nit" data-go="${id}"><span class="nit-icon">${iconSvg(ic,19)}</span><span class="t">${t}</span>${id==='pub'?'<span class="bdg" id="navPubN"></span>':''}</button>`}).join('')).join('');
 function go(v){
  if(BOOTED&&!DATA_OK&&!['set','health','pub','hist'].includes(v)){toast('Prima risolvi il caricamento dati: vedi la diagnosi in Impostazioni');v='set'}
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
@@ -3149,7 +3155,7 @@ function pickImage(basePath,cb,aspectKey){const inp=document.createElement('inpu
 function imgPreviewSrc(path){const st=MEDIA.find(m=>m.path===path);return st?st.url:(LOADED_FROM.indexOf('GitHub')>=0?LIVE():'')+path}
 
 /* ===== INGLY ICON SYSTEM (admin) ===== */
-const ICONS=['home','shop','portfolio','digital','b2b','about','faq','quote','contact','cart','search','user',
+const ICONS=['home','shop','portfolio','digital','b2b','about','faq','quote','contact','cart','search','user','academy','sparkles','settings','monitor','layers','clock','sliders','wrench',
  'casa','eventi','animali','accessori','aziendale','bambini','stagionale','digitale','custom','limited',
  'tecnologie','laser','uv','dtf','3d','incisione','taglio','stampa','legno','materiali','metallo',
  'instagram','whatsapp','check','truck','shield'];

@@ -1,14 +1,14 @@
 {
   "it": {
-    "topline": "✦ Spedizione gratuita in Italia sopra €79 · Prova grafica inclusa",
+    "topline": "✦ Progetti su misura · Artigianalità e tecnologia",
     "nHome": "Home",
     "nDig": "Digitale",
     "nAbout": "Chi Siamo",
     "nQuote": "Preventivo",
     "heroTag": "Studio laser · Made in Italy",
     "heroH1": "<span class=\"w\"><span style=\"animation-delay:.1s\">Segnati</span></span> <span class=\"w\"><span style=\"animation-delay:.2s\">dalla</span></span> <span class=\"w\"><span style=\"animation-delay:.3s\" class=\"engrave\">luce.<span class=\"fill\" aria-hidden=\"true\">luce.</span></span></span><br><span class=\"w\"><span style=\"animation-delay:.45s\">Fatti</span></span> <span class=\"w\"><span style=\"animation-delay:.55s\">per</span></span> <span class=\"w\"><span style=\"animation-delay:.65s\">durare.</span></span>",
-    "heroSub": "Creazioni personalizzate premium in legno, plexiglass, metallo, vetro e pelle. Incisione laser, stampa UV & DTF e stampa 3D — precisione 0,01 mm, finitura a mano.",
-    "ctaShop": "Esplora il catalogo",
+    "heroSub": "Personalizzazione, incisione laser, stampa e design. Dalla prima idea al prodotto finito: oggetti e materiali scelti per raccontare qualcosa di unico.",
+    "ctaShop": "Scopri lo Shop",
     "ctaQuote": "Richiedi un preventivo",
     "m1": "PEZZI INCISI",
     "m2": "MATERIALI",
@@ -153,18 +153,19 @@
     "qfQta": "Quantità indicativa",
     "qfCons": "Ti serve entro",
     "qfLPh": "https://drive.google.com/… (Drive, WeTransfer, Dropbox)",
-    "qfLNota": "Se preferisci mandarcelo a mano, scrivici su WhatsApp dopo l'invio."
+    "qfLNota": "Se preferisci mandarcelo a mano, scrivici su WhatsApp dopo l'invio.",
+    "ctaCustom": "Personalizza la tua idea"
   },
   "en": {
-    "topline": "✦ Free shipping in Italy over €79 · Digital proof included",
+    "topline": "✦ Made-to-order creations · Craftsmanship and technology",
     "nHome": "Home",
     "nDig": "Digital",
     "nAbout": "About",
     "nQuote": "Quote",
     "heroTag": "Laser studio · Made in Italy",
     "heroH1": "<span class=\"w\"><span style=\"animation-delay:.1s\">Marked</span></span> <span class=\"w\"><span style=\"animation-delay:.2s\">by</span></span> <span class=\"w\"><span style=\"animation-delay:.3s\" class=\"engrave\">light.<span class=\"fill\" aria-hidden=\"true\">light.</span></span></span><br><span class=\"w\"><span style=\"animation-delay:.45s\">Made</span></span> <span class=\"w\"><span style=\"animation-delay:.55s\">to</span></span> <span class=\"w\"><span style=\"animation-delay:.65s\">last.</span></span>",
-    "heroSub": "Premium custom creations in wood, plexiglass, metal, glass and leather. Laser engraving, UV & DTF printing and 3D printing — 0.01 mm precision, hand finished.",
-    "ctaShop": "Explore the catalog",
+    "heroSub": "Custom design, laser engraving, printing and making. From first idea to finished piece: thoughtful objects and materials with a story.",
+    "ctaShop": "Explore the shop",
     "ctaQuote": "Request a quote",
     "m1": "PIECES ENGRAVED",
     "m2": "MATERIALS",
@@ -309,7 +310,8 @@
     "qfQta": "Approximate quantity",
     "qfCons": "Needed by",
     "qfLPh": "https://drive.google.com/… (Drive, WeTransfer, Dropbox)",
-    "qfLNota": "Prefer to send it directly? Message us on WhatsApp after submitting."
+    "qfLNota": "Prefer to send it directly? Message us on WhatsApp after submitting.",
+    "ctaCustom": "Personalize your idea"
   },
   "wOpen": {
     "it": "Apri Wishlist",

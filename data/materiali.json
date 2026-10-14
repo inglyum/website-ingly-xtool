@@ -174,14 +174,14 @@
           }
         ]
       },
-      "img": "img/3.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/legno.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Legno, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Wood, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Legno; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Wood; concept, not a real photograph"
     },
     {
       "id": "plexiglass",
@@ -355,14 +355,14 @@
           }
         ]
       },
-      "img": "img/5.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/plexiglass.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Plexiglass, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Acrylic, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Plexiglass; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Acrylic; concept, not a real photograph"
     },
     {
       "id": "metallo",
@@ -510,14 +510,14 @@
           }
         ]
       },
-      "img": "img/17.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/metallo.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Metallo, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Metal, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Metallo; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Metal; concept, not a real photograph"
     },
     {
       "id": "pelle",
@@ -642,14 +642,14 @@
           }
         ]
       },
-      "img": "img/cat-accessori.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/pelle.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Pelle, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Leather, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Pelle; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Leather; concept, not a real photograph"
     },
     {
       "id": "vetro",
@@ -758,14 +758,14 @@
         "unita": null,
         "varianti": []
       },
-      "img": "img/14.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/vetro.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Vetro, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Glass, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Vetro; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Glass; concept, not a real photograph"
     },
     {
       "id": "bamboo",
@@ -890,14 +890,14 @@
           }
         ]
       },
-      "img": "img/cat-casa.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/bambu.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Bambù, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Bamboo, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Bambù; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Bamboo; concept, not a real photograph"
     },
     {
       "id": "mdf",
@@ -1034,14 +1034,14 @@
           }
         ]
       },
-      "img": "img/8.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/mdf-compensato.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a MDF e compensato, non campione certificato del materiale",
-      "altEN": "Illustrative project image for MDF and plywood, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale MDF e compensato; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of MDF and plywood; concept, not a real photograph"
     },
     {
       "id": "pla",
@@ -1172,14 +1172,14 @@
           }
         ]
       },
-      "img": "img/2.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/pla-petg.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a PLA e PETG, non campione certificato del materiale",
-      "altEN": "Illustrative project image for PLA and PETG, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale PLA e PETG; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of PLA and PETG; concept, not a real photograph"
     },
     {
       "id": "tessuto",
@@ -1325,14 +1325,14 @@
           }
         ]
       },
-      "img": "img/cat-b2b.webp",
-      "assetKind": "illustrative-example",
+      "img": "assets/images/material-studies/tessuto.svg",
+      "assetKind": "original-vector-concept",
       "isDemo": true,
       "replaceable": true,
       "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Tessuto, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Textile, not a certified material swatch"
+      "licenseStatus": "Illustrazione vettoriale originale INGLY, non una fotografia",
+      "altIT": "Illustrazione dedicata al materiale Tessuto; concept, non fotografia reale",
+      "altEN": "Dedicated illustration of Textile; concept, not a real photograph"
     }
   ],
   "maiLavorare": {

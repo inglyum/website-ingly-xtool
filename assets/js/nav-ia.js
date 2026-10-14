@@ -53,7 +53,7 @@ const L10n = (v, L = 'it') => {
 export const FAMIGLIE = [
   { id: 'shop', rotta: 'shop', n: { it: 'Shop', en: 'Shop' },
     claim: { it: 'Pezzi già progettati, pronti da ordinare.', en: 'Pieces already designed, ready to order.' } },
-  { id: 'personalizza', rotta: 'personalizza', condizionata: true, n: { it: 'Personalizza', en: 'Customise' },
+  { id: 'personalizza', rotta: 'personalizza', n: { it: 'Personalizza', en: 'Customise' },
     claim: { it: 'Tu scegli il pezzo, il resto lo scrivi tu.', en: 'You pick the piece, you write the rest.' } },
   { id: 'materiali', rotta: 'materiali', n: { it: 'Materiali', en: 'Materials' },
     claim: { it: 'Di cosa è fatto, e come si lavora.', en: 'What it is made of, and how it is worked.' } },
@@ -86,7 +86,7 @@ const quantiPersonalizzabili = D =>
  * Una famiglia condizionata senza contenuto non entra nella barra.
  */
 export function famiglieVive(D = {}) {
-  return FAMIGLIE.filter(f => !f.condizionata || (f.id === 'personalizza' && quantiPersonalizzabili(D) > 0));
+  return FAMIGLIE; /* Always show every primary landing; the Creator has a request fallback. */
 }
 
 const via = (base, p) => String(base || '').replace(/\/+$/, '') + '/' + String(p).replace(/^\/+/, '');

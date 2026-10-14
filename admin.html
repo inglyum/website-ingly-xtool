@@ -645,6 +645,30 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       </div>
       <div style="margin-top:12px"><b class="hint">Anteprima</b><div id="slPrev" style="margin-top:6px"></div></div>
     </div>
+    <div class="card" id="heroImageControl">
+      <h3>Immagine principale della Home <span class="chip">Media Library INGLY</span></h3>
+      <p class="hint">Usa una foto reale oppure un'immagine dimostrativa. Carica direttamente qui oppure scegli un file già presente nella libreria. Le modifiche restano in bozza fino a Pubblica.</p>
+      <div class="row c2" style="margin-top:12px">
+        <div><label for="heroImagePath">File immagine</label><input id="heroImagePath" type="text" data-b="CONFIG.heroImage" placeholder="img/hero-home.webp"></div>
+        <div><label for="heroImageKind">Provenienza</label><select id="heroImageKind" data-b="CONFIG.heroImageKind">
+          <option value="illustrative-example">Immagine dimostrativa</option>
+          <option value="ingly-original">Foto originale INGLY</option>
+          <option value="licensed-stock">Immagine con licenza verificata</option>
+          <option value="official-machine">Immagine ufficiale macchina (uso da verificare)</option>
+        </select></div>
+      </div>
+      <div class="row c2">
+        <div><label for="heroImageAltIt">Testo alternativo IT</label><input id="heroImageAltIt" type="text" data-b="CONFIG.heroImageAlt.it" placeholder="Descrizione visiva, non slogan"></div>
+        <div><label for="heroImageAltEn">Alt text EN</label><input id="heroImageAltEn" type="text" data-b="CONFIG.heroImageAlt.en" placeholder="Short visual description"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0">
+        <button type="button" class="btn pri" id="heroImageUpload">Carica una fotografia</button>
+        <button type="button" class="btn" id="heroImageLibrary">Scegli dalla libreria</button>
+        <button type="button" class="btn" id="heroImageSample">Ripristina immagine sample</button>
+      </div>
+      <div id="heroImagePreview" aria-live="polite"></div>
+      <p class="hint">Percorso: Carica/Scegli → Anteprima → Valida → Pubblica. Le immagini sample non vengono mai presentate come lavori reali del portfolio.</p>
+    </div>
     <div class="card"><h3>🎯 Prodotti in evidenza nella Hero</h3>
       <div class="hint">Le 3 card della Home leggono nome, prezzo, materiale e foto direttamente dal catalogo: qui scegli <b>quali</b> prodotti mostrare.</div>
       <div class="row c3" id="heroPick" style="margin-top:8px"></div>
@@ -1251,6 +1275,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
    Fonte di verità: data/*.json · pubblicazione atomica via Git Data API
    ================================================================ */
 'use strict';
+/* Available before boot: prevents icon registry TDZ errors. */
+const ICONS=['home','shop','portfolio','digital','b2b','about','faq','quote','contact','cart','search','user',
+ 'casa','eventi','animali','accessori','aziendale','bambini','stagionale','digitale','custom','limited',
+ 'tecnologie','laser','uv','dtf','3d','incisione','taglio','stampa','legno','materiali','metallo',
+ 'instagram','whatsapp','check','truck','shield'];
+const ICON_SPRITE='assets/icons/ingly-icons.svg';
+
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let toastT;function toast(m){$('toast').textContent=m;$('toast').classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>$('toast').classList.remove('on'),3400)}
@@ -3131,11 +3162,6 @@ function pickImage(basePath,cb,aspectKey){const inp=document.createElement('inpu
 function imgPreviewSrc(path){const st=MEDIA.find(m=>m.path===path);return st?st.url:(LOADED_FROM.indexOf('GitHub')>=0?LIVE():'')+path}
 
 /* ===== INGLY ICON SYSTEM (admin) ===== */
-const ICONS=['home','shop','portfolio','digital','b2b','about','faq','quote','contact','cart','search','user',
- 'casa','eventi','animali','accessori','aziendale','bambini','stagionale','digitale','custom','limited',
- 'tecnologie','laser','uv','dtf','3d','incisione','taglio','stampa','legno','materiali','metallo',
- 'instagram','whatsapp','check','truck','shield'];
-const ICON_SPRITE='assets/icons/ingly-icons.svg';
 function iconSvg(n,size){return n&&ICONS.includes(n)
  ?`<svg style="width:${size||20}px;height:${size||20}px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.15em"><use href="${ICON_SPRITE}#ic-${n}"></use></svg>`:''}
 function pickIcon(current,cb){
@@ -3446,7 +3472,34 @@ function sloganPreview(){
   +'<div style="font-size:38px;font-weight:800;font-style:italic;letter-spacing:-.035em;color:#eae8f5;line-height:1.05">'+html+'</div></div>';
 }
 
-function renderHero(){bindAll();renderAbout();sloganPreview();
+function renderHeroImage(){
+ const path=String((S.CONFIG&&S.CONFIG.heroImage)||'img/cat-custom.webp').trim();
+ const preview=$('heroImagePreview'); if(!preview)return;
+ if(!/^(?:img\/|assets\/images\/|https:\/\/)/i.test(path)){
+   preview.textContent='Seleziona un percorso immagine valido (img/ oppure https://).';return;
+ }
+ const kind=S.CONFIG.heroImageKind||'illustrative-example';
+ preview.innerHTML='<img src="'+esc(imgPreviewSrc(path))+'" alt="Anteprima della copertina Home" width="420" height="260" style="display:block;width:min(100%,420px);max-height:260px;object-fit:cover;border-radius:13px;border:1px solid var(--line)" onerror="this.style.opacity=.22"><p class="hint mono" style="margin-top:8px">'+esc(path)+' · '+esc(kind)+'</p>';
+}
+function renderHero(){bindAll();renderAbout();sloganPreview();renderHeroImage();
+ const pick=$('heroImageUpload'),fromLibrary=$('heroImageLibrary'),sample=$('heroImageSample');
+ if(pick)pick.onclick=()=>pickImage('img/hero-home',path=>{
+  S.CONFIG.heroImage=path;S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageDemo=false;
+  markDirty();renderHeroImage();const field=$('heroImagePath');if(field)field.value=path;
+ },'about');
+ if(fromLibrary)fromLibrary.onclick=()=>{
+  pickFromLibrary(files=>{if(!files.length)return;S.CONFIG.heroImage=files[0];
+   S.CONFIG.heroImageKind='illustrative-example';S.CONFIG.heroImageDemo=true;markDirty();
+   const field=$('heroImagePath');if(field)field.value=files[0];renderHeroImage();
+  });
+ };
+ if(sample)sample.onclick=()=>{
+  S.CONFIG.heroImage='img/cat-custom.webp';S.CONFIG.heroImageKind='illustrative-example';
+  S.CONFIG.heroImageDemo=true;markDirty();const field=$('heroImagePath');
+  if(field)field.value=S.CONFIG.heroImage;renderHeroImage();
+ };
+ const pathField=$('heroImagePath');if(pathField)pathField.addEventListener('change',renderHeroImage);
+
  ['slIt','slEn'].forEach(id=>{const el=$(id);
   if(el&&!el.dataset.slBound){el.dataset.slBound='1';el.addEventListener('input',()=>setTimeout(sloganPreview,0))}});
  const hf=(S.CONFIG.heroFeatured=S.CONFIG.heroFeatured||[]);

@@ -47,14 +47,14 @@ console.log('\n=== PERSONALIZZA COMPARE SOLO SE C\'È QUALCOSA ===');
    c'è. Nessuno dei 97 prodotti pubblicati dichiara di essere
    personalizzabile, quindi oggi la voce non si vede. */
 check('senza prodotti marcati la voce non c\'è',
-  !IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
+  IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
 check('con un prodotto marcato compare',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
-check('un prodotto nascosto non la fa comparire',
-  !IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
-check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 6);
-check('la barra disegnata non la contiene',
-  !/data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
+check('la voce rimane visibile anche con prodotto nascosto',
+  IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
+check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 7);
+check('la barra contiene Personalizza anche senza prodotti',
+  /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
 check('e la contiene quando c\'è', 
   /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [{ id: 1, personalizzabile: true }] }, { L: 'it', base: '' })));
 /* I dati veri: i prodotti che dichiarano nel proprio testo di aspettare
@@ -69,8 +69,8 @@ check('e ha dietro dei prodotti veri',
   String(PV.filter(p => p.personalizzabile === true && !p.hidden).length));
 /* togliendo le spunte deve tornare a sparire: la voce segue il dato, non
    è stata semplicemente accesa */
-check('smarcando tutto la voce sparisce di nuovo',
-  !IA.famiglieVive({ ...D, P: PV.map(p => ({ ...p, personalizzabile: false })) }).some(f => f.id === 'personalizza'));
+check('la landing resta visibile se vengono rimossi i prodotti',
+  IA.famiglieVive({ ...D, P: PV.map(p => ({ ...p, personalizzabile: false })) }).some(f => f.id === 'personalizza'));
 
 console.log('\n=== I PANNELLI NASCONO DAI DATI ===');
 const lab = IA.pannello('materiali', D);
@@ -130,7 +130,7 @@ for (const r of ['/shop', '/digital', '/business', '/portfolio', '/about', '/faq
 }
 
 console.log('\n=== IL MENU NON PROMETTE PAGINE CHE NON ESISTONO ===');
-const rotte = new Set(['', 'shop', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
+const rotte = new Set(['', 'personalizza', 'shop', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
   'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product', 'generatori.html']);
 const idsMat = new Set(D.MATERIALI.materiali.map(m => m.id));
 const idsTec = new Set(D.TECNOLOGIE.tecnologie.map(t => t.id));

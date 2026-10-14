@@ -2084,3 +2084,88 @@ footer a:hover{color:var(--blue-hi)}
     animation:none!important;transition:none!important;transform:none!important;
   }
 }
+
+/* Signature editorial landing pages: existing media and routes preserved. */
+#page-home .hero{min-height:min(760px,88svh);padding-bottom:44px}
+#page-home .hero-grid{grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:clamp(20px,5vw,76px)}
+#page-home .hero-visual{height:clamp(350px,38vw,510px);overflow:hidden;box-shadow:var(--signature-shadow)}
+#page-home .hero-visual::before,#page-home .hero-visual::after{display:none!important}
+#page-home .hero-visual .coin-scene{inset:0;max-width:none;width:100%;height:100%;display:block}
+#page-home .hero-visual .coin{
+  width:100%!important;height:100%!important;aspect-ratio:auto;animation:none!important;
+  transform:none!important;border:0!important;border-radius:inherit!important;
+  background:var(--graphite)!important;box-shadow:none!important;cursor:default;
+}
+#page-home .hero-visual .coin img{
+  width:100%!important;height:100%!important;object-fit:cover;filter:none!important;
+}
+#page-home .hero-visual .fcard{display:none!important}
+#page-home .hero-visual .hero-image-note{
+  position:absolute;bottom:14px;left:14px;z-index:3;margin:0;
+  border-radius:8px;padding:6px 10px;font-size:11px;letter-spacing:.025em;
+  background:rgba(14,17,22,.72);color:#fff;backdrop-filter:blur(8px);
+}
+#page-home .hero .scroll-cue{display:none}
+#page-business>.phero{
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  column-gap:clamp(22px,5vw,70px);row-gap:18px;align-items:center;
+  padding-bottom:clamp(50px,7vw,96px);
+}
+#page-business>.phero[hidden]{display:none!important}
+#page-business>.phero>.eyebrow,
+#page-business>.phero>.h2,
+#page-business>.phero>.sub,
+#page-business>.phero>.hero-ctas{grid-column:1;min-width:0}
+#page-business>.phero>.eyebrow{align-self:end}
+#page-business>.phero>.h2{margin:0;font-size:clamp(2.25rem,4.8vw,4.25rem)!important}
+#page-business>.phero>.sub{margin:0;max-width:55ch}
+#page-business>.phero>.hero-ctas{align-self:start}
+.signature-b2b-visual{
+  position:relative;grid-column:2;grid-row:1/span 4;overflow:hidden;
+  width:100%;height:100%;min-height:360px;margin:0;
+  border:1px solid var(--line);border-radius:var(--signature-radius-lg);
+  background:var(--graphite);box-shadow:var(--signature-shadow);
+}
+.signature-b2b-visual img{display:block;width:100%;height:100%;object-fit:cover;min-height:360px}
+.signature-b2b-visual figcaption{
+  position:absolute;left:14px;bottom:14px;z-index:1;background:rgba(16,18,23,.78);
+  color:#fff;padding:8px 12px;border-radius:9px;font-size:11px;line-height:1.4;
+}
+#page-business>.phero>.b2b-cards,
+#page-business>.phero>.vert-strip{grid-column:1/-1;min-width:0}
+#page-business>.phero>.b2b-cards{margin-top:clamp(28px,4vw,54px)}
+#page-business>.phero>.vert-strip{margin-top:16px}
+#page-business .ingly-biz-cover img{width:100%;object-fit:cover}
+#page-business .ingly-biz-service{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+:root[data-mode="light"] #page-business .ingly-biz-cover figcaption{
+ background:rgba(28,30,35,.78);color:#fff;
+}
+:root[data-mode="light"] .signature-b2b-visual{
+  background:#eee9e1;
+}
+#page-materiali .lab-material-cover{border-radius:var(--signature-radius);overflow:hidden}
+#page-materiali .lab-material-cover img{width:100%;height:auto;max-height:245px;aspect-ratio:16/10;object-fit:cover}
+#page-materiali .lab-card{overflow:hidden}
+#page-materiali .lab-card .lab-material-cover{margin:-9px -9px 10px}
+@media(max-width:1160px){
+  #page-home .hero{min-height:auto}
+  #page-home .hero-grid{grid-template-columns:1fr;gap:18px}
+  #page-home .hero-visual{width:100%;max-width:760px;height:clamp(260px,45vw,440px);margin:20px auto 0}
+}
+@media(max-width:850px){
+  #page-business>.phero{grid-template-columns:1fr}
+  #page-business>.phero>.eyebrow,
+  #page-business>.phero>.h2,
+  #page-business>.phero>.sub,
+  #page-business>.phero>.hero-ctas{grid-column:1}
+  .signature-b2b-visual{grid-column:1;grid-row:auto;min-height:240px;max-height:380px}
+  .signature-b2b-visual img{min-height:240px}
+}
+@media(max-width:540px){
+  #page-home .hero-visual{height:240px;border-radius:16px}
+  #page-business>.phero{row-gap:15px}
+  #page-business>.phero>.h2{font-size:clamp(2rem,8vw,3rem)!important}
+  .signature-b2b-visual{min-height:220px}
+  .signature-b2b-visual img{min-height:220px}
+  #page-business .b2b-cards{grid-template-columns:1fr}
+}

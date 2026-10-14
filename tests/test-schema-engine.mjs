@@ -119,8 +119,14 @@ console.log('\n=== 9. Una sola entità azienda (niente doppioni) ===');
 import { readFileSync } from 'node:fs';
 const indexHtml = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 const idAtteso = 'https://www.inglydesign.it' + S.ID.org;
+/* Read JSON-LD as JSON, not by searching for a particular whitespace style. */
+const blockStart=indexHtml.indexOf('<script type="application/ld+json" id="ld-statico">');
+const jsonStart=indexHtml.indexOf('>',blockStart)+1;
+const jsonEnd=indexHtml.indexOf('</script>',jsonStart);
+const staticOrg=blockStart>=0&&jsonEnd>jsonStart
+  ? JSON.parse(indexHtml.slice(jsonStart,jsonEnd)) : null;
 check('index.html usa lo stesso @id azienda del motore',
-  indexHtml.includes('"@id":"' + idAtteso + '"'));
+  staticOrg?.['@id'] === idAtteso);
 check('nessun @id azienda residuo del vecchio schema',
   !indexHtml.includes('/#business"'));
 check('gli @id iniziano dopo la barra del dominio',

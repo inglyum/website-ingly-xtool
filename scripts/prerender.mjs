@@ -21,7 +21,7 @@ import * as PR from '../assets/js/prezzi.js';
 import * as LAB from '../assets/js/lab.js';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
-const SOLO_VERIFICA = process.argv.includes('--check');
+const SOLO_VERIFICA = process.argv.includes('--check') || process.argv.includes('--verifica');
 const leggi = async f => JSON.parse(await readFile(join(ROOT, f), 'utf8'));
 
 const cfg      = await leggi('data/config.json');

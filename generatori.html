@@ -211,10 +211,18 @@ const cols=clamp(Math.round(s.cols),2,8),rows=clamp(Math.round(s.rows),2,8),tw=c
 w=cols*tw+(cols+1)*gap;h=rows*(th+gap)+gap+10;cut+=rect(.5,.5,w-1,h-1,0);engrave+=txt(w/2,5,s.label||'TEST MATERIALI',Math.min(4,w/25));
 for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const x=gap+c*(tw+gap),y=gap+9+r*(th+gap);cut+=rect(x,y,tw,th,1);engrave+=txt(x+tw/2,y+th*.34,String((Number(s.start)||0)+(r*cols+c)*(Number(s.step)||1)),Math.min(3.5,tw/7));engrave+=line(x+tw*.22,y+th*.62,x+tw*.78,y+th*.62);engrave+=txt(x+tw/2,y+th*.8,'P'+(r*cols+c+1),Math.min(2.8,tw/8));count+=4}
 }else if(active==='cake-topper'){
-w=clamp(s.w,35,180);const bodyH=clamp(s.h,20,100),stake=clamp(s.stake,25,120),font=clamp(s.font,4,16);h=bodyH+stake;
-if(s.shape==='circle'){const d=Math.min(w-1,bodyH-1);cut+=circle(w/2,bodyH/2,d/2);cut+=line(w/2,bodyH/2+d/2,w/2,bodyH+stake)}
-else {cut+=rect(.5,.5,w-1,bodyH, s.shape==='arch'?Math.min(w/2,bodyH/2):2);cut+='<path d="M '+(w*.42)+' '+bodyH+' L '+(w*.46)+' '+(bodyH+stake)+' L '+(w*.54)+' '+(bodyH+stake)+' L '+(w*.58)+' '+bodyH+'"/>'}
-engrave+=txt(w/2,bodyH*.52,s.text||'Auguri!',Math.min(font,bodyH*.34,w/Math.max(4,(s.text||'Auguri!').length)*1.65));count=3;
+w=clamp(s.w,35,180);const requestedH=clamp(s.h,20,100),stake=clamp(s.stake,25,120),font=clamp(s.font,4,16);
+const faceH=s.shape==='circle'?Math.min(w-1,requestedH-1):requestedH;
+h=faceH+stake;
+const cx=w/2,neck=clamp(w*.1,6,14),half=neck/2;
+if(s.shape==='circle'){
+const r=faceH/2,cy=faceH/2,joinY=cy+Math.sqrt(Math.max(0,r*r-half*half));
+cut+='<path d="M '+(cx-half).toFixed(3)+' '+joinY.toFixed(3)+' L '+(cx-half)+' '+h+' L '+(cx+half)+' '+h+' L '+(cx+half)+' '+joinY.toFixed(3)+' A '+r+' '+r+' 0 1 0 '+(cx-half).toFixed(3)+' '+joinY.toFixed(3)+' Z"/>';
+}else{
+const corner=s.shape==='arch'?Math.min(w*.5,faceH*.5):Math.min(8,faceH*.25,w*.1);
+cut+='<path d="M 0 '+faceH+' L 0 '+corner+' Q 0 0 '+corner+' 0 L '+(w-corner)+' 0 Q '+w+' 0 '+w+' '+corner+' L '+w+' '+faceH+' L '+(cx+half)+' '+faceH+' L '+(cx+half)+' '+h+' L '+(cx-half)+' '+h+' L '+(cx-half)+' '+faceH+' Z"/>';
+}
+engrave+=txt(cx,faceH*.52,s.text||'Auguri!',Math.min(font,faceH*.34,w/Math.max(4,(s.text||'Auguri!').length)*1.65));count=2;
 }else if(active==='scatola-incastri'){
 const bw=clamp(s.w,40,240),bd=clamp(s.d,30,200),bh=clamp(s.h,25,180),t=clamp(s.t,1,10),n=clamp(Math.round(s.fingers||5),3,11)%2===0?clamp(Math.round(s.fingers||5)+1,3,11):clamp(Math.round(s.fingers||5),3,11);
 const m=8,gap=14;
@@ -225,10 +233,10 @@ const leftX=m+bw+3*t+gap+4;
 const rightX=leftX+bd+2*t+gap+4;
 w=rightX+bd+t+m;h=backY+bh+m;
 cut+=panelPath(x0,y0,bw,bd,{top:'male',right:'male',bottom:'male',left:'male'},n,t,s.clearance);
-cut+=panelPath(x0,frontY,bw,bh,{top:'plain',right:'female',bottom:'female',left:'male'},n,t,s.clearance);
-cut+=panelPath(x0,backY,bw,bh,{top:'plain',right:'male',bottom:'female',left:'female'},n,t,s.clearance);
-cut+=panelPath(leftX,y0,bd,bh,{top:'plain',right:'male',bottom:'female',left:'female'},n,t,s.clearance);
-cut+=panelPath(rightX,y0,bd,bh,{top:'plain',right:'female',bottom:'female',left:'male'},n,t,s.clearance);
+cut+=panelPath(x0,frontY,bw,bh,{top:'plain',right:'female',bottom:'female',left:'female'},n,t,s.clearance);
+cut+=panelPath(x0,backY,bw,bh,{top:'plain',right:'female',bottom:'female',left:'female'},n,t,s.clearance);
+cut+=panelPath(leftX,y0,bd,bh,{top:'plain',right:'male',bottom:'female',left:'male'},n,t,s.clearance);
+cut+=panelPath(rightX,y0,bd,bh,{top:'plain',right:'male',bottom:'female',left:'male'},n,t,s.clearance);
 engrave+=txt(x0+bw/2,y0+bd/2,'BASE',Math.min(5,bd/10));
 engrave+=txt(x0+bw/2,frontY+bh/2,'FRONTE',Math.min(5,bh/9));
 engrave+=txt(x0+bw/2,backY+bh/2,'RETRO',Math.min(5,bh/9));

@@ -2894,8 +2894,18 @@ function mdDati(){return{
 }}
 function mdOpzioni(tipo,sel){return MEDIA_DEST.elementiPerTipo(tipo,mdDati())
   .map(o=>`<option value="${esc(o.valore)}"${o.valore===sel?' selected':''}>${esc(o.etichetta)}</option>`).join('')}
+/* Reuse the existing professional vector icon sprite, not emoji decoration. */
+function mdTipoIcon(tipo){
+ const names={p:'ic-shop',t:'ic-portfolio',c:'ic-casa',m:'ic-materiali',
+  x:'ic-laser',d:'ic-digital',a:'ic-tecnologie',hero:'ic-home',
+  about:'ic-about',free:'ic-portfolio'};
+ const symbol=names[tipo]||'ic-about';
+ return `<svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17"
+   style="display:inline-block;vertical-align:-3px;margin-right:5px;stroke:currentColor;fill:none;stroke-width:1.8">
+   <use href="assets/icons/ingly-icons.svg#${symbol}"></use></svg>`;
+}
 function mdBottoniTipo(attr,tipoSel){return MEDIA_DEST.TIPI.map(t=>
-  `<button class="btn sm${t.id===tipoSel?' pri':''}" ${attr}="${t.id}" title="${esc(t.aiuto)}">${t.icona} ${t.nome}</button>`).join('')}
+  `<button class="btn sm${t.id===tipoSel?' pri':''}" ${attr}="${t.id}" title="${esc(t.aiuto)}">${mdTipoIcon(t.id)} <span>${esc(t.nome)}</span></button>`).join('')}
 
 function renderMRows(){
  /* i percorsi già promessi alle righe precedenti, più quelli già in coda:

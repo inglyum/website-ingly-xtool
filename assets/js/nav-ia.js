@@ -86,7 +86,10 @@ const quantiPersonalizzabili = D =>
  * Una famiglia condizionata senza contenuto non entra nella barra.
  */
 export function famiglieVive(D = {}) {
-  return FAMIGLIE.filter(f => !f.condizionata || (f.id === 'personalizza' && quantiPersonalizzabili(D) > 0));
+  /* Le sette landing primarie non spariscono mai dal menu. Se nessun prodotto
+     supporta ancora il Creator, Personalizza conduce comunque alla richiesta
+     su misura: la destinazione resta stabile, cambia il contenuto della pagina. */
+  return FAMIGLIE;
 }
 
 const via = (base, p) => String(base || '').replace(/\/+$/, '') + '/' + String(p).replace(/^\/+/, '');

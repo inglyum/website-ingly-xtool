@@ -498,11 +498,17 @@ export function fotoMacchina(D, id) {
   if (stato !== 'consentito') {
     return { foto: null, ufficiale: r.paginaUfficiale || '', motivo: 'licenza-' + (stato || 'non-dichiarata') };
   }
-  if (!r.file) {
+  /* Foto ufficiale verificata: usa il CDN del produttore quando un file
+     locale non è stato ancora caricato. Non scarichiamo e non alteriamo il media. */
+  const remote = r.immagineRemotaVerificata === true
+    && /^https:\/\/cdn\.shopify\.com\/s\/files\/1\/0467\/7985\/9095\/files\/[A-Za-z0-9_\-.]+\.webp\?v=\d+$/.test(r.origine || '')
+    ? r.origine : '';
+  const foto = r.file || remote;
+  if (!foto) {
     return { foto: null, ufficiale: r.paginaUfficiale || '', motivo: 'non-scaricata' };
   }
   return {
-    foto: r.file,
+    foto,
     alt: r.alt || {},
     tipoAsset: r.tipoAsset || 'official-machine',
     /* Chi l'ha fatta va detto: è onesto e spesso è una condizione della

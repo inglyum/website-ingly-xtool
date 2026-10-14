@@ -42,21 +42,20 @@ check('ed è finito fra le secondarie', IA.SECONDARIE.map(v => v.id).includes('a
 check('le secondarie sono le quattro attese',
   IA.SECONDARIE.map(v => v.id).join() === 'portfolio,about,faq,quote');
 
-console.log('\n=== PERSONALIZZA COMPARE SOLO SE C\'È QUALCOSA ===');
-/* Una voce di menu verso una pagina vuota è peggio di una voce che non
-   c'è. Nessuno dei 97 prodotti pubblicati dichiara di essere
-   personalizzabile, quindi oggi la voce non si vede. */
-check('senza prodotti marcati la voce non c\'è',
-  !IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
-check('con un prodotto marcato compare',
+console.log('\n=== LE SETTE DESTINAZIONI PRIMARIE SONO SEMPRE VISIBILI ===');
+/* La pagina Personalizza resta raggiungibile anche quando il catalogo non
+   ha ancora articoli compatibili con il Creator: offre la richiesta su misura. */
+check('senza prodotti marcati la voce resta disponibile',
+  IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
+check('con un prodotto marcato la voce resta disponibile',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
-check('un prodotto nascosto non la fa comparire',
-  !IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
-check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 6);
-check('la barra disegnata non la contiene',
-  !/data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
-check('e la contiene quando c\'è', 
-  /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [{ id: 1, personalizzabile: true }] }, { L: 'it', base: '' })));
+check('un prodotto nascosto non cambia la destinazione',
+  IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
+check('tutte e sette restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 7);
+check('la barra disegnata la contiene senza prodotti configurabili',
+  /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
+check('il nome resta un link diretto alla landing',
+  IA.FAMIGLIE.find(f => f.id === 'personalizza')?.rotta === 'personalizza');
 /* I dati veri: i prodotti che dichiarano nel proprio testo di aspettare
    qualcosa dal cliente — un nome, una data, una foto, un logo — sono
    marcati, quindi oggi la voce C'È. La regola sta in
@@ -69,8 +68,8 @@ check('e ha dietro dei prodotti veri',
   String(PV.filter(p => p.personalizzabile === true && !p.hidden).length));
 /* togliendo le spunte deve tornare a sparire: la voce segue il dato, non
    è stata semplicemente accesa */
-check('smarcando tutto la voce sparisce di nuovo',
-  !IA.famiglieVive({ ...D, P: PV.map(p => ({ ...p, personalizzabile: false })) }).some(f => f.id === 'personalizza'));
+check('smarcando tutto la voce resta una landing valida',
+  IA.famiglieVive({ ...D, P: PV.map(p => ({ ...p, personalizzabile: false })) }).some(f => f.id === 'personalizza'));
 
 console.log('\n=== I PANNELLI NASCONO DAI DATI ===');
 const lab = IA.pannello('materiali', D);

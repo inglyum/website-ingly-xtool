@@ -5,6 +5,7 @@
     { id: 'living-hinge', label: 'Living Hinge Lab', icon: '▦', category: 'Tecnica laser', summary: 'Griglie di taglio flessibili parametriche.' },
     { id: 'test-materiali', label: 'Material Test Grid', icon: '▤', category: 'Test e calibrazione', summary: 'Griglie per confrontare prove di potenza e velocità.' },
     { id: 'cake-topper', label: 'Cake Topper', icon: '✦', category: 'Feste ed eventi', summary: 'Targhe con picchetto e testo personalizzato.' },
+    { id: 'ornamento', label: 'Ornamenti e Gift Tag', icon: '❋', category: 'Feste e stagioni', summary: 'Sagome stagionali con foro e testo personalizzabile.' },
     { id: 'scatola-incastri', label: 'Scatola a incastri', icon: '▣', category: 'Scatole e packaging', summary: 'Pannelli con denti parametrici per prototipi laser.' },
     { id: 'ingranaggio', label: 'Ingranaggio parametrico', icon: '⚙', category: 'Meccanica e design', summary: 'Ruota dentata decorativa con parametri regolabili.' }
   ];
@@ -15,6 +16,7 @@
       'living-hinge': ['Living Hinge Lab', 'Living Hinge Lab', 'Tecnica laser'],
       'test-materiali': ['Griglia test materiali', 'Material Test Grid', 'Test e calibrazione'],
       'cake-topper': ['Cake Topper personalizzato', 'Custom Cake Topper', 'Feste ed eventi'],
+      ornamento: ['Ornamenti e Gift Tag', 'Ornaments & Gift Tags', 'Feste e stagioni'],
       'scatola-incastri': ['Scatola a incastri', 'Finger-joint Box', 'Scatole e packaging'],
       ingranaggio: ['Ingranaggio parametrico', 'Parametric Gear', 'Meccanica e design']
     };
@@ -23,6 +25,7 @@
       'living-hinge': ['Genera un reticolo di tagli con passo, margini e sfalsamento configurabili.', 'Generate a cut pattern with adjustable pitch, margins and row offset.'],
       'test-materiali': ['Prepara una tavola di provini etichettati per documentare i tuoi test.', 'Build a labelled test grid to document your material tests.'],
       'cake-topper': ['Personalizza una sagoma con picchetto integrato per feste e ricorrenze.', 'Personalize a topper silhouette with an integrated stake.'],
+      ornamento: ['Genera ornamenti e gift tag in più sagome, con foro per nastro e testo inciso.', 'Generate ornament and gift-tag silhouettes with a hanging hole and custom engraved text.'],
       'scatola-incastri': ['Genera i cinque pannelli di una scatola con denti e cave parametriche. Controlla gli incastri sul tuo materiale prima del taglio definitivo.', 'Generate five box panels with parametric finger joints. Test fit and kerf on your material before final cutting.'],
       ingranaggio: ['Genera una ruota dentata trapezoidale per prototipi e progetti decorativi; il profilo non è certificato per trasmissioni meccaniche.', 'Generate a trapezoidal-tooth gear for prototypes and decorative projects; the tooth profile is not certified for mechanical transmissions.']
     };
@@ -49,5 +52,18 @@
     attivo: true,
     ordine: modules.length + 1,
     url: 'https://cuttle.xyz/templates'
+  }, {
+    id: 'makorix-reference',
+    modulo: 'link-esterno',
+    nome: { it: 'Esplora Makorix', en: 'Explore Makorix' },
+    descrizione: {
+      it: 'Catalogo esterno di generatori e modelli. INGLY sviluppa motori originali senza copiare codice o risorse di terzi.',
+      en: 'External catalog of generators and templates. INGLY builds original engines without copying third-party code or assets.'
+    },
+    categoria: 'Risorse esterne',
+    icona: '↗',
+    attivo: true,
+    ordine: modules.length + 2,
+    url: 'https://makorix.com/'
   }]);
 })(window);

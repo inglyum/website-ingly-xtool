@@ -56,12 +56,22 @@ function faqHtml(faq, L) {
       <div class="fbody"><p>${esc(LAB.lingua(f.r, L))}</p></div></details>`).join('');
 }
 
-/* Una pastiglia con il gradiente del materiale: nessuna foto da produrre,
-   e il colore è quello già dichiarato nei dati, non uno inventato qui. */
+/* Media prodotti/materiali: esempi distinti, gestiti da data/materiali.json.
+   Le immagini illustrative non vanno attribuite al portfolio reale. */
+function fotoMateriale(m, L, grande = false) {
+  const file = String(m.img || '').trim();
+  if(!/^(?:img|assets\/images)\/[\w/.-]+\.(?:webp|jpg|jpeg|png|svg)$/i.test(file)) return '';
+  const alt = L === 'en' ? m.altEN : m.altIT;
+  return `<figure class="lab-material-cover${grande ? ' lab-material-cover--large' : ''}">
+    <img src="${esc(via('/' + file))}" alt="${esc(alt || LAB.lingua(m.n, L))}"
+         loading="lazy" decoding="async" width="760" height="520">
+    ${m.isDemo === true ? `<figcaption class="sample-label">${t2('Esempio illustrativo', 'Illustrative example', L)}</figcaption>` : ''}
+  </figure>`;
+}
 function tesseraMateriale(m, L, n) {
   const g = String(m.grad || '#3a2f26,#6b543e').split(',');
   return `<a class="vert-card lab-card reveal" href="${via('/materiali/' + esc(m.id))}">
-    <span class="lab-swatch" style="--a:${esc(g[0] || '#333')};--b:${esc(g[1] || g[0] || '#111')}" aria-hidden="true"></span>
+    ${fotoMateriale(m, L) || `<span class="lab-swatch" style="--a:${esc(g[0] || '#333')};--b:${esc(g[1] || g[0] || '#111')}" aria-hidden="true"></span>`}
     <b>${esc(LAB.lingua(m.n, L))}</b>
     <span class="vert-sub">${esc(LAB.lingua(m.sommario, L))}</span>
     <span class="vert-go">${(() => {
@@ -117,7 +127,7 @@ export function renderMateriale(id, L, cardProdotto) {
 
   pagina.innerHTML = `
     <nav class="vert-back"><a href="${via('/materiali')}" data-nav="materiali">← ${t2('Tutti i materiali', 'All materials', L)}</a></nav>
-    <span class="lab-swatch lab-swatch--lg" style="--a:${esc(g[0] || '#333')};--b:${esc(g[1] || g[0] || '#111')}" aria-hidden="true"></span>
+${fotoMateriale(m, L, true) || `<span class="lab-swatch lab-swatch--lg" style="--a:${esc(g[0] || '#333')};--b:${esc(g[1] || g[0] || '#111')}" aria-hidden="true"></span>`}
     <span class="eyebrow">${t2('Material Lab', 'Material Lab', L)}</span>
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${esc(LAB.lingua(m.n, L))}</h1>
     <p class="sub">${esc(LAB.lingua(m.sommario, L))}</p>
@@ -230,13 +240,16 @@ export function renderTecnologia(id, L, cardProdotto) {
    collegamento alla pagina ufficiale del produttore — linkare è sempre
    lecito, copiare no. */
 function fotoMac(m, L, grande) {
-  const f = LAB.fotoMacchina(D(), m.id);
+  const f = LAB.fotoMacchina(D(), m.id === 'uv' ? 'o1-uv' : m.id);
   if (f.foto) {
     const alt = (f.alt && (f.alt[L] || f.alt.it)) || LAB.lingua(m.n, L);
+    const photoSrc = /^https:\/\/cdn\.shopify\.com\//.test(f.foto) ? f.foto : via('/' + f.foto);
+    const fallback = via('/assets/images/xtool-lab-default.svg');
     return `<figure class="mac-foto${grande ? ' mac-foto--grande' : ''}">
-      <img src="${esc(via('/' + f.foto).replace(/^\/+/, '/'))}" alt="${esc(alt)}"
-        ${grande ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">
-      ${f.credito ? `<figcaption class="mac-credito">${t2('Fotografia', 'Photograph', L)}: ${esc(f.credito)}</figcaption>` : ''}
+      <img src="${esc(photoSrc)}" alt="${esc(alt)}" width="760" height="510"
+        ${grande ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"
+        onerror="this.onerror=null;this.src='${esc(fallback)}'">
+      <figcaption class="mac-credito">${t2('Foto ufficiale', 'Official photograph', L)}: xTool · ${t2('Fonte produttore', 'Manufacturer source', L)}</figcaption>
     </figure>`;
   }
   if (!grande) return '';
@@ -270,7 +283,14 @@ export function renderMacchine(L) {
   const combi = (d.MACCHINE && d.MACCHINE.combinazioni) || [];
   const vietati = (d.MACCHINE && d.MACCHINE.maiLavorare && d.MACCHINE.maiLavorare.materiali) || [];
 
+  const informative = ((d.IMMAGINI_MACCHINE && d.IMMAGINI_MACCHINE.macchine) || [])
+    .filter(x => x && !['p3','f2','o1-uv','wonderpress'].includes(x.id))
+    .filter(x => x.immagineRemotaVerificata === true && (x.licenza || {}).stato === 'consentito');
   box.innerHTML = `
+    <div class="machine-section-label">
+      <span class="eyebrow">${t2('Laboratorio e soluzioni INGLY', 'INGLY workshop and solutions', L)}</span>
+      <p class="lab-p">${t2('Le macchine indicate qui descrivono capacità e applicazioni; la possibilità di provarle va sempre confermata nella Demo Room.', 'Machines here illustrate capabilities and applications; demo availability must be confirmed via the Demo Room.', L)}</p>
+    </div>
     ${lista.length ? `<div class="b2b-cards">${lista.map((m, i) => `
       <div class="rcard reveal" style="transition-delay:${i * .06}s">
         ${fotoMac(m, L, false)}
@@ -280,6 +300,25 @@ export function renderMacchine(L) {
         ${m.piano ? `<p class="lab-spec">${esc(m.piano.x + ' × ' + m.piano.y + ' ' + (m.piano.unita || 'mm'))}${m.piano.z ? esc(' · h ' + m.piano.z + ' ' + (m.piano.unita || 'mm')) : ''}</p>` : ''}
         ${(m.puo || []).length ? chips(m.puo) : ''}
       </div>`).join('')}</div>` : ''}
+
+    ${informative.length ? `
+      <div class="machine-section-label">
+        <span class="eyebrow">${t2('Confronta altri modelli xTool', 'Explore other xTool models', L)}</span>
+        <h3 class="vert-tit">${t2('Altre macchine, altre possibilità.', 'More machines, more possibilities.', L)}</h3>
+        <p class="lab-p">${t2('Modelli mostrati a scopo informativo: non significa che siano presenti nel laboratorio INGLY o disponibili per una demo.', 'Models shown for information only: this does not mean they are owned by INGLY or available for demos.', L)}</p>
+      </div>
+      <div class="machine-explore-grid">${informative.map(x => `
+        <article class="machine-explore-card">
+          <a href="${esc(x.paginaUfficiale || 'https://www.xtool.com/pages/xtool-laser')}" target="_blank" rel="noopener noreferrer">
+            <div class="machine-explore-image"><img src="${esc(x.origine)}"
+              alt="${esc((x.alt && (x.alt[L] || x.alt.it)) || x.modello)}"
+              width="580" height="400" loading="lazy" decoding="async"
+              onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}'"></div>
+            <span class="machine-photo-label">${t2('Foto ufficiale xTool', 'Official xTool image', L)}</span>
+            <b>${esc(x.modello)}</b>
+            <small>${t2('Modello informativo · Vai alla fonte ufficiale', 'Informational model · Official source', L)} →</small>
+          </a>
+        </article>`).join('')}</div>` : ''}
 
     ${combi.length ? `<h3 class="vert-tit">${t2('Cosa si sblocca mettendole insieme', 'What combining them unlocks', L)}</h3>
       <div class="b2b-cards">${combi.map((c, i) => `
@@ -492,12 +531,12 @@ export function renderCorsi(L) {
      schede fittizie con date, durate o prezzi che non sono stati approvati. */
   if (!lista.length) {
     const aree = [
-      { n: t2('Macchine xTool e primi settaggi', 'xTool machines and first setup', L), d: t2('Impostazioni iniziali, messa a punto e flusso di lavoro.', 'Initial setup, calibration and workflow.', L), ic: '01' },
-      { n: t2('Materiali, test e parametri', 'Materials, tests and settings', L), d: t2('Come scegliere il materiale e impostare prove consapevoli.', 'Choosing materials and planning reliable tests.', L), ic: '02' },
-      { n: t2('File, software e progettazione', 'Files, software and design', L), d: t2('Preparare un progetto e portarlo correttamente alla macchina.', 'Prepare a design and send it to the machine correctly.', L), ic: '03' },
-      { n: t2('Tecniche creative laser', 'Creative laser techniques', L), d: t2('Incisione, taglio e idee per sviluppare nuove creazioni.', 'Engraving, cutting and ideas for new creations.', L), ic: '04' },
-      { n: t2('Dal progetto al prodotto', 'From project to finished product', L), d: t2('Materiali, prototipazione, finitura e presentazione.', 'Materials, prototyping, finishing and presentation.', L), ic: '05' },
-      { n: t2('Organizzare il laboratorio', 'Running a workshop', L), d: t2('Costi, tempi e metodo per rendere più ordinato il lavoro.', 'Costs, timing and methods for a more organised workflow.', L), ic: '06' }
+      { n: t2('Macchine xTool e primi settaggi', 'xTool machines and first setup', L), d: t2('Impostazioni iniziali, messa a punto e flusso di lavoro.', 'Initial setup, calibration and workflow.', L), ic: '01', img: 'img/cat-tecnologie.webp' },
+      { n: t2('Materiali, test e parametri', 'Materials, tests and settings', L), d: t2('Come scegliere il materiale e impostare prove consapevoli.', 'Choosing materials and planning reliable tests.', L), ic: '02', img: 'img/cat-materiali.webp' },
+      { n: t2('File, software e progettazione', 'Files, software and design', L), d: t2('Preparare un progetto e portarlo correttamente alla macchina.', 'Prepare a design and send it to the machine correctly.', L), ic: '03', img: 'img/cat-digitale.webp' },
+      { n: t2('Tecniche creative laser', 'Creative laser techniques', L), d: t2('Incisione, taglio e idee per sviluppare nuove creazioni.', 'Engraving, cutting and ideas for new creations.', L), ic: '04', img: 'img/3.webp' },
+      { n: t2('Dal progetto al prodotto', 'From project to finished product', L), d: t2('Materiali, prototipazione, finitura e presentazione.', 'Materials, prototyping, finishing and presentation.', L), ic: '05', img: 'img/8.webp' },
+      { n: t2('Organizzare il laboratorio', 'Running a workshop', L), d: t2('Costi, tempi e metodo per rendere più ordinato il lavoro.', 'Costs, timing and methods for a more organised workflow.', L), ic: '06', img: 'img/cat-b2b.webp' }
     ];
     box.innerHTML = `
       <div class="lab-blocco lab-vuoto academy-request">
@@ -509,6 +548,7 @@ export function renderCorsi(L) {
         <div class="vert-grid academy-topic-grid">
           ${aree.map(a => `
             <a class="vert-card academy-topic-card" href="${via('/quote')}" data-nav="quote">
+              <span class="lab-course-cover"><img src="${via('/' + a.img)}" alt="${esc(a.n)} — ${t2('immagine illustrativa', 'illustrative photograph', L)}" width="500" height="320" loading="lazy" decoding="async"><span class="sample-label">${t2('Percorso su richiesta', 'Training on request', L)}</span></span>
               <span class="academy-topic-index">${a.ic}</span>
               <b>${esc(a.n)}</b>
               <span class="vert-sub">${esc(a.d)}</span>
@@ -708,7 +748,7 @@ export function renderDemo(L) {
 
   const passi = [
     [t2('Prenota', 'Book', L), t2('Dici quale macchina ti interessa e quando puoi.', 'Tell us which machine interests you and when you can come.', L)],
-    [t2('Vieni in officina', 'Come to the workshop', L), t2('A Cesena. Porta un disegno, una foto o il pezzo che vorresti fare.', 'In Cesena. Bring a drawing, a photo, or the piece you want to make.', L)],
+    [t2('Organizziamo la demo', 'Arrange the demo', L), t2('Confermiamo disponibilità, modalità e luogo prima dell’incontro. Puoi portarci un disegno, una foto o un progetto.', 'We confirm availability, format and venue before the session. Bring a drawing, photo or project if you like.', L)],
     [t2('Prova', 'Try it', L), t2('La macchina lavora davanti a te, sul tuo materiale quando si può.', 'The machine works in front of you, on your material where possible.', L)],
     [t2('Chiedi', 'Ask', L), t2('Costi, tempi, cosa non sa fare. Soprattutto cosa non sa fare.', 'Costs, times, what it cannot do. Above all what it cannot do.', L)],
     [t2('Decidi', 'Decide', L), t2('Con calma, anche dopo. Non si vende niente in quell\'ora.', 'In your own time. Nothing is sold in that hour.', L)]

@@ -19,7 +19,12 @@
 export const TIPI = [
   { id:'p',     icona:'📦', nome:'Prodotto',   aiuto:'Foto principale o gallery di un prodotto del catalogo' },
   { id:'t',     icona:'🖼',  nome:'Portfolio',  aiuto:'Un lavoro realizzato, mostrato nella sezione «Dal laboratorio»' },
-  { id:'c',     icona:'🗂',  nome:'Categoria',  aiuto:'Immagine di copertina di una delle categorie' },
+  { id:'c',     icona:'▦',  nome:'Categoria',  aiuto:'Immagine di copertina di una delle categorie' },
+  { id:'m',     icona:'▤',  nome:'Materiale', aiuto:'Foto illustrative o fotografie originali per Material Lab' },
+  { id:'x',     icona:'◇',  nome:'Macchina xTool', aiuto:'Foto macchina: se originale sostituisce la fonte ufficiale' },
+  { id:'d',     icona:'▣',  nome:'File digitale', aiuto:'Copertina di un file digitale in bozza o pubblicato' },
+  { id:'a',     icona:'◈',  nome:'Academy', aiuto:'Fotografia di copertina per un corso' },
+  { id:'hero',  icona:'✦',  nome:'Hero Home', aiuto:'Immagine principale della pagina iniziale' },
   { id:'about', icona:'🏠', nome:'Chi siamo',  aiuto:'L\'immagine della pagina «Chi siamo»' },
   { id:'free',  icona:'📁', nome:'Libreria',   aiuto:'Nessun collegamento: resta disponibile per usarla più avanti' },
 ];
@@ -38,6 +43,11 @@ export function tipoDi(dest){
   if(d.startsWith('p:')) return 'p';
   if(d.startsWith('t:')) return 't';
   if(d.startsWith('c:')) return 'c';
+  if(d.startsWith('m:')) return 'm';
+  if(d.startsWith('x:')) return 'x';
+  if(d.startsWith('d:')) return 'd';
+  if(d.startsWith('a:')) return 'a';
+  if(d === 'hero') return 'hero';
   if(d === 'about') return 'about';
   return 'free';
 }
@@ -75,6 +85,11 @@ export function percorso(dest, opt = {}){
     return 'img/port-' + (i + 1) + '.' + ext;
   }
   if(tipo === 'c') return 'img/cat-' + String(dest).slice(2) + '.' + ext;
+  if(tipo === 'm') return 'img/material-' + slug(String(dest).slice(2)) + '.' + ext;
+  if(tipo === 'x') return 'img/machine-' + slug(String(dest).slice(2)) + '.' + ext;
+  if(tipo === 'd') return 'img/digital-' + slug(String(dest).slice(2)) + '.' + ext;
+  if(tipo === 'a') return 'img/course-' + slug(String(dest).slice(2)) + '.' + ext;
+  if(tipo === 'hero') return 'img/hero-main.' + ext;
   if(tipo === 'about') return 'img/about.' + ext;
   /* Solo libreria: il nome viene dal file, e due file possono chiamarsi
      uguale — «IMG_1234.jpg» preso da due cartelle diverse è la norma quando
@@ -91,7 +106,7 @@ export function percorso(dest, opt = {}){
 /* Frase in italiano che dice dove finisce l'immagine.
    È la parte che mancava: chi carica vede il file E il significato. */
 export function descrizione(dest, opt = {}){
-  const { prodotti = [], portfolio = [], categorie = [], ruolo = 'main' } = opt;
+  const { prodotti = [], portfolio = [], categorie = [], materiali = [], macchine = [], digitali = [], corsi = [], ruolo = 'main' } = opt;
   const tipo = tipoDi(dest);
 
   if(tipo === 'p'){
@@ -114,19 +129,29 @@ export function descrizione(dest, opt = {}){
     const c = categorie.find(x => x.id === id);
     return 'Diventa la copertina della categoria «' + ((c && c.n && c.n.it) || id) + '»';
   }
+  if(tipo === 'm') return 'Diventa la fotografia del materiale «' + ((materiali.find(x=>x.id===String(dest).slice(2))?.n||{}).it||String(dest).slice(2)) + '»';
+  if(tipo === 'x') return 'Diventa la fotografia della macchina «' + (macchine.find(x=>x.id===String(dest).slice(2))?.modello||String(dest).slice(2)) + '»';
+  if(tipo === 'd') return 'Diventa la copertina del file digitale «' + ((digitali.find(x=>String(x.id)===String(dest).slice(2))?.n||{}).it||String(dest).slice(2)) + '»';
+  if(tipo === 'a') return 'Diventa la copertina del corso «' + ((corsi.find(x=>String(x.id)===String(dest).slice(2))?.n||{}).it||String(dest).slice(2)) + '»';
+  if(tipo === 'hero') return 'Sostituisce la fotografia principale della Home';
   if(tipo === 'about') return 'Diventa l\'immagine della pagina «Chi siamo»';
   return 'Resta solo nella libreria, senza essere collegata a nulla: la ritrovi qui sotto marcata «non usata»';
 }
 
 /* Elenco degli elementi selezionabili per un tipo, già pronto per il menù. */
 export function elementiPerTipo(tipo, dati = {}){
-  const { prodotti = [], portfolio = [], categorie = [] } = dati;
+  const { prodotti = [], portfolio = [], categorie = [], materiali = [], macchine = [], digitali = [], corsi = [] } = dati;
   if(tipo === 'p') return prodotti.map(p => ({ valore:'p:' + p.id, etichetta:'#' + p.id + ' · ' + ((p.n && p.n.it) || '') }));
   if(tipo === 't') return [
     { valore:'t:new', etichetta:'➕ Nuova tessera Portfolio' },
     ...portfolio.map((t, i) => ({ valore:'t:' + i, etichetta:'Tessera ' + (i + 1) + ' · ' + ((t[1] && t[1].it) || '') })),
   ];
   if(tipo === 'c') return categorie.map(c => ({ valore:'c:' + c.id, etichetta:((c.ic || '') + ' ' + ((c.n && c.n.it) || c.id)).trim() }));
+  if(tipo === 'm') return materiali.map(m=>({ valore:'m:'+m.id, etichetta:(m.n&&m.n.it)||m.id }));
+  if(tipo === 'x') return macchine.map(m=>({ valore:'x:'+m.id, etichetta:m.modello||m.id }));
+  if(tipo === 'd') return digitali.map(m=>({ valore:'d:'+m.id, etichetta:(m.n&&m.n.it)||String(m.id) }));
+  if(tipo === 'a') return corsi.map(m=>({ valore:'a:'+m.id, etichetta:(m.n&&m.n.it)||String(m.id) }));
+  if(tipo === 'hero') return [{ valore:'hero', etichetta:'Hero · Pagina Home' }];
   if(tipo === 'about') return [{ valore:'about', etichetta:'Pagina «Chi siamo»' }];
   return [{ valore:'free', etichetta:'Solo libreria' }];
 }

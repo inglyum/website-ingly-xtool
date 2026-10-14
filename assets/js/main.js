@@ -60,9 +60,30 @@ function applyConfig(){
   document.documentElement.classList.toggle('senza-prezzi', !PREZZI.mostraPrezzi(CONFIG));
   document.title = CONFIG.titolo;
   const md=document.querySelector('meta[name="description"]'); if(md) md.content=CONFIG.descrizione;
-  const heroImage=String(CONFIG.heroImage||'').trim();
+  const heroImage=String(CONFIG.heroImage||'img/cat-custom.webp').trim();
   const heroImg=document.querySelector('#heroVisual .coin img');
-  if(heroImg&&heroImage){heroImg.src=heroImage;heroImg.removeAttribute('srcset');heroImg.alt=CONFIG.heroImageAlt||'Esempio visivo dimostrativo INGLY DESIGN';}
+  if(heroImg){
+    const localPath=heroImage.replace(/^\\.\\//,'').replace(/^\\/+/, '');
+    const local=/^(?:img|assets\\/images)\\/[A-Za-z0-9][A-Za-z0-9/_\\-.]*\\.(?:webp|png|jpe?g|avif|svg)$/i.test(localPath)
+      && !localPath.split('/').includes('..');
+    const secureRemote=/^https:\\/\\//i.test(heroImage);
+    const assetUrl=local ? (BASE.replace(/\\/+$/,'')+'/'+localPath) : (secureRemote ? heroImage : (BASE.replace(/\\/+$/,'')+'/img/cat-custom.webp'));
+    heroImg.src=assetUrl;
+    if(local && /\\.webp$/i.test(localPath)){
+      const stem=localPath.replace(/\\.webp$/i,'');
+      heroImg.srcset=BASE.replace(/\\/+$/,'')+'/'+stem+'-400.webp 400w, '+BASE.replace(/\\/+$/,'')+'/'+stem+'-800.webp 800w, '+assetUrl+' 1200w';
+      heroImg.sizes='(max-width: 800px) 90vw, 46vw';
+    }else heroImg.removeAttribute('srcset');
+    const alt=CONFIG.heroImageAlt;
+    heroImg.alt=(alt&&typeof alt==='object' ? (alt[L]||alt.it||alt.en) : alt)
+      || 'Esempio visivo dimostrativo INGLY DESIGN';
+    heroImg.onerror=()=>{
+      if(heroImg.dataset.fallbackApplied==='1')return;
+      heroImg.dataset.fallbackApplied='1';
+      heroImg.removeAttribute('srcset');
+      heroImg.src=BASE.replace(/\\/+$/,'')+'/img/cat-custom.webp';
+    };
+  }
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];
   map.forEach((u,i)=>{ if(u&&SOCIALS[i]) SOCIALS[i][1]=u });
   document.querySelectorAll('a[href^="https://instagram.com"]').forEach(a=>a.href=s.instagram);

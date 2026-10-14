@@ -246,7 +246,11 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
         /* I formati arrivano dai file che esistono: un elenco scritto a
            mano prometterebbe tipi che nessun file fornisce. */
         col(t('Formati disponibili', 'Available formats'),
-          formati.slice(0, max).map(f => ({ n: f, href: via(base, 'digital') })))
+          formati.slice(0, max).map(f => ({ n: f, href: via(base, 'digital') }))),
+        col(t('Strumenti creativi', 'Creative tools'), [
+          { n: t('Generator Studio INGLY', 'INGLY Generator Studio'), href: via(base, 'generatori.html'), nota: 'SVG' },
+          { n: t('Scatole, tag e forme', 'Boxes, tags & shapes'), href: via(base, 'generatori.html') }
+        ])
       ],
       evidenza: {
         occhiello: t('Licenza d\u2019uso', 'Usage licence'),

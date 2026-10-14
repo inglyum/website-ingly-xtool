@@ -60,6 +60,20 @@ function applyConfig(){
   document.documentElement.classList.toggle('senza-prezzi', !PREZZI.mostraPrezzi(CONFIG));
   document.title = CONFIG.titolo;
   const md=document.querySelector('meta[name="description"]'); if(md) md.content=CONFIG.descrizione;
+  /* La foto principale proviene dallo stesso JSON pubblicato dall'Admin.
+     Se il file è ancora dimostrativo rimane esplicitamente etichettato. */
+  const heroImg=document.querySelector('#heroVisual .coin img');
+  const heroUrl=String(CONFIG.heroImage||'').trim();
+  if(heroImg && /^(?:img|assets\/images)\/[\w/.-]+\.(?:webp|png|jpe?g|svg)$/i.test(heroUrl)){
+    heroImg.src=heroUrl;heroImg.removeAttribute('srcset');
+    heroImg.alt=CONFIG.heroImageAlt||'Creazione personalizzata INGLY DESIGN';
+  }
+  const heroCredit=document.querySelector('.hero-photo-credit');
+  if(heroCredit){
+    heroCredit.textContent=CONFIG.heroImageDemo === false
+      ? 'INGLY DESIGN · Fotografia caricata dal laboratorio'
+      : 'Immagine dimostrativa · Sostituibile dal pannello Admin';
+  }
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];
   map.forEach((u,i)=>{ if(u&&SOCIALS[i]) SOCIALS[i][1]=u });
   document.querySelectorAll('a[href^="https://instagram.com"]').forEach(a=>a.href=s.instagram);
@@ -126,7 +140,7 @@ function renderTitoloHero(){
       testoPezzo.split(/\s+/).filter(Boolean).forEach(parola=>{
         const w=document.createElement('span'); w.className='w';
         const inner=document.createElement('span');
-        inner.style.animationDelay=(0.1+i*0.11).toFixed(2)+'s';
+        /* Hero stabile: nessun ritardo di comparsa per parola. */
         i++;
         if(inciso){
           /* Lo strato colorato che il raggio «incide» era un secondo <span>

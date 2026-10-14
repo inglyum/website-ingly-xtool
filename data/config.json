@@ -183,7 +183,10 @@
     "_nota": "I pagamenti restano disattivati. I contatti sono il canale attivo; checkout e link di pagamento potranno essere configurati successivamente."
   },
   "heroImage": "img/cat-custom.webp",
-  "heroImageAlt": "Esempio visivo dimostrativo INGLY DESIGN",
+  "heroImageAlt": {
+    "it": "Esempio visivo dimostrativo di creazioni personalizzate INGLY DESIGN",
+    "en": "Illustrative sample of INGLY DESIGN custom creations"
+  },
   "heroImageKind": "illustrative-example",
   "heroImageDemo": true,
   "heroImageReplaceable": true

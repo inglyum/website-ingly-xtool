@@ -106,3 +106,14 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 @media(max-width:880px){.ingly-material-heading{align-items:start;flex-direction:column}.ingly-material-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.ingly-material-grid{grid-template-columns:1fr 1fr;gap:10px}.ingly-material-tile{border-radius:13px}.ingly-material-tile>span{font-size:.82rem;padding:28px 10px 12px}.ingly-material-heading h2{font-size:2.3rem}}
 @media(prefers-reduced-motion:reduce){.ingly-material-tile,.ingly-material-tile img{transition:none!important}}
+
+/* Business images: precise matching to service and industry */
+.ingly-biz-cover{margin:0 0 12px;position:relative;isolation:isolate;overflow:hidden;border-radius:14px;background:#102e35;aspect-ratio:3/2}
+.ingly-biz-cover img{display:block;width:100%;height:100%;object-fit:cover}
+.ingly-biz-cover figcaption{position:absolute;right:9px;bottom:9px;border-radius:999px;background:rgba(5,21,26,.85);color:#fff;padding:5px 9px;font:500 10px/1.3 Inter,system-ui,sans-serif;letter-spacing:.04em}
+.ingly-biz-service{padding:14px!important;min-width:0;overflow:hidden}
+.ingly-biz-service h3,.ingly-biz-service p{padding-left:9px;padding-right:9px}
+.vert-card .ingly-biz-cover{aspect-ratio:3/2;margin:-10px -10px 12px;min-height:0}
+#vertPage>.ingly-biz-cover{max-width:860px;aspect-ratio:16/7;margin:0 0 26px}
+.lab-material-cover img{display:block;width:100%;object-fit:cover}
+@media(max-width:640px){.ingly-biz-service{padding:10px!important}.ingly-biz-service h3{font-size:17px!important}.ingly-biz-cover{border-radius:10px}#vertPage>.ingly-biz-cover{aspect-ratio:3/2}}

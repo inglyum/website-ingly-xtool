@@ -208,6 +208,8 @@ check('ogni card riceve uno sfondo (foto o generato)', bento && bento.querySelec
 
 /* INGLY PREMIUM: logo fermo, superfici coerenti e nessun copy provvisorio. */
 const premiumCss = readFileSync(ROOT + '/assets/css/pages.css', 'utf8');
+/* la palette sta in tokens.css (unica fonte, caricata per ultima) */
+const tokensCss = readFileSync(ROOT + '/assets/css/tokens.css', 'utf8');
 const premiumNavCss = readFileSync(ROOT + '/assets/css/nav-ia.css', 'utf8');
 const themeCss = readFileSync(ROOT + '/assets/css/components.css', 'utf8');
 const fallbackJs = readFileSync(ROOT + '/assets/js/app.fallback.js', 'utf8');
@@ -224,7 +226,8 @@ check('il logo non galleggia più nella hero',
 check('il logo del loader non pulsa né emette bagliori',
   premiumCss.includes('.loader img{animation:none!important;filter:none!important}'));
 check('palette graphite e champagne presente nel design system',
-  premiumCss.includes('--premium-gold:#c3a46b') && premiumCss.includes('--premium-edge:rgba(195,164,107,.2)'));
+  tokensCss.includes('--c-graphite:#272B31') && tokensCss.includes('--c-champagne:#C5A46D')
+  && /--premium-gold:var\(--accent\)/.test(tokensCss) && /--premium-edge:var\(--accent-edge\)/.test(tokensCss));
 check('le immagini categoria non hanno più il riflesso diagonale',
   premiumCss.includes('.bcard--photo::before{content:none!important;display:none!important}'));
 check('il CSS di base conserva gli sfondi selezionati dall Admin',
@@ -344,21 +347,40 @@ await wait(200);
 check('lo stato dei filtri finisce nell URL',
   /\/shop/.test(win.location.pathname), win.location.pathname + win.location.search);
 
+console.log('\n=== BOTTONI DI CONTATTO DELLA SCHEDA PRODOTTO ===');
+/* applyConfig riscriveva testo e destinazione di OGNI link mailto: anche il
+   bottone «Richiedi via email», che perdeva lo <span> dell'etichetta. Al
+   prodotto successivo la scheda si fermava con un errore: sul sito
+   pubblicato, dalla Home, cliccando un prodotto la scheda non si apriva. */
+{
+  const em = $('productContactEmail');
+  check('il bottone email conserva il suo <span>', !!(em && em.querySelector('span')));
+  check('e la sua etichetta, non l\'indirizzo nudo', !!em && !em.textContent.includes('@'), em && em.textContent.trim());
+  check('e il messaggio precompilato (?subject=)', !!em && /\?subject=/.test(em.getAttribute('href') || ''), em && em.getAttribute('href'));
+  check('nessun errore «Cannot set properties of null» aprendo i prodotti',
+    !errors.some(e => /Cannot set properties of null/.test(e)), errors.filter(e => /Cannot set/.test(e)).length + ' errori');
+}
+
 console.log('\n=== THEME ENGINE ===');
 check('artwork del tema applicato alla categoria', bento && /theme\/christmas-casa\.webp/.test(bento.innerHTML));
 check('artwork del tema ha priorità sull immagine fissa', bento && !/cat-casa\.webp/.test(bento.innerHTML));
+/* Il tema stagionale cambia l'artwork, mai l'identità. Prima lo garantiva
+   il JS scrivendo in linea una palette fissa (blu notte, blu, oro); ora
+   l'identità sta in tokens.css e il JS non scrive nessun colore in linea.
+   Questi controlli falliscono se un tema torna a poter ricolorare il sito. */
+const inLinea = n => doc.documentElement.style.getPropertyValue(n).trim();
 check('accento INGLY stabile anche durante il tema stagionale',
-  doc.documentElement.style.getPropertyValue('--theme-accent').trim() === '#C8AD77');
-check('sfondo e primario restano nella palette blu INGLY',
-  doc.documentElement.style.getPropertyValue('--theme-base').trim() === '#0D2043'
-  && doc.documentElement.style.getPropertyValue('--theme-primary').trim() === '#4778BD');
-check('i pulsanti mantengono oro satinato e contrasto',
-  doc.documentElement.style.getPropertyValue('--blue').trim() === '#4778BD'
-  && doc.documentElement.style.getPropertyValue('--laser').trim() === '#C8AD77'
-  && doc.documentElement.style.getPropertyValue('--theme-button-ink').trim() === '#10203B');
+  inLinea('--theme-accent') === '' && /--theme-accent:var\(--accent\)/.test(tokensCss),
+  inLinea('--theme-accent'));
+check('sfondo e primario restano nella palette INGLY',
+  inLinea('--theme-base') === '' && inLinea('--theme-primary') === ''
+  && /--theme-base:var\(--bg-page\)/.test(tokensCss));
+check('i pulsanti mantengono i colori del marchio e il contrasto',
+  inLinea('--blue') === '' && inLinea('--laser') === '' && inLinea('--theme-button-ink') === ''
+  && /--btn-bg:/.test(tokensCss) && /--btn-fg:/.test(tokensCss));
 check('bordi e bagliore rispettano la palette di marca',
-  doc.documentElement.style.getPropertyValue('--theme-line').includes('rgba(71, 120, 189, 0.24)')
-  && doc.documentElement.style.getPropertyValue('--theme-glow').includes('rgba(200, 173, 119, 0.18)'));
+  inLinea('--theme-line') === '' && inLinea('--theme-glow') === ''
+  && /--theme-glow:transparent/.test(tokensCss));
 check('attributo data-theme impostato', doc.documentElement.getAttribute('data-theme') === 'christmas');
 check('categorie senza artwork restano invariate', bento && bento.querySelectorAll('.bcard').length >= 12);
 check('sfondo generato applicato alle categorie senza foto', bento && /--card-bg:url\('data:image\/svg\+xml/.test(bento.innerHTML));
@@ -538,7 +560,8 @@ doc.getElementById('lbxClose').click(); await wait(60);
 console.log('\n=== FASE 1.3 — Tema su tutta la pagina ===');
 check('classe has-theme-bg attiva', doc.documentElement.classList.contains('has-theme-bg'));
 check('variabile --theme-bg impostata', /svg\+xml/.test(doc.documentElement.style.getPropertyValue('--theme-bg')));
-check('accento del tema propagato', !!doc.documentElement.style.getPropertyValue('--theme-accent'));
+/* l'accento arriva alla pagina dai token, non da uno stile in linea */
+check('accento del tema propagato', /--theme-accent:var\(--accent\)/.test(tokensCss) && !doc.documentElement.style.getPropertyValue('--theme-accent'));
 
 console.log('\n=== FASE 3.2 — Ingresso scaglionato ===');
 const allRev = [...doc.querySelectorAll('.reveal')];

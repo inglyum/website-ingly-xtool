@@ -29,7 +29,7 @@
 const BASE = new URL('./', self.location).pathname;
 const via  = p => BASE + String(p).replace(/^\/+/, '');
 
-const CACHE_VER   = 'ingly-v14';
+const CACHE_VER   = 'ingly-v15';
 const CACHE_ASSETS= CACHE_VER + '-assets';
 const CACHE_DATA  = CACHE_VER + '-data';
 const CACHE_IMG   = CACHE_VER + '-img';
@@ -45,6 +45,11 @@ const PRECACHE = [
   via('assets/css/pages.css'),
   via('assets/css/animations.css'),
   via('assets/css/responsive.css'),
+  /* nav-ia e premium-2026 mancavano: offline il menu e lo strato visivo
+     restavano senza stile. tokens.css è la palette, e va per ultimo. */
+  via('assets/css/nav-ia.css'),
+  via('assets/css/premium-2026.css'),
+  via('assets/css/tokens.css'),
   via('assets/js/app.js'),
   via('assets/js/data-loader.js'),
   via('assets/js/main.js'),

@@ -14,8 +14,8 @@
 @keyframes pop{40%{transform:scale(1.4)}}
 @keyframes spinc{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes fluttua{0%,100%{margin-top:0}50%{margin-top:-16px}}
-@keyframes respiro{0%,100%{filter:drop-shadow(0 0 22px rgba(59,125,224,.45)) drop-shadow(0 0 70px rgba(59,125,224,.22)) drop-shadow(0 30px 50px rgba(0,0,0,.6))}
-50%{filter:drop-shadow(0 0 40px rgba(59,125,224,.75)) drop-shadow(0 0 120px rgba(59,125,224,.4)) drop-shadow(0 30px 50px rgba(0,0,0,.6))}}
+@keyframes respiro{0%,100%{filter:drop-shadow(0 0 22px rgba(122,125,132,.45)) drop-shadow(0 0 70px rgba(122,125,132,.22)) drop-shadow(0 30px 50px rgba(0,0,0,.6))}
+50%{filter:drop-shadow(0 0 40px rgba(122,125,132,.75)) drop-shadow(0 0 120px rgba(122,125,132,.4)) drop-shadow(0 30px 50px rgba(0,0,0,.6))}}
 @keyframes sweepfx{0%,62%{transform:rotate(-14deg) translateX(-120vw);opacity:0}66%{opacity:.6}78%{opacity:.6}84%,100%{transform:rotate(-14deg) translateX(120vw);opacity:0}}
 @keyframes lload{0%{transform:translateX(-100%)}100%{transform:translateX(450%)}}
 @keyframes faqin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}

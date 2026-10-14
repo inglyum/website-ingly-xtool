@@ -122,10 +122,46 @@ migrazione richiede hosting, database e pagamenti reali e va decisa separatament
 
 | Fase | Stato |
 |---|---|
-| 0 · Audit | ✅ questo documento · A3 corretto |
-| 1 · Design system | in corso |
+| 0 · Audit | ✅ questo documento · A3 corretto · 107 pagine d'ingresso rigenerate |
+| 1 · Design system | ✅ vedi §6 |
 | 2 · Home | da fare |
 | 3 · Business | da fare |
 | 4 · Commerce | da fare |
 | 5 · CMS | da fare |
 | 6 · SEO / QA / rilascio | da fare |
+
+---
+
+## 6. Fase 1 — Design system: risultato misurato
+
+| Misura (24 combinazioni pagina × viewport × modalità) | Prima | Dopo |
+|---|---|---|
+| Fondo notte (`--paper`) | `#071c22` petrolio | `#111318` Titanium |
+| Fondo giorno | `#faf9f6` | `#F8F7F4` Warm White |
+| Pagine con scorrimento orizzontale | 6 | **0** |
+| Immagini rotte | 4 | **0** |
+| Errori JavaScript | 0 | 0 |
+| Testi sotto WCAG AA (casi distinti, 7 pagine × 2 modalità) | 57 sul sito pubblicato | **1** (la striscia clienti A4, rimossa in Fase 3) |
+| Colori verdi/blu scritti a mano nei CSS | 618 | **0** |
+| Fonti della palette | 3 fogli + 1 funzione JS | **1** (`assets/css/tokens.css`) |
+
+**Come.** `tokens.css` è l'unica fonte e si carica per ultimo; tutti i 78 nomi di token storici restano
+definiti ma puntano ai ruoli nuovi. I 618 colori scritti a mano sono stati convertiti alla stessa luminanza
+(quindi lo stesso contrasto) senza la tinta (`scripts/neutralizza-colori.mjs`). 209 dichiarazioni di token
+morte e 8 blocchi vuoti tolti da `pages.css` (1.893 → ~1.700 righe), **verificato con un confronto dello stile
+calcolato di 72.380 elementi: 0 differenze**. I 33 sfondi a gradiente sovrapposti e 7 definizioni duplicate del
+bottone principale ridotti a un valore ciascuno.
+
+**Due correzioni rispetto alla palette del brief**, perché il brief chiede anche WCAG AA: il testo secondario
+non usa `#777B83` (3,96:1) ma `#5F636B` di giorno e `#A3A7AE` di notte; l'oro come testo di giorno non usa
+`#C5A46D` (2,20:1) ma `#836538` (≥ 4,64:1 su ogni superficie chiara).
+
+**Difetti trovati lungo la strada**
+- **P0 sul sito pubblicato:** dalla Home, cliccando un prodotto la scheda non si apriva (`TypeError`).
+  `applyConfig()` riscriveva il testo di ogni link `mailto:`, compreso il bottone «Richiedi via email», e la
+  scheda successiva cercava uno `<span>` che non c'era più. Corretto alla radice + test di regressione.
+- Il menu non restava in vista e lasciava un buco di 36 px: uno `style="top:36px"` scritto nell'HTML e un
+  `position:relative` aggiunto per lo z-index. Ora `position:sticky`.
+- Il tema «default» scriveva in linea blu notte e blu su `<html>`: nessun foglio di stile poteva cambiarli.
+- Card fotografiche con testo bianco su card bianca finché la foto pigra non arriva (1,00:1).
+- `--accent` era usato in ~18 punti ma non era mai stato definito.

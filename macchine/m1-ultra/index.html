@@ -108,7 +108,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v14', FLAG='ingly_cachefix';
+  var CACHE_WANT='ingly-v15', FLAG='ingly_cachefix';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -143,6 +143,8 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/pages.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
 <link rel="stylesheet" href="assets/css/premium-2026.css">
+<!-- la palette del marchio: unica fonte, sempre per ultima -->
+<link rel="stylesheet" href="assets/css/tokens.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script type="module" src="assets/js/app.js"></script>
@@ -215,7 +217,7 @@ setTimeout(function(){
   </div>
 </div>
 
-<header class="nav scrolled" id="nav" style="top:36px">
+<header class="nav scrolled" id="nav">
   <div class="wrap nav-in">
     <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>

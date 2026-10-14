@@ -770,18 +770,18 @@
           "it": "Default INGLY",
           "en": "INGLY Default"
         },
-        "mood": "blu notte profondo, luce blu stratificata, oro champagne satinato",
+        "mood": "titanio e grafite, bianco caldo, dettagli champagne misurati",
         "palette": [
-          "#0D2043",
-          "#4778BD",
-          "#C8AD77"
+          "#111318",
+          "#272B31",
+          "#C5A46D"
         ],
-        "lighting": "soft warm champagne edge light, restrained cinematic lighting",
-        "elementi": "deep navy gradients, layered blue rim light, restrained champagne-gold accents, graphite-free blue product surfaces, precision laser-cut details, generous negative space",
+        "lighting": "luce naturale morbida, ombre strutturali leggere, nessun bagliore",
+        "elementi": "superfici titanio e grafite, fondi bianco caldo, filetti champagne sottili, ampio spazio negativo, dettagli di incisione laser precisi",
         "kw": [
           "premium",
           "craft",
-          "navy",
+          "titanio",
           "champagne",
           "laser"
         ],

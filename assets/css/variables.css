@@ -4,12 +4,12 @@
      non poteva raggiungerli: restava una fascia blu notte in mezzo a una
      pagina di carta. Passando da variabili la cosa si risolve da sé, senza
      dipendere da chi vince nella cascata. */
-  --ticker-bg:#080c1a;
+  --ticker-bg:#090c13;
   --ticker-card:rgba(255,255,255,.04);
   --ticker-card-hover:rgba(255,255,255,.09);
   --ticker-bordo:rgba(255,255,255,.08);
   --ticker-nome:#eef1fb;
-  --ticker-sub:#6b7db3;
+  --ticker-sub:#7b7e85;
   --ticker-badge-bg:rgba(245,217,78,.15);
   --ticker-badge-testo:#f5d94e;
   --ticker-badge-bordo:rgba(245,217,78,.3);
@@ -18,9 +18,9 @@
 
 /* — TEMA IMMERSIVO (vince sul precedente) — */
 :root{
-  --paper:#0a0d18; --white:#12162a; --ink:#eef1fb; --graphite:#141830; --ink-soft:#9aa3c7;
-  --gray:#171c33; --line:rgba(140,160,220,.16);
-  --blue:#3b7de0; --blue-hi:#5a95f0; --laser:#f5d94e; --spark:#ff8a3c;
+  --paper:#090c13; --white:#13161d; --ink:#eef1fb; --graphite:#161920; --ink-soft:#a6a5a2;
+  --gray:#191c23; --line:rgba(163,162,159,.16);
+  --blue:#7a7d84; --blue-hi:#979693; --laser:#f5d94e; --spark:#ff8a3c;
   --fd:'Exo 2',sans-serif;
   --shadow-soft:0 10px 40px rgba(0,0,0,.45); --shadow-lift:0 24px 60px rgba(0,0,0,.55);
   /* Scala di elevazione (4 livelli) — solo profondità strutturale.
@@ -61,7 +61,7 @@
   --ticker-bg:#ede9e2;
   --ticker-card:rgba(255,255,255,.75);
   --ticker-card-hover:#ffffff;
-  --ticker-bordo:rgba(17,24,39,.10);
+  --ticker-bordo:rgba(20,23,30,.10);
   --ticker-nome:#1a1410;
   --ticker-sub:#6b6255;
   /* il giallo laser su carta bianca non si legge: stesso accento, tono scurito */
@@ -76,7 +76,7 @@
   /* Bordi e linee */
   --line:rgba(26,20,16,.12);
   /* Accenti brand */
-  --blue:#1a4fb5; --blue-hi:#2563eb; --laser:#b8860b; --spark:#d4530a;
+  --blue:#51545b; --blue-hi:#696c73; --laser:#b8860b; --spark:#d4530a;
   /* Ombre più calde e morbide */
   --shadow-soft:0 6px 24px rgba(26,20,16,.08);
   --shadow-lift:0 18px 48px rgba(26,20,16,.13);
@@ -88,10 +88,10 @@
 }
 :root[data-mode="dark"]{
   color-scheme:dark;
-  --glass-dark:rgba(10,13,24,.75);
+  --glass-dark:rgba(9,12,19,.75);
   --bg-deep:#070a14;
-  --card-glass:rgba(17,21,39,.72);
-  --card-solid:#141830;
+  --card-glass:rgba(18,21,28,.72);
+  --card-solid:#161920;
 }
 :root[data-mode="light"]{
   --glass-dark:rgba(255,255,251,.90);
@@ -145,7 +145,7 @@
 
 /* Hero */
 :root[data-mode="light"] .hero-bg{ background:linear-gradient(160deg,#f5f3ef,#eef1f7) }
-:root[data-mode="light"] .blob.b1{ background:rgba(27,79,181,.10) }
+:root[data-mode="light"] .blob.b1{ background:rgba(81,84,91,.10) }
 :root[data-mode="light"] .blob.b2{ background:rgba(184,134,11,.08) }
 :root[data-mode="light"] .grid-lines{ opacity:.15 }
 :root[data-mode="light"] .hero-tag{
@@ -159,15 +159,15 @@
 :root[data-mode="light"] .dark,
 :root[data-mode="light"] .news,
 :root[data-mode="light"] .cta-band{
-  background:linear-gradient(160deg,#eef1f7,#e8eaf4);
-  border-color:rgba(27,79,181,.15);
+  background:linear-gradient(160deg,#eef1f7,#ecebe8);
+  border-color:rgba(81,84,91,.15);
   color:#1a1410;
 }
 :root[data-mode="light"] .cta-band h2,
 :root[data-mode="light"] .cta-band p,
 :root[data-mode="light"] .dark h2,
 :root[data-mode="light"] .dark p{ color:#1a1410 }
-:root[data-mode="light"] .eyebrow{ color:#1a4fb5 }
+:root[data-mode="light"] .eyebrow{ color:#51545b }
 
 /* Cards prodotto */
 :root[data-mode="light"] .pcard{
@@ -176,8 +176,8 @@
   box-shadow:var(--elev-2);
 }
 :root[data-mode="light"] .pcard:hover{
-  box-shadow:0 12px 40px rgba(26,20,16,.14),0 0 30px rgba(27,79,181,.08);
-  border-color:rgba(27,79,181,.25);
+  box-shadow:0 12px 40px rgba(26,20,16,.14),0 0 30px rgba(81,84,91,.08);
+  border-color:rgba(81,84,91,.25);
 }
 :root[data-mode="light"] .pcard .pname{ color:#1a1410 }
 :root[data-mode="light"] .pcard .pprice{ color:#b8860b }
@@ -193,7 +193,7 @@
 :root[data-mode="light"] .mcard p{ color:#6b6255 }
 :root[data-mode="light"] .mcard .spec i{
   border-color:rgba(26,20,16,.15);
-  color:#1a4fb5;
+  color:#51545b;
 }
 
 /* Floating cards hero */
@@ -228,9 +228,9 @@
   color:#1a1410;
 }
 :root[data-mode="light"] .step:hover .n{
-  background:#1a4fb5;
+  background:#51545b;
   color:#fff;
-  border-color:#1a4fb5;
+  border-color:#51545b;
 }
 :root[data-mode="light"] .step h4{ color:#1a1410 }
 :root[data-mode="light"] .step p{ color:#6b6255 }
@@ -240,7 +240,7 @@
   background:#ffffff;
   border-color:rgba(26,20,16,.09);
 }
-:root[data-mode="light"] .counter .count{ color:#1a4fb5 }
+:root[data-mode="light"] .counter .count{ color:#51545b }
 :root[data-mode="light"] .counter p{ color:#6b6255 }
 
 /* Tags, chip, badge */
@@ -253,8 +253,8 @@
   background:rgba(255,255,255,.88);
   color:#1a1410;
 }
-:root[data-mode="light"] .ptag.y{ background:#b8860b; color:#fff }
-:root[data-mode="light"] .ptag.b{ background:#1a4fb5; color:#fff }
+:root[data-mode="light"] .ptag.y{ background:var(--accent); color:var(--on-accent) }
+:root[data-mode="light"] .ptag.b{ background:#51545b; color:#fff }
 
 /* Bottoni */
 :root[data-mode="light"] .btn-ghost{
@@ -274,8 +274,8 @@
   border-left-color:rgba(26,20,16,.10);
   box-shadow:-20px 0 60px rgba(26,20,16,.12);
 }
-:root[data-mode="light"] .dr-ship-bar{background:rgba(59,125,224,.06);border-bottom-color:rgba(59,125,224,.15)}
-:root[data-mode="light"] .dr-coupon-input{background:#f4f6fa;border-color:rgba(26,20,16,.15);color:#141830}
+:root[data-mode="light"] .dr-ship-bar{background:rgba(122,125,132,.06);border-bottom-color:rgba(122,125,132,.15)}
+:root[data-mode="light"] .dr-coupon-input{background:#f4f6fa;border-color:rgba(26,20,16,.15);color:#161920}
 :root[data-mode="light"] .dr-foot{background:#fff}
 :root[data-mode="light"] .di-rm:hover{color:#dc2626}
 
@@ -301,14 +301,14 @@
   color:#1a1410;
 }
 :root[data-mode="light"] footer h4,
-:root[data-mode="light"] footer a{ color:#1a1410 }
-:root[data-mode="light"] footer a:hover{ color:#b8860b }
+:root[data-mode="light"] footer a:not(.btn){ color:#1a1410 }
+:root[data-mode="light"] footer a:not(.btn):hover{ color:#b8860b }
 :root[data-mode="light"] footer .hint{ color:#6b6255 }
 :root[data-mode="light"] .watermark{ color:rgba(26,20,16,.05) }
 
 /* About / Portfolio */
 :root[data-mode="light"] .about-art{
-  background:linear-gradient(150deg,#eef1f7,#e8eaf4);
+  background:linear-gradient(150deg,#eef1f7,#ecebe8);
   border-color:rgba(26,20,16,.10);
 }
 :root[data-mode="light"] .gtile .lbl{
@@ -349,8 +349,8 @@
 :root[data-mode="light"] textarea::placeholder{ color:#a09585 }
 :root[data-mode="light"] .searchbar:focus-within,
 :root[data-mode="light"] .txtin:focus{
-  border-color:#1a4fb5;
-  box-shadow:0 0 0 3px rgba(27,79,181,.12);
+  border-color:#51545b;
+  box-shadow:0 0 0 3px rgba(81,84,91,.12);
 }
 :root[data-mode="light"] .nform input{ background:rgba(26,20,16,.04); border-color:rgba(26,20,16,.15) }
 
@@ -372,7 +372,7 @@
   background:#fff;
   border-color:rgba(26,20,16,.10);
 }
-:root[data-mode="light"] .rv-it:hover{ border-color:#1a4fb5 }
+:root[data-mode="light"] .rv-it:hover{ border-color:#51545b }
 :root[data-mode="light"] .rv-it b{ color:#1a1410 }
 :root[data-mode="light"] .rv-it span{ color:#6b6255 }
 

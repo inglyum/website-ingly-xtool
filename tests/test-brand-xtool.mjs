@@ -14,13 +14,23 @@ assert.match(html,/id="page-macchine"/);
 assert.match(html,/xtool-lab-feature/);
 assert.match(html,/assets\/images\/xtool-lab-default\.svg/);
 assert.match(html,/https:\/\/support\.xtool\.com\/demo-room\/host-instruction\?id=2528&amp;name=Giuseppe%20Inglima/);
-assert.match(css,/--brand-petrol-950:#0d1d20/);
-assert.match(css,/--brand-champagne:#d7bd82/);
+/* palette del brief enterprise 2026 (sostituisce petrolio/champagne):
+   sta in tokens.css, l'unica fonte. */
+const tokens = readFileSync('assets/css/tokens.css','utf8');
+assert.match(tokens,/--c-titanium:#111318;/);
+assert.match(tokens,/--c-champagne:#C5A46D;/);
+assert.match(tokens,/--brand-petrol-950:var\(--c-titanium\);/, 'i nomi petrolio restano definiti, ma sul Titanium');
+assert.match(tokens,/--brand-champagne:var\(--accent\);/);
 assert.match(css,/\.xtool-lab-feature/);
 assert.match(css,/\.academy-topic-card/);
 assert.match(css,/\.coin,\.hero-visual \.coin,\.coin img,\.brand img,\.loader \.lin>img,\.logo-big img\{\s*animation:none!important/);
-assert.match(sw,/const CACHE_VER\s*=\s*'ingly-v14'/);
-assert.match(html,/CACHE_WANT='ingly-v14'/);
+/* la versione della cache deve salire a ogni rilascio visivo: si verifica
+   che HTML e service worker coincidano e non tornino indietro, non un
+   numero fisso (che bloccherebbe il rilascio successivo) */
+const verSw = +(sw.match(/const CACHE_VER\s*=\s*'ingly-v(\d+)'/)||[])[1];
+const verHtml = +(html.match(/CACHE_WANT='ingly-v(\d+)'/)||[])[1];
+assert.ok(verSw >= 14, 'cache non tornata indietro');
+assert.equal(verSw, verHtml, 'HTML e service worker chiedono la stessa versione');
 assert.ok(cfg.demo.bookingUrl.includes('id=2528'));
 assert.equal(corsi.corsi.length,0,'Do not fabricate published courses');
 console.log('INGLY brand/xTool Lab/Academy regression: PASS');

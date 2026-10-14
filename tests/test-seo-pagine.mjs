@@ -99,7 +99,10 @@ else {
   /* ogni indirizzo deve corrispondere a un file che esiste davvero */
   const rotti = loc.filter(u => {
     const p = u.replace(/^https?:\/\/[^/]+\//, '').replace(/\/$/, '');
-    return !existsSync(p === '' ? 'index.html' : p + '/index.html');
+    /* Il Generator Studio è un tool autonomo .html, non una rotta prerender
+       come /shop o /business. Controlla il file diretto quando l'URL lo indica. */
+    const file = p === '' ? 'index.html' : p.endsWith('.html') ? p : p + '/index.html';
+    return !existsSync(file);
   });
   check('ogni indirizzo corrisponde a una pagina esistente', rotti.length === 0, rotti.slice(0, 3).join(' '));
   check('nessun indirizzo ripetuto', new Set(loc).size === loc.length);

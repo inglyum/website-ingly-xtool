@@ -1159,3 +1159,9 @@ behold-widget{display:block;min-height:240px}
 @keyframes inglyAmbient{from{transform:translate3d(-1%,0,0) scale(1)}to{transform:translate3d(1%,1%,0) scale(1.05)}}
 @media(max-width:640px){.product-contact-actions{grid-template-columns:1fr}.pp-material-spec-grid{grid-template-columns:1fr}.pp-material-card{padding:16px}}
 @media(prefers-reduced-motion:reduce){.hero-bg::before{animation:none}.hero-bg .blob,.navic,.ic-svg,.icon-btn svg,.wish svg,.btn{transition:none!important}}
+
+/* BRAND MARK MIGRATION
+   Static prerendered pages may retain the legacy filename until the next CMS
+   publication. Render the supplied vector mark in those legacy <img> slots,
+   while new pages reference the SVG directly. URL is relative to this CSS. */
+img[src$="assets/images/logo.png"]{content:url("../images/ingly-logo.svg");object-fit:contain}

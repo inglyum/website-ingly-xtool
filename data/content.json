@@ -4542,6 +4542,55 @@
       "icona": "✦",
       "attivo": true,
       "ordine": 4
+    },
+    {
+      "id": "scatola-incastri",
+      "modulo": "scatola-incastri",
+      "nome": {
+        "it": "Scatola a incastri",
+        "en": "Finger-joint Box"
+      },
+      "descrizione": {
+        "it": "Cinque pannelli con denti e cave parametriche.",
+        "en": "Five panels with parametric finger joints."
+      },
+      "categoria": "Scatole e packaging",
+      "icona": "▣",
+      "attivo": true,
+      "ordine": 5
+    },
+    {
+      "id": "ingranaggio",
+      "modulo": "ingranaggio",
+      "nome": {
+        "it": "Ingranaggio parametrico",
+        "en": "Parametric Gear"
+      },
+      "descrizione": {
+        "it": "Ruota dentata con denti, modulo e foro regolabili.",
+        "en": "Gear with adjustable teeth, module and bore."
+      },
+      "categoria": "Meccanica e design",
+      "icona": "⚙",
+      "attivo": true,
+      "ordine": 6
+    },
+    {
+      "id": "cuttle-templates",
+      "modulo": "link-esterno",
+      "nome": {
+        "it": "Esplora i template Cuttle",
+        "en": "Explore Cuttle templates"
+      },
+      "descrizione": {
+        "it": "Catalogo ufficiale esterno: accesso, download e licenze sono gestiti da Cuttle.",
+        "en": "Official external catalog: access, downloads and licensing are managed by Cuttle."
+      },
+      "categoria": "Strumenti esterni",
+      "icona": "↗",
+      "attivo": true,
+      "ordine": 7,
+      "url": "https://cuttle.xyz/templates"
     }
   ]
 }

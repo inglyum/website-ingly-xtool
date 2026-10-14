@@ -51,7 +51,8 @@ const defaults=[
 {id:'test-materiali',modulo:'test-materiali',nome:{it:'Griglia test materiali',en:'Material Test Grid'},descrizione:{it:'Tavola di provini per confrontare i test.',en:'A grid of samples for comparison tests.'},categoria:'Test e calibrazione',icona:'▤',attivo:true,ordine:3},
 {id:'cake-topper',modulo:'cake-topper',nome:{it:'Cake Topper',en:'Cake Topper'},descrizione:{it:'Sagoma decorativa con picchetto integrato.',en:'Decorative topper with an integrated stake.'},categoria:'Feste ed eventi',icona:'✦',attivo:true,ordine:4},
 {id:'scatola-incastri',modulo:'scatola-incastri',nome:{it:'Scatola a incastri',en:'Finger-joint Box'},descrizione:{it:'Cinque pannelli con denti e cave parametriche.',en:'Five panels with parametric finger joints.'},categoria:'Scatole e packaging',icona:'▣',attivo:true,ordine:5},
-{id:'cuttle-templates',modulo:'link-esterno',nome:{it:'Esplora i template Cuttle',en:'Explore Cuttle templates'},descrizione:{it:'Catalogo ufficiale esterno. Account, download e licenze sono gestiti da Cuttle; non è un generatore INGLY.',en:'External official catalog. Cuttle manages accounts, downloads and licensing; this is not an INGLY generator.'},categoria:'Strumenti esterni · Cuttle',icona:'↗',attivo:true,ordine:6,url:'https://cuttle.xyz/templates'},
+{id:'ornamento',modulo:'ornamento',nome:{it:'Ornamenti e Gift Tag',en:'Ornaments & Gift Tags'},descrizione:{it:'Sagome per ricorrenze con foro per nastro e testo inciso.',en:'Occasion shapes with hanging hole and engraved text.'},categoria:'Feste e stagioni',icona:'❋',attivo:true,ordine:6},
+{id:'cuttle-templates',modulo:'link-esterno',nome:{it:'Esplora i template Cuttle',en:'Explore Cuttle templates'},descrizione:{it:'Catalogo ufficiale esterno. Account, download e licenze sono gestiti da Cuttle; non è un generatore INGLY.',en:'External official catalog. Cuttle manages accounts, downloads and licensing; this is not an INGLY generator.'},categoria:'Strumenti esterni · Cuttle',icona:'↗',attivo:true,ordine:8,url:'https://cuttle.xyz/templates'},
 {id:'ingranaggio',modulo:'ingranaggio',nome:{it:'Ingranaggio parametrico',en:'Parametric Gear'},descrizione:{it:'Ruota dentata decorativa con denti, modulo e foro regolabili.',en:'Decorative gear with adjustable teeth, module and bore.'},categoria:'Meccanica e design',icona:'⚙',attivo:true,ordine:7}
 ];
 let catalogue=defaults.slice(),active='portachiavi',activeId='portachiavi',filter='Tutti',search='',settings={};
@@ -61,14 +62,15 @@ portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
 'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},
 'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},
 'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},
-'ingranaggio':{teeth:24,module:2,bore:6,pressure:20}
+'ingranaggio':{teeth:24,module:2,bore:6,pressure:20},
+'ornamento':{text:'Buone Feste',shape:'star',size:70,hole:4,font:7}
 };
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mod=id=>catalogue.find(x=>x.modulo===id)||catalogue.find(x=>x.id===id);
 const label=x=>(x.nome&&x.nome.it)||x.label||x.id;
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2800)}
-function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper','scatola-incastri','ingranaggio'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||'')))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
+function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper','scatola-incastri','ornamento','ingranaggio'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||'')))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
 function renderFilters(){
 const cats=['Tutti',...new Set(activeModules().map(x=>x.categoria||'Altro'))];
 $('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(c)+'</button>').join('');
@@ -122,6 +124,12 @@ h+='<div class="field"><label>Denti e modulo</label><div class="pair"><input id=
 h+=field('bore','Diametro foro centrale · mm','number',s.bore,'min="2" max="100" step=".5"');
 h+=field('pressure','Angolo di pressione · °','number',s.pressure,'min="14" max="25" step="1"');
 h+='<div class="notice">Generatore con profilo evolvente semplificato. Prima di usarlo come ingranaggio funzionale, verifica gioco, modulo, interasse e interferenze nel tuo CAD.</div>';
+}else if(active==='ornamento'){
+h+=field('text','Testo da incidere','text',s.text,'maxlength="24"');
+h+=selectField('shape','Sagoma',s.shape,[['star','Stella'],['circle','Cerchio'],['heart','Cuore'],['hex','Esagono']]);
+h+=field('size','Dimensione massima · mm','number',s.size,'min="25" max="180"');
+h+=field('hole','Diametro foro per nastro · mm','number',s.hole,'min="2" max="12" step=".5"');
+h+=field('font','Dimensione testo · mm','number',s.font,'min="3" max="14" step=".5"');
 }
 $('fields').innerHTML=h;
 $('fields').querySelectorAll('input,select').forEach(el=>el.addEventListener('input',capture));
@@ -137,6 +145,7 @@ if(active==='test-materiali'){s.cols=clamp(Math.round(s.cols||4),2,8);s.rows=cla
 if(active==='cake-topper'){s.w=clamp(s.w||100,35,180);s.h=clamp(s.h||48,20,100);s.stake=clamp(s.stake||45,25,120);s.font=clamp(s.font||8,4,16)}
 if(active==='scatola-incastri'){s.w=clamp(s.w||100,40,240);s.d=clamp(s.d||70,30,200);s.h=clamp(s.h||55,25,180);s.t=clamp(s.t||3,1,10);s.fingers=clamp(Math.round(s.fingers||5),3,11);if(s.fingers%2===0)s.fingers=clamp(s.fingers+1,3,11);s.clearance=clamp(Number(s.clearance)||0,0,.8)}
 if(active==='ingranaggio'){s.teeth=clamp(Math.round(s.teeth||24),8,72);s.module=clamp(s.module||2,.8,8);s.pressure=clamp(s.pressure||20,14,25);const rootD=s.module*(s.teeth-2.5);s.bore=clamp(s.bore||6,2,Math.max(2,rootD-2))}
+if(active==='ornamento'){s.size=clamp(s.size||70,25,180);s.hole=clamp(s.hole||4,2,12);s.font=clamp(s.font||7,3,14)}
 renderPreview();
 }
 function svgWrap(w,h,body){
@@ -248,6 +257,22 @@ for(let i=0;i<teeth;i++){
 cut+='<path d="M '+pts.join(' L ')+' Z"/>'+circle(cx,cy,bore/2);
 engrave+=txt(cx,cy+outerR+2.5,'Z '+teeth+' · M '+mod+' · '+Math.round(pressure*180/Math.PI)+'°',Math.min(4,Math.max(1.5,mod*1.4)));
 count=teeth*17+1;
+}else if(active==='ornamento'){
+const d=clamp(s.size,25,180),hole=clamp(s.hole,2,12),font=clamp(s.font,3,14);
+w=d;h=d;const cx=d/2,cy=d*.57,rr=d*.41;
+if(s.shape==='circle')cut+=circle(cx,cy,rr);
+else if(s.shape==='heart'){
+cut+='<path d="M '+cx+' '+(d*.94)+' C '+(d*.06)+' '+(d*.61)+', '+(d*.09)+' '+(d*.22)+', '+(d*.31)+' '+(d*.18)+' C '+(d*.41)+' '+(d*.16)+', '+(d*.47)+' '+(d*.23)+', '+cx+' '+(d*.31)+' C '+(d*.66)+' '+(d*.16)+', '+(d*.84)+' '+(d*.18)+', '+(d*.91)+' '+(d*.35)+' C '+(d*1.01)+' '+(d*.59)+', '+(d*.78)+' '+(d*.79)+', '+cx+' '+(d*.94)+' Z"/>';
+}else if(s.shape==='hex'){
+const pts=[];for(let i=0;i<6;i++){const a=Math.PI/3*i-Math.PI/6;pts.push((cx+rr*Math.cos(a)).toFixed(3)+','+(cy+rr*Math.sin(a)).toFixed(3))}
+cut+='<polygon points="'+pts.join(' ')+'"/>';
+}else{
+const pts=[];for(let i=0;i<10;i++){const a=Math.PI*i/5-Math.PI/2,r=i%2?rr*.48:rr;pts.push((cx+r*Math.cos(a)).toFixed(3)+','+(cy+r*Math.sin(a)).toFixed(3))}
+cut+='<polygon points="'+pts.join(' ')+'"/>';
+}
+cut+=circle(cx,d*.22,hole/2);
+engrave+=txt(cx,cy+4,s.text||'INGLY',Math.min(font,d*.14,d/Math.max(5,(s.text||'INGLY').length)*1.6));
+count=3;
 }
 const body={cut:cut,engrave:engrave,text:text};
 return {svg:svgWrap(Math.ceil(w*10)/10,Math.ceil(h*10)/10,body),w:Math.ceil(w*10)/10,h:Math.ceil(h*10)/10,count:count};
@@ -271,7 +296,7 @@ function png(){const o=buildSvg(),blob=new Blob([o.svg],{type:'image/svg+xml;cha
 function init(){
 $('year').textContent=new Date().getFullYear();
 $('search').addEventListener('input',e=>{search=e.target.value;renderList()});
-$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:3,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},'ingranaggio':{teeth:24,module:2,bore:6,pressure:20}})[active]);renderFields();renderPreview()}};
+$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:3,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},'ingranaggio':{teeth:24,module:2,bore:6,pressure:20},'ornamento':{text:'Buone Feste',shape:'star',size:70,hole:4,font:7}})[active]);renderFields();renderPreview()}};
 $('save').onclick=saveDraft;$('download').onclick=downloadSvg;$('download2').onclick=downloadSvg;$('png').onclick=png;
 loadDraft();
 fetch('data/content.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{

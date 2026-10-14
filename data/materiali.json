@@ -173,7 +173,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/3.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Legno, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Wood, not a certified material swatch"
     },
     {
       "id": "plexiglass",
@@ -346,7 +354,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/5.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Plexiglass, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Acrylic, not a certified material swatch"
     },
     {
       "id": "metallo",
@@ -493,7 +509,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/17.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Metallo, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Metal, not a certified material swatch"
     },
     {
       "id": "pelle",
@@ -617,7 +641,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/cat-accessori.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Pelle, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Leather, not a certified material swatch"
     },
     {
       "id": "vetro",
@@ -725,7 +757,15 @@
         "attivo": false,
         "unita": null,
         "varianti": []
-      }
+      },
+      "img": "img/14.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Vetro, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Glass, not a certified material swatch"
     },
     {
       "id": "bamboo",
@@ -849,7 +889,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/cat-casa.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Bambù, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Bamboo, not a certified material swatch"
     },
     {
       "id": "mdf",
@@ -985,7 +1033,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/8.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a MDF e compensato, non campione certificato del materiale",
+      "altEN": "Illustrative project image for MDF and plywood, not a certified material swatch"
     },
     {
       "id": "pla",
@@ -1115,7 +1171,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/2.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a PLA e PETG, non campione certificato del materiale",
+      "altEN": "Illustrative project image for PLA and PETG, not a certified material swatch"
     },
     {
       "id": "tessuto",
@@ -1260,7 +1324,15 @@
             "stock": null
           }
         ]
-      }
+      },
+      "img": "img/cat-b2b.webp",
+      "assetKind": "illustrative-example",
+      "isDemo": true,
+      "replaceable": true,
+      "sourceUrl": "",
+      "licenseStatus": "verificare origine immagini catalogo INGLY",
+      "altIT": "Esempio illustrativo di una creazione legata a Tessuto, non campione certificato del materiale",
+      "altEN": "Illustrative project image for Textile, not a certified material swatch"
     }
   ],
   "maiLavorare": {

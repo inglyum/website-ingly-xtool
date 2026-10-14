@@ -96,7 +96,7 @@ function tessera(b, L) {
 
   return `<article class="dcard reveal">
     <a class="dig-cop" href="${esc(href)}" data-nav="${esc(DG.viaBundle(b).replace(/^\//, ''))}" aria-label="${T(b.n, L)}">
-      <span class="dig-ic" aria-hidden="true">${esc(b.icon || '📁')}</span>
+      ${b.img ? `<img src="${esc(via('/' + b.img))}" alt="${esc(L === 'en' ? b.altEN || DG.lingua(b.n, L) : b.altIT || DG.lingua(b.n, L))}" width="640" height="460" loading="lazy" decoding="async">` : `<span class="dig-ic" aria-hidden="true">◇</span>`}
       ${cat ? `<span class="dig-cat">${T(cat.n, L)}</span>` : ''}
     </a>
     <h3 class="dig-n"><a href="${esc(href)}" data-nav="${esc(DG.viaBundle(b).replace(/^\//, ''))}">${T(b.n, L)}</a></h3>
@@ -123,12 +123,23 @@ export function renderGriglia(L = 'it') {
      porti a una pagina utile, non a una pagina vuota. */
   if (!pubblicati.length) {
     const i = DG.intro(d);
+    const previews=((d.DIGITALE && d.DIGITALE.bundle) || []).filter(b=>b && b.isDemo === true).slice(0,6);
     g.innerHTML = `<div class="dig-vuoto rcard reveal">
+      <span class="eyebrow">${t2('Digital Store · anteprime', 'Digital Store · previews', L)}</span>
+      <h3 class="lab-h3">${t2('Idee digitali in preparazione.', 'Digital ideas in development.', L)}</h3>
       <p>${T(i.vuoto, L)}</p>
+      <p class="dig-preview-disclaimer">${t2('Le copertine che seguono sono concept illustrativi, non file acquistabili o scaricabili. Prezzi, licenze e contenuti saranno visibili solo dopo la pubblicazione del prodotto.', 'The images below are illustrative concepts, not downloadable or purchasable files. Prices, licenses and content will appear only when a product is published.', L)}</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="${esc(via('/quote'))}" data-nav="quote">${esc(t2('Chiedi un file su misura', 'Ask for a custom file', L))} <span class="arr">→</span></a>
       </div>
-    </div>`;
+    </div>
+    ${previews.length ? `<div class="digital-preview-grid">${previews.map(b=>`
+      <article class="digital-preview-card">
+        <a href="${esc(via('/quote'))}" data-nav="quote" aria-label="${esc(t2('Richiedi informazioni su', 'Ask about', L) + ' ' + DG.lingua(b.n,L))}">
+          <span class="digital-preview-media"><img src="${esc(via('/' + b.img))}" width="640" height="460" loading="lazy" decoding="async" alt="${esc(L==='en'? b.altEN||DG.lingua(b.n,L):b.altIT||DG.lingua(b.n,L))}"><span class="sample-label">${t2('Concept · non in vendita', 'Concept · not for sale', L)}</span></span>
+          <b>${T(b.n,L)}</b><small>${t2('Richiedi informazioni', 'Ask for details', L)} →</small>
+        </a>
+      </article>`).join('')}</div>` : ''}`;
     const n = $('digConta'); if (n) n.textContent = '';
     return;
   }

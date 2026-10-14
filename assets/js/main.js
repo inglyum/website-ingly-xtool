@@ -401,7 +401,13 @@ function renderAboutArt(){
     box.innerHTML=`<div class="about-media"><video src="${am.src}" autoplay muted loop playsinline aria-hidden="true"></video></div>`;
   } /* tipo 'logo' o vuoto: resta il logo animato già nel markup */
 }
-function renderBiz(){$('bizCards').innerHTML=BIZ.map((b,i)=>`<div class="rcard reveal" style="transition-delay:${i*.06}s"><div style="font-size:30px">${b[0]}</div><h3 style="margin:14px 0 8px;font-size:20px">${b[1][L]}</h3><p style="font-size:14.5px;color:var(--ink-soft)">${b[2][L]}</p></div>`).join('')}
+const BIZ_ASSET_IDS=['targhe-professionali','gadget-aziendali','qr-menu-branding','produzione-conto-terzi','incisioni-industriali','prototipazione-laser'];
+const BUSINESS_SECTOR_ASSETS={ristoranti:'ristoranti','uffici-studi':'uffici-studi',hotel:'hotel','eventi-aziendali':'eventi-aziendali'};
+function editorialBizImage(id,label){
+  if(!/^[a-z0-9-]+$/.test(id))return '';
+  return '<figure class="ingly-biz-cover"><img loading="lazy" decoding="async" width="1200" height="800" src="'+BASE.replace(/\/+$/,'')+'/assets/images/business-editorial/'+id+'.svg" alt="'+escHtml(label)+' — concept illustrativo"><figcaption>'+(L==='it'?'Concept illustrativo':'Illustrative concept')+'</figcaption></figure>';
+}
+function renderBiz(){$('bizCards').innerHTML=BIZ.map((b,i)=>`<div class="rcard reveal ingly-biz-service" style="transition-delay:${i*.06}s">${editorialBizImage(BIZ_ASSET_IDS[i],b[1][L])}<h3 style="margin:14px 0 8px;font-size:20px">${escHtml(b[1][L])}</h3><p style="font-size:14.5px;color:var(--ink-soft)">${escHtml(b[2][L])}</p></div>`).join('')}
 /* ===== PAGINE DI SETTORE (B2B) =====
    Una pagina per tipo di cliente aziendale. Il contenuto è lo stesso che il
    prerender scrive nel file statico: chi arriva da Google legge subito, chi
@@ -487,7 +493,7 @@ function renderVertStrip(){
     +'<div class="vert-grid">'+lista.map(v=>{
       const m=VERT.meta(v,{L});
       return `<a class="vert-card reveal" href="${BASE.replace(/\/+$/,'')}/business/${v.id}" data-vert="${v.id}">
-        <span class="vert-ic" aria-hidden="true">${v.icona||'▸'}</span>
+        ${BUSINESS_SECTOR_ASSETS[v.id]?editorialBizImage(BUSINESS_SECTOR_ASSETS[v.id],VERT.lingua(v.n,L)):`<span class="vert-ic" aria-hidden="true">${v.icona||'▸'}</span>`}
         <b>${escHtml(VERT.lingua(v.n,L))}</b>
         <span class="vert-sub">${VERT.lingua(v.sottotitolo,L).slice(0,95)}</span>
         <span class="vert-go">${L==='it'?'Scopri':'Explore'} <i class="arr">→</i></span></a>`;
@@ -509,6 +515,7 @@ function renderVerticale(id){
 
   pagina.innerHTML=`
     <nav class="vert-back"><a href="${BASE.replace(/\/+$/,'')}/business" data-nav="business">← ${L==='it'?'Tutti i settori':'All sectors'}</a></nav>
+    ${BUSINESS_SECTOR_ASSETS[v.id]?editorialBizImage(BUSINESS_SECTOR_ASSETS[v.id],VERT.lingua(v.n,L)):''}
     <span class="eyebrow">${v.icona||''} ${e(VERT.lingua(v.n,L))}</span>
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${e(VERT.lingua(v.titolo,L))}</h1>
     <p class="sub">${e(VERT.lingua(v.sottotitolo,L))}</p>

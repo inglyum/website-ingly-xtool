@@ -76,7 +76,7 @@
    documento sta più in alto, per quanto grande sia il suo z-index. Con il
    velo a 94 il pannello era coperto da un vetro invisibile e cliccare una
    voce chiudeva il menu invece di aprire la pagina. */
-.ia-velo{position:fixed;inset:0;z-index:calc(var(--z-nav) - 2);background:rgba(10,13,24,.28);
+.ia-velo{position:fixed;inset:0;z-index:calc(var(--z-nav) - 2);background:rgba(9,12,19,.28);
   opacity:0;pointer-events:none;transition:opacity var(--dur-ui) var(--ease-out)}
 .ia-velo.on{opacity:1;pointer-events:auto}
 
@@ -279,8 +279,8 @@ html:not(.ia-attiva) .ia-barra{display:none}
 
 /* INGLY DESIGN — menu stabile e palette continua */
 :root{
-  --ingly-surface:#111629;
-  --ingly-surface-raised:#171d34;
+  --ingly-surface:#13161d;
+  --ingly-surface-raised:#1a1d24;
   --ingly-gold:#c3a46b;
 }
 .ia-pannello{

@@ -61,43 +61,37 @@ export function activeTheme(){
   }
   return list.find(t=>t.id===TH.attivo)||null;
 }
+/* La palette del marchio per l'artwork generato (sfondi vettoriali delle
+   campagne e delle card senza foto): Titanium, Graphite, Champagne.
+   Una sola costante: prima la stessa terna blu notte / blu / oro era scritta
+   a mano in due punti di questo file. */
+export const ART_PALETTE = ['#111318', '#272B31', '#C5A46D'];
+
+/* I nomi dei colori d'identità. Li definiscono i token CSS
+   (assets/css/tokens.css), uno per il giorno e uno per la notte.
+
+   Prima questa funzione li scriveva in linea su <html> a ogni caricamento,
+   con valori fissi (blu notte #0D2043, blu #4778BD): uno stile in linea
+   batte qualunque foglio di stile, quindi l'identità del sito era decisa
+   qui e nessun token poteva cambiarla. E un solo valore non può essere
+   leggibile su due sfondi: lo Champagne come testo passa 7,9:1 sul
+   Titanium ma 2,2:1 sul Warm White. Il colore resta al CSS, che sa in che
+   modalità si trova. Qui vengono solo tolti, per pulire chi li avesse
+   ancora da una versione precedente. */
+const TOKEN_IDENTITA = ['--theme-base', '--theme-primary', '--theme-accent', '--theme-button-ink',
+  '--blue', '--blue-hi', '--laser', '--spark', '--theme-line', '--theme-glow'];
+
 export function applyThemeAccent(){
   const t=activeTheme();
   const root=document.documentElement;
-  /* Il tema stagionale può cambiare artwork e decorazioni, mai l'identità.
-     La palette principale resta INGLY: blu notte, blu luce, oro champagne.
-     Questo evita che Halloween/Natale o una campagna cambino il colore di
-     sfondo, pulsanti, menu e card in tutto il sito. */
-  const palette = ['#0D2043','#4778BD','#C8AD77'];
-  const base = palette[0];
-  const primary = palette[1];
-  const accent = palette[2];
-  const buttonInk = '#10203B';
-  const rgba = (color,opacity) => {
-    const n=parseInt(color.slice(1),16);
-    return 'rgba('+((n>>16)&255)+', '+((n>>8)&255)+', '+(n&255)+', '+opacity+')';
-  };
-  const tokens = {
-    '--theme-base': base,
-    '--theme-primary': primary,
-    '--theme-accent': accent,
-    '--theme-button-ink': buttonInk,
-    '--blue': primary,
-    '--blue-hi': primary,
-    '--laser': accent,
-    '--spark': accent,
-    '--theme-line': rgba(primary,.24),
-    '--theme-glow': rgba(accent,.18)
-  };
-  Object.entries(tokens).forEach(([key,value])=>{
-    if(t && value) root.style.setProperty(key,value);
-    else root.style.removeProperty(key);
-  });
+  TOKEN_IDENTITA.forEach(k=>root.style.removeProperty(k));
   if(t) root.setAttribute('data-theme',t.id); else root.removeAttribute('data-theme');
-  /* Lo stesso artwork scelto dall'Admin accompagna hero, CTA e texture dello
-     sfondo. Se il tema non ha uno stile generato, si mantiene il look base. */
-  if(t&&t.bg&&window.INGLY_ART){
-    root.style.setProperty('--theme-bg',window.INGLY_ART.css(t.bg,palette,t.id+'-page'));
+  /* Una campagna stagionale scelta dall'Admin porta il suo artwork su hero,
+     CTA e sfondo. Il tema «default» no: è lo stato normale del sito, e il
+     brief chiede fondi puliti, senza gradienti generati né forme sfocate. */
+  const campagna = t && t.id !== 'default' && t.bg && window.INGLY_ART;
+  if(campagna){
+    root.style.setProperty('--theme-bg',window.INGLY_ART.css(t.bg,ART_PALETTE,t.id+'-page'));
     root.classList.add('has-theme-bg');
   }else{
     root.style.removeProperty('--theme-bg');
@@ -113,7 +107,7 @@ export function renderCats(){
     const th=activeTheme();
     const art=(th&&th.art&&th.art[c.id])||c.img;
     /* nessuna foto caricata ma il tema ha uno stile grafico → sfondo vettoriale generato */
-    const gen=(!art&&th&&th.bg&&window.INGLY_ART)?window.INGLY_ART.css(th.bg,['#0D2043','#4778BD','#C8AD77'],th.id+'-'+c.id):'';
+    const gen=(!art&&th&&th.bg&&window.INGLY_ART)?window.INGLY_ART.css(th.bg,ART_PALETTE,th.id+'-'+c.id):'';
     const ph=art?`<img class="bimg" src="${imgV(art)}"${srcsetFor(art)}${focalOf(art)} alt="" loading="lazy" onerror="this.remove()">`:'';
     /* Lo sfondo generato viaggia in una VARIABILE CSS, non in background-image inline:
        scrivere altre proprietà su element.style riserializza l'attributo e farebbe
@@ -601,10 +595,12 @@ function renderProductContactLinks(){
   const body=(L==='it'?'Buongiorno INGLY DESIGN, vorrei informazioni su questo prodotto.':'Hello INGLY DESIGN, I would like information about this product.')+'\n\n'+(L==='it'?'Prodotto: ':'Product: ')+(cur.n[L]||cur.n.it||'')+'\n'+(L==='it'?'Categoria: ':'Category: ')+catName+'\n'+(L==='it'?'Materiale: ':'Material: ')+material+'\n'+(L==='it'?'Quantità indicativa: ':'Estimated quantity: ')+qty+'\n'+(L==='it'?'Link: ':'Link: ')+url+'\n\n'+(L==='it'?'Potete consigliarmi materiale, finitura, tempi e prezzo?':'Could you advise on material, finish, lead time and price?');
   wa.href=waUrl||'#';wa.hidden=!waUrl;
   wa.target='_blank';wa.rel='noopener noreferrer';
-  wa.querySelector('span').textContent=(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp');
+  /* l'etichetta sta nello <span>; se qualcuno l'avesse tolto, si scrive sul
+     link stesso invece di fermare tutta la scheda con un errore */
+  (wa.querySelector('span')||wa).textContent=(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp');
   em.href=email?'mailto:'+email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body):'#';
   em.hidden=c.emailVisibile===false||!email;
-  em.querySelector('span').textContent=(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email');
+  (em.querySelector('span')||em).textContent=(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email');
   const primary=String(c.canalePrimario||'whatsapp').toLowerCase();
   wa.classList.toggle('btn-primary',primary!=='email');
   wa.classList.toggle('btn-ghost',primary==='email');

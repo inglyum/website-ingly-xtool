@@ -290,42 +290,52 @@
   "STEPS": [
     {
       "it": [
-        "Progetto",
-        "Invia la tua idea, un logo o una foto. Prepariamo noi il file per il raggio, e te lo facciamo vedere prima di incidere."
+        "Design",
+        "Partiamo dalla tua idea, da un logo o da una foto, e prepariamo il file per la lavorazione."
       ],
       "en": [
         "Design",
-        "Send your idea, a logo or a photo. We prepare the file for the beam, and show it to you before engraving."
+        "We start from your idea, a logo or a photo, and prepare the file for production."
       ]
     },
     {
       "it": [
-        "Materiale",
-        "Legno, plexiglass, metallo, pelle, vetro e altri: ognuno con le sue regole, controllato pezzo per pezzo."
+        "Scelta del materiale",
+        "Legno, plexiglass, metallo, pelle, vetro e altri: scegliamo quello adatto all'uso e alla tecnica."
       ],
       "en": [
-        "Material",
-        "Wood, plexiglass, metal, leather, glass and more: each with its own rules, checked piece by piece."
+        "Material selection",
+        "Wood, acrylic, metal, leather, glass and more: we choose the right one for the use and the technique."
       ]
     },
     {
       "it": [
-        "Laser & stampa",
-        "CO₂, F2, MOPA, UV o DTF — la tecnologia giusta per la tua superficie."
+        "Produzione",
+        "Incisione e taglio laser, stampa UV o DTF, stampa 3D: la tecnologia giusta per la superficie."
       ],
       "en": [
-        "Laser & print",
-        "CO₂, F2, MOPA, UV or DTF — the right technology for your surface."
+        "Production",
+        "Laser engraving and cutting, UV or DTF printing, 3D printing: the right technology for the surface."
       ]
     },
     {
       "it": [
-        "Finitura & spedizione",
-        "Rifinito a mano, controllato e spedito. La maggior parte parte entro 3 giorni."
+        "Controllo qualità",
+        "Ogni pezzo viene rifinito e controllato prima di partire."
       ],
       "en": [
-        "Finish & ship",
-        "Hand finished, quality checked and shipped. Most pieces ship within 3 days."
+        "Quality control",
+        "Every piece is finished and checked before it leaves."
+      ]
+    },
+    {
+      "it": [
+        "Consegna",
+        "Spediamo in tutta Italia; i tempi dipendono dal prodotto e te li confermiamo con l'ordine."
+      ],
+      "en": [
+        "Delivery",
+        "We ship across Italy; timing depends on the product and is confirmed with your order."
       ]
     }
   ],
@@ -770,18 +780,18 @@
           "it": "Default INGLY",
           "en": "INGLY Default"
         },
-        "mood": "blu notte profondo, luce blu stratificata, oro champagne satinato",
+        "mood": "titanio e grafite, bianco caldo, dettagli champagne misurati",
         "palette": [
-          "#0D2043",
-          "#4778BD",
-          "#C8AD77"
+          "#111318",
+          "#272B31",
+          "#C5A46D"
         ],
-        "lighting": "soft warm champagne edge light, restrained cinematic lighting",
-        "elementi": "deep navy gradients, layered blue rim light, restrained champagne-gold accents, graphite-free blue product surfaces, precision laser-cut details, generous negative space",
+        "lighting": "luce naturale morbida, ombre strutturali leggere, nessun bagliore",
+        "elementi": "superfici titanio e grafite, fondi bianco caldo, filetti champagne sottili, ampio spazio negativo, dettagli di incisione laser precisi",
         "kw": [
           "premium",
           "craft",
-          "navy",
+          "titanio",
           "champagne",
           "laser"
         ],

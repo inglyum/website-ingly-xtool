@@ -1,0 +1,342 @@
+/* ==========================================================================
+   INGLY DESIGN — TOKEN DEL MARCHIO
+   L'unica fonte della palette. Caricato per ultimo, dopo ogni altro foglio.
+
+   PERCHÉ ESISTE
+   Fino a questa versione tre file dichiaravano di possedere la palette:
+   variables.css (blu e oro), un blocco di 500 righe in fondo a pages.css
+   («petrolio profondo», con due set di token concorrenti al suo interno) e
+   premium-2026.css. Vinceva chi veniva caricato dopo, e il sito era verde
+   petrolio. In più una funzione JavaScript scriveva blu notte e blu in
+   linea su <html>, battendo tutti e tre.
+
+   Da qui in poi: i colori d'identità stanno SOLO in questo file. Gli altri
+   fogli usano i nomi (var(--ink), var(--line)…) e non i valori. I nomi
+   vecchi restano tutti definiti qui sotto, mappati sui ruoli nuovi: nessun
+   componente esistente si rompe, ma nessuno può più essere verde.
+
+   LA PALETTE DEL BRIEF
+     Titanium Black  #111318      Champagne Gold  #C5A46D
+     Graphite        #272B31      Muted           #777B83
+     Warm White      #F8F7F4      Hairline        #DDDCD8
+     Pure White      #FFFFFF
+
+   TRE CORREZIONI PER L'ACCESSIBILITÀ (WCAG 2.2 AA, testo ≥ 4,5:1)
+   Misurate, non stimate. Il brief chiede sia questa palette sia l'AA, e in
+   tre punti le due cose si contraddicono:
+     · Muted #777B83 come testo secondario: 3,96:1 sul Warm White e 4,38:1
+       sul Titanium. Non passa. Testo secondario → #5F636B di giorno (5,63:1)
+       e #A3A7AE di notte (7,69:1). #777B83 resta per icone e filetti.
+     · Champagne #C5A46D come TESTO sul Warm White: 2,20:1. Di giorno l'oro
+       usa #836538: ≥4,64:1 su ogni superficie chiara (anche #EFEDE8, dove
+       #87683A si fermava a 4,41), e 5,07:1 con il Warm White sopra. Lo
+       Champagne puro resta come --accent-fill, per filetti e campiture
+       senza testo. Di notte lo Champagne è testo valido: 7,88:1.
+
+   --accent È SEMPRE LEGGIBILE COME TESTO
+   Prima di questo file --accent era usato in ~18 punti ma non era definito
+   da nessuna parte: ogni uso ricadeva sul colore ereditato. Ora è l'oro
+   leggibile della modalità, e --on-accent è il testo da mettergli sopra.
+     · Hairline #DDDCD8 sul Warm White: 1,28:1. Va bene per un bordo che
+       separa, non per un bordo che da solo comunica uno stato.
+
+   COSA NON C'È, PER SCELTA
+   Niente verde come identità (resta il verde di WhatsApp, che è il loro
+   marchio, e il verde di stato «successo»), niente neon, niente bagliori,
+   niente gradienti di colore generati, niente sfondi animati.
+   ========================================================================== */
+
+/* ---------- primitivi: i valori, una volta sola ---------- */
+:root{
+  --c-titanium:#111318;
+  --c-graphite:#272B31;
+  --c-warm:#F8F7F4;
+  --c-white:#FFFFFF;
+  --c-champagne:#C5A46D;
+  --c-muted:#777B83;
+  --c-hairline:#DDDCD8;
+
+  /* derivati, ognuno con il motivo */
+  --c-titanium-2:#1A1D22;      /* card di notte: un gradino sopra la pagina */
+  --c-graphite-2:#32363D;      /* card di notte al passaggio del mouse */
+  --c-warm-2:#EFEDE8;          /* superficie secondaria di giorno */
+  --c-soft-day:#5F636B;        /* testo secondario di giorno — 5,63:1 */
+  --c-soft-night:#A3A7AE;      /* testo secondario di notte — 7,69:1 */
+  --c-champagne-ink:#836538;   /* oro come testo di giorno — ≥4,64:1 su ogni superficie */
+  --c-champagne-hi:#D8BE8C;    /* champagne al passaggio, di notte */
+
+  /* stato: accessibili, mai identità */
+  --c-ok:#686b72;
+  --c-err:#B3261E;
+  --c-warn:#8A5A00;
+}
+
+/* ---------- NOTTE (predefinita) ---------- */
+:root,
+:root[data-mode="dark"]{
+  color-scheme:dark;
+
+  /* ruoli */
+  --bg-page:var(--c-titanium);
+  --bg-surface:var(--c-titanium-2);
+  --bg-raised:var(--c-graphite);
+  --text:var(--c-warm);
+  --text-soft:var(--c-soft-night);
+  --text-faint:var(--c-muted);
+  --border:rgba(248,247,244,.10);
+  --border-strong:rgba(248,247,244,.18);
+  --accent:var(--c-champagne);
+  --accent-fill:var(--c-champagne);
+  --accent-text:var(--c-champagne);
+  --accent-hover:var(--c-champagne-hi);
+  --on-accent:var(--c-titanium);
+  --btn-bg:var(--c-champagne);
+  --btn-fg:var(--c-titanium);
+  --btn-bg-hover:var(--c-champagne-hi);
+  --focus:var(--c-champagne);
+  --shadow-1:0 1px 2px rgba(0,0,0,.30),0 8px 24px rgba(0,0,0,.28);
+  --shadow-2:0 2px 4px rgba(0,0,0,.32),0 18px 44px rgba(0,0,0,.36);
+  --bg-subtle:#202329;
+  --bg-glass:rgba(26,29,34,.94);
+  --bg-overlay:rgba(17,19,24,.92);
+  --accent-edge:rgba(197,164,109,.22);
+  --tint-1:rgba(248,247,244,.04);
+  --tint-2:rgba(248,247,244,.08);
+  --accent-wash:rgba(197,164,109,.14);
+  --accent-wash-edge:rgba(197,164,109,.30);
+}
+
+/* ---------- NOMI STORICI → RUOLI ----------
+   Selettore :root[data-mode] — specificità (0,2,0), come i
+   :root[data-mode="light"] degli altri fogli — e caricato per ultimo:
+   così vince ogni pareggio. Con un semplice :root (0,1,0) perdeva contro
+   qualunque ridefinizione «di giorno» altrove: premium-2026.css riscriveva
+   --paper a #faf9f6 e il giorno non diventava mai Warm White.
+   Qui dentro solo riferimenti a ruoli, nessun valore: la differenza fra
+   giorno e notte sta tutta nei ruoli, sopra e sotto. */
+:root,
+:root[data-mode]{
+
+  --paper:var(--bg-page);
+  --bg-deep:var(--bg-page);
+  --white:var(--bg-surface);
+  --card-solid:var(--bg-surface);
+  --card-glass:var(--bg-glass);
+  --glass-dark:var(--bg-overlay);
+  --graphite:var(--bg-raised);
+  --gray:var(--bg-subtle);
+  --ink:var(--text);
+  --ink-soft:var(--text-soft);
+  --line:var(--border);
+  --blue:var(--accent-text);
+  --blue-hi:var(--accent-hover);
+  --laser:var(--accent-text);
+  --spark:var(--accent-hover);
+  --premium-gold:var(--accent);
+  --premium-edge:var(--accent-edge);
+  --shadow-soft:var(--shadow-1);
+  --shadow-lift:var(--shadow-2);
+  --elev-2:var(--shadow-1);
+  --elev-4:var(--shadow-2);
+
+  --theme-base:var(--bg-page);
+  --theme-primary:var(--accent);
+  --theme-accent:var(--accent);
+  --theme-button-ink:var(--on-accent);
+  --theme-line:var(--border);
+  --theme-glow:transparent;
+
+  /* famiglie del blocco «petrolio» e successive: tutte riportate ai neutri.
+     Ogni nome «oro» punta a --accent, l'oro leggibile come testo: questi
+     nomi sono usati sia per testo sia per filetti, e solo così nessuno dei
+     due usi può scendere sotto 4,5:1. Il Champagne puro è --accent-fill. */
+  --brand-petrol-980:var(--c-titanium);
+  --brand-petrol-950:var(--c-titanium);
+  --brand-petrol-900:var(--c-titanium-2);
+  --brand-petrol-850:var(--c-titanium-2);
+  --brand-petrol-800:var(--c-graphite);
+  --brand-teal-700:var(--c-graphite);
+  --brand-teal-600:var(--c-muted);
+  --brand-teal-500:var(--accent);
+  --brand-teal-glow:var(--accent-hover);
+  --brand-navy-980:var(--c-titanium);
+  --brand-navy-950:var(--c-titanium);
+  --brand-navy-900:var(--c-titanium-2);
+  --brand-navy-850:var(--c-titanium-2);
+  --brand-navy-800:var(--c-graphite);
+  --brand-blue-700:var(--c-graphite);
+  --brand-blue-600:var(--c-muted);
+  --brand-blue-500:var(--accent);
+  --brand-blue-glow:var(--accent-hover);
+  --brand-champagne:var(--accent);
+  --brand-champagne-hi:var(--accent-hover);
+  --brand-champagne-dim:var(--accent);
+  --brand-gold:var(--accent);
+  --brand-gold-hi:var(--accent-hover);
+  --brand-gold-dim:var(--accent);
+
+  --ingly-ink:var(--text);
+  --ingly-paper:var(--bg-page);
+  --ingly-paper-2:var(--bg-surface);
+  --ingly-dark:var(--c-titanium);
+  --ingly-deep:var(--c-titanium);
+  --ingly-teal:var(--c-graphite);
+  --ingly-gold:var(--accent);
+  --ingly-gold-hi:var(--accent-hover);
+  --ingly-muted:var(--text-soft);
+  --ingly-accent:var(--accent);
+  --ingly-focus:var(--focus);
+  --ingly-hairline:var(--border);
+  --ingly-surface:var(--bg-surface);
+  --ingly-surface-raised:var(--bg-raised);
+  --ingly-metal:var(--accent-text);   /* era oro come testo: #bfa47e / #856132 */
+  --ingly-contrast:var(--text);
+  --bg:var(--bg-page);
+  --bg-2:var(--bg-surface);
+  --surface:var(--bg-surface);
+  --surface-2:var(--bg-raised);
+
+  --gallery-surface:var(--bg-surface);
+  --gallery-ink:var(--text);
+  --gallery-muted:var(--text-soft);
+  --gallery-edge:var(--border);
+
+  --ticker-bg:var(--bg-surface);
+  --ticker-card:var(--tint-1);
+  --ticker-card-hover:var(--tint-2);
+  --ticker-bordo:var(--border);
+  --ticker-nome:var(--text);
+  --ticker-sub:var(--text-soft);
+  --ticker-badge-bg:var(--accent-wash);
+  --ticker-badge-testo:var(--accent-text);
+  --ticker-badge-bordo:var(--accent-wash-edge);
+}
+
+/* ---------- GIORNO ---------- */
+:root[data-mode="light"]{
+  color-scheme:light;
+
+  --bg-page:var(--c-warm);
+  --bg-surface:var(--c-white);
+  --bg-raised:var(--c-warm-2);
+  --bg-subtle:var(--c-warm-2);
+  --bg-glass:rgba(255,255,255,.96);
+  --bg-overlay:rgba(248,247,244,.94);
+  --text:var(--c-graphite);
+  --text-soft:var(--c-soft-day);
+  --text-faint:var(--c-muted);
+  --border:var(--c-hairline);
+  --border-strong:#C9C7C1;
+  --accent:var(--c-champagne-ink);       /* oro leggibile: testo e piccoli elementi */
+  --accent-fill:var(--c-champagne);      /* campiture e filetti, mai sotto un testo */
+  --accent-text:var(--c-champagne-ink);
+  --accent-hover:var(--c-champagne-ink);
+  --accent-edge:rgba(135,104,58,.22);
+  --accent-wash:rgba(197,164,109,.16);
+  --accent-wash-edge:rgba(135,104,58,.30);
+  --on-accent:var(--c-warm);             /* 5,07:1 sull'oro di giorno; il Titanium farebbe 3,6 */
+  /* Di giorno il bottone principale è Graphite: «dettagli oro minimi»,
+     dice il brief. Warm White su Graphite: 13,28:1. */
+  --btn-bg:var(--c-graphite);
+  --btn-fg:var(--c-warm);
+  --btn-bg-hover:var(--c-titanium);
+  --focus:var(--c-champagne-ink);
+  --tint-1:rgba(255,255,255,.80);
+  --tint-2:var(--c-white);
+  --shadow-1:0 1px 2px rgba(17,19,24,.05),0 6px 20px rgba(17,19,24,.06);
+  --shadow-2:0 2px 6px rgba(17,19,24,.06),0 16px 40px rgba(17,19,24,.09);
+}
+
+/* ==========================================================================
+   COMPONENTI DI BASE — solo ciò che decide l'identità
+   ========================================================================== */
+
+/* Fondo pulito: il brief vieta gradienti di colore e sfondi animati. */
+html,body{background:var(--bg-page)}
+body{color:var(--text)}
+
+/* Uno sfondo decorativo non deve mai cambiare l'impaginazione. Il livello
+   .hero-bg (assoluto, inset:0) conteneva una forma sfocata a x=1520 che
+   allargava la pagina di 198 px a 1440: c'era scorrimento orizzontale su
+   tutta la Home. Ritaglia le proprie decorazioni, qualunque cosa dica
+   .hero. Le forme sfocate e colorate spariscono: «niente sfondi animati
+   che distraggono». */
+.hero-bg{overflow:hidden}
+.hero-bg .blob{display:none}
+
+/* Bottoni: due soli ruoli, leggibili in entrambe le modalità. */
+.btn-primary,.btn-blue{
+  background:var(--btn-bg);
+  color:var(--btn-fg);
+  border:1px solid transparent;
+  box-shadow:none;
+}
+.btn-primary:hover,.btn-blue:hover{
+  background:var(--btn-bg-hover);
+  color:var(--btn-fg);
+  box-shadow:var(--shadow-1);
+}
+.btn-ghost{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border-strong);
+}
+.btn-ghost:hover{border-color:var(--accent);color:var(--text)}
+
+/* Fuoco visibile e coerente ovunque — WCAG 2.4.7 / 2.4.11 */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:3px;
+}
+
+/* L'accento come testo usa il valore leggibile della modalità. */
+.eyebrow,.hl,.hl.on{color:var(--accent-text)}
+
+/* Pannelli scuri anche di giorno (la sezione xTOOL Lab è un pannello
+   fotografico scuro in entrambe le modalità): dentro, il bottone resta
+   Champagne. Con il bottone Graphite del giorno, la regola
+   .xtool-lab-feature .btn-primary{color:#21242b!important} avrebbe messo
+   testo quasi nero su fondo quasi nero. Il ruolo si cambia qui, una volta,
+   per tutto ciò che sta dentro. */
+.xtool-lab-feature{
+  --btn-bg:var(--c-champagne);
+  --btn-fg:var(--c-titanium);
+  --btn-bg-hover:var(--c-champagne-hi);
+  --focus:var(--c-champagne);
+}
+
+/* Card e tessere fotografiche: testo bianco sopra la foto. Sotto la foto
+   ci vuole un fondo scuro, sempre. Le immagini sono pigre (loading=lazy) e
+   se falliscono vengono tolte (onerror): in entrambi i casi, di giorno, il
+   testo bianco restava su una card bianca — «Animali» misurava 1,00:1,
+   cioè invisibile. Con il Titanium sotto, senza foto si legge comunque. */
+:root[data-mode] .bcard--photo,
+:root[data-mode] .scat--photo{background-color:var(--c-titanium)}
+
+/* ---------- testo secondario: il colore giusto, non un'opacità ----------
+   Un testo secondario reso con opacity:.45 o .6 sopra il colore del corpo
+   scende sotto 4,5:1 senza che nessuno lo veda nel codice. Il ruolo
+   --text-soft è già misurato per passare in entrambe le modalità. */
+
+/* Filtri senza risultati: restano cliccabili (sono bottoni attivi, quindi
+   la WCAG non li esenta), si distinguono per il bordo tratteggiato. */
+.chip.chip--zero{opacity:1;color:var(--text-soft);border-style:dashed}
+.chip i{color:var(--text)}
+.scoll-c{opacity:1;color:var(--text-soft)}
+.ingly-service-centre__scope{opacity:1}
+
+/* ---------- HOME: percorso di personalizzazione e soluzioni ----------
+   Componenti nuovi della Home; usano solo i ruoli definiti sopra. */
+.ppath{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;counter-reset:none}
+.ppath-step{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm,12px);padding:22px 20px;box-shadow:var(--shadow-1)}
+.ppath-n{display:block;font-family:var(--fd);font-weight:700;font-size:var(--fs-sm);letter-spacing:.12em;color:var(--accent)}
+.ppath-step h3{font-size:var(--fs-lg);margin:10px 0 6px;line-height:var(--lh-tight)}
+.ppath-step p{font-size:var(--fs-sm);color:var(--text-soft);line-height:var(--lh-base)}
+.ppath-cta{margin-top:24px}
+.journey-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:980px){.ppath{grid-template-columns:repeat(2,minmax(0,1fr))}.journey-grid--3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ppath,.journey-grid--3{grid-template-columns:1fr}}
+
+/* Il metodo: i passi vengono dai dati (Admin), quanti che siano. La griglia
+   era fissa a 4 colonne e con 5 passi l'ultimo restava da solo su una riga. */
+@media (min-width:861px){.steps{grid-template-columns:repeat(auto-fit,minmax(0,1fr))}}

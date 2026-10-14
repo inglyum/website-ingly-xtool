@@ -78,7 +78,20 @@ function applyConfig(){
      offerta include nome del prodotto, sconto e codice). Sovrascriverlo con il
      numero nudo cancellava proprio la parte utile. */
   document.querySelectorAll('a[href^="https://wa.me"]:not([data-wa-keep])').forEach(a=>a.href=CONFIG.whatsapp);
-  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{a.href='mailto:'+CONFIG.email;a.textContent=CONFIG.email});
+  /* Solo i link che MOSTRANO l'indirizzo (contatti, piè di pagina) prendono
+     l'email della configurazione come testo. Prima la riga riscriveva testo
+     e destinazione di OGNI link mailto: anche il bottone «Richiedi via email»
+     della scheda prodotto, che perdeva l'etichetta e lo <span> interno. Al
+     prodotto successivo renderProductContactLinks cercava quello span, non
+     lo trovava e si fermava con un errore: dalla Home, cliccando un
+     prodotto, la scheda non si apriva. Stessa regola dei link WhatsApp
+     sopra: un link che porta un messaggio già scritto (?subject=…) o che è
+     un bottone si lascia com'è. */
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
+    if(a.matches('.btn,[data-mail-keep]')||a.getAttribute('href').includes('?')||a.children.length) return;
+    a.href='mailto:'+CONFIG.email;
+    if(!a.textContent.trim()||a.textContent.includes('@')) a.textContent=CONFIG.email;
+  });
   $('ftCopy').textContent=CONFIG.copyright;
   $('ftLegal').textContent=CONFIG.legale;
   const st=CONFIG.statistiche, hb=document.querySelectorAll('.hero-meta .hm b');
@@ -172,7 +185,10 @@ function renderTicker(){
   el.innerHTML=`<div class="tt-row"><div class="tt-track">${row1}</div></div><div class="tt-row tt-row--rev"><div class="tt-track">${row2}</div></div>`;
 }
 function renderTech(){
-  $('techGrid').innerHTML=TECH.map(t=>`
+  /* La griglia della Home (techGrid) non c'è più; quella della pagina
+     (techGrid2) prima ne era una COPIA, e sarebbe rimasta vuota. Le card si
+     costruiscono una volta e si scrivono in ogni contenitore presente. */
+  const html=TECH.map(t=>`
     <div class="mcard ${t.lg?'m-lg':''} reveal-blur stagger-${TECH.indexOf(t)+1}">
       <div class="mcard-sweep"></div>
       <span class="mcard-emoji">${t.emoji||'⚡'}</span>
@@ -183,7 +199,7 @@ function renderTech(){
       ${t.mats&&t.mats.length?`<div class="mats-list">${t.mats.map(m=>`<span>${m}</span>`).join('')}</div>`:''}
       <div class="spec">${t.s.map(s=>`<i>${s}</i>`).join('')}</div>
     </div>`).join('');
-  const g2=$('techGrid2'); if(g2) g2.innerHTML=$('techGrid').innerHTML;
+  ['techGrid','techGrid2'].forEach(id=>{const g=$(id);if(g)g.innerHTML=html});
 }
 function renderSocialHub(){
   const hub=$('socialHub'); if(!hub) return;

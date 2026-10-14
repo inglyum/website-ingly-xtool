@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Targa Laurea Personalizzata — INGLY DESIGN</title>
 <meta name="description" content="Targa laurea in plexiglass oro o argento con nome, corso di laurea, università e data. Fondo marmo o legno disponibile. Confezione regalo inclusa.">
-<meta name="keywords" content="incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali, Cesena, made in Italy, laser CO2, fibra MOPA, plexiglass personalizzato">
+<meta name="keywords" content="incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali, Italia, made in Italy, laser CO2, fibra MOPA, plexiglass personalizzato">
 <meta name="author" content="INGLY DESIGN">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#211f2e">
@@ -63,6 +63,7 @@
   addEventListener('popstate',()=>gtag('event','page_view',{page_path:location.pathname}));
 </script>
 -->
+<link rel="icon" type="image/svg+xml" href="assets/images/ingly-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
 <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png">
@@ -87,7 +88,7 @@
 <!-- GitHub Pages SPA: decodifica /?p=/shop → history '/shop' prima del caricamento -->
 <script>(function(){try{var s=new URLSearchParams(location.search);var p=s.get('p');if(p){s.delete('p');var rest=s.toString();
 /* la base è la cartella in cui vive questa pagina: "/" in produzione,
-   "/Il-sito-AI/" in un'anteprima su GitHub Pages. Va anteposta al percorso
+   "/website-ingly-xtool/" in un'anteprima su GitHub Pages. Va anteposta al percorso
    decodificato, altrimenti l'indirizzo ricostruito esce dalla sottocartella. */
 var base=location.pathname.replace(/[^/]*$/,'');
 /* PRIMA di cambiare l'indirizzo: fissa la base a QUESTA cartella.
@@ -107,7 +108,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v7', FLAG='ingly_cachefix';
+  var CACHE_WANT='ingly-v15', FLAG='ingly_cachefix';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -141,6 +142,9 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/nav-ia.css">
 <link rel="stylesheet" href="assets/css/pages.css">
 <link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" href="assets/css/premium-2026.css">
+<!-- la palette del marchio: unica fonte, sempre per ultima -->
+<link rel="stylesheet" href="assets/css/tokens.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script type="module" src="assets/js/app.js"></script>
@@ -173,7 +177,7 @@ setTimeout(function(){
   document.head.appendChild(s);
 }, 7000);
 </script>
-<script type="application/ld+json" id="ld-prerender">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://www.inglydesign.it/#organizzazione","name":"INGLY DESIGN","description":"Incisione e taglio laser, stampa UV & DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — precisione 0,01 mm, made in Italy.","url":"https://www.inglydesign.it/","logo":{"@type":"ImageObject","url":"https://www.inglydesign.it/assets/images/logo.png"},"image":"https://www.inglydesign.it/assets/images/og-image.jpg","email":"inglydesign@gmail.com","telephone":"+393296904627","priceRange":"€€","address":{"@type":"PostalAddress","addressLocality":"Cesena","addressRegion":"Emilia-Romagna","addressCountry":"IT"},"sameAs":["https://instagram.com/ingly_design","https://facebook.com/inglydesign","https://tiktok.com/@ingly.design","https://pinterest.com/inglydesign","https://wa.me/393296904627","https://etsy.com/shop/inglydesign"]},{"@type":"WebSite","@id":"https://www.inglydesign.it/#sito","url":"https://www.inglydesign.it/","name":"INGLY DESIGN","description":"Incisione e taglio laser, stampa UV & DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — precisione 0,01 mm, made in Italy.","inLanguage":"it","publisher":{"@id":"https://www.inglydesign.it/#organizzazione"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.inglydesign.it/shop?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"OfferCatalog","@id":"https://www.inglydesign.it/#catalogo","name":"Lavorazioni INGLY DESIGN","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser CO₂","description":"Legno, plexiglass, pelle, vetro e MDF. Taglia fino a 20 mm, incide dettagli fotografici.","serviceType":"CO₂ · 100W","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Fiber Laser F2","description":"Marcatura permanente e tattile su acciaio, alluminio, titanio e ottone.","serviceType":"Fiber · F2","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser MOPA","description":"Marcature a colori su acciaio e anodizzato, massimo controllo dell’impulso.","serviceType":"MOPA","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa DTF","description":"Transfer vividi e resistenti per abbigliamento, da 1 pezzo alle divise complete.","serviceType":"DTF · Textile","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa UV","description":"Stampa full color con bianco e lucido, direttamente su quasi ogni oggetto.","serviceType":"UV · Flatbed","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa 3D","description":"Prototipi, nomi 3D e oggetti di design in PLA/PETG, rifiniti a mano.","serviceType":"FDM / Resina","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Di che materiale è Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"Targa Laurea Personalizzata è realizzato in Plexiglass, lavorato e rifinito a mano nel laboratorio INGLY DESIGN di Cesena."}},{"@type":"Question","name":"Quanto costa Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"Targa Laurea Personalizzata parte da €28,00. Il prezzo comprende la personalizzazione; per quantità elevate si può richiedere un preventivo dedicato."}},{"@type":"Question","name":"Quanto tempo serve per realizzare Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"La produzione richiede 2 giorni lavorativi, a cui si aggiunge la spedizione (2–5 giorni in Italia)."}},{"@type":"Question","name":"Che misure ha Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"Formato: 25×18 cm, Spessore: 4 mm. Su richiesta si possono realizzare misure diverse."}},{"@type":"Question","name":"Targa Laurea Personalizzata si può personalizzare?","acceptedAnswer":{"@type":"Answer","text":"Sì. Nome, data, dedica o logo vengono incisi su misura. Prima della lavorazione si riceve una prova grafica da approvare."}},{"@type":"Question","name":"Targa Laurea Personalizzata è adatto come regalo?","acceptedAnswer":{"@type":"Answer","text":"Sì, rientra nella categoria Eventi, Feste & Ricorrenze ed è tra le scelte più richieste come regalo personalizzato."}},{"@type":"Question","name":"Quanto dura la produzione?","acceptedAnswer":{"@type":"Answer","text":"La maggior parte dei pezzi personalizzati viene incisa e spedita entro 3 giorni lavorativi. Gli ordini B2B ricevono un piano di produzione con date garantite."}},{"@type":"Question","name":"Posso caricare il mio logo o una foto?","acceptedAnswer":{"@type":"Answer","text":"Sì — SVG, PDF, AI, PNG o JPG. Ottimizziamo ogni file per il materiale scelto e inviamo una prova grafica prima di incidere."}}],"@id":"https://www.inglydesign.it/product/12/#faq"},{"@type":"Product","name":"Targa Laurea Personalizzata","sku":"INGLY-012","description":"Targa laurea in plexiglass oro o argento con nome, corso di laurea, università e data. Fondo marmo o legno disponibile. Confezione regalo inclusa.","image":[{"@type":"ImageObject","url":"https://www.inglydesign.it/img/12.webp","caption":"Targa Laurea Personalizzata"}],"category":"Eventi, Feste & Ricorrenze","material":"Plexiglass","brand":{"@type":"Brand","name":"INGLY DESIGN"},"offers":{"@type":"Offer","availability":"https://schema.org/InStock","url":"https://www.inglydesign.it/product/12/","seller":{"@id":"https://www.inglydesign.it/#organizzazione"}}}]}</script>
+<script type="application/ld+json" id="ld-prerender">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://www.inglydesign.it/#organizzazione","name":"INGLY DESIGN","description":"Incisione e taglio laser, stampa UV & DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — made in Italy.","url":"https://www.inglydesign.it/","logo":{"@type":"ImageObject","url":"https://www.inglydesign.it/assets/images/ingly-logo.svg"},"image":"https://www.inglydesign.it/assets/images/og-image.jpg","email":"inglydesign@gmail.com","telephone":"+393296904627","priceRange":"€€","address":{"@type":"PostalAddress","addressCountry":"IT"},"sameAs":["https://instagram.com/ingly_design","https://facebook.com/inglydesign","https://tiktok.com/@ingly.design","https://pinterest.com/inglydesign","https://wa.me/393296904627","https://etsy.com/shop/inglydesign"]},{"@type":"WebSite","@id":"https://www.inglydesign.it/#sito","url":"https://www.inglydesign.it/","name":"INGLY DESIGN","description":"Incisione e taglio laser, stampa UV & DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — made in Italy.","inLanguage":"it","publisher":{"@id":"https://www.inglydesign.it/#organizzazione"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.inglydesign.it/shop?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"OfferCatalog","@id":"https://www.inglydesign.it/#catalogo","name":"Lavorazioni INGLY DESIGN","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser CO₂","description":"Legno, plexiglass, pelle, vetro e MDF. Taglia fino a 20 mm, incide dettagli fotografici.","serviceType":"CO₂ · 100W","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Fiber Laser F2","description":"Marcatura permanente e tattile su acciaio, alluminio, titanio e ottone.","serviceType":"Fiber · F2","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser MOPA","description":"Marcature a colori su acciaio e anodizzato, massimo controllo dell’impulso.","serviceType":"MOPA","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa DTF","description":"Transfer vividi e resistenti per abbigliamento, da 1 pezzo alle divise complete.","serviceType":"DTF · Textile","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa UV","description":"Stampa full color con bianco e lucido, direttamente su quasi ogni oggetto.","serviceType":"UV · Flatbed","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa 3D","description":"Prototipi, nomi 3D e oggetti di design in PLA/PETG, rifiniti a mano.","serviceType":"FDM / Resina","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Di che materiale è Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"Targa Laurea Personalizzata è realizzato in Plexiglass, lavorato e rifinito a mano nel laboratorio INGLY DESIGN di Cesena."}},{"@type":"Question","name":"Quanto costa Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"Targa Laurea Personalizzata parte da €28,00. Il prezzo comprende la personalizzazione; per quantità elevate si può richiedere un preventivo dedicato."}},{"@type":"Question","name":"Quanto tempo serve per realizzare Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"La produzione richiede 2 giorni lavorativi, a cui si aggiunge la spedizione (2–5 giorni in Italia)."}},{"@type":"Question","name":"Che misure ha Targa Laurea Personalizzata?","acceptedAnswer":{"@type":"Answer","text":"Formato: 25×18 cm, Spessore: 4 mm. Su richiesta si possono realizzare misure diverse."}},{"@type":"Question","name":"Targa Laurea Personalizzata si può personalizzare?","acceptedAnswer":{"@type":"Answer","text":"Sì. Nome, data, dedica o logo vengono incisi su misura. Prima della lavorazione si riceve una prova grafica da approvare."}},{"@type":"Question","name":"Targa Laurea Personalizzata è adatto come regalo?","acceptedAnswer":{"@type":"Answer","text":"Sì, rientra nella categoria Eventi, Feste & Ricorrenze ed è tra le scelte più richieste come regalo personalizzato."}},{"@type":"Question","name":"Quanto dura la produzione?","acceptedAnswer":{"@type":"Answer","text":"La maggior parte dei pezzi personalizzati viene incisa e spedita entro 3 giorni lavorativi. Gli ordini B2B ricevono un piano di produzione con date garantite."}},{"@type":"Question","name":"Posso caricare il mio logo o una foto?","acceptedAnswer":{"@type":"Answer","text":"Sì — SVG, PDF, AI, PNG o JPG. Ottimizziamo ogni file per il materiale scelto e inviamo una prova grafica prima di incidere."}}],"@id":"https://www.inglydesign.it/product/12/#faq"},{"@type":"Product","name":"Targa Laurea Personalizzata","sku":"INGLY-012","description":"Targa laurea in plexiglass oro o argento con nome, corso di laurea, università e data. Fondo marmo o legno disponibile. Confezione regalo inclusa.","image":[{"@type":"ImageObject","url":"https://www.inglydesign.it/img/12.webp","caption":"Targa Laurea Personalizzata"}],"category":"Eventi, Feste & Ricorrenze","material":"Plexiglass","brand":{"@type":"Brand","name":"INGLY DESIGN"},"offers":{"@type":"Offer","availability":"https://schema.org/InStock","url":"https://www.inglydesign.it/product/12/","seller":{"@id":"https://www.inglydesign.it/#organizzazione"}}}]}</script>
 </head>
 <body>
 <!-- MAINTENANCE MODE — controllato da data/config.json → maintenance.attivo -->
@@ -198,7 +202,7 @@ setTimeout(function(){
      elemento `position:fixed` dentro una .page prende quella come blocco
      contenitore invece dello schermo. -->
 <div class="filters-velo" data-action="filtri-chiudi" aria-hidden="true"></div>
-<div class="loader" id="loader"><div class="lin"><img src="assets/images/logo.png" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
+<div class="loader" id="loader"><div class="lin"><img src="assets/images/ingly-logo.svg" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>
 
@@ -213,9 +217,9 @@ setTimeout(function(){
   </div>
 </div>
 
-<header class="nav scrolled" id="nav" style="top:36px">
+<header class="nav scrolled" id="nav">
   <div class="wrap nav-in">
-    <a href="./" class="brand" data-nav="home"><img src="assets/images/logo.png" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
@@ -235,6 +239,7 @@ setTimeout(function(){
     <div class="nav-acts">
       <button class="icon-btn" aria-label="Wishlist" data-action="open-wish"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg><span class="badge" id="wishBadge">0</span></button>
       <button class="icon-btn" aria-label="Cart" data-action="open-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2 2h3l3.2 13.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="badge" id="cartBadge">0</span></button>
+      <a class="icon-btn" href="generatori.html" title="Generator Studio" aria-label="Apri Generator Studio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.2 6.1 6.1 2.2-6.1 2.2-2.2 6.1-2.2-6.1-6.1-2.2 6.1-2.2z"/><path d="M19 15.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg></a>
       <button class="icon-btn burger" aria-label="Menu" data-action="menu-open"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg></button>
     </div>
   </div>
@@ -253,6 +258,7 @@ setTimeout(function(){
   <a href="macchine" data-nav="macchine" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v5"/><path d="M8 7h8l-1.5 6h-5z"/><path d="M12 13v9"/><path d="M9 22h6"/></svg></i> Macchine</a>
   <a href="academy" data-nav="academy" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Academy</a>
   <a href="demo" data-nav="demo" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L2 9l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></i> Demo gratuita</a>
+  <a href="generatori.html" class="dly2">✳ Generator Studio</a>
   <a href="digital" data-nav="digital" class="dly2"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></i> <span data-i18n="nDig">Digitale</span></a>
   <a href="business" data-nav="business" class="dly25"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></i> B2B·B2C</a>
   <a href="portfolio" data-nav="portfolio" class="dly3"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-6-5-5 4-3-2-4 4"/></svg></i> Portfolio</a>
@@ -271,25 +277,30 @@ setTimeout(function(){
 <section><h2>Domande frequenti</h2><details><summary>Di che materiale è Targa Laurea Personalizzata?</summary><p>Targa Laurea Personalizzata è realizzato in Plexiglass, lavorato e rifinito a mano nel laboratorio INGLY DESIGN di Cesena.</p></details><details><summary>Quanto costa Targa Laurea Personalizzata?</summary><p>Targa Laurea Personalizzata parte da €28,00. Il prezzo comprende la personalizzazione; per quantità elevate si può richiedere un preventivo dedicato.</p></details><details><summary>Quanto tempo serve per realizzare Targa Laurea Personalizzata?</summary><p>La produzione richiede 2 giorni lavorativi, a cui si aggiunge la spedizione (2–5 giorni in Italia).</p></details><details><summary>Che misure ha Targa Laurea Personalizzata?</summary><p>Formato: 25×18 cm, Spessore: 4 mm. Su richiesta si possono realizzare misure diverse.</p></details><details><summary>Targa Laurea Personalizzata si può personalizzare?</summary><p>Sì. Nome, data, dedica o logo vengono incisi su misura. Prima della lavorazione si riceve una prova grafica da approvare.</p></details><details><summary>Targa Laurea Personalizzata è adatto come regalo?</summary><p>Sì, rientra nella categoria Eventi, Feste &amp; Ricorrenze ed è tra le scelte più richieste come regalo personalizzato.</p></details><details><summary>Quanto dura la produzione?</summary><p>La maggior parte dei pezzi personalizzati viene incisa e spedita entro 3 giorni lavorativi. Gli ordini B2B ricevono un piano di produzione con date garantite.</p></details><details><summary>Posso caricare il mio logo o una foto?</summary><p>Sì — SVG, PDF, AI, PNG o JPG. Ottimizziamo ogni file per il materiale scelto e inviamo una prova grafica prima di incidere.</p></details></section></div>
 <!-- HOME -->
 <section class="page active" id="page-home">
+  <!-- ORDINE DELLA HOME (brief enterprise 2026): 1 hero · 2 categorie ·
+       3 in evidenza · 4 personalizza · 5 materiali · 6–8 soluzioni ·
+       9 metodo · 10 lavori reali, laboratorio, contatti.
+       Il nastro scorrevole delle tecnologie e il blocco «Sei tecnologie»
+       non sono più qui: le tecnologie hanno la loro pagina (/tecnologie). -->
   <div class="hero" style="padding-top:150px">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
     <div class="wrap hero-grid">
       <div>
-        <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">Studio laser · Made in Italy</span></span>
+        <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">Ingegno che illumina la tua visione.</span></span>
         <h1 id="heroH1"></h1>
         <p class="sub" data-i18n="heroSub"></p>
         <div class="hero-ctas">
-          <button class="btn btn-primary magnetic" data-action="go" data-arg="shop"><span data-i18n="ctaShop">Esplora il catalogo</span> <span class="arr">→</span></button>
-          <button class="btn btn-ghost magnetic" data-action="go" data-arg="quote" data-i18n="ctaQuote">Richiedi un preventivo</button>
+          <a class="btn btn-primary magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri le creazioni</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="ctaQuote">Crea il tuo progetto</span></a>
         </div>
-        <div class="hero-meta">
-          <div class="hm"><b>12.400+</b><span data-i18n="m1">PEZZI INCISI</span></div>
-          <div class="hm"><b>8</b><span data-i18n="m2">MATERIALI</span></div>
-          <div class="hm"><b>4,9★</b><span data-i18n="m3">VALUTAZIONE</span></div>
+        <div class="hero-proof" aria-label="Servizi INGLY DESIGN">
+          <span><i aria-hidden="true">✦</i> Progettazione su misura</span>
+          <span><i aria-hidden="true">✦</i> Privati e aziende</span>
+          <span><i aria-hidden="true">✦</i> Scelta guidata di materiali e lavorazioni</span>
         </div>
       </div>
       <div class="hero-visual" id="heroVisual">
-        <div class="coin-scene"><div class="cring r1"></div><div class="cring r2"></div><div class="coin" id="coin"><img src="assets/images/logo.png" alt="INGLY badge 3D" width="360" height="360" fetchpriority="high"></div></div>
+        <div class="coin-scene"><div class="coin" id="coin"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width: 800px) 90vw, 46vw" alt="Esempio dimostrativo di creazioni personalizzate, immagine sostituibile dal pannello Admin" width="800" height="600" fetchpriority="high" decoding="async"></div></div><p class="hero-image-note">Immagine dimostrativa · sostituibile dall’Admin</p>
         <div class="fcard fc1" id="heroCard1"></div>
         <div class="fcard fc2" id="heroCard2"></div>
         <div class="fcard fc3" id="heroCard3"></div>
@@ -298,21 +309,20 @@ setTimeout(function(){
     <div class="scroll-cue">Scroll</div>
   </div>
 
-  <div class="tech-ticker" id="techTicker" aria-hidden="true"></div>
 
   <div class="sec">
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="catEye">Il catalogo</span>
-      <h2 class="h2" data-i18n="catH2">12 mondi di <span class="hl">personalizzazione.</span></h2>
-      <p class="sub" data-i18n="catSub">Dalla casa agli eventi, dal B2B ai file digitali — ogni categoria è un punto di partenza.</p></div>
+      <h2 class="h2" data-i18n="catH2">Acquista per <span class="hl">categoria.</span></h2>
+      <p class="sub" data-i18n="catSub">Ogni categoria raccoglie prodotti reali, personalizzabili con nomi, date, loghi o foto.</p></div>
       <div class="bento" id="catBento"></div>
     </div>
   </div>
 
   <div class="sec pt-0">
     <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="collEye">Collezioni</span>
-      <h2 class="h2" data-i18n="collH2">Scelti da <span class="hl">migliaia.</span></h2>
+      <div class="reveal"><span class="eyebrow" data-i18n="collEye">In evidenza</span>
+      <h2 class="h2" data-i18n="collH2">Creazioni <span class="hl">in evidenza.</span></h2>
       <!-- Le schede nascono da data/collezioni.json: prima erano quattro
            scritte a mano, e due di esse — Edizioni Limitate e Stagionale —
            aprivano una griglia VUOTA, perché nessun prodotto portava quei
@@ -323,18 +333,75 @@ setTimeout(function(){
     </div>
   </div>
 
-  <div class="sec dark">
+  <!-- 4 · Il percorso di personalizzazione. Il passo 2 dice «inviaci», non
+       «carica»: il sito non ha (ancora) un posto dove salvare i file dei
+       clienti, e un campo di caricamento finto prometterebbe un invio che
+       non avviene. -->
+  <section class="sec home-ppath" aria-labelledby="ppathTitle">
     <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="techEye"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-tecnologie"></use></svg> Tecnologie</span>
-      <h2 class="h2" data-i18n="techH2">Sei tecnologie.<br>Precisione al centesimo.</h2></div>
-      <div class="mach-grid" id="techGrid"></div>
+      <div class="reveal"><span class="eyebrow" data-i18n="ppathEye">Personalizza</span>
+      <h2 class="h2" id="ppathTitle" data-i18n="ppathH2">Dalla tua idea all'oggetto, <span class="hl">passo per passo.</span></h2></div>
+      <ol class="ppath">
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">01</span><h3 data-i18n="ppath1t">Scegli il prodotto</h3><p data-i18n="ppath1d">Parti da uno dei prodotti personalizzabili del catalogo, o da un'idea tutta tua.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">02</span><h3 data-i18n="ppath2t">Inviaci la grafica</h3><p data-i18n="ppath2d">Logo, foto, disegno o solo un testo: mandacelo su WhatsApp o via email.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">03</span><h3 data-i18n="ppath3t">Personalizza</h3><p data-i18n="ppath3d">Scegliamo insieme materiale, misura, testi e finiture.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">04</span><h3 data-i18n="ppath4t">Rivedi l'anteprima</h3><p data-i18n="ppath4d">Prepariamo il file e te lo mostriamo prima di produrre.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">05</span><h3 data-i18n="ppath5t">Richiedi o acquista</h3><p data-i18n="ppath5d">Confermi il preventivo o l'ordine, e passiamo alla produzione.</p></li>
+      </ol>
+      <div class="ppath-cta reveal"><a class="btn btn-primary" href="personalizza" data-nav="personalizza"><span data-i18n="ppathCta">Inizia a personalizzare</span> <span class="arr">→</span></a></div>
     </div>
-  </div>
+  </section>
+
+  <!-- Editorial material-study assets: illustrations, not product photography -->
+  <section class="ingly-material-studies sec" aria-labelledby="inglyMaterialStudiesTitle">
+    <div class="wrap"><div class="ingly-material-heading"><div><span class="eyebrow">Material Library · INGLY DESIGN</span><h2 id="inglyMaterialStudiesTitle">La materia dà forma alle idee.</h2><p>Esplora texture, superfici e possibilità creative. Le immagini sono studi illustrativi, non fotografie di prodotti in vendita.</p></div><a class="ingly-material-all" href="materiali" data-nav="materiali">Esplora tutti i materiali ↗</a></div>
+    <div class="ingly-material-grid">
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Legno"><img src="assets/images/material-studies/legno.svg" alt="Illustrazione concettuale del materiale Legno" loading="lazy" width="1200" height="800"><span>Legno<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Plexiglass"><img src="assets/images/material-studies/plexiglass.svg" alt="Illustrazione concettuale del materiale Plexiglass" loading="lazy" width="1200" height="800"><span>Plexiglass<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Metallo"><img src="assets/images/material-studies/metallo.svg" alt="Illustrazione concettuale del materiale Metallo" loading="lazy" width="1200" height="800"><span>Metallo<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Pelle"><img src="assets/images/material-studies/pelle.svg" alt="Illustrazione concettuale del materiale Pelle" loading="lazy" width="1200" height="800"><span>Pelle<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Vetro"><img src="assets/images/material-studies/vetro.svg" alt="Illustrazione concettuale del materiale Vetro" loading="lazy" width="1200" height="800"><span>Vetro<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Bambù"><img src="assets/images/material-studies/bambu.svg" alt="Illustrazione concettuale del materiale Bambù" loading="lazy" width="1200" height="800"><span>Bambù<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: MDF & compensato"><img src="assets/images/material-studies/mdf-compensato.svg" alt="Illustrazione concettuale del materiale MDF & compensato" loading="lazy" width="1200" height="800"><span>MDF & compensato<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: PLA & PETG"><img src="assets/images/material-studies/pla-petg.svg" alt="Illustrazione concettuale del materiale PLA & PETG" loading="lazy" width="1200" height="800"><span>PLA & PETG<span aria-hidden="true"> ↗</span></span></a>
+      <a class="ingly-material-tile" href="materiali" data-nav="materiali" aria-label="Esplora materiali: Tessuto"><img src="assets/images/material-studies/tessuto.svg" alt="Illustrazione concettuale del materiale Tessuto" loading="lazy" width="1200" height="800"><span>Tessuto<span aria-hidden="true"> ↗</span></span></a>
+    </div></div>
+  </section>
+
+
+  <!-- 6–8 · Business, xTOOL Lab, Academy: tre porte, ciascuna verso la sua
+       pagina. Sono le card del vecchio blocco «Esplora INGLY», ridotte alle
+       tre destinazioni che il brief vuole sulla Home; Shop, Personalizza,
+       Materiali e File digitali hanno già la loro sezione qui sopra o il
+       menu. -->
+  <section class="sec journey-sec home-soluzioni" aria-labelledby="solTitle">
+    <div class="wrap">
+      <div class="journey-heading reveal">
+        <span class="eyebrow" data-i18n="solEye">Soluzioni</span>
+        <h2 class="h2" id="solTitle" data-i18n="solH2">Per aziende, maker <span class="hl">e chi vuole imparare.</span></h2>
+        <p class="sub" data-i18n="solSub">Produzione per il tuo marchio, le macchine con cui lavoriamo ogni giorno, e la formazione per usarle.</p>
+      </div>
+      <div class="journey-grid journey-grid--3">
+        <a class="journey-card" href="business" data-nav="business">
+          <span class="journey-media"><img src="img/cat-b2b.webp" srcset="img/cat-b2b-400.webp 400w, img/cat-b2b-800.webp 800w, img/cat-b2b.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi dimostrativi per produzioni e gadget aziendali" width="800" height="600" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><b data-i18n="journeyBusiness">Business</b><small data-i18n="journeyBusinessSub">Soluzioni per aziende e professionisti</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="macchine" data-nav="macchine">
+          <span class="journey-media"><img src="assets/images/xtool-lab-default.svg" alt="Illustrazione dimostrativa del laboratorio laser INGLY DESIGN" width="800" height="600" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><b data-i18n="journeyLab">xTOOL Lab</b><small data-i18n="journeyLabSub">Macchine, applicazioni e demo</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="academy" data-nav="academy">
+          <span class="journey-media"><img src="img/cat-tecnologie.webp" srcset="img/cat-tecnologie-400.webp 400w, img/cat-tecnologie-800.webp 800w, img/cat-tecnologie.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Immagine dimostrativa per percorsi formativi e tecniche" width="800" height="600" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><b data-i18n="journeyAcademy">Academy</b><small data-i18n="journeyAcademySub">Competenze, tecniche e workflow</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <div class="sec">
     <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="prEye">Come funziona</span>
-      <h2 class="h2" data-i18n="prH2">Dall'idea all'oggetto<br>in <span class="hl">quattro passi.</span></h2></div>
+      <div class="reveal"><span class="eyebrow" data-i18n="prEye">Il nostro metodo</span>
+      <h2 class="h2" data-i18n="prH2">Dall'idea all'oggetto, <span class="hl">in cinque passi.</span></h2></div>
       <div class="steps" id="stepsGrid"></div>
     </div>
   </div>
@@ -347,10 +414,10 @@ setTimeout(function(){
     <div class="gal"><div class="gal-row" id="gal1"></div><div class="gal-row rev" id="gal2"></div></div>
   </div>
 
-  <div class="sec" style="background:var(--white);border-top:1px solid var(--line)">
+  <div class="sec" hidden data-content-status="verification-required" style="background:var(--white);border-top:1px solid var(--line)">
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="revEye">Recensioni</span>
-      <h2 class="h2">4,9 su 5.</h2></div>
+      <h2 class="h2">Esperienze dei clienti — pubblicazione dopo verifica.</h2></div>
       <div class="rev-grid" id="revGrid"></div>
     </div>
   </div>
@@ -368,8 +435,8 @@ setTimeout(function(){
   <div class="sec pt-20">
     <div class="wrap">
       <div class="news reveal">
-        <h2 data-i18n="nlH2">−10% sulla tua prima <span style="color:var(--laser)">incisione.</span></h2>
-        <p data-i18n="nlSub">Iscriviti per accedere in anteprima a drop limitati e collezioni stagionali.</p>
+        <h2 data-i18n="nlH2">Novità dal <span class="hl">laboratorio.</span></h2>
+        <p data-i18n="nlSub">Nuove collezioni e lavori recenti, quando ci sono. Niente spam, ti cancelli quando vuoi.</p>
         <form class="nform">
           <input type="email" name="email" required placeholder="tua@email.it" aria-label="Email">
           <button class="btn btn-blue magnetic" type="submit" data-i18n="nlBtn">Iscriviti</button>
@@ -491,6 +558,14 @@ setTimeout(function(){
           <button class="btn btn-primary addbtn magnetic" data-action="pp-add"><span data-i18n="ppAdd">Aggiungi</span><span class="addbtn-tot"> — <span id="ppTotal"></span></span></button>
           <button class="btn btn-ghost btn-icon" id="ppShare" aria-label="Condividi" title="Condividi prodotto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
         </div>
+        <div class="product-contact-actions" id="productContactActions">
+          <a class="btn btn-primary product-contact-wa" id="productContactWa" href="https://wa.me/393296904627" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2 17.7L.5 23.5l6-1.6A11.8 11.8 0 0 0 20.5 3.5ZM12 21a9.7 9.7 0 0 1-4.9-1.3l-.4-.2-3.5.9.9-3.4-.2-.4A9.7 9.7 0 1 1 12 21Zm5.3-7.3c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.2-.6l.5-.6c.2-.2.2-.4.3-.6s0-.4 0-.6-.7-1.7-1-2.3c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.8 1.2 3.2 1.4 3.4 2.4 3.7 5.8 5c.8.4 1.5.6 2 .7.8.2 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4s.3-1.3.2-1.4-.2-.3-.5-.4Z"/></svg>
+            <span>Chiedi su WhatsApp</span>
+          </a>
+          <a class="btn btn-ghost product-contact-email" id="productContactEmail" href="mailto:inglydesign@gmail.com"><span>Richiedi via email</span></a>
+          <p class="product-contact-note" id="productContactNote">Raccontaci cosa hai in mente: ti aiutiamo a scegliere materiali, finiture e personalizzazione.</p>
+        </div>
         <!-- Tabs -->
         <div class="pp-tabs" role="tablist">
           <button class="pp-tab active" data-action="pp-tab" data-tab="desc" role="tab" aria-selected="true" data-i18n="tabDesc">Descrizione</button>
@@ -499,6 +574,7 @@ setTimeout(function(){
         </div>
         <div class="pp-panel active" id="ppPanelDesc" role="tabpanel">
           <p class="ppdesc" id="ppDesc"></p>
+          <div id="ppMaterialDetails" class="pp-material-details"></div>
         </div>
         <div class="pp-panel" id="ppPanelMis" role="tabpanel">
           <div id="ppSizes"></div>
@@ -638,6 +714,41 @@ setTimeout(function(){
     <span class="eyebrow">Machine Lab</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Il parco macchine,<br>senza <span class="hl on">giri di parole.</span></h1>
     <p class="sub">Cosa c&#39;è in officina, cosa fa ciascuna, cosa si sblocca mettendole insieme — e l&#39;elenco onesto di quello che non lavoriamo e perché.</p>
+    <section class="xtool-lab-feature" aria-labelledby="xtoolFeatureTitle">
+      <div class="xtool-lab-copy">
+        <span class="eyebrow">INGLY DESIGN · xTOOL LAB</span>
+        <h2 id="xtoolFeatureTitle">Entra nel mondo del laser.<br><span class="xtool-lab-accent">Dagli forma.</span></h2>
+        <p>Se sei interessato e vuoi spingerti nel mondo laser e nella creatività xTool, partiamo dalla tua idea. Con Giuseppe Inglima puoi richiedere una demo gratuita e capire quale macchina, materiale o percorso può aiutarti a realizzarla.</p>
+        <div class="xtool-host" aria-label="Host della Demo Room xTool: Giuseppe Inglima">
+          <span class="xtool-host-mark" aria-hidden="true">GI</span>
+          <span class="xtool-host-text"><strong>Giuseppe Inglima</strong><small>Host Demo Room xTool · INGLY DESIGN</small></span>
+        </div>
+        <div class="hero-ctas lab-ctas xtool-lab-actions">
+          <a class="btn btn-primary magnetic" href="https://support.xtool.com/demo-room/host-instruction?id=2528&amp;name=Giuseppe%20Inglima" target="_blank" rel="noopener noreferrer">Richiedi una demo gratuita <span class="arr">→</span></a>
+          <a class="btn btn-ghost magnetic" href="academy" data-nav="academy">Scopri INGLY Academy <span class="arr">→</span></a>
+        </div>
+        <p class="xtool-lab-note">Porta un progetto, una domanda o anche solo la curiosità. La prima cosa è capire cosa vuoi creare.</p>
+      </div>
+      <div class="xtool-lab-art">
+        <img src="https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_p3_1219-5482_e4bbd1a7-6988-4465-b4de-e7be5b75330f.webp?v=1778491125" alt="Foto ufficiale della macchina xTool P3 — fonte xTool" width="740" height="530" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='assets/images/xtool-lab-default.svg'">
+        <span>FOTO UFFICIALE xTOOL P3 · MODELLO DEL LAB</span>
+      </div>
+    </section>
+    <section class="ingly-service-centre" aria-labelledby="inglyServiceTitle">
+      <div class="ingly-service-centre__media">
+        <img src="assets/images/xtool-authorized-service-centre.svg" alt="xTool Authorized Service Centre — riconoscimento comunicato da INGLY DESIGN" width="820" height="520" loading="lazy" decoding="async">
+      </div>
+      <div class="ingly-service-centre__copy">
+        <span class="eyebrow">INGLY DESIGN × xTOOL</span>
+        <h2 id="inglyServiceTitle">xTool Authorized<br><em>Service Centre.</em></h2>
+        <p>Un punto di riferimento per il mondo xTool: supporto, orientamento tecnico e assistenza sui percorsi di utilizzo delle macchine. Raccontaci il modello e di cosa hai bisogno.</p>
+        <p class="ingly-service-centre__scope">Per richieste di assistenza o riparazione, la disponibilità e la tipologia di intervento vengono confermate caso per caso.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://wa.me/393296904627?text=Ciao%20INGLY%2C%20vorrei%20informazioni%20sul%20servizio%20xTool%20Authorized%20Service%20Centre" target="_blank" rel="noopener noreferrer">Contatta il Service Centre <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="demo" data-nav="demo">Prenota una demo xTool</a>
+        </div>
+      </div>
+    </section>
     <div id="labMacGrid"></div>
   </div>
   <!-- riempita quando l'indirizzo è /macchine/<id> -->
@@ -649,7 +760,7 @@ setTimeout(function(){
   <div class="wrap phero">
     <span class="eyebrow">INGLY Academy</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Imparare a usarle,<br>non solo a <span class="hl on">comprarle.</span></h1>
-    <p class="sub">Le stesse macchine con cui produciamo tutti i giorni, insegnate da chi ci lavora. In officina a Cesena o collegati, su una macchina sola o su tutto il flusso di lavoro.</p>
+    <p class="sub">Le stesse macchine con cui produciamo tutti i giorni, insegnate da chi ci lavora. Percorsi in presenza o online da concordare, dalla prima configurazione fino al workflow completo.</p>
     <div id="labCorsiGrid"></div>
   </div>
   <!-- riempita quando l'indirizzo è /academy/<id> -->
@@ -687,9 +798,9 @@ setTimeout(function(){
       <!-- I numeri arrivano dai dati, non da qui: «Materiali 8» con nove
            materiali in catalogo è il genere di bugia che nessuno nota.
            Riempito da renderContatori() in main.js. -->
-      <div class="counters" id="counters"></div>
+      <div id="counters" hidden aria-hidden="true"></div>
     </div>
-    <div class="about-art"><div class="logo-big"><img src="assets/images/logo.png" alt="INGLY badge" width="420" height="420" loading="lazy"></div></div>
+    <div class="about-art"><div class="logo-big"><img src="assets/images/ingly-logo.svg" alt="INGLY badge" width="420" height="420" loading="lazy"></div></div>
   </div>
   <div class="sec pt-70"><div class="wrap">
     <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-materiali"></use></svg> <span data-i18n="matEye">Materiali</span></span>
@@ -780,19 +891,21 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand"><img src="assets/images/logo.png" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand"><img src="assets/images/ingly-logo.svg" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>
       <div class="ft-col"><h4>Shop</h4>
         <a href="shop" data-nav="shop" data-i18n="ftAll">Tutti i prodotti</a>
         <a href="digital" data-nav="digital" data-i18n="nDig">Digitale</a>
+        <a href="generatori.html">Generatori SVG</a>
         <a href="quote" data-nav="quote">Su misura</a></div>
       <div class="ft-col"><h4>Lab</h4>
         <a href="materiali" data-nav="materiali">Materiali</a>
         <a href="tecnologie" data-nav="tecnologie">Tecnologie</a>
         <a href="macchine" data-nav="macchine">Macchine</a>
-        <a href="demo" data-nav="demo">Demo gratuita</a></div>
+        <a href="demo" data-nav="demo">Demo gratuita</a>
+        <a href="generatori.html">✳ Generator Studio</a></div>
       <div class="ft-col"><h4 data-i18n="ftCo">Studio</h4>
         <a href="about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>
         <a href="portfolio" data-nav="portfolio">Portfolio</a>
@@ -802,7 +915,7 @@ setTimeout(function(){
         <a href="faq" data-nav="faq">FAQ</a>
         <a href="mailto:inglydesign@gmail.com">inglydesign@gmail.com</a>
         <a href="https://wa.me/393296904627" target="_blank" rel="noopener">WhatsApp</a>
-        <span class="ft-luogo">Cesena (FC) · Italia</span></div>
+        <span class="ft-luogo">Made in Italy · Consulenza e personalizzazioni</span></div>
     </div>
 
     <div class="watermark" aria-hidden="true">INGLY</div>

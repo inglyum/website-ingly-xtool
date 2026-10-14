@@ -8,6 +8,6 @@
  <text x="818" y="84" fill="#e9d1a4" font-size="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700">STL</text>
  <g transform="translate(470 330)"><path d="M-140-76L0-168 148-76 148 90 0 179-140 90Z" fill="#9b99bb" stroke="#d6d7e9" stroke-width="6"/><path d="M-140-76L0 20 148-76M0 20V179" fill="none" stroke="#f4e9d5" stroke-width="6"/><path d="M0-168V20" stroke="#645d86" stroke-width="5"/><ellipse cx="0" cy="10" rx="74" ry="98" fill="none" stroke="#e9c884" stroke-width="9"/></g>
  <rect x="57" y="570" width="846" height="87" rx="14" fill="#061312" fill-opacity=".56"/>
- <text x="80" y="610" fill="#f9edda" font-size="31" font-family="Arial,sans-serif" font-weight="700">Form & Volume</text>
+ <text x="80" y="610" fill="#f9edda" font-size="31" font-family="Arial,sans-serif" font-weight="700">Form &amp; Volume</text>
  <text x="80" y="640" fill="#c5cdc6" font-size="16" font-family="Arial,sans-serif" letter-spacing="1">3D creative objects  ·  CONCEPT PREVIEW</text>
  </svg>

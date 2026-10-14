@@ -453,6 +453,19 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
     </div>
   </section>
 
+  <!-- ============ GENERATOR STUDIO ============ -->
+  <section class="view" id="v-gen">
+    <div class="card admin-launchpad">
+      <h3>🧰 INGLY DESIGN Generator Studio</h3>
+      <p class="hint">Gestisci i generatori visibili nella pagina pubblica <b>generatori.html</b>. Il catalogo viene pubblicato nel file <code>data/content.json</code> insieme agli altri contenuti del sito.</p>
+      <div class="searchrow"><span class="hint">Attiva/disattiva, modifica testi, icone, categorie e ordine. Puoi collegare servizi esterni senza presentarli come generatori INGLY.</span><button class="btn pri" id="genNew" style="margin-left:auto">➕ Nuovo generatore</button></div>
+    </div>
+    <div class="card" style="padding:8px 12px"><table id="genTable"></table></div>
+    <div class="card"><h3>Motori disponibili</h3>
+      <p class="hint">I motori eseguibili oggi sono Portachiavi &amp; Tag, Living Hinge, Griglia Test Materiali, Cake Topper, Scatola a Incastro e Ingranaggio. Per aggiungere un motore nuovo al catalogo serve prima implementarne e verificarne il codice; aggiungere solo una voce non crea automaticamente un algoritmo.</p>
+    </div>
+  </section>
+
   <!-- ============ MEDIA ============ -->
   <section class="view" id="v-media">
     <div class="card"><h3>📥 Carica immagini <span class="chip laser sp">compressione automatica → WEBP</span></h3>
@@ -1747,7 +1760,7 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
 const NAV=[['Panoramica',[['dash','📊','Dashboard']]],
  ['Catalogo',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['dig','💾','Digitali'],['prezzi','🏷','Prezzi in vetrina']]],
  ['Creative Tools',[['generators','✳','Generatori INGLY']]],
- ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
+ ['Contenuti',[['media','🖼','Media Library'],['gen','🧰','Generator Studio'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
  ['Configurazione',[['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['bg','🎨','Sfondo Sito'],['set','⚙️','Impostazioni']]],
  ['Sistema',[['pub','🚀','Pubblica & Deploy'],['hist','🕘','Cronologia'],['health','🩺','Health Center'],['backup','💾','Backup']]]];
 const TITLES={};let VIEW='dash';
@@ -1757,7 +1770,7 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,gen:renderGen,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
@@ -4351,6 +4364,87 @@ function editGenerator(index){
   };
 }
 
+
+/* ================== GENERATOR STUDIO ==================
+   Il catalogo si trova in content.json (S.C.GENERATORI), quindi usa lo
+   stesso flusso bozza/pubblicazione atomica del resto dell'Admin. */
+const GEN_MODULI=[
+ ['portachiavi','Portachiavi & tag · SVG'],
+ ['living-hinge','Living Hinge Lab · SVG'],
+ ['test-materiali','Griglia test materiali · SVG'],
+ ['cake-topper','Cake Topper · SVG'],
+ ['scatola-incastri','Scatola a incastri · SVG'],
+ ['ingranaggio','Ingranaggio parametrico · SVG'],
+ ['link-esterno','Link esterno (non è un motore INGLY)']
+];
+function genRoot(){
+ if(!S.C||typeof S.C!=='object')S.C={};
+ if(!Array.isArray(S.C.GENERATORI))S.C.GENERATORI=[];
+ return S.C.GENERATORI;
+}
+function genNome(g){return (g&&g.nome&&g.nome.it)||g.id||'Senza nome'}
+function renderGen(){
+ const root=genRoot();
+ const arr=root.map((g,i)=>({g,i})).sort((a,b)=>(Number(a.g.ordine)||0)-(Number(b.g.ordine)||0));
+ $('genTable').innerHTML='<tr><th>#</th><th>Generatore</th><th>Modulo</th><th>Categoria</th><th>Stato</th><th>Gestione</th></tr>'
+ +arr.map(({g,i},rank)=>'<tr>'
+ +'<td class="mono">'+(rank+1)+'</td>'
+ +'<td><b>'+esc(genNome(g))+'</b><br><small class="hint">'+esc((g.descrizione&&g.descrizione.it)||'')+'</small><br><small class="mono">'+esc(g.id||'')+'</small></td>'
+ +'<td><span class="pill">'+esc(g.modulo||'')+'</span></td>'
+ +'<td>'+esc(g.categoria||'—')+'</td>'
+ +'<td><button class="btn sm '+(g.attivo!==false?'ok':'')+'" data-g-toggle="'+i+'">'+(g.attivo!==false?'● Attivo':'○ Disattivo')+'</button></td>'
+ +'<td style="white-space:nowrap"><button class="btn sm" data-g-edit="'+i+'" title="Modifica">✎</button> '
+ +'<button class="btn sm" data-g-up="'+i+'" '+(rank===0?'disabled':'')+' title="Sposta su">↑</button> '
+ +'<button class="btn sm" data-g-down="'+i+'" '+(rank===arr.length-1?'disabled':'')+' title="Sposta giù">↓</button> '
+ +'<button class="btn sm err" data-g-del="'+i+'" title="Rimuovi">🗑</button></td></tr>').join('')
+ +'<tr><td colspan="6" class="hint">'+root.length+' voci · '+root.filter(g=>g.attivo!==false).length+' attive · le modifiche restano in bozza finché non premi Pubblica</td></tr>';
+ document.querySelectorAll('[data-g-edit]').forEach(b=>b.onclick=()=>editGen(Number(b.dataset.gEdit)));
+ document.querySelectorAll('[data-g-toggle]').forEach(b=>b.onclick=()=>{const g=root[Number(b.dataset.gToggle)];g.attivo=g.attivo===false;markDirty();renderGen()});
+ document.querySelectorAll('[data-g-del]').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.gDel),g=root[i];if(!g)return;if(confirm('Rimuovere "'+genNome(g)+'" dal catalogo Generator Studio?')){root.splice(i,1);root.sort((a,b)=>(Number(a.ordine)||0)-(Number(b.ordine)||0));root.forEach((x,k)=>x.ordine=k+1);markDirty();renderGen()}});
+ document.querySelectorAll('[data-g-up],[data-g-down]').forEach(b=>b.onclick=()=>{
+   const i=Number(b.dataset.gUp??b.dataset.gDown),direction=b.hasAttribute('data-g-up')?-1:1;
+   const sorted=root.map((g,idx)=>({g,idx})).sort((a,b)=>(Number(a.g.ordine)||0)-(Number(b.g.ordine)||0));
+   const pos=sorted.findIndex(x=>x.idx===i),next=pos+direction;
+   if(pos<0||next<0||next>=sorted.length)return;
+   const temp=sorted[pos].g.ordine;sorted[pos].g.ordine=sorted[next].g.ordine;sorted[next].g.ordine=temp;
+   sorted.sort((a,b)=>(Number(a.g.ordine)||0)-(Number(b.g.ordine)||0)).forEach((x,k)=>x.g.ordine=k+1);
+   markDirty();renderGen();
+ });
+}
+$('genNew').onclick=()=>editGen(-1);
+function editGen(index){
+ const root=genRoot(),isNew=index<0;
+ const g=isNew?{id:'nuovo-generatore',modulo:'portachiavi',nome:{it:'Nuovo generatore',en:'New generator'},descrizione:{it:'',en:''},categoria:'Altro',icona:'✳',attivo:true,ordine:root.length+1}:JSON.parse(JSON.stringify(root[index]||{}));
+ g.nome=g.nome||{it:'',en:''};g.descrizione=g.descrizione||{it:'',en:''};
+ const modOptions=GEN_MODULI.map(([v,n])=>'<option value="'+v+'" '+(g.modulo===v?'selected':'')+'>'+n+'</option>').join('');
+ modal('<h3>'+(isNew?'➕ Nuovo generatore':'✎ Modifica generatore')+'</h3>'
+ +'<div class="row c2"><div><label>ID univoco (URL/catalogo)</label><input id="gen_id" value="'+esc(g.id||'')+'" placeholder="es. scatola-personalizzata"></div>'
+ +'<div><label>Motore</label><select id="gen_modulo">'+modOptions+'</select></div></div>'
+ +'<div class="row c2"><div><label>Nome (IT)</label><input id="gen_it" value="'+esc(g.nome.it||'')+'"></div><div><label>Nome (EN)</label><input id="gen_en" value="'+esc(g.nome.en||'')+'"></div></div>'
+ +'<div class="row c2"><div><label>Descrizione (IT)</label><textarea id="gen_descit" rows="3">'+esc(g.descrizione.it||'')+'</textarea></div><div><label>Descrizione (EN)</label><textarea id="gen_descen" rows="3">'+esc(g.descrizione.en||'')+'</textarea></div></div>'
+ +'<div class="row c3"><div><label>Categoria</label><input id="gen_categoria" value="'+esc(g.categoria||'')+'"></div><div><label>Icona</label><input id="gen_icona" value="'+esc(g.icona||'✳')+'" maxlength="8"></div><div><label>Ordine</label><input id="gen_ordine" type="number" min="1" step="1" value="'+esc(g.ordine||root.length+1)+'"></div></div>'
+ +'<div id="gen_urlwrap" class="field"><label>URL esterno (solo per il modulo Link esterno)</label><input id="gen_url" value="'+esc(g.url||'')+'" placeholder="https://cuttle.xyz/templates"></div>'
+ +'<label style="display:flex;align-items:center;gap:8px;margin:12px 0"><input id="gen_attivo" type="checkbox" style="width:auto" '+(g.attivo!==false?'checked':'')+'> Mostra questo generatore nella libreria pubblica</label>'
+ +'<p class="hint">La voce può essere aggiunta/modificata qui. Per un modulo SVG serve un motore corrispondente in generatori.html; un nuovo ID da solo non crea nuove geometrie.</p>'
+ +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><button class="btn pri" id="gen_save">✔ Salva in bozza</button><button class="btn" onclick="closeModal()">Annulla</button></div>');
+ const $g=id=>document.getElementById(id);
+ const syncUrl=()=>{$g('gen_urlwrap').style.display=$g('gen_modulo').value==='link-esterno'?'block':'none'};
+ $g('gen_modulo').onchange=syncUrl;syncUrl();
+ $g('gen_save').onclick=()=>{
+  const id=$g('gen_id').value.trim().toLowerCase().replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'');
+  const modulo=$g('gen_modulo').value;
+  if(!id){toast('Inserisci un ID valido.');return}
+  if(root.some((x,i)=>x.id===id&&i!==index)){toast('Questo ID è già usato da un altro generatore.');return}
+  const url=$g('gen_url').value.trim();
+  if(modulo==='link-esterno'&&!/^https?:\/\//i.test(url)){toast('Inserisci un URL esterno valido che inizi con http:// o https://.');return}
+  const n={id,modulo,nome:{it:$g('gen_it').value.trim(),en:$g('gen_en').value.trim()},descrizione:{it:$g('gen_descit').value.trim(),en:$g('gen_descen').value.trim()},categoria:$g('gen_categoria').value.trim()||'Altro',icona:$g('gen_icona').value.trim()||'✳',attivo:$g('gen_attivo').checked,ordine:Math.max(1,Math.round(Number($g('gen_ordine').value)||root.length+1))};
+  if(modulo==='link-esterno')n.url=url;
+  if(isNew)root.push(n);else root[index]=n;
+  root.sort((a,b)=>(Number(a.ordine)||0)-(Number(b.ordine)||0));root.forEach((x,k)=>x.ordine=k+1);
+  markDirty();closeModal();renderGen();toast('Generatore salvato in bozza. Premi Pubblica per renderlo online.');
+ };
+}
+ 
 /* ================== AVANZATE (JSON validato) ================== */
 const ADV=['MAT_ART','MATN','MATERIALS','STEPS','FONTS','MOPT'];
 function renderAdv(){$('advSec').innerHTML=ADV.filter(k=>S.C[k]!==undefined).map(k=>`<option>${k}</option>`).join('');advLoad();

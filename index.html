@@ -132,7 +132,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v13', FLAG='ingly_cachefix';
+  var CACHE_WANT='ingly-v14', FLAG='ingly_cachefix';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -299,27 +299,66 @@ setTimeout(function(){
         <h1 id="heroH1"></h1>
         <p class="sub" data-i18n="heroSub"></p>
         <div class="hero-ctas">
-          <button class="btn btn-primary magnetic" data-action="go" data-arg="shop"><span data-i18n="ctaShop">Esplora il catalogo</span> <span class="arr">→</span></button>
-          <button class="btn btn-ghost magnetic" data-action="go" data-arg="quote" data-i18n="ctaQuote">Richiedi un preventivo</button>
-          <a class="btn btn-ghost magnetic" href="generatori.html">✳ Generator Studio</a>
+          <a class="btn btn-primary magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="ctaQuote">Personalizza la tua idea</span> <span class="arr">→</span></a>
         </div>
-        <div class="hero-meta">
-          <div class="hm"><b>12.400+</b><span data-i18n="m1">PEZZI INCISI</span></div>
-          <div class="hm"><b>8</b><span data-i18n="m2">MATERIALI</span></div>
-          <div class="hm"><b>4,9★</b><span data-i18n="m3">VALUTAZIONE</span></div>
+        <div class="hero-proof" aria-label="Servizi INGLY DESIGN">
+          <span><i aria-hidden="true">✓</i><span data-i18n="heroProof1">Progettazione su misura</span></span>
+          <span><i aria-hidden="true">✓</i><span data-i18n="heroProof2">Dal prototipo al pezzo finito</span></span>
+          <span><i aria-hidden="true">✓</i><span data-i18n="heroProof3">Soluzioni per privati e aziende</span></span>
         </div>
       </div>
       <div class="hero-visual" id="heroVisual">
-        <div class="coin-scene"><div class="cring r1"></div><div class="cring r2"></div><div class="coin" id="coin"><img src="assets/images/ingly-logo.svg" alt="INGLY badge 3D" width="360" height="360" fetchpriority="high"></div></div>
-        <div class="fcard fc1" id="heroCard1"></div>
-        <div class="fcard fc2" id="heroCard2"></div>
-        <div class="fcard fc3" id="heroCard3"></div>
+        <div class="coin-scene editorial-hero-scene"><div class="coin" id="coin"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width: 800px) 92vw, 46vw" alt="Esempio dimostrativo di creazioni personalizzate in legno e acrilico" width="1200" height="900" fetchpriority="high" decoding="async"></div></div>
+        <p class="hero-image-caption">IMMAGINE DIMOSTRATIVA · SOSTITUIBILE DALLA MEDIA LIBRARY</p>
       </div>
     </div>
     <div class="scroll-cue">Scroll</div>
   </div>
 
   <div class="tech-ticker" id="techTicker" aria-hidden="true"></div>
+
+  <!-- PERCORSI VISIVI PRINCIPALI: ogni card porta direttamente alla propria landing. -->
+  <section class="sec journey-sec" aria-labelledby="journeyTitle">
+    <div class="wrap">
+      <div class="journey-heading reveal">
+        <span class="eyebrow" data-i18n="journeyEye">Esplora INGLY</span>
+        <h2 class="h2" id="journeyTitle" data-i18n="journeyH2">Da un’idea al modo migliore per realizzarla.</h2>
+        <p class="sub" data-i18n="journeySub">Scegli un percorso: ogni voce apre subito la sua sezione.</p>
+      </div>
+      <div class="journey-grid">
+        <a class="journey-card" href="shop" data-nav="shop">
+          <span class="journey-media"><img src="img/cat-casa.webp" srcset="img/cat-casa-400.webp 400w, img/cat-casa-800.webp 800w, img/cat-casa.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi visivi per lo Shop INGLY DESIGN" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-shop"></use></svg><b data-i18n="journeyShop">Shop</b></span><small data-i18n="journeyShopSub">Prodotti e idee regalo</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="personalizza" data-nav="personalizza">
+          <span class="journey-media"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempio visivo di personalizzazione su misura" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-custom"></use></svg><b data-i18n="journeyCustom">Personalizza</b></span><small data-i18n="journeyCustomSub">Dai forma alla tua idea</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="materiali" data-nav="materiali">
+          <span class="journey-media"><img src="img/cat-materiali.webp" srcset="img/cat-materiali-400.webp 400w, img/cat-materiali-800.webp 800w, img/cat-materiali.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi dimostrativi di materiali e finiture" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-materiali"></use></svg><b data-i18n="journeyMaterials">Materiali</b></span><small data-i18n="journeyMaterialsSub">Finiture e lavorazioni compatibili</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="digital" data-nav="digital">
+          <span class="journey-media"><img src="img/cat-digitale.webp" srcset="img/cat-digitale-400.webp 400w, img/cat-digitale-800.webp 800w, img/cat-digitale.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Copertina dimostrativa per i file digitali" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-digital"></use></svg><b data-i18n="journeyDigital">File digitali</b></span><small data-i18n="journeyDigitalSub">SVG, DXF, STL e progetti</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="academy" data-nav="academy">
+          <span class="journey-media"><img src="img/cat-tecnologie.webp" srcset="img/cat-tecnologie-400.webp 400w, img/cat-tecnologie-800.webp 800w, img/cat-tecnologie.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Immagine dimostrativa per formazione e tecniche" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-tecnologie"></use></svg><b data-i18n="journeyAcademy">Academy</b></span><small data-i18n="journeyAcademySub">Tecniche, competenze e workflow</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="macchine" data-nav="macchine">
+          <span class="journey-media"><img src="img/cat-tecnologie.webp" srcset="img/cat-tecnologie-400.webp 400w, img/cat-tecnologie-800.webp 800w, img/cat-tecnologie.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Immagine dimostrativa di tecnologie e applicazioni laser" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-laser"></use></svg><b data-i18n="journeyLab">xTOOL Lab</b></span><small data-i18n="journeyLabSub">Macchine, applicazioni e demo</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+        <a class="journey-card" href="business" data-nav="business">
+          <span class="journey-media"><img src="img/cat-b2b.webp" srcset="img/cat-b2b-400.webp 400w, img/cat-b2b-800.webp 800w, img/cat-b2b.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi dimostrativi per produzioni e gadget aziendali" width="1200" height="900" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><span class="journey-titleline"><svg class="journey-icon" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-b2b"></use></svg><b data-i18n="journeyBusiness">Business</b></span><small data-i18n="journeyBusinessSub">Soluzioni per aziende e professionisti</small><span class="journey-link"><span data-i18n="journeyExplore">Esplora</span><i aria-hidden="true">→</i></span></span>
+        </a>
+      </div>
+      <p class="journey-note" data-i18n="journeyNote">Le immagini sono dimostrative e sostituibili dalla Media Library.</p>
+    </div>
+  </section>
 
   <div class="sec">
     <div class="wrap">
@@ -333,7 +372,7 @@ setTimeout(function(){
   <div class="sec pt-0">
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="collEye">Collezioni</span>
-      <h2 class="h2" data-i18n="collH2">Scelti da <span class="hl">migliaia.</span></h2>
+      <h2 class="h2" data-i18n="collH2">Collezioni per <span class="hl">ispirarti.</span></h2>
       <!-- Le schede nascono da data/collezioni.json: prima erano quattro
            scritte a mano, e due di esse — Edizioni Limitate e Stagionale —
            aprivano una griglia VUOTA, perché nessun prodotto portava quei
@@ -371,7 +410,7 @@ setTimeout(function(){
   <div class="sec" style="background:var(--white);border-top:1px solid var(--line)">
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="revEye">Recensioni</span>
-      <h2 class="h2">4,9 su 5.</h2></div>
+      <h2 class="h2">La cura si vede nei dettagli.</h2></div>
       <div class="rev-grid" id="revGrid"></div>
     </div>
   </div>

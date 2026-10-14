@@ -14,9 +14,11 @@ assert.match(main,/safeRun\('render iniziale',renderAll\)/,'initial render is gu
 assert.match(main,/safeRun\('configurazione contatti',applyConfig\)/,'config boot is guarded');
 assert.match(utils,/if\(message\) message\.textContent/,'toast message setter tolerates absent optional markup');
 assert.ok(app.includes("panel.append('⚠️ Impossibile caricare i dati del sito. '"),'boot error is rendered as text, not raw HTML');
-assert.match(sw,/CACHE_VER\s*=\s*'ingly-v13'/,'service-worker cache matches latest visual release');
+const swVersion = (sw.match(/CACHE_VER\s*=\s*'ingly-v(\d+)'/)||[])[1];
+assert.ok(Number(swVersion)>=14,'service worker must invalidate the old visual assets');
 const root=read('index.html');
-assert.match(root,/CACHE_WANT='ingly-v13'/,'HTML recovery requests same cache generation as service worker');
+const htmlVersion = (root.match(/CACHE_WANT='ingly-v(\d+)'/)||[])[1];
+assert.equal(swVersion,htmlVersion,'HTML recovery requests the same cache generation as service worker');
 const nav=read('assets/js/nav-mega.js');
 assert.doesNotMatch(nav,/addEventListener\('pointerenter'/,'mega menu never opens by pointer hover');
 const fallback=read('assets/js/app.fallback.js');

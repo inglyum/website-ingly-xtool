@@ -94,11 +94,13 @@ check('la seconda colonna è il resto della gamma',
   xt.colonne[1].voci.length === D.MACCHINE.catalogo.filter(m => !m.inOfficina).length);
 check('porta alla demo', /demo/.test(xt.evidenza.cta.href));
 const dg = IA.pannello('digital', { ...D, DIG: leggi('data/content.json').DIG || [] });
-check('i file digitali hanno il loro pannello', dg.colonne.length === 2);
+check('i file digitali hanno il loro pannello e gli strumenti creativi', dg.colonne.length === 3);
 /* i formati arrivano dai file che esistono: un elenco a mano prometterebbe
    tipi che nessun file fornisce */
 check('i formati arrivano dai file veri',
   dg.colonne[1].voci.every(v => (leggi('data/content.json').DIG || []).some(d => (d.f || []).includes(v.n))));
+check('il Generator Studio è raggiungibile dal pannello digitali',
+  dg.colonne[2].voci.some(v => v.href.endsWith('generatori.html')));
 
 const shop = IA.pannello('shop', D);
 check('lo Shop elenca le categorie vere', shop.colonne[0].voci.length > 3);
@@ -129,7 +131,7 @@ for (const r of ['/shop', '/digital', '/business', '/portfolio', '/about', '/faq
 
 console.log('\n=== IL MENU NON PROMETTE PAGINE CHE NON ESISTONO ===');
 const rotte = new Set(['', 'shop', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
-  'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product']);
+  'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product', 'generatori.html']);
 const idsMat = new Set(D.MATERIALI.materiali.map(m => m.id));
 const idsTec = new Set(D.TECNOLOGIE.tecnologie.map(t => t.id));
 const idsMac = new Set(D.MACCHINE.catalogo.map(m => m.id));

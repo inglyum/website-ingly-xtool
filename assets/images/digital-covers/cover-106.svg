@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700" role="img" aria-label="INGLY DESIGN conceptual BUNDLE digital file preview">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#24312c"/><stop offset="1" stop-color="#686047"/></linearGradient><radialGradient id="gl"><stop stop-color="#dfc58c" stop-opacity=".19"/><stop offset="1" stop-color="#dfc58c" stop-opacity="0"/></radialGradient></defs>
+ <rect width="960" height="700" rx="32" fill="url(#bg)"/><rect x="28" y="28" width="904" height="644" rx="22" fill="none" stroke="#f0ddb0" stroke-opacity=".29"/>
+ <g stroke="#e0dfc9" stroke-opacity=".07"><path d="M0 125H960M0 205H960M0 285H960M0 365H960M0 445H960M0 525H960"/><path d="M120 0V700M240 0V700M360 0V700M480 0V700M600 0V700M720 0V700M840 0V700"/></g>
+ <ellipse cx="480" cy="348" rx="390" ry="300" fill="url(#gl)"/>
+ <text x="82" y="95" fill="#e9d1a4" font-size="21" font-family="Arial,sans-serif" font-weight="700" letter-spacing="5">INGLY / DIGITAL</text>
+ <rect x="753" y="54" width="128" height="47" rx="23" fill="none" stroke="#e9d1a4" stroke-opacity=".7"/>
+ <text x="818" y="84" fill="#e9d1a4" font-size="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700">BUNDLE</text>
+ <g transform="translate(470 328)"><rect x="-158" y="-132" width="278" height="214" rx="14" fill="#ba945f" stroke="#e9cb8e" stroke-width="5" transform="rotate(-11)"/><path d="M-146 91l120-215 110 174Z" fill="#2a594d" stroke="#e2ceb2" stroke-width="6"/><circle cx="68" cy="26" r="108" fill="none" stroke="#f3d5a4" stroke-width="9"/><path d="M-13 38l72-63 66 58-69 67Z" fill="#5e6f66" stroke="#e1cfb0" stroke-width="6"/><path d="M-164 144h334" stroke="#d6b681" stroke-width="12"/></g>
+ <rect x="57" y="570" width="846" height="87" rx="14" fill="#061312" fill-opacity=".56"/>
+ <text x="80" y="610" fill="#f9edda" font-size="31" font-family="Arial,sans-serif" font-weight="700">Maker's Studio</text>
+ <text x="80" y="640" fill="#c5cdc6" font-size="16" font-family="Arial,sans-serif" letter-spacing="1">A curated creative kit  ·  CONCEPT PREVIEW</text>
+ </svg>

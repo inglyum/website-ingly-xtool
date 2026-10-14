@@ -57,7 +57,7 @@ const defaults=[
 let catalogue=defaults.slice(),active='portachiavi',activeId='portachiavi',filter='Tutti',search='',settings={};
 const state={
 portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
-'living-hinge':{w:100,h:65,pitch:3.5,cut:0.7,margin:5,offset:true},
+'living-hinge':{w:100,h:65,pitch:3.5,cut:3,margin:5,offset:true},
 'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},
 'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},
 'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},
@@ -86,7 +86,7 @@ function renderFields(){
 const s=state[active];let h='';
 if(active==='portachiavi'){
 h+=field('text','Testo da personalizzare','text',s.text,'maxlength="24"');
-h+=selectField('shape','Forma',s.shape,[['rounded','Rettangolo arrotondato'],['circle','Cerchio'],['hex','Esagono']]);
+h+=selectField('shape','Forma',s.shape,[['rounded','Rettangolo arrotondato'],['circle','Ovale'],['hex','Esagono']]);
 h+='<div class="field"><label>Dimensioni (mm)</label><div class="pair"><input id="f_w" aria-label="Larghezza" type="number" min="25" max="180" value="'+s.w+'"><input id="f_h" aria-label="Altezza" type="number" min="15" max="120" value="'+s.h+'"></div></div>';
 h+=field('hole','Diametro del foro · mm','number',s.hole,'min="2" max="12" step=".5"');
 h+=field('radius','Raggio angoli · mm','number',s.radius,'min="0" max="15" step=".5"');
@@ -94,7 +94,7 @@ h+=field('margin','Margine incisione · mm','number',s.margin,'min="3" max="24"'
 }else if(active==='living-hinge'){
 h+='<div class="field"><label>Dimensioni pannello (mm)</label><div class="pair"><input id="f_w" aria-label="Larghezza" type="number" min="20" max="300" value="'+s.w+'"><input id="f_h" aria-label="Altezza" type="number" min="20" max="250" value="'+s.h+'"></div></div>';
 h+=field('pitch','Passo tra i tagli · mm','number',s.pitch,'min="1.5" max="15" step=".5"');
-h+=field('cut','Spessore linea in anteprima · mm','number',s.cut,'min=".3" max="2.5" step=".1"');
+h+=field('cut','Materiale residuo alle estremità · mm','number',s.cut,'min="1" max="12" step=".5"');
 h+=field('margin','Margine · mm','number',s.margin,'min="2" max="20"');
 h+='<label class="checkrow"><input id="f_offset" type="checkbox" '+(s.offset?'checked':'')+'> Sfalsa le righe alternate</label>';
 }else if(active==='test-materiali'){
@@ -132,7 +132,7 @@ $('fields').querySelectorAll('input,select').forEach(el=>{
 const k=el.id.replace(/^f_/,'');if(el.type==='checkbox')s[k]=el.checked;else if(el.type==='number')s[k]=Number(el.value);else s[k]=el.value;
 });
 if(active==='portachiavi'){s.w=clamp(s.w||80,25,180);s.h=clamp(s.h||35,15,120);s.hole=clamp(s.hole||5,2,12);s.margin=clamp(s.margin||9,3,24);s.radius=clamp(s.radius||5,0,15)}
-if(active==='living-hinge'){s.w=clamp(s.w||100,20,300);s.h=clamp(s.h||65,20,250);s.pitch=clamp(s.pitch||3.5,1.5,15);s.margin=clamp(s.margin||5,2,20)}
+if(active==='living-hinge'){s.w=clamp(s.w||100,20,300);s.h=clamp(s.h||65,20,250);s.pitch=clamp(s.pitch||3.5,1.5,15);s.cut=clamp(s.cut||3,1,12);s.margin=clamp(s.margin||5,2,20)}
 if(active==='test-materiali'){s.cols=clamp(Math.round(s.cols||4),2,8);s.rows=clamp(Math.round(s.rows||3),2,8);s.tileW=clamp(s.tileW||25,12,60);s.tileH=clamp(s.tileH||18,12,50);s.gap=clamp(s.gap||3,1,12)}
 if(active==='cake-topper'){s.w=clamp(s.w||100,35,180);s.h=clamp(s.h||48,20,100);s.stake=clamp(s.stake||45,25,120);s.font=clamp(s.font||8,4,16)}
 if(active==='scatola-incastri'){s.w=clamp(s.w||100,40,240);s.d=clamp(s.d||70,30,200);s.h=clamp(s.h||55,25,180);s.t=clamp(s.t||3,1,10);s.fingers=clamp(Math.round(s.fingers||5),3,11);if(s.fingers%2===0)s.fingers=clamp(s.fingers+1,3,11);s.clearance=clamp(Number(s.clearance)||0,0,.8)}
@@ -179,16 +179,23 @@ const line=(x1,y1,x2,y2)=>'<path d="M '+x1+' '+y1+' L '+x2+' '+y2+'"/>';
 const txt=(x,y,t,size,anchor)=>'<text x="'+x+'" y="'+y+'" fill="#68d5ff" stroke="none" font-family="Arial,sans-serif" font-size="'+size+'" text-anchor="'+(anchor||'middle')+'" dominant-baseline="middle">'+esc(t)+'</text>';
 if(active==='portachiavi'){
 w=clamp(s.w,25,180);h=clamp(s.h,15,120);const hole=clamp(s.hole,2,12),m=clamp(s.margin,3,24);let x=0,y=0;
-if(s.shape==='circle'){const d=Math.min(w,h)-hole-4;x=(w-d)/2;y=(h-d)/2;cut+=circle(w/2,h/2,d/2)}
+if(s.shape==='circle'){const d=Math.min(w,h)-hole-4;x=(w-d)/2;y=(h-d)/2;cut+='<ellipse cx="'+(w/2)+'" cy="'+(h/2)+'" rx="'+(w/2-.5)+'" ry="'+(h/2-.5)+'"/>'}
 else if(s.shape==='hex'){const pts=[[w*.18,h*.08],[w*.82,h*.08],[w*.98,h*.5],[w*.82,h*.92],[w*.18,h*.92],[w*.02,h*.5]].map(p=>p.join(',')).join(' ');cut+='<polygon points="'+pts+'"/>'}
 else cut+=rect(.5,.5,w-1,h-1,clamp(s.radius,0,Math.min(w,h)/4));
 cut+=circle(Math.max(hole/2+2,Math.min(w*.16,h*.35)),h/2,hole/2);
 engrave+=txt(w/2+2,h*.57,s.text,Math.max(4,Math.min(h*.4,(w-2*m)/Math.max(3,(s.text||'INGLY').length)*1.4)));
 engrave+=line(m,h*.73,w-m,h*.73);count=3;
 }else if(active==='living-hinge'){
-w=clamp(s.w,20,300);h=clamp(s.h,20,250);const m=clamp(s.margin,2,20),pitch=clamp(s.pitch,1.5,15),cutw=clamp(s.cut,.3,2.5);
+w=clamp(s.w,20,300);h=clamp(s.h,20,250);const m=clamp(s.margin,2,20),pitch=clamp(s.pitch,1.5,15),endGap=clamp(s.cut||3,1,12);
 cut+=rect(.5,.5,w-1,h-1,0);
-let row=0;for(let y=m;y<h-m;y+=pitch){const offset=s.offset&&row%2?pitch/2:0;for(let x=m+offset;x<w-m;x+=pitch*2){const len=Math.min(pitch*1.2,w-m-x);if(len>0){cut+='<path d="M '+x+' '+y+' h '+len+'" stroke-width="'+cutw+'"/>';count++}}row++}
+let row=0;
+for(let y=m;y<h-m;y+=pitch){
+ const leftGap=s.offset?(row%2===0?endGap:0):endGap;
+ const rightGap=s.offset?(row%2===0?0:endGap):endGap;
+ const x=m+leftGap,len=Math.max(0,w-2*m-leftGap-rightGap);
+ if(len>0){cut+='<path d="M '+x.toFixed(3)+' '+y.toFixed(3)+' h '+len.toFixed(3)+'"/>';count++}
+ row++;
+}
 engrave+=txt(w/2,h-1.2,'LIVING HINGE · TEST',Math.max(2.5,Math.min(5,w/18)));count++;
 }else if(active==='test-materiali'){
 const cols=clamp(Math.round(s.cols),2,8),rows=clamp(Math.round(s.rows),2,8),tw=clamp(s.tileW,12,60),th=clamp(s.tileH,12,50),gap=clamp(s.gap,1,12);
@@ -264,7 +271,7 @@ function png(){const o=buildSvg(),blob=new Blob([o.svg],{type:'image/svg+xml;cha
 function init(){
 $('year').textContent=new Date().getFullYear();
 $('search').addEventListener('input',e=>{search=e.target.value;renderList()});
-$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:.7,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},'ingranaggio':{teeth:24,module:2,bore:6,pressure:20}})[active]);renderFields();renderPreview()}};
+$('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:3,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},'ingranaggio':{teeth:24,module:2,bore:6,pressure:20}})[active]);renderFields();renderPreview()}};
 $('save').onclick=saveDraft;$('download').onclick=downloadSvg;$('download2').onclick=downloadSvg;$('png').onclick=png;
 loadDraft();
 fetch('data/content.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{

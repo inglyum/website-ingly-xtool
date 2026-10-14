@@ -405,7 +405,7 @@ const BIZ_ASSET_IDS=['targhe-professionali','gadget-aziendali','qr-menu-branding
 const BUSINESS_SECTOR_ASSETS={ristoranti:'ristoranti','uffici-studi':'uffici-studi',hotel:'hotel','eventi-aziendali':'eventi-aziendali'};
 function editorialBizImage(id,label){
   if(!/^[a-z0-9-]+$/.test(id))return '';
-  return '<figure class="ingly-biz-cover"><img loading="lazy" decoding="async" width="1200" height="800" src="'+BASE+'assets/images/business-editorial/'+id+'.svg" alt="'+escHtml(label)+' — concept illustrativo"><figcaption>'+(L==='it'?'Concept illustrativo':'Illustrative concept')+'</figcaption></figure>';
+  return '<figure class="ingly-biz-cover"><img loading="lazy" decoding="async" width="1200" height="800" src="'+BASE.replace(/\/+$/,'')+'/assets/images/business-editorial/'+id+'.svg" alt="'+escHtml(label)+' — concept illustrativo"><figcaption>'+(L==='it'?'Concept illustrativo':'Illustrative concept')+'</figcaption></figure>';
 }
 function renderBiz(){$('bizCards').innerHTML=BIZ.map((b,i)=>`<div class="rcard reveal ingly-biz-service" style="transition-delay:${i*.06}s">${editorialBizImage(BIZ_ASSET_IDS[i],b[1][L])}<h3 style="margin:14px 0 8px;font-size:20px">${escHtml(b[1][L])}</h3><p style="font-size:14.5px;color:var(--ink-soft)">${escHtml(b[2][L])}</p></div>`).join('')}
 /* ===== PAGINE DI SETTORE (B2B) =====

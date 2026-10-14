@@ -1,0 +1,56 @@
+name: INGLY Visual Asset Import (one-shot)
+on:
+  push:
+    branches:
+      - feat/ingly-medusa-inspired-image-bundle
+    paths:
+      - .github/workflows/import-ingly-visual-assets.yml
+permissions:
+  contents: write
+jobs:
+  import-image-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - name: Checkout dedicated feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/ingly-medusa-inspired-image-bundle
+          persist-credentials: true
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Pillow for responsive WebP
+        run: pip install --disable-pip-version-check 'Pillow==10.4.0'
+      - name: Generate material and category photo assets from commissioned contact sheets
+        env:
+          MATERIAL_SHEET_URL: 'https://pikaso.cdnpk.net/private/production/5730328193/render.png?token=exp=1792368000~hmac=6fefd5320483a92f93d9be8c389f81e93952f99c638ab55bf229d7f5eb005313'
+          CATEGORY_SHEET_URL: 'https://pikaso.cdnpk.net/private/production/5730328595/render.png?token=exp=1792368000~hmac=a97ebeb88f5082bcec04cf5e66e7179707d754f0582169d98b2ebfe70b30f305'
+          SPECIAL_CATEGORY_SHEET_URL: 'https://pikaso.cdnpk.net/private/production/5730328681/render.png?token=exp=1792368000~hmac=2c18e03dd438006d99fd757e6d8481e05ddc18cd52b7cfe3b1b66c974081edc0'
+        run: python scripts/import-ingly-visuals.py
+      - name: Verify generated images and asset metadata
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          d=json.loads(Path('data/ingly-visual-assets.json').read_text())
+          assert len(d['assets'])==22, len(d['assets'])
+          for a in d['assets']:
+              assert a['metadata']['isDemo'] and a['metadata']['replaceable']
+              assert len(a['images'])==3
+              for f in a['images']:
+                  assert Path(f['url']).is_file(),f['url']
+                  with Image.open(f['url']) as im:
+                      assert im.size==(f['width'],f['height'])
+          print('INGLY Visual Assets: PASS 22 subjects / 66 WebP')
+          PY
+      - name: Commit generated public catalog assets
+        run: |
+          git config user.name "ingly-visual-assets[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add img/ingly-visual data/categories.json data/materiali.json data/ingly-visual-assets.json data/config.json
+          git diff --cached --quiet && exit 0
+          git commit -m "assets: import 22 generated INGLY material/category covers [skip ci]"
+          git push origin HEAD:feat/ingly-medusa-inspired-image-bundle

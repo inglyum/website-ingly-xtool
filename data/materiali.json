@@ -174,14 +174,24 @@
           }
         ]
       },
-      "img": "img/3.webp",
+      "img": "img/ingly-visual/materials/material-legno.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Legno, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Wood, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Legno — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Legno — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/3.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "plexiglass",
@@ -355,14 +365,24 @@
           }
         ]
       },
-      "img": "img/5.webp",
+      "img": "img/ingly-visual/materials/material-plexiglass.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Plexiglass, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Acrylic, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Plexiglass — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Plexiglass — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/5.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "metallo",
@@ -510,14 +530,24 @@
           }
         ]
       },
-      "img": "img/17.webp",
+      "img": "img/ingly-visual/materials/material-metallo.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Metallo, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Metal, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Metallo — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Metallo — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/17.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "pelle",
@@ -642,14 +672,24 @@
           }
         ]
       },
-      "img": "img/cat-accessori.webp",
+      "img": "img/ingly-visual/materials/material-pelle.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Pelle, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Leather, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Pelle — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Pelle — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/cat-accessori.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "vetro",
@@ -758,14 +798,24 @@
         "unita": null,
         "varianti": []
       },
-      "img": "img/14.webp",
+      "img": "img/ingly-visual/materials/material-vetro.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Vetro, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Glass, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Vetro — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Vetro — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/14.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "bamboo",
@@ -890,14 +940,24 @@
           }
         ]
       },
-      "img": "img/cat-casa.webp",
+      "img": "img/ingly-visual/materials/material-bamboo.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Bambù, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Bamboo, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Bambù — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Bambù — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/cat-casa.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "mdf",
@@ -1034,14 +1094,24 @@
           }
         ]
       },
-      "img": "img/8.webp",
+      "img": "img/ingly-visual/materials/material-mdf.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a MDF e compensato, non campione certificato del materiale",
-      "altEN": "Illustrative project image for MDF and plywood, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "MDF e compensato — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "MDF e compensato — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/8.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "pla",
@@ -1172,14 +1242,24 @@
           }
         ]
       },
-      "img": "img/2.webp",
+      "img": "img/ingly-visual/materials/material-pla.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a PLA e PETG, non campione certificato del materiale",
-      "altEN": "Illustrative project image for PLA and PETG, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "PLA e PETG — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "PLA e PETG — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/2.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     },
     {
       "id": "tessuto",
@@ -1325,14 +1405,24 @@
           }
         ]
       },
-      "img": "img/cat-b2b.webp",
+      "img": "img/ingly-visual/materials/material-tessuto.webp",
       "assetKind": "illustrative-example",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "verificare origine immagini catalogo INGLY",
-      "altIT": "Esempio illustrativo di una creazione legata a Tessuto, non campione certificato del materiale",
-      "altEN": "Illustrative project image for Textile, not a certified material swatch"
+      "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+      "licenseStatus": "AI-generated illustration; not proof of real INGLY production",
+      "altIT": "Tessuto — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+      "altEN": "Tessuto — illustrative product photograph, not original INGLY work",
+      "previousSampleImage": "img/cat-b2b.webp",
+      "imageMeta": {
+        "width": 960,
+        "height": 640,
+        "objectFit": "cover",
+        "focalPoint": {
+          "x": 50,
+          "y": 50
+        }
+      }
     }
   ],
   "maiLavorare": {

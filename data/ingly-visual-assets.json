@@ -1,0 +1,876 @@
+{
+  "schemaVersion": "1.0.0",
+  "catalogVersion": "2026-10-14",
+  "source": "AI-generated INGLY photo reference sheets",
+  "medusaInspired": {
+    "imageEntity": "ProductImage",
+    "categoryEntity": "ProductCategory",
+    "keys": [
+      "url",
+      "rank",
+      "metadata",
+      "handle",
+      "status"
+    ]
+  },
+  "assets": [
+    {
+      "id": "casa",
+      "entity": "category",
+      "handle": "casa",
+      "url": "img/ingly-visual/categories/cat-casa.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-casa.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 17572,
+          "sha256": "1cb36c12717d452227fb02134f4cb0e93c0e79a3ad484fd2fc6c1ff0781495ab"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-casa-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 11356,
+          "sha256": "6ce3b8608e07d65ebb9a6918be94098e228a0c17aabaab84bbec02bdae113b86"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-casa-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 5374,
+          "sha256": "fbce03b06e1632e5309c5652b2c6965f1c8ea419e4e321dba5fb58058a016360"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Casa e arredamento — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Casa e arredamento — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "eventi",
+      "entity": "category",
+      "handle": "eventi",
+      "url": "img/ingly-visual/categories/cat-eventi.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-eventi.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 31110,
+          "sha256": "a836e3d13747479b38f5007a1962529ef9d80300759b5bdb21a58c4e0bff6e45"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-eventi-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 22098,
+          "sha256": "94a0f964a2166f23a00427b8d3067e0370e66ff26528290e0f27a9389a728d88"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-eventi-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 11010,
+          "sha256": "136eaaec81b0d82ec516f4ed6dfcc2353026d5073ecc814b4263cbe0812a8429"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Eventi e ricorrenze — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Eventi e ricorrenze — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "animali",
+      "entity": "category",
+      "handle": "animali",
+      "url": "img/ingly-visual/categories/cat-animali.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-animali.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 33046,
+          "sha256": "4e908147ea91bbc7944752de6b03eaac2eb56eefd5e0a6c0015e6e39500e59a9"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-animali-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 22812,
+          "sha256": "8158c5785a449a4db7e4d01dede723551d183361af91f65dadb26051c86a806e"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-animali-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 11684,
+          "sha256": "ccdb547de502921be1c60dc9229edc2fc7104033b47a8283e8181642976e20dc"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Animali — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Animali — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "accessori",
+      "entity": "category",
+      "handle": "accessori",
+      "url": "img/ingly-visual/categories/cat-accessori.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-accessori.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 34040,
+          "sha256": "b5627f24bc17166c5f76487a75d5fcf57b8f0276ac2cdc51e682f38f6c24c63b"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-accessori-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 23550,
+          "sha256": "cfe09e6d4e9aaf0c27c12f8ec7c8ae9e1a7657c239d85c1a1f448f0d66012aaf"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-accessori-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 11882,
+          "sha256": "a89c5650d0bb4d26ef2c3d0367dcc02da70d54c5467569d460530dc545b580c7"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Accessori — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Accessori — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "b2b",
+      "entity": "category",
+      "handle": "b2b",
+      "url": "img/ingly-visual/categories/cat-b2b.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-b2b.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 19032,
+          "sha256": "a02184e436a40096ac5a8fadbf2269002cb9cd30209e9d9ba44a9b07cdb5464a"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-b2b-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 12360,
+          "sha256": "a84469efb7b696387dd1f14e572ca1d647f70967459fa1b80c7b5f8ffbffbfd9"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-b2b-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 5708,
+          "sha256": "f2223a1be39fe425d1c37105c204e28a57ad2a64a2e8d0c22b1aded01f80e3e1"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Aziendale e B2B — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Aziendale e B2B — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "bambini",
+      "entity": "category",
+      "handle": "bambini",
+      "url": "img/ingly-visual/categories/cat-bambini.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-bambini.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 16524,
+          "sha256": "29b85bd9e83192d967adabf12796a2eb1196aea919f41271664946f2e96b65c4"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-bambini-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 10586,
+          "sha256": "de548e5123787a38324b47a89bb4575b6baa312c3ac06531acec448bef17e048"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-bambini-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 5136,
+          "sha256": "6763fc710f843c5fa506f0889689326d144ecb52d98f89fc44c2a2c8dab11ced"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Bambini — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Bambini — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "stagionale",
+      "entity": "category",
+      "handle": "stagionale",
+      "url": "img/ingly-visual/categories/cat-stagionale.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-stagionale.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 21624,
+          "sha256": "ed967118fa398a8f0250b7cad111f632a02c674da6e07a012ca40f0bb26edfbf"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-stagionale-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 14554,
+          "sha256": "d56991e69d423523f64dda911aaede737a1a8c917786c402837c775a6a35d324"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-stagionale-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 7320,
+          "sha256": "be1b6447ce9da18b97e2e1d3e94791ed2963bdbf9fbf5be48e85e3d73f1edc69"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Stagionale — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Stagionale — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "digitale",
+      "entity": "category",
+      "handle": "digitale",
+      "url": "img/ingly-visual/categories/cat-digitale.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-digitale.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 27968,
+          "sha256": "b10fac625f3bc9ad23ac81828e775d8da666787ab5d3fff0a84569d2610ea549"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-digitale-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 19998,
+          "sha256": "5a1bcf3c6472182937f882409503f706a8c3ae2c39b1db7f20f3b362af5478c1"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-digitale-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 10440,
+          "sha256": "ed604ef58039abc2b1e6f6b327dbb972281f9d82d9ef19bc1b8b86f3927b1062"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Digitale — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Digitale — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "custom",
+      "entity": "category",
+      "handle": "custom",
+      "url": "img/ingly-visual/categories/cat-custom.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-custom.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 19532,
+          "sha256": "8a3e8a89ac6e7b048bcec78aa1eccb09bbd9707081e34bbb53c8254cf5dd4042"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-custom-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 13276,
+          "sha256": "459a51a667c4add60d0dc0aae65cb0515dfcce21d40e6c5b84a21853030924c9"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-custom-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 6600,
+          "sha256": "0778566bcb1e3aaf2e4cdde4e4b5618e144cce0ddb38ced91db5b3f78bf4736a"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Personalizzazioni su richiesta — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Personalizzazioni su richiesta — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/huJrx5lvqL",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "materiali",
+      "entity": "category",
+      "handle": "materiali",
+      "url": "img/ingly-visual/categories/cat-materiali.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-materiali.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 38940,
+          "sha256": "be86fc1924e586c1dc9e93f58dae12db282735160510317f6063cedcb015a0bc"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-materiali-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 26680,
+          "sha256": "3a062784e53c8e9577779316a68f87c86fc7a3435708e89dbcbb9b20bf0ea0e8"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-materiali-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 11892,
+          "sha256": "aaffca0ba1d19c1cd623545a88a8a1cb1011406ebb080e319fd61b7166e6f0c0"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Materiali — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Materiali — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/6AmMDeoiJO",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "tecnologie",
+      "entity": "category",
+      "handle": "tecnologie",
+      "url": "img/ingly-visual/categories/cat-tecnologie.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-tecnologie.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 32578,
+          "sha256": "e62a0aca1955a7d823c9e84506a2261bc16d1a8875db34f28f7f30082a6c31e5"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-tecnologie-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 23300,
+          "sha256": "66bed7bd2d24ba9b0787607870d881b07864d7d4f36e7b9cab9183177eb3a01e"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-tecnologie-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 11210,
+          "sha256": "5552fd190ca83404984d00d00958d228cf31caa5c225d3a560007b439c72c893"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Tecnologie — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Tecnologie — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/6AmMDeoiJO",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "limited",
+      "entity": "category",
+      "handle": "limited",
+      "url": "img/ingly-visual/categories/cat-limited.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-limited.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 23950,
+          "sha256": "e237e3c76a016480f8b1ea65829c19492adb5a98a67a2eda94b93677e199124e"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-limited-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 17148,
+          "sha256": "68c04ba256abd1f1c26594cc59be380dd0e3d5cb284123bd7e752b64e1ef624f"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-limited-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 7480,
+          "sha256": "49ce4275efc0c5c7a8452c73afe2f8f91be2dd431e44328491da2c1a605c57a9"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Edizioni limitate — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Edizioni limitate — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/6AmMDeoiJO",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "nuova-ms3k34dc",
+      "entity": "category",
+      "handle": "nuova-ms3k34dc",
+      "url": "img/ingly-visual/categories/cat-nuova-ms3k34dc.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/categories/cat-nuova-ms3k34dc.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 42976,
+          "sha256": "14b63c2883ca268f3d3db4e98781fd6e9db88df799e6b5aa8067135bae17981c"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-nuova-ms3k34dc-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 30938,
+          "sha256": "9bd77617a2709aa50e3b1b96dde22a65e18e61294d7bb15164d59a8aaab3e4a6"
+        },
+        {
+          "url": "img/ingly-visual/categories/cat-nuova-ms3k34dc-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 13574,
+          "sha256": "228d22f1fd53300de0ee1c0f03ab147e2c261c05ada4693cd05c3194b70ec1ac"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Supereroi e Anime — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Supereroi e Anime — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/6AmMDeoiJO",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "legno",
+      "entity": "material",
+      "handle": "legno",
+      "url": "img/ingly-visual/materials/material-legno.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-legno.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 40220,
+          "sha256": "2d27ad28c09279554266a99fe38ba5497943488cc00c5465d1f0427603e5244d"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-legno-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 27430,
+          "sha256": "f2c6563f7deebb20006d3b5206344304bc74dc38e1ffe8f6719843489144e044"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-legno-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 13192,
+          "sha256": "cd0315cc4ebb43cd48db04cdd97f92e37e57720c57f01d98d212cba4882caa78"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Legno — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Legno — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "plexiglass",
+      "entity": "material",
+      "handle": "plexiglass",
+      "url": "img/ingly-visual/materials/material-plexiglass.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-plexiglass.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 27934,
+          "sha256": "f0ca128fad91aa8bbe99073a9ce09aa417ec0809b6c8bb0de12caaf53d61802e"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-plexiglass-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 18208,
+          "sha256": "3fd66b906c53750f089bd32871dff514e139d13fe47c0d8621f84810371fd0e7"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-plexiglass-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 8404,
+          "sha256": "795d538f591b66dd83cf93fea03002b1f3ec43e0778e76f7b96cdbbf6cc27b81"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Plexiglass — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Plexiglass — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "metallo",
+      "entity": "material",
+      "handle": "metallo",
+      "url": "img/ingly-visual/materials/material-metallo.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-metallo.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 23570,
+          "sha256": "85f4006b7fd85a8662e0360f4df3194a455d7b21da65d74ed334d72b6160019e"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-metallo-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 15226,
+          "sha256": "c4c212c102e1770ef321e8aeb25d15442801212d53336af531a6fa490d6c19d1"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-metallo-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 7188,
+          "sha256": "069987fa75574833eeb73e0705913359867a218b6b12679449f6970d1d6a9755"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Metallo — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Metallo — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "pelle",
+      "entity": "material",
+      "handle": "pelle",
+      "url": "img/ingly-visual/materials/material-pelle.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-pelle.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 22138,
+          "sha256": "771bd34f90a48b3cff01c05ab5761341853e3fb468c3abef0d7ae887df146127"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-pelle-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 14154,
+          "sha256": "ff5adb2d9d8029463a2069c254d8d653e83041cf028408bd8ca2a76d55eeaa17"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-pelle-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 6558,
+          "sha256": "7983d506b54607d441b136eeb49d8b216e1c4319ca95525392df8dcd865e872a"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Pelle — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Pelle — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "vetro",
+      "entity": "material",
+      "handle": "vetro",
+      "url": "img/ingly-visual/materials/material-vetro.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-vetro.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 25800,
+          "sha256": "ef8fa6ff6e73c77a6e405172fc22bc0432c914f26d795eee819806752bf51df4"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-vetro-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 16996,
+          "sha256": "4daaeac7cf602903e2f33b8595787906b2d18f6bbe75fe2394fe98e92c66237e"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-vetro-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 7658,
+          "sha256": "3118ef8dd7c69b3eea37ec07113bac878cb2f50a5e423e8a8fa7da30a89b2199"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Vetro — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Vetro — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "bamboo",
+      "entity": "material",
+      "handle": "bamboo",
+      "url": "img/ingly-visual/materials/material-bamboo.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-bamboo.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 33752,
+          "sha256": "94dee4fdcb4ab69ef89c0665fd416e162843678968cd48ee6c5673679ca5b6d3"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-bamboo-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 22976,
+          "sha256": "30d1022dfbe723dc436ee5880638f77a4dfcd3f509244c73097d3269c76c598d"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-bamboo-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 10314,
+          "sha256": "a2f4e043fd591527c8e818caf642f1dbda5d61359c472c260d69c2f911a9983a"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Bambù — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Bambù — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "mdf",
+      "entity": "material",
+      "handle": "mdf",
+      "url": "img/ingly-visual/materials/material-mdf.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-mdf.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 34886,
+          "sha256": "b9eae69ec7963a575f3b465e92f31d55fede615beaf22cd06659bb630c7f51ca"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-mdf-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 23072,
+          "sha256": "ee5caef23d06fbf0f910db6ba4e301476c3b902bdec2bba2eac9ccb8fe534ac2"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-mdf-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 10896,
+          "sha256": "b2291fa9f489dd692d83c91bee00daf43b7fabdaee34d3e2f1b37220558ba930"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "MDF e compensato — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "MDF e compensato — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "pla",
+      "entity": "material",
+      "handle": "pla",
+      "url": "img/ingly-visual/materials/material-pla.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-pla.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 39996,
+          "sha256": "ca70b32911cadbacb793152eeec1c07fad5aa0b1a59442737fcf2abccbf98c8d"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-pla-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 27286,
+          "sha256": "d458d621ba90b69c701c467c2bb4c9a17e34402b309b278c2a0e9aa2d30e85f1"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-pla-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 13398,
+          "sha256": "2274b98c1e277128d7330783d3a27a845be60ccf13c607ef041879e654b4fb3d"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "PLA e PETG — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "PLA e PETG — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    },
+    {
+      "id": "tessuto",
+      "entity": "material",
+      "handle": "tessuto",
+      "url": "img/ingly-visual/materials/material-tessuto.webp",
+      "images": [
+        {
+          "url": "img/ingly-visual/materials/material-tessuto.webp",
+          "width": 960,
+          "height": 640,
+          "bytes": 26390,
+          "sha256": "739bb8f7b242d1e475db5a04ca37e11f55ee3496ab529a9feaf6ec13c25a36d1"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-tessuto-800.webp",
+          "width": 800,
+          "height": 533,
+          "bytes": 17114,
+          "sha256": "6778c5a19467b794069852ea4bb93f4ed021c1aae04d1683419984c71d5dcc2e"
+        },
+        {
+          "url": "img/ingly-visual/materials/material-tessuto-400.webp",
+          "width": 400,
+          "height": 267,
+          "bytes": 8122,
+          "sha256": "72cf07716ed4767c3b344e6bff33657b6e4f6402f74f3914bad28c7d179225dd"
+        }
+      ],
+      "rank": 0,
+      "metadata": {
+        "altIT": "Tessuto — esempio fotografico illustrativo, non prodotto realizzato da INGLY",
+        "altEN": "Tessuto — illustrative product photograph, not original INGLY work",
+        "assetKind": "illustrative-example",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://www.magnific.com/app/creation/jUW6iSmLD0",
+        "licenseStatus": "AI-generated illustration; not proof of real INGLY production"
+      }
+    }
+  ]
+}

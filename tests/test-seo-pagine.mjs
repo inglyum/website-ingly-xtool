@@ -99,6 +99,7 @@ else {
   /* ogni indirizzo deve corrispondere a un file che esiste davvero */
   const rotti = loc.filter(u => {
     const p = u.replace(/^https?:\/\/[^/]+\//, '').replace(/\/$/, '');
+    if (p && /\.html$/i.test(p)) return !existsSync(p);
     return !existsSync(p === '' ? 'index.html' : p + '/index.html');
   });
   check('ogni indirizzo corrisponde a una pagina esistente', rotti.length === 0, rotti.slice(0, 3).join(' '));

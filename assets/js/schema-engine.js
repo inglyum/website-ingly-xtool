@@ -49,7 +49,7 @@ export function organizzazione(cfg = {}, opt = {}){
     name: s.azienda || 'INGLY DESIGN',
     description: pulisci(s.descrizione),
     url: base + '/',
-    logo: { '@type': 'ImageObject', url: base + '/assets/images/logo.png' },
+    logo: { '@type': 'ImageObject', url: base + '/assets/images/ingly-logo.svg' },
     image: base + '/' + String(s.immagineSocial || 'assets/images/og-image.jpg').replace(/^\/+/, ''),
     email: cfg.email || undefined,
     telephone: s.telefono || undefined,

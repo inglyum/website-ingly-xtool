@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="700" viewBox="0 0 960 700" role="img" aria-label="INGLY DESIGN conceptual DXF digital file preview">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#142f39"/><stop offset="1" stop-color="#27616a"/></linearGradient><radialGradient id="gl"><stop stop-color="#dfc58c" stop-opacity=".19"/><stop offset="1" stop-color="#dfc58c" stop-opacity="0"/></radialGradient></defs>
+ <rect width="960" height="700" rx="32" fill="url(#bg)"/><rect x="28" y="28" width="904" height="644" rx="22" fill="none" stroke="#f0ddb0" stroke-opacity=".29"/>
+ <g stroke="#e0dfc9" stroke-opacity=".07"><path d="M0 125H960M0 205H960M0 285H960M0 365H960M0 445H960M0 525H960"/><path d="M120 0V700M240 0V700M360 0V700M480 0V700M600 0V700M720 0V700M840 0V700"/></g>
+ <ellipse cx="480" cy="348" rx="390" ry="300" fill="url(#gl)"/>
+ <text x="82" y="95" fill="#e9d1a4" font-size="21" font-family="Arial,sans-serif" font-weight="700" letter-spacing="5">INGLY / DIGITAL</text>
+ <rect x="753" y="54" width="128" height="47" rx="23" fill="none" stroke="#e9d1a4" stroke-opacity=".7"/>
+ <text x="818" y="84" fill="#e9d1a4" font-size="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700">DXF</text>
+ <g transform="translate(470 330)" fill="none"><circle r="168" stroke="#d0e7e3" stroke-width="3"/><circle r="112" stroke="#d0e7e3" stroke-opacity=".8"/><path d="M-204 0H204M0-204V204M-150-150L150 150M-150 150L150-150" stroke="#94c9ca" stroke-dasharray="10 8" opacity=".8"/><path d="M-85 86V-85H85V86Z" stroke="#e4c998" stroke-width="10"/><circle r="47" stroke="#e4c998" stroke-width="8"/><path d="M-245-163h145M100 163h145" stroke="#e4c998" stroke-width="5"/></g>
+ <rect x="57" y="570" width="846" height="87" rx="14" fill="#061312" fill-opacity=".56"/>
+ <text x="80" y="610" fill="#f9edda" font-size="31" font-family="Arial,sans-serif" font-weight="700">Precision Lines</text>
+ <text x="80" y="640" fill="#c5cdc6" font-size="16" font-family="Arial,sans-serif" letter-spacing="1">Engraving & cutting  ·  CONCEPT PREVIEW</text>
+ </svg>

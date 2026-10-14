@@ -18,11 +18,11 @@
     "etsy": "https://etsy.com/shop/inglydesign"
   },
   "statistiche": {
-    "pezzi": 12400,
-    "clienti": 640,
-    "materiali": 8,
-    "puntualita": 98,
-    "rating": "4,9★"
+    "pezzi": null,
+    "clienti": null,
+    "materiali": null,
+    "puntualita": null,
+    "rating": null
   },
   "cartellaImmagini": "img/",
   "heroFeatured": [
@@ -33,14 +33,14 @@
   "seo": {
     "dominio": "https://www.inglydesign.it",
     "titolo": "INGLY DESIGN — Incisione Laser & Stampa Personalizzata | Made in Italy",
-    "descrizione": "Incisione e taglio laser, stampa UV & DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — precisione 0,01 mm, made in Italy.",
+    "descrizione": "Incisione e taglio laser, stampa UV & DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — made in Italy.",
     "immagineSocial": "assets/images/og-image.jpg",
     "azienda": "INGLY DESIGN",
-    "citta": "Cesena",
-    "regione": "Emilia-Romagna",
+    "citta": "",
+    "regione": "",
     "paese": "IT",
     "telefono": "+393296904627",
-    "keywords": "incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali, Cesena"
+    "keywords": "incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali"
   },
   "moduli": {
     "formspreePreventivo": "",
@@ -102,7 +102,7 @@
       "en": "New customers only · Expires in 48h"
     }
   },
-  "siteBg": "sunset",
+  "siteBg": "default",
   "referral": {
     "attivo": true,
     "prefisso": "",
@@ -120,7 +120,7 @@
     "cloudflare": ""
   },
   "sfondi": {
-    "chiaro": "alba",
+    "chiaro": "default",
     "scuro": "default"
   },
   "prezzi": {
@@ -145,8 +145,8 @@
       "en": "Book the free demo"
     },
     "luogo": {
-      "it": "Officina INGLY DESIGN — Cesena (FC)",
-      "en": "INGLY DESIGN workshop — Cesena, Italy"
+      "it": "Online oppure in presenza, secondo disponibilità da confermare",
+      "en": "Online or in person, subject to confirmed availability"
     },
     "durata": {
       "it": "circa un'ora",

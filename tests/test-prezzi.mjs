@@ -98,7 +98,7 @@ check('la rete di sicurezza delle foto è intatta', /img\.pimgph,img\.gimg,img\.
 console.log('\n=== L\'ADMIN ===');
 const admin = readFileSync('admin.html', 'utf8');
 check('esiste il pannello', /id="v-prezzi"/.test(admin));
-check('c\'è la voce nel menu', /\['prezzi','🏷','Prezzi in vetrina'\]/.test(admin));
+check('c\'è la voce nel menu', /\['prezzi','cart','Prezzi in vetrina'\]/.test(admin));
 check('il pannello viene disegnato quando si apre', /prezzi:renderPrezzi/.test(admin));
 check('i dati vengono riparati al caricamento', /S\.CONFIG\.prezzi\.mostra=S\.CONFIG\.prezzi\.mostra!==false/.test(admin));
 check('l\'admin avvisa che il carrello cambia natura', /richiesta di preventivo/.test(admin));

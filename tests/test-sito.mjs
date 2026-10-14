@@ -251,12 +251,11 @@ check('Supereroi e Anime ha nome e descrizione IT/EN completi',
   pop?.n?.en === 'Superheroes & Anime' && /mondi pop/.test(pop?.s?.it || '')
   && /pop culture/.test(pop?.s?.en || '') && !/^(Descrizione|Description|New category)$/.test(pop?.s?.it || ''));
 check('titolo categorie evergreen, senza conteggio obsoleto',
-  /Ogni idea ha il suo/.test(copySource.it.catH2)
-  && /One world for every/.test(copySource.en.catH2)
-  && !/12 mondi|12 worlds/.test(copySource.it.catH2 + copySource.en.catH2));
+  !!copySource.it.catH2 && !!copySource.en.catH2
+  && !/\d/.test(copySource.it.catH2 + copySource.en.catH2));
 check('titoli collezioni senza social proof non documentata',
-  /ispirarti/.test(copySource.it.collH2) && /inspire/.test(copySource.en.collH2)
-  && !/migliaia|thousands/i.test(copySource.it.collH2 + copySource.en.collH2));
+  !!copySource.it.collH2 && !!copySource.en.collH2
+  && !/migliaia|thousands|più (scelt|vendut|amat)|best ?sell|most (chosen|popular|loved)|\d/i.test(copySource.it.collH2 + copySource.en.collH2));
 check('menu premium con controlli distinti e focus accessibile',
   premiumNavCss.includes('.ia-freccia:focus-visible') && premiumNavCss.includes('.dr-freccia:focus-visible'));
 check('il tema genera ancora uno sfondo editoriale per hero e CTA',
@@ -274,7 +273,8 @@ check('portfolio renderizzato', port && port.querySelectorAll('.gtile').length >
 check('tessera portfolio con foto usa <img>', port && port.querySelector('.gtile--photo img.gimg') !== null);
 
 const biz = $('bizCards');
-const tech = $('techGrid');
+/* la griglia delle tecnologie vive sulla sua pagina; la Home non la ripete */
+const tech = $('techGrid2');
 check('sezione Tecnologie renderizzata dai dati', tech && tech.querySelectorAll('.mcard').length >= 3);
 check('sezione Business renderizzata dai dati', biz && biz.querySelectorAll('.rcard').length >= 3);
 
@@ -578,7 +578,7 @@ check('fascia spenta non viene mostrata', bar.innerHTML.trim() === '');
 console.log('\n=== ICONE VETTORIALI ===');
 check('categorie usano le icone SVG INGLY', bento && bento.querySelectorAll('.ic .ic-svg').length >= 10);
 check('riferimento corretto allo sprite', bento && /ingly-icons\.svg#ic-casa/.test(bento.innerHTML));
-const techG = doc.getElementById('techGrid');
+const techG = doc.getElementById('techGrid2');
 /* Le schede tecnologie sono passate alle emoji per scelta grafica: qui si
    verifica che un simbolo ci sia comunque, non che sia per forza un SVG. */
 check('ogni tecnologia mostra il suo simbolo',

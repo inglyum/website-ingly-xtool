@@ -124,7 +124,7 @@ migrazione richiede hosting, database e pagamenti reali e va decisa separatament
 |---|---|
 | 0 · Audit | ✅ questo documento · A3 corretto · 107 pagine d'ingresso rigenerate |
 | 1 · Design system | ✅ vedi §6 |
-| 2 · Home | da fare |
+| 2 · Home | ✅ vedi §7 |
 | 3 · Business | da fare |
 | 4 · Commerce | da fare |
 | 5 · CMS | da fare |
@@ -165,3 +165,23 @@ non usa `#777B83` (3,96:1) ma `#5F636B` di giorno e `#A3A7AE` di notte; l'oro co
 - Il tema «default» scriveva in linea blu notte e blu su `<html>`: nessun foglio di stile poteva cambiarli.
 - Card fotografiche con testo bianco su card bianca finché la foto pigra non arriva (1,00:1).
 - `--accent` era usato in ~18 punti ma non era mai stato definito.
+
+---
+
+## 7. Fase 2 — Home
+
+Ordine del brief: **hero · categorie · in evidenza · personalizza · materiali · soluzioni (Business, xTOOL Lab,
+Academy) · metodo in 5 passi · lavori recenti · dal laboratorio · newsletter.**
+
+- Hero: «Le idee prendono forma.» — titolo modificabile dall'Admin («Titolo»), frase del marchio sopra.
+  Bottoni «Scopri le creazioni» / «Crea il tuo progetto».
+- Nuovo percorso di personalizzazione in 5 passi. Il passo 2 dice **«inviaci la grafica»**, non «carica»: il sito
+  non ha un posto dove salvare i file dei clienti.
+- Nuovo blocco Soluzioni con le card esistenti di Business, xTOOL Lab, Academy.
+- Metodo in 5 passi dai dati (Admin): tolta la promessa «la maggior parte parte entro 3 giorni», non verificata.
+- Tolte dalla Home: striscia scorrevole delle tecnologie e blocco «Sei tecnologie» (restano su /tecnologie).
+- Tolte promesse non mantenibili: «−10% sulla tua prima incisione» (newsletter senza endpoint) e «le più scelte»
+  (nessun dato di vendita che lo dimostri — lo ha segnalato un test esistente).
+- Corretti: griglia materiali alta 2.458 px (un `height="800"` nell'HTML batteva l'`aspect-ratio`), passi del
+  metodo che andavano a capo 4+1.
+- Misure: 0 errori JS, 0 scorrimento orizzontale a 390/768/1440, contrasto invariato.

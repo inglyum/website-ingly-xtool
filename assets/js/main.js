@@ -185,7 +185,10 @@ function renderTicker(){
   el.innerHTML=`<div class="tt-row"><div class="tt-track">${row1}</div></div><div class="tt-row tt-row--rev"><div class="tt-track">${row2}</div></div>`;
 }
 function renderTech(){
-  $('techGrid').innerHTML=TECH.map(t=>`
+  /* La griglia della Home (techGrid) non c'è più; quella della pagina
+     (techGrid2) prima ne era una COPIA, e sarebbe rimasta vuota. Le card si
+     costruiscono una volta e si scrivono in ogni contenitore presente. */
+  const html=TECH.map(t=>`
     <div class="mcard ${t.lg?'m-lg':''} reveal-blur stagger-${TECH.indexOf(t)+1}">
       <div class="mcard-sweep"></div>
       <span class="mcard-emoji">${t.emoji||'⚡'}</span>
@@ -196,7 +199,7 @@ function renderTech(){
       ${t.mats&&t.mats.length?`<div class="mats-list">${t.mats.map(m=>`<span>${m}</span>`).join('')}</div>`:''}
       <div class="spec">${t.s.map(s=>`<i>${s}</i>`).join('')}</div>
     </div>`).join('');
-  const g2=$('techGrid2'); if(g2) g2.innerHTML=$('techGrid').innerHTML;
+  ['techGrid','techGrid2'].forEach(id=>{const g=$(id);if(g)g.innerHTML=html});
 }
 function renderSocialHub(){
   const hub=$('socialHub'); if(!hub) return;

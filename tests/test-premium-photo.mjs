@@ -25,7 +25,12 @@ assert.ok(!organization.geo,'no unconfirmed coordinates');
 assert.ok(!organization.openingHoursSpecification,'no invented opening hours');
 assert.ok(!organization.paymentAccepted,'no unsupported checkout methods');
 
-assert.equal((html.match(/class="journey-card"/g)||[]).length,7,'seven editorial categories');
+/* Home del brief enterprise 2026: le card editoriali sono le tre «Soluzioni»
+   (Business, xTOOL Lab, Academy); Shop, Personalizza, Materiali hanno ora la
+   loro sezione sulla Home. Ogni card deve avere un'immagine e una meta vera. */
+const cardSol=[...html.matchAll(/<a class="journey-card" href="(\w+)"[\s\S]*?<\/a>/g)];
+assert.deepEqual(cardSol.map(m=>m[1]),['business','macchine','academy'],'three solution cards to their own pages');
+assert.ok(cardSol.every(m=>/<img [^>]*alt="[^"]+"/.test(m[0])),'every solution card has an image with alt text');
 assert.ok(!logo.includes('<rect width="500" height="500" fill="#fff"/>'),'transparent logo preserved');
 assert.match(html,/FOTO UFFICIALE xTOOL P3/,'feature image');
 assert.match(css,/\.xtool-lab-feature \.xtool-lab-copy h2/,'contrast override');

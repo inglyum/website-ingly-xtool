@@ -324,3 +324,19 @@ body{color:var(--text)}
 .chip i{color:var(--text)}
 .scoll-c{opacity:1;color:var(--text-soft)}
 .ingly-service-centre__scope{opacity:1}
+
+/* ---------- HOME: percorso di personalizzazione e soluzioni ----------
+   Componenti nuovi della Home; usano solo i ruoli definiti sopra. */
+.ppath{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;counter-reset:none}
+.ppath-step{background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-sm,12px);padding:22px 20px;box-shadow:var(--shadow-1)}
+.ppath-n{display:block;font-family:var(--fd);font-weight:700;font-size:var(--fs-sm);letter-spacing:.12em;color:var(--accent)}
+.ppath-step h3{font-size:var(--fs-lg);margin:10px 0 6px;line-height:var(--lh-tight)}
+.ppath-step p{font-size:var(--fs-sm);color:var(--text-soft);line-height:var(--lh-base)}
+.ppath-cta{margin-top:24px}
+.journey-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:980px){.ppath{grid-template-columns:repeat(2,minmax(0,1fr))}.journey-grid--3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ppath,.journey-grid--3{grid-template-columns:1fr}}
+
+/* Il metodo: i passi vengono dai dati (Admin), quanti che siano. La griglia
+   era fissa a 4 colonne e con 5 passi l'ultimo restava da solo su una riga. */
+@media (min-width:861px){.steps{grid-template-columns:repeat(auto-fit,minmax(0,1fr))}}

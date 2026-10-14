@@ -275,16 +275,21 @@ setTimeout(function(){
 <h2>Quello che non lavoriamo, e perché</h2><ul><li><b>PVC e vinile</b> — Il taglio libera cloro gassoso: tossico per chi lavora e corrosivo per ottica e guide.</li><li><b>Policarbonato (Lexan)</b> — Non taglia pulito, brucia e ingiallisce sul bordo.</li><li><b>ABS</b> — Fonde invece di vaporizzare e produce fumi nocivi.</li><li><b>PTFE (Teflon)</b> — Libera composti fluorurati pericolosi.</li><li><b>Fibra di carbonio e vetroresina</b> — Polveri e resine dannose, taglio comunque scadente.</li><li><b>Pelle conciata al cromo</b> — Libera cromo esavalente. Usare solo pelle conciata al vegetale.</li></ul></div>
 <!-- HOME -->
 <section class="page active" id="page-home">
+  <!-- ORDINE DELLA HOME (brief enterprise 2026): 1 hero · 2 categorie ·
+       3 in evidenza · 4 personalizza · 5 materiali · 6–8 soluzioni ·
+       9 metodo · 10 lavori reali, laboratorio, contatti.
+       Il nastro scorrevole delle tecnologie e il blocco «Sei tecnologie»
+       non sono più qui: le tecnologie hanno la loro pagina (/tecnologie). -->
   <div class="hero" style="padding-top:150px">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
     <div class="wrap hero-grid">
       <div>
-        <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">Studio laser · Made in Italy</span></span>
+        <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">Ingegno che illumina la tua visione.</span></span>
         <h1 id="heroH1"></h1>
         <p class="sub" data-i18n="heroSub"></p>
         <div class="hero-ctas">
-          <a class="btn btn-primary magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span> <span class="arr">→</span></a>
-          <a class="btn btn-ghost magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="ctaQuote">Personalizza la tua idea</span></a>
+          <a class="btn btn-primary magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri le creazioni</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="ctaQuote">Crea il tuo progetto</span></a>
         </div>
         <div class="hero-proof" aria-label="Servizi INGLY DESIGN">
           <span><i aria-hidden="true">✦</i> Progettazione su misura</span>
@@ -302,6 +307,49 @@ setTimeout(function(){
     <div class="scroll-cue">Scroll</div>
   </div>
 
+
+  <div class="sec">
+    <div class="wrap">
+      <div class="reveal"><span class="eyebrow" data-i18n="catEye">Il catalogo</span>
+      <h2 class="h2" data-i18n="catH2">Acquista per <span class="hl">categoria.</span></h2>
+      <p class="sub" data-i18n="catSub">Ogni categoria raccoglie prodotti reali, personalizzabili con nomi, date, loghi o foto.</p></div>
+      <div class="bento" id="catBento"></div>
+    </div>
+  </div>
+
+  <div class="sec pt-0">
+    <div class="wrap">
+      <div class="reveal"><span class="eyebrow" data-i18n="collEye">In evidenza</span>
+      <h2 class="h2" data-i18n="collH2">Creazioni <span class="hl">in evidenza.</span></h2>
+      <!-- Le schede nascono da data/collezioni.json: prima erano quattro
+           scritte a mano, e due di esse — Edizioni Limitate e Stagionale —
+           aprivano una griglia VUOTA, perché nessun prodotto portava quei
+           valori nel campo `coll`. Il motore pubblica solo collezioni che
+           contengono qualcosa, quindi una scheda vuota non può più esistere. -->
+      <div class="tabs" id="collTabs"></div></div>
+      <div class="pgrid" id="collGrid"></div>
+    </div>
+  </div>
+
+  <!-- 4 · Il percorso di personalizzazione. Il passo 2 dice «inviaci», non
+       «carica»: il sito non ha (ancora) un posto dove salvare i file dei
+       clienti, e un campo di caricamento finto prometterebbe un invio che
+       non avviene. -->
+  <section class="sec home-ppath" aria-labelledby="ppathTitle">
+    <div class="wrap">
+      <div class="reveal"><span class="eyebrow" data-i18n="ppathEye">Personalizza</span>
+      <h2 class="h2" id="ppathTitle" data-i18n="ppathH2">Dalla tua idea all'oggetto, <span class="hl">passo per passo.</span></h2></div>
+      <ol class="ppath">
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">01</span><h3 data-i18n="ppath1t">Scegli il prodotto</h3><p data-i18n="ppath1d">Parti da uno dei prodotti personalizzabili del catalogo, o da un'idea tutta tua.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">02</span><h3 data-i18n="ppath2t">Inviaci la grafica</h3><p data-i18n="ppath2d">Logo, foto, disegno o solo un testo: mandacelo su WhatsApp o via email.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">03</span><h3 data-i18n="ppath3t">Personalizza</h3><p data-i18n="ppath3d">Scegliamo insieme materiale, misura, testi e finiture.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">04</span><h3 data-i18n="ppath4t">Rivedi l'anteprima</h3><p data-i18n="ppath4d">Prepariamo il file e te lo mostriamo prima di produrre.</p></li>
+        <li class="ppath-step reveal"><span class="ppath-n" aria-hidden="true">05</span><h3 data-i18n="ppath5t">Richiedi o acquista</h3><p data-i18n="ppath5d">Confermi il preventivo o l'ordine, e passiamo alla produzione.</p></li>
+      </ol>
+      <div class="ppath-cta reveal"><a class="btn btn-primary" href="personalizza" data-nav="personalizza"><span data-i18n="ppathCta">Inizia a personalizzare</span> <span class="arr">→</span></a></div>
+    </div>
+  </section>
+
   <!-- Editorial material-study assets: illustrations, not product photography -->
   <section class="ingly-material-studies sec" aria-labelledby="inglyMaterialStudiesTitle">
     <div class="wrap"><div class="ingly-material-heading"><div><span class="eyebrow">Material Library · INGLY DESIGN</span><h2 id="inglyMaterialStudiesTitle">La materia dà forma alle idee.</h2><p>Esplora texture, superfici e possibilità creative. Le immagini sono studi illustrativi, non fotografie di prodotti in vendita.</p></div><a class="ingly-material-all" href="materiali" data-nav="materiali">Esplora tutti i materiali ↗</a></div>
@@ -318,43 +366,31 @@ setTimeout(function(){
     </div></div>
   </section>
 
-  <div class="tech-ticker" id="techTicker" aria-hidden="true"></div>
 
-  <section class="sec journey-sec" aria-labelledby="journeyTitle">
+  <!-- 6–8 · Business, xTOOL Lab, Academy: tre porte, ciascuna verso la sua
+       pagina. Sono le card del vecchio blocco «Esplora INGLY», ridotte alle
+       tre destinazioni che il brief vuole sulla Home; Shop, Personalizza,
+       Materiali e File digitali hanno già la loro sezione qui sopra o il
+       menu. -->
+  <section class="sec journey-sec home-soluzioni" aria-labelledby="solTitle">
     <div class="wrap">
       <div class="journey-heading reveal">
-        <span class="eyebrow" data-i18n="journeyEye">Esplora INGLY</span>
-        <h2 class="h2" id="journeyTitle" data-i18n="journeyH2">Da un’idea al modo migliore per realizzarla.</h2>
-        <p class="sub" data-i18n="journeySub">Scegli un percorso: ogni voce apre subito la sua sezione.</p>
+        <span class="eyebrow" data-i18n="solEye">Soluzioni</span>
+        <h2 class="h2" id="solTitle" data-i18n="solH2">Per aziende, maker <span class="hl">e chi vuole imparare.</span></h2>
+        <p class="sub" data-i18n="solSub">Produzione per il tuo marchio, le macchine con cui lavoriamo ogni giorno, e la formazione per usarle.</p>
       </div>
-      <div class="journey-grid">
-        <a class="journey-card" href="shop" data-nav="shop">
-          <span class="journey-media"><img src="img/cat-casa.webp" srcset="img/cat-casa-400.webp 400w, img/cat-casa-800.webp 800w, img/cat-casa.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi dimostrativi di oggetti per casa e arredamento" width="800" height="600" loading="lazy" decoding="async"></span>
-          <span class="journey-copy"><b data-i18n="journeyShop">Shop</b><small data-i18n="journeyShopSub">Prodotti e idee regalo</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
-        </a>
-        <a class="journey-card" href="personalizza" data-nav="personalizza">
-          <span class="journey-media"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempio dimostrativo di personalizzazione su misura" width="800" height="600" loading="lazy" decoding="async"></span>
-          <span class="journey-copy"><b data-i18n="journeyCustom">Personalizza</b><small data-i18n="journeyCustomSub">Dai forma alla tua idea</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
-        </a>
-        <a class="journey-card" href="materiali" data-nav="materiali">
-          <span class="journey-media"><img src="img/cat-materiali.webp" srcset="img/cat-materiali-400.webp 400w, img/cat-materiali-800.webp 800w, img/cat-materiali.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi visivi dimostrativi di famiglie di materiali" width="800" height="600" loading="lazy" decoding="async"></span>
-          <span class="journey-copy"><b data-i18n="journeyMaterials">Materiali</b><small data-i18n="journeyMaterialsSub">Finiture e lavorazioni compatibili</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
-        </a>
-        <a class="journey-card" href="digital" data-nav="digital">
-          <span class="journey-media"><img src="img/cat-digitale.webp" srcset="img/cat-digitale-400.webp 400w, img/cat-digitale-800.webp 800w, img/cat-digitale.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Copertina dimostrativa del catalogo file digitali" width="800" height="600" loading="lazy" decoding="async"></span>
-          <span class="journey-copy"><b data-i18n="journeyDigital">File digitali</b><small data-i18n="journeyDigitalSub">SVG, DXF, STL e progetti</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
-        </a>
-        <a class="journey-card" href="academy" data-nav="academy">
-          <span class="journey-media"><img src="img/cat-tecnologie.webp" srcset="img/cat-tecnologie-400.webp 400w, img/cat-tecnologie-800.webp 800w, img/cat-tecnologie.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Immagine dimostrativa per percorsi formativi e tecniche" width="800" height="600" loading="lazy" decoding="async"></span>
-          <span class="journey-copy"><b data-i18n="journeyAcademy">Academy</b><small data-i18n="journeyAcademySub">Competenze, tecniche e workflow</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
+      <div class="journey-grid journey-grid--3">
+        <a class="journey-card" href="business" data-nav="business">
+          <span class="journey-media"><img src="img/cat-b2b.webp" srcset="img/cat-b2b-400.webp 400w, img/cat-b2b-800.webp 800w, img/cat-b2b.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi dimostrativi per produzioni e gadget aziendali" width="800" height="600" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><b data-i18n="journeyBusiness">Business</b><small data-i18n="journeyBusinessSub">Soluzioni per aziende e professionisti</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
         </a>
         <a class="journey-card" href="macchine" data-nav="macchine">
           <span class="journey-media"><img src="assets/images/xtool-lab-default.svg" alt="Illustrazione dimostrativa del laboratorio laser INGLY DESIGN" width="800" height="600" loading="lazy" decoding="async"></span>
           <span class="journey-copy"><b data-i18n="journeyLab">xTOOL Lab</b><small data-i18n="journeyLabSub">Macchine, applicazioni e demo</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
         </a>
-        <a class="journey-card" href="business" data-nav="business">
-          <span class="journey-media"><img src="img/cat-b2b.webp" srcset="img/cat-b2b-400.webp 400w, img/cat-b2b-800.webp 800w, img/cat-b2b.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Esempi dimostrativi per produzioni e gadget aziendali" width="800" height="600" loading="lazy" decoding="async"></span>
-          <span class="journey-copy"><b data-i18n="journeyBusiness">Business</b><small data-i18n="journeyBusinessSub">Soluzioni per aziende e professionisti</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
+        <a class="journey-card" href="academy" data-nav="academy">
+          <span class="journey-media"><img src="img/cat-tecnologie.webp" srcset="img/cat-tecnologie-400.webp 400w, img/cat-tecnologie-800.webp 800w, img/cat-tecnologie.webp 1200w" sizes="(max-width:700px) 90vw, (max-width:1100px) 45vw, 30vw" alt="Immagine dimostrativa per percorsi formativi e tecniche" width="800" height="600" loading="lazy" decoding="async"></span>
+          <span class="journey-copy"><b data-i18n="journeyAcademy">Academy</b><small data-i18n="journeyAcademySub">Competenze, tecniche e workflow</small><span class="journey-link" data-i18n="journeyExplore">Esplora <i aria-hidden="true">→</i></span></span>
         </a>
       </div>
     </div>
@@ -362,39 +398,8 @@ setTimeout(function(){
 
   <div class="sec">
     <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="catEye">Il catalogo</span>
-      <h2 class="h2" data-i18n="catH2">12 mondi di <span class="hl">personalizzazione.</span></h2>
-      <p class="sub" data-i18n="catSub">Dalla casa agli eventi, dal B2B ai file digitali — ogni categoria è un punto di partenza.</p></div>
-      <div class="bento" id="catBento"></div>
-    </div>
-  </div>
-
-  <div class="sec pt-0">
-    <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="collEye">Collezioni</span>
-      <h2 class="h2" data-i18n="collH2">Collezioni per <span class="hl">ispirarti.</span></h2>
-      <!-- Le schede nascono da data/collezioni.json: prima erano quattro
-           scritte a mano, e due di esse — Edizioni Limitate e Stagionale —
-           aprivano una griglia VUOTA, perché nessun prodotto portava quei
-           valori nel campo `coll`. Il motore pubblica solo collezioni che
-           contengono qualcosa, quindi una scheda vuota non può più esistere. -->
-      <div class="tabs" id="collTabs"></div></div>
-      <div class="pgrid" id="collGrid"></div>
-    </div>
-  </div>
-
-  <div class="sec dark">
-    <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="techEye"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-tecnologie"></use></svg> Tecnologie</span>
-      <h2 class="h2" data-i18n="techH2">Sei tecnologie.<br>Precisione al centesimo.</h2></div>
-      <div class="mach-grid" id="techGrid"></div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="wrap">
-      <div class="reveal"><span class="eyebrow" data-i18n="prEye">Come funziona</span>
-      <h2 class="h2" data-i18n="prH2">Dall'idea all'oggetto<br>in <span class="hl">quattro passi.</span></h2></div>
+      <div class="reveal"><span class="eyebrow" data-i18n="prEye">Il nostro metodo</span>
+      <h2 class="h2" data-i18n="prH2">Dall'idea all'oggetto, <span class="hl">in cinque passi.</span></h2></div>
       <div class="steps" id="stepsGrid"></div>
     </div>
   </div>
@@ -428,8 +433,8 @@ setTimeout(function(){
   <div class="sec pt-20">
     <div class="wrap">
       <div class="news reveal">
-        <h2 data-i18n="nlH2">−10% sulla tua prima <span style="color:var(--laser)">incisione.</span></h2>
-        <p data-i18n="nlSub">Iscriviti per accedere in anteprima a drop limitati e collezioni stagionali.</p>
+        <h2 data-i18n="nlH2">Novità dal <span class="hl">laboratorio.</span></h2>
+        <p data-i18n="nlSub">Nuove collezioni e lavori recenti, quando ci sono. Niente spam, ti cancelli quando vuoi.</p>
         <form class="nform">
           <input type="email" name="email" required placeholder="tua@email.it" aria-label="Email">
           <button class="btn btn-blue magnetic" type="submit" data-i18n="nlBtn">Iscriviti</button>

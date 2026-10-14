@@ -354,7 +354,7 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
        arrivava affatto — si poteva solo scendere in una sottosezione. */
     return `<div class="dr-item">
       <div class="dr-riga">
-        <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a>
+        <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}"><svg class="dr-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="${esc(via(base, 'assets/icons/ingly-icons.svg'))}#ic-${esc(f.icona || 'about')}"></use></svg><span>${esc(L10n(f.n, L))}</span></a>
         <button type="button" class="dr-freccia" aria-expanded="false" data-apri="dr-${esc(f.id)}"
           aria-controls="dr-${esc(f.id)}"
           aria-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"

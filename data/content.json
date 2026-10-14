@@ -4602,11 +4602,28 @@
         "it": "Catalogo ufficiale esterno: accesso, download e licenze sono gestiti da Cuttle.",
         "en": "Official external catalog: access, downloads and licensing are managed by Cuttle."
       },
-      "categoria": "Strumenti esterni",
+      "categoria": "Risorse esterne",
       "icona": "↗",
       "attivo": true,
       "ordine": 8,
       "url": "https://cuttle.xyz/templates"
+    },
+    {
+      "id": "makorix-reference",
+      "modulo": "link-esterno",
+      "nome": {
+        "it": "Esplora Makorix",
+        "en": "Explore Makorix"
+      },
+      "descrizione": {
+        "it": "Catalogo esterno di generatori e modelli. INGLY sviluppa motori originali senza copiare codice o risorse di terzi.",
+        "en": "External catalog of generators and templates. INGLY builds original engines without copying third-party code or assets."
+      },
+      "categoria": "Risorse esterne",
+      "icona": "↗",
+      "attivo": true,
+      "ordine": 9,
+      "url": "https://makorix.com/"
     }
   ]
 }

@@ -1,0 +1,108 @@
+/* INGLY DESIGN — Premium visual layer | progressive enhancement.
+   Zero modifications to commerce, admin state, checkout, or catalog logic. */
+:root{
+  --ingly-accent:#bd985f;
+  --ingly-focus:#e9bd72;
+  --ingly-luxe-radius:clamp(18px,2.2vw,30px);
+  --ingly-editorial:clamp(2.6rem,5.6vw,6rem);
+  --ingly-hairline:rgba(227,206,160,.24);
+}
+:root[data-mode="light"]{
+  --ingly-accent:#825b25;
+  --ingly-focus:#624318;
+  --ingly-hairline:rgba(100,72,38,.16);
+}
+html{scroll-padding-top:94px}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid var(--ingly-focus)!important;outline-offset:4px;
+}
+:where(.hero,.phero){isolation:isolate}
+.hero{
+  position:relative;
+  overflow:hidden;
+  background-image:
+    radial-gradient(ellipse 72% 68% at 84% 14%,rgba(29,124,130,.11),transparent 65%),
+    linear-gradient(145deg,rgba(187,152,95,.085),transparent 42%);
+}
+:root[data-mode="light"] .hero{
+  background-image:
+    radial-gradient(ellipse 75% 75% at 88% 10%,rgba(20,100,105,.065),transparent 65%),
+    linear-gradient(140deg,rgba(165,125,58,.08),transparent 50%);
+}
+.hero-bg .blob{opacity:.25;filter:blur(75px)}
+.hero-bg .grid-lines{opacity:.17}
+.hero h1,#heroH1{
+  font-size:var(--ingly-editorial);
+  line-height:1.04;
+  letter-spacing:-.045em;
+  text-wrap:balance;
+}
+.hero .sub{max-width:61ch;line-height:1.75;text-wrap:pretty}
+.hero-tag{letter-spacing:.13em;text-transform:uppercase}
+.hero-visual{
+  position:relative;
+  border-radius:var(--ingly-luxe-radius);
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(1,22,26,.22);
+}
+.hero-visual img{max-width:100%;height:auto;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.hero-visual:hover img{transform:scale(1.025)}}
+.hero-image-note{font-size:.72rem;letter-spacing:.04em;opacity:.72}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-ctas .btn{min-height:48px;transition:transform .22s ease,box-shadow .22s ease}
+@media (hover:hover){.hero-ctas .btn:hover{transform:translateY(-2px)}}
+:where(.product-card,.p-card,.cat-card,.material-card,.shop-card,.card){
+  border-radius:var(--ingly-luxe-radius);
+}
+:where(.product-card,.p-card,.cat-card,.material-card,.shop-card) img{
+  object-fit:cover;
+  image-rendering:auto;
+}
+:where(.product-card,.p-card,.cat-card,.material-card,.shop-card){
+  transition:transform .26s ease,box-shadow .26s ease,border-color .26s ease;
+}
+@media (hover:hover){
+  :where(.product-card,.p-card,.cat-card,.material-card,.shop-card):hover{
+    transform:translateY(-3px);
+    box-shadow:0 18px 46px rgba(0,0,0,.12);
+  }
+}
+:where(.phero h1,.phero h2,section h2){text-wrap:balance;letter-spacing:-.025em}
+:where(.phero p,.section-subtitle){text-wrap:pretty}
+:root[data-mode="light"] :where(.hero,.phero) a:not(.btn){text-underline-offset:.22em}
+:root[data-mode="dark"]{--paper:#071c22;--graphite:#112b31;--gray:#10262d;--white:#102a30;--ink:#f0f3ef;--ink-soft:#bfd0cd;--line:rgba(188,216,210,.15)}
+:root[data-mode="dark"] .hero{background-color:#071c22}
+:root[data-mode="light"]{--paper:#faf9f6;--graphite:#f1efe8;--gray:#f2f0ea;--white:#fff;--ink:#202a29;--ink-soft:#596562;--line:rgba(32,42,41,.13)}
+:root[data-mode="light"] .hero{background-color:#faf9f6}
+@media(max-width:760px){
+  .hero{overflow:hidden}
+  .hero h1,#heroH1{font-size:clamp(2.6rem,11vw,4.5rem);line-height:1.08}
+  .hero .sub{font-size:1rem}
+  .hero-ctas{display:grid;grid-template-columns:1fr 1fr}
+  .hero-ctas .btn{min-width:0;justify-content:center;text-align:center}
+  .hero-visual{border-radius:18px}
+  .hero-bg .blob{opacity:.1}
+  :where(.product-card,.p-card,.cat-card,.material-card,.shop-card){min-width:0}
+}
+@media(max-width:420px){.hero-ctas{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){
+  .hero-visual img,.hero-ctas .btn,
+  :where(.product-card,.p-card,.cat-card,.material-card,.shop-card){transition:none!important;transform:none!important}
+  .hero-bg .blob{animation:none!important}
+}
+
+/* Material editorial: nine individual illustrative assets, not product images */
+.ingly-material-studies{padding-block:clamp(56px,7vw,110px);background:var(--paper);color:var(--ink)}
+.ingly-material-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}
+.ingly-material-heading h2{max-width:720px;margin:.45em 0;font-size:clamp(2rem,4vw,4rem);letter-spacing:-.045em;line-height:1.12;text-wrap:balance}
+.ingly-material-heading p{max-width:65ch;line-height:1.7;color:var(--ink-soft)}
+.ingly-material-all{white-space:nowrap;color:var(--ink);border-bottom:1px solid var(--ingly-accent);padding-bottom:8px}
+.ingly-material-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,26px)}
+.ingly-material-tile{position:relative;min-width:0;overflow:hidden;display:block;border:1px solid var(--line);border-radius:22px;background:var(--graphite);color:#fff;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.1);transition:transform .25s ease,box-shadow .25s ease}
+.ingly-material-tile img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;transition:transform .5s ease}
+.ingly-material-tile>span{position:absolute;inset:auto 0 0;padding:34px 20px 18px;display:flex;justify-content:space-between;gap:8px;background:linear-gradient(transparent,rgba(0,15,20,.83));font-weight:650;letter-spacing:.015em}
+@media(hover:hover){.ingly-material-tile:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(0,0,0,.2)}.ingly-material-tile:hover img{transform:scale(1.055)}}
+@media(max-width:880px){.ingly-material-heading{align-items:start;flex-direction:column}.ingly-material-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.ingly-material-grid{grid-template-columns:1fr 1fr;gap:10px}.ingly-material-tile{border-radius:13px}.ingly-material-tile>span{font-size:.82rem;padding:28px 10px 12px}.ingly-material-heading h2{font-size:2.3rem}}
+@media(prefers-reduced-motion:reduce){.ingly-material-tile,.ingly-material-tile img{transition:none!important}}

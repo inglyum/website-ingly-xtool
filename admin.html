@@ -1275,6 +1275,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
    Fonte di verità: data/*.json · pubblicazione atomica via Git Data API
    ================================================================ */
 'use strict';
+/* Icon registry must exist before boot renders the Admin UI. */
+const ICONS=['home','shop','portfolio','digital','b2b','about','faq','quote','contact','cart','search','user','academy','sparkles','settings','monitor','layers','clock','sliders','wrench',
+ 'casa','eventi','animali','accessori','aziendale','bambini','stagionale','digitale','custom','limited',
+ 'tecnologie','laser','uv','dtf','3d','incisione','taglio','stampa','legno','materiali','metallo',
+ 'instagram','whatsapp','check','truck','shield'];
+const ICON_SPRITE='assets/icons/ingly-icons.svg';
+
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let toastT;function toast(m){$('toast').textContent=m;$('toast').classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>$('toast').classList.remove('on'),3400)}
@@ -3155,11 +3162,6 @@ function pickImage(basePath,cb,aspectKey){const inp=document.createElement('inpu
 function imgPreviewSrc(path){const st=MEDIA.find(m=>m.path===path);return st?st.url:(LOADED_FROM.indexOf('GitHub')>=0?LIVE():'')+path}
 
 /* ===== INGLY ICON SYSTEM (admin) ===== */
-const ICONS=['home','shop','portfolio','digital','b2b','about','faq','quote','contact','cart','search','user','academy','sparkles','settings','monitor','layers','clock','sliders','wrench',
- 'casa','eventi','animali','accessori','aziendale','bambini','stagionale','digitale','custom','limited',
- 'tecnologie','laser','uv','dtf','3d','incisione','taglio','stampa','legno','materiali','metallo',
- 'instagram','whatsapp','check','truck','shield'];
-const ICON_SPRITE='assets/icons/ingly-icons.svg';
 function iconSvg(n,size){return n&&ICONS.includes(n)
  ?`<svg style="width:${size||20}px;height:${size||20}px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.15em"><use href="${ICON_SPRITE}#ic-${n}"></use></svg>`:''}
 function pickIcon(current,cb){

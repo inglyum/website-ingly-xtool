@@ -126,7 +126,7 @@ function renderTitoloHero(){
       testoPezzo.split(/\s+/).filter(Boolean).forEach(parola=>{
         const w=document.createElement('span'); w.className='w';
         const inner=document.createElement('span');
-        inner.style.animationDelay=(0.1+i*0.11).toFixed(2)+'s';
+        /* Stagger rimosso: la riga del titolo non deve ritardare la leggibilità. */
         i++;
         if(inciso){
           /* Lo strato colorato che il raggio «incide» era un secondo <span>
@@ -247,22 +247,29 @@ function bindSuggest(){
 /* ===== Modalità chiara / scura ===== */
 function bindMode(){
   const btn=document.getElementById('modeBtn'); if(!btn) return;
-  const set=v=>{
+  let saved=null;
+  try{saved=localStorage.getItem('ingly_mode')}catch(e){}
+  const hasSaved=saved==='light'||saved==='dark';
+  const set=(v,persist=true)=>{
     document.documentElement.setAttribute('data-mode',v);
-    try{ localStorage.setItem('ingly_mode',v) }catch(e){}
-    btn.setAttribute('aria-pressed', v==='light'?'true':'false');
-    btn.title = v==='light' ? 'Passa al tema scuro' : 'Passa al tema chiaro';
+    if(persist){try{localStorage.setItem('ingly_mode',v)}catch(e){}}
+    btn.setAttribute('aria-pressed',v==='light'?'true':'false');
+    btn.title=v==='light'?'Passa al tema scuro':'Passa al tema chiaro';
+    btn.setAttribute('aria-label',v==='light'?'Modalità chiara attiva. Passa alla modalità scura':'Modalità scura attiva. Passa alla modalità chiara');
   };
-  set(document.documentElement.getAttribute('data-mode')||'dark');
+  const initial=hasSaved?saved:(document.documentElement.getAttribute('data-mode')||'dark');
+  set(initial,hasSaved);
   btn.addEventListener('click',()=>{
     document.documentElement.classList.add('theme-anim');
-    set(document.documentElement.getAttribute('data-mode')==='light'?'dark':'light');
-    setTimeout(()=>document.documentElement.classList.remove('theme-anim'),450);
+    set(document.documentElement.getAttribute('data-mode')==='light'?'dark':'light',true);
+    setTimeout(()=>document.documentElement.classList.remove('theme-anim'),220);
   });
-  /* se l'utente non ha mai scelto, segue le preferenze del sistema anche a sito aperto */
+  /* Se il visitatore non ha scelto un tema, segui le preferenze del sistema.
+     Una scelta esplicita viene conservata anche dopo refresh e navigazione. */
   try{
     matchMedia('(prefers-color-scheme: light)').addEventListener('change',e=>{
-      if(!localStorage.getItem('ingly_mode')) set(e.matches?'light':'dark');
+      let choice=null;try{choice=localStorage.getItem('ingly_mode')}catch(err){}
+      if(choice!=='light'&&choice!=='dark')set(e.matches?'light':'dark',false);
     });
   }catch(e){}
 }

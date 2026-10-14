@@ -60,6 +60,9 @@ function applyConfig(){
   document.documentElement.classList.toggle('senza-prezzi', !PREZZI.mostraPrezzi(CONFIG));
   document.title = CONFIG.titolo;
   const md=document.querySelector('meta[name="description"]'); if(md) md.content=CONFIG.descrizione;
+  const heroImage=String(CONFIG.heroImage||'').trim();
+  const heroImg=document.querySelector('#heroVisual .coin img');
+  if(heroImg&&heroImage){heroImg.src=heroImage;heroImg.removeAttribute('srcset');heroImg.alt=CONFIG.heroImageAlt||'Esempio visivo dimostrativo INGLY DESIGN';}
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];
   map.forEach((u,i)=>{ if(u&&SOCIALS[i]) SOCIALS[i][1]=u });
   document.querySelectorAll('a[href^="https://instagram.com"]').forEach(a=>a.href=s.instagram);
@@ -126,7 +129,7 @@ function renderTitoloHero(){
       testoPezzo.split(/\s+/).filter(Boolean).forEach(parola=>{
         const w=document.createElement('span'); w.className='w';
         const inner=document.createElement('span');
-        inner.style.animationDelay=(0.1+i*0.11).toFixed(2)+'s';
+        /* Nessun ritardo animato: mantiene tutte le lettere visibili e stabili. */
         i++;
         if(inciso){
           /* Lo strato colorato che il raggio «incide» era un secondo <span>

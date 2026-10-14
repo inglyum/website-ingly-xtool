@@ -301,3 +301,18 @@ html:not(.ia-attiva) .ia-barra{display:none}
 @media(prefers-reduced-motion:reduce){
  .ia-pannello,.ia-lista a,.ia-gruppo,.ia-voce,.ia-freccia{transition:none!important}
 }
+
+
+/* SVG iconografia INGLY: outline coerente, allineata e a tinta adattiva. */
+.ia-voce{display:inline-flex;align-items:center;gap:8px}
+.ia-icon,.dr-icon{width:18px;height:18px;flex:0 0 18px;display:inline-block;
+  fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+  opacity:.84;transition:color .18s ease,opacity .18s ease,transform .18s ease}
+.ia-voce:hover .ia-icon,.ia-voce[aria-current="page"] .ia-icon{opacity:1;color:var(--brand-champagne,#c5a66c)}
+.ia-voce:hover .ia-icon{transform:translateY(-1px)}
+.dr-fam{display:flex!important;align-items:center;gap:13px}
+.dr-icon{width:23px;height:23px;flex-basis:23px;opacity:.9}
+:root[data-mode="light"] .ia-icon,:root[data-mode="light"] .dr-icon{color:#426a62}
+:root[data-mode="dark"] .ia-icon,:root[data-mode="dark"] .dr-icon{color:#cbb27b}
+@media(max-width:1100px){.ia-icon{display:none}}
+@media(prefers-reduced-motion:reduce){.ia-icon,.dr-icon{transition:none!important;transform:none!important}}

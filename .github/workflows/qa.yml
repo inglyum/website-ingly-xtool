@@ -24,6 +24,8 @@ jobs:
         run: npm test
       - name: Invarianti design ecommerce e dati B2B
         run: node tests/test-signature-ui.mjs
+      - name: Verifica design system Atelier e contrasto WCAG AA
+        run: node tests/test-atelier-foundation.mjs
       - name: Controlla riferimenti immagini nei dati
         run: |
           node -e '

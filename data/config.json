@@ -181,5 +181,10 @@
     },
     "messaggioProdotto": "Ciao INGLY DESIGN! Vorrei informazioni su: {prodotto}. Materiale: {materiale}. Quantità: {quantita}. Link: {url}",
     "_nota": "I pagamenti restano disattivati. I contatti sono il canale attivo; checkout e link di pagamento potranno essere configurati successivamente."
-  }
+  },
+  "heroImage": "img/cat-casa.webp",
+  "heroImageAlt": "Esempi illustrativi di personalizzazioni per casa e arredamento",
+  "heroImageDemo": true,
+  "heroImageReplaceable": true,
+  "heroImageKind": "illustrative-example"
 }

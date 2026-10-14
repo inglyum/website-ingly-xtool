@@ -111,8 +111,8 @@ check('il fallback offline passa dalla base', /via\('index\.html'\)\)\);/.test(s
 check('il fallback ignora la query', /ignoreSearch:\s*true/.test(sw));
 /* addAll fallisce tutto al primo percorso mancante */
 check('il precache aggiunge una voce alla volta', !/addAll\(PRECACHE\)/.test(sw));
-const cacheVer = (sw.match(/const CACHE_VER\\s*=\\s*['"]ingly-v(\\d+)['"]/) || [])[1];
-const htmlCacheVer = (readFileSync('index.html','utf8').match(/CACHE_WANT\\s*=\\s*['"]ingly-v(\\d+)['"]/) || [])[1];
+const cacheVer = (sw.match(/const CACHE_VER\s*=\s*['"]ingly-v(\d+)['"]/) || [])[1];
+const htmlCacheVer = (readFileSync('index.html','utf8').match(/CACHE_WANT\s*=\s*['"]ingly-v(\d+)['"]/) || [])[1];
 check('la versione della cache è stata alzata', Number(cacheVer) >= 13, String(cacheVer));
 check('HTML e service worker usano la stessa cache', !!cacheVer && cacheVer === htmlCacheVer, cacheVer + ' / ' + htmlCacheVer);
 

@@ -94,7 +94,7 @@ const html = readFileSync(ROOT + '/index.html', 'utf8')
   .replace(/<script[^>]*src="[^"]*app\.js"[^>]*>\s*<\/script>/g, '');
 
 const dom = new JSDOM(html, {
-  url: 'https://inglyum.github.io/sito-ingly/',
+  url: 'https://inglyum.github.io/website-ingly-xtool/',
   runScripts: 'dangerously',
   pretendToBeVisual: true,
   virtualConsole: vc,

@@ -1,7 +1,7 @@
 /* ============ VALIDAZIONE DATI (CI) ============
    Eseguito da GitHub Actions a ogni modifica in data/.
    Blocca il merge se il catalogo è incoerente — non dopo che è già online. */
-import { readFileSync, existsSync } from 'fs';
+import { readdirSync, readFileSync, existsSync } from 'fs';
 
 let errors = [];
 const warn = [];
@@ -39,6 +39,28 @@ if (CONFIG) {
   const hf = CONFIG.heroFeatured || [];
   const ids = new Set((P || []).map(p => p.id));
   hf.forEach(id => { if (!ids.has(+id)) errors.push('config.heroFeatured punta a un prodotto inesistente: ' + id); });
+}
+
+/* ---- REGOLA 6: NESSUNA CHIAVE NEI DATI PUBBLICATI ----
+   Gli stessi controlli di validaBozza() nell'Admin: se una chiave arriva
+   qui per un'altra strada (un commit a mano), la CI la ferma lo stesso. */
+{
+  const FORMATI_CHIAVE = /xkeysib-[A-Za-z0-9-]{10,}|sk-ant-[A-Za-z0-9_-]{10,}|\bsk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|\bgh[pousr]_[A-Za-z0-9]{30,}/;
+  const NOME_SEGRETO = /^(api_?key|apikey|secret|client_?secret|token|access_?token|password|pass)$/i;
+  for (const f of readdirSync('data').filter(x => x.endsWith('.json'))) {
+    let d; try { d = JSON.parse(readFileSync('data/' + f, 'utf8')) } catch { continue }
+    const giro = (o, via) => {
+      if (o == null) return;
+      if (typeof o === 'string') { if (FORMATI_CHIAVE.test(o)) errors.push(`data/${f} → ${via}: sembra una chiave API (mai nei file pubblici)`); return }
+      if (typeof o !== 'object') return;
+      for (const k of Object.keys(o)) {
+        const v = o[k];
+        if (NOME_SEGRETO.test(k) && typeof v === 'string' && v.trim()) errors.push(`data/${f} → ${via ? via + '.' : ''}${k}: campo segreto compilato in un file pubblico`);
+        giro(v, via ? via + '.' + k : k);
+      }
+    };
+    giro(d, '');
+  }
 }
 
 /* ---- FILE DIGITALI ----

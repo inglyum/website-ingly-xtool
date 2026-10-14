@@ -89,7 +89,7 @@ console.log('\n=== INDIRIZZI ===');
 check('la scheda materiale sta sotto /materiali',
   LAB.viaMateriale({ id: 'legno' }) === '/materiali/legno');
 check('la base di un sito in sottocartella viene rispettata',
-  LAB.viaMateriale({ id: 'legno' }, '/Il-sito-AI/') === '/Il-sito-AI/materiali/legno');
+  LAB.viaMateriale({ id: 'legno' }, '/website-ingly-xtool/') === '/website-ingly-xtool/materiali/legno');
 check('la scheda tecnologia sta sotto /tecnologie',
   LAB.viaTecnologia({ id: 'co2' }) === '/tecnologie/co2');
 

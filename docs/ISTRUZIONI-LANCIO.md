@@ -22,7 +22,7 @@ Guida completa dal file zip al sito online. Nessuna competenza tecnica richiesta
 - Alla voce «Source» scegli **Deploy from a branch**.
 - Branch: **main**, cartella: **/ (root)**. Premi «Save».
 - ⚠️ NON scegliere «GitHub Actions»: deve essere «Deploy from a branch».
-- Dopo 1-2 minuti il sito è online su `https://inglyum.github.io/sito-ingly/`.
+- Dopo 1-2 minuti il sito è online su `https://inglyum.github.io/website-ingly-xtool/`.
 
 ---
 
@@ -41,7 +41,7 @@ serve una «chiave» personale di GitHub, chiamata token.
   ⚠️ Lo vedi una volta sola: copialo subito.
 
 **2. Incollalo nel pannello**
-- Apri `https://inglyum.github.io/sito-ingly/admin.html`.
+- Apri `https://inglyum.github.io/website-ingly-xtool/admin.html`.
 - Vai su «Impostazioni» → incolla il token nel campo apposito.
 - Premi «Test connessione». Se è verde, sei pronto.
   Il token resta salvato solo sul tuo dispositivo, non finisce mai online.

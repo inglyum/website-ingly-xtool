@@ -117,7 +117,7 @@
 <!-- GitHub Pages SPA: decodifica /?p=/shop → history '/shop' prima del caricamento -->
 <script>(function(){try{var s=new URLSearchParams(location.search);var p=s.get('p');if(p){s.delete('p');var rest=s.toString();
 /* la base è la cartella in cui vive questa pagina: "/" in produzione,
-   "/Il-sito-AI/" in un'anteprima su GitHub Pages. Va anteposta al percorso
+   "/website-ingly-xtool/" in un'anteprima su GitHub Pages. Va anteposta al percorso
    decodificato, altrimenti l'indirizzo ricostruito esce dalla sottocartella. */
 var base=location.pathname.replace(/[^/]*$/,'');
 /* PRIMA di cambiare l'indirizzo: fissa la base a QUESTA cartella.

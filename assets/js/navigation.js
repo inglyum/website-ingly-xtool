@@ -15,14 +15,14 @@ export const PAGES = PAGES_ID;
 /* ===== PERCORSO BASE =====
    In produzione il sito sta nella radice del dominio ("/"), ma su GitHub Pages
    un repository di sviluppo viene servito in una sottocartella
-   ("/Il-sito-AI/"). Senza questo, "/Il-sito-AI/shop" veniva letto come pagina
-   "Il-sito-AI" — sconosciuta — e mostrava sempre la home: il sito risultava
+   ("/website-ingly-xtool/"). Senza questo, "/website-ingly-xtool/shop" veniva letto come pagina
+   "website-ingly-xtool" — sconosciuta — e mostrava sempre la home: il sito risultava
    non navigabile ovunque non fosse la radice.
    La base si ricava da dove è stato caricato QUESTO modulo
    (…/assets/js/navigation.js), quindi funziona ovunque senza configurazione. */
 export const BASE = (() => {
   try{
-    const u = new URL('../../', import.meta.url).pathname;   // → "/" oppure "/Il-sito-AI/"
+    const u = new URL('../../', import.meta.url).pathname;   // → "/" oppure "/website-ingly-xtool/"
     return u.endsWith('/') ? u : u + '/';
   }catch(e){ return '/' }
 })();
@@ -107,7 +107,7 @@ export function show(page){
 
 export function go(page,search){
   /* gli indirizzi nascono sempre sotto la base: in produzione "/shop",
-     in un'anteprima su GitHub Pages "/Il-sito-AI/shop" */
+     in un'anteprima su GitHub Pages "/website-ingly-xtool/shop" */
   const mId=page==='product'&&/^id=(\d+)$/.exec(search||'');
   const url=mId ? BASE+'product/'+mId[1]+'/' : BASE+page+(search?'?'+search:'');
   if(relPath().split('?')[0]===page&&!search){show(page);return;}
@@ -129,7 +129,7 @@ export function initNav(){
     const href=a.getAttribute('href');
     if(!href||href.startsWith('http')||href.startsWith('mailto')||href.startsWith('tel')||href.startsWith('wa.'))return;
     const clean=href.replace(/^#\//,'/').replace(/^#/,'/');
-    /* Un collegamento scritto sotto la base ("/Il-sito-AI/materiali/legno")
+    /* Un collegamento scritto sotto la base ("/website-ingly-xtool/materiali/legno")
        va letto togliendo la base, altrimenti il primo segmento è il nome del
        repository e nessuna rotta corrisponde: il clic sfugge all'intercettore
        e ricarica tutto il sito. Succedeva ovunque il sito non stia nella

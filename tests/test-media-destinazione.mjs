@@ -10,6 +10,10 @@ const dati = {
   prodotti: [{ id:1, n:{ it:'Insegna con Nome' } }, { id:7, n:{ it:'Cake Topper' } }],
   portfolio: [['🪵', { it:'Mappa Topografica' }], ['✨', { it:'Targa Ufficio' }]],
   categorie: [{ id:'casa', ic:'🏠', n:{ it:'Casa & Arredamento' } }],
+  materiali: [{ id:'legno', n:{ it:'Legno' } }],
+  macchine: [{ id:'p3', modello:'xTool P3' }],
+  digitali: [{ id:101, n:{ it:'SVG Lampada' } }],
+  corsi: [{ id:'intro', n:{ it:'Fondamenti laser' } }]
 };
 
 console.log('\n=== 1. Riconoscimento del tipo ===');
@@ -40,6 +44,13 @@ check('nuova tessera portfolio va in coda',
 check('chi siamo', D.percorso('about', { ext:'webp' }) === 'img/about.webp');
 check('libreria usa il nome del file',
   D.percorso('free', { ext:'webp', nomeFile:'Collezione Limitata Lusso (14).png' }) === 'img/collezione-limitata-lusso-14.webp');
+check('materiale ha file prevedibile',D.percorso('m:legno',{ext:'webp'})==='img/material-legno.webp');
+check('macchina ha file prevedibile',D.percorso('x:p3',{ext:'webp'})==='img/machine-p3.webp');
+check('digital ha file prevedibile',D.percorso('d:101',{ext:'webp'})==='img/digital-101.webp');
+check('academy ha file prevedibile',D.percorso('a:intro',{ext:'webp'})==='img/course-intro.webp');
+check('hero ha file prevedibile',D.percorso('hero',{ext:'webp'})==='img/hero-main.webp');
+check('le nuove scelte sono accessibili', ['m:legno','x:p3','d:101','a:intro','hero'].every(x=>D.tipoDi(x)!=='free'));
+
 check('estensione rispettata (svg non convertito)',
   D.percorso('p:1', { ext:'svg' }) === 'img/1.svg');
 

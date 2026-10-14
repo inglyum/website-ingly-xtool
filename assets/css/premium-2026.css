@@ -158,3 +158,62 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 @media(max-width:900px){.ingly-service-centre{grid-template-columns:1fr;gap:25px}.ingly-service-centre__media{max-width:620px;margin:auto;width:100%}}
 @media(max-width:550px){.ingly-service-centre{padding:18px;margin-block:32px}.ingly-service-centre__copy h2{font-size:clamp(2rem,9vw,3rem)}.ingly-service-centre__copy .hero-ctas{display:grid;grid-template-columns:1fr;width:100%}}
 @media(prefers-reduced-motion:reduce){:where(.rcard,.vert-card,.journey-card,.lab-card){animation:none!important;transition:none!important}}
+
+/* October 2026: dual-theme titanium + ivory; explicitly supersedes legacy petrol */
+:root[data-mode="dark"]{
+  --paper:#111318;--white:#22262d;--gray:#1c2026;--graphite:#24282f;--ink:#f7f5f0;
+  --ink-soft:#c4c5ca;--line:rgba(244,242,235,.14);
+  --card-solid:#22262d;--card-glass:rgba(34,38,45,.94);
+  --bg-deep:#111318;--blue:#c5a46d;--blue-hi:#e0bd83;--laser:#d9b679;
+  --ingly-metal:#c5a46d;--ingly-surface:#111318;--ingly-contrast:#f7f5f0;
+}
+:root[data-mode="light"]{
+  --paper:#f8f7f4;--white:#fff;--gray:#f2f0eb;--graphite:#f0eee9;--ink:#1c2026;
+  --ink-soft:#565b63;--line:rgba(28,32,38,.13);
+  --card-solid:#fff;--card-glass:rgba(255,255,255,.97);
+  --bg-deep:#f8f7f4;--blue:#806039;--blue-hi:#63461f;--laser:#a67c42;
+  --ingly-metal:#997345;--ingly-surface:#f8f7f4;--ingly-contrast:#1c2026;
+}
+:root[data-mode="dark"] body{background:#111318!important;color:var(--ink)}
+:root[data-mode="light"] body{background:#f8f7f4!important;color:var(--ink)}
+:root[data-mode="dark"] body::before,:root[data-mode="light"] body::before{opacity:.13}
+:root[data-mode="dark"] .hero,:root[data-mode="light"] .hero{background-image:none!important;background-color:var(--paper)}
+.ingly-material-studies{padding-block:clamp(36px,5vw,76px);background:var(--paper);color:var(--ink)}
+.ingly-material-studies .wrap{max-width:1220px}
+.ingly-material-heading{align-items:end;margin-bottom:23px}
+.ingly-material-heading h2{font-size:clamp(1.85rem,3.3vw,3.6rem);max-width:600px;margin:8px 0 12px}
+.ingly-material-heading p{font-size:clamp(.9rem,1.1vw,1rem);max-width:55ch}
+.ingly-material-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.8vw,20px)}
+.ingly-material-grid .ingly-material-tile{
+  display:flex;flex-direction:column;background:var(--card-solid);color:var(--ink);
+  border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px rgba(0,0,0,.055);
+  min-height:0;height:auto;text-decoration:none;overflow:hidden;
+}
+.ingly-material-grid .ingly-material-tile img{
+  display:block;position:static;aspect-ratio:16/9;width:100%;height:auto;
+  max-height:215px;object-fit:cover;transition:transform .32s ease;
+}
+.ingly-material-grid .ingly-material-tile>span.ingly-material-tile__body{
+  display:grid;grid-template-columns:1fr auto;column-gap:8px;row-gap:4px;
+  position:static;inset:auto;padding:14px 16px 16px;
+  background:none!important;color:var(--ink);font-weight:400;letter-spacing:normal;
+}
+.ingly-material-tile__body strong{grid-column:1;font-size:1.04rem;letter-spacing:-.025em}
+.ingly-material-tile__body small{grid-column:1;color:var(--ink-soft);font-size:.83rem;line-height:1.5}
+.ingly-material-tile__arrow{grid-column:2;grid-row:1/3;align-self:center;color:var(--ingly-metal);font-size:1.4rem}
+.ingly-material-grid .ingly-material-tile:hover{box-shadow:0 14px 32px rgba(0,0,0,.09);border-color:var(--ingly-metal)}
+:root[data-mode="dark"] .ingly-material-all{color:#ebc995}
+:root[data-mode="light"] .ingly-material-all{color:#75542e}
+@media(max-width:880px){
+ .ingly-material-heading{align-items:start}
+ .ingly-material-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:540px){
+ .ingly-material-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .ingly-material-grid .ingly-material-tile img{aspect-ratio:4/3;max-height:155px}
+ .ingly-material-grid .ingly-material-tile>span.ingly-material-tile__body{padding:10px;gap:3px}
+ .ingly-material-tile__body strong{font-size:.94rem}
+ .ingly-material-tile__body small{font-size:.72rem}
+ .ingly-material-heading h2{font-size:2.1rem}
+}
+@media(max-width:360px){.ingly-material-grid{grid-template-columns:1fr}}

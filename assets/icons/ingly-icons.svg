@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 <!-- INGLY ICON SYSTEM — outline, tratto 2.5, angoli arrotondati, colore ereditato (currentColor).
-     Uso: <svg class="ic-svg"><use href="assets/icons/ingly-icons.svg#ic-casa"></use></svg> -->
+     Uso: <svg class="ic-svg"><use href="assets/icons/ingly-icons.svg#ic-casa"></use><symbol id="ic-academy" viewBox="0 0 24 24"><path d="m2.6 9.2 9.4-5 9.4 5-9.4 5-9.4-5Z"/><path d="M6.4 11.3v4.3c3.5 2.8 7.7 2.8 11.2 0v-4.3"/><path d="M21.4 9.4v5.1"/></symbol>
+</svg> -->
 <defs>
   <style>
     symbol{fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}

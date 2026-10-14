@@ -456,6 +456,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <!-- ============ MEDIA ============ -->
   <section class="view" id="v-media">
     <div class="card"><h3>📥 Carica immagini <span class="chip laser sp">compressione automatica → WEBP</span></h3>
+      <p class="hint" style="line-height:1.65;margin:6px 0 16px">
+        <b>Centro immagini INGLY:</b> puoi sostituire in un clic i visual dimostrativi di Home, prodotti,
+        materiali, macchine xTool, file digitali e Academy. Le foto che carichi vengono salvate in bozza:
+        controlla l'anteprima e utilizza <b>Pubblica</b> soltanto quando sono pronte.
+        Le immagini ufficiali xTool sono sempre attribuite al produttore; i sample non sono lavori del tuo portfolio.
+      </p>
       <div class="drop" id="mDrop">Trascina qui le immagini (anche più di una) oppure clicca<br><small class="hint">JPG/PNG → ridimensionate max 1600px e convertite in WEBP · SVG passa senza modifiche</small></div>
       <input type="file" id="mFile" accept="image/*,.svg" multiple hidden>
       <div id="mAssign" style="display:none;margin-top:14px">
@@ -2848,7 +2854,13 @@ function destOptions(){return '<optgroup label="Prodotti">'+(S.P||[]).map(p=>`<o
  '<optgroup label="Categorie (12 mondi)">'+(S.CATS||[]).map(c=>`<option value="c:${esc(c.id)}">${esc(c.ic)} ${esc(c.n.it)}</option>`).join('')+'</optgroup>'+
  '<optgroup label="Altro"><option value="about">Immagine «Chi siamo»</option><option value="free">Solo libreria (nessun collegamento — resta qui, marcata «orfana»)</option></optgroup>'}
 /* dati che servono al modulo per costruire elenchi e descrizioni */
-function mdDati(){return{prodotti:S.P||[],portfolio:(S.C&&S.C.PORT)||[],categorie:S.CATS||[]}}
+function mdDati(){return{
+  prodotti:S.P||[],portfolio:(S.C&&S.C.PORT)||[],categorie:S.CATS||[],
+  materiali:(S.MAT&&S.MAT.materiali)||[],
+  macchine:(S.IMGMAC&&S.IMGMAC.macchine)||[],
+  digitali:(S.DIGI&&S.DIGI.bundle)||[],
+  corsi:(S.COR&&S.COR.corsi)||[]
+}}
 function mdOpzioni(tipo,sel){return MEDIA_DEST.elementiPerTipo(tipo,mdDati())
   .map(o=>`<option value="${esc(o.valore)}"${o.valore===sel?' selected':''}>${esc(o.etichetta)}</option>`).join('')}
 function mdBottoniTipo(attr,tipoSel){return MEDIA_DEST.TIPI.map(t=>
@@ -2978,6 +2990,32 @@ $('mDoAssign').onclick=async()=>{let n=0;
    const path='img/port-'+(i+1)+'.'+s.proc.ext;await stageWithVariants(path,s.proc);t[3]=path;
   }else if(dest.startsWith('t:')){const i=+dest.slice(2),t=S.C.PORT[i];if(!t)continue;
    const path='img/port-'+(i+1)+'.'+s.proc.ext;await stageWithVariants(path,s.proc);t[3]=path;
+  }else if(dest.startsWith('m:')){
+   const mat=(S.MAT&&S.MAT.materiali||[]).find(x=>x.id===dest.slice(2));if(!mat)continue;
+   const path=MEDIA_DEST.percorso(dest,{ext:s.proc.ext});await stageWithVariants(path,s.proc);
+   mat.img=path;mat.assetKind='ingly-original';mat.isDemo=false;mat.replaceable=true;
+   mat.altIT='Fotografia del materiale '+(mat.n?.it||mat.id);mat.altEN='Material photo '+(mat.n?.en||mat.id);
+  }else if(dest.startsWith('x:')){
+   const machine=(S.IMGMAC&&S.IMGMAC.macchine||[]).find(x=>x.id===dest.slice(2));if(!machine)continue;
+   const path=MEDIA_DEST.percorso(dest,{ext:s.proc.ext});await stageWithVariants(path,s.proc);
+   machine.file=path;machine.tipoAsset='ingly-original';machine.assetKind='ingly-original';
+   machine.sostituibile=true;machine.replaceable=true;machine.immagineRemotaVerificata=false;
+   machine.licenza={stato:'consentito',titolare:'INGLY DESIGN',prova:'Immagine caricata dal titolare tramite Media Library'};
+   machine.alt={it:machine.modello+' — foto caricata da INGLY DESIGN',en:machine.modello+' — photo provided by INGLY DESIGN'};
+  }else if(dest.startsWith('d:')){
+   const dig=(S.DIGI&&S.DIGI.bundle||[]).find(x=>String(x.id)===dest.slice(2));if(!dig)continue;
+   const path=MEDIA_DEST.percorso(dest,{ext:s.proc.ext});await stageWithVariants(path,s.proc);
+   dig.img=path;dig.assetKind='ingly-original';dig.replaceable=true;
+   dig.altIT='Anteprima grafica del file '+(dig.n?.it||dig.id);
+   dig.altEN='Digital file preview '+(dig.n?.en||dig.id);
+  }else if(dest.startsWith('a:')){
+   const c=(S.COR&&S.COR.corsi||[]).find(x=>String(x.id)===dest.slice(2));if(!c)continue;
+   const path=MEDIA_DEST.percorso(dest,{ext:s.proc.ext});await stageWithVariants(path,s.proc);
+   c.img=path;c.assetKind='ingly-original';c.replaceable=true;
+  }else if(dest==='hero'){
+   const path=MEDIA_DEST.percorso('hero',{ext:s.proc.ext});await stageWithVariants(path,s.proc);
+   S.CONFIG.heroImage=path;S.CONFIG.heroImageAlt='Fotografia principale INGLY DESIGN';
+   S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageDemo=false;S.CONFIG.heroImageReplaceable=true;
   }else if(dest==='about'){const path='img/about.'+s.proc.ext;await stageFile(path,s.proc);
    S.CONFIG.aboutMedia=S.CONFIG.aboutMedia||{};S.CONFIG.aboutMedia.tipo='immagine';S.CONFIG.aboutMedia.src=path;
   }else{

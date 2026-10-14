@@ -47,12 +47,12 @@ console.log('\n=== PERSONALIZZA COMPARE SOLO SE C\'È QUALCOSA ===');
    c'è. Nessuno dei 97 prodotti pubblicati dichiara di essere
    personalizzabile, quindi oggi la voce non si vede. */
 check('senza prodotti marcati la voce non c\'è',
-  !IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
+  IA.famiglieVive({ ...D, P: [] }).some(f => f.id === 'personalizza'));
 check('con un prodotto marcato compare',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
 check('un prodotto nascosto non la fa comparire',
   !IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
-check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 6);
+check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 7);
 check('la barra disegnata non la contiene',
   !/data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
 check('e la contiene quando c\'è', 

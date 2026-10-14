@@ -37,7 +37,15 @@
       "alt": {
         "it": "xTool P3, macchina laser CO₂ da banco",
         "en": "xTool P3, desktop CO₂ laser machine"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_p3_1219-5482_e4bbd1a7-6988-4465-b4de-e7be5b75330f.webp?v=1778491125",
+      "altIT": "xTool P3, macchina laser CO₂ da banco",
+      "altEN": "xTool P3, desktop CO₂ laser machine"
     },
     {
       "id": "f2",
@@ -57,7 +65,15 @@
       "alt": {
         "it": "xTool F2, incisore laser a fibra",
         "en": "xTool F2, fiber laser engraver"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2_1219-5500.webp?v=1778491125",
+      "altIT": "xTool F2, incisore laser a fibra",
+      "altEN": "xTool F2, fiber laser engraver"
     },
     {
       "id": "f1-ultra",
@@ -77,7 +93,15 @@
       "alt": {
         "it": "xTool F1 Ultra, incisore laser portatile",
         "en": "xTool F1 Ultra, portable laser engraver"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f1u_1219-5464_41d72632-e6f8-470b-8238-445cb6421a68.webp?v=1779355728",
+      "altIT": "xTool F1 Ultra, incisore laser portatile",
+      "altEN": "xTool F1 Ultra, portable laser engraver"
     },
     {
       "id": "f2-ultra",
@@ -97,7 +121,15 @@
       "alt": {
         "it": "xTool F2 Ultra, incisore laser a fibra e diodo",
         "en": "xTool F2 Ultra, fiber and diode laser engraver"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2u_1219-5494_7af8d064-beb7-44da-b113-fff4963aba7f.webp?v=1781150197",
+      "altIT": "xTool F2 Ultra, incisore laser a fibra e diodo",
+      "altEN": "xTool F2 Ultra, fiber and diode laser engraver"
     },
     {
       "id": "f2-ultra-uv",
@@ -117,7 +149,15 @@
       "alt": {
         "it": "xTool F2 Ultra UV, incisore laser con sorgente UV",
         "en": "xTool F2 Ultra UV, laser engraver with UV source"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2uuv_1219-5506_47338e68-d14e-4d5c-a31e-6e505e2bb61b.webp?v=1779355728",
+      "altIT": "xTool F2 Ultra UV, incisore laser con sorgente UV",
+      "altEN": "xTool F2 Ultra UV, laser engraver with UV source"
     },
     {
       "id": "s1",
@@ -137,7 +177,15 @@
       "alt": {
         "it": "xTool S1, laser a diodo chiuso",
         "en": "xTool S1, enclosed diode laser"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_s1_1219-5317_6ba2463d-e9d0-46a5-9729-f39b43dfc675.webp?v=1779355728",
+      "altIT": "xTool S1, laser a diodo chiuso",
+      "altEN": "xTool S1, enclosed diode laser"
     },
     {
       "id": "o1-uv",
@@ -158,7 +206,15 @@
       "alt": {
         "it": "xTool O1 Omni Dual UV, stampante UV da banco",
         "en": "xTool O1 Omni Dual UV, desktop UV printer"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_uv_2034-6365_214b9e4c-82e3-4f84-8cf5-b6f1eb8cf445.webp?v=1783306125",
+      "altIT": "xTool O1 Omni Dual UV, stampante UV da banco",
+      "altEN": "xTool O1 Omni Dual UV, desktop UV printer"
     },
     {
       "id": "wonderpress",
@@ -178,7 +234,15 @@
       "alt": {
         "it": "xTool WonderPress, pressa a caldo",
         "en": "xTool WonderPress, heat press"
-      }
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-14",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-a-reyaji_us_pc_wonderpress_9476-24404_78b96c46-66bf-4d63-bedd-f7993e22cbe2.webp?v=1782372892",
+      "altIT": "xTool WonderPress, pressa a caldo",
+      "altEN": "xTool WonderPress, heat press"
     }
   ],
   "_senzaImmagine": "M1, M1 Ultra, M2, F1 e P2 sono in catalogo ma non hanno un indirizzo ufficiale in questo manifest. Finché non ce l'hanno, le loro schede mostrano il segnaposto: meglio di una foto presa a caso che potrebbe ritrarre un altro modello.",

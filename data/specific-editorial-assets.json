@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "source": "INGLY DESIGN editorial original vector concepts",
+  "usage": "Non sono fotografie di produzioni effettuate da INGLY",
+  "businessServices": [
+    {
+      "id": "targhe-professionali",
+      "order": 0,
+      "image": "assets/images/business-editorial/targhe-professionali.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "gadget-aziendali",
+      "order": 1,
+      "image": "assets/images/business-editorial/gadget-aziendali.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "qr-menu-branding",
+      "order": 2,
+      "image": "assets/images/business-editorial/qr-menu-branding.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "produzione-conto-terzi",
+      "order": 3,
+      "image": "assets/images/business-editorial/produzione-conto-terzi.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "incisioni-industriali",
+      "order": 4,
+      "image": "assets/images/business-editorial/incisioni-industriali.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "prototipazione-laser",
+      "order": 5,
+      "image": "assets/images/business-editorial/prototipazione-laser.svg",
+      "kind": "illustration",
+      "isDemo": true
+    }
+  ],
+  "businessSectors": [
+    {
+      "id": "ristoranti",
+      "order": 0,
+      "image": "assets/images/business-editorial/ristoranti.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "uffici-studi",
+      "order": 1,
+      "image": "assets/images/business-editorial/uffici-studi.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "hotel",
+      "order": 2,
+      "image": "assets/images/business-editorial/hotel.svg",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "eventi-aziendali",
+      "order": 3,
+      "image": "assets/images/business-editorial/eventi-aziendali.svg",
+      "kind": "illustration",
+      "isDemo": true
+    }
+  ],
+  "materials": [
+    {
+      "id": "legno",
+      "order": 0,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "plexiglass",
+      "order": 1,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "metallo",
+      "order": 2,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "pelle",
+      "order": 3,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "vetro",
+      "order": 4,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "bamboo",
+      "order": 5,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "mdf",
+      "order": 6,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "pla",
+      "order": 7,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    },
+    {
+      "id": "tessuto",
+      "order": 8,
+      "linkedRecord": "data/materiali.json",
+      "kind": "illustration",
+      "isDemo": true
+    }
+  ]
+}

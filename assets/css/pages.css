@@ -1522,3 +1522,67 @@ footer{color:#e6e7dd!important} footer a{color:#c7d6ce!important} footer a:hover
 @media(max-width:800px){.hero-grid{grid-template-columns:1fr;gap:26px}#heroH1{max-width:15ch;font-size:clamp(2.5rem,9vw,4.2rem)!important;line-height:1.14!important}.hero-visual{max-width:680px;margin:0 auto;width:100%}.journey-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.journey-copy{padding:13px}}
 @media(max-width:420px){.hero{padding-top:120px!important}#heroH1{font-size:clamp(2.2rem,9.8vw,2.8rem)!important;max-width:14ch}.journey-grid{grid-template-columns:1fr}.journey-card{display:grid;grid-template-columns:minmax(110px,.78fr) minmax(0,1fr);min-height:138px}.journey-media{aspect-ratio:auto;height:100%;min-height:138px}.journey-copy{justify-content:center}}
 @media(prefers-reduced-motion:reduce){#heroH1 .w,#heroH1 .w>span,.journey-card,.journey-media img,.journey-link i{animation:none!important;transition:none!important;transform:none!important}}
+
+
+/* Final visual repair: preserve both explicit day and night modes, especially on mobile. */
+:root{
+ --ingly-ink:#17201d;--ingly-paper:#fbfaf6;--ingly-paper-2:#f1f0e9;
+ --ingly-dark:#101b1b;--ingly-deep:#0b1415;--ingly-teal:#214544;
+ --ingly-gold:#c5a66c;--ingly-gold-hi:#e0c992;--ingly-muted:#66736d;
+}
+:root[data-mode="light"],html[data-theme="light"],body[data-theme="light"],body.light-mode{
+ color-scheme:light!important;
+ --bg:#fbfaf6;--bg-2:#f1f0e9;--surface:#fffefa;--surface-2:#f5f3ed;
+ --ink:#17201d;--ink-soft:#53615b;--line:rgba(31,48,42,.13);
+ --card-glass:rgba(255,254,250,.96);--card-solid:#f5f3ed;
+ background:#fbfaf6!important;color:#17201d!important;
+}
+:root[data-mode="dark"],html[data-theme="dark"],body[data-theme="dark"],body.dark-mode{
+ color-scheme:dark!important;
+ --bg:#101b1b;--bg-2:#142322;--surface:#182827;--surface-2:#1c302e;
+ --ink:#f5f3eb;--ink-soft:#bdc8c0;--line:rgba(226,213,180,.16);
+ --card-glass:rgba(25,43,41,.96);--card-solid:#142322;
+ background:#101b1b!important;color:#f5f3eb!important;
+}
+/* Light mode remains genuinely white/warm-white, never navy tinted. */
+:root[data-mode="light"] body,html[data-theme="light"] body,body.light-mode{
+ background:linear-gradient(180deg,#fbfaf6 0%,#f4f2eb 58%,#fbfaf6 100%)!important;
+ color:#17201d!important;
+}
+:root[data-mode="light"] .site-header,:root[data-mode="light"] header,
+html[data-theme="light"] .site-header,html[data-theme="light"] header,
+body.light-mode .site-header,body.light-mode header{
+ background:rgba(251,250,246,.94)!important;border-color:rgba(31,48,42,.12)!important;
+ color:#17201d!important;box-shadow:0 8px 28px rgba(24,39,33,.06)!important;
+}
+:root[data-mode="light"] .nav a,:root[data-mode="light"] .nav button,
+html[data-theme="light"] .nav a,html[data-theme="light"] .nav button{color:#24332d!important}
+:root[data-mode="light"] .hero,:root[data-mode="light"] main,
+html[data-theme="light"] .hero,html[data-theme="light"] main,
+body.light-mode main{background:transparent!important;color:#17201d}
+:root[data-mode="light"] .journey-card{border-color:rgba(31,48,42,.13)!important}
+:root[data-mode="dark"] body,html[data-theme="dark"] body,body.dark-mode{
+ background:radial-gradient(ellipse at 18% 0%,rgba(48,91,83,.22),transparent 44%),linear-gradient(145deg,#0b1415,#142322 54%,#101918)!important;
+ color:#f5f3eb!important;
+}
+body,:root{transition:background-color .18s ease,color .18s ease}
+img.logo,img.brand-logo,.brand img,.site-logo img,.logo img,
+header img[src*="logo"],.header-logo img{
+ object-fit:contain!important;max-width:100%;height:auto;
+}
+img[src*="assets/images/logo.png"]{
+ object-fit:contain!important;background:transparent!important;
+ mix-blend-mode:normal!important;filter:none!important;
+}
+.brand,.site-logo,.header-logo{background:transparent!important;box-shadow:none!important}
+@media(max-width:700px){
+ body,:root{background-attachment:scroll!important}
+ .hero,.hero-grid,.hero-visual,.journey-sec{max-width:100%;min-width:0}
+ .hero{overflow:clip!important}
+ #heroH1{font-size:clamp(2.1rem,9.3vw,3.25rem)!important;line-height:1.17!important;letter-spacing:-.035em!important;overflow:visible!important}
+ .hero .sub{font-size:1rem!important;line-height:1.65!important;color:var(--ink-soft)!important}
+ .hero-visual .coin{border-radius:17px!important}
+ .journey-copy b{font-size:.98rem}
+ .journey-copy small{font-size:.8rem}
+ .journey-card{box-shadow:0 8px 22px rgba(0,0,0,.08)!important}
+}

@@ -60,6 +60,17 @@ function applyConfig(){
   document.documentElement.classList.toggle('senza-prezzi', !PREZZI.mostraPrezzi(CONFIG));
   document.title = CONFIG.titolo;
   const md=document.querySelector('meta[name="description"]'); if(md) md.content=CONFIG.descrizione;
+  /* Hero image from the existing Admin and media upload flow. Keep the
+     local, documented sample as the fallback until INGLY adds original photos. */
+  const heroImg=document.querySelector('#heroVisual .coin img');
+  const candidate=String(CONFIG.heroImage||'').trim();
+  if(heroImg&&/^(?:img\/|assets\/images\/|https:\/\/)/i.test(candidate)){
+    heroImg.src=candidate;
+    heroImg.removeAttribute('srcset');
+    const alt=CONFIG.heroImageAlt;
+    heroImg.alt=typeof alt==='object'?(alt[L]||alt.it||'Immagine esemplificativa INGLY DESIGN')
+      : (alt||'Immagine esemplificativa INGLY DESIGN');
+  }
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];
   map.forEach((u,i)=>{ if(u&&SOCIALS[i]) SOCIALS[i][1]=u });
   document.querySelectorAll('a[href^="https://instagram.com"]').forEach(a=>a.href=s.instagram);
@@ -126,7 +137,7 @@ function renderTitoloHero(){
       testoPezzo.split(/\s+/).filter(Boolean).forEach(parola=>{
         const w=document.createElement('span'); w.className='w';
         const inner=document.createElement('span');
-        inner.style.animationDelay=(0.1+i*0.11).toFixed(2)+'s';
+        /* Static lettering: avoid clipped or incomplete text in the hero. */
         i++;
         if(inciso){
           /* Lo strato colorato che il raggio «incide» era un secondo <span>

@@ -649,6 +649,24 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div class="hint">Le 3 card della Home leggono nome, prezzo, materiale e foto direttamente dal catalogo: qui scegli <b>quali</b> prodotti mostrare.</div>
       <div class="row c3" id="heroPick" style="margin-top:8px"></div>
     </div>
+    <div class="card" id="heroImageControl">
+      <h3><svg style="width:20px;height:20px;vertical-align:-4px;fill:none;stroke:currentColor;stroke-width:1.8"><use href="assets/icons/ingly-icons.svg#ic-portfolio"></use></svg> Immagine principale della Hero</h3>
+      <p class="hint">Scegli una fotografia reale INGLY oppure usa il sample dimostrativo già presente. La preview non pubblica: resta in bozza finché non usi Pubblica.</p>
+      <div class="row c2" style="margin-top:10px">
+        <div><label>Percorso / immagine selezionata</label><input type="text" id="heroImagePath" data-b="CONFIG.heroImage" placeholder="img/cat-custom.webp"></div>
+        <div><label>Testo alternativo (IT)</label><input type="text" id="heroImageAltIt" data-b="CONFIG.heroImageAlt.it" placeholder="Descrizione significativa dell’immagine"></div>
+      </div>
+      <div class="row c2" style="margin-top:8px">
+        <div><label>Alternative text (EN)</label><input type="text" id="heroImageAltEn" data-b="CONFIG.heroImageAlt.en" placeholder="Meaningful image description"></div>
+        <div><label>Tipo immagine</label><div id="heroImageKindLabel" class="hint" style="padding:10px 0">Esempio dimostrativo, sostituibile</div></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+        <button type="button" class="btn pri" id="heroImageUpload">＋ Carica una mia fotografia</button>
+        <button type="button" class="btn" id="heroImageLibrary">Scegli dalla Media Library</button>
+        <button type="button" class="btn" id="heroImageReset">Ripristina immagine sample</button>
+      </div>
+      <div id="heroImagePreview" style="margin-top:13px"></div>
+    </div>
     <div class="card"><h3>🎬 Video Hero (opzionale)</h3>
       <label>URL video mp4 (vuoto = nessun video)</label><input type="url" id="heroVideo" data-b="CONFIG.heroVideo">
     </div>
@@ -3447,6 +3465,24 @@ function sloganPreview(){
 }
 
 function renderHero(){bindAll();renderAbout();sloganPreview();
+ const renderHeroImagePanel=()=>{
+  const path=String(S.CONFIG.heroImage||'img/cat-custom.webp');
+  const alt=S.CONFIG.heroImageAlt||{};
+  const p=$('heroImagePath'), ai=$('heroImageAltIt'), ae=$('heroImageAltEn');
+  if(p&&p.value!==path)p.value=path;
+  if(ai&&ai.value!==(alt.it||''))ai.value=alt.it||'';
+  if(ae&&ae.value!==(alt.en||''))ae.value=alt.en||'';
+  const kind=S.CONFIG.heroImageDemo===false?'Fotografia personalizzata / INGLY':'Esempio dimostrativo · sostituibile';
+  const k=$('heroImageKindLabel');if(k)k.textContent=kind;
+  const box=$('heroImagePreview');
+  if(box)box.innerHTML=`<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><img src="${esc(imgPreviewSrc(path))}" alt="${esc((alt.it||'Anteprima immagine Hero'))}" width="240" height="150" loading="lazy" style="width:min(240px,100%);aspect-ratio:8/5;object-fit:cover;border-radius:12px;border:1px solid var(--line)" onerror="this.style.display='none'"><div class="hint"><b>${esc(path)}</b><br>${esc(kind)}<br>Rapporto consigliato: 4:3 o 16:10 · JPG, PNG, WEBP o SVG.</div></div>`;
+ };
+ renderHeroImagePanel();
+ const ip=$('heroImagePath');
+ if(ip&&!ip.dataset.heroBound){ip.dataset.heroBound='1';ip.addEventListener('input',()=>{S.CONFIG.heroImageDemo=(ip.value.trim()==='img/cat-custom.webp');S.CONFIG.heroImageKind=S.CONFIG.heroImageDemo?'illustrative-example':'ingly-original';setTimeout(renderHeroImagePanel,0)})}
+ $('heroImageUpload').onclick=()=>pickImage('img/hero-visual',path=>{S.CONFIG.heroImage=path;S.CONFIG.heroImageDemo=false;S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageReplaceable=true;markDirty();renderHeroImagePanel()},'categoria');
+ $('heroImageLibrary').onclick=()=>pickFromLibrary(sel=>{if(!sel.length)return;S.CONFIG.heroImage=sel[0];S.CONFIG.heroImageDemo=/cat-(?:custom|casa|materiali|digitale|tecnologie|b2b)\\.webp$/i.test(sel[0]);S.CONFIG.heroImageKind=S.CONFIG.heroImageDemo?'illustrative-example':'ingly-original';S.CONFIG.heroImageReplaceable=true;markDirty();renderHeroImagePanel()});
+ $('heroImageReset').onclick=()=>{S.CONFIG.heroImage='img/cat-custom.webp';S.CONFIG.heroImageDemo=true;S.CONFIG.heroImageKind='illustrative-example';S.CONFIG.heroImageReplaceable=true;S.CONFIG.heroImageAlt={it:'Esempio visivo dimostrativo di creazioni personalizzate INGLY DESIGN',en:'Illustrative sample of INGLY DESIGN custom creations'};markDirty();renderHeroImagePanel()};
  ['slIt','slEn'].forEach(id=>{const el=$(id);
   if(el&&!el.dataset.slBound){el.dataset.slBound='1';el.addEventListener('input',()=>setTimeout(sloganPreview,0))}});
  const hf=(S.CONFIG.heroFeatured=S.CONFIG.heroFeatured||[]);

@@ -87,12 +87,40 @@ function applyConfig(){
 }
 function renderSocials(){['soc1','soc2','soc3'].forEach(id=>{const el=$(id);if(el)el.innerHTML=SOCIALS.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener" aria-label="${s[0]}" title="${s[0]}">${s[2]}</a>`).join('')})}
 
+/* Traduzione immediata dei componenti storici non ancora inclusi in data/texts.json.
+   Nessun servizio esterno, nessun testo inserito tramite HTML. */
+const STATIC_UI_TRANSLATIONS={
+  shop:{it:'Shop',en:'Shop'},
+  materials:{it:'Materiali',en:'Materials'},
+  technologies:{it:'Tecnologie',en:'Technologies'},
+  machines:{it:'Macchine',en:'Machines'},
+  academy:{it:'Academy',en:'Academy'},
+  portfolio:{it:'Portfolio',en:'Portfolio'},
+  theme:{it:'Tema',en:'Theme'},
+  serviceIntro:{
+    it:'Un punto di riferimento per il mondo xTool: supporto, orientamento tecnico e assistenza sui percorsi di utilizzo delle macchine. Raccontaci il modello e di cosa hai bisogno.',
+    en:'A point of reference for the xTool world: support, technical guidance and assistance with machine workflows. Tell us which model you have and what you need.'
+  },
+  serviceScope:{
+    it:'Per richieste di assistenza o riparazione, la disponibilità e la tipologia di intervento vengono confermate caso per caso.',
+    en:'For service or repair requests, availability and the type of assistance are confirmed individually.'
+  },
+  serviceContact:{it:'Contatta il Service Centre',en:'Contact the Service Centre'},
+  bookDemo:{it:'Prenota una demo xTool',en:'Book an xTool demo'}
+};
+function translateInline(){
+  document.querySelectorAll('[data-inline-i18n]').forEach(el=>{
+    const v=STATIC_UI_TRANSLATIONS[el.dataset.inlineI18n];
+    if(v)el.textContent=v[L]||v.it;
+  });
+}
 /* ---- i18n ---- */
 function applyI18n(){
   document.documentElement.lang=L;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const v=D[L][el.dataset.i18n];if(v!==undefined)el.innerHTML=v});
   document.querySelectorAll('[data-ph]').forEach(el=>{const v=D[L][el.dataset.ph];if(v!==undefined)el.placeholder=v});
   renderTitoloHero();
+  translateInline();
   $('langIT').classList.toggle('on',L==='it');
   $('langEN').classList.toggle('on',L==='en');
   prod.fillSort();

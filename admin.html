@@ -3408,6 +3408,85 @@ function referencedPaths(){const set=new Set();(S.P||[]).forEach(p=>{set.add(p.i
  ((S.C&&S.C.REVIEWS)||[]).forEach(r=>(r.ph||[]).forEach(p=>set.add(p)));
  (((S.C&&S.C.SPONSORS)||{}).lista||[]).forEach(s=>{if(s.logo)set.add(s.logo)});
  [...set].forEach(p=>{if(/\.webp$/.test(p)){set.add(p.replace(/\.webp$/,'-800.webp'));set.add(p.replace(/\.webp$/,'-400.webp'))}});return set}
+/* Inventario condiviso: scanner GitHub quando disponibile; in alternativa
+   il manifest già caricato. Non dedurre mai l'esistenza da un campo "img". */
+function mediaInventory(){return Array.isArray(REPO_IMG)?REPO_IMG:
+  (Array.isArray(S.IMG?.file)?S.IMG.file:null)}
+function photoStatusAdmin(p){
+ const inventory=mediaInventory();
+ if(window.PHOTO_QUEUE)
+   return window.PHOTO_QUEUE.photoStatus(p,inventory,MEDIA.map(m=>m.path),DELETES);
+ /* fallback solo durante il caricamento del modulo */
+ const main=p.img||'img/'+p.id+'.webp',files=inventory||[];
+ const usable=MEDIA.some(m=>m.path===main)||files.includes(main.replace(/^img\//,''));
+ return {state:usable?'ready':'unknown',main,mainExists:usable,galleryFound:[]};
+}
+let photoQueuePublicOnly=true;
+function renderPhotoWorklist(){
+ const stats=$('mPhotoStats'),list=$('mPhotoQueue');
+ if(!stats||!list)return;
+ const api=window.PHOTO_QUEUE;
+ if(!api){stats.textContent='Preparazione elenco immagini…';return}
+ const inventory=mediaInventory();
+ if(!inventory){
+  stats.textContent='Inventario non disponibile: collega il repository o carica il manifest per verificare le fotografie.';
+  list.replaceChildren();return;
+ }
+ const staged=MEDIA.map(m=>m.path);
+ const queue=api.buildPhotoQueue(S.P||[],inventory,staged,DELETES);
+ const summary=api.photoSummary(S.P||[],inventory,staged,DELETES);
+ stats.textContent=summary.visibleMissingAll+' prodotti pubblici senza fotografie · '+
+   summary.visibleNeedsCover+' da completare (inclusi '+summary.galleryOnly+' con foto solo in gallery, tra tutti i prodotti) · '+
+   queue.length+' da completare complessivamente';
+ const rows=queue.filter(x=>!photoQueuePublicOnly||x.visible);
+ list.innerHTML=rows.map(x=>{
+  const name=x.product.n?.it||x.product.n?.en||('Prodotto '+x.id);
+  const status=x.state==='gallery'?'Gallery presente · manca la copertina':'Nessuna fotografia disponibile';
+  return `<div class="photo-queue-row">
+    <div class="photo-queue-id">#${esc(String(x.id))}</div>
+    <div class="photo-queue-details">
+      <b>${esc(name)}</b>
+      <small>${esc(x.product.sku||'SKU non definito')} · ${esc(x.product.cat||'Categoria da definire')} · ${x.visible?'Pubblico':'Nascosto'}</small>
+      <span>${esc(status)}</span>
+    </div>
+    <div class="photo-queue-actions">
+      <button type="button" class="btn sm pri" data-photo-upload="${esc(String(x.id))}" aria-label="Carica foto del prodotto ${esc(String(x.id))}">↑ Carica foto</button>
+      <button type="button" class="btn sm" data-photo-edit="${esc(String(x.id))}">Modifica →</button>
+    </div>
+  </div>`;
+ }).join('')||'<p class="hint">Nessun prodotto da completare con i filtri correnti.</p>';
+ list.querySelectorAll('[data-photo-upload]').forEach(button=>button.onclick=()=>{
+  const p=(S.P||[]).find(x=>String(x.id)===button.dataset.photoUpload);
+  if(!p)return;
+  pickImage('img/'+p.id,path=>{
+    p.img=path;markDirty();renderMedia();
+    toast('Foto di #'+p.id+' pronta in bozza. Verifica il risultato e pubblica manualmente.');
+  },'prodotto');
+ });
+ list.querySelectorAll('[data-photo-edit]').forEach(button=>button.onclick=()=>{
+  const id=button.dataset.photoEdit;
+  go('prod');
+  $('pSearch').value=id;
+  $('pCatF').value='';
+  $('pStatusF').value='';
+  renderProd();
+ });
+}
+$('mPhotoPublic').onclick=()=>{
+ photoQueuePublicOnly=!photoQueuePublicOnly;
+ $('mPhotoPublic').setAttribute('aria-pressed',String(photoQueuePublicOnly));
+ $('mPhotoPublic').textContent=photoQueuePublicOnly?'Solo pubblici':'Tutti i prodotti';
+ renderPhotoWorklist();
+};
+$('mPhotoExport').onclick=()=>{
+ const api=window.PHOTO_QUEUE,inventory=mediaInventory();
+ if(!api||!inventory){toast('Inventario immagini non ancora disponibile');return}
+ const queue=api.buildPhotoQueue(S.P||[],inventory,MEDIA.map(m=>m.path),DELETES);
+ const blob=new Blob([api.exportPhotoCSV(queue)],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='INGLY-fotografie-da-completare.csv';document.body.append(a);
+ a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
 let SEL=new Set();
 function usageOf(path,ref){const u=[];
  (S.P||[]).forEach(p=>{if((p.img||'img/'+p.id+'.webp')===path)u.push('foto principale #'+p.id);
@@ -3476,7 +3555,7 @@ function renderMedia(){const q=($('mSearch').value||'').toLowerCase();
   +(orph?` · <span style="color:var(--warn)">orfane: ${orph}</span>`:'')
   +(dup?` · <span style="color:var(--warn)">doppioni: ${dup}</span>`:'')
   +(DELETES.length?` · <span style="color:var(--err)">da eliminare: ${DELETES.length}</span>`:'');
- renderSelBar()}
+ renderSelBar();renderPhotoWorklist()}
 function renderSelBar(){const n=SEL.size;$('mSelBar').style.display=n?'flex':'none';$('mSelN').textContent=n+' selezionate'}
 ['mSearch'].forEach(id=>$(id).oninput=renderMedia);
 ['mHideVar','mOnlyOrph','mOnlyDup'].forEach(id=>$(id).onchange=renderMedia);

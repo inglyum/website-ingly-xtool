@@ -32,7 +32,7 @@ jobs:
           python3 - <<'PY'
           p='tests/test-sito.mjs'
           s=open(p).read()
-          s=s.replace("vc.on('jsdomError', e => {", "vc.on('jsdomError', e => { console.log('DIAGNOSTICA-JSDOM', e.stack, e.detail && e.detail.stack);")
+          s=s.replace("vc.on('jsdomError', e => {", "vc.on('jsdomError', e => { console.log('DIAGNOSTICA-JSDOM', JSON.stringify(e.detail && e.detail.stack), JSON.stringify(e.stack));")
           s=s.replace("if(card) card.click();", "console.log('DIAGNOSTICA-PRODUCT', id, !!card, win.location.pathname, doc.querySelectorAll('[data-action=\\\"open-product\\\"]').length); if(card) card.click();")
           open(p,'w').write(s)
           PY

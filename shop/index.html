@@ -156,6 +156,8 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/maison-reference.css">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
 <link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
@@ -164,6 +166,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script defer src="assets/js/signature-showcase.js"></script>
 <script defer src="assets/js/maison-reference.js"></script>
+<script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
@@ -797,6 +800,15 @@ setTimeout(function(){
         <label for="inglyGeneratorFont">Stile lettering
           <select id="inglyGeneratorFont"><option value="josefin">Josefin Sans</option><option value="serif">Serif classico</option><option value="mono">Mono tecnico</option></select>
         </label>
+        <div class="ingly-generator-presets" id="inglyGeneratorPresets" aria-label="Modelli rapidi di personalizzazione">
+          <span class="ingly-generator-presets__label">PARTI DA UN MODELLO</span>
+          <div class="ingly-generator-presets__options">
+            <button type="button" data-ingly-preset="name" aria-pressed="true">Targa nome</button>
+            <button type="button" data-ingly-preset="desk" aria-pressed="false">Targa ufficio</button>
+            <button type="button" data-ingly-preset="oval" aria-pressed="false">Bomboniera ovale</button>
+            <button type="button" data-ingly-preset="keyring" aria-pressed="false">Portachiavi</button>
+          </div>
+        </div>
         <div class="ingly-parametric__buttons">
           <button type="button" class="btn btn-primary" id="inglyGeneratorDownload">Esporta SVG <span aria-hidden="true">↓</span></button>
           <a class="btn btn-ghost" href="generatori.html">Generator Studio completo ↗</a>
@@ -952,6 +964,47 @@ setTimeout(function(){
           <a class="btn btn-primary" href="https://wa.me/393296904627?text=Ciao%20INGLY%2C%20vorrei%20informazioni%20sul%20servizio%20xTool%20Authorized%20Service%20Centre" target="_blank" rel="noopener noreferrer">Contatta il Service Centre <span class="arr">→</span></a>
           <a class="btn btn-ghost" href="demo" data-nav="demo">Prenota una demo xTool</a>
         </div>
+      </div>
+    </section>
+    <section class="ingly-lab-facts" id="inglyLabFacts" aria-labelledby="inglyLabFactsTitle">
+      <div class="ingly-lab-facts__head">
+        <span class="eyebrow">INGLY DESIGN / TECNOLOGIE</span>
+        <h2 id="inglyLabFactsTitle">La macchina giusta. <em>Per il risultato giusto.</em></h2>
+        <p>Specifiche dai manuali e dalle pagine xTool ufficiali. Ogni tecnologia ha possibilità e limiti diversi: ti aiutiamo a scegliere quella adatta al progetto.</p>
+      </div>
+      <div class="ingly-lab-facts__grid">
+        <article class="ingly-lab-fact">
+          <span class="ingly-lab-fact__index">01 / LASER CO₂</span>
+          <h3>xTool P3</h3>
+          <dl><dt>Tecnologia</dt><dd>Laser CO₂, 80 W</dd><dt>Area operativa</dt><dd>914 × 457 mm</dd><dt>Velocità max dichiarata</dt><dd>1.200 mm/s</dd><dt>Altezza massima</dt><dd>220 mm</dd></dl>
+          <p>Taglio di legno, acrilico e materiali compatibili; incisioni e lavorazioni di grande formato.</p>
+          <a href="https://www.xtool.eu/it-it/pages/xtool-p3-the-flagship-80w-co2-laser-cutter" target="_blank" rel="noopener noreferrer">Fonte ufficiale xTool ↗</a>
+          <p class="ingly-lab-fact__notice">L'incisione diretta del metallo richiede un modulo/accessorio idoneo: CO₂ 80 W non equivale a fibra.</p>
+        </article>
+        <article class="ingly-lab-fact">
+          <span class="ingly-lab-fact__index">02 / DIODO + INFRAROSSO</span>
+          <h3>xTool F2</h3>
+          <dl><dt>Laser blu</dt><dd>15 W · 445 ± 15 nm</dd><dt>Laser IR</dt><dd>5 W · 1.064 ± 5 nm</dd><dt>Area standard</dt><dd>115 × 115 mm</dd><dt>Estensione opzionale</dt><dd>115 × 400 mm</dd></dl>
+          <p>Incisione e marcatura di oggetti piccoli, accessori, targhette e metalli compatibili con sorgente IR.</p>
+          <a href="https://support.xtool.com/article/2818" target="_blank" rel="noopener noreferrer">Fonte ufficiale xTool ↗</a>
+          <p class="ingly-lab-fact__notice">Le lavorazioni variano per finitura, materiale e accessorio; non è una sorgente MOPA.</p>
+        </article>
+        <article class="ingly-lab-fact">
+          <span class="ingly-lab-fact__index">03 / STAMPA UV</span>
+          <h3>xTool O1 Omni</h3>
+          <dl><dt>Tecnologia</dt><dd>Stampante UV inkjet, non laser</dd><dt>Area piano standard</dt><dd>330 × 420 mm</dd><dt>Risoluzione dichiarata</dt><dd>720 × 1440 dpi</dd><dt>Versioni</dt><dd>Single UV / Dual UV / UV + DT</dd></dl>
+          <p>Personalizzazione a colori di legno, acrilico, vetro e articoli compatibili. Fluo e stampa tessile dipendono dalla versione.</p>
+          <a href="https://support.xtool.com/article/3084?from=xTool+O1+Omni+Printer&amp;url=%2Fproduct%2F94" target="_blank" rel="noopener noreferrer">Fonte ufficiale xTool ↗</a>
+          <p class="ingly-lab-fact__notice">Versione effettivamente presente in laboratorio: [DA CONFERMARE]. Non descrivere la macchina come laser UV.</p>
+        </article>
+        <article class="ingly-lab-fact">
+          <span class="ingly-lab-fact__index">04 / PRESSA MODULARE</span>
+          <h3>xTool WonderPress</h3>
+          <dl><dt>Tecnologia</dt><dd>Trasferimento termico / sublimazione</dd><dt>Piastra termica</dt><dd>380 × 380 mm</dd><dt>Temperatura</dt><dd>80–210 °C</dd><dt>Pressione</dt><dd>20–100 kg</dd></dl>
+          <p>Trasferimenti DTF e termoadesivi, sublimazione e, con moduli dedicati, formatura o cottura creativa.</p>
+          <a href="https://support.xtool.com/article/3206" target="_blank" rel="noopener noreferrer">Fonte ufficiale xTool ↗</a>
+          <p class="ingly-lab-fact__notice">Disponibilità dei moduli Craft Oven e 3D Form nell'attuale laboratorio: [DA CONFERMARE].</p>
+        </article>
       </div>
     </section>
     <div id="labMacGrid"></div>
@@ -1287,27 +1340,27 @@ setTimeout(function(){
 </script>
 
 <!-- ===== EXIT-INTENT POPUP — contenuto iniettato da JS via data/config.json ===== -->
-<div id="exitPopup" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);align-items:center;justify-content:center" role="dialog" aria-modal="true" aria-labelledby="exitPopTitle">
-  <div id="exitPopInner" style="border:1px solid rgba(245,217,78,.25);border-radius:24px;padding:clamp(24px,5vw,48px);max-width:440px;width:90vw;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.7);text-align:center;overflow:hidden">
-    <div id="exitPopBgImg" style="position:absolute;inset:0;background-size:cover;background-position:center;opacity:.22;pointer-events:none;border-radius:inherit"></div>
+<div id="exitPopup" class="ingly-offer-overlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="exitPopTitle">
+  <div id="exitPopInner" class="ingly-offer-panel">
+    <div id="exitPopBgImg" class="ingly-offer-background"></div>
     <div style="position:relative;z-index:1">
-      <button id="exitClose" aria-label="Chiudi" style="position:absolute;top:-8px;right:-12px;background:none;border:none;color:#9897b8;font-size:22px;cursor:pointer;line-height:1;padding:4px">✕</button>
-      <div id="exitPopProd" style="display:none;margin:0 0 16px">
-        <img id="exitPopProdImg" alt="" style="width:100%;max-height:190px;object-fit:cover;border-radius:14px;display:block">
-        <div id="exitPopProdName" style="font-family:var(--fd,'Exo 2',sans-serif);font-weight:700;color:#eae8f5;margin-top:10px;font-size:16px;padding:0 26px"></div>
-        <div id="exitPopProdPrice" style="font-size:15px;color:#9897b8;margin-top:2px"></div>
+      <button id="exitClose" aria-label="Chiudi" class="ingly-offer-close">✕</button>
+      <div id="exitPopProd" class="ingly-offer-product" style="display:none">
+        <img id="exitPopProdImg" alt="" class="ingly-offer-product-photo">
+        <div id="exitPopProdName" class="ingly-offer-product-name"></div>
+        <div id="exitPopProdPrice" class="ingly-offer-price"></div>
       </div>
-      <div id="exitPopEmoji" style="font-size:2.8rem;margin-bottom:8px">🎁</div>
-      <h3 id="exitPopTitle" style="font-family:var(--fd,'Exo 2',sans-serif);font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800;color:var(--accent,#f5d94e);margin:0 0 10px"></h3>
-      <p id="exitPopMsg" style="color:#9897b8;font-size:15px;margin:0 0 20px;line-height:1.55"></p>
-      <button type="button" id="exitPopCode" title="Copia il codice" style="display:none;align-items:center;justify-content:space-between;gap:14px;width:100%;margin:0 0 16px;padding:12px 16px;border:2px dashed var(--accent,#f5d94e);border-radius:12px;background:rgba(245,217,78,.07);color:#eae8f5;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;font-size:17px;letter-spacing:.16em;cursor:pointer">
+      <div id="exitPopEmoji" class="ingly-offer-symbol" aria-hidden="true">🎁</div>
+      <h3 id="exitPopTitle" class="ingly-offer-title"></h3>
+      <p id="exitPopMsg" class="ingly-offer-message"></p>
+      <button type="button" id="exitPopCode" class="ingly-offer-code" title="Copia il codice" style="display:none">
         <span id="exitPopCodeTxt"></span><span aria-hidden="true" style="opacity:.6;letter-spacing:0;font-size:15px">⧉ copia</span>
       </button>
-      <a id="exitWaBtn" href="#" data-wa-keep target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25d366,#128c3e);color:#fff;font-weight:700;padding:14px 28px;border-radius:12px;text-decoration:none;font-size:16px;margin-bottom:12px">
+      <a id="exitWaBtn" class="ingly-offer-cta" href="#" data-wa-keep target="_blank" rel="noopener">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.535 5.856L.057 23.797a.75.75 0 00.906.94l6.123-1.607A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75A9.742 9.742 0 016.44 20.09l-.384-.23-3.977 1.044 1.064-3.878-.252-.4A9.75 9.75 0 012.25 12c0-5.376 4.374-9.75 9.75-9.75s9.75 4.374 9.75 9.75-4.374 9.75-9.75 9.75z"/></svg>
         <span id="exitPopBtn">Ottieni il 10% di sconto</span>
       </a>
-      <p id="exitPopNota" style="font-size:11px;color:#5c5b78;margin:0"></p>
+      <p id="exitPopNota" class="ingly-offer-note"></p>
     </div>
   </div>
 </div>
@@ -1330,7 +1383,8 @@ setTimeout(function(){
          products.json si scarica solo quando serve davvero. */
       const tipo=ep.sfondoTipo||(ep.bgImage?'immagine':'nessuno');
       const inner=document.getElementById('exitPopInner');
-      inner.style.background=ep.bgColor||'linear-gradient(135deg,#131a33,#0a0d18)';
+      /* Theme determines popup surface; CMS image is shown in a separate media layer. */
+      inner.style.background='';
       const bgEl=document.getElementById('exitPopBgImg');
       if(tipo==='immagine'&&ep.bgImage){bgEl.style.backgroundImage='url('+ep.bgImage+')';bgEl.style.display='block';}
       else bgEl.style.display='none';
@@ -1354,13 +1408,13 @@ setTimeout(function(){
             document.getElementById('exitPopProdName').textContent=prodNome;
             const sc=scontato(pr.price);
             document.getElementById('exitPopProdPrice').innerHTML=
-              sc!=null?'<s style="opacity:.55">'+eur(pr.price)+'</s> <b style="color:#f5d94e">'+eur(sc)+'</b>':eur(pr.price);
+              sc!=null?'<s>'+eur(pr.price)+'</s> <b>'+eur(sc)+'</b>':eur(pr.price);
             document.getElementById('exitPopProd').style.display='block';
             document.getElementById('exitPopEmoji').style.display='none';
           }
         }catch(e){}
       }
-      document.getElementById('exitPopEmoji').textContent=ep.emoji||'🎁';
+      document.getElementById('exitPopEmoji').textContent='✧';
       document.getElementById('exitPopTitle').textContent=t(ep.titolo);
       /* Allow only <b> emphasis; never execute HTML saved in the CMS. */
       const messageEl=document.getElementById('exitPopMsg');

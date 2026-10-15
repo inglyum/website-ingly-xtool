@@ -4026,6 +4026,45 @@ function validaBozza(){
   }
   if(b2.n&&!b2.n.en)warn.push(et+': manca il nome inglese.');
  });
+ /* Integrità del nuovo editor: controllo anche quando la sua scheda non è aperta.
+    Gli archiviati restano dati storici, ma i loro ID non diventano disponibili. */
+ for(const [nome,records] of [
+  ['Materiali',(S.MAT&&S.MAT.materiali)||[]],
+  ['Macchine',(S.MAC&&S.MAC.catalogo)||[]]
+ ]){
+  const seen=new Set();
+  for(const r of records){
+   const id=String(r.id||'').trim();
+   if(!id||seen.has(id))err.push(nome+': ID mancante o duplicato «'+id+'»');
+   seen.add(id);
+   if(r.galleria)r.galleria.forEach((im,j)=>{
+    if(im.src&&(!im.alt||!String(im.alt.it||'').trim()||!String(im.alt.en||'').trim()))
+     err.push(nome+' '+id+': foto '+(j+1)+' senza alt IT e EN');
+   });
+  }
+ }
+ ((S.MAT&&S.MAT.materiali)||[]).forEach(m=>{
+  const v=((m.vendita||{}).varianti)||[];
+  const seen=new Set();
+  if(m.stato==='pubblicato'&&!m.cat)err.push('Materiale '+m.id+': categoria mancante.');
+  v.forEach(x=>{
+   if(!x.id||seen.has(String(x.id)))err.push('Materiale '+m.id+': ID variante mancante/duplicato.');
+   seen.add(String(x.id));
+   for(const campo of ['prezzo','compareAt','stock']){
+    const n=x[campo];
+    if(n!=null&&(!Number.isFinite(Number(n))||Number(n)<0))
+     err.push('Variante '+x.id+': '+campo+' non valido.');
+   }
+  });
+ });
+ ((S.MAC&&S.MAC.catalogo)||[]).forEach(m=>{
+  if(m.fonte&&m.fonte.url&&!/^https:\/\//i.test(m.fonte.url))
+   err.push('Macchina '+m.id+': fonte non HTTPS.');
+  if(m.stato==='pubblicato'&&m.daCompletare===false&&Object.keys(m.specs||{}).length
+      &&!(m.fonte&&/^https:\/\/[^/]*xtool\.com\//i.test(m.fonte.url||''))
+      &&!((S.MAC&&S.MAC.macchine)||[]).some(x=>x.id===m.id&&x.specificheUfficiali&&x.specificheUfficiali.source))
+   err.push('Macchina '+m.id+': dati tecnici senza fonte xTool verificabile.');
+ });
  /* La vecchia lista non deve tornare: se ricompare in content.json le due
     divergono in silenzio e il sito legge quella sbagliata. */
  if(S.C&&S.C.DIG!==undefined)err.push('content.json contiene ancora DIG: i file digitali stanno in data/digitale.json. Rimuovilo prima di pubblicare.');

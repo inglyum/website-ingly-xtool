@@ -18,6 +18,8 @@ try{
   const p=await ctx.newPage();
   try{
    await p.goto(url+'/shop/',{waitUntil:'domcontentloaded'});
+   // Campaign popup is tested separately; do not let timed promotion obscure navigation controls.
+   await p.addStyleTag({content:'#exitPopup{display:none!important;pointer-events:none!important}'});
    await p.waitForSelector('#page-shop.active .pcard-open:visible',{timeout:18000});
    await run(mode+' skip link',async()=>{
     const skip=p.locator('.ingly-skip-link');
@@ -34,7 +36,7 @@ try{
     assert.equal(await p.locator('#mm').getAttribute('aria-hidden'),'false');
     assert.equal(await p.locator('#mm [data-action="menu-close"]').evaluate(el=>document.activeElement===el),true);
     await p.keyboard.press('Escape');
-    await p.waitForSelector('#mm:not(.open)');
+    await p.waitForFunction(()=>!document.getElementById('mm')?.classList.contains('open'));
     assert.equal(await open.getAttribute('aria-expanded'),'false');
     assert.equal(await p.locator('#mm').getAttribute('inert'),'');
     assert.equal(await open.evaluate(el=>document.activeElement===el),true);
@@ -49,6 +51,7 @@ try{
    await run(mode+' product lightbox via keyboard and Escape',async()=>{
     // The first Shop card may intentionally have no photo: use a known photographed SKU.
     await p.goto(url+'/product/1/',{waitUntil:'domcontentloaded'});
+    await p.addStyleTag({content:'#exitPopup{display:none!important;pointer-events:none!important}'});
     await p.waitForSelector('#page-product.active',{timeout:12000});
     const photo=p.locator('#ppArt[role="button"][aria-disabled="false"]');
     await photo.waitFor({state:'visible'});
@@ -59,7 +62,7 @@ try{
     await p.keyboard.press('Tab');
     assert.equal(await p.locator('#lightbox').evaluate(el=>el.contains(document.activeElement)),true);
     await p.keyboard.press('Escape');
-    await p.waitForSelector('#lightbox[hidden]');
+    await p.waitForFunction(()=>document.getElementById('lightbox')?.hidden===true);
     assert.equal(await photo.evaluate(el=>document.activeElement===el),true);
    });
    await run(mode+' cart returns focus to opener',async()=>{
@@ -68,7 +71,7 @@ try{
     await p.waitForSelector('#drawer.open');
     assert.equal(await p.locator('#drawer [data-action="close-cart"]').first().evaluate(el=>document.activeElement===el),true);
     await p.keyboard.press('Escape');
-    await p.waitForSelector('#drawer:not(.open)');
+    await p.waitForFunction(()=>!document.getElementById('drawer')?.classList.contains('open'));
     assert.equal(await p.locator('#drawer').getAttribute('inert'),'');
     assert.equal(await open.evaluate(el=>document.activeElement===el),true);
    });

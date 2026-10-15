@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="it" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1221">
+<title>INGLY Print &amp; Cut — Generatore sagome SVG</title>
+<meta name="description" content="Generatore locale di sagome Print & Cut da immagini trasparenti: esporta SVG dimensionali in millimetri, con margine e compensazione kerf.">
+<link rel="icon" type="image/svg+xml" href="assets/images/ingly-logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root,:root[data-mode=dark]{color-scheme:dark;--bg:#0b1221;--panel:#142238;--panel2:#1a2b46;--text:#f3f8ff;--muted:#bdcce0;--border:rgba(129,173,236,.25);--blue:#75c7ff;--green:#58e6b1;--shine:rgba(47,153,240,.2);--shadow:0 20px 50px rgba(2,9,22,.3)}
+:root[data-mode=light]{color-scheme:light;--bg:#fff;--panel:#fff;--panel2:#f1f7ff;--text:#162540;--muted:#476080;--border:rgba(31,94,158,.22);--blue:#095f9e;--green:#076e52;--shine:rgba(34,130,235,.1);--shadow:0 15px 42px rgba(27,80,123,.12)}
+body{min-height:100vh;margin:0;background:radial-gradient(ellipse 60% 45% at 83% 4%,var(--shine),transparent),linear-gradient(165deg,var(--bg),var(--panel2) 80%,var(--bg));color:var(--text);font:16px/1.55 'Josefin Sans',system-ui,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{width:min(1190px,calc(100% - 36px));margin-inline:auto}
+header{border-bottom:1px solid var(--border);background:var(--panel);position:sticky;top:0;z-index:10}
+.header{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:76px}
+.brand{display:inline-flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.04em}
+.brand img{width:46px;height:46px;object-fit:contain}
+.brand small{display:block;font-size:.72rem;font-weight:500;letter-spacing:.07em;color:var(--muted)}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);padding:11px 16px;font-weight:700;min-height:44px}
+.btn.primary{background:linear-gradient(110deg,#65ebb7,#76c4ff,#c4b4ff);color:#071627;border-color:transparent}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.toggle[aria-pressed=true]{outline:2px solid var(--blue);outline-offset:-2px}
+.intro{padding:clamp(36px,6vw,75px) 0 28px}
+.eyebrow{text-transform:uppercase;letter-spacing:.17em;font-size:.78rem;color:var(--blue);font-weight:700}
+h1{font-size:clamp(2.25rem,5.4vw,4.4rem);line-height:1.06;letter-spacing:-.04em;margin:10px 0 18px}
+h1 span{background:linear-gradient(100deg,var(--green),var(--blue));background-clip:text;-webkit-background-clip:text;color:transparent}
+.intro p{color:var(--muted);max-width:770px;font-size:clamp(1rem,1.4vw,1.14rem)}
+.workspace{display:grid;grid-template-columns:minmax(295px,.82fr) minmax(0,1.18fr);gap:20px;padding-bottom:65px;align-items:start}
+.panel{border:1px solid var(--border);border-radius:22px;background:var(--panel);box-shadow:var(--shadow);padding:clamp(18px,2.4vw,28px);min-width:0}
+.panel h2{font-size:1.45rem;line-height:1.2;margin:0 0 18px}
+.field{margin-bottom:18px}.field label{display:block;font-weight:700;margin:0 0 7px}
+.field input,.field select{display:block;width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:12px}
+.field input[type=range]{padding:0;accent-color:var(--blue)}
+.field small,.hint{color:var(--muted);font-size:.87rem}
+.inline{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.drop{border:2px dashed var(--border);border-radius:15px;padding:18px;transition:border-color .2s;background:var(--panel2)}
+.drop:focus-within{border-color:var(--blue)}
+.panel .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.preview{min-height:400px;display:grid;place-items:center;border:1px solid var(--border);border-radius:16px;background-image:linear-gradient(45deg,var(--panel2) 25%,transparent 25%),linear-gradient(-45deg,var(--panel2) 25%,transparent 25%),linear-gradient(45deg,transparent 75%,var(--panel2) 75%),linear-gradient(-45deg,transparent 75%,var(--panel2) 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;overflow:hidden;padding:20px}
+.preview svg{display:block;max-width:100%;width:100%;height:auto;max-height:540px}
+.empty{color:var(--muted);text-align:center;max-width:280px}
+.stats{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:13px;font-size:.88rem;color:var(--muted)}
+.status{margin-top:18px;min-height:46px;border:1px solid var(--border);background:var(--panel2);padding:12px;border-radius:11px}
+.status[data-error=true]{border-color:#d74b6a;color:var(--text)}
+.notice{margin-top:24px;padding:17px;border-left:3px solid var(--blue);background:var(--panel2);color:var(--muted);border-radius:0 12px 12px 0;font-size:.9rem}
+footer{border-top:1px solid var(--border);padding:22px 0 32px;color:var(--muted);font-size:.88rem}
+@media(max-width:880px){.workspace{grid-template-columns:1fr}.preview{min-height:310px}}
+@media(max-width:520px){.wrap{width:min(100% - 28px,1190px)}.header{padding:10px 0;flex-wrap:wrap}.brand img{width:36px;height:36px}.actions{width:100%;justify-content:flex-end}.intro{padding:30px 0 20px}.inline{grid-template-columns:1fr}.panel{padding:17px}.preview{min-height:240px}.panel .toolbar>.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<script>try{const s=localStorage.getItem('ingly_mode');if(s==='light'||s==='dark')document.documentElement.dataset.mode=s}catch(_){}</script>
+</head>
+<body>
+<header><div class="wrap header">
+ <a href="./" class="brand"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN"><span>INGLY DESIGN<small>PRINT &amp; CUT STUDIO</small></span></a>
+ <div class="actions">
+  <a href="generatori.html" class="btn" data-i18n="back">← Tutti i generatori</a>
+  <button type="button" class="btn toggle" id="langSwitch" aria-label="Switch language">EN</button>
+  <button type="button" class="btn toggle" id="modeSwitch" aria-label="Cambia modalità chiara o scura">◐</button>
+ </div>
+</div></header>
+<main class="wrap">
+ <div class="intro">
+  <span class="eyebrow">INGLY DESIGN / GENERATOR STUDIO</span>
+  <h1 data-i18n="title">Il tuo disegno.<br>Il tuo <span>contorno.</span></h1>
+  <p data-i18n="intro">Carica una PNG o WebP con trasparenza. Il motore rileva la sagoma dal canale alpha, aggiunge un margine dimensionato ed esporta un SVG per il percorso di taglio, senza inviare il file a server esterni.</p>
+ </div>
+ <div class="workspace">
+  <section class="panel" aria-labelledby="settingsTitle">
+   <h2 id="settingsTitle" data-i18n="settings">Parametri di lavorazione</h2>
+   <div class="field drop"><label for="artFile" data-i18n="file">1. Immagine con sfondo trasparente</label>
+    <input type="file" id="artFile" accept="image/png,image/webp,image/jpeg">
+    <small data-i18n="fileNote">Elaborazione locale · PNG consigliato · massimo 15 MB.</small>
+   </div>
+   <div class="field"><label for="cutWidth" data-i18n="width">2. Larghezza dell'immagine (mm)</label>
+    <input id="cutWidth" type="number" min="10" max="600" step=".5" value="90" inputmode="decimal">
+   </div>
+   <div class="inline">
+    <div class="field"><label for="margin" data-i18n="margin">Margine esterno (mm)</label>
+     <input id="margin" type="number" min="0" max="8" step=".1" value="1.5" inputmode="decimal"></div>
+    <div class="field"><label for="kerf" data-i18n="kerf">Kerf stimato (mm)</label>
+     <input id="kerf" type="number" min="0" max="1" step=".01" value=".15" inputmode="decimal"></div>
+   </div>
+   <div class="field"><label for="threshold"><span data-i18n="threshold">Soglia alpha</span> · <output id="thresholdOut">48</output></label>
+    <input type="range" id="threshold" min="1" max="250" value="48">
+    <small data-i18n="thresholdNote">Più alta = esclude i pixel quasi trasparenti.</small></div>
+   <div class="toolbar">
+    <button type="button" class="btn primary" id="cutDownload" disabled data-i18n="cutDownload">Scarica contorno SVG</button>
+    <button type="button" class="btn" id="printDownload" disabled data-i18n="printDownload">Scarica Print + Cut SVG</button>
+   </div>
+   <div class="notice" data-i18n="notice">Il contorno deriva dai pixel e non sostituisce la calibrazione della macchina. Verifica sempre scala, margine, taglio e allineamento su uno scarto prima della produzione. Questo strumento non comunica direttamente con xTool Creative Space.</div>
+  </section>
+  <section class="panel" aria-labelledby="previewTitle">
+   <h2 id="previewTitle" data-i18n="previewTitle">Anteprima dimensionata</h2>
+   <div class="preview" id="cutPreview" aria-live="polite"><p class="empty" data-i18n="empty">Carica il disegno per vedere l'anteprima del contorno.</p></div>
+   <div class="stats"><span id="cutDimensions">—</span><span id="cutContours">—</span></div>
+   <div class="status" id="cutStatus" role="status" aria-live="polite" data-i18n="ready">Pronto. Nessun file inviato online.</div>
+  </section>
+ </div>
+</main>
+<footer><div class="wrap">INGLY DESIGN · <span data-i18n="foot">Motore locale e originale per l'anteprima e l'esportazione SVG dimensionale.</span></div></footer>
+<script type="module" src="assets/js/print-cut-ui.js"></script>
+</body>
+</html>

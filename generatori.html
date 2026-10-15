@@ -56,6 +56,7 @@ const defaults=[
 {id:'cake-topper',modulo:'cake-topper',nome:{it:'Cake Topper',en:'Cake Topper'},descrizione:{it:'Sagoma decorativa con picchetto integrato.',en:'Decorative topper with an integrated stake.'},categoria:'Feste ed eventi',icona:'✦',attivo:true,ordine:4},
 {id:'scatola-incastri',modulo:'scatola-incastri',nome:{it:'Scatola a incastri',en:'Finger-joint Box'},descrizione:{it:'Cinque pannelli con denti e cave parametriche.',en:'Five panels with parametric finger joints.'},categoria:'Scatole e packaging',icona:'▣',attivo:true,ordine:5},
 {id:'ornamento',modulo:'ornamento',nome:{it:'Ornamenti e Gift Tag',en:'Ornaments & Gift Tags'},descrizione:{it:'Sagome per ricorrenze con foro per nastro e testo inciso.',en:'Occasion shapes with hanging hole and engraved text.'},categoria:'Feste e stagioni',icona:'❋',attivo:true,ordine:6},
+{id:'print-cut',modulo:'link-interno',nome:{it:'Print & Cut Studio',en:'Print & Cut Studio'},descrizione:{it:'Dall’immagine trasparente alla sagoma SVG dimensionata, senza upload esterni.',en:'Convert a transparent image into a measured SVG outline, all on your device.'},categoria:'Stampa e taglio',icona:'✂',attivo:true,ordine:9,url:'print-cut.html'},
 {id:'cuttle-templates',modulo:'link-esterno',nome:{it:'Esplora i template Cuttle',en:'Explore Cuttle templates'},descrizione:{it:'Catalogo ufficiale esterno. Account, download e licenze sono gestiti da Cuttle; non è un generatore INGLY.',en:'External official catalog. Cuttle manages accounts, downloads and licensing; this is not an INGLY generator.'},categoria:'Risorse esterne',icona:'↗',attivo:true,ordine:8,url:'https://cuttle.xyz/templates'},
 {id:'makorix-reference',modulo:'link-esterno',nome:{it:'Esplora Makorix',en:'Explore Makorix'},descrizione:{it:'Catalogo esterno di generatori e modelli. INGLY sviluppa motori originali senza copiare codice o risorse di terzi.',en:'External catalog of generators and templates. INGLY builds original engines without copying third-party code or assets.'},categoria:'Risorse esterne',icona:'↗',attivo:true,ordine:9,url:'https://makorix.com/'},
 {id:'ingranaggio',modulo:'ingranaggio',nome:{it:'Ingranaggio parametrico',en:'Parametric Gear'},descrizione:{it:'Ruota dentata decorativa con denti, modulo e foro regolabili.',en:'Decorative gear with adjustable teeth, module and bore.'},categoria:'Meccanica e design',icona:'⚙',attivo:true,ordine:7}
@@ -75,7 +76,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;'
 const mod=id=>catalogue.find(x=>x.modulo===id)||catalogue.find(x=>x.id===id);
 const label=x=>(x.nome&&x.nome.it)||x.label||x.id;
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2800)}
-function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper','scatola-incastri','ornamento','ingranaggio'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||'')))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
+function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper','scatola-incastri','ornamento','ingranaggio'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||''))||(x.modulo==='link-interno'&&x.url==='print-cut.html'))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
 function renderFilters(){
 const cats=['Tutti',...new Set(activeModules().map(x=>x.categoria||'Altro'))];
 $('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(c)+'</button>').join('');
@@ -295,6 +296,7 @@ const o=buildSvg();$('canvas').innerHTML=o.svg;$('sizeLabel').textContent=o.w+' 
 }
 function select(id){
 const item=catalogue.find(x=>x.id===id)||catalogue.find(x=>x.modulo===id);if(!item||item.attivo===false)return;
+if(item.modulo==='link-interno'){if(item.url==='print-cut.html'){location.assign('print-cut.html')}else toast('Percorso non autorizzato');return;}
 if(item.modulo==='link-esterno'){const u=String(item.url||'');if(/^https?:\/\//i.test(u)){window.open(u,'_blank','noopener,noreferrer');toast('Strumento esterno aperto in una nuova scheda.')}else toast('Il collegamento esterno non è valido.');return;}
 if(!state[item.modulo]){toast('Motore non ancora implementato: aggiungi prima il modulo software.');return;}
 activeId=item.id;active=item.modulo;

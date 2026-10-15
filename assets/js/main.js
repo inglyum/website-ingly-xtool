@@ -143,7 +143,8 @@ const STATIC_UI_TRANSLATIONS={
   genPreview:{it:'ANTEPRIMA LIVE',en:'LIVE PREVIEW'},
   genProjectNotes:{it:'Note per il progetto (facoltative)',en:'Project notes (optional)'},
   genQuote:{it:'Richiedi preventivo',en:'Request a quote'},
-  genStudio:{it:'Generator Studio completo',en:'Full Generator Studio'}
+  genStudio:{it:'Generator Studio completo',en:'Full Generator Studio'},
+  genNotesPlaceholder:{it:'Materiale, uso previsto, consegna o dettagli da valutare',en:'Material, intended use, delivery or details to discuss'}
 };
 function translateInline(){
   document.querySelectorAll('[data-inline-i18n]').forEach(el=>{
@@ -154,6 +155,15 @@ function translateInline(){
     const v=STATIC_UI_TRANSLATIONS[el.dataset.inlineAria];
     if(v)el.setAttribute('aria-label',v[L]||v.it);
   });
+  document.querySelectorAll('[data-inline-placeholder]').forEach(el=>{
+    const v=STATIC_UI_TRANSLATIONS[el.dataset.inlinePlaceholder];
+    if(v)el.setAttribute('placeholder',v[L]||v.it);
+  });
+  const defaultName=document.getElementById('inglyGeneratorName');
+  if(defaultName&&['Il tuo nome','Your name'].includes(defaultName.value)){
+    defaultName.value=L==='en'?'Your name':'Il tuo nome';
+    defaultName.dispatchEvent(new Event('input',{bubbles:true}));
+  }
 }
 /* ---- i18n ---- */
 function applyI18n(){

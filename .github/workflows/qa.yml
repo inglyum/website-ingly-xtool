@@ -24,6 +24,16 @@ jobs:
         run: npm test
       - name: Invarianti design ecommerce e dati B2B
         run: node tests/test-signature-ui.mjs
+      - name: Verifica palette Notte e Oro
+        run: node tests/test-notte-oro.mjs
+      - name: Verifica integrazione delle otto fasi
+        run: node tests/test-notte-oro-integration.mjs
+      - name: Smoke test interazioni live Notte e Oro
+        run: node tests/test-notte-oro-dom.mjs
+      - name: Verifica sintassi degli script Notte e Oro
+        run: |
+          node --check assets/js/notte-oro-loader.js
+          node --check assets/js/notte-oro-ui.js
       - name: Verifica design system Atelier e contrasto WCAG AA
         run: node tests/test-atelier-foundation.mjs
       - name: Verifica navigazione Atelier e fascia annunci

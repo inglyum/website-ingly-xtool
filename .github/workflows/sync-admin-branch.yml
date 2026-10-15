@@ -21,6 +21,9 @@ jobs:
       - run: npm install --no-audit --no-fund
       - name: Rigenera fallback e dataset
         run: npm run build
+      - name: Identifica funzione minificata del dettaglio prodotto
+        run: |
+          node -e "const fs=require('fs');const l=fs.readFileSync('assets/js/app.fallback.js','utf8').split('\\n');console.log('SOURCE-LINE59-START',l[58]?.slice(0,1100));console.log('SOURCE-LINE59-AFTER',l[58]?.slice(3200,4100));"
       - name: Rigenera pagine per robot e motori di ricerca
         run: |
           node scripts/prerender.mjs

@@ -32,4 +32,17 @@ assert.ok(html.includes('var m="dark"'),'Dark should be default without stored p
 assert.ok(html.includes('saved==="light"||saved==="dark"'),'Respect existing saved theme');
 assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'),'Reduced motion styles missing');
 assert.ok(css.includes('--at-tech:#39d0ff') && css.includes('--at-amber:#ff7a2f'),'Atelier color palette must be available');
-console.log('Atelier Phase 1: dual theme, contrast, CSS precedence and reduced motion PASS');
+const navTexts=JSON.parse(read('data/texts.json'));
+const fallback=read('data/i18n.js');
+assert.equal(navTexts.it.navCreate,'Crea il tuo pezzo');
+assert.equal(navTexts.en.navCreate,'Create your piece');
+assert.ok(fallback.includes('navCreate'), 'i18n fallback must include CTA translation');
+assert.ok(html.includes('class="atelier-nav-cta"'), 'Desktop creation CTA missing');
+assert.ok(html.includes('class="atelier-mobile-dock"'), 'Mobile quick-action bar missing');
+for(const target of ['href="shop" data-nav="shop"','href="personalizza" data-nav="personalizza"','data-action="open-cart"']){
+  assert.ok(html.includes(target),'Functional dock destination missing: '+target);
+}
+assert.ok(css.includes('backdrop-filter:blur(22px)'), 'Translucent nav missing');
+assert.ok(css.includes('prefers-reduced-motion:no-preference'), 'Hover motion must be opt-in');
+assert.ok(css.includes('@supports not (backdrop-filter:blur(1px))'), 'Glass fallback missing');
+console.log('Atelier Phase 1 + navigation polish: theme contrast, glass, CTA, mobile dock PASS');

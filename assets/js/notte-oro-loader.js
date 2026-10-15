@@ -43,7 +43,9 @@
     if(!badge||!fill||!rail||!pct||!msg||!heading||!skip)return;
     const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
     const override=forcePreview();
-    let options={...DEFAULT},disposed=false,finished=false,progress=0,appReady=!!window.__INGLY_PRONTO;
+    let cached={};
+    try{cached=JSON.parse(sessionStorage.getItem('ingly_loader_config_v3')||'{}')||{}}catch(_){}
+    let options={...DEFAULT,...cached},disposed=false,finished=false,progress=0,appReady=!!window.__INGLY_PRONTO;
     let minMs=DEFAULT.minMs,maxMs=DEFAULT.maxMs,chars=[];
     let start=performance.now(),frameId=0,frameTimer=0,msgTimer=0,finalTimer=0;
     const dpr=Math.min(2,window.devicePixelRatio||1);
@@ -125,6 +127,7 @@
     const onData=e=>{
       const config=e?.detail?.CONFIG||window.INGLY?.CONFIG||{};
       options={...DEFAULT,...(config.loader||{})};
+      try{sessionStorage.setItem('ingly_loader_config_v3',JSON.stringify(options))}catch(_){};
       minMs=clamp(options.minMs,500,4500);
       maxMs=clamp(options.maxMs,minMs,5500);
       if(options.enabled===false&&!override){immediate();return}
@@ -178,7 +181,7 @@
       const elapsed=now-start;
       if(window.__INGLY_PRONTO)appReady=true;
       const assetPart=Math.min(1,complete/total);
-      const readiness=assetPart*.68+(appReady?.32:0);
+      const readiness=assetPart*.68+(appReady ? .32 : 0);
       const softTarget=appReady&&assetPart>.99?1:Math.min(.94,Math.max(readiness,elapsed/maxMs*.85));
       const pace=Math.min(1,elapsed/minMs);
       const target=Math.min(softTarget,pace);
@@ -213,7 +216,7 @@
       }
       frameId=requestAnimationFrame(step);
     };
-    if(!override&&hasSeen()){immediate();return}
+    if(!override&&options.oncePerSession!==false&&hasSeen()){immediate();return}
     if(window.INGLY?.CONFIG)onData({detail:{CONFIG:window.INGLY.CONFIG}});
     else{markTheme();buildHeading();displayMessages()}
     if(disposed)return;

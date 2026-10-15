@@ -255,3 +255,20 @@
  background:#fff0f0!important;color:#9c2536!important;
  border-color:#b55b66!important;
 }
+
+
+/* WCAG AA / Admin light mode: retain dark-gallery buttons with LIGHT
+   labels, and make editor CTA ink readable on pale dashboard surfaces. */
+:root[data-mode="light"] :is(#maisonEditHero,#maisonEditBackground,#maisonManageProducts){
+ background:#e7edf5!important;color:#17253d!important;
+ border-color:#9dacbf!important;opacity:1!important
+}
+:root[data-mode="light"] .maison-admin-product{
+ background:#101115!important;color:#f8f3ea!important
+}
+:root[data-mode="light"] .maison-admin-product :is(strong,small){
+ color:#f8f3ea!important;opacity:1!important
+}
+:root[data-mode="light"] .maison-admin-media-thumb{
+ background:#101115!important
+}

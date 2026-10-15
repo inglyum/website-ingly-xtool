@@ -1,0 +1,125 @@
+/* INGLY DESIGN — NOTTE & ORO / source of truth for brand tokens.
+ * All legacy CSS remains loaded for compatible commerce components.
+ * This stylesheet is intentionally last and owns the *visual* contract.
+ * Phase 1: ink, paper, copper-gold, legible editorial type and focus.
+ */
+:root,:root[data-mode="dark"]{
+ color-scheme:dark;
+ --no-ink:#0d0f1c;--no-surface:#161a2e;--no-surface-2:#21253c;
+ --no-border:#2a2f48;--no-paper:#f5efe3;--no-muted:#b9b4a8;
+ --no-gold:#e0b06a;--no-gold-low:#c98a43;--no-gold-high:#f0cf93;
+ --no-on-gold:#0d0f1c;--no-laser:#ff8a3d;--no-tech:#6fd3e8;
+ --no-glass:rgba(16,19,34,.86);--no-ring:rgba(224,176,106,.38);
+ --no-shadow:0 24px 66px rgba(0,0,0,.32);
+ --no-soft-shadow:0 12px 32px rgba(0,0,0,.18);
+ --no-title:'Fraunces','Instrument Serif',Georgia,serif;
+ --no-copy:'Manrope','Inter',system-ui,sans-serif;
+ --no-mono:'JetBrains Mono',ui-monospace,monospace;
+ --no-script:'Pinyon Script','Snell Roundhand','Times New Roman',cursive;
+ --no-step:8px;--no-radius:16px;--no-radius-lg:20px;
+ --no-display:clamp(2.8rem,5.9vw,6rem);
+ --no-section:clamp(56px,7vw,104px);
+ --no-motion:cubic-bezier(.18,.7,.24,1);
+ /* Bridge every legacy color family into one source. */
+ --at-bg:var(--no-ink);--at-bg-deep:#090b15;--at-surface:var(--no-surface);
+ --at-surface-raised:var(--no-surface-2);--at-frost:var(--no-glass);
+ --at-text:var(--no-paper);--at-muted:var(--no-muted);--at-edge:var(--no-border);
+ --at-amber:var(--no-gold);--at-amber-hover:var(--no-gold-high);
+ --at-amber-text:var(--no-gold-high);--at-on-amber:var(--no-on-gold);
+ --at-tech:var(--no-tech);--at-focus:var(--no-gold-high);
+ --at-glow:var(--no-ring);--at-card-shadow:var(--no-shadow);
+ --at-display:var(--no-title);--at-body:var(--no-copy);--at-mono:var(--no-mono);
+ --signature-gold:var(--no-gold);--signature-gold-hi:var(--no-gold-high);
+ --signature-focus:var(--no-gold-high);--signature-hover:var(--no-ring);
+ --paper:var(--no-ink);--white:var(--no-surface);
+ --gray:var(--no-surface);--graphite:var(--no-surface-2);
+ --ink:var(--no-paper);--ink-soft:var(--no-muted);--line:var(--no-border);
+ --blue:var(--no-gold);--blue-hi:var(--no-gold-high);
+ --laser:var(--no-laser);--spark:var(--no-laser);
+ --bg-deep:var(--no-ink);--bg-card:var(--no-surface);
+ --card-solid:var(--no-surface);--card-glass:var(--no-glass);
+ --glass-dark:var(--no-glass);--fd:var(--no-title);--fb:var(--no-copy);
+ --ingly-metal:var(--no-gold);
+}
+:root[data-mode="light"]{
+ color-scheme:light;
+ --no-ink:#f5efe3;--no-surface:#fffaf1;--no-surface-2:#eae1d3;
+ --no-border:#d6c9b5;--no-paper:#181724;--no-muted:#59565b;
+ --no-gold:#9b5b22;--no-gold-low:#95521e;--no-gold-high:#754013;
+ --no-on-gold:#fffaf1;--no-laser:#ba4c18;--no-tech:#155f73;
+ --no-glass:rgba(255,250,241,.9);--no-ring:rgba(155,91,34,.18);
+ --no-shadow:0 22px 55px rgba(57,37,21,.13);
+ --no-soft-shadow:0 12px 32px rgba(57,37,21,.075);
+ --at-bg-deep:#eee5d7;
+}
+html{scroll-padding-top:90px}
+:root[data-mode] body{background:var(--no-ink)!important;color:var(--no-paper)!important;
+ font-family:var(--no-copy);font-size:16px;line-height:1.65;letter-spacing:0;
+ text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+:root[data-mode] :is(.page,.sec,.phero,.hero){color:var(--no-paper)}
+:root[data-mode] :is(.hero,.phero){background-color:var(--no-ink)!important}
+:root[data-mode] :is(h1,h2,h3,.h2,.ft-claim,#heroH1,.ingly-material-heading h2){
+ font-family:var(--no-title)!important;font-weight:600;
+ letter-spacing:-.012em!important;line-height:1.085;text-wrap:balance}
+:root[data-mode] #heroH1{font-size:var(--no-display);letter-spacing:-.012em!important;line-height:1.09}
+:root[data-mode] :is(.h2,.sec h2,.ingly-material-heading h2){font-size:clamp(2rem,3.8vw,3.8rem)}
+:root[data-mode] :is(.hero .sub,.phero .sub,.rcard p,.lab-p){
+ font-family:var(--no-copy);font-size:clamp(1rem,1.12vw,1.125rem);
+ line-height:1.68;color:var(--no-muted)!important}
+:root[data-mode] :is(.hl.on,.laserword,.xtool-lab-accent,.h2 em,#heroH1 em){
+ color:var(--no-gold-high)!important;-webkit-text-fill-color:currentColor!important;
+ font-style:italic;font-family:var(--no-title)}
+:root[data-mode] :is(.eyebrow,.hero-tag,.lab-spec,.tc-sub,.lab-n){
+ font-family:var(--no-mono);font-weight:500;letter-spacing:.095em;
+ color:var(--no-gold-high)}
+:root[data-mode] .btn{border-radius:12px;min-height:46px;letter-spacing:0;
+ font-family:var(--no-copy);font-weight:700}
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta){
+ background:linear-gradient(117deg,var(--no-gold-low),var(--no-gold),var(--no-gold-high))!important;
+ color:var(--no-on-gold)!important;border:1px solid transparent!important;
+ box-shadow:0 9px 25px var(--no-ring)!important}
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta):hover{
+ filter:brightness(1.035);box-shadow:0 13px 32px var(--no-ring)!important}
+:root[data-mode] .btn-ghost{background:transparent!important;
+ border:1px solid var(--no-border)!important;color:var(--no-paper)!important}
+:root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.p-card,.bcard,.dcard,.ingly-material-tile){
+ background:var(--no-surface)!important;color:var(--no-paper);
+ border:1px solid var(--no-border)!important;box-shadow:var(--no-soft-shadow);
+ border-radius:var(--no-radius)}
+:root[data-mode] :is(.card,.rcard,.vert-card,.mcard,.p-card):hover{
+ border-color:var(--no-gold)!important}
+:root[data-mode] :is(.icon-btn,.mode-btn,.ia-voce,.nav-links a){color:var(--no-paper)}
+:root[data-mode] :is(a,button,input,textarea,select,[tabindex]):focus-visible{
+ outline:3px solid var(--no-gold-high)!important;outline-offset:3px!important}
+:root[data-mode] :is(.quote-form input,.quote-form textarea,.searchbar,.sortsel,.txtin,select){
+ background:var(--no-surface);color:var(--no-paper);border-color:var(--no-border)}
+:root[data-mode] :is(footer,.dark,.news,.cta-band){background:var(--no-surface)!important;
+ color:var(--no-paper)!important;border-color:var(--no-border)}
+:root[data-mode] :is(.nav,.nav.scrolled,.topbar,.ia-pannello){
+ background:var(--no-glass)!important;color:var(--no-paper);
+ border-color:var(--no-border)!important}
+:root[data-mode] .nav,.ia-pannello{backdrop-filter:blur(20px) saturate(1.1);
+ -webkit-backdrop-filter:blur(20px) saturate(1.1)}
+:root[data-mode] :is(.tech-ticker,.tech-ticker .ttcard){
+ background:var(--no-surface)!important;color:var(--no-paper)}
+:root[data-mode] .tech-ticker{border-color:var(--no-border)!important}
+:root[data-mode] .tech-ticker .ttcard{border:1px solid var(--no-border)!important}
+:root[data-mode] .tech-ticker .tc-emoji{color:var(--no-gold)!important;
+ background:var(--no-surface-2)!important}
+:root[data-mode] .tech-ticker .tc-badge{color:var(--no-gold-high)!important;
+ background:transparent!important;border:1px solid var(--no-border)!important}
+:root[data-mode] #page-tecnologie .eyebrow,
+:root[data-mode] #page-macchine .eyebrow{color:var(--no-tech)}
+:root[data-mode] .hero .hero-bg .blob{opacity:.09!important;filter:blur(100px) grayscale(1)}
+:root[data-mode] body::before{opacity:.04!important;filter:grayscale(1)}
+:root[data-mode] .hero-bg .grid-lines{opacity:.07}
+:root[data-mode] #heroVisual{border-radius:var(--no-radius-lg);border:1px solid var(--no-border)}
+:root[data-mode] .hero-image-note{display:none!important}
+:root[data-mode] .ingly-material-studies{background:var(--no-ink)!important}
+:root[data-mode] .ingly-service-centre{
+ background:var(--no-surface)!important;border:1px solid var(--no-border)!important}
+:root[data-mode] .atelier-service-art{background:var(--no-surface-2)!important}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] :is(.hero,.btn,.rcard,.vert-card,.p-card){animation:none!important;
+ transition:none!important;transform:none!important}
+}

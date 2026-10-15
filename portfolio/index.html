@@ -252,6 +252,7 @@ setTimeout(function(){
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>
 
+<a class="ingly-skip-link" href="#mainContent">Salta al contenuto principale</a>
 <div class="topbar">
   <div class="wrap">
     <div class="atelier-announcement" aria-label="Informazioni INGLY DESIGN">
@@ -262,7 +263,7 @@ setTimeout(function(){
     <div style="display:flex;gap:14px;align-items:center">
       
       <button class="mode-btn" id="modeBtn" type="button" aria-label="Cambia tema" title="Chiaro / scuro"><svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.7 8.7 0 1 0 11 11Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6"/></svg></button>
-<div class="lang"><button id="langIT" class="on" data-action="lang" data-l="it">IT</button><button id="langEN" data-action="lang" data-l="en">EN</button></div>
+<div class="lang" role="group" aria-label="Lingua del sito"><button id="langIT" class="on" data-action="lang" data-l="it" type="button" aria-pressed="true" lang="it">IT</button><button id="langEN" data-action="lang" data-l="en" type="button" aria-pressed="false" lang="en">EN</button></div>
     </div>
   </div>
 </div>
@@ -291,7 +292,7 @@ setTimeout(function(){
       <a class="icon-btn atelier-search-link" href="shop" data-nav="shop" aria-label="Vai allo Shop per cercare prodotti" title="Cerca nello Shop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 5 5"/></svg></a>
       <button class="icon-btn" aria-label="Wishlist" data-action="open-wish"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg><span class="badge" id="wishBadge">0</span></button>
       <button class="icon-btn" aria-label="Cart" data-action="open-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2 2h3l3.2 13.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="badge" id="cartBadge">0</span></button>
-      <button class="icon-btn burger" aria-label="Menu" data-action="menu-open"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg></button>
+      <button class="icon-btn burger" type="button" aria-label="Apri il menu" aria-controls="mm" aria-expanded="false" data-action="menu-open"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg></button>
     </div>
   </div>
   <div id="iaPannelli"></div>
@@ -305,8 +306,8 @@ setTimeout(function(){
   <button type="button" data-action="open-cart" aria-label="Apri il carrello"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h3l3 13h12l3-9H6"/></svg><span>Carrello</span></button>
 </nav>
 
-<div class="mobile-menu" id="mm">
-  <button class="mclose" data-action="menu-close">✕</button>
+<div class="mobile-menu" id="mm" role="dialog" aria-modal="true" aria-label="Menu di navigazione" aria-hidden="true" inert>
+  <button type="button" class="mclose" data-action="menu-close" aria-label="Chiudi il menu">✕</button>
   <div class="dr-testa"><span class="dr-eyebrow">INGLY DESIGN</span></div>
   <div class="dr-corpo"></div>
   <div class="dr-fondo"><a class="btn btn-primary" href="quote" data-nav="quote">Richiedi un preventivo <span class="arr">→</span></a><div class="socials" id="soc4"></div></div>
@@ -330,6 +331,7 @@ setTimeout(function(){
 <main>
 <div id="prerender" data-prerender="1"><h1>Portfolio</h1>
 <p>Incisione e taglio laser, stampa UV &amp; DTF e stampa 3D su misura. Regali personalizzati, targhe, gadget aziendali e file digitali — made in Italy.</p></div>
+<span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
 <section class="page active" id="page-home">
   <div class="hero signature-hero">
@@ -1216,7 +1218,7 @@ setTimeout(function(){
 </footer>
 
 <div class="overlay" id="overlay" data-action="close-cart"></div>
-<aside class="drawer" id="drawer" aria-label="Cart" role="dialog" aria-modal="true">
+<aside class="drawer" id="drawer" aria-label="Carrello" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" inert>
   <div class="dr-head">
     <div>
       <h3 data-i18n="crtH">Il tuo carrello</h3>
@@ -1301,7 +1303,7 @@ setTimeout(function(){
   <button class="lbx-nav lbx-next" id="lbxNext" aria-label="Successiva">›</button>
   <div class="lbx-count" id="lbxCount"></div>
 </div>
-<div class="toast" id="toast"><span class="dotl"></span><span id="toastMsg"></span></div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"><span class="dotl" aria-hidden="true"></span><span id="toastMsg"></span></div>
 
 <!-- Install PWA prompt -->
 <div class="pwa-install-bar" id="pwaBar" hidden>

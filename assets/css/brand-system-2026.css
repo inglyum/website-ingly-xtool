@@ -119,7 +119,7 @@
 }
 :root[data-mode] .brand-lockup .brand-wordmark {
  display:block!important;width:clamp(108px,10.8vw,172px)!important;
- height:auto!important;aspect-ratio:1450/610;object-fit:contain!important;
+ height:auto!important;aspect-ratio:1610/590;object-fit:contain!important;
  margin:0!important;padding:0!important;max-width:100%!important;
  filter:none!important;opacity:1!important
 }
@@ -208,7 +208,7 @@
 }
 :root[data-mode] footer .ingly-footer-signature img {
  width:min(100%,1360px)!important;height:auto!important;max-height:none!important;
- aspect-ratio:1450/610!important;object-fit:contain!important;display:block!important;
+ aspect-ratio:1610/590!important;object-fit:contain!important;display:block!important;
  margin:0 auto!important;filter:none!important;pointer-events:none!important;
  opacity:.072!important
 }
@@ -330,7 +330,7 @@
 :root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{
  display:block!important;position:static!important;flex:0 0 auto!important;
  width:100%!important;height:auto!important;max-width:100%!important;
- min-width:0!important;max-height:50px!important;aspect-ratio:1430/460!important;
+ min-width:0!important;max-height:50px!important;aspect-ratio:1610/590!important;
  border:none!important;border-radius:0!important;background:transparent!important;
  object-fit:contain!important;object-position:left center!important;
  margin:0!important;padding:0!important;filter:none!important;
@@ -362,7 +362,7 @@
 }
 :root[data-mode] footer .ft-col--brand .brand-lockup img.brand-wordmark{
  display:block!important;width:154px!important;height:auto!important;max-height:54px!important;
- aspect-ratio:1430/460!important;border-radius:0!important;background:transparent!important;
+ aspect-ratio:1610/590!important;border-radius:0!important;background:transparent!important;
  object-fit:contain!important;filter:none!important;flex:none!important
 }
 :root[data-mode="light"] footer .ft-col--brand .brand-lockup img.brand-wordmark{
@@ -374,11 +374,11 @@
 }
 :root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
  width:min(100%,1200px)!important;height:auto!important;max-height:none!important;
- aspect-ratio:1430/460!important;border-radius:0!important;
- margin:0 auto!important;filter:none!important;display:block!important;opacity:.07!important
+ aspect-ratio:1610/590!important;border-radius:0!important;
+ margin:0 auto!important;filter:none!important;display:block!important;opacity:.16!important
 }
 :root[data-mode="light"] footer .ingly-footer-signature img.brand-wordmark{
- filter:brightness(0)!important;opacity:.085!important
+ filter:brightness(0)!important;opacity:.13!important
 }
 /* MACHINE LAB: bound the hero to the content width; don't let font skins
    force a line wider than the mobile viewport. */
@@ -441,4 +441,12 @@
   min-width:36px!important;width:36px!important;padding:7px!important
  }
  :root[data-mode] #page-macchine > .phero > h1.h2{font-size:clamp(1.85rem,8vw,2.4rem)!important}
+}
+
+/* INGLY P0 brand legibility: full 5-glyph SVG without clipping in any theme. */
+:root[data-mode] :is(#nav.nav .brand-lockup,footer .ft-col--brand .brand-lockup,footer .ingly-footer-signature){overflow:visible!important}
+:root[data-mode] :is(#nav.nav .brand-wordmark, footer img.brand-wordmark){object-fit:contain!important;object-position:center!important}
+:root[data-mode] footer .ingly-footer-signature{overflow:visible!important}
+@media(max-width:620px){
+ :root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{max-height:46px!important}
 }

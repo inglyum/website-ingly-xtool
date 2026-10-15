@@ -147,6 +147,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/atelier-foundation.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
+<script defer src="assets/js/atelier-chrome.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
      Con «defer» veniva scaricato da tutti, anche da chi stava già usando i
@@ -208,7 +209,11 @@ setTimeout(function(){
 
 <div class="topbar">
   <div class="wrap">
-    <span data-i18n="topline">✦ Spedizione gratuita in Italia sopra €79 · Prova grafica inclusa</span>
+    <div class="atelier-announcement" aria-label="Informazioni INGLY DESIGN">
+      <span class="atelier-announcement__mark" aria-hidden="true"></span>
+      <span id="atelierAnnouncement" class="atelier-announcement__text" aria-live="off">Spedizione gratuita in Italia sopra €79</span>
+      <button type="button" id="atelierAnnouncementClose" class="atelier-announcement__close" aria-label="Chiudi gli avvisi" title="Chiudi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
     <div style="display:flex;gap:14px;align-items:center">
       <div class="socials" id="soc1"></div>
       <button class="mode-btn" id="modeBtn" type="button" aria-label="Cambia tema" title="Chiaro / scuro"><svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.7 8.7 0 1 0 11 11Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6"/></svg></button>
@@ -237,10 +242,10 @@ setTimeout(function(){
       <a href="quote" data-nav="quote"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
     </nav>
     <div class="nav-acts">
-      <a class="atelier-nav-cta" href="personalizza" data-nav="personalizza" data-i18n="navCreate">Crea il tuo pezzo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
+      <a class="atelier-nav-cta" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
+      <a class="icon-btn atelier-search-link" href="shop" data-nav="shop" aria-label="Vai allo Shop per cercare prodotti" title="Cerca nello Shop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 5 5"/></svg></a>
       <button class="icon-btn" aria-label="Wishlist" data-action="open-wish"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg><span class="badge" id="wishBadge">0</span></button>
       <button class="icon-btn" aria-label="Cart" data-action="open-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2 2h3l3.2 13.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="badge" id="cartBadge">0</span></button>
-      <a class="icon-btn" href="generatori.html" title="Generator Studio" aria-label="Apri Generator Studio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.2 6.1 6.1 2.2-6.1 2.2-2.2 6.1-2.2-6.1-6.1-2.2 6.1-2.2z"/><path d="M19 15.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg></a>
       <button class="icon-btn burger" aria-label="Menu" data-action="menu-open"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg></button>
     </div>
   </div>
@@ -914,21 +919,20 @@ setTimeout(function(){
       <div class="ft-col"><h4>Shop</h4>
         <a href="shop" data-nav="shop" data-i18n="ftAll">Tutti i prodotti</a>
         <a href="digital" data-nav="digital" data-i18n="nDig">Digitale</a>
-        <a href="generatori.html">Generatori SVG</a>
+        <a href="generatori.html">Generator Studio</a>
         <a href="quote" data-nav="quote">Su misura</a></div>
       <div class="ft-col"><h4>Lab</h4>
         <a href="materiali" data-nav="materiali">Materiali</a>
         <a href="tecnologie" data-nav="tecnologie">Tecnologie</a>
         <a href="macchine" data-nav="macchine">Macchine</a>
-        <a href="demo" data-nav="demo">Demo gratuita</a>
-        <a href="generatori.html">Generator Studio</a></div>
+        <a href="academy" data-nav="academy">Academy</a>
+        <a href="demo" data-nav="demo">Demo gratuita</a></div>
       <div class="ft-col"><h4 data-i18n="ftCo">Studio</h4>
         <a href="about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>
         <a href="portfolio" data-nav="portfolio">Portfolio</a>
         <a href="business" data-nav="business">Business</a>
-        <a href="academy" data-nav="academy">Academy</a></div>
+        <a href="faq" data-nav="faq">FAQ</a></div>
       <div class="ft-col"><h4 data-i18n="ftSup">Contatti</h4>
-        <a href="faq" data-nav="faq">FAQ</a>
         <a href="mailto:inglydesign@gmail.com">inglydesign@gmail.com</a>
         <a href="https://wa.me/393296904627" target="_blank" rel="noopener">WhatsApp</a>
         <span class="ft-luogo">Made in Italy · Consulenza e personalizzazioni</span></div>

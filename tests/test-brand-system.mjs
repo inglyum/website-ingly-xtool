@@ -14,7 +14,7 @@ assert.match(circle,/<circle cx="251" cy="252" r="225" fill="#fffdfa"\/>/,'Emble
 assert.match(dark,/fill="currentColor"/);
 assert.match(light,/color="#ffffff"/);
 assert.match(dark,/color="#10151f"/);
-for(const f of [dark,light])assert.ok(f.includes('viewBox="0 135 1430 460"'),'Original wordmark shapes preserved');
+for(const f of [dark,light])assert.ok(f.includes('viewBox="-20 125 1470 420"') && f.includes('M1,147 118,147 118,507 1,507Z'),'INGLY initial I full-height, corrected SVG bounds');
 for(const name of ['brand-symbol','brand-lockup','brand-wordmark'])assert.ok(html.includes(name));
 assert.ok(html.includes('class="watermark ingly-footer-signature"'));
 assert.ok(!html.includes('<span>INGLY</span></div>\n    <div class="fbottom">'),'No decorative text typesetting for final logo');

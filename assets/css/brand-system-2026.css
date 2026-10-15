@@ -480,3 +480,6 @@ body:not(.on-product) .stickybuy{display:none!important}
 :root[data-mode] body.on-product .stickybuy :is(#sbPrice,#sbName){
  color:#f8f9fc!important;opacity:1!important;
 }
+
+/* Final footer locality caption: original theme applied 45% opacity. */
+:root[data-mode] footer .ft-luogo{color:var(--brand-muted)!important;opacity:1!important;filter:none!important}

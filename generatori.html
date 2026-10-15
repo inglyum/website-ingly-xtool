@@ -20,6 +20,72 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 @media(max-width:1060px){.layout{grid-template-columns:255px minmax(0,1fr)}.workspace{grid-template-columns:1fr}.preview-side{border-right:0;border-bottom:1px solid var(--line)}.controls{padding-top:18px}.canvas{min-height:300px}.feature-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.wrap{width:min(100% - 22px,680px)}.topin{height:62px}.toplinks a:not(.btn){display:none}.hero{padding:42px 0 28px}.layout{grid-template-columns:1fr;gap:12px}.sidebar{position:static}.tool-list{grid-template-columns:1fr 1fr}.tool{padding:9px;gap:8px}.tool-icon{height:34px;width:34px;flex-basis:34px;font-size:17px}.tool b{font-size:11px}.tool small{font-size:9px}.workhead{padding:16px;flex-direction:column}.workactions{justify-content:flex-start}.preview-side,.controls{padding:15px}.canvas{min-height:260px}.feature-grid{grid-template-columns:1fr}.hero p{font-size:15px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+
+/* INGLY Generator Studio: independent, functional light/dark palette */
+html[data-generator-mode="light"]{
+ color-scheme:light;
+ --bg:#fff;--panel:#fff;--panel2:#f4f8fc;
+ --line:rgba(31,86,143,.20);--ink:#17253f;--muted:#4b6180;
+ --blue:#095e9b;--cyan:#116db0;--green:#087d58;
+}
+html[data-generator-mode="light"] body{
+ background:radial-gradient(ellipse 60% 44% at 90% 6%,rgba(76,155,237,.12),transparent 75%),
+ radial-gradient(ellipse 48% 50% at 0 60%,rgba(23,191,136,.07),transparent 74%),
+ linear-gradient(180deg,#fff,#f6faff 68%,#fff);
+ color:var(--ink)
+}
+html[data-generator-mode="light"] .top{background:rgba(255,255,255,.96)}
+html[data-generator-mode="light"] .toplinks a:hover{color:var(--blue)}
+html[data-generator-mode="light"] .panel{background:linear-gradient(140deg,#fff,#f9fbff);box-shadow:0 14px 40px rgba(43,86,134,.09)}
+html[data-generator-mode="light"] .btn{background:#fff;color:var(--ink);border-color:var(--line)}
+html[data-generator-mode="light"] .btn:hover{background:#edf6ff}
+html[data-generator-mode="light"] .btn.primary{color:#081827;background:linear-gradient(110deg,#67eab7,#80c9fb 54%,#b8aaf2);border-color:transparent;box-shadow:0 10px 22px rgba(32,123,210,.16)}
+html[data-generator-mode="light"] .btn.quiet{background:var(--panel2)}
+html[data-generator-mode="light"] .eyebrow,
+html[data-generator-mode="light"] .panel-title{color:var(--blue)}
+html[data-generator-mode="light"] h1 span{background:linear-gradient(110deg,#087552,#1266b4,#6656ac);-webkit-background-clip:text;background-clip:text}
+html[data-generator-mode="light"] .chip{color:var(--muted);background:#fff}
+html[data-generator-mode="light"] .search{background:#fff;color:var(--ink)}
+html[data-generator-mode="light"] .filter.active{background:#dcf0ff;color:#124e84;border-color:var(--blue)}
+html[data-generator-mode="light"] .tool{background:#f7faff;color:var(--ink)}
+html[data-generator-mode="light"] .tool:hover{background:#edf6ff}
+html[data-generator-mode="light"] .tool.active{background:linear-gradient(110deg,#e0f5ff,#ecf4ff);border-color:#8eb8ea;box-shadow:inset 3px 0 #3277cb}
+html[data-generator-mode="light"] .tool-icon{background:linear-gradient(140deg,#d5efff,#e8f1fc);color:#145b98}
+html[data-generator-mode="light"] .canvas{
+ background-color:#f6faff;
+ background-image:linear-gradient(#266faf12 1px,transparent 1px),linear-gradient(90deg,#266faf12 1px,transparent 1px);
+ border-color:var(--line)
+}
+html[data-generator-mode="light"] .canvas-note{color:#435f80;background:rgba(255,255,255,.93)}
+html[data-generator-mode="light"] .stat,
+html[data-generator-mode="light"] .feature{background:#f7faff}
+html[data-generator-mode="light"] .field label{color:var(--ink)}
+html[data-generator-mode="light"] .field input,
+html[data-generator-mode="light"] .field select{background:#fff;color:var(--ink);border-color:var(--line)}
+html[data-generator-mode="light"] .notice{color:#815411;border-color:#c69c3a61;background:#fff9e9}
+html[data-generator-mode="light"] .toast{background:#fff;border-color:var(--line);box-shadow:0 12px 30px rgba(20,60,130,.15)}
+html[data-generator-mode="light"] input::placeholder{color:var(--muted)}
+/* Control height and wrapping on narrow phones */
+#genLangToggle,#genThemeToggle{min-height:44px;white-space:nowrap}
+@media(max-width:760px){
+ .topin{height:auto;min-height:64px;padding-block:8px;gap:8px}
+ .toplinks{gap:6px}
+ .toplinks .btn{padding:9px 10px;font-size:12px}
+ .brand{min-width:0}
+ .brand small{font-size:9px}
+ .brandmark{flex:none}
+ .tool-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tool{min-width:0}
+ .tool span:last-child{min-width:0;overflow-wrap:anywhere}
+ .workactions .btn{min-height:44px}
+}
+@media(max-width:420px){
+ .topin{flex-wrap:wrap;justify-content:center}
+ .toplinks{width:100%;justify-content:center}
+ .hero{padding-top:30px}
+ .tool-list{grid-template-columns:1fr}
+ .toplinks .btn{flex:1;justify-content:center}
+}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,27 +94,129 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 </head>
 <body>
 <header class="top"><div class="wrap topin">
-<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark"><img src="assets/images/ingly-maison-mark.svg" alt="" width="42" height="42"></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
-<nav class="toplinks" aria-label="Navigazione"><a href="shop">Shop</a><a href="digital">File digitali</a><a href="academy">Academy</a><a href="personalizza">Personalizza</a><button type="button" id="genThemeToggle" class="btn quiet" aria-label="Alterna modalità chiara e scura">◐ Tema</button><a class="btn quiet" href="admin.html">Admin ↗</a></nav>
+<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark"><img src="assets/images/ingly-logo.svg" alt="" width="42" height="42"></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
+<nav class="toplinks" aria-label="Navigazione"><a href="shop">Shop</a><a href="digital" data-gi18n="navDigital">File digitali</a><a href="academy">Academy</a><a href="personalizza" data-gi18n="navPersonalizza">Personalizza</a><button type="button" id="genLangToggle" class="btn quiet" aria-label="Switch language">EN</button><button type="button" id="genThemeToggle" class="btn quiet" aria-label="Alterna modalità chiara e scura">◐ Tema</button><a class="btn quiet" href="admin.html">Admin ↗</a></nav>
 </div></header>
 <div class="wrap">
-<section class="hero"><div class="eyebrow">Creative tools · Made for makers</div><h1>Dall’idea al file.<br><span>Pronto per il laser.</span></h1><p>Un laboratorio di strumenti parametrici firmato INGLY DESIGN. Personalizza misure e dettagli, controlla l’anteprima e scarica file SVG da rifinire nel tuo software di lavorazione.</p><div class="chips"><span class="chip">SVG modificabile</span><span class="chip">Anteprima in tempo reale</span><span class="chip">File locale · Privacy first</span><span class="chip">Laser · Craft · Maker</span></div></section>
+<section class="hero"><div class="eyebrow">Creative tools · Made for makers</div><h1 data-gi18n-html="heroTitle">Dall’idea al file.<br><span>Pronto per il laser.</span></h1><p data-gi18n="heroDesc">Un laboratorio di strumenti parametrici firmato INGLY DESIGN. Personalizza misure e dettagli, controlla l’anteprima e scarica file SVG da rifinire nel tuo software di lavorazione.</p><div class="chips"><span class="chip" data-gi18n="chipSvg">SVG modificabile</span><span class="chip" data-gi18n="chipPreview">Anteprima in tempo reale</span><span class="chip" data-gi18n="chipPrivacy">File locale · Privacy first</span><span class="chip">Laser · Craft · Maker</span></div></section>
 <main class="layout">
-<aside class="panel sidebar"><div class="panel-title">Libreria generatori <span id="count" style="float:right;color:var(--cyan)">04</span></div><input id="search" class="search" type="search" placeholder="Cerca uno strumento…" aria-label="Cerca generatori"><div class="filters" id="filters"></div><div class="tool-list" id="toolList"></div><div class="notice">I file generati sono modelli vettoriali: verifica misure, kerf, materiale e impostazioni macchina prima del taglio. Non usare laser su materiali sconosciuti o PVC/vinile.</div>
-<div class="hint" style="margin-top:10px">Gli strumenti esterni aprono servizi terzi e seguono le loro condizioni. Per i template Cuttle verifica sempre la licenza: non sono file INGLY e non vengono copiati in questa piattaforma.</div></aside>
+<aside class="panel sidebar"><div class="panel-title"><span data-gi18n="library">Libreria generatori</span> <span id="count" style="float:right;color:var(--cyan)">04</span></div><input id="search" class="search" type="search" data-gi18n-placeholder="search" placeholder="Cerca uno strumento…" aria-label="Cerca generatori"><div class="filters" id="filters"></div><div class="tool-list" id="toolList"></div><div class="notice" data-gi18n="sidebarNotice">I file generati sono modelli vettoriali: verifica misure, kerf, materiale e impostazioni macchina prima del taglio. Non usare laser su materiali sconosciuti o PVC/vinile.</div>
+<div class="hint" style="margin-top:10px" data-gi18n="sidebarExternal">Gli strumenti esterni aprono servizi terzi e seguono le loro condizioni. Per i template Cuttle verifica sempre la licenza: non sono file INGLY e non vengono copiati in questa piattaforma.</div></aside>
 <section class="panel mainpanel" aria-label="Area generatore">
-<div class="workhead"><div class="worktitle"><span class="tool-icon" id="activeIcon">⌁</span><div><h2 id="activeTitle">Portachiavi & tag</h2><p id="activeDesc">Nome, forma, foro e dimensioni.</p></div></div><div class="workactions"><button class="btn quiet" id="reset">↺ Ripristina</button><button class="btn" id="save">▣ Salva bozza</button><button class="btn primary" id="download">↓ Esporta SVG</button></div></div>
-<div class="workspace"><div class="preview-side"><div class="preview-top"><b>Anteprima vettoriale</b><span class="unit" id="sizeLabel">80 × 35 mm</span></div><div class="canvas" id="canvas" aria-live="polite"></div><div class="canvas-note">Preview schematica · 1 unità = 1 mm</div><div class="legend"><span><i style="background:#ff5d64"></i>Linee di taglio</span><span><i style="background:#68d5ff"></i>Linee / testi incisi</span></div><div class="stats"><div class="stat"><b id="statW">80</b><span>Larghezza mm</span></div><div class="stat"><b id="statH">35</b><span>Altezza mm</span></div><div class="stat"><b id="statPaths">3</b><span>Elementi vettoriali</span></div></div></div>
-<div class="controls"><h3>Parametri di progetto</h3><p class="hint">Le modifiche aggiornano l’anteprima automaticamente.</p><div id="fields"></div><div class="control-actions"><button class="btn primary" id="download2">Scarica SVG</button><button class="btn" id="png">Esporta PNG</button></div><p class="hint" style="margin:13px 0 0">SVG con tracciati distinti per taglio (rosso) e incisione (azzurro). Il software macchina può richiedere l’assegnazione delle lavorazioni per colore.</p></div></div>
+<div class="workhead"><div class="worktitle"><span class="tool-icon" id="activeIcon">⌁</span><div><h2 id="activeTitle">Portachiavi & tag</h2><p id="activeDesc">Nome, forma, foro e dimensioni.</p></div></div><div class="workactions"><button class="btn quiet" id="reset" data-gi18n="reset">↺ Ripristina</button><button class="btn" id="save" data-gi18n="save">▣ Salva bozza</button><button class="btn primary" id="download" data-gi18n="download">↓ Esporta SVG</button></div></div>
+<div class="workspace"><div class="preview-side"><div class="preview-top"><b data-gi18n="vectorPreview">Anteprima vettoriale</b><span class="unit" id="sizeLabel">80 × 35 mm</span></div><div class="canvas" id="canvas" aria-live="polite"></div><div class="canvas-note" data-gi18n="canvasNote">Preview schematica · 1 unità = 1 mm</div><div class="legend"><span><i style="background:#ff5d64"></i><span data-gi18n="cutLines">Linee di taglio</span></span><span><i style="background:#68d5ff"></i><span data-gi18n="engraveLines">Linee / testi incisi</span></span></div><div class="stats"><div class="stat"><b id="statW">80</b><span data-gi18n="statWidth">Larghezza mm</span></div><div class="stat"><b id="statH">35</b><span data-gi18n="statHeight">Altezza mm</span></div><div class="stat"><b id="statPaths">3</b><span data-gi18n="statPaths">Elementi vettoriali</span></div></div></div>
+<div class="controls"><h3 data-gi18n="params">Parametri di progetto</h3><p class="hint" data-gi18n="autoPreview">Le modifiche aggiornano l’anteprima automaticamente.</p><div id="fields"></div><div class="control-actions"><button class="btn primary" id="download2" data-gi18n="download2">Scarica SVG</button><button class="btn" id="png" data-gi18n="downloadPng">Esporta PNG</button></div><p class="hint" style="margin:13px 0 0" data-gi18n="laserNote">SVG con tracciati distinti per taglio (rosso) e incisione (azzurro). Il software macchina può richiedere l’assegnazione delle lavorazioni per colore.</p></div></div>
 </section>
 </main>
-<section class="more"><h2>Strumenti pensati per il laboratorio</h2><p>Un catalogo che cresce per moduli indipendenti, guidato dalle esigenze dei maker.</p><div class="feature-grid"><article class="feature"><span class="tool-icon">⌘</span><b>File tuoi, davvero</b><p>Esportazione locale in SVG e PNG. Nessun upload automatico del progetto.</p></article><article class="feature"><span class="tool-icon">◈</span><b>Parametri chiari</b><p>Dimensioni e quantità visibili, con anteprima aggiornata mentre lavori.</p></article><article class="feature"><span class="tool-icon">✳</span><b>Catalogo modulare</b><p>La libreria può essere estesa nel tempo con nuovi generatori proprietari INGLY.</p></article></div></section>
-<footer class="foot"><span>© <span id="year"></span> INGLY DESIGN · Ingegno che illumina la tua visione.</span><span>Gli SVG sono modelli tecnici: verifica sempre il file prima della lavorazione.</span><a href="./">← Torna a INGLY DESIGN</a></footer>
+<section class="more"><h2 data-gi18n="toolsTitle">Strumenti pensati per il laboratorio</h2><p data-gi18n="toolsDesc">Un catalogo che cresce per moduli indipendenti, guidato dalle esigenze dei maker.</p><div class="feature-grid"><article class="feature"><span class="tool-icon">⌘</span><b data-gi18n="privacyTitle">File tuoi, davvero</b><p data-gi18n="privacyDesc">Esportazione locale in SVG e PNG. Nessun upload automatico del progetto.</p></article><article class="feature"><span class="tool-icon">◈</span><b data-gi18n="paramsTitle">Parametri chiari</b><p data-gi18n="paramsDesc">Dimensioni e quantità visibili, con anteprima aggiornata mentre lavori.</p></article><article class="feature"><span class="tool-icon">✳</span><b data-gi18n="modulesTitle">Catalogo modulare</b><p data-gi18n="modulesDesc">La libreria può essere estesa nel tempo con nuovi generatori proprietari INGLY.</p></article></div></section>
+<footer class="foot"><span>© <span id="year"></span> INGLY DESIGN · <span data-gi18n="footerMotto">Ingegno che illumina la tua visione.</span></span><span data-gi18n="footerNotice">Gli SVG sono modelli tecnici: verifica sempre il file prima della lavorazione.</span><a href="./" data-gi18n="back">← Torna a INGLY DESIGN</a></footer>
 </div><div class="toast" id="toast" role="status"></div>
 <script>
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
+
+const G_TRANSLATIONS={
+  heroTitle:{it:'Dall’idea al file.<br><span>Pronto per il laser.</span>',en:'From idea to file.<br><span>Ready for the laser.</span>'},
+  navDigital:{it:'File digitali',en:'Digital files'},
+  navPersonalizza:{it:'Personalizza',en:'Customize'},
+  heroDesc:{it:'Un laboratorio di strumenti parametrici firmato INGLY DESIGN. Personalizza misure e dettagli, controlla l’anteprima e scarica file SVG da rifinire nel tuo software di lavorazione.',en:'An original parametric maker toolkit by INGLY DESIGN. Customize sizes and details, preview your work and download editable SVG files to finish in your laser software.'},
+  chipSvg:{it:'SVG modificabile',en:'Editable SVG'},
+  chipPreview:{it:'Anteprima in tempo reale',en:'Live preview'},
+  library:{it:'Libreria generatori',en:'Generator library'},
+  search:{it:'Cerca uno strumento…',en:'Search tools…'},
+  sidebarNotice:{it:'I file generati sono modelli vettoriali: verifica misure, kerf, materiale e impostazioni macchina prima del taglio. Non usare laser su materiali sconosciuti o PVC/vinile.',en:'Generated files are vector models: check dimensions, kerf, material and machine settings before cutting. Never laser unknown materials, PVC or vinyl.'},
+  sidebarExternal:{it:'Gli strumenti esterni aprono servizi terzi e seguono le loro condizioni. Per i template Cuttle verifica sempre la licenza: non sono file INGLY e non vengono copiati in questa piattaforma.',en:'External tools open third-party services under their terms. Always check the license of Cuttle templates; they are not INGLY files and are not copied to this platform.'},
+  reset:{it:'↺ Ripristina',en:'↺ Reset'},
+  save:{it:'▣ Salva bozza',en:'▣ Save draft'},
+  download:{it:'↓ Esporta SVG',en:'↓ Export SVG'},
+  download2:{it:'Scarica SVG',en:'Download SVG'},
+  downloadPng:{it:'Esporta PNG',en:'Export PNG'},
+  vectorPreview:{it:'Anteprima vettoriale',en:'Vector preview'},
+  canvasNote:{it:'Preview schematica · 1 unità = 1 mm',en:'Schematic preview · 1 unit = 1 mm'},
+  cutLines:{it:'Linee di taglio',en:'Cutting paths'},
+  engraveLines:{it:'Linee / testi incisi',en:'Engraved lines / text'},
+  statWidth:{it:'Larghezza mm',en:'Width mm'},
+  statHeight:{it:'Altezza mm',en:'Height mm'},
+  statPaths:{it:'Elementi vettoriali',en:'Vector elements'},
+  params:{it:'Parametri di progetto',en:'Design parameters'},
+  autoPreview:{it:'Le modifiche aggiornano l’anteprima automaticamente.',en:'Changes update the preview automatically.'},
+  laserNote:{it:'SVG con tracciati distinti per taglio (rosso) e incisione (azzurro). Il software macchina può richiedere l’assegnazione delle lavorazioni per colore.',en:'SVG with separate cutting (red) and engraving (blue) paths. Your machine software may require assigning operations to these colors.'},
+  toolsTitle:{it:'Strumenti pensati per il laboratorio',en:'Tools built for your workshop'},
+  toolsDesc:{it:'Un catalogo che cresce per moduli indipendenti, guidato dalle esigenze dei maker.',en:'A modular catalogue that grows with makers’ needs.'},
+  privacyTitle:{it:'File tuoi, davvero',en:'Your files stay yours'},
+  paramsTitle:{it:'Parametri chiari',en:'Clear parameters'},
+  modulesTitle:{it:'Catalogo modulare',en:'Modular catalogue'},
+  back:{it:'← Torna a INGLY DESIGN',en:'← Back to INGLY DESIGN'},
+  privacyDesc:{it:'Esportazione locale in SVG e PNG. Nessun upload automatico del progetto.',en:'Export SVG and PNG locally. Your project is never uploaded automatically.'},
+  paramsDesc:{it:'Dimensioni e quantità visibili, con anteprima aggiornata mentre lavori.',en:'Visible sizes and quantities, with a live preview as you work.'},
+  modulesDesc:{it:'La libreria può essere estesa nel tempo con nuovi generatori proprietari INGLY.',en:'The library can grow with additional original INGLY generators.'},
+  footerMotto:{it:'Ingegno che illumina la tua visione.',en:'Ideas illuminated through ingenuity.'},
+  footerNotice:{it:'Gli SVG sono modelli tecnici: verifica sempre il file prima della lavorazione.',en:'SVGs are technical models: always inspect and test your file before production.'},
+  chipPrivacy:{it:'File locale · Privacy first',en:'Local files · Privacy first'}
+};
+const G_FIELD_EN={
+ 'Tutti':'All','Altro':'Other','Generatore':'Generator','Nessun generatore in questa categoria.':'No generators in this category.',
+ 'Accessori':'Accessories','Tecnica laser':'Laser technology','Test e calibrazione':'Testing and calibration',
+ 'Feste ed eventi':'Parties and events','Scatole e packaging':'Boxes and packaging','Feste e stagioni':'Seasonal designs',
+ 'Meccanica e design':'Mechanics and design','Stampa e taglio':'Print and cut','Risorse esterne':'External resources',
+ 'Testo da personalizzare':'Text to customize','Forma':'Shape','Rettangolo arrotondato':'Rounded rectangle','Ovale':'Oval',
+ 'Esagono':'Hexagon','Arco':'Arch','Cerchio':'Circle','Stella':'Star','Cuore':'Heart',
+ 'Dimensioni (mm)':'Dimensions (mm)','Dimensioni pannello (mm)':'Panel dimensions (mm)',
+ 'Numero di provini':'Number of samples','Dimensione provino (mm)':'Sample size (mm)',
+ 'Valori di prova':'Test values','Dimensioni indicative pannelli (mm)':'Approximate panel dimensions (mm)',
+ 'Denti e modulo':'Teeth and module','Larghezza':'Width','Altezza':'Height',
+ 'Diametro del foro · mm':'Hole diameter · mm','Raggio angoli · mm':'Corner radius · mm',
+ 'Margine incisione · mm':'Engraving margin · mm','Passo tra i tagli · mm':'Cut pitch · mm',
+ 'Materiale residuo alle estremità · mm':'End bridges · mm','Margine · mm':'Margin · mm',
+ 'Spazio fra provini · mm':'Spacing between samples · mm','Intestazione tavola':'Sheet heading',
+ 'Testo topper':'Topper text','Sagoma':'Outline','Larghezza corpo · mm':'Body width · mm',
+ 'Altezza corpo · mm':'Body height · mm','Picchetto sotto il corpo · mm':'Stake below body · mm',
+ 'Dimensione testo · mm':'Text size · mm','Altezza pareti · mm':'Wall height · mm',
+ 'Spessore materiale · mm':'Material thickness · mm','Denti per bordo':'Fingers per edge',
+ 'Gioco fra incastri · mm':'Joint clearance · mm','Diametro foro centrale · mm':'Central bore diameter · mm',
+ 'Angolo di pressione · °':'Pressure angle · °','Testo da incidere':'Text to engrave',
+ 'Dimensione massima · mm':'Maximum size · mm','Diametro foro per nastro · mm':'Ribbon hole diameter · mm',
+ '3 denti':'3 fingers','5 denti':'5 fingers','7 denti':'7 fingers','9 denti':'9 fingers','11 denti':'11 fingers',
+ 'Nessun generatore attivo':'No active generators',
+ 'Attiva un generatore dal pannello Admin oppure aggiungi una nuova voce.':'Activate a generator in Admin or create a catalogue entry.',
+ 'Generatore parametrico INGLY DESIGN.':'INGLY DESIGN parametric generator.'
+};
+let G_LANG='it';
+try{G_LANG=localStorage.getItem('ingly_lang')==='en'?'en':'it'}catch(_){}
+const genT=key=>G_LANG==='en'?(G_FIELD_EN[key]||key):key;
+function applyGeneratorLocale(){
+ document.documentElement.lang=G_LANG;
+ document.querySelectorAll('[data-gi18n]').forEach(el=>{
+   const v=G_TRANSLATIONS[el.dataset.gi18n];if(v)el.textContent=v[G_LANG]||v.it;
+ });
+ document.querySelectorAll('[data-gi18n-html]').forEach(el=>{
+   const v=G_TRANSLATIONS[el.dataset.gi18nHtml];if(v)el.innerHTML=v[G_LANG]||v.it;
+ });
+ document.querySelectorAll('[data-gi18n-placeholder]').forEach(el=>{
+   const v=G_TRANSLATIONS[el.dataset.gi18nPlaceholder];if(v)el.placeholder=v[G_LANG]||v.it;
+ });
+ const button=$('genLangToggle');
+ if(button){button.textContent=G_LANG==='it'?'EN':'IT';
+  button.setAttribute('aria-label',G_LANG==='it'?'Switch to English':'Passa in italiano');}
+ document.dispatchEvent(new CustomEvent('ingly:gen-language',{detail:{language:G_LANG}}));
+}
+function localizeFieldControls(){
+ const root=$('fields');if(!root||G_LANG!=='en')return;
+ for(const label of root.querySelectorAll('label')){
+   for(const node of [...label.childNodes])if(node.nodeType===3){
+     const value=node.textContent.trim();
+     if(G_FIELD_EN[value])node.textContent=node.textContent.replace(value,G_FIELD_EN[value]);
+   }
+ }
+ for(const element of root.querySelectorAll('option,.notice')){
+   const value=element.textContent.trim();
+   if(G_FIELD_EN[value])element.textContent=G_FIELD_EN[value];
+ }
+ for(const el of root.querySelectorAll('[aria-label]')){
+   const text=el.getAttribute('aria-label');if(G_FIELD_EN[text])el.setAttribute('aria-label',G_FIELD_EN[text]);
+ }
+}
 const defaults=[
 {id:'portachiavi',modulo:'portachiavi',nome:{it:'Portachiavi & tag',en:'Keychains & tags'},descrizione:{it:'Nome, forma, foro e dimensioni.',en:'Name, shape, hole and size.'},categoria:'Accessori',icona:'⌁',attivo:true,ordine:1},
 {id:'living-hinge',modulo:'living-hinge',nome:{it:'Living Hinge Lab',en:'Living Hinge Lab'},descrizione:{it:'Reticoli flessibili parametrici per prove e prototipi.',en:'Parametric flexible patterns for prototypes.'},categoria:'Tecnica laser',icona:'▦',attivo:true,ordine:2},
@@ -74,22 +242,22 @@ portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const mod=id=>catalogue.find(x=>x.modulo===id)||catalogue.find(x=>x.id===id);
-const label=x=>(x.nome&&x.nome.it)||x.label||x.id;
+const label=x=>(x.nome&&(x.nome[G_LANG]||x.nome.it))||x.label||x.id;
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2800)}
 function activeModules(){return catalogue.filter(x=>x.attivo!==false&&(['portachiavi','living-hinge','test-materiali','cake-topper','scatola-incastri','ornamento','ingranaggio'].includes(x.modulo)||(x.modulo==='link-esterno'&&/^https?:\/\//i.test(x.url||''))||(x.modulo==='link-interno'&&x.url==='print-cut.html'))).sort((a,b)=>(a.ordine||0)-(b.ordine||0))}
 function renderFilters(){
 const cats=['Tutti',...new Set(activeModules().map(x=>x.categoria||'Altro'))];
-$('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(c)+'</button>').join('');
+$('filters').innerHTML=cats.map(c=>'<button class="filter '+(filter===c?'active':'')+'" data-filter="'+esc(c)+'">'+esc(genT(c))+'</button>').join('');
 $('filters').querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;renderFilters();renderList()});
 }
 function renderList(){
-const mods=activeModules().filter(x=>(filter==='Tutti'||x.categoria===filter)&&((label(x)+' '+(x.descrizione&&x.descrizione.it||'')+' '+x.id).toLowerCase().includes(search.toLowerCase())));
+const mods=activeModules().filter(x=>(filter==='Tutti'||x.categoria===filter)&&((label(x)+' '+(x.descrizione&&(x.descrizione[G_LANG]||x.descrizione.it)||'')+' '+x.id).toLowerCase().includes(search.toLowerCase())));
 $('count').textContent=String(activeModules().length).padStart(2,'0');
-$('toolList').innerHTML=mods.map(x=>'<button class="tool '+(x.id===activeId?'active':'')+'" data-tool="'+esc(x.id)+'"><span class="tool-icon">'+esc(x.icona||'✳')+'</span><span><b>'+esc(label(x))+'</b><small>'+esc(x.categoria||'Generatore')+'</small></span></button>').join('')||'<p class="hint">Nessun generatore in questa categoria.</p>';
+$('toolList').innerHTML=mods.map(x=>'<button class="tool '+(x.id===activeId?'active':'')+'" data-tool="'+esc(x.id)+'"><span class="tool-icon">'+esc(x.icona||'✳')+'</span><span><b>'+esc(label(x))+'</b><small>'+esc(genT(x.categoria||'Generatore'))+'</small></span></button>').join('')||'<p class="hint">'+esc(genT('Nessun generatore in questa categoria.'))+'</p>';
 $('toolList').querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>select(b.dataset.tool));
 }
-const field=(key,labelTxt,type,value,attrs)=>'<div class="field"><label for="f_'+key+'">'+labelTxt+(type==='range'?'<span id="out_'+key+'">'+value+'</span>':'')+'</label><input id="f_'+key+'" type="'+type+'" value="'+esc(value)+'" '+(attrs||'')+'></div>';
-const selectField=(key,txt,value,opts)=>'<div class="field"><label for="f_'+key+'">'+txt+'</label><select id="f_'+key+'">'+opts.map(o=>'<option value="'+o[0]+'" '+(o[0]===value?'selected':'')+'>'+o[1]+'</option>').join('')+'</select></div>';
+const field=(key,labelTxt,type,value,attrs)=>'<div class="field"><label for="f_'+key+'">'+genT(labelTxt)+(type==='range'?'<span id="out_'+key+'">'+value+'</span>':'')+'</label><input id="f_'+key+'" type="'+type+'" value="'+esc(value)+'" '+(attrs||'')+'></div>';
+const selectField=(key,txt,value,opts)=>'<div class="field"><label for="f_'+key+'">'+genT(txt)+'</label><select id="f_'+key+'">'+opts.map(o=>'<option value="'+o[0]+'" '+(o[0]===value?'selected':'')+'>'+genT(o[1])+'</option>').join('')+'</select></div>';
 function renderFields(){
 const s=state[active];let h='';
 if(active==='portachiavi'){
@@ -138,6 +306,7 @@ h+=field('hole','Diametro foro per nastro · mm','number',s.hole,'min="2" max="1
 h+=field('font','Dimensione testo · mm','number',s.font,'min="3" max="14" step=".5"');
 }
 $('fields').innerHTML=h;
+localizeFieldControls();
 $('fields').querySelectorAll('input,select').forEach(el=>el.addEventListener('input',capture));
 }
 function capture(){
@@ -300,7 +469,7 @@ if(item.modulo==='link-interno'){if(item.url==='print-cut.html'){location.assign
 if(item.modulo==='link-esterno'){const u=String(item.url||'');if(/^https?:\/\//i.test(u)){window.open(u,'_blank','noopener,noreferrer');toast('Strumento esterno aperto in una nuova scheda.')}else toast('Il collegamento esterno non è valido.');return;}
 if(!state[item.modulo]){toast('Motore non ancora implementato: aggiungi prima il modulo software.');return;}
 activeId=item.id;active=item.modulo;
-$('activeIcon').textContent=item.icona||'✳';$('activeTitle').textContent=label(item);$('activeDesc').textContent=(item.descrizione&&item.descrizione.it)||'Generatore parametrico INGLY DESIGN.';
+$('activeIcon').textContent=item.icona||'✳';$('activeTitle').textContent=label(item);$('activeDesc').textContent=(item.descrizione&&(item.descrizione[G_LANG]||item.descrizione.it))||genT('Generatore parametrico INGLY DESIGN.');
 renderList();renderFields();renderPreview();
 }
 function safeName(s){return String(s||'ingly-design').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48)||'ingly-design'}
@@ -309,6 +478,13 @@ function saveDraft(){localStorage.setItem('ingly_generator_draft_v1',JSON.string
 function loadDraft(){try{const d=JSON.parse(localStorage.getItem('ingly_generator_draft_v1')||'null');if(d&&d.state){Object.keys(d.state).forEach(k=>{if(state[k])Object.assign(state[k],d.state[k])});if(d.active&&state[d.active])active=d.active;if(d.activeId)activeId=d.activeId}}catch(e){}}
 function png(){const o=buildSvg(),blob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(blob),im=new Image();im.onload=function(){const scale=4,c=document.createElement('canvas');c.width=Math.ceil(o.w*scale);c.height=Math.ceil(o.h*scale);const cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,c.width,c.height);cx.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(function(b){const p=URL.createObjectURL(b),a=document.createElement('a');a.href=p;a.download='ingly-'+safeName(active)+'.png';a.click();URL.revokeObjectURL(p);toast('PNG esportato.')},'image/png')};im.onerror=function(){URL.revokeObjectURL(u);toast('Esportazione PNG non riuscita: prova SVG.')};im.src=u}
 function init(){
+applyGeneratorLocale();
+$('genLangToggle').addEventListener('click',()=>{
+ G_LANG=G_LANG==='it'?'en':'it';
+ try{localStorage.setItem('ingly_lang',G_LANG)}catch(_){}
+ applyGeneratorLocale();renderFilters();renderList();
+ if(activeId&&state[active])select(activeId);
+});
 $('year').textContent=new Date().getFullYear();
 $('search').addEventListener('input',e=>{search=e.target.value;renderList()});
 $('reset').onclick=()=>{const d=defaults.find(x=>x.modulo===active);if(d){state[active]=Object.assign({},({portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},'living-hinge':{w:100,h:65,pitch:3.5,cut:3,margin:5,offset:true},'test-materiali':{cols:4,rows:3,tileW:25,tileH:18,gap:3,label:'POTENZA / SPEED',start:10,step:5},'cake-topper':{text:'Auguri!',w:100,h:48,stake:45,shape:'arch',font:8},'scatola-incastri':{w:100,d:70,h:55,t:3,fingers:5,clearance:0.15},'ingranaggio':{teeth:24,module:2,bore:6,pressure:20},'ornamento':{text:'Buone Feste',shape:'star',size:70,hole:4,font:7}})[active]);renderFields();renderPreview()}};
@@ -324,16 +500,30 @@ init();
 })();
 </script>
 <script>
-/* Self-contained theme switch: does not affect the SVG generator logic. */
+/* Theme matches the main site and stays readable in both languages. */
 (function(){
 const btn=document.getElementById('genThemeToggle');if(!btn)return;
-const key='ingly_generator_theme';
-const apply=mode=>{document.documentElement.dataset.generatorMode=mode;
-  btn.textContent=mode==='light'?'☾ Notte':'☀ Giorno';
-  btn.setAttribute('aria-label',mode==='light'?'Attiva modalità notte':'Attiva modalità giorno');};
-try{apply(localStorage.getItem(key)==='light'?'light':'dark')}catch(e){apply('dark')}
-btn.addEventListener('click',()=>{const next=document.documentElement.dataset.generatorMode==='light'?'dark':'light';apply(next);
-try{localStorage.setItem(key,next)}catch(e){}});
+const key='ingly_mode',root=document.documentElement;
+const stored=()=>{try{const v=localStorage.getItem(key);return v==='light'||v==='dark'?v:null}catch(e){return null}};
+const system=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)');
+const apply=mode=>{
+ const v=mode==='light'?'light':'dark';
+ root.dataset.generatorMode=v;
+ root.setAttribute('data-mode',v);
+ const en=root.lang==='en';
+ btn.textContent=v==='light'?(en?'☾ Dark':'☾ Notte'):(en?'☀ Light':'☀ Giorno');
+ btn.setAttribute('aria-label',v==='light'?(en?'Switch to dark mode':'Attiva modalità notte'):(en?'Switch to light mode':'Attiva modalità giorno'));
+ btn.setAttribute('aria-pressed',String(v==='light'));
+ const meta=document.querySelector('meta[name="theme-color"]');
+ if(meta)meta.content=v==='light'?'#ffffff':'#080e1c';
+};
+apply(stored()||(system&&system.matches?'light':'dark'));
+btn.addEventListener('click',()=>{
+ const next=root.dataset.generatorMode==='light'?'dark':'light';
+ apply(next);try{localStorage.setItem(key,next)}catch(e){}
+});
+document.addEventListener('ingly:gen-language',()=>apply(root.dataset.generatorMode));
+try{system?.addEventListener('change',e=>{if(!stored())apply(e.matches?'light':'dark')})}catch(_){}
 })();
 </script>
 </body></html>

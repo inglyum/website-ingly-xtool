@@ -1,0 +1,98 @@
+/* INGLY RESPONSIVE THEME 2026 — single terminal visual layer.
+   Deliberately last after historic skins. No commercial data changes. */
+:root,:root[data-mode="dark"]{
+ --ux-bg:#0b1221;--ux-bg2:#121d32;--ux-card:#17253b;--ux-text:#f4f8ff;
+ --ux-muted:#c4d3e7;--ux-border:rgba(141,180,235,.24);
+ --ux-primary:#54b4ff;--ux-green:#31dd94;--ux-gold:#edbd78;
+ --ux-grad:linear-gradient(125deg,#44d9a5 0%,#43a7ff 47%,#9b8aff 100%);
+ --ux-glow1:rgba(32,165,245,.21);--ux-glow2:rgba(36,225,145,.13);
+ --ux-elevation:0 14px 38px rgba(1,8,20,.29);
+ --at-bg:var(--ux-bg);--at-bg-deep:#08101d;--at-surface:var(--ux-card);
+ --at-surface-raised:var(--ux-bg2);--at-frost:rgba(18,29,50,.92);
+ --at-text:var(--ux-text);--at-muted:var(--ux-muted);--at-edge:var(--ux-border);
+ --at-tech:var(--ux-primary);--ink:var(--ux-text);--ink-soft:var(--ux-muted);
+ --paper:var(--ux-bg);--bg-card:var(--ux-card);--card-solid:var(--ux-card);
+ --line:var(--ux-border);color-scheme:dark
+}
+:root[data-mode="light"]{
+ --ux-bg:#f4f8fc;--ux-bg2:#eaf3fb;--ux-card:#ffffff;--ux-text:#17243c;
+ --ux-muted:#465d77;--ux-border:rgba(38,83,136,.20);
+ --ux-primary:#125fa4;--ux-green:#0b7455;--ux-gold:#885207;
+ --ux-grad:linear-gradient(125deg,#087953 0%,#1266b4 53%,#6955ad 100%);
+ --ux-glow1:rgba(49,140,232,.16);--ux-glow2:rgba(10,184,131,.12);
+ --ux-elevation:0 14px 35px rgba(27,60,96,.09);
+ --at-bg:var(--ux-bg);--at-bg-deep:#e5eef9;--at-surface:var(--ux-card);
+ --at-surface-raised:var(--ux-bg2);--at-frost:rgba(255,255,255,.94);
+ --at-text:var(--ux-text);--at-muted:var(--ux-muted);--at-edge:var(--ux-border);
+ --at-tech:var(--ux-primary);--ink:var(--ux-text);--ink-soft:var(--ux-muted);
+ --paper:var(--ux-bg);--bg-card:var(--ux-card);--card-solid:var(--ux-card);
+ --line:var(--ux-border);color-scheme:light
+}
+:root[data-mode] body{
+ background:radial-gradient(ellipse 67% 48% at 86% 10%,var(--ux-glow1),transparent 78%),
+ radial-gradient(ellipse 65% 55% at 7% 37%,var(--ux-glow2),transparent 76%),
+ linear-gradient(165deg,var(--ux-bg),var(--ux-bg2) 70%,var(--ux-bg)) fixed!important;
+ color:var(--ux-text)!important
+}
+:root[data-mode] :is(.page,.sec,.phero,.hero,.shop-layout,#page-shop,#page-macchine,#page-personalizza){
+ color:var(--ux-text)
+}
+:root[data-mode] :is(.phero,.hero,.signature-hero){
+ background:radial-gradient(ellipse at 90% 13%,var(--ux-glow1),transparent 57%),
+ radial-gradient(ellipse at 12% 90%,var(--ux-glow2),transparent 58%),transparent!important
+}
+:root[data-mode] :is(.rcard,.p-card,.fitem,.journey-card,.machine-explore-card,.digital-preview-card,.ingly-parametric__panel,.ingly-parametric__preview){
+ background-color:var(--ux-card)!important;
+ color:var(--ux-text)!important;border-color:var(--ux-border)!important;
+ box-shadow:var(--ux-elevation)
+}
+:root[data-mode] :is(.rcard,.p-card,.fitem,.journey-card,.machine-explore-card,.digital-preview-card) :is(p,small,li){color:var(--ux-muted)}
+:root[data-mode] :is(.nav,.topbar,.drawer,.filters,.mobile-menu,.mega-menu){
+ border-color:var(--ux-border);color:var(--ux-text)
+}
+:root[data-mode] .mode-btn{
+ min-width:48px;min-height:48px;border-radius:50%;
+ color:var(--ux-text)!important;background:var(--ux-card)!important;
+ border:1px solid var(--ux-border)!important;box-shadow:var(--ux-elevation);
+ display:inline-flex;align-items:center;justify-content:center
+}
+:root[data-mode] .mode-btn:focus-visible{outline:3px solid var(--ux-primary);outline-offset:3px}
+:root[data-mode] :is(.hero .hl.on,.xtool-lab-accent,.laserword,.ingly-accent-text){
+ background:var(--ux-grad)!important;color:transparent!important;
+ -webkit-background-clip:text!important;background-clip:text!important;
+ -webkit-text-fill-color:transparent!important
+}
+:root[data-mode] :is(.btn-primary,.btn-blue){
+ background:var(--ux-grad)!important;color:#081525!important;
+ border:1px solid transparent!important;box-shadow:0 9px 25px var(--ux-glow1)!important
+}
+:root[data-mode] :is(input,select,textarea){
+ max-width:100%;color:var(--ux-text);border-color:var(--ux-border)
+}
+:root[data-mode="light"] :is(input,select,textarea){background-color:#fff;color:#17243c}
+:root[data-mode="dark"] :is(input,select,textarea){background-color:#17253b;color:#f4f8ff}
+:root[data-mode] :is(.pgrid,.fgrid,.mach-grid,.matgrid,.machine-explore-grid,.digital-preview-grid){min-width:0}
+:root[data-mode] :is(img,svg,video,canvas){max-width:100%}
+@media(max-width:820px){
+ html,body{max-width:100%;overflow-x:clip}
+ :root[data-mode] :is(.wrap,.phero,.sec){min-width:0}
+ :root[data-mode] :is(.hero-grid,.shop-layout,.about-grid,.ingly-parametric__layout){grid-template-columns:minmax(0,1fr)!important}
+ :root[data-mode] :is(.pgrid,.fgrid,.mach-grid,.matgrid,.machine-explore-grid,.digital-preview-grid){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ :root[data-mode] :is(.hero-ctas,.lab-ctas){flex-wrap:wrap}
+ :root[data-mode] :is(.hero-ctas,.lab-ctas) .btn{min-width:0;max-width:100%}
+ :root[data-mode] .mode-btn{min-width:44px;min-height:44px;flex-shrink:0}
+}
+@media(max-width:560px){
+ :root[data-mode] :is(.pgrid,.fgrid,.mach-grid,.matgrid,.machine-explore-grid,.digital-preview-grid){grid-template-columns:minmax(0,1fr)!important}
+ :root[data-mode] :is(.phero,.hero,.sec){overflow-wrap:anywhere}
+ :root[data-mode] :is(.phero h1,.hero h1,#heroH1){font-size:clamp(2.05rem,9vw,3.25rem)!important;line-height:1.13!important}
+ :root[data-mode] :is(.hero-ctas,.lab-ctas){flex-direction:column;align-items:stretch}
+ :root[data-mode] :is(.hero-ctas,.lab-ctas) .btn{width:100%}
+ :root[data-mode] .filters{max-width:100%;overflow-x:auto}
+ :root[data-mode] :is(.digital-preview-media,.machine-explore-image){max-width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] *, :root[data-mode] *::before, :root[data-mode] *::after{
+ transition-duration:.01ms!important;animation-duration:.01ms!important
+ }
+}

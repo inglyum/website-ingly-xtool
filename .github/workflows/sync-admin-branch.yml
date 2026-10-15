@@ -1,0 +1,40 @@
+name: INGLY — allinea build branch Admin Totale
+on:
+  push:
+    branches: [feat/admin-totale]
+    paths:
+      - .github/workflows/sync-admin-branch.yml
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/admin-totale
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install --no-audit --no-fund
+      - name: Rigenera fallback e dataset
+        run: npm run build
+      - name: Rigenera pagine per robot e motori di ricerca
+        run: |
+          node scripts/prerender.mjs
+          node scripts/generate-sitemap.mjs
+      - name: Esegue tutti i test
+        run: npm test
+      - name: Commit atomico dei file generati
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u
+          if git diff --cached --quiet; then
+            echo "Build aggiornata, nessun file da committare."
+          else
+            git commit -m "build: rigenera fallback, pagine statiche e sitemap [skip ci]"
+            git push origin HEAD:feat/admin-totale
+          fi

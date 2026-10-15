@@ -41,6 +41,6 @@ assert.match(css,/\[data-mode="light"\] #nav\.nav .*img\.brand-wordmark/,'White 
 assert.match(adminCss,/\[data-mode="light"\] \.brand--admin .*img\.brand-wordmark/,'Admin white theme must recolor logo');
 console.log('✔ Header/nav/Macchine: single vector wordmark, mobile menu, controlled title, footer and Admin.');
 
-const navRule=css.match(/#nav\\.nav \\.nav-in\\{([^}]+)\\}/)?.[1]||'';
+const navRule=css.match(/#nav\.nav \.nav-in\{([^}]+)\}/)?.[1]||'';
 assert.ok(navRule.includes('max-height:84px!important'),'Navbar capped by height');
 assert.ok(!navRule.includes('max-width:84px'),'Navbar MUST NOT be capped at 84px width');

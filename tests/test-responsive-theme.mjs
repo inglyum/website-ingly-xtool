@@ -5,7 +5,9 @@ const css=readFileSync('assets/css/ingly-responsive-theme.css','utf8');
 const main=readFileSync('assets/js/main.js','utf8');
 assert.ok(html.includes('id="modeBtn"'),'Controllo tema mancante');
 assert.ok(html.includes('id="mobileModeBtn"'),'Controllo tema mobile mancante');
-assert.ok(main.includes("mobileMode.addEventListener('click',()=>btn.click())"),'Tema mobile non sincronizzato');
+assert.ok(main.includes("mobile?.addEventListener('click',toggle)"),'Toggle mobile non indipendente');
+assert.ok(main.includes("if(!stored())set(e.matches?'light':'dark')"),'Tema di sistema non seguito');
+assert.ok(main.includes("if(persist){try{localStorage.setItem('ingly_mode',v)}"),'Preferenza salvata solo dopo scelta');
 assert.ok(main.includes("localStorage.setItem('ingly_mode',v)"),'Tema non persistito');
 assert.ok(html.includes('href="assets/css/ingly-responsive-theme.css"'),'CSS responsive mancante');
 assert.ok(html.indexOf('ingly-responsive-theme.css')>html.indexOf('ingly-josefin-studio.css'),'Il tema finale deve prevalere');
@@ -16,3 +18,8 @@ assert.ok(css.includes('prefers-reduced-motion:reduce'),'Accessibilità animazio
 assert.ok(css.includes('.mode-btn:focus-visible'),'Focus visibile');
 assert.ok(css.includes('grid-template-columns:minmax(0,1fr)'),'Griglia smartphone non adattata');
 console.log('✔ UI: due temi, sfumature, toggle persistente, mobile e accessibilità.');
+
+assert.ok(css.includes('env(safe-area-inset-bottom,0px)'),'Dock smartphone deve rispettare area sicura');
+assert.ok(css.includes('--ux-header'),'Superfici della barra di navigazione non tematizzate');
+assert.ok(css.includes('--ux-hero-grad'),'Sfumature hero non tematizzate');
+assert.ok(css.includes('.xtool-lab-feature,.ingly-service-centre'),'Layout Lab mobile incompleto');

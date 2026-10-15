@@ -541,6 +541,19 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
         </div>
       </div>
     </div>
+  <!-- FOTO DA COMPLETARE: usa solo il catalogo e l'inventario effettivo -->
+    <section class="card" aria-labelledby="photoQueueTitle">
+      <div class="photo-queue-head">
+        <div><h3 id="photoQueueTitle">📷 Fotografie da completare</h3>
+          <p class="hint">Prima i prodotti pubblici. Carica la foto originale verificata: viene preparata in bozza, mai pubblicata automaticamente.</p></div>
+        <div class="photo-queue-actions">
+          <button type="button" class="btn sm" id="mPhotoPublic" aria-pressed="true">Solo pubblici</button>
+          <button type="button" class="btn sm" id="mPhotoExport">↓ Esporta lista CSV</button>
+        </div>
+      </div>
+      <div id="mPhotoStats" class="photo-queue-stats" aria-live="polite">Calcolo fotografie…</div>
+      <div id="mPhotoQueue" class="photo-queue-list"></div>
+    </section>
     <div class="card"><h3>🗂 Libreria <span class="sp"></span>
       <button class="btn sm" id="mScan">🔍 Scansiona repository</button>
       <input type="text" id="mSearch" placeholder="Cerca…" style="width:160px">
@@ -5817,6 +5830,9 @@ $('seoAiGen').onclick=async()=>{
   window.MEDIA_DEST = MD;   /* «MD» è già usato nell'Admin per le date */
   import * as AB from './assets/js/admin/abbina-foto.js';
   window.ABBINA = AB;       /* abbinamento automatico foto → prodotto */
+  import * as PQ from './assets/js/admin/photo-worklist.js';
+  window.PHOTO_QUEUE = PQ;
+  if(typeof renderPhotoWorklist === 'function') renderPhotoWorklist();
   import * as VE from './assets/js/verticali.js';
   window.VERTICALI_MOD = VE;   /* conteggio prodotti delle pagine di settore */
   import * as SF from './assets/js/sfondi.js';

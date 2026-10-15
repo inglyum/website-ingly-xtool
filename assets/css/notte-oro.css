@@ -333,3 +333,91 @@ html{scroll-padding-top:90px}
 }
 @media(prefers-reduced-motion:reduce){.atelier-configurator__sample{transform:none!important;
  transition:none!important}}
+
+/* PHASE 6 — Machine Lab alternating editorial stories and matrix */
+:root[data-mode] #page-macchine .phero{padding-top:clamp(30px,6vw,75px)}
+:root[data-mode] #page-macchine .xtool-lab-feature,
+:root[data-mode] #page-macchine .ingly-service-centre{background:var(--no-surface)!important;
+ border:1px solid var(--no-border)!important;border-radius:20px;box-shadow:var(--no-soft-shadow)}
+:root[data-mode] .atelier-machine-list{display:grid!important;grid-template-columns:1fr!important;
+ gap:clamp(18px,3vw,42px);margin-block:44px 62px}
+:root[data-mode] .atelier-machine-list .atelier-machine{
+ display:grid!important;grid-template-columns:1fr 1fr;align-items:center;
+ gap:clamp(18px,4vw,52px);padding:clamp(18px,3.1vw,36px);
+ min-width:0;border:1px solid var(--no-border)!important;border-radius:20px;
+ background:var(--no-surface)!important;overflow:hidden;
+ transition:transform .25s ease,border-color .25s ease}
+:root[data-mode] .atelier-machine-list .atelier-machine:nth-child(even) .atelier-machine__photo{
+ grid-column:2;grid-row:1}
+:root[data-mode] .atelier-machine-list .atelier-machine:nth-child(even) .atelier-machine__body{
+ grid-column:1;grid-row:1}
+.atelier-machine__photo{min-width:0;overflow:hidden;border-radius:16px;background:var(--no-ink)}
+.atelier-machine__photo figure{margin:0;width:100%;height:100%}
+.atelier-machine__photo img{width:100%;height:auto;min-height:300px;aspect-ratio:4/3;object-fit:cover}
+.atelier-machine__body{min-width:0;display:grid;align-content:center;gap:10px}
+:root[data-mode] .atelier-machine__body .lab-h3{
+ font:600 clamp(1.9rem,3vw,3.4rem)/1.12 var(--no-title)!important;
+ letter-spacing:-.01em!important;margin:0}
+:root[data-mode] .atelier-machine__body .lab-spec{
+ background:var(--no-ink);border:1px solid var(--no-border);
+ padding:12px 16px;border-radius:10px;display:inline-flex;
+ font:500 12px/1.5 var(--no-mono)}
+:root[data-mode] .atelier-machine__body .lab-p{font-size:1rem!important}
+:root[data-mode] .atelier-compat-section{
+ padding:clamp(22px,4vw,48px);border:1px solid var(--no-border);
+ border-radius:18px;background:var(--no-surface);margin:0 0 60px}
+:root[data-mode] .atelier-compat-section h3{
+ font-size:clamp(1.9rem,3vw,3rem);margin:0 0 10px}
+:root[data-mode] .atelier-compat-section p{color:var(--no-muted);max-width:72ch}
+.atelier-compat-scroll{overflow-x:auto;scrollbar-width:thin}
+:root[data-mode] .atelier-compat-table{border-collapse:collapse;min-width:600px;width:100%;
+ margin:24px 0 0;font-size:13px}
+:root[data-mode] .atelier-compat-table th,
+:root[data-mode] .atelier-compat-table td{
+ border-bottom:1px solid var(--no-border);padding:13px 14px;text-align:center}
+:root[data-mode] .atelier-compat-table th:first-child{text-align:left}
+:root[data-mode] .atelier-compat-table thead th{
+ font:600 12px/1.4 var(--no-mono);color:var(--no-gold-high)}
+:root[data-mode] .atelier-compat-yes{color:var(--no-gold-high)}
+:root[data-mode] #page-macchine .lab-lista--no{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:12px;list-style:none;padding-left:0}
+:root[data-mode] #page-macchine .lab-lista--no li{
+ border:1px solid var(--no-border);background:var(--no-surface);
+ padding:15px 18px;border-radius:12px}
+@media(max-width:820px){
+ :root[data-mode] .atelier-machine-list .atelier-machine{grid-template-columns:1fr}
+ :root[data-mode] .atelier-machine-list .atelier-machine:nth-child(even) .atelier-machine__photo,
+ :root[data-mode] .atelier-machine-list .atelier-machine:nth-child(even) .atelier-machine__body{
+  grid-column:auto;grid-row:auto}
+ :root[data-mode] #page-macchine .lab-lista--no{grid-template-columns:1fr}
+}
+/* PHASE 7 — Shop/product/cart: luxury hierarchy, no fake online checkout. */
+:root[data-mode] #page-shop .phero{padding-top:clamp(48px,8vw,108px)}
+:root[data-mode] :is(.shop-filters,.pp-info,.pp-main,.dr-items,.drawer){
+ color:var(--no-paper)}
+:root[data-mode] :is(.scat,.scoll,.p-card,.shop-coll,.pp-main,.pp-info){
+ border-radius:var(--no-radius-lg)!important;
+ border-color:var(--no-border)!important;box-shadow:var(--no-soft-shadow)}
+:root[data-mode] :is(.scat,.scoll,.p-card,.shop-coll):hover{
+ border-color:var(--no-gold)!important}
+:root[data-mode] :is(.shop-search,.shop-sort,.searchbar,.sortsel){
+ border-color:var(--no-border)!important;background:var(--no-surface)!important;
+ color:var(--no-paper)!important;border-radius:12px!important}
+:root[data-mode] :is(.pp-main,.pp-art,.pp-gallery){
+ background:var(--no-surface)!important}
+:root[data-mode] .pp-info h1{
+ font:600 clamp(2.1rem,3.5vw,3.8rem)/1.11 var(--no-title)!important;
+ letter-spacing:-.01em!important}
+:root[data-mode] :is(.pp-material-card,.pp-material-foot,.pp-option,.thumb,.dr-coupon){
+ border-color:var(--no-border);border-radius:12px}
+:root[data-mode] #drawer{
+ background:var(--no-ink)!important;color:var(--no-paper)!important;
+ box-shadow:-20px 0 64px #0006}
+:root[data-mode] .ditem{
+ border-bottom:1px solid var(--no-border)}
+:root[data-mode] #drShipFill{
+ background:linear-gradient(90deg,var(--no-gold-low),var(--no-gold-high))!important}
+:root[data-mode] .dr-ship-msg.ok{color:var(--no-gold-high)!important}
+:root[data-mode] .di-meta{color:var(--no-muted)}
+:root[data-mode] .qty button:focus-visible{outline:2px solid var(--no-gold)!important}

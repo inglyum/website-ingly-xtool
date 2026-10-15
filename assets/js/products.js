@@ -895,7 +895,8 @@ export function addFromPP(){
    Un pagamento vero si configura in `consegna.modo: "link"`, dove sta
    anche l'indirizzo con cui il cliente riceve il file. */
 export function addDigital(id){
-  const d=DIG.find(x=>x.id===+id); if(!d) return;
+  const d=DIG.find(x=>x.id===+id);
+  if(!d || d.stato!=='pubblicato' || d.price==null || !Number.isFinite(Number(d.price)) || Number(d.price)<0) return;
   /* Un bundle che non sa come arrivare al cliente non entra nel carrello,
      da nessuna strada: né dal bottone, né da tastiera, né da un data-id
      scritto a mano. Prima della consegna dichiarata, «Aggiungi» avrebbe

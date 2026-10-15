@@ -1149,6 +1149,16 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div class="hint">Agenti di controllo: Sync · Dati · Media · Deploy · SEO. Segnalano i problemi prima che diventino errori visibili sul sito.</div>
       <hr class="hr"><div class="hlog" id="hLog">Premi «Esegui».</div>
     </div>
+    <div class="card ingly-ecom-quality" id="inglyEcomQuality">
+      <h3>Qualità ecommerce · INGLY Skills</h3>
+      <p class="hint">Audit informativo basato sui dati correnti della bozza: prodotti, copertine, IT/EN, categorie, SEO, consegna file digitali e checkout. Non cambia i contenuti e non blocca la pubblicazione.</p>
+      <div class="ingly-ecom-actions">
+        <button type="button" class="btn pri" id="inglyEcomRun">Analizza catalogo e contenuti</button>
+        <button type="button" class="btn" id="inglyEcomExport" disabled>Esporta report JSON</button>
+      </div>
+      <div id="inglyEcomSummary" class="ingly-ecom-summary" role="status" aria-live="polite">Apri l'audit per verificare i dati della bozza prima della pubblicazione.</div>
+      <div id="inglyEcomFindings" class="ingly-ecom-findings"></div>
+    </div>
   </section>
 
   <!-- ============ BACKUP ============ -->
@@ -1854,12 +1864,90 @@ const NAV=[['Panoramica',[['dash','📊','Dashboard']]],
  ['Sistema',[['pub','🚀','Pubblica & Deploy'],['hist','🕘','Cronologia'],['health','🩺','Health Center'],['backup','💾','Backup']]]];
 const TITLES={};let VIEW='dash';
 $('nav').innerHTML=NAV.map(([g,items])=>`<div class="navlabel">${g}</div>`+items.map(([id,ic,t])=>{TITLES[id]=t;return `<button class="nit" data-go="${id}"><span>${ic}</span><span class="t">${t}</span>${id==='pub'?'<span class="bdg" id="navPubN"></span>':''}</button>`}).join('')).join('');
+/* Read-only audit inspired by the supplied eCommerce-Skills pack.
+   Native INGLY catalog checks; no data mutation, metrics guesswork or blocking.
+   Import is on-demand so the Admin starts just as quickly as before. */
+let lastEcommerceReport=null;
+async function renderEcommerceQuality(){
+ const summary=$('inglyEcomSummary'),findings=$('inglyEcomFindings');
+ const run=$('inglyEcomRun'),exportBtn=$('inglyEcomExport');
+ if(!summary||!findings||!run||!exportBtn)return;
+ const el=(tag,cls,value)=>{
+   const n=document.createElement(tag);
+   if(cls)n.className=cls;
+   if(value!==undefined)n.textContent=value;
+   return n;
+ };
+ async function calculate(){
+   run.disabled=true;
+   summary.textContent='Analisi dei dati ecommerce in corso…';
+   findings.replaceChildren();
+   try{
+     const {auditStore}=await import('./assets/js/ecommerce-quality.mjs');
+     const report=auditStore({
+       products:S.P||[],
+       categories:S.CATS||[],
+       config:S.CONFIG||{},
+       digital:S.DIGI||{},
+       materials:S.MAT||{}
+     });
+     lastEcommerceReport=report;
+     exportBtn.disabled=false;
+     summary.replaceChildren();
+     const grid=el('div','ingly-ecom-stats');
+     for(const [label,value] of [
+       ['Prodotti visibili',report.metrics.visibleProducts],
+       ['Senza foto',report.metrics.visibleWithoutPhoto],
+       ['Problemi critici',report.totals.error],
+       ['Avvisi',report.totals.warning],
+       ['Info',report.totals.info]]){
+       const card=el('div','ingly-ecom-stat');
+       card.append(el('strong','',String(value)),el('span','',label));
+       grid.append(card);
+     }
+     summary.append(grid);
+     summary.append(el('p','hint',report.note));
+     const all=report.findings.slice(0,80);
+     if(!all.length){
+       findings.append(el('p','ingly-ecom-empty','Nessuna anomalia rilevata nei controlli automatici. Le verifiche manuali restano necessarie.'));
+     }
+     for(const item of all){
+       const row=el('div','ingly-ecom-finding ingly-ecom-'+item.severity);
+       const tag=el('span','ingly-ecom-level',item.severity==='error'?'Critico':item.severity==='warning'?'Avviso':'Informazione');
+       const copy=el('div','ingly-ecom-copy');
+       copy.append(el('strong','',(item.id?item.area+' #'+item.id:item.area)+' · '+item.message));
+       copy.append(el('small','',item.action));
+       row.append(tag,copy);
+       findings.append(row);
+     }
+     if(report.findings.length>all.length||report.truncated){
+       findings.append(el('p','hint','Mostrati i primi '+all.length+' rilievi. Esporta il JSON per l’elenco completo disponibile.'));
+     }
+   }catch(err){
+     summary.textContent='Impossibile completare il controllo: '+(err?.message||'errore sconosciuto');
+     exportBtn.disabled=true;
+     lastEcommerceReport=null;
+   }finally{run.disabled=false}
+ }
+ run.onclick=calculate;
+ exportBtn.onclick=()=>{
+   if(!lastEcommerceReport)return;
+   const data=JSON.stringify({...lastEcommerceReport,generatedAt:new Date().toISOString()},null,2);
+   const blob=new Blob([data],{type:'application/json;charset=utf-8'});
+   const url=URL.createObjectURL(blob),a=document.createElement('a');
+   a.href=url;a.download='ingly-ecommerce-quality-report.json';
+   document.body.append(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),1000);
+ };
+ await calculate();
+}
+
 function go(v){
  if(BOOTED&&!DATA_OK&&!['set','health','pub','hist'].includes(v)){toast('Prima risolvi il caricamento dati: vedi la diagnosi in Impostazioni');v='set'}
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:()=>{},backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');

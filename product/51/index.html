@@ -3,6 +3,7 @@
 <head>
 <base href="../../">
 <base href="./">
+<script>try{const x=localStorage.getItem("ingly_mode");document.documentElement.dataset.mode=x==="light"||x==="dark"?x:(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")}catch(e){document.documentElement.dataset.mode="dark"}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cover Smartphone Personalizzata — INGLY DESIGN</title>
@@ -160,6 +161,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
 <link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
 <link rel="stylesheet" href="assets/css/ingly-responsive-theme.css">
+<link rel="stylesheet" href="assets/css/brand-system-2026.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>
@@ -267,7 +269,7 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" style="top:36px">
   <div class="wrap nav-in">
-    <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-logo.svg" alt="Logo INGLY DESIGN" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark brand-wordmark--light" src="assets/images/ingly-wordmark-light.svg" alt="" width="172" height="72"><img class="brand-wordmark brand-wordmark--dark" src="assets/images/ingly-wordmark-dark.svg" alt="" width="172" height="72"><small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
@@ -1186,7 +1188,7 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark brand-wordmark--light" src="assets/images/ingly-wordmark-light.svg" alt="" width="172" height="72"><img class="brand-wordmark brand-wordmark--dark" src="assets/images/ingly-wordmark-dark.svg" alt="" width="172" height="72"><small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>
@@ -1212,7 +1214,7 @@ setTimeout(function(){
         <span class="ft-luogo">Made in Italy · Consulenza e personalizzazioni</span></div>
     </div>
 
-    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN — simbolo originale" loading="lazy" width="240" height="240"><span>INGLY</span></div>
+    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN — wordmark originale"><img class="brand-wordmark--light" src="assets/images/ingly-wordmark-light.svg" alt="INGLY" loading="lazy" width="1450" height="610"><img class="brand-wordmark--dark" src="assets/images/ingly-wordmark-dark.svg" alt="" loading="lazy" width="1450" height="610"></div>
     <div class="fbottom"><span id="ftCopy"></span><span id="ftLegal"></span></div>
   </div>
 </footer>

@@ -1,0 +1,296 @@
+/* INGLY DESIGN / ONE SOURCE OF VISUAL TRUTH — October 2026
+   Last loaded storefront stylesheet. Preserves catalog, checkout and forms.
+   Dark = luxury midnight + quiet gold. Light = real white, ink and gold.
+   Every surface derives from theme variables rather than fixed skin colors. */
+:root,:root[data-mode="dark"] {
+ color-scheme:dark;
+ --brand-bg:#080d15;--brand-deep:#06090f;--brand-surface:#101823;
+ --brand-elevated:#152030;--brand-ink:#f8f9fc;--brand-muted:#bdc7d5;
+ --brand-border:rgba(212,175,97,.23);--brand-border-strong:rgba(226,190,126,.41);
+ --brand-glass:rgba(8,13,21,.91);--brand-gold:#deb878;--brand-gold-hi:#f4daa6;
+ --brand-action-ink:#111b24;--brand-halo:rgba(184,138,72,.115);
+ --brand-halo2:rgba(36,107,180,.11);--brand-shadow:0 20px 55px rgba(0,0,0,.23);
+ --brand-lineart:rgba(222,184,120,.06);--brand-display:'Josefin Sans',sans-serif;
+ --brand-text:'Josefin Sans',system-ui,sans-serif;
+ --ux-bg:var(--brand-bg);--ux-bg2:var(--brand-deep);--ux-card:var(--brand-surface);
+ --ux-text:var(--brand-ink);--ux-muted:var(--brand-muted);--ux-border:var(--brand-border);
+ --ux-primary:var(--brand-gold);--ux-gold:var(--brand-gold);--ux-glow1:var(--brand-halo);
+ --ux-glow2:var(--brand-halo2);--ux-elevation:var(--brand-shadow);
+ --ma-bg:var(--brand-bg);--ma-deep:var(--brand-deep);--ma-panel:var(--brand-surface);
+ --ma-raised:var(--brand-elevated);--ma-text:var(--brand-ink);
+ --ma-muted:var(--brand-muted);--ma-line:var(--brand-border);
+ --ma-gold:var(--brand-gold);--ma-gold-hi:var(--brand-gold-hi);
+ --ma-glass:var(--brand-glass);--ma-accent-shadow:var(--brand-halo);
+ --ss-night:var(--brand-bg);--ss-night-raised:var(--brand-elevated);
+ --ss-night-glass:var(--brand-glass);--ss-border:var(--brand-border);
+ --ss-gold:var(--brand-gold);--ss-gold-light:var(--brand-gold-hi);
+ --at-bg:var(--brand-bg);--at-bg-deep:var(--brand-deep);
+ --at-surface:var(--brand-surface);--at-surface-raised:var(--brand-elevated);
+ --at-frost:var(--brand-glass);--at-text:var(--brand-ink);
+ --paper:var(--brand-bg);--bg-card:var(--brand-surface);
+ --card-solid:var(--brand-surface);--ink:var(--brand-ink);
+ --ink-soft:var(--brand-muted);--line:var(--brand-border);
+ --no-ink:var(--brand-bg);--no-surface:var(--brand-surface);
+ --no-surface-2:var(--brand-elevated);--no-paper:var(--brand-ink);
+ --no-muted:var(--brand-muted);--no-gold:var(--brand-gold);
+ --no-gold-high:var(--brand-gold-hi)
+}
+:root[data-mode="light"] {
+ color-scheme:light;
+ --brand-bg:#fff;--brand-deep:#f6f8fb;--brand-surface:#fff;
+ --brand-elevated:#f3f6fa;--brand-ink:#111b2d;--brand-muted:#45546a;
+ --brand-border:rgba(17,34,59,.14);--brand-border-strong:rgba(140,102,51,.32);
+ --brand-glass:rgba(255,255,255,.96);--brand-gold:#895b22;--brand-gold-hi:#825116;
+ --brand-action-ink:#142034;--brand-halo:rgba(179,128,62,.065);
+ --brand-halo2:rgba(44,111,186,.065);--brand-shadow:0 16px 38px rgba(18,38,68,.075);
+ --brand-lineart:rgba(34,57,91,.045);
+ --ux-bg:var(--brand-bg);--ux-bg2:var(--brand-deep);--ux-card:var(--brand-surface);
+ --ux-text:var(--brand-ink);--ux-muted:var(--brand-muted);--ux-border:var(--brand-border);
+ --ux-primary:var(--brand-gold);--ux-gold:var(--brand-gold);--ux-glow1:var(--brand-halo);
+ --ux-glow2:var(--brand-halo2);--ux-elevation:var(--brand-shadow);
+ --ma-bg:var(--brand-bg);--ma-deep:var(--brand-deep);--ma-panel:var(--brand-surface);
+ --ma-raised:var(--brand-elevated);--ma-text:var(--brand-ink);
+ --ma-muted:var(--brand-muted);--ma-line:var(--brand-border);
+ --ma-gold:var(--brand-gold);--ma-gold-hi:var(--brand-gold-hi);
+ --ma-glass:var(--brand-glass);--ma-accent-shadow:var(--brand-halo);
+ --ss-night:var(--brand-bg);--ss-night-raised:var(--brand-elevated);
+ --ss-night-glass:var(--brand-glass);--ss-border:var(--brand-border);
+ --ss-gold:var(--brand-gold);--ss-gold-light:var(--brand-gold-hi);
+ --at-bg:var(--brand-bg);--at-bg-deep:var(--brand-deep);
+ --at-surface:var(--brand-surface);--at-surface-raised:var(--brand-elevated);
+ --at-frost:var(--brand-glass);--at-text:var(--brand-ink);
+ --paper:var(--brand-bg);--bg-card:var(--brand-surface);
+ --card-solid:var(--brand-surface);--ink:var(--brand-ink);
+ --ink-soft:var(--brand-muted);--line:var(--brand-border);
+ --no-ink:var(--brand-bg);--no-surface:var(--brand-surface);
+ --no-surface-2:var(--brand-elevated);--no-paper:var(--brand-ink);
+ --no-muted:var(--brand-muted);--no-gold:var(--brand-gold);
+ --no-gold-high:var(--brand-gold-hi)
+}
+:root[data-mode] body {
+ color:var(--brand-ink)!important;
+ font-family:var(--brand-text)!important;
+ background:
+ radial-gradient(ellipse 58% 46% at 90% 9%,var(--brand-halo2),transparent 75%),
+ radial-gradient(ellipse 46% 50% at 2% 37%,var(--brand-halo),transparent 76%),
+ linear-gradient(165deg,var(--brand-bg),var(--brand-deep) 60%,var(--brand-bg))!important;
+ background-attachment:fixed!important;
+}
+:root[data-mode] body::before {
+ background-image:linear-gradient(var(--brand-lineart) 1px,transparent 1px),
+ linear-gradient(90deg,var(--brand-lineart) 1px,transparent 1px)!important;
+ background-size:80px 80px!important;opacity:.36!important;pointer-events:none
+}
+:root[data-mode] :is(.page,.sec,.shop-layout,.phero,.hero,.journey-sec,.signature-hero,.about-art,
+ .ingly-parametric,.ingly-commerce-spots,.atelier-configurator,.ing-service-centre) {
+ color:var(--brand-ink)!important
+}
+:root[data-mode] :is(h1,h2,h3,h4,.h2,.ft-claim,.ft-col h4) {
+ font-family:var(--brand-display)!important;
+}
+:root[data-mode] :is(.nav,.topbar,.atelier-mobile-dock,.mega-menu,.mobile-menu,.drawer) {
+ background:var(--brand-glass)!important;color:var(--brand-ink)!important;
+ border-color:var(--brand-border)!important;
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+:root[data-mode] :is(.nav,.topbar,.atelier-mobile-dock,.mega-menu,.mobile-menu,.drawer) :is(a,button) {
+ color:var(--brand-ink)
+}
+:root[data-mode] :is(.nav,.topbar) :is(a,button):focus-visible,
+:root[data-mode] :is(.btn,.filter,.cat-pill,.ia-voce,button):focus-visible {
+ outline:3px solid var(--brand-gold)!important;outline-offset:3px
+}
+/* Replace historic recolored icon/title with the actual user-supplied mark. */
+:root[data-mode] :is(.nav,.ft-col--brand) .brand--identity {
+ display:flex!important;align-items:center!important;
+ gap:clamp(7px,1vw,12px)!important;min-width:0!important;
+ text-decoration:none!important
+}
+:root[data-mode] .brand--identity .brand-symbol {
+ display:block!important;width:clamp(34px,3.1vw,44px)!important;
+ height:clamp(34px,3.1vw,44px)!important;object-fit:contain!important;
+ flex:none;filter:none!important;opacity:1!important;
+ border-radius:50%;background:#fffdfa;
+}
+:root[data-mode] .brand-lockup {
+ display:flex!important;flex-direction:column;min-width:0;
+ align-items:flex-start;justify-content:center;gap:1px;
+ font-family:var(--brand-text)!important;
+}
+:root[data-mode] .brand-lockup .brand-wordmark {
+ display:block!important;width:clamp(108px,10.8vw,172px)!important;
+ height:auto!important;aspect-ratio:1450/610;object-fit:contain!important;
+ margin:0!important;padding:0!important;max-width:100%!important;
+ filter:none!important;opacity:1!important
+}
+:root[data-mode] .brand-lockup small {
+ display:block!important;color:var(--brand-gold)!important;
+ font:600 clamp(8px,.83vw,11px)/1.25 var(--brand-text)!important;
+ letter-spacing:.21em!important;white-space:nowrap
+}
+:root[data-mode="dark"] .brand-wordmark--dark {display:none!important}
+:root[data-mode="light"] .brand-wordmark--light {display:none!important}
+/* The loading symbol preserves its actual colors and now has a white centre. */
+:root[data-mode] #loader .ingly-loader-logo,
+:root[data-mode] .ingly-loader-badge img {filter:none!important}
+:root[data-mode] .signature-hero,
+:root[data-mode] :is(.sec-band,.sec.dark,.signature-pathways,.ingly-material-studies) {
+ background:
+ radial-gradient(ellipse 70% 55% at 85% 6%,var(--brand-halo2),transparent 75%),
+ linear-gradient(170deg,var(--brand-bg),var(--brand-deep))!important;
+}
+:root[data-mode] :is(.p-card,.mcard,.shcard,.fitem,.rcard,.c-card,.digital-preview-card,
+ .machine-explore-card,.ingly-commerce-spot,.ft-col,.filters,.filter-panel) {
+ border-color:var(--brand-border)!important;
+ color:var(--brand-ink)!important;
+}
+:root[data-mode] :is(.p-card,.mcard,.shcard,.fitem,.rcard,.c-card,.digital-preview-card,
+ .machine-explore-card,.ingly-commerce-spot,.filters,.filter-panel) {
+ background:linear-gradient(152deg,var(--brand-surface),var(--brand-elevated))!important;
+ box-shadow:var(--brand-shadow)!important;
+}
+:root[data-mode] :is(.p-card,.mcard,.shcard,.fitem,.rcard,.c-card,.digital-preview-card,
+ .machine-explore-card,.ingly-commerce-spot) :is(h2,h3,h4,strong,.title) {color:var(--brand-ink)!important}
+:root[data-mode] :is(.p-card,.mcard,.shcard,.fitem,.rcard,.c-card,.digital-preview-card,
+ .machine-explore-card,.ingly-commerce-spot) :is(p,small,.hint,.sub) {color:var(--brand-muted)!important}
+/* Readable consistent CTA in both themes. */
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta) {
+ background:linear-gradient(110deg,#bb894b,#e6ba78 53%,#f6deae)!important;
+ color:#121821!important;border:1px solid rgba(223,181,112,.52)!important;
+ box-shadow:0 10px 25px var(--brand-halo)!important;
+ font-weight:750!important
+}
+:root[data-mode] :is(.btn-ghost,.btn-secondary) {
+ background:var(--brand-surface)!important;color:var(--brand-ink)!important;
+ border-color:var(--brand-border)!important
+}
+:root[data-mode] :is(input:not([type=checkbox]):not([type=radio]),textarea,select) {
+ background:var(--brand-surface)!important;color:var(--brand-ink)!important;
+ border-color:var(--brand-border)!important;
+}
+:root[data-mode] :is(input,textarea)::placeholder{color:var(--brand-muted)!important;opacity:.95}
+/* Carousel technology chips: unified surfaces and consistent height. */
+:root[data-mode] #techTicker {
+ background:var(--brand-deep)!important;color:var(--brand-ink)!important;
+ border-block:1px solid var(--brand-border)!important;
+ overflow:hidden!important
+}
+:root[data-mode] #techTicker .tt-row {max-width:100%;overflow:hidden}
+:root[data-mode] #techTicker .ttcard {
+ display:flex;align-items:center;gap:9px;min-width:154px;
+ height:58px!important;padding:9px 12px!important;
+ border:1px solid var(--brand-border)!important;border-radius:13px!important;
+ background:var(--brand-surface)!important;color:var(--brand-ink)!important
+}
+:root[data-mode] #techTicker .ttcard :is(.tc-name,.tc-sub){color:var(--brand-ink)!important}
+:root[data-mode] #techTicker .ttcard .tc-sub {color:var(--brand-muted)!important}
+:root[data-mode] #techTicker .tc-emoji {color:var(--brand-gold)!important;border-color:var(--brand-border)!important}
+:root[data-mode] .ingly-service-centre__badge {
+ background:linear-gradient(140deg,#fff,#f4f7fc)!important;
+ color:#10151f!important;border:1px solid var(--brand-border)!important
+}
+/* Footer: no artificial giant font, no competing technical badge. */
+:root[data-mode] footer {
+ background:linear-gradient(170deg,var(--brand-deep),var(--brand-bg))!important;
+ color:var(--brand-ink)!important;border-top:1px solid var(--brand-border)!important
+}
+:root[data-mode] footer :is(.ft-desc,.ft-col a,.ft-col p,.ft-luogo,.fbottom) {
+ color:var(--brand-muted)!important
+}
+:root[data-mode] footer a:hover {color:var(--brand-gold-hi)!important}
+:root[data-mode] footer .ft-cols {align-items:start!important;gap:clamp(22px,3vw,45px)}
+:root[data-mode] footer .ft-col--brand .brand--identity {margin-bottom:14px}
+:root[data-mode] footer .ingly-footer-signature {
+ display:block!important;position:relative;isolation:isolate;
+ width:100%;min-height:0!important;margin:clamp(36px,6vw,84px) auto 0!important;
+ padding:0!important;border:none!important;background:transparent!important;
+ box-shadow:none!important;overflow:hidden!important;text-align:center
+}
+:root[data-mode] footer .ingly-footer-signature img {
+ width:min(100%,1360px)!important;height:auto!important;max-height:none!important;
+ aspect-ratio:1450/610!important;object-fit:contain!important;display:block!important;
+ margin:0 auto!important;filter:none!important;pointer-events:none!important;
+ opacity:.072!important
+}
+:root[data-mode="light"] footer .ingly-footer-signature img {opacity:.10!important}
+:root[data-mode="dark"] footer .ingly-footer-signature .brand-wordmark--dark {display:none!important}
+:root[data-mode="light"] footer .ingly-footer-signature .brand-wordmark--light {display:none!important}
+:root[data-mode] footer .fbottom {position:relative;z-index:1}
+/* Increase contrast and avoid dark overlay leftovers in white mode. */
+:root[data-mode="light"] :is(.nav,.topbar,.atelier-mobile-dock,.mobile-menu,.mega-menu,.drawer) {
+ background:rgba(255,255,255,.97)!important;color:#111b2d!important
+}
+:root[data-mode="light"] :is(.page,.sec,.hero,.phero,.shop-layout,.ft-cols,.fitem) :is(p,small,label) {color:var(--brand-muted)}
+:root[data-mode="light"] :is(.page,.sec,.hero,.phero,.ft-cols) :is(h1,h2,h3,h4) {color:var(--brand-ink)}
+:root[data-mode="light"] :is(.eyebrow,.hero-tag,.vs-eyebrow,.ft-col h4) {color:var(--brand-gold)!important}
+/* Mobile: no soft overlapping labels, glowing checkerboards or horizontal overflow. */
+@media(max-width:900px){
+ :root[data-mode] :is(.nav .nav-in,.topbar .wrap,.hero-grid,.shop-layout,.ft-cols){min-width:0;max-width:100%}
+ :root[data-mode] :is(.hero,.phero,.signature-hero){padding-inline:0!important}
+ :root[data-mode] footer .ft-cols{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ :root[data-mode] #techTicker .ttcard{min-width:148px;height:52px!important}
+}
+@media(max-width:620px){
+ :root[data-mode] body {background-attachment:scroll!important}
+ :root[data-mode] body::before{opacity:.17!important;background-size:64px 64px!important}
+ :root[data-mode] .nav .nav-in{gap:8px!important;padding-inline:12px!important}
+ :root[data-mode] .nav .brand--identity{gap:7px!important;flex:1;min-width:0}
+ :root[data-mode] .brand-lockup .brand-wordmark{width:110px!important}
+ :root[data-mode] .brand-lockup small{font-size:8px!important;letter-spacing:.14em!important}
+ :root[data-mode] .nav .brand--identity .brand-symbol{width:33px!important;height:33px!important}
+ :root[data-mode] :is(.pgrid,.fgrid,.mach-grid,.matgrid,.feature-grid,.digital-preview-grid){gap:12px!important}
+ :root[data-mode] :is(.p-card,.fitem,.digital-preview-card,.machine-explore-card){min-width:0;max-width:100%;border-radius:16px!important}
+ :root[data-mode] #techTicker .tt-row--rev{display:none!important}
+ :root[data-mode] #techTicker .tt-track{animation-duration:45s}
+ :root[data-mode] #techTicker .ttcard{height:50px!important;min-width:135px;padding:8px!important}
+ :root[data-mode] #techTicker .tc-name{font-size:12px!important}
+ :root[data-mode] #techTicker .tc-sub{font-size:9px!important}
+ :root[data-mode] footer .ft-cols{grid-template-columns:minmax(0,1fr)!important;gap:22px!important}
+ :root[data-mode] footer .ft-col--brand .brand--identity{justify-content:flex-start}
+ :root[data-mode] footer .ingly-footer-signature{margin-top:28px!important}
+ :root[data-mode] footer .ingly-footer-signature img{width:100%!important}
+ :root[data-mode] .atelier-mobile-dock{padding-bottom:env(safe-area-inset-bottom,0px)!important}
+ :root[data-mode] .atelier-mobile-dock :is(a,button){min-width:44px;min-height:52px}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] #techTicker .tt-track{animation:none!important}
+ :root[data-mode] :is(.p-card,.fitem,.btn,.ttcard){transition:none!important}
+}
+
+/* Reconcile photographic hero with readable white-mode copy. */
+:root[data-mode="light"] #page-home .signature-hero-media__shade{
+ background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.91) 24%,rgba(255,255,255,.4) 52%,transparent 78%),
+ linear-gradient(0deg,rgba(255,255,255,.22),transparent 55%)!important
+}
+:root[data-mode="dark"] #page-home .signature-hero-media__shade{
+ background:linear-gradient(90deg,#080d15 0%,rgba(8,13,21,.76) 24%,rgba(8,13,21,.10) 62%,transparent 90%),
+ linear-gradient(0deg,rgba(8,13,21,.40),transparent 45%)!important
+}
+:root[data-mode] #page-home .signature-hero :is(#heroH1,.sub,.signature-hero-assurance){
+ color:var(--brand-ink)!important;text-shadow:none!important
+}
+:root[data-mode] #page-home .signature-hero .hero-tag{
+ background:var(--brand-glass)!important;color:var(--brand-gold)!important;
+ border-color:var(--brand-border-strong)!important
+}
+:root[data-mode="light"] #page-home .signature-hero .btn-ghost{
+ background:rgba(255,255,255,.92)!important;color:var(--brand-ink)!important
+}
+@media(max-width:760px){
+ :root[data-mode] #page-home .signature-hero-media{width:100%!important;opacity:.64!important}
+ :root[data-mode="light"] #page-home .signature-hero-media__shade{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.77) 40%,rgba(255,255,255,.69))!important
+ }
+ :root[data-mode="dark"] #page-home .signature-hero-media__shade{
+  background:linear-gradient(180deg,rgba(8,13,21,.84),rgba(8,13,21,.82) 45%,rgba(8,13,21,.86))!important
+ }
+ :root[data-mode] #page-home .signature-hero-copy{
+  width:100%!important;max-width:100%!important;padding-inline:clamp(4px,3vw,16px)!important
+ }
+ :root[data-mode] #page-home .signature-hero #heroH1{
+  font-size:clamp(2.25rem,9vw,3.6rem)!important;max-width:100%!important;
+  overflow-wrap:break-word!important;line-height:1.05!important
+ }
+ :root[data-mode] #page-home .signature-hero .hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
+ :root[data-mode] #page-home .signature-hero .hero-ctas .btn{min-height:46px!important}
+}

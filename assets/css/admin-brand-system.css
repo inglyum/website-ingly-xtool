@@ -1,0 +1,151 @@
+/* INGLY Admin — shares the exact storefront brand palette.
+   Loaded after admin-notte-oro and admin-maison; no content/editor logic changed. */
+:root,:root[data-mode="dark"]{
+ color-scheme:dark;
+ --ab-bg:#080d15;--ab-deep:#0c121e;--ab-surface:#101823;
+ --ab-raised:#152030;--ab-text:#f8f9fc;--ab-muted:#bdc7d5;
+ --ab-border:rgba(212,175,97,.23);--ab-gold:#deb878;--ab-gold-hi:#f4daa6;
+ --ab-glass:rgba(9,15,24,.95);--ab-halo:rgba(184,138,72,.12);
+ --ab-shadow:0 18px 48px rgba(0,0,0,.20);
+ --bg:var(--ab-bg);--panel:var(--ab-deep);--card:var(--ab-surface);
+ --card2:var(--ab-raised);--ink:var(--ab-text);
+ --soft:var(--ab-muted);--mut:var(--ab-muted);--line:var(--ab-border);
+ --blue:var(--ab-gold);--laser:var(--ab-gold);
+ --accent:var(--ab-gold);--ma-text:var(--ab-text);--ma-muted:var(--ab-muted);
+ --ma-panel:var(--ab-surface);--ma-raised:var(--ab-raised);
+ --ma-line:var(--ab-border);--ma-gold:var(--ab-gold);
+ --ma-gold-hi:var(--ab-gold-hi)
+}
+:root[data-mode="light"]{
+ color-scheme:light;
+ --ab-bg:#fff;--ab-deep:#f6f8fb;--ab-surface:#fff;
+ --ab-raised:#f3f6fa;--ab-text:#111b2d;--ab-muted:#45546a;
+ --ab-border:rgba(17,34,59,.14);--ab-gold:#895b22;--ab-gold-hi:#825116;
+ --ab-glass:rgba(255,255,255,.97);--ab-halo:rgba(172,127,61,.07);
+ --ab-shadow:0 15px 38px rgba(18,38,68,.08);
+ --bg:var(--ab-bg);--panel:var(--ab-deep);--card:var(--ab-surface);
+ --card2:var(--ab-raised);--ink:var(--ab-text);
+ --soft:var(--ab-muted);--mut:var(--ab-muted);--line:var(--ab-border);
+ --blue:var(--ab-gold);--laser:var(--ab-gold);
+ --accent:var(--ab-gold);--ma-text:var(--ab-text);--ma-muted:var(--ab-muted);
+ --ma-panel:var(--ab-surface);--ma-raised:var(--ab-raised);
+ --ma-line:var(--ab-border);--ma-gold:var(--ab-gold);
+ --ma-gold-hi:var(--ab-gold-hi)
+}
+:root[data-mode] body{
+ background:radial-gradient(ellipse 57% 39% at 88% -8%,var(--ab-halo),transparent 78%),
+ linear-gradient(155deg,var(--ab-bg),var(--ab-deep) 72%,var(--ab-bg))!important;
+ color:var(--ab-text)!important;
+ font-family:'Josefin Sans',system-ui,sans-serif!important
+}
+:root[data-mode] :is(.side,.top,.footbar){
+ background:var(--ab-glass)!important;
+ border-color:var(--ab-border)!important;color:var(--ab-text)!important
+}
+:root[data-mode] .side {box-shadow:7px 0 28px var(--ab-halo)!important}
+:root[data-mode] :is(.top,.side,.footbar) :is(a,button,span,b,small,h1){color:inherit}
+:root[data-mode] .brand--admin{display:flex;gap:10px;align-items:center;min-width:0;padding:8px 9px 16px}
+:root[data-mode] .brand--admin>img{
+ width:38px!important;height:38px!important;flex:none;object-fit:contain!important;
+ background:#fffdfa;border-radius:50%;filter:none!important;opacity:1!important
+}
+:root[data-mode] .brand-admin-lockup{display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:0}
+:root[data-mode] .brand-admin-lockup img{
+ display:block!important;width:clamp(90px,8.8vw,145px)!important;height:auto!important;
+ aspect-ratio:1450/610;max-width:100%;filter:none!important
+}
+:root[data-mode] .brand-admin-lockup span{
+ color:var(--ab-gold)!important;
+ font:600 9px/1.3 'Josefin Sans',sans-serif!important;letter-spacing:.16em!important
+}
+:root[data-mode="dark"] .brand-admin-lockup .brand-wordmark--dark{display:none!important}
+:root[data-mode="light"] .brand-admin-lockup .brand-wordmark--light{display:none!important}
+:root[data-mode] :is(.card,.panel,.box,.modal,.drawer,.editor,.dash-card,
+ .maison-admin-overview,.maison-admin-theme-panel,.maison-admin-pane,.maison-admin-picture-copy) {
+ color:var(--ab-text)!important;border-color:var(--ab-border)!important;
+}
+:root[data-mode] :is(.card,.panel,.box,.modal,.drawer,.editor,.dash-card){
+ background:linear-gradient(145deg,var(--ab-surface),var(--ab-raised))!important;
+ box-shadow:var(--ab-shadow)!important
+}
+:root[data-mode] :is(.content,.view){color:var(--ab-text)!important}
+:root[data-mode] :is(.content,.view) :is(h1,h2,h3,h4,label,strong,b){
+ color:var(--ab-text)
+}
+:root[data-mode] :is(.content,.view) :is(p,small,.hint,.muted,.desc){
+ color:var(--ab-muted)
+}
+:root[data-mode] :is(.navitem,.nav-group,.side nav a,.side button){
+ border-color:var(--ab-border)!important
+}
+:root[data-mode] :is(input:not([type=checkbox]):not([type=radio]),textarea,select){
+ background:var(--ab-surface)!important;color:var(--ab-text)!important;
+ border-color:var(--ab-border)!important
+}
+:root[data-mode] :is(input,textarea)::placeholder{color:var(--ab-muted)!important;opacity:.93}
+:root[data-mode] :is(.btn,.btn.sm,.btn.pri,.maison-admin-theme-option){
+ border-color:var(--ab-border)!important
+}
+:root[data-mode] .btn.pri{
+ background:linear-gradient(110deg,#bb894b,#e6ba78 56%,#f6deae)!important;
+ border-color:rgba(215,166,92,.62)!important;color:#15202d!important;
+ box-shadow:0 9px 23px var(--ab-halo)!important
+}
+:root[data-mode] :is(.btn,.nav-item,.side button):focus-visible,
+:root[data-mode] :is(input,textarea,select):focus-visible{
+ outline:3px solid var(--ab-gold)!important;outline-offset:2px
+}
+:root[data-mode] #adminThemeSwitch{
+ display:inline-flex!important;align-items:center;justify-content:center;gap:6px;
+ min-width:112px;min-height:42px;white-space:nowrap;border-radius:11px;
+ background:var(--ab-raised)!important;color:var(--ab-text)!important;
+ border:1px solid var(--ab-border)!important;
+ font:600 13px 'Josefin Sans',sans-serif!important
+}
+:root[data-mode] #adminThemeSwitch[aria-pressed="true"]{
+ box-shadow:inset 0 0 0 1px var(--ab-gold)!important
+}
+:root[data-mode] :is(#maisonThemeDark,#maisonThemeLight){
+ transition:border-color .2s ease,transform .2s ease;
+ position:relative
+}
+:root[data-mode] :is(#maisonThemeDark,#maisonThemeLight)[aria-pressed="true"]{
+ border:2px solid var(--ab-gold-hi)!important;outline-offset:3px
+}
+:root[data-mode] .maison-admin-welcome,
+:root[data-mode] .maison-admin-pane-head{border-color:var(--ab-border)!important}
+/* Light is a genuine operational white layout, not a cream picture of the dark theme. */
+:root[data-mode="light"] .side,
+:root[data-mode="light"] .top{background:rgba(255,255,255,.97)!important}
+:root[data-mode="light"] :is(.card,.panel,.box,.modal,.drawer,.editor,.dash-card){
+ background:#fff!important;color:#111b2d!important
+}
+:root[data-mode="light"] :is(.content,.view,.card,.panel,.modal,.drawer,.editor) :is(h1,h2,h3,h4,strong,b,label){color:#111b2d!important}
+:root[data-mode="light"] :is(.content,.view,.card,.panel,.modal,.drawer,.editor) :is(p,small,.hint,.muted){color:#45546a!important}
+:root[data-mode="light"] :is(.side,.top,.card,.panel) :is(a,button){color:var(--ab-text)}
+:root[data-mode="light"] :is(.maison-admin-theme-option.maison-admin-light-preview){
+ background:linear-gradient(140deg,#fff,#f2f6fb)!important;color:#17233b!important
+}
+/* Sidebar + top on tablets/phones: maintain controls and avoid text clipping. */
+@media(max-width:920px){
+ :root[data-mode] .top{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+ :root[data-mode] .top .sync{flex:1;min-width:100px}
+ :root[data-mode] .top .btn{min-height:40px}
+ :root[data-mode] .card,:root[data-mode] .panel{min-width:0;max-width:100%}
+ :root[data-mode] .maison-admin-main-grid{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:650px){
+ :root[data-mode] body{overflow-x:hidden}
+ :root[data-mode] .top{padding:11px 12px!important}
+ :root[data-mode] .top h1{font-size:clamp(16px,5vw,23px)!important;min-width:0}
+ :root[data-mode] .top .sync{order:4;flex-basis:100%}
+ :root[data-mode] .top .btn{padding:9px 10px!important;font-size:12px!important;min-height:44px}
+ :root[data-mode] .brand--admin>img{height:32px!important;width:32px!important}
+ :root[data-mode] .brand-admin-lockup img{width:110px!important}
+ :root[data-mode] .content{padding:14px!important}
+ :root[data-mode] :is(.maison-admin-theme-grid,.maison-admin-main-grid){grid-template-columns:minmax(0,1fr)!important}
+ :root[data-mode] :is(input,select,textarea){max-width:100%;min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] :is(#maisonThemeDark,#maisonThemeLight){transition:none!important}
+}

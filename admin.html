@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<script>try{const t=localStorage.getItem("ingly_mode");document.documentElement.dataset.mode=t==="light"||t==="dark"?t:(window.matchMedia&&matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")}catch(e){document.documentElement.dataset.mode="dark"}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INGLY Admin 3.0</title>
@@ -340,13 +341,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/admin-maison.css">
+<link rel="stylesheet" href="assets/css/admin-brand-system.css">
 </head>
 <body>
 <script src="assets/js/artwork.js"></script>
 <script src="assets/js/generatori-catalog.js"></script>
 <div class="shell" id="shell">
 <aside class="side">
-  <div class="brand"><img src="assets/images/ingly-maison-mark.svg" onerror="this.style.display='none'" alt=""><div><b>INGLY</b><span>Admin 3.0</span></div></div>
+  <div class="brand brand--admin"><img src="assets/images/ingly-logo.svg" alt="" width="40" height="40"><div class="brand-admin-lockup"><img class="brand-wordmark--light" src="assets/images/ingly-wordmark-light.svg" alt="INGLY" width="145" height="61"><img class="brand-wordmark--dark" src="assets/images/ingly-wordmark-dark.svg" alt="INGLY" width="145" height="61"><span>DESIGN · ADMIN</span></div></div>
   <div id="nav"></div>
 </aside>
 <button id="sideToggle" title="Comprimi/espandi sidebar">‹</button>
@@ -355,6 +357,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <div class="top">
     <h1 id="vtitle">Dashboard</h1>
     <div class="sync"><span class="dot" id="syncDot"></span><span id="syncTxt">caricamento…</span></div>
+    <button type="button" class="btn admin-theme-switch" id="adminThemeSwitch" aria-label="Attiva modalità chiara" aria-pressed="false">☀ Chiaro</button>
     <button class="btn" id="goPrev" title="Apri il sito con i dati in bozza">👁 Anteprima</button>
   <button class="btn pri" id="goPub">🚀 Pubblica <span id="pubN" class="pill" style="background:rgba(0,0,0,.18);border:none"></span></button>
   </div>
@@ -387,12 +390,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
           <p class="hint">La stessa identità, nella versione Notte e in quella Avorio</p></div>
           <button type="button" class="btn sm" id="maisonEditBackground">Gestisci i temi →</button></div>
           <div class="maison-admin-theme-grid">
-            <button type="button" class="maison-admin-theme-option maison-admin-dark-preview" id="maisonThemeDark">
+            <button type="button" class="maison-admin-theme-option maison-admin-dark-preview" id="maisonThemeDark" aria-pressed="false">
               <span class="maison-admin-theme-logo">INGLY <small>DESIGN · ITALY</small></span>
               <span class="maison-admin-theme-heading">Le tue <em>idee.</em></span>
               <span class="maison-admin-theme-description">Modalità scura · nero e oro</span>
             </button>
-            <button type="button" class="maison-admin-theme-option maison-admin-light-preview" id="maisonThemeLight">
+            <button type="button" class="maison-admin-theme-option maison-admin-light-preview" id="maisonThemeLight" aria-pressed="false">
               <span class="maison-admin-theme-logo">INGLY <small>DESIGN · ITALY</small></span>
               <span class="maison-admin-theme-heading">Le tue <em>idee.</em></span>
               <span class="maison-admin-theme-description">Modalità chiara · avorio e oro</span>
@@ -5826,5 +5829,6 @@ $('seoAiGen').onclick=async()=>{
      (renderPrezzi si tira indietro da solo se i dati non ci sono ancora) */
   if(typeof renderPrezzi === 'function') renderPrezzi();
 </script>
+<script src="assets/js/admin/brand-theme-switch.js"></script>
 </body>
 </html>

@@ -12,3 +12,8 @@ assert.match(css,/:root\[data-mode="light"\] body\{background:radial-gradient/);
 assert.match(css,/--ux-bg:#fff/);
 assert.ok(css.includes('--ux-header:rgba(255,255,255,.97)'));
 console.log('✔ White-mode, IT/EN persistence and updates');
+
+const html=readFileSync('index.html','utf8');
+for(const k of ['materials','technologies','machines','theme','serviceIntro','serviceScope']) assert.ok(html.includes('data-inline-i18n="'+k+'"'),'Missing translated UI '+k);
+assert.match(main,/function translateInline\(\)/);
+assert.match(main,/translateInline\(\);/);

@@ -436,7 +436,7 @@ setTimeout(function(){
             <input id="atelierName" maxlength="26" type="text" autocomplete="off" placeholder="Scrivi il tuo nome" value="Unico come te">
           </label>
           <label for="atelierMaterial">Materiale
-            <select id="atelierMaterial"><option value="wood">Legno naturale</option><option value="acrylic">Plexiglass</option><option value="metal">Metallo</option></select>
+            <select id="atelierMaterial"><option value="wood" data-inline-i18n="genWood">Legno naturale</option><option value="acrylic" data-inline-i18n="genAcrylic">Plexiglass</option><option value="metal" data-inline-i18n="genMetal">Metallo</option></select>
           </label>
           <label for="atelierFont">Stile
             <select id="atelierFont"><option value="signature">Firma elegante</option><option value="serif">Editoriale</option><option value="mono">Tecnico</option></select>
@@ -810,50 +810,55 @@ setTimeout(function(){
   <section class="ingly-parametric wrap" id="inglyParametric" aria-labelledby="inglyParametricTitle">
     <div class="ingly-parametric__intro">
       <span class="eyebrow">INGLY DESIGN / DESIGN STUDIO</span>
-      <h2 id="inglyParametricTitle">La tua idea, <em>prende forma.</em></h2>
-      <p>Prova un'insegna con il tuo nome, scegli dimensioni e materiale, guarda l'anteprima in tempo reale. Il file SVG resta modificabile: prima del taglio occorre verificare misure, spessori, font e tracciati nel software laser.</p>
+      <h2 id="inglyParametricTitle"><span data-inline-i18n="genTitleLead">La tua idea,</span> <em data-inline-i18n="genTitleAccent">prende forma.</em></h2>
+      <p data-inline-i18n="genIntro">Prova un'insegna con il tuo nome, scegli dimensioni e materiale, guarda l'anteprima in tempo reale. Il file SVG resta modificabile: prima del taglio occorre verificare misure, spessori, font e tracciati nel software laser.</p>
     </div>
     <div class="ingly-parametric__layout">
       <div class="ingly-parametric__panel">
-        <label for="inglyGeneratorName">Testo personalizzato
+        <label for="inglyGeneratorName"><span data-inline-i18n="genText">Testo personalizzato</span>
           <input id="inglyGeneratorName" maxlength="28" value="Il tuo nome" autocomplete="off">
         </label>
         <div class="ingly-parametric__two">
-          <label for="inglyGeneratorWidth">Larghezza (mm)
+          <label for="inglyGeneratorWidth"><span data-inline-i18n="genWidth">Larghezza (mm)</span>
             <input id="inglyGeneratorWidth" type="number" min="50" max="500" step="5" value="180">
           </label>
-          <label for="inglyGeneratorHeight">Altezza (mm)
+          <label for="inglyGeneratorHeight"><span data-inline-i18n="genHeight">Altezza (mm)</span>
             <input id="inglyGeneratorHeight" type="number" min="25" max="250" step="5" value="65">
           </label>
         </div>
         <div class="ingly-parametric__two">
-          <label for="inglyGeneratorMaterial">Aspetto materiale
+          <label for="inglyGeneratorMaterial"><span data-inline-i18n="genMaterial">Aspetto materiale</span>
             <select id="inglyGeneratorMaterial"><option value="wood">Legno naturale</option><option value="acrylic">Plexiglass</option><option value="metal">Metallo</option></select>
           </label>
-          <label for="inglyGeneratorShape">Forma
-            <select id="inglyGeneratorShape"><option value="rounded">Rettangolo stondato</option><option value="ellipse">Ovale</option><option value="rectangle">Rettangolo</option></select>
+          <label for="inglyGeneratorShape"><span data-inline-i18n="genShape">Forma</span>
+            <select id="inglyGeneratorShape"><option value="rounded" data-inline-i18n="genRounded">Rettangolo stondato</option><option value="ellipse" data-inline-i18n="genOval">Ovale</option><option value="rectangle" data-inline-i18n="genRectangle">Rettangolo</option></select>
           </label>
         </div>
-        <label for="inglyGeneratorFont">Stile lettering
-          <select id="inglyGeneratorFont"><option value="josefin">Josefin Sans</option><option value="serif">Serif classico</option><option value="mono">Mono tecnico</option></select>
+        <label for="inglyGeneratorFont"><span data-inline-i18n="genFont">Stile lettering</span>
+          <select id="inglyGeneratorFont"><option value="josefin">Josefin Sans</option><option value="serif" data-inline-i18n="genSerif">Serif classico</option><option value="mono" data-inline-i18n="genMono">Mono tecnico</option></select>
         </label>
         <div class="ingly-generator-presets" id="inglyGeneratorPresets" aria-label="Modelli rapidi di personalizzazione">
-          <span class="ingly-generator-presets__label">PARTI DA UN MODELLO</span>
+          <span class="ingly-generator-presets__label" data-inline-i18n="genPresets">PARTI DA UN MODELLO</span>
           <div class="ingly-generator-presets__options">
-            <button type="button" data-ingly-preset="name" aria-pressed="true">Targa nome</button>
-            <button type="button" data-ingly-preset="desk" aria-pressed="false">Targa ufficio</button>
-            <button type="button" data-ingly-preset="oval" aria-pressed="false">Bomboniera ovale</button>
-            <button type="button" data-ingly-preset="keyring" aria-pressed="false">Portachiavi</button>
+            <button type="button" data-ingly-preset="name" aria-pressed="true" data-inline-i18n="genPresetName">Targa nome</button>
+            <button type="button" data-ingly-preset="desk" aria-pressed="false" data-inline-i18n="genPresetDesk">Targa ufficio</button>
+            <button type="button" data-ingly-preset="oval" aria-pressed="false" data-inline-i18n="genPresetOval">Bomboniera ovale</button>
+            <button type="button" data-ingly-preset="keyring" aria-pressed="false" data-inline-i18n="genPresetKey">Portachiavi</button>
           </div>
         </div>
+        <label class="ingly-parametric__notes" for="inglyGeneratorNotes">
+          <span data-inline-i18n="genProjectNotes">Note per il progetto (facoltative)</span>
+          <textarea id="inglyGeneratorNotes" rows="3" maxlength="300" data-inline-placeholder="genNotesPlaceholder" placeholder="Materiale, uso previsto, consegna o dettagli da valutare"></textarea>
+        </label>
         <div class="ingly-parametric__buttons">
           <button type="button" class="btn btn-primary" id="inglyGeneratorDownload">Esporta SVG <span aria-hidden="true">↓</span></button>
-          <a class="btn btn-ghost" href="generatori.html">Generator Studio completo ↗</a>
+          <button type="button" class="btn btn-ghost" id="inglyGeneratorQuote"><span data-inline-i18n="genQuote">Richiedi preventivo</span> <span aria-hidden="true">↗</span></button>
+          <a class="btn btn-ghost" href="generatori.html"><span data-inline-i18n="genStudio">Generator Studio completo</span> ↗</a>
         </div>
-        <p class="ingly-parametric__fine">Anteprima creativa, non file di taglio collaudato. Il testo SVG non viene convertito in curve: usa la funzione “Converti in tracciato” nel tuo software laser prima della produzione.</p>
+        <p class="ingly-parametric__fine" data-inline-i18n="genWarning">Anteprima creativa, non file di taglio collaudato. Il testo SVG non viene convertito in curve: usa la funzione “Converti in tracciato” nel tuo software laser prima della produzione.</p>
       </div>
       <div class="ingly-parametric__preview">
-        <div class="ingly-parametric__preview-header"><span>ANTEPRIMA LIVE</span><span id="inglyGeneratorSize">180 × 65 mm</span></div>
+        <div class="ingly-parametric__preview-header"><span data-inline-i18n="genPreview">ANTEPRIMA LIVE</span><span id="inglyGeneratorSize">180 × 65 mm</span></div>
         <div id="inglyGeneratorCanvas" role="img" aria-label="Anteprima parametrica della targa personalizzata"></div>
         <p id="inglyGeneratorStatus" role="status" aria-live="polite">Modifica i parametri per visualizzare l'anteprima.</p>
       </div>

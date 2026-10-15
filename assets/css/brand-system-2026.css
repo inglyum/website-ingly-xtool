@@ -456,3 +456,35 @@
 }
 :root[data-mode="dark"] footer .ingly-footer-signature img.brand-wordmark{opacity:.18!important}
 :root[data-mode="light"] footer .ingly-footer-signature img.brand-wordmark{opacity:.15!important}
+
+
+/* WCAG contrast remediation from the 20-case axe audit, 2026-10-16.
+   Dark and light footer text remains premium while meeting small-text AA. */
+:root[data-mode="dark"] footer :is(.ft-eyebrow,.ft-col h4,.ft-desc,.ft-luogo,
+ .ft-col a,.ft-col p,.fbottom,.brand-lockup small){
+ color:#ccd4e0!important;
+}
+:root[data-mode="dark"] footer .ft-eyebrow,
+:root[data-mode="dark"] footer .brand-lockup small{color:#e9c98f!important}
+:root[data-mode="light"] footer :is(.ft-eyebrow,.ft-col h4,.ft-desc,.ft-luogo,
+ .ft-col a,.ft-col p,.fbottom,.brand-lockup small){
+ color:#425167!important;
+}
+:root[data-mode="light"] footer .ft-eyebrow,
+:root[data-mode="light"] footer .brand-lockup small{color:#75501e!important}
+:root[data-mode="light"] .journey-card .journey-link{
+ color:#315c9a!important;
+}
+:root[data-mode="light"] :is(#sbName,#sbPrice){color:#17253d!important}
+
+
+/* WCAG AA: legacy footer labels used opacity: .5; axe measured text
+   after alpha compositing, so adjusting the declared color alone
+   did not meet 4.5:1. Remove decorative text fading, not watermark. */
+:root[data-mode] footer :is(
+ .ft-eyebrow,.ft-claim,.ft-desc,.ft-col h4,.ft-col a,.ft-col p,
+ .ft-luogo,.fbottom,.brand-lockup small
+){opacity:1!important}
+:root[data-mode="light"] :is(#sbName,#sbPrice){
+ color:#fff!important;opacity:1!important
+}

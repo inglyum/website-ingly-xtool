@@ -1,6 +1,16 @@
 name: INGLY — visual browser audit
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'admin.html'
+      - 'assets/css/**'
+      - 'assets/js/**'
+      - 'assets/images/**'
+      - 'tests/**'
+      - '.github/workflows/visual-audit.yml'
   pull_request:
     paths:
       - 'index.html'
@@ -11,6 +21,7 @@ on:
       - 'tests/visual-audit.mjs'
       - 'tests/a11y-keyboard.mjs'
       - 'tests/contrast-audit.mjs'
+      - 'tests/axe-audit.mjs'
       - '.github/workflows/visual-audit.yml'
 permissions:
   contents: read
@@ -31,7 +42,7 @@ jobs:
           node scripts/prerender.mjs
       - name: Install browser automation for QA
         run: |
-          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npm install --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.10.3
           npx playwright install --with-deps chromium
       - name: Start INGLY development server
         run: |
@@ -51,6 +62,8 @@ jobs:
         run: node tests/a11y-keyboard.mjs
       - name: Measure computed light/dark text contrast (report baseline)
         run: node tests/contrast-audit.mjs
+      - name: WCAG axe-core 20-case light/dark audit (baseline report)
+        run: node tests/axe-audit.mjs
       - name: Upload screenshot evidence and JSON report
         if: always()
         uses: actions/upload-artifact@v4
@@ -59,6 +72,7 @@ jobs:
           path: |
             artifacts/visual-audit/
             artifacts/contrast-audit/
+            artifacts/axe-audit/
           if-no-files-found: warn
           retention-days: 14
       - name: Stop development server

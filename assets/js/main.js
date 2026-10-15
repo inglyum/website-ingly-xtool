@@ -918,9 +918,19 @@ safeRun('deep link prodotto',()=>{
     if(pid && !prod.selectProduct(pid)) go('shop');   /* id inesistente → catalogo */
   }
 });
+/* Accessibility: horizontally scrollable compatibility grids must also be
+   reachable by keyboard (WCAG axe scrollable-region-focusable). */
+function markScrollableCompatibility(){
+ document.querySelectorAll('.atelier-compat-scroll').forEach(el=>{
+  el.tabIndex=0;
+  if(!el.hasAttribute('aria-label'))
+   el.setAttribute('aria-label',L==='it'?'Tabella compatibilità, scorribile con tastiera':'Compatibility table, scrollable by keyboard');
+ });
+}
 /* la pagina di settore si ridisegna a ogni cambio pagina: dipende
    dall'indirizzo, non dai dati */
 document.addEventListener('ingly:pagina',e=>{
+  requestAnimationFrame(markScrollableCompatibility);
   if(e.detail && e.detail.pagina==='business') renderVerticale(currentVerticale());
   /* Le schede del Lab si aprono e si chiudono come i settori Business:
      l'indirizzo decide, non un bottone. */
@@ -934,6 +944,7 @@ document.addEventListener('ingly:pagina',e=>{
    ora l'applicazione disegna la pagina vera e quel duplicato va tolto. */
 document.getElementById('prerender')?.remove();
 safeRun('mostra pagina iniziale',()=>show(currentPage()));
+requestAnimationFrame(markScrollableCompatibility);
 
 /* Bandierina di avvenuto avvio: la usa la rete di sicurezza in index.html per
    decidere se serve il bundle di riserva. Va messa in fondo, quando tutto il

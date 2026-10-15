@@ -3,11 +3,49 @@ Data audit: 15 ottobre 2026
 Base: branch main + hotfix \`fix/brand-header-machine-20261015\`.
 Obiettivo: un e-commerce premium credibile, realmente usabile su smartphone e amministrabile senza confondere immagini decorative, prodotti fisici, download e servizi.
 
+## Stato verificato 16 ottobre 2026 — INGLY DESIGN
+
+> Questa roadmap separa **completato**, **strumentato ma ancora da bonificare** e **dipendente da input reali**. Un test automatico verde non è una certificazione WCAG né la prova di un checkout con pagamenti online.
+
+| Intervento | Fase | Evidenza / limite |
+| --- | --- | --- |
+| Wordmark autentico **INGLY** con I visibile, header/footer/Admin e watermark nei temi | **Integrato** — PR #54 | Asset SVG corretti; QA e GitHub Pages conclusi con successo |
+| Audit cromatico dark/light | **Strumentato** — PR #54 | 30 campioni computati; tutti con sfondi complessi da verificare visivamente; nessuna certificazione WCAG |
+| Menu, carrello, zoom, tastiera | **Integrato** — PR #51 | 64 scan responsive + 11 test tastiera; restano screen reader e dispositivi fisici |
+| Controllo stock nelle aggiunte/checkout e sostituzioni media controllate | **Integrato** — PR #57 | Test automatici di integrazione; lo stock in tempo reale e il checkout online richiedono backend esterni |
+| Audit WCAG A/AA automatizzato | **In revisione** — PR #58 | 20 scan axe-core nei due temi e alle due larghezze; report triage prima di bloccare release |
+| Fotografie originali dei prodotti pubblici | **Dipende dagli originali** | Ultimo censimento: 43 copertine pubbliche mancanti; la Media Library offre coda per SKU e CSV, non inventa il prodotto |
+| Gallerie, crop, preview, associazione e sicurezza Media Library | **Parziale** | Upload/crop, coda, manifest, associazione confermata; da fare test reali di upload e pubblicazione |
+| Shop, catalogo, Admin | **In consolidamento** | CRUD, varianti, prezzi, categoria, traduzioni e flussi ordine richiedono collaudo E2E con dati di produzione |
+
+### Criteri di uscita prima della release commerciale completa
+- Confrontare homepage/Shop/Admin su iPhone Safari e Android Chrome **reali**, in dark/light, includendo zoom 200% e testi lunghi IT/EN
+- Provare VoiceOver e TalkBack per ordine focus, dialog, prodotto, checkout, filtri e modali; registrare difetti e fix
+- Revisionare singolarmente le segnalazioni contrasto su fotografie, gradienti e superfici traslucide; adottare soglie 4.5:1 testo normale, 3:1 testo grande e controlli UI dove pertinente
+- Ottenere foto originali delle schede pubbliche prive di media, verificarne SKU e diritti di utilizzo, poi caricarle e confermarle dall'Admin
+- Eseguire una pubblicazione di prova completa con 1 prodotto/1 variante/1 galleria e rollback verificato; non pubblicare foto non corrispondenti ai prodotti
+- Configurare il canale di pagamento, la consegna e la gestione ordini **solo quando i servizi reali sono autorizzati e testabili**; non confondere il checkout WhatsApp con una transazione online
+
+## Stato consolidato — 16 ottobre 2026
+
+| Ambito | Stato verificato | Passo di accettazione mancante |
+| --- | --- | --- |
+| Marchio INGLY | **Integrato e pubblicato** con PR #54: `I` iniziale corretta nei master SVG Giorno/Notte e lockup coerenti | Confronto percettivo del logo su schermi reali |
+| Responsive e tastiera | **64/64** controlli geometrici e **11/11** test tastiera Chromium nell'ultima PR verificata | Safari iOS, TalkBack Android, NVDA/VoiceOver reali |
+| Accessibilità WCAG | **20 scenari axe** IT/base e temi Giorno/Notte, report in `artifacts/axe-audit/`; violazioni da triagiare | Azzeramento difetti critici/seri, contrasto visuale su gradienti e verifica assistiva |
+| Shop / stock | **Integrato e pubblicato** con PR #57: blocco zero stock, cap varianti e carrello riconciliato prima della richiesta ordine | Collaudo ordini reali e sistemi esterni di inventario |
+| Media Library | **Integrata e pubblicata** con PR #57: selezione da manifest, conferma per sovrascrittura di copertine | Caricamento di fotografie autentiche con corrispondenza SKU |
+| Fotografie prodotti | Inventario storico: **43 schede pubbliche senza immagini principali** | Foto reali, verifiche licenza e prodotto/variante |
+| Pagamenti | **Non integrati:** checkout configurato come WhatsApp | Provider, credenziali, API server sicure, gestione spedizioni/ordini |
+| Generator Studio / Print & Cut | Output dimostrativi e moduli browser esistenti | Prove kerf, registration, spessori e taglio su xTool reali |
+
+Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL-QA.md). Nessuna delle attività hardware o fotografica è dichiarata completata dai soli test automatici.
+
 ## Aggiornamento operativo — 15 ottobre 2026 (PR #47–#49)
 
 - **PR #47, integrata:** corretto l'errore `max-width:84px` che restringeva la navbar; test di regressione aggiunto.
 - **PR #48, integrata:** audit Chromium di Home, Shop, Personalizza, Macchine e Admin a 320/390/768/1440 px, temi Giorno e Notte. Dopo la correzione della dashboard Admin: 40 controlli geometrici senza warning e deploy GitHub Pages riuscito.
-- **PR #49, in lavorazione:** selezione centralizzata delle foto realmente presenti, possibilità di usare una gallery valida se manca la cover, niente zoom/slideshow vuoti, fallback onesto per la scheda prodotto.
+- **PR #49, integrata:** selezione centralizzata delle foto realmente presenti, possibilità di usare una gallery valida se manca la cover, niente zoom/slideshow vuoti, fallback onesto per la scheda prodotto.
 - **Fase 1, non ancora certificata:** aggiungere audit WCAG con contrasto effettivo, focus/keyboard, navigazione e interazioni, screenshot comparativi esaminati e test su dispositivi fisici.
 - **Fase 2, non ancora conclusa:** rimangono da fornire le 43 fotografie mancanti dei prodotti pubblici (77 contando anche le bozze/nascosti, secondo audit 15/10/2026). Ogni foto deve essere pertinente e verificata, non una rappresentazione sintetica scambiata per un oggetto prodotto.
 

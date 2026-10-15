@@ -47,7 +47,17 @@ try {
         try {
           const response = await page.goto(root + route.path, { waitUntil: 'domcontentloaded', timeout: 25000 });
           status = response?.status();
-          await page.waitForTimeout(900);
+          // The introductory laser loader lasts longer than 900ms. A screenshot
+          // of that overlay is NOT a valid visual audit of Home or Shop.
+          const skip=page.locator('#atelierLoaderSkip');
+          if(await skip.count() && await skip.isVisible()){
+            await skip.click({timeout:3500});
+            await page.waitForFunction(()=>{
+              const loader=document.getElementById('loader');
+              return !loader || loader.hidden || getComputedStyle(loader).display==='none';
+            },undefined,{timeout:8000});
+          }
+          await page.waitForTimeout(250);
           if (route.name === 'admin-media') {
             await page.waitForFunction(() => !!window.PHOTO_QUEUE &&
               !!document.querySelector('#v-dash.on .dcard'), undefined, {timeout:15000});
@@ -69,6 +79,7 @@ try {
             const visible = el => !!el && getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden';
             return {
               pathname: location.pathname,
+              loaderVisible: (()=>{const x=document.getElementById('loader');return !!x&&!x.hidden&&getComputedStyle(x).display!=='none'&&getComputedStyle(x).visibility!=='hidden'})(),
               mode: document.documentElement.getAttribute('data-mode'),
               viewport: window.innerWidth,
               documentWidth: document.documentElement.scrollWidth,
@@ -109,6 +120,7 @@ try {
           });
           const problems = [];
           if (!status || status >= 400) problems.push('HTTP ' + status);
+          if(metrics.loaderVisible)problems.push('intro loader still covering page after skip');
           if (metrics.mode !== mode) problems.push('theme mismatch: ' + metrics.mode);
           if (!route.name.startsWith('admin')) {
             if (metrics.navWidth === null || metrics.navWidth < width * 0.75)

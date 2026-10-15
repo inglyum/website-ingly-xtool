@@ -20,14 +20,16 @@
     const fill={wood:'#b88956',acrylic:'#66929a',metal:'#a4acb3'}[material]||'#b88956';
     const contrast={wood:'#50331c',acrylic:'#effdff',metal:'#242c31'}[material]||'#50331c';
     const size=Math.max(7,Math.min(h*.32,w/(Math.max(text.length,2)*.53)));
-    const svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'mm" height="'+h+'mm" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Targa personalizzata">'+
-      '<title>Targa personalizzata INGLY</title><desc>Modello SVG, non sostituisce le verifiche tecniche prima del taglio.</desc>'+
-      '<g id="INGLY_PREVIEW_MATERIAL" fill="'+fill+'"><rect width="'+w+'" height="'+h+'"/></g>'+
-      '<g id="INGLY_CUT" stroke="#ff3344" stroke-width="0.2" fill="none">'+cut(w,h)+'</g>'+
+    const open='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'mm" height="'+h+'mm" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Targa personalizzata">'+
+      '<title>Targa personalizzata INGLY</title><desc>Bozza dimensionale: convertire il testo in tracciati prima del taglio.</desc>';
+    const layers='<g id="INGLY_CUT" stroke="#ff3344" stroke-width="0.2" fill="none">'+cut(w,h)+'</g>'+
       '<g id="INGLY_ENGRAVE" fill="'+contrast+'">'+
       '<text x="'+w/2+'" y="'+(h/2)+'" text-anchor="middle" dominant-baseline="central" font-size="'+size.toFixed(2)+'" font-family="'+xml(safeFont)+'">'+xml(text)+'</text>'+
-      '</g></svg>';
-    return{svg,w,h,text};
+      '</g>';
+    // Material simulation exists ONLY in the live preview, never in exported production layers.
+    const previewSvg=open+'<g id="INGLY_PREVIEW_MATERIAL" fill="'+fill+'">'+cut(w,h)+'</g>'+layers+'</svg>';
+    const svg=open+layers+'</svg>';
+    return{svg,previewSvg,w,h,text};
   }
   function init(){
     const root=document.getElementById('inglyParametric');
@@ -44,7 +46,7 @@
       current=generate({name,w,h,material,shape,font});
       const canvas=$('inglyGeneratorCanvas');
       // Sanitized user text, not arbitrary HTML; all string-producing inputs are whitelisted or escaped.
-      canvas.innerHTML=current.svg;
+      canvas.innerHTML=current.previewSvg;
       canvas.dataset.material=material;
       $('inglyGeneratorSize').textContent=w+' × '+h+' mm';
       $('inglyGeneratorStatus').textContent='Anteprima aggiornata · Verifica le dimensioni prima del taglio.';

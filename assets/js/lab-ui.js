@@ -283,9 +283,20 @@ export function renderMacchine(L) {
   const combi = (d.MACCHINE && d.MACCHINE.combinazioni) || [];
   const vietati = (d.MACCHINE && d.MACCHINE.maiLavorare && d.MACCHINE.maiLavorare.materiali) || [];
 
-  const informative = ((d.IMMAGINI_MACCHINE && d.IMMAGINI_MACCHINE.macchine) || [])
-    .filter(x => x && !['p3','f2','o1-uv','wonderpress'].includes(x.id))
-    .filter(x => x.immagineRemotaVerificata === true && (x.licenza || {}).stato === 'consentito');
+  const photoIndex = new Map(((d.IMMAGINI_MACCHINE && d.IMMAGINI_MACCHINE.macchine) || [])
+    .filter(p => p && p.immagineRemotaVerificata === true && (p.licenza||{}).stato === 'consentito')
+    .map(p => [p.id, p]));
+  const informative = LAB.catalogo(d).filter(m => !m.inOfficina).map(m => {
+    const foto=photoIndex.get(m.id)||{};
+    return {...m, modello:LAB.lingua(m.n,L),
+      origine: foto.origine || via('/assets/images/xtool-lab-default.svg'),
+      paginaUfficiale:(m.fonte&&m.fonte.url)||foto.paginaUfficiale||'',
+      alt:foto.alt||{it:LAB.lingua(m.n,'it'),en:LAB.lingua(m.n,'en')}};
+  });
+  const famiglie=[...new Set(informative.flatMap(m=>m.famiglie||[]))].sort();
+  const techOptions=famiglie.map(t=>'<option value="'+esc(t)+'">'+esc(t.toUpperCase())+'</option>').join('');
+  const elencoMachine=(titolo,v)=>{const items=LAB.listaLingua(v,L);return items.length?
+    '<p class="lab-n"><b>'+esc(titolo)+'</b></p><ul class="lab-lista">'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';};
   box.innerHTML = `
     <div class="machine-section-label">
       <span class="eyebrow">${t2('Laboratorio e soluzioni INGLY', 'INGLY workshop and solutions', L)}</span>
@@ -319,8 +330,9 @@ export function renderMacchine(L) {
         <h3 class="vert-tit">${t2('Altre macchine, altre possibilità.', 'More machines, more possibilities.', L)}</h3>
         <p class="lab-p">${t2('Modelli mostrati a scopo informativo: non significa che siano presenti nel laboratorio INGLY o disponibili per una demo.', 'Models shown for information only: this does not mean they are owned by INGLY or available for demos.', L)}</p>
       </div>
+      <label class="lab-p">${t2('Filtra per tecnologia','Filter by technology',L)} <select data-machine-tech><option value="">${t2('Tutte','All',L)}</option>${techOptions}</select></label>
       <div class="machine-explore-grid">${informative.map(x => `
-        <article class="machine-explore-card">
+        <article class="machine-explore-card" data-machine-card="${esc(x.id)}" data-machine-famiglie="${esc((x.famiglie||[]).join(' '))}">
           <a href="${esc(x.paginaUfficiale || 'https://www.xtool.com/pages/xtool-laser')}" target="_blank" rel="noopener noreferrer">
             <div class="machine-explore-image"><img src="${esc(x.origine)}"
               alt="${esc((x.alt && (x.alt[L] || x.alt.it)) || x.modello)}"
@@ -328,9 +340,16 @@ export function renderMacchine(L) {
               onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}'"></div>
             <span class="machine-photo-label">${t2('Foto ufficiale xTool', 'Official xTool image', L)}</span>
             <b>${esc(x.modello)}</b>
-            <small>${t2('Modello informativo · Vai alla fonte ufficiale', 'Informational model · Official source', L)} →</small>
+            <small>${esc(LAB.lingua(x.ruolo,L))}</small>
+            <small>${x.daCompletare ? t2('Specifiche in verifica','Specifications under verification',L) : t2('Specifiche disponibili nella scheda','Specifications in the model page',L)}</small>
+            ${elencoMachine(t2('Utilizzo','Applications',L),x.utilizzo)}
+            ${elencoMachine(t2('✓ Utile per','✓ Good for',L),x.utilePer)}
+            ${elencoMachine(t2('✕ Non utile per','✕ Not for',L),x.nonUtilePer)}
+            ${x.paginaUfficiale ? '<small>'+t2('Scheda xTool ↗','xTool information ↗',L)+'</small>' : ''}
           </a>
-        </article>`).join('')}</div>` : ''}
+          <label class="lab-p"><input type="checkbox" data-machine-compare="${esc(x.id)}"> ${t2('Confronta','Compare',L)}</label>
+        </article>`).join('')}</div>
+        <div class="lab-blocco" data-machine-comparison aria-live="polite"></div>` : ''}
 
     ${combi.length ? `<h3 class="vert-tit">${t2('Cosa si sblocca mettendole insieme', 'What combining them unlocks', L)}</h3>
       <div class="b2b-cards">${combi.map((c, i) => `
@@ -342,6 +361,29 @@ export function renderMacchine(L) {
     ${vietati.length ? `<h3 class="vert-tit">${t2('Quello che non lavoriamo, e perché', 'What we do not work, and why', L)}</h3>
       <div class="lab-blocco"><ul class="lab-lista lab-lista--no">${vietati.map(v =>
         `<li><b>${esc(v.m)}</b> — ${esc(v.perche)}</li>`).join('')}</ul></div>` : ''}`;
+  const selected = new Set();
+  const compareBox=box.querySelector('[data-machine-comparison]');
+  const updateCompare=()=>{
+    if(!compareBox)return;
+    const models=informative.filter(m=>selected.has(m.id));
+    compareBox.innerHTML=models.length?'<h4 class="lab-h3">'+t2('Confronto modelli','Model comparison',L)+'</h4>'+
+      '<div class="machine-explore-grid">'+models.map(m=>'<div class="rcard"><h5>'+esc(LAB.lingua(m.n,L))+'</h5>'+
+        '<p class="lab-p">'+esc(LAB.lingua(m.ruolo,L))+'</p>'+
+        '<p class="lab-nulla">'+(m.daCompletare?t2('Specifiche in verifica','Specs being checked',L):
+          esc(Object.entries(m.specs||{}).filter(([k,v])=>typeof v==='string'&&v).map(([k,v])=>k+': '+v).join(' · ')))+'</p></div>').join('')+'</div>':'';
+  };
+  box.onchange=e=>{
+    const el=e.target;
+    if(el.matches('[data-machine-tech]')){
+      box.querySelectorAll('[data-machine-card]').forEach(card=>{
+        card.style.display=el.value&&!card.dataset.machineFamiglie.split(' ').includes(el.value)?'none':'';
+      });
+    }else if(el.matches('[data-machine-compare]')){
+      if(el.checked&&selected.size>=3){el.checked=false;return;}
+      el.checked?selected.add(el.dataset.machineCompare):selected.delete(el.dataset.machineCompare);
+      updateCompare();
+    }
+  };
 }
 
 /* ---------- TROVA LA SOLUZIONE (§21) ----------

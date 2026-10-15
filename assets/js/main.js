@@ -282,29 +282,39 @@ function bindSuggest(){
 }
 /* ===== Modalità chiara / scura ===== */
 function bindMode(){
-  const btn=document.getElementById('modeBtn'); if(!btn) return;
-  const set=v=>{
-    document.documentElement.setAttribute('data-mode',v);
-    try{ localStorage.setItem('ingly_mode',v) }catch(e){}
-    btn.setAttribute('aria-pressed', v==='light'?'true':'false');
-    const mobile=document.getElementById('mobileModeBtn');if(mobile){mobile.setAttribute('aria-pressed',v==='light'?'true':'false');mobile.title=v==='light'?'Tema scuro':'Tema chiaro';}
-    btn.title = v==='light' ? 'Passa al tema scuro' : 'Passa al tema chiaro';
+  const btn=document.getElementById('modeBtn');
+  const mobile=document.getElementById('mobileModeBtn');
+  if(!btn && !mobile) return;
+  const root=document.documentElement;
+  const sys=window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+  const stored=()=>{try{const v=localStorage.getItem('ingly_mode');return v==='light'||v==='dark'?v:null}catch(e){return null}};
+  const labels=v=>v==='light'
+    ? {next:'Passa alla modalità scura',current:'Modalità chiara attiva'}
+    : {next:'Passa alla modalità chiara',current:'Modalità scura attiva'};
+  const set=(value,persist=false)=>{
+    const v=value==='light'?'light':'dark';
+    root.setAttribute('data-mode',v);
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute('content',v==='light'?'#f4f8fc':'#0b1221');
+    if(persist){try{localStorage.setItem('ingly_mode',v)}catch(e){}}
+    for(const el of [btn,mobile]){
+      if(!el)continue;
+      el.setAttribute('aria-pressed',v==='light'?'true':'false');
+      el.setAttribute('aria-label',labels(v).next);
+      el.title=labels(v).next;
+    }
   };
-  set(document.documentElement.getAttribute('data-mode')||'dark');
-  btn.addEventListener('click',()=>{
-    document.documentElement.classList.add('theme-anim');
-    set(document.documentElement.getAttribute('data-mode')==='light'?'dark':'light');
-    setTimeout(()=>document.documentElement.classList.remove('theme-anim'),450);
-  });
-  const mobileMode=document.getElementById('mobileModeBtn');
-  if(mobileMode)mobileMode.addEventListener('click',()=>btn.click());
-  /* se l'utente non ha mai scelto, segue le preferenze del sistema anche a sito aperto */
-  try{
-    matchMedia('(prefers-color-scheme: light)').addEventListener('change',e=>{
-      if(!localStorage.getItem('ingly_mode')) set(e.matches?'light':'dark');
-    });
-  }catch(e){}
+  set(stored() || (sys&&sys.matches?'light':'dark'));
+  const toggle=()=>{
+    root.classList.add('theme-anim');
+    set(root.getAttribute('data-mode')==='light'?'dark':'light',true);
+    window.setTimeout(()=>root.classList.remove('theme-anim'),450);
+  };
+  btn?.addEventListener('click',toggle);
+  mobile?.addEventListener('click',toggle);
+  try{sys?.addEventListener('change',e=>{if(!stored())set(e.matches?'light':'dark')})}catch(e){}
 }
+
 function bindLightbox(){
   const box=document.getElementById('lightbox'); if(!box) return;
   const main=document.getElementById('ppMain');

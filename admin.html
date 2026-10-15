@@ -2102,7 +2102,7 @@ function renderMaisonAdminDashboard(){
 function renderDash(){
  const P=S.P||[],dig=(S.DIGI&&S.DIGI.bundle)||[],port=(S.C&&S.C.PORT)||[];
  const vis=P.filter(p=>!p.hidden).length;
- const noPhoto=P.filter(p=>!p.img&&!hasStaged('img/'+p.id+'.webp')&&!(REPO_IMG||[]).includes(p.id+'.webp')).length;
+ const noPhoto=P.filter(fotoProdottoMancante).length;
  const noDesc=P.filter(p=>!p.desc||!p.desc.it||!p.desc.it.trim()).length;
  const heroN=(S.CONFIG&&S.CONFIG.heroFeatured&&S.CONFIG.heroFeatured.length)||0;
  const revTot=P.reduce((s,p)=>s+(p.rev||0),0);
@@ -2221,6 +2221,18 @@ function renderBloccanti(){
  </div>`;
 }
 function hasStaged(path){return MEDIA.some(m=>m.path===path)}
+/* La presenza di un percorso nel JSON non prova che la foto esista.
+   Usa la scansione GitHub quando disponibile; altrimenti l'inventario
+   dei file costruito dal repository. Le immagini esterne e gli asset
+   editoriali hanno una verifica separata. */
+function fotoProdottoMancante(p){
+ const file=String(p.img||('img/'+p.id+'.webp')).split(/[?#]/)[0];
+ if(/^https:\/\//i.test(file)||/^assets\/images\//i.test(file))return false;
+ if(!/^img\/[^/]+\.(?:webp|png|jpe?g|avif)$/i.test(file))return true;
+ if(hasStaged(file))return false;
+ const inventory=Array.isArray(REPO_IMG)?REPO_IMG:((S.IMG&&S.IMG.file)||[]);
+ return !inventory.includes(file.slice(4));
+}
 
 /* ===== ANALYTICS MINI-DASHBOARD ===== */
 function renderDashAnalytics(){
@@ -2436,14 +2448,16 @@ function catOptions(sel){return (S.CATS||[]).map(c=>`<option value="${esc(c.id)}
 function subOptions(catId,sel){const c=(S.CATS||[]).find(x=>x.id===catId);return (c?c.sub:[]).map((s,i)=>`<option value="${i+1}"${(i+1)===+sel?' selected':''}>${i+1} · ${esc(s.it)}</option>`).join('')}
 function prodImgSrc(p){const st=MEDIA.find(m=>m.path===(p.img||'img/'+p.id+'.webp'));if(st)return st.url;return (LOADED_FROM==='GitHub'?LIVE():'')+(p.img||'img/'+p.id+'.webp')}
 function renderProd(){
+ const categoriaSelezionata=$('pCatF').value;
  $('pCatF').innerHTML='<option value="">Tutte le categorie</option>'+catOptions();
+ if([...$('pCatF').options].some(o=>o.value===categoriaSelezionata))$('pCatF').value=categoriaSelezionata;
  const q=($('pSearch').value||'').toLowerCase();
  const cf=$('pCatF').value;
  const sf=($('pStatusF')||{}).value||'';
  let rows=(S.P||[]).filter(p=>{
   if(cf&&p.cat!==cf)return false;
   if(q&&!(p.n.it+' '+p.n.en+' '+p.id).toLowerCase().includes(q))return false;
-  if(sf==='nofoto')return !(p.img||hasStaged('img/'+p.id+'.webp')||(REPO_IMG||[]).includes(p.id+'.webp'));
+  if(sf==='nofoto')return fotoProdottoMancante(p);
   if(sf==='nodesc')return !p.desc||!p.desc.it||p.desc.it.trim()==='';
   if(sf==='hidden')return !!p.hidden;
   if(sf==='hero')return (S.CONFIG.heroFeatured||[]).includes(p.id);
@@ -2466,7 +2480,7 @@ function renderProd(){
   <th style="width:44px" title="In evidenza">⭐</th>
   <th style="width:44px"></th></tr>`+
  rows.map(p=>{
-  const hasPhoto=p.img||hasStaged('img/'+p.id+'.webp')||(REPO_IMG||[]).includes(p.id+'.webp');
+  const hasPhoto=!fotoProdottoMancante(p);
   const hasDesc=p.desc&&p.desc.it&&p.desc.it.trim()!=='';
   const isHero=(S.CONFIG.heroFeatured||[]).includes(p.id);
   const cat=(S.CATS||[]).find(c=>c.id===p.cat);
@@ -5268,7 +5282,7 @@ $('hRun').onclick=async()=>{const out=[];const log=(cls,agent,msg)=>{out.push(`<
   else log('err','Live','Il sito online non espone version.json (HTTP '+r.status+')')}catch(e){log('err','Live','Sito online non raggiungibile: '+LIVE())}
  if(REPO_IMG===null){try{await scanRepo()}catch(e){}}
  if(REPO_IMG){const ref=referencedPaths();
-  const missing=(S.P||[]).filter(p=>!p.img&&!REPO_IMG.includes(p.id+'.webp')&&!hasStaged('img/'+p.id+'.webp'));
+  const missing=(S.P||[]).filter(fotoProdottoMancante);
   missing.length?log('warn','Media',missing.length+' prodotti senza foto: '+missing.slice(0,8).map(p=>'#'+p.id).join(', ')+(missing.length>8?'…':'')):log('ok','Media','Ogni prodotto ha la sua foto');
   const orph=REPO_IMG.filter(n=>!ref.has('img/'+n));
   orph.length?log('warn','Media','Immagini orfane in img/: '+orph.slice(0,8).join(', ')+(orph.length>8?'…':'')):log('ok','Media','Nessuna immagine orfana nel repository')}

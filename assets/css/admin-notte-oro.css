@@ -81,3 +81,30 @@ a{color:#f0cf93}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{animation:none!important;transition:none!important}
 }
+
+/* E-Commerce Skills Quality Center — non-blocking Admin diagnostics */
+.ingly-ecom-quality{margin-top:18px}
+.ingly-ecom-quality h3{color:#f5efe3}
+.ingly-ecom-actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.ingly-ecom-summary{color:#d5cbbf}
+.ingly-ecom-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:15px 0 12px}
+.ingly-ecom-stat{
+  background:#0d0f1c;border:1px solid #353a54;border-radius:12px;
+  padding:14px;display:flex;flex-direction:column;gap:5px;min-width:0
+}
+.ingly-ecom-stat strong{font:600 clamp(20px,2.3vw,31px)/1.2 'Manrope',Inter,sans-serif;color:#f0cf93}
+.ingly-ecom-stat span{font-size:12px;line-height:1.35;color:#c1bcb4}
+.ingly-ecom-findings{display:grid;gap:8px;margin-top:14px;max-height:560px;overflow:auto}
+.ingly-ecom-finding{display:grid;grid-template-columns:95px 1fr;align-items:start;gap:12px;
+  border:1px solid #353a54;border-radius:12px;background:#101322;padding:12px 14px}
+.ingly-ecom-level{text-transform:uppercase;font:600 10px/1.4 'JetBrains Mono',monospace;
+  letter-spacing:.04em;border:1px solid #595064;padding:5px 7px;border-radius:20px;text-align:center}
+.ingly-ecom-error .ingly-ecom-level{color:#ffa1a6;border-color:#ffa1a644}
+.ingly-ecom-warning .ingly-ecom-level{color:#f0cf93;border-color:#f0cf9344}
+.ingly-ecom-info .ingly-ecom-level{color:#d6d0c8;border-color:#d6d0c844}
+.ingly-ecom-copy{display:grid;gap:5px;overflow-wrap:anywhere}
+.ingly-ecom-copy strong{font:600 13px/1.5 Inter,Manrope,sans-serif;color:#f5efe3}
+.ingly-ecom-copy small{font:400 12px/1.55 Inter,Manrope,sans-serif;color:#b9b4a8}
+.ingly-ecom-empty{font:500 13px/1.6 Inter,Manrope,sans-serif;color:#b9b4a8}
+@media(max-width:780px){.ingly-ecom-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ingly-ecom-finding{grid-template-columns:1fr;gap:7px}.ingly-ecom-level{max-width:110px}}

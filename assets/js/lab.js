@@ -667,7 +667,9 @@ export const varianti = m => ((m && m.vendita && m.vendita.varianti) || []).filt
 /** Vendibile davvero: acceso dall'Admin, con almeno una variante prezzata. */
 export function inVendita(m) {
   if (!m || !m.vendita || m.vendita.attivo !== true) return false;
-  return varianti(m).some(v => v.prezzo != null);
+  return varianti(m).some(v => v.prezzo != null && Number.isFinite(Number(v.prezzo)) &&
+    Number(v.prezzo) >= 0 && Number.isInteger(v.stock) && v.stock > 0 &&
+    v.stato !== 'bozza' && v.stato !== 'esaurito');
 }
 
 export const variante = (m, id) => varianti(m).find(v => v.id === id) || null;

@@ -7,6 +7,9 @@ const ui=readFileSync('assets/js/digitale-ui.js','utf8');
 assert.match(admin,/d\.stato=d\.stato==='archiviato'\?'bozza':'archiviato'/,'Archiviazione non distruttiva');
 assert.doesNotMatch(admin,/digList\(\)\.splice\(\+b\.dataset\.dd,1\)/,'Cancellazione irreversibile rimossa');
 assert.match(admin,/price:null,compareAt:null/,'Nuovo bundle senza prezzo arbitrario');
+for(const field of ['ed_som_en','ed_desc_en','ed_ctem_en','ed_img']) assert.ok(admin.includes('id="'+field+'"'),'Manca campo Admin '+field);
+assert.ok(admin.includes("d.sommario.en=$('ed_som_en').value"),'Summary EN non salvato');
+assert.ok(admin.includes("d.descrizione.en=$('ed_desc_en').value"),'Description EN non salvata');
 assert.match(products,/d\.stato!=='pubblicato'/,'Protezione diretta carrello digitale');
 assert.match(ui,/b\.stato !== 'pubblicato'/,'Protezione dalla UI');
 const D={DIGITALE:{attiva:true,bundle:[

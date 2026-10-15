@@ -10,6 +10,7 @@ on:
       - 'assets/images/**'
       - 'tests/visual-audit.mjs'
       - 'tests/a11y-keyboard.mjs'
+      - 'tests/contrast-audit.mjs'
       - '.github/workflows/visual-audit.yml'
 permissions:
   contents: read
@@ -48,12 +49,16 @@ jobs:
         run: node tests/visual-audit.mjs
       - name: Keyboard accessibility regression — interactive controls
         run: node tests/a11y-keyboard.mjs
+      - name: Measure computed light/dark text contrast (report baseline)
+        run: node tests/contrast-audit.mjs
       - name: Upload screenshot evidence and JSON report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ingly-responsive-screenshots
-          path: artifacts/visual-audit/
+          path: |
+            artifacts/visual-audit/
+            artifacts/contrast-audit/
           if-no-files-found: warn
           retention-days: 14
       - name: Stop development server

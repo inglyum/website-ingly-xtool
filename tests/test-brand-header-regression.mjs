@@ -22,7 +22,7 @@ const ad=new JSDOM(admin).window.document;
 assert.equal(ad.querySelectorAll('.brand-admin-lockup img').length,1,'Admin duplicated brand');
 for(const svg of ['assets/images/ingly-wordmark-light.svg','assets/images/ingly-wordmark-dark.svg']){
  const s=read(svg);
- assert.ok(s.includes('viewBox="0 135 1430 460"'),'Logo must have cropped viewBox '+svg);
+ assert.ok(s.includes('viewBox="-20 125 1470 420"') && s.includes('M1,147 118,147 118,507 1,507Z'),'Logo must have visible leading I and safe clearspace '+svg);
  assert.ok(s.includes('<path fill="currentColor"'),'Logo remains vector');
 }
 const hero=d.querySelector('#page-macchine > .wrap.phero');

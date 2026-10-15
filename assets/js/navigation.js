@@ -100,8 +100,16 @@ export function show(page){
     document.querySelectorAll('.page').forEach(x=>x.classList.remove('active','leaving'));
     next.classList.add('active');
     document.querySelectorAll('.nav-links [data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===page));
+    const fromMobileMenu=document.getElementById('mm')?.classList.contains('open');
     toggleMenu(false,{restoreFocus:false});
     document.body.classList.toggle('on-product',page==='product');
+    /* Chi sceglie una pagina dal menu non deve restare con il focus
+       su un link che è diventato inert dopo la navigazione. */
+    if(fromMobileMenu){
+      const heading=next.querySelector('h1,h2,[role="heading"]')||next;
+      if(!heading.hasAttribute('tabindex'))heading.setAttribute('tabindex','-1');
+      heading.focus({preventScroll:true});
+    }
     window.scrollTo({top:0,behavior:'instant'});
     if(page==='shop')renderRV();
     updateSeo(page,L,T,page==='product'?currentProduct():null);

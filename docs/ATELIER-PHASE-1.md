@@ -52,3 +52,16 @@ Non dichiarare preventivo in 24h, sconto newsletter del 10%, vere foto prodotto,
 
 ### Test
 `node tests/test-atelier-foundation.mjs`, `npm test`, preview reale con Playwright/Chromium e verifica responsive sulle 10 route richieste nelle fasi pertinenti.
+
+## Raffinamento approvato: trasparenze, effetti e navigazione (15 ottobre)
+- Superfici semitrasparenti dark/light e ombre morbide su card e sezioni, senza illuminazioni neon permanenti.
+- Navbar traslucida con blur 22px e pannelli mega-menu vetrati con fallback opaco.
+- Hero con due aureole statiche calde, trama laser molto discreta e riflesso sulla fotografia solo al passaggio del mouse.
+- Sheen breve sui pulsanti ambra, card con sollevamento di 4px solo con mouse e preferenze di movimento standard.
+- Tipografia dei titoli più caratteristica, enfatizzazioni corsive e ritmo/ampiezza più uniformi.
+- Header: CTA diretta “Crea il tuo pezzo” per desktop; mobile: dock Shop / Personalizza / WhatsApp / Carrello che riutilizza azioni esistenti.
+- Footer: colonne fluide, migliore separazione visiva e gerarchia tipografica.
+- Ottimizzazione: niente backdrop-filter sulle decine di schede prodotto, solo su header e pannelli rilevanti.
+- IT/EN per la nuova CTA nell'origine JSON e nel fallback JS; controlli automatici aggiornati.
+
+Nessun cambio ai prezzi, alla logica dei pagamenti, al configuratore o alle rotte; il caricamento degli asset è invariato.

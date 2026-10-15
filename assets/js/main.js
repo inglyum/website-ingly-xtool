@@ -96,7 +96,8 @@ function applyI18n(){
   $('langIT').classList.toggle('on',L==='it');
   $('langEN').classList.toggle('on',L==='en');
   prod.fillSort();
-  const l=$('ldrTxt');if(l)l.textContent=T('ldr');
+  // The owner-supplied loader controls its own message cycle; translation must not overwrite it.
+  const l=$('ldrTxt');if(l&&!document.querySelector('#loader.ingly-custom-loader'))l.textContent=T('ldr');
   const sb=$('sbBtn');if(sb)sb.firstChild.textContent=T('ppAdd')+' ';
 }
 /* ===== TITOLO DELLA HERO =====

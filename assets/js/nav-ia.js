@@ -52,19 +52,15 @@ const L10n = (v, L = 'it') => {
    vuota è peggio di una voce che non c'è. */
 export const FAMIGLIE = [
   { id: 'shop', rotta: 'shop', n: { it: 'Shop', en: 'Shop' },
-    claim: { it: 'Pezzi già progettati, pronti da ordinare.', en: 'Pieces already designed, ready to order.' } },
+    claim: { it: 'Creazioni, collezioni e file digitali.', en: 'Creations, collections and digital files.' } },
   { id: 'personalizza', rotta: 'personalizza', n: { it: 'Personalizza', en: 'Customise' },
-    claim: { it: 'Tu scegli il pezzo, il resto lo scrivi tu.', en: 'You pick the piece, you write the rest.' } },
+    claim: { it: 'Un pezzo unico, dalla tua idea.', en: 'A one-off piece, designed with you.' } },
   { id: 'materiali', rotta: 'materiali', n: { it: 'Materiali', en: 'Materials' },
-    claim: { it: 'Di cosa è fatto, e come si lavora.', en: 'What it is made of, and how it is worked.' } },
-  { id: 'digital', rotta: 'digital', n: { it: 'File digitali', en: 'Digital files' },
-    claim: { it: 'Progetti pronti da tagliare e incidere.', en: 'Projects ready to cut and engrave.' } },
-  { id: 'academy', rotta: 'academy', n: { it: 'Academy', en: 'Academy' },
-    claim: { it: 'Imparare a usarle, non solo a comprarle.', en: 'Learning to use them, not just to buy them.' } },
-  { id: 'xtool', rotta: 'macchine', n: { it: 'xTOOL Lab', en: 'xTOOL Lab' },
-    claim: { it: 'Le macchine, provate in officina.', en: 'The machines, tried in the workshop.' } },
+    claim: { it: 'Scegli la superficie: il laser fa il resto.', en: 'Find the right surface for your idea.' } },
   { id: 'business', rotta: 'business', n: { it: 'Business', en: 'Business' },
-    claim: { it: 'Quando l\u2019ordine non \u00e8 per te ma per l\u2019azienda.', en: 'When the order is for a company.' } }
+    claim: { it: 'Creazioni e lavorazioni per le aziende.', en: 'Corporate personalization and production.' } },
+  { id: 'xtool', rotta: 'macchine', n: { it: 'Lab', en: 'Lab' },
+    claim: { it: 'Macchine, tecnologie, corsi e demo.', en: 'Machines, technology, courses and demos.' } }
 ];
 
 /* Le voci che NON stanno nella barra: piè di pagina e cassetto mobile.
@@ -127,7 +123,8 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
           { n: t('Tutto il catalogo', 'Full catalogue'), href: via(base, 'shop') }),
         col(t('Oppure', 'Or'), [
           { n: t('Personalizzati su misura', 'Made to measure'), href: via(base, 'quote') },
-          { n: t('File digitali', 'Digital files'), href: via(base, 'digital') }
+          { n: t('File digitali', 'Digital files'), href: via(base, 'digital') },
+          { n: t('Generator Studio INGLY', 'INGLY Generator Studio'), href: via(base, 'generatori.html') }
         ])
       ],
       evidenza: {
@@ -172,12 +169,18 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
            nascosta dalla fetta sarebbe una pagina che esiste e dal menu
            non si raggiunge. La colonna è un elenco semplice, ci sta. */
         col(t('Il resto della gamma', 'The rest of the range'),
-          altre.map(m => ({ n: L10n(m.n, L), href: via(base, 'macchine/' + m.id) })))
+          altre.map(m => ({ n: L10n(m.n, L), href: via(base, 'macchine/' + m.id) }))),
+        col(t('Esplora il Lab', 'Explore the Lab'), [
+          { n: t('Tecnologie di lavorazione', 'Technologies'), href: via(base, 'tecnologie') },
+          { n: t('Academy e corsi', 'Academy and courses'), href: via(base, 'academy') },
+          { n: t('Prenota una demo gratuita', 'Book a free demo'), href: via(base, 'demo') },
+          { n: t('Authorized Service Centre', 'Authorized Service Centre'), href: via(base, 'macchine') }
+        ])
       ],
       evidenza: {
         occhiello: t('Gratuita', 'Free'),
         titolo: t('Vedila lavorare, poi decidi.', 'See it working, then decide.'),
-        testo: t('Un\u2019ora in officina con la macchina accesa.', 'An hour in the workshop with the machine running.'),
+        testo: t('Ti mostriamo le possibilità in officina, su appuntamento.', 'Explore the possibilities in the workshop by appointment.'),
         cta: { n: t('Prenota la demo', 'Book the demo'), href: via(base, 'demo') }
       }
     };
@@ -220,7 +223,7 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
         ])
       ],
       evidenza: {
-        occhiello: t('Da 50 a 50.000 pezzi', 'From 50 to 50,000 pieces'),
+        occhiello: t('Lavorazioni per aziende', 'Made for businesses'),
         titolo: t('Dicci quantità e tempi.', 'Tell us quantity and timing.'),
         testo: t('Il preventivo aziendale è un modulo diverso: chiede quello che serve davvero.', 'The business quote asks what actually matters.'),
         cta: { n: t('Preventivo aziendale', 'Business quote'), href: via(base, 'quote?tipo=azienda') }

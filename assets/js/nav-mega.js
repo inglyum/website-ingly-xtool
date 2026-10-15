@@ -23,7 +23,7 @@ const $ = id => document.getElementById(id);
 /* Quale famiglia copre la pagina che si sta guardando. Una famiglia può
    coprire più rotte — xTOOL Lab vale per /macchine e /demo — quindi non
    basta confrontare il percorso con la rotta della voce. */
-const COPERTE = { xtool: ['macchine', 'demo'], materiali: ['materiali', 'tecnologie'], shop: ['shop', 'product'] };
+const COPERTE = { xtool: ['macchine', 'demo', 'academy', 'tecnologie'], materiali: ['materiali'], shop: ['shop', 'product', 'digital'] };
 function famigliaCorrente() {
   const p = location.pathname.replace(BASE, '').replace(/^\/+/, '').split('/')[0] || '';
   if (!p) return '';
@@ -213,17 +213,29 @@ function montaCassetto(D, L) {
 function statiHeader() {
   const nav = document.querySelector('.nav');
   if (!nav) return;
-  let giu = false;
+  let lastY = window.scrollY;
+  let scheduled = false;
   const leggi = () => {
-    const ora = window.scrollY > 24;
-    if (ora !== giu) {
-      giu = ora;
-      nav.classList.toggle('compatto', ora);
-      /* Scorrendo, un pannello aperto resterebbe agganciato a un header
-         che nel frattempo ha cambiato altezza. */
-      if (ora && aperto) chiudi({ fuoco: false });
+    scheduled = false;
+    const currentY = window.scrollY;
+    const distance = currentY - lastY;
+    const pastHero = currentY > 220;
+    nav.classList.toggle('compatto', currentY > 24);
+    if (!pastHero || aperto || nav.matches(':focus-within')) {
+      nav.classList.remove('atelier-nav-hidden');
+    } else if (distance > 10) {
+      nav.classList.add('atelier-nav-hidden');
+    } else if (distance < -8) {
+      nav.classList.remove('atelier-nav-hidden');
     }
+    if (Math.abs(distance) >= 6) lastY = currentY;
   };
-  addEventListener('scroll', leggi, { passive: true });
+  addEventListener('scroll', () => {
+    if (!scheduled) {
+      scheduled = true;
+      requestAnimationFrame(leggi);
+    }
+  }, { passive: true });
+  nav.addEventListener('focusin', () => nav.classList.remove('atelier-nav-hidden'));
   leggi();
 }

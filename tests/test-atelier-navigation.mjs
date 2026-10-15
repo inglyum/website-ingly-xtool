@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import * as IA from '../assets/js/nav-ia.js';
+
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+const html=read('index.html');
+const chrome=read('assets/js/atelier-chrome.js');
+const css=read('assets/css/atelier-foundation.css');
+const nav=read('assets/js/nav-mega.js');
+const routes=IA.FAMIGLIE.map(f=>f.rotta);
+assert.deepEqual(routes,['shop','personalizza','materiali','business','macchine'],'Five clear top-level destinations');
+const D={MATERIALI:JSON.parse(read('data/materiali.json')),TECNOLOGIE:JSON.parse(read('data/tecnologie.json')),MACCHINE:JSON.parse(read('data/macchine.json')),CORSI:JSON.parse(read('data/corsi.json')),CATS:JSON.parse(read('data/categories.json'))};
+const shop=IA.pannello('shop',D);
+const lab=IA.pannello('xtool',D);
+assert.ok(shop.colonne.some(c=>c.voci.some(v=>v.href.endsWith('/digital'))),'Shop keeps Digital');
+assert.ok(shop.colonne.some(c=>c.voci.some(v=>v.href.endsWith('/generatori.html'))),'Shop keeps Generators');
+assert.ok(lab.colonne.some(c=>c.voci.some(v=>v.href.endsWith('/academy'))),'Lab keeps Academy');
+assert.ok(lab.colonne.some(c=>c.voci.some(v=>v.href.endsWith('/tecnologie'))),'Lab keeps Technologies');
+assert.ok(lab.colonne.some(c=>c.voci.some(v=>v.href.endsWith('/demo'))),'Lab keeps Demo');
+assert.ok(html.includes('id="atelierAnnouncementClose"'),'Accessible close action missing');
+assert.ok(html.includes('src="assets/js/atelier-chrome.js"'),'Chrome module missing');
+assert.ok(chrome.includes('sessionStorage.setItem'),'Dismissed announcement must stay dismissed this session');
+assert.ok(!chrome.includes('24h'),'No unconfirmed quote turnaround');
+assert.ok(nav.includes('atelier-nav-hidden'),'Scroll header support missing');
+assert.ok(css.includes('.nav.atelier-nav-hidden'),'Hidden header style missing');
+assert.ok(html.includes('<span data-i18n="navCreate">Crea il tuo pezzo</span>'),'Translation must not delete CTA icon');
+console.log('Atelier Phase 2: navigation, announcement, routes, focus + footer PASS');

@@ -106,3 +106,84 @@
  .atelier-mobile-dock > button#mobileModeBtn[aria-pressed="true"]{color:var(--ux-primary)}
  .atelier-mobile-dock > :is(a,button):focus-visible{outline:2px solid var(--ux-primary);outline-offset:-3px}
 }
+
+/* 2026-10-15: surface hierarchy and touch-friendly theme corrections.
+   All colors inherit from the active mode, never from hard-coded dark ink. */
+:root[data-mode]{
+ --ux-field:var(--ux-card);
+ --ux-panel:var(--ux-bg2);
+ --ux-header:var(--at-frost);
+ --ux-hero-grad:radial-gradient(ellipse 75% 80% at 90% 12%,var(--ux-glow1),transparent 75%),
+ radial-gradient(ellipse 80% 70% at 7% 80%,var(--ux-glow2),transparent 80%);
+}
+:root[data-mode] :is(.nav,.topbar,.mobile-menu,.atelier-mobile-dock,.drawer,.mega-menu){
+ background-color:var(--ux-header)!important;color:var(--ux-text)!important;
+ border-color:var(--ux-border)!important
+}
+:root[data-mode] :is(.nav,.topbar,.mobile-menu,.atelier-mobile-dock,.drawer,.mega-menu) :is(a,button,small,span){
+ color:inherit
+}
+:root[data-mode] :is(.filters,.filter-panel,.rcard,.b2b-card,.p-card,.fitem,.digital-preview-card,.machine-explore-card){
+ background:var(--ux-card)!important;color:var(--ux-text)!important;border-color:var(--ux-border)!important
+}
+:root[data-mode] :is(.filters,.filter-panel,.rcard,.b2b-card,.p-card,.fitem,.digital-preview-card,.machine-explore-card) :is(h1,h2,h3,h4,h5,strong,b,label){
+ color:var(--ux-text)
+}
+:root[data-mode] :is(.filters,.filter-panel,.rcard,.b2b-card,.p-card,.fitem,.digital-preview-card,.machine-explore-card) :is(p,small,.hint,.lab-p){
+ color:var(--ux-muted)
+}
+:root[data-mode] :is(.hero,.phero,.signature-hero,.xtool-lab-feature){
+ background-image:var(--ux-hero-grad)!important
+}
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta){
+ color:#061525!important;
+ background:linear-gradient(110deg,#60e8ac,#76c6ff 54%,#bdadff)!important;
+}
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta):is(:hover,:focus-visible){
+ filter:saturate(1.14) brightness(1.055);box-shadow:0 12px 30px var(--ux-glow1)!important
+}
+:root[data-mode] :is(.btn-ghost,.btn-secondary){
+ background:var(--ux-card)!important;color:var(--ux-text)!important;border:1px solid var(--ux-border)!important
+}
+:root[data-mode] :is(.btn-ghost,.btn-secondary):hover{background:var(--ux-panel)!important}
+:root[data-mode] :is(input,textarea,select){
+ background:var(--ux-field)!important;color:var(--ux-text)!important;
+ border:1px solid var(--ux-border)!important;border-radius:10px
+}
+:root[data-mode] :is(input,textarea,select)::placeholder{color:var(--ux-muted);opacity:.88}
+:root[data-mode] :is(input,textarea,select):focus-visible{
+ outline:2px solid var(--ux-primary)!important;outline-offset:2px
+}
+:root[data-mode] .mode-btn,
+:root[data-mode] #mobileModeBtn{touch-action:manipulation;cursor:pointer}
+:root[data-mode] :is(.pgrid,.fgrid,.mach-grid,.matgrid,.machine-explore-grid,.digital-preview-grid)>*{
+ min-width:0;max-width:100%
+}
+:root[data-mode] :is(.machine-explore-card,.digital-preview-card) img{
+ display:block;max-width:100%;height:auto;object-fit:contain
+}
+:root[data-mode] :is(.xtool-lab-feature,.ingly-service-centre,.hero-grid,.shop-layout)>*{min-width:0}
+@media(max-width:820px){
+ :root[data-mode] .atelier-mobile-dock{
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  box-shadow:0 -8px 26px var(--ux-glow1)
+ }
+ :root[data-mode] .atelier-mobile-dock>:is(a,button){min-height:56px}
+ :root[data-mode] :is(.xtool-lab-feature,.ingly-service-centre,.hero-grid,.shop-layout){
+  grid-template-columns:minmax(0,1fr)!important
+ }
+ :root[data-mode] :is(.nav-in,.topbar .wrap){min-width:0}
+}
+@media(max-width:560px){
+ :root[data-mode] :is(.wrap,.phero){padding-inline:clamp(14px,4vw,22px)!important}
+ :root[data-mode] :is(.phero h1,.hero h1,#heroH1){overflow-wrap:normal;word-break:normal}
+ :root[data-mode] :is(.machine-explore-grid,.digital-preview-grid,.pgrid,.fgrid,.matgrid,.mach-grid){
+  gap:14px!important
+ }
+ :root[data-mode] :is(.rcard,.p-card,.digital-preview-card,.machine-explore-card){
+  border-radius:16px
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta):hover{filter:none}
+}

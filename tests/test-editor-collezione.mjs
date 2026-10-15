@@ -41,7 +41,7 @@ root.querySelector('[data-ed-main="restore"][data-ed-i="1"]').click();
 assert.equal(items[1].stato,'bozza','ripristina stato precedente');
 assert.equal(items.length,2,'ripristino conserva gli ID');
 assert.ok(changed>=5,'bozza aggiornata tramite callback esistente');
-assert.deepEqual(E.validate([{id:'a'},{id:'a'}],[]),['ID duplicato: a'],'ID duplicati bloccati');
+assert.deepEqual(Array.from(E.validate([{id:'a'},{id:'a'}],[])),['ID duplicato: a'],'ID duplicati bloccati');
 assert.ok(E.validate([{id:'b',prezzo:-2}],[{key:'prezzo',type:'prezzo|null'}]).length,'prezzi negativi bloccati');
 assert.ok(E.validate([{id:'m',galleria:[{src:'assets/images/x.webp',alt:{it:'',en:'Photo'}}]}],
  [{key:'galleria',type:'galleria'}]).length,'alt IT/EN obbligatori');

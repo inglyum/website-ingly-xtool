@@ -50,8 +50,8 @@ assert.ok(appJS.includes('function inglyTechGlyph('), 'Consistent SVG icon map m
 assert.ok(appJS.includes('function inglyMaterialGlyph('), 'Material SVG icons missing');
 assert.ok(appJS.includes('inglyTechGlyph(t)'), 'Ticker has not been migrated to icons');
 assert.ok(!appJS.includes('class="tc-emoji">${t.emoji'), 'Ticker still uses emoji');
-assert.ok(!html.includes('src="assets/images/xtool-authorized-service-centre.svg"'), 'Distorted unofficial badge still rendered');
-assert.ok(html.includes('class="ingly-service-centre__media atelier-service-art"'), 'Service Centre editorial panel missing');
+assert.ok(html.includes('src="assets/images/xtool-authorized-service-centre.svg"'), 'Badge xTool fornito dal titolare non collegato');
+assert.ok(html.includes('class="ingly-service-centre__media ingly-service-centre__badge"'), 'Badge nella sezione Service Centre mancante');
 assert.ok(css.includes('.tech-ticker .tc-emoji svg'), 'SVG styling missing');
 assert.ok(css.includes('prefers-reduced-motion:reduce'), 'Ticker accessible motion fallback missing');
 console.log('Atelier visual cleanup: icon ticker + authorized-service panel PASS');

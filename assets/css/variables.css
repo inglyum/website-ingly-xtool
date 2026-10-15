@@ -513,3 +513,6 @@
 @media (prefers-reduced-motion: reduce){
   :root{ --dur-micro:1ms; --dur-ui:1ms; --dur-edit:1ms; }
 }
+
+/* Layout coerente per card digitali e comparatore Lab */
+:root{--digital-card-min:260px;--digital-preview-gap:16px;--digital-card-padding:13px}

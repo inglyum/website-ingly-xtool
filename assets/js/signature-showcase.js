@@ -34,7 +34,7 @@
       return String(obj?.[lang]||obj?.it||fallback||'').slice(0,125);
     };
     const render=(items)=>{
-      if(!strip||!Array.isArray(items)||!items.length)return;
+      if(!strip||!Array.isArray(items))return;
       configured=items.slice(0,6).filter(item=>item&&typeof item==='object');
       const fragment=document.createDocumentFragment();
       for(let i=0;i<configured.length;i++){

@@ -3234,7 +3234,7 @@ function renderMRows(){
   const tipo=MEDIA_DEST.tipoDi(s.dest), ruolo=s.slot||'main';
   const path=MEDIA_DEST.percorso(s.dest,{ext:s.proc.ext,ruolo,nomeFile:s.name,
     portfolio:mdDati().portfolio, occupati:giaPresi,
-    galleryEsistenti:(()=>{const p=(S.P||[]).find(x=>'p:'+x.id===s.dest);return (p&&p.gallery)||[]})()});
+    galleryEsistenti:(()=>{const p=(S.P||[]).find(x=>'p:'+x.id===s.dest);const rg=new RegExp('^'+p?.id+'-g[0-9]+\\.');const existing=(mediaInventory()||[]).filter(n=>rg.test(n)).map(n=>'img/'+n);return [...(p?.gallery||[]),...existing,...MEDIA.map(m=>m.path)]})()});
   if(MEDIA_DEST.tipoDi(s.dest)==='free') giaPresi.push(path);
   return `<div class="list-it" style="align-items:flex-start;flex-wrap:wrap;gap:10px">
   <img src="${s.url}" style="width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--line)">
@@ -3259,13 +3259,13 @@ function renderMRows(){
 
  STAGE_TMP.forEach((s,i)=>{
   const d=document.querySelector(`[data-mrd="${i}"]`),sl=document.querySelector(`[data-mrs="${i}"]`);
-  if(d){ if(s.dest)d.value=s.dest; else s.dest=d.value; d.onchange=()=>{s.dest=d.value;renderMRows()} }
+  if(d){ if(s.dest)d.value=s.dest; else s.dest=d.value; d.onchange=()=>{s.dest=d.value;delete s.auto;delete s.suggested;renderMRows()} }
   if(sl){ sl.value=s.slot||'main'; sl.onchange=()=>{s.slot=sl.value;renderMRows()} }
  });
  /* cambio tipo: riparte dal primo elemento di quel tipo */
  document.querySelectorAll('[data-mrt]').forEach(b=>b.onclick=()=>{
   const i=+b.dataset.mrt, t=b.dataset.tipo, primo=MEDIA_DEST.elementiPerTipo(t,mdDati())[0];
-  STAGE_TMP[i].dest=primo?primo.valore:'free';
+  STAGE_TMP[i].dest=primo?primo.valore:'free';delete STAGE_TMP[i].auto;delete STAGE_TMP[i].suggested;
   if(!MEDIA_DEST.vuoleRuolo(t)) STAGE_TMP[i].slot='main';
   renderMRows();
  });
@@ -3282,7 +3282,7 @@ async function handleFiles(files){if(!files.length)return;STAGE_TMP=[];
  renderAllBar();
  renderMRows();
  toast(r.abbinate
-   ? r.abbinate+' su '+r.totale+' abbinate da sole — controlla e conferma'
+   ? r.certe+' da ID file · '+(r.abbinate-r.certe)+' suggerimenti non applicati — verifica le immagini'
    : STAGE_TMP.length+' immagini pronte: scegli dove va ognuna')}
 
 /* Prova ad assegnare da sé ogni file al suo prodotto, leggendo il nome.
@@ -3295,9 +3295,10 @@ function abbinaAutomatico(){
  const esiti=window.ABBINA.abbinaTutti(STAGE_TMP.map(x=>x.name), S.P||[]);
  esiti.forEach((e,i)=>{
    const t=STAGE_TMP[i]; if(!t||!e.abbinato) return;
+   if(e.abbinato.sicurezza==='probabile'){t.dest='free';t.slot='main';t.suggested=e.abbinato;return;}
    t.dest='p:'+e.abbinato.id;
    t.slot=e.abbinato.galleria?'gal':'main';
-   t.auto=e.abbinato;                       /* lo mostriamo nella riga */
+   t.auto=e.abbinato;  /* ID file, non prova che la fotografia corrisponda al prodotto */
  });
  return window.ABBINA.riassunto(esiti);
 }
@@ -3319,11 +3320,11 @@ function renderAllBar(){
  if(lab){ const t=MEDIA_DEST.TIPI.find(x=>x.id===MD_TIPO); lab.textContent=t?t.nome:'Elemento' }
 }
 $('mApplyAll').onclick=()=>{const d=$('mAllDest').value,s=$('mAllSlot').value;
- STAGE_TMP.forEach(x=>{x.dest=d;x.slot=MEDIA_DEST.vuoleRuolo(MEDIA_DEST.tipoDi(d))?s:'main'});
+ STAGE_TMP.forEach(x=>{x.dest=d;x.slot=MEDIA_DEST.vuoleRuolo(MEDIA_DEST.tipoDi(d))?s:'main';delete x.auto;delete x.suggested});
  renderMRows();toast('Applicato a tutte le immagini')};
 $('mCancel').onclick=()=>{STAGE_TMP=[];$('mAssign').style.display='none'};
 async function addToGallery(p,proc){p.gallery=p.gallery||[];let n=1,path;
- do{path='img/'+p.id+'-g'+n+'.'+proc.ext;n++}while(p.gallery.includes(path)||MEDIA.some(m=>m.path===path));
+ do{path='img/'+p.id+'-g'+n+'.'+proc.ext;n++}while(p.gallery.includes(path)||MEDIA.some(m=>m.path===path)||(mediaInventory()||[]).includes(path.slice(4)));
  await stageFile(path,proc);p.gallery.push(path);return path}
 $('mDoAssign').onclick=async()=>{let n=0;
  for(const s of STAGE_TMP){const dest=s.dest||'free',slot=s.slot||'main';

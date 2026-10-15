@@ -1,0 +1,70 @@
+/* INGLY Generator Studio — Maison visual identity.
+   Keeps all original engines, params, SVG cut and engrave groups. */
+:root{
+ color-scheme:dark;
+ --bg:#0b0b0e;--panel:#151518;--panel2:#1e1d1d;
+ --line:rgba(223,174,97,.28);--ink:#f8f2e8;
+ --muted:#c6bbad;--blue:#deb06c;--cyan:#f0cc91;--gold:#eac17a;
+ --green:#e0b06a;--radius:16px;
+ --g-body:'Josefin Sans',system-ui,sans-serif;
+}
+html[data-generator-mode="light"]{
+ color-scheme:light;
+ --bg:#f7f2e9;--panel:#fffaf2;--panel2:#f0e5d5;
+ --line:rgba(129,80,32,.29);--ink:#251d19;
+ --muted:#62564e;--blue:#875719;--cyan:#875719;--gold:#97621f;
+ --green:#97621f;
+}
+body{background:radial-gradient(circle at 60% -8%,rgba(221,172,91,.08),transparent 43%),var(--bg)!important;
+ color:var(--ink)!important;font:400 16px/1.55 var(--g-body)!important}
+:where(button,a,input,select,textarea):focus-visible{outline:3px solid var(--gold)!important;outline-offset:3px!important}
+.top{background:color-mix(in srgb,var(--bg) 91%,transparent)!important;border-bottom-color:var(--line)!important}
+.brand{letter-spacing:.04em!important;font:700 21px/1.2 var(--g-body)!important}
+.brand .brandmark{border:1px solid var(--line);border-radius:50%;
+ height:44px;width:44px;flex:0 0 44px;background:transparent!important;box-shadow:none!important;
+ display:grid;place-items:center}
+.brandmark img{width:100%;height:100%;object-fit:contain}
+.brand small{color:var(--gold)!important;font-family:var(--g-body)}
+.toplinks{color:var(--muted)!important}
+.toplinks a:hover{color:var(--gold)!important}
+#genThemeToggle{font-size:12px;white-space:nowrap}
+.btn{font-family:var(--g-body)!important;border-color:var(--line)!important;
+ color:var(--ink)!important;background:var(--panel2)!important;font-weight:600!important}
+.btn:hover{background:var(--panel)!important;border-color:var(--gold)!important}
+.btn.primary,.btn.gold{background:linear-gradient(105deg,#c79044,#f0cb85,#d19d55)!important;
+ color:#1a140f!important;border-color:#ebbc78!important;box-shadow:0 8px 28px #c7904422!important}
+.hero{padding-block:clamp(40px,5vw,68px) 40px!important}
+.hero .eyebrow{color:var(--gold)!important;font-family:var(--g-body)}
+.hero .eyebrow:before{background:var(--gold)!important}
+.hero h1{color:var(--ink)!important;font:600 clamp(2.55rem,5vw,5rem)/1.08 var(--g-body)!important;
+ letter-spacing:-.045em!important}
+.hero h1 span{background:none!important;-webkit-text-fill-color:var(--gold)!important;
+ color:var(--gold)!important}
+.hero p{color:var(--muted)!important;font-family:var(--g-body)}
+.chip,.filter{color:var(--muted)!important;border-color:var(--line)!important;background:var(--panel2)!important}
+.filter.active{border-color:var(--gold)!important;color:var(--ink)!important;background:rgba(219,169,83,.13)!important}
+.panel{background:var(--panel)!important;border-color:var(--line)!important;
+ box-shadow:0 12px 38px rgba(0,0,0,.11)!important}
+.panel-title,.worktitle h2,.workhead,.workhead h2{color:var(--ink)!important}
+.sidebar,.workhead,.preview-side{border-color:var(--line)!important}
+.search,.field input,.field select{
+ border-color:var(--line)!important;background:var(--bg)!important;color:var(--ink)!important;
+ font-family:var(--g-body)!important}
+.tool{background:var(--panel2)!important;color:var(--ink)!important}
+.tool.active{background:rgba(222,176,108,.13)!important;
+ border-color:var(--gold)!important;box-shadow:inset 3px 0 var(--gold)!important}
+.tool-icon{background:var(--panel2)!important;color:var(--gold)!important}
+.tool small,.worktitle p,.hint,.unit,.legend,.feature p{color:var(--muted)!important}
+.canvas{background-color:var(--bg)!important;
+ background-image:linear-gradient(var(--line) .5px,transparent .5px),
+ linear-gradient(90deg,var(--line) .5px,transparent .5px)!important;
+ background-size:24px 24px!important;border-color:var(--line)!important}
+.canvas-note{background:var(--panel2)!important;color:var(--muted)!important}
+.stat,.feature{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--ink)!important}
+.field label{color:var(--ink)!important}
+.field input[type=range],.checkrow input{accent-color:var(--gold)!important}
+.notice{border-color:var(--line)!important;background:rgba(222,176,108,.07)!important;color:var(--muted)!important}
+.toast{background:var(--panel2)!important;border-color:var(--gold)!important;color:var(--ink)!important}
+html[data-generator-mode="light"] .canvas svg{filter:none}
+html[data-generator-mode="light"] .canvas-note{color:#483b2d!important}
+@media(max-width:600px){.toplinks{gap:6px!important}#genThemeToggle{padding:8px!important}}

@@ -96,7 +96,37 @@
         "Metallo nudo: serve la F2, oppure uno spray di marcatura",
         "Colore: brucia, non stampa"
       ],
-      "nota": "È la macchina principale: piano da quasi un metro, 80 W e convogliatore. Tutto il grande formato e tutta la produzione in serie passano da qui."
+      "nota": "È la macchina principale: piano da quasi un metro, 80 W e convogliatore. Tutto il grande formato e tutta la produzione in serie passano da qui.",
+      "specificheUfficiali": {
+        "source": "https://www.xtool.com/products/xtool-p3-the-flagship-80w-co2-laser-cutters",
+        "sourceTitle": "xTool P3 · specifiche ufficiali",
+        "values": [
+          {
+            "it": "Sorgente",
+            "en": "Laser",
+            "value": "CO₂ 80 W"
+          },
+          {
+            "it": "Area utile",
+            "en": "Working area",
+            "value": "915 × 458 mm"
+          },
+          {
+            "it": "Altezza massima",
+            "en": "Max. height",
+            "value": "220 mm"
+          },
+          {
+            "it": "Velocità max dichiarata",
+            "en": "Rated maximum speed",
+            "value": "1.200 mm/s"
+          }
+        ],
+        "note": {
+          "it": "Spessori e velocità massimi sono riferiti ai test del produttore, non garantiti su ogni materiale.",
+          "en": "Maximum speeds and thicknesses reflect manufacturer tests, not guarantees for every material."
+        }
+      }
     },
     {
       "id": "f2",
@@ -175,7 +205,37 @@
         "Grande formato: 115 × 115 mm, o 115 × 400 con la prolunga",
         "Sostituire la P3 sul taglio: 15 W contro 80 W"
       ],
-      "nota": "È portatile: personalizzazione dal vivo a fiere, eventi e presso il cliente. È un servizio a margine alto e senza magazzino, non solo una macchina da banco."
+      "nota": "È portatile: personalizzazione dal vivo a fiere, eventi e presso il cliente. È un servizio a margine alto e senza magazzino, non solo una macchina da banco.",
+      "specificheUfficiali": {
+        "source": "https://support.xtool.com/article/3042",
+        "sourceTitle": "xTool F2 · manuale UE/UK",
+        "values": [
+          {
+            "it": "Laser blu",
+            "en": "Blue laser",
+            "value": "15 W · 445 ± 15 nm"
+          },
+          {
+            "it": "Laser infrarosso",
+            "en": "Infrared laser",
+            "value": "5 W · 1064 ± 5 nm"
+          },
+          {
+            "it": "Area interna",
+            "en": "Internal area",
+            "value": "115 × 115 mm"
+          },
+          {
+            "it": "Velocità max dichiarata",
+            "en": "Rated maximum speed",
+            "value": "6.000 mm/s"
+          }
+        ],
+        "note": {
+          "it": "L'infrarosso marca il metallo: non è un laser MOPA per il taglio metallico.",
+          "en": "The infrared laser marks metal; it is not a MOPA metal-cutting laser."
+        }
+      }
     },
     {
       "id": "uv",
@@ -250,7 +310,37 @@
         "Tagliare o sagomare: la forma la fa la P3",
         "Fuori da A3+ o oltre 150 mm di spessore",
         "Superfici molto porose senza primer"
-      ]
+      ],
+      "specificheUfficiali": {
+        "source": "https://support.xtool.com/article/3084",
+        "sourceTitle": "xTool O1 Omni Printer · manuale ufficiale",
+        "values": [
+          {
+            "it": "Tecnologia",
+            "en": "Technology",
+            "value": "Stampa UV · doppia testa"
+          },
+          {
+            "it": "Piano standard",
+            "en": "Standard platen",
+            "value": "330 × 420 mm"
+          },
+          {
+            "it": "Risoluzione",
+            "en": "Resolution",
+            "value": "720 × 1.440 dpi"
+          },
+          {
+            "it": "Testina",
+            "en": "Printhead",
+            "value": "Epson F1080 × 2"
+          }
+        ],
+        "note": {
+          "it": "La O1 Omni è una stampante UV, non un laser. Le capacità dipendono dall'edizione e dagli inchiostri.",
+          "en": "The O1 Omni is a UV printer, not a laser. Capabilities depend on the edition and inks."
+        }
+      }
     },
     {
       "id": "wonderpress",
@@ -295,7 +385,37 @@
         "Tagliare, incidere o stampare: applica soltanto",
         "Sublimazione su cotone: serve poliestere o supporto trattato — sul cotone si usa il DTF"
       ],
-      "nota": "Chiude il cerchio con la UV: la stampante produce il trasferimento UV DTF, il forno lo cura, la pressa lo applica. Colore pieno su tessuto e su oggetti curvi, in casa, senza minimi d'ordine."
+      "nota": "Chiude il cerchio con la UV: la stampante produce il trasferimento UV DTF, il forno lo cura, la pressa lo applica. Colore pieno su tessuto e su oggetti curvi, in casa, senza minimi d'ordine.",
+      "specificheUfficiali": {
+        "source": "https://support.xtool.com/article/3206",
+        "sourceTitle": "xTool WonderPress · FAQ ufficiale",
+        "values": [
+          {
+            "it": "Tecnologia",
+            "en": "Technology",
+            "value": "Pressa a caldo modulare"
+          },
+          {
+            "it": "Temperatura",
+            "en": "Temperature",
+            "value": "80–210 °C"
+          },
+          {
+            "it": "Pressione",
+            "en": "Pressure",
+            "value": "20–100 kg"
+          },
+          {
+            "it": "Spessore massimo",
+            "en": "Maximum thickness",
+            "value": "75 mm"
+          }
+        ],
+        "note": {
+          "it": "Specifiche del modulo pressa; funzionalità di forno e termoformatura richiedono i rispettivi moduli.",
+          "en": "Heat-press module specifications; oven and 3D forming need their dedicated modules."
+        }
+      }
     }
   ],
   "combinazioni": [
@@ -700,5 +820,6 @@
       "stato": "pubblicato"
     }
   ],
-  "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili."
+  "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
+  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori."
 }

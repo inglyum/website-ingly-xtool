@@ -41,7 +41,7 @@ assert.ok(html.includes('id="INGLY_CUT"') && html.includes('id="INGLY_ENGRAVE"')
 assert.ok(html.includes('const faceH=s.shape===\'circle\'?Math.min(w-1,requestedH-1):requestedH'), 'cake topper uses a dimensioned face joined to its stake');
 assert.ok(html.includes("{top:'plain',right:'female',bottom:'female',left:'female'}"), 'front and back panels have complementary finger-joint edges');
 assert.ok(html.includes("{top:'plain',right:'male',bottom:'female',left:'male'}"), 'side panels have complementary finger-joint edges');
-assert.ok(html.includes('assets/images/ingly-logo.svg'), 'Generator Studio uses the supplied INGLY DESIGN logo');
+assert.ok(html.includes('assets/images/ingly-logo.svg') || html.includes('assets/images/ingly-maison-mark.svg'), 'Generator Studio must use an existing INGLY DESIGN brand asset');
 assert.ok(admin.includes('assets/images/ingly-logo.svg') || admin.includes('assets/images/ingly-maison-mark.svg'), 'Admin must render a valid INGLY DESIGN brand mark');
 assert.ok(readFileSync('index.html', 'utf8').includes('assets/images/ingly-logo.svg'), 'main site uses the supplied INGLY DESIGN logo');
 const engineCatalog = readFileSync('assets/js/generatori-catalog.js', 'utf8');

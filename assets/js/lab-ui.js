@@ -298,6 +298,18 @@ export function renderMacchine(L) {
         <h3 class="lab-h3">${esc(LAB.lingua(m.n, L))}</h3>
         <p class="lab-p">${esc(LAB.lingua(m.ruolo, L))}</p>
         ${m.piano ? `<p class="lab-spec">${esc(m.piano.x + ' × ' + m.piano.y + ' ' + (m.piano.unita || 'mm'))}${m.piano.z ? esc(' · h ' + m.piano.z + ' ' + (m.piano.unita || 'mm')) : ''}</p>` : ''}
+        ${m.specificheUfficiali ? `
+          <div class="ingly-official-specs" aria-label="${t2('Specifiche ufficiali xTool','Official xTool specifications',L)}">
+            <div class="ingly-official-specs__head">
+              <strong>${t2('Dati tecnici verificati','Verified technical data',L)}</strong>
+              <span>${t2('Fonte: xTool','Source: xTool',L)}</span>
+            </div>
+            <dl class="ingly-official-specs__list">
+              ${(m.specificheUfficiali.values||[]).map(v=>`<div><dt>${esc(t2(v.it,v.en,L))}</dt><dd>${esc(v.value)}</dd></div>`).join('')}
+            </dl>
+            <p class="ingly-official-specs__note">${esc(LAB.lingua(m.specificheUfficiali.note,L))}</p>
+            <a class="ingly-official-specs__source" href="${esc(m.specificheUfficiali.source)}" target="_blank" rel="noopener noreferrer">${t2('Consulta il manuale xTool','Open xTool documentation',L)} ↗</a>
+          </div>` : ''}
         ${(m.puo || []).length ? chips(m.puo) : ''}
       </div>`).join('')}</div>` : ''}
 

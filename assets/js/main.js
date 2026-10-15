@@ -106,12 +106,26 @@ const STATIC_UI_TRANSLATIONS={
     en:'For service or repair requests, availability and the type of assistance are confirmed individually.'
   },
   serviceContact:{it:'Contatta il Service Centre',en:'Contact the Service Centre'},
-  bookDemo:{it:'Prenota una demo xTool',en:'Book an xTool demo'}
+  bookDemo:{it:'Prenota una demo xTool',en:'Book an xTool demo'},
+  shopPathsEyebrow:{it:'SCOPRI IL MONDO INGLY',en:'EXPLORE INGLY'},
+  shopPathsTitle:{it:'Gadget e accessori, fatti per distinguersi.',en:'Gadgets and accessories that stand out.'},
+  shopPathsIntro:{it:'Esplora due percorsi del catalogo esistente. Ogni prodotto si personalizza partendo dalla sua scheda.',en:'Explore two existing catalogue collections. Customize each product starting from its own page.'},
+  shopGadgetsTitle:{it:'Gadget aziendali',en:'Business gadgets'},
+  shopGadgetsDesc:{it:'Idee personalizzate per brand, eventi e attività.',en:'Custom ideas for brands, events and businesses.'},
+  shopAccessoriesTitle:{it:'Accessori personalizzati',en:'Personalized accessories'},
+  shopAccessoriesDesc:{it:'Portachiavi, cover e dettagli che parlano di te.',en:'Keychains, phone cases and details that tell your story.'},
+  shopExplore:{it:'Esplora la categoria',en:'Explore category'},
+  shopGadgetsAria:{it:'Esplora i gadget aziendali',en:'Explore business gadgets'},
+  shopAccessoriesAria:{it:'Esplora gli accessori personalizzati',en:'Explore personalized accessories'}
 };
 function translateInline(){
   document.querySelectorAll('[data-inline-i18n]').forEach(el=>{
     const v=STATIC_UI_TRANSLATIONS[el.dataset.inlineI18n];
     if(v)el.textContent=v[L]||v.it;
+  });
+  document.querySelectorAll('[data-inline-aria]').forEach(el=>{
+    const v=STATIC_UI_TRANSLATIONS[el.dataset.inlineAria];
+    if(v)el.setAttribute('aria-label',v[L]||v.it);
   });
 }
 /* ---- i18n ---- */

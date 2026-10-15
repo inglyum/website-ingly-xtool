@@ -1,0 +1,124 @@
+/* INGLY MAISON / Admin console — mirrors the storefront without faking orders or analytics.
+   Layout is based on real draft data and uses existing Admin actions. */
+:root{
+ --bg:#090a0d;--panel:#101115;--card:#151618;--card2:#1d1e20;
+ --ink:#f8f3ea;--soft:#c7c0b5;--mut:#a79b8d;--line:#4b3b27;
+ --blue:#dba953;--laser:#dba953;--accent:#dba953;
+ --ma-gold:#dba953;--ma-gold-hi:#f5d492;--ma-text:#f8f3ea;
+ --ma-muted:#b9ae9c;--ma-panel:#151618;
+ --ma-serif:'Playfair Display',Georgia,serif;
+ --ma-body:'Manrope',Inter,system-ui,sans-serif;
+}
+html{color-scheme:dark}
+body{
+ background:radial-gradient(ellipse 50% 30% at 60% -5%,rgba(219,169,83,.075),transparent 80%),#090a0d!important;
+ color:var(--ma-text)!important;font-family:var(--ma-body)!important;
+}
+.side{background:#0e0f12!important;border-color:#493721!important}
+.top{background:rgba(12,13,16,.93)!important;border-color:#493721!important;
+ backdrop-filter:blur(18px)!important}
+.brand{border-bottom-color:#493721!important}
+.brand img{filter:sepia(1) saturate(1.3) hue-rotate(352deg) brightness(1.19)!important;
+ width:47px!important;height:47px!important;object-fit:contain!important}
+.brand b{font:600 27px/1.1 var(--ma-serif)!important;color:#f8f3ea!important;letter-spacing:.015em!important}
+.brand span{color:var(--ma-gold-hi)!important;font:600 9px/1.5 'JetBrains Mono',monospace!important;
+ letter-spacing:.2em!important}
+.navlabel{font:600 11px/1.4 var(--ma-body)!important;color:#a99c8d!important;letter-spacing:.09em}
+.nit{font:600 13px/1.5 var(--ma-body)!important;color:#d4cdc3!important}
+.nit:hover{background:rgba(219,169,83,.07)!important}
+.nit.on{color:#f8e9ca!important;background:linear-gradient(90deg,rgba(219,169,83,.21),rgba(219,169,83,.05))!important;
+ border:1px solid rgba(219,169,83,.26)}
+.top h1{font:600 clamp(19px,2vw,26px)/1.2 var(--ma-serif)!important;color:var(--ma-text)!important}
+.content{max-width:1580px;margin-inline:auto}
+.card,.panel,.box,.modal,.drawer,.editor{
+ background:#151618!important;border:1px solid rgba(219,169,83,.25)!important;
+ color:var(--ma-text)!important;border-radius:16px!important;
+ box-shadow:0 12px 32px rgba(0,0,0,.18)!important;
+}
+.card h3{font:600 clamp(18px,1.6vw,22px)/1.25 var(--ma-serif)!important;color:var(--ma-text)!important}
+.hint{color:var(--ma-muted)!important}
+.btn{border:1px solid rgba(219,169,83,.35)!important;border-radius:10px!important;
+ color:#f4eee2!important;background:rgba(219,169,83,.05)!important;
+ font:650 12px/1.4 var(--ma-body)!important;min-height:38px;
+}
+.btn:hover{background:rgba(219,169,83,.16)!important;border-color:#dba953!important}
+.btn.pri{color:#18120a!important;border:1px solid #edc685!important;
+ background:linear-gradient(110deg,#c78a3c,#edc783,#d8a356)!important;
+ box-shadow:0 10px 27px rgba(219,169,83,.18)!important}
+.btn.pri:hover{filter:brightness(1.05)}
+input[type=text],input[type=number],input[type=password],input[type=url],
+input[type=email],select,textarea{
+ background:#101115!important;border-color:#473d2d!important;color:#f8f3ea!important}
+input:focus,select:focus,textarea:focus{border-color:#dba953!important;box-shadow:0 0 0 3px #dba95324!important}
+.dcard,.admin-launch{border-color:rgba(219,169,83,.26)!important;background:#171719!important}
+.dcard b{font-family:var(--ma-serif)!important;color:#f8f3ea!important}
+:where(button,a,input,select,textarea,[tabindex]):focus-visible{
+ outline:3px solid #f0c97f!important;outline-offset:3px!important}
+/* Real metrics still appear from existing Dashboard; no fabricated revenue / visits */
+.maison-admin-overview{display:grid;gap:16px;margin:12px 0 25px}
+.maison-admin-welcome{display:flex;align-items:center;justify-content:space-between;
+ gap:15px;margin:2px 0 6px}
+.maison-admin-welcome h2{font:600 clamp(1.9rem,3vw,3.15rem)/1.16 var(--ma-serif)!important;
+ color:#f8f3ea!important;margin:7px 0 8px!important;letter-spacing:-.015em!important}
+.maison-admin-welcome h2 em{color:#ebbf74;font-style:italic}
+.maison-admin-welcome p{color:#b9ae9c;font-size:13px}
+.maison-admin-kicker{color:#ebbf74;font:600 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.19em}
+.maison-admin-main-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;min-width:0}
+.maison-admin-lower-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:16px;min-width:0}
+.maison-admin-overview .card{margin:0!important;padding:clamp(16px,2.2vw,24px)!important;min-width:0}
+.maison-admin-pane-head{display:flex;align-items:start;justify-content:space-between;
+ gap:14px;flex-wrap:wrap;margin-bottom:15px}
+.maison-admin-pane-head h3{margin:0 0 4px!important;font-size:20px!important}
+.maison-admin-pane-head p{margin:0}
+.maison-admin-picture{position:relative;height:clamp(210px,24vw,340px);
+ display:flex;align-items:end;overflow:hidden;border:1px solid #61472c;
+ border-radius:14px;background:#111114}
+.maison-admin-picture:after{content:"";position:absolute;inset:0;
+ background:linear-gradient(90deg,#070709ee,rgba(5,5,7,.62) 53%,transparent),
+ linear-gradient(0deg,#09090977,transparent 40%);pointer-events:none}
+.maison-admin-picture img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+ filter:contrast(1.07) saturate(.92)}
+.maison-admin-picture-copy{position:relative;z-index:1;display:grid;gap:10px;
+ padding:clamp(18px,2.4vw,32px);max-width:340px}
+.maison-admin-picture-copy strong{color:#fff6e9;font:600 clamp(1.75rem,2.4vw,3rem)/1.14 var(--ma-serif)}
+.maison-admin-picture-copy small{color:#d1c1a7;font:500 11px var(--ma-body)}
+.maison-admin-theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.maison-admin-theme-option{display:flex;flex-direction:column;text-align:left;align-items:flex-start;
+ justify-content:space-between;gap:10px;min-height:210px;padding:19px 15px;
+ border-radius:13px;cursor:pointer;border:1px solid #7a542c;
+ box-shadow:inset 0 0 35px #c68e2810;transition:transform .2s,border-color .2s}
+.maison-admin-theme-option:hover{border-color:#e5b25c;transform:translateY(-2px)}
+.maison-admin-dark-preview{color:#fbf6eb;background:
+ radial-gradient(ellipse at 80% 14%,rgba(231,178,84,.20),transparent 60%),
+ linear-gradient(140deg,#07080a,#1b1a19)}
+.maison-admin-light-preview{color:#211912;background:
+ radial-gradient(ellipse at 82% 18%,rgba(231,178,84,.23),transparent 64%),
+ linear-gradient(140deg,#fffaf0,#e8d8ba)}
+.maison-admin-theme-logo{font:600 21px/1.15 var(--ma-serif)}
+.maison-admin-theme-logo small{display:block;font:600 8px/1.5 'JetBrains Mono',monospace;letter-spacing:.17em}
+.maison-admin-theme-heading{font:600 clamp(1.4rem,2vw,2rem)/1.15 var(--ma-serif)}
+.maison-admin-theme-heading em{color:#c9913d}
+.maison-admin-theme-description{font:500 11px/1.45 var(--ma-body)}
+.maison-admin-theme-help{font-size:12px;color:#b9ae9c;margin:12px 0 0}
+.maison-admin-product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.maison-admin-product{padding:0 0 12px;overflow:hidden;text-align:left;
+ background:#101115;color:#f8f3ea;border:1px solid #4c3a27;border-radius:11px;
+ cursor:pointer;display:flex;flex-direction:column;gap:5px}
+.maison-admin-product:hover,.maison-admin-media-thumb:hover{border-color:#dfad63}
+.maison-admin-product img{display:block;width:100%;height:110px;object-fit:cover}
+.maison-admin-product strong{padding:0 10px;font-size:12px;line-height:1.35;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.maison-admin-product small{padding:0 10px;font:500 10px var(--ma-body);color:#b9ae9c}
+.maison-admin-media-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.maison-admin-media-thumb{padding:0;overflow:hidden;border-radius:9px;border:1px solid #4c3a27;
+ background:#101115;aspect-ratio:1;cursor:pointer}
+.maison-admin-media-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:1140px){
+ .maison-admin-main-grid,.maison-admin-lower-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+ .maison-admin-welcome{flex-wrap:wrap}
+ .maison-admin-theme-option{min-height:155px;padding:13px}
+ .maison-admin-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.maison-admin-theme-option{transition:none!important;transform:none!important}}

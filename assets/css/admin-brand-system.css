@@ -272,3 +272,18 @@
 :root[data-mode="light"] .maison-admin-media-thumb{
  background:#101115!important
 }
+
+
+/* Editor shortcuts and media access: remove legacy dark-on-dark labels
+   caused by the general light-mode dashboard text override. */
+:root[data-mode="light"] #maisonManageMedia{
+ background:#e7edf5!important;color:#17253d!important;
+ border-color:#9dacbf!important;opacity:1!important
+}
+:root[data-mode="light"] button[data-shortcut-view]{
+ background:#f1f5fa!important;color:#17253d!important;
+ border-color:#a8b8cb!important;opacity:1!important
+}
+:root[data-mode="light"] button[data-shortcut-view] :is(b,strong,small,span){
+ color:#17253d!important;opacity:1!important
+}

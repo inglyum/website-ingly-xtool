@@ -434,3 +434,13 @@
 /* When system fonts are slow, content still renders with Georgia / system-ui. */
 
 :root[data-mode] #page-home .signature-hero--image-unavailable .signature-hero-media{background:radial-gradient(circle at 75% 35%,rgba(227,173,98,.24),transparent 60%),#080e19!important}
+
+/* Admin may publish fewer or more than five service items. */
+:root[data-mode] #page-home .signature-benefits:has(.signature-benefits__inner:empty){display:none!important}
+@media(min-width:1051px){
+ :root[data-mode] #page-home .signature-benefits__inner[data-count="1"]{grid-template-columns:1fr}
+ :root[data-mode] #page-home .signature-benefits__inner[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+ :root[data-mode] #page-home .signature-benefits__inner[data-count="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+ :root[data-mode] #page-home .signature-benefits__inner[data-count="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+ :root[data-mode] #page-home .signature-benefits__inner[data-count="6"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+}

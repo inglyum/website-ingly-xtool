@@ -2955,17 +2955,17 @@ function renderDig(){
    +`<td>${(d.f||[]).map(f=>'<span class="pill">'+esc(f)+'</span>').join(' ')}</td>`
    +`<td>${d.price==null||d.price===''?'<span class="hint">—</span>':'€'+esc(d.price)}</td>`
    +`<td>${consLab[cons]||esc(cons)}</td>`
-   +`<td>${pub?'<span class="chip" style="color:var(--ok)">pubblicato</span>':'<span class="chip hint">bozza</span>'}</td>`
-   +`<td><button class="btn sm" data-de="${i}">✎</button> <button class="btn sm err" data-dd="${i}">🗑</button></td></tr>`}).join('')
+   +`<td>${pub?'<span class="chip" style="color:var(--ok)">pubblicato</span>':'<span class="chip hint">'+esc(d.stato==='archiviato'?'archiviato':'bozza')+'</span>'}</td>`
+   +`<td><button class="btn sm" data-de="${i}">✎</button> <button class="btn sm err" data-dd="${i}">${d.stato==='archiviato'?'↩':'Archivia'}</button></td></tr>`}).join('')
   +`<tr><td colspan="8" class="hint">${D.length} bundle · ${D.filter(d=>d.stato==='pubblicato').length} pubblicati · ${nCat} categorie · ${nLic} licenze definite</td></tr>`;
  document.querySelectorAll('[data-de]').forEach(b=>b.onclick=()=>editDig(+b.dataset.de));
- document.querySelectorAll('[data-dd]').forEach(b=>b.onclick=()=>{if(confirm('Eliminare?')){digList().splice(+b.dataset.dd,1);markDirty();renderDig()}})}
+ document.querySelectorAll('[data-dd]').forEach(b=>b.onclick=()=>{const d=digList()[+b.dataset.dd];if(!d)return;if(confirm('Archiviare il bundle? Rimarrà nei dati e potrai ripristinarlo.')){d.stato=d.stato==='archiviato'?'bozza':'archiviato';markDirty();renderDig()}})}
 $('dNew').onclick=()=>{
  const D=digList();if(!D){toast('data/digitale.json non caricato');return}
  const id=Math.max(100,...D.map(d=>+d.id||0))+1;
  D.push({id,n:{it:'Nuovo file',en:'New file'},cat:'',sommario:{it:'',en:''},descrizione:{it:'',en:''},
-  f:['SVG'],price:9,compareAt:null,icon:'📁',img:'',anteprime:[],contenuto:[],
-  compatibilita:{macchine:[],software:[],note:{it:'',en:''}},licenza:'commerciale',
+  f:['SVG'],price:null,compareAt:null,icon:'📁',img:'',anteprime:[],contenuto:[],
+  compatibilita:{macchine:[],software:[],note:{it:'',en:''}},licenza:'',
   versione:'',aggiornatoIl:'',changelog:[],consegna:{modo:'nessuna',url:'',tempi:{it:'',en:''}},
   peso:'',stato:'bozza',inEvidenza:false});
  markDirty();editDig(D.length-1)};
@@ -3014,7 +3014,8 @@ function editDig(i){
   <div><label>Peso</label><input type="text" id="ed_peso" value="${esc(d.peso||'')}" placeholder="48 MB"></div></div>
 
  <hr class="hr"><div class="row c2"><div><label>Stato</label><select id="ed_stato">
-   <option value="bozza"${d.stato!=='pubblicato'?' selected':''}>Bozza — non compare sul sito</option>
+   <option value="bozza"${d.stato==='bozza'?' selected':''}>Bozza — non compare sul sito</option>
+   <option value="archiviato"${d.stato==='archiviato'?' selected':''}>Archiviato — mantiene lo storico</option>
    <option value="pubblicato"${d.stato==='pubblicato'?' selected':''}>Pubblicato</option>
   </select></div>
   <div><label>In evidenza</label><select id="ed_ev"><option value="0"${d.inEvidenza?'':' selected'}>No</option><option value="1"${d.inEvidenza?' selected':''}>Sì</option></select></div></div>

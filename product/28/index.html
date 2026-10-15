@@ -159,6 +159,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
 <link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
+<link rel="stylesheet" href="assets/css/ingly-responsive-theme.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>
@@ -266,7 +267,7 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" style="top:36px">
   <div class="wrap nav-in">
-    <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-maison-mark.svg" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-logo.svg" alt="Logo INGLY DESIGN" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
@@ -295,6 +296,7 @@ setTimeout(function(){
 </header>
 
 <nav class="atelier-mobile-dock" aria-label="Azioni rapide">
+  <button type="button" id="mobileModeBtn" aria-label="Passa alla modalità chiara o scura" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.7 8.7 0 1 0 11 11Z"/></svg><span>Tema</span></button>
   <a href="shop" data-nav="shop" aria-label="Vai allo Shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18l-2 12H5L3 8zm4 0V5a5 5 0 0 1 10 0v3"/></svg><span>Shop</span></a>
   <a href="personalizza" data-nav="personalizza" aria-label="Personalizza un prodotto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3z"/></svg><span>Personalizza</span></a>
   <a href="https://wa.me/393296904627?text=Ciao%20INGLY%21%20Vorrei%20informazioni%20su%20una%20creazione." target="_blank" rel="noopener noreferrer" aria-label="Scrivici su WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-4.7A8.5 8.5 0 1 1 20 11.5Z"/><path d="M9 9.5c.7 2 2 3.3 4 4l1.3-1.2 2.2 1.1c-.4 1.8-2.1 2.3-3.9 1.7a8.6 8.6 0 0 1-4.8-4.8c-.6-1.8-.1-3.5 1.7-3.9l1.1 2.2z"/></svg><span>WhatsApp</span></a>
@@ -945,17 +947,9 @@ setTimeout(function(){
       </div>
     </section>
     <section class="ingly-service-centre" aria-labelledby="inglyServiceTitle">
-      <div class="ingly-service-centre__media atelier-service-art" role="img" aria-label="INGLY DESIGN, xTool Authorized Service Centre">
-        <div class="atelier-service-art__eyebrow">INGLY DESIGN <span aria-hidden="true">/</span> xTOOL</div>
-        <svg class="atelier-service-art__icon" viewBox="0 0 112 112" aria-hidden="true" focusable="false" fill="none">
-          <rect x="10" y="10" width="92" height="92" rx="25" stroke="currentColor" stroke-opacity=".35"/>
-          <path d="M27 58h58M56 28v58M34 36l44 44M78 36 34 80" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".28"/>
-          <path d="m56 38 5.3 13 13 5.3-13 5.3-5.3 13-5.3-13-13-5.3 13-5.3L56 38Z" fill="currentColor"/>
-          <circle cx="56" cy="56" r="3" fill="var(--at-bg)"/>
-        </svg>
-        <p class="atelier-service-art__title">Authorized<br>Service Centre</p>
-        <p class="atelier-service-art__caption">Supporto e orientamento tecnico xTool</p>
-        <span class="atelier-service-art__line" aria-hidden="true"></span>
+      <div class="ingly-service-centre__media ingly-service-centre__badge">
+        <img src="assets/images/xtool-authorized-service-centre.svg" alt="xTool Authorized Service Centre — INGLY DESIGN" width="820" height="520" loading="lazy" decoding="async">
+        <p class="ingly-service-centre__squad">xTool Squad · INGLY DESIGN</p>
       </div>
       <div class="ingly-service-centre__copy">
         <span class="eyebrow">INGLY DESIGN × xTOOL</span>
@@ -1151,7 +1145,7 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand"><img src="assets/images/ingly-maison-mark.svg" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>
@@ -1177,7 +1171,7 @@ setTimeout(function(){
         <span class="ft-luogo">Made in Italy · Consulenza e personalizzazioni</span></div>
     </div>
 
-    <div class="watermark" aria-hidden="true">INGLY</div>
+    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN — simbolo originale" loading="lazy" width="240" height="240"><span>INGLY</span></div>
     <div class="fbottom"><span id="ftCopy"></span><span id="ftLegal"></span></div>
   </div>
 </footer>

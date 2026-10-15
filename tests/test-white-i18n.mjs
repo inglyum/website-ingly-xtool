@@ -10,5 +10,5 @@ assert.match(main,/applyI18n\(\);renderAll\(\)/);
 assert.match(banner,/addEventListener\('ingly:language-change', update\)/);
 assert.match(css,/:root\[data-mode="light"\] body\{background:radial-gradient/);
 assert.match(css,/--ux-bg:#fff/);
-assert.match(css,/\.atelier-mobile-dock\)\{background:rgba\(255,255,255,\.97\)/);
+assert.ok(css.includes('--ux-header:rgba(255,255,255,.97)'));
 console.log('✔ White-mode, IT/EN persistence and updates');

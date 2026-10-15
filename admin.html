@@ -4641,6 +4641,7 @@ function labEditorMateriali(B) {
  ];
  const schema=[
   {key:'n',label:'Nome',type:'testo-it-en',required:true},
+  {key:'cat',label:'Categoria usata nei collegamenti ai prodotti',type:'testo',required:true,help:'Il nome della categoria non va cambiato se già utilizzato dai prodotti.'},
   {key:'sommario',label:'Sommario',type:'area-it-en'},
   {key:'descrizione',label:'Descrizione',type:'area-it-en'},
   {key:'tech',label:'Tecnologie',type:'chips',options:(S.TEC.tecnologie||[]).map(t=>({value:t.id,label:labL(t.n,'it')||t.id}))},

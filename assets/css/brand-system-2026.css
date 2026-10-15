@@ -450,3 +450,18 @@
 @media(max-width:620px){
  :root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{max-height:46px!important}
 }
+
+
+/* WCAG P0: footer inherited translucent accent colors from legacy skins.
+   Keep backgrounds/gradients but give small text explicit, readable foregrounds. */
+:root[data-mode="dark"] footer :is(.ft-eyebrow,.ft-col h4,.ft-desc,.ft-col p,.ft-col a,.fbottom,.ft-links a,.ft-credit,.ft-social a) {
+  color:var(--brand-muted)!important;
+}
+:root[data-mode="dark"] footer :is(.ft-eyebrow,.ft-col h4){color:var(--brand-ink)!important}
+:root[data-mode="light"] footer :is(.ft-eyebrow,.ft-col h4,.ft-desc,.ft-col p,.ft-col a,.fbottom,.ft-links a,.ft-credit,.ft-social a) {
+  color:var(--brand-muted)!important;
+}
+:root[data-mode="light"] footer :is(.ft-eyebrow,.ft-col h4){color:var(--brand-ink)!important}
+:root[data-mode] footer .ft-col--brand .brand-lockup small{color:var(--brand-gold)!important}
+:root[data-mode="light"] .journey-card .journey-link{color:#1a4fb5!important}
+:root[data-mode="dark"] .journey-card .journey-link{color:var(--brand-gold-hi)!important}

@@ -4,6 +4,8 @@ const html=readFileSync('index.html','utf8');
 const css=readFileSync('assets/css/ingly-responsive-theme.css','utf8');
 const main=readFileSync('assets/js/main.js','utf8');
 assert.ok(html.includes('id="modeBtn"'),'Controllo tema mancante');
+assert.ok(html.includes('id="mobileModeBtn"'),'Controllo tema mobile mancante');
+assert.ok(main.includes("mobileMode.addEventListener('click',()=>btn.click())"),'Tema mobile non sincronizzato');
 assert.ok(main.includes("localStorage.setItem('ingly_mode',v)"),'Tema non persistito');
 assert.ok(html.includes('href="assets/css/ingly-responsive-theme.css"'),'CSS responsive mancante');
 assert.ok(html.indexOf('ingly-responsive-theme.css')>html.indexOf('ingly-josefin-studio.css'),'Il tema finale deve prevalere');

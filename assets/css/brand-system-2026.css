@@ -294,3 +294,151 @@
  :root[data-mode] #page-home .signature-hero .hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
  :root[data-mode] #page-home .signature-hero .hero-ctas .btn{min-height:46px!important}
 }
+
+
+/* HOTFIX 2026-10-15 — regression discovered from real owner screenshot.
+   The former header used two theme images; an older .nav .brand img rule
+   forced both into 48px circular icons. Exactly ONE genuine wordmark now. */
+:root[data-mode] #nav.nav{
+ padding-block:6px!important;
+ min-height:0!important;
+}
+:root[data-mode] #nav.nav .nav-in{
+ display:flex!important;flex-wrap:nowrap!important;align-items:center!important;
+ justify-content:space-between!important;gap:clamp(8px,1.2vw,18px)!important;
+ min-height:62px!important;max-width:84px!important;
+}
+:root[data-mode] #nav.nav a.brand--identity{
+ display:inline-flex!important;flex:0 0 auto!important;min-width:0!important;
+ align-items:center!important;gap:8px!important;line-height:1!important;
+ width:auto!important;max-width:235px!important
+}
+:root[data-mode] #nav.nav a.brand--identity > img.brand-symbol{
+ display:block!important;flex:0 0 40px!important;width:40px!important;height:40px!important;
+ min-width:40px!important;max-width:40px!important;border-radius:50%!important;
+ background:#fffdfa!important;filter:none!important;object-fit:contain!important;
+ margin:0!important;padding:0!important;transform:none!important
+}
+:root[data-mode] #nav.nav a.brand--identity > .brand-lockup{
+ display:flex!important;flex:0 1 auto!important;flex-direction:column!important;
+ align-items:flex-start!important;justify-content:center!important;
+ width:clamp(105px,11.5vw,158px)!important;max-width:158px!important;gap:2px!important;
+ margin:0!important;padding:0!important;
+ font:600 12px/1.1 'Josefin Sans',system-ui,sans-serif!important;
+ letter-spacing:0!important;min-height:0!important;max-height:66px!important;
+}
+:root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{
+ display:block!important;position:static!important;flex:0 0 auto!important;
+ width:100%!important;height:auto!important;max-width:100%!important;
+ min-width:0!important;max-height:50px!important;aspect-ratio:1430/460!important;
+ border:none!important;border-radius:0!important;background:transparent!important;
+ object-fit:contain!important;object-position:left center!important;
+ margin:0!important;padding:0!important;filter:none!important;
+ box-shadow:none!important;transform:none!important;opacity:1!important
+}
+:root[data-mode="light"] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{
+ filter:brightness(0)!important
+}
+:root[data-mode] #nav.nav .brand--identity .brand-lockup small{
+ display:block!important;font:600 9px/1.2 'Josefin Sans',system-ui,sans-serif!important;
+ letter-spacing:.16em!important;white-space:nowrap!important;
+ color:var(--brand-gold)!important;margin:0!important;padding:0!important
+}
+:root[data-mode] #nav.nav :is(.ia-barra,.nav-acts){
+ flex-shrink:0!important;min-width:0!important;align-items:center!important
+}
+:root[data-mode] #nav.nav .ia-barra .ia-voce {
+ color:var(--brand-ink)!important;
+ font:650 clamp(12px,.92vw,14px)/1.2 'Josefin Sans',system-ui,sans-serif!important;
+ white-space:nowrap!important
+}
+/* Wordmark in footer: no 48px circle or second stacked image. */
+:root[data-mode] footer .ft-col--brand a.brand--identity{
+ display:flex!important;gap:10px!important;align-items:center!important;max-width:275px!important
+}
+:root[data-mode] footer .ft-col--brand .brand-lockup{
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+ gap:2px!important;width:154px!important;font:600 12px/1.2 'Josefin Sans',sans-serif!important
+}
+:root[data-mode] footer .ft-col--brand .brand-lockup img.brand-wordmark{
+ display:block!important;width:154px!important;height:auto!important;max-height:54px!important;
+ aspect-ratio:1430/460!important;border-radius:0!important;background:transparent!important;
+ object-fit:contain!important;filter:none!important;flex:none!important
+}
+:root[data-mode="light"] footer .ft-col--brand .brand-lockup img.brand-wordmark{
+ filter:brightness(0)!important
+}
+:root[data-mode] footer .ft-col--brand .brand-lockup small{
+ color:var(--brand-gold)!important;font:600 9px/1.2 'Josefin Sans',sans-serif!important;
+ letter-spacing:.16em!important;white-space:nowrap!important
+}
+:root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
+ width:min(100%,1200px)!important;height:auto!important;max-height:none!important;
+ aspect-ratio:1430/460!important;border-radius:0!important;
+ margin:0 auto!important;filter:none!important;display:block!important;opacity:.07!important
+}
+:root[data-mode="light"] footer .ingly-footer-signature img.brand-wordmark{
+ filter:brightness(0)!important;opacity:.085!important
+}
+/* MACHINE LAB: bound the hero to the content width; don't let font skins
+   force a line wider than the mobile viewport. */
+:root[data-mode] #page-macchine > .wrap.phero{
+ width:min(calc(100% - 32px),1220px)!important;max-width:1220px!important;
+ margin-inline:auto!important;padding:clamp(32px,5vw,70px) clamp(12px,3vw,34px)!important;
+ min-width:0!important;box-sizing:border-box!important;overflow:clip!important
+}
+:root[data-mode] #page-macchine > .phero > h1.h2{
+ display:block!important;max-width:100%!important;min-width:0!important;
+ font:650 clamp(2rem,4.6vw,4.1rem)/1.09 'Josefin Sans',system-ui,sans-serif!important;
+ letter-spacing:-.034em!important;word-break:normal!important;
+ overflow-wrap:break-word!important;white-space:normal!important;
+ text-wrap:balance!important;margin:20px 0 19px!important
+}
+:root[data-mode] #page-macchine > .phero > .sub{
+ max-width:65ch!important;width:100%!important;min-width:0!important;
+ overflow-wrap:break-word!important;font-size:clamp(.94rem,1.2vw,1.08rem)!important;
+ line-height:1.55!important;color:var(--brand-muted)!important
+}
+:root[data-mode] #page-macchine .xtool-lab-feature,
+:root[data-mode] #page-macchine :is(.machine-explore-grid,.mach-grid){
+ max-width:100%!important;min-width:0!important;box-sizing:border-box!important
+}
+@media(max-width:1100px){
+ :root[data-mode] #nav.nav .ia-barra{display:none!important}
+ :root[data-mode] #nav.nav .nav-acts .burger{
+  display:grid!important;place-items:center!important;min-width:44px!important;min-height:44px!important
+ }
+}
+@media(max-width:620px){
+ :root[data-mode] #nav.nav .nav-in{max-height:72px!important;min-height:58px!important;padding-inline:12px!important}
+ :root[data-mode] #nav.nav a.brand--identity{max-width:175px!important;gap:6px!important}
+ :root[data-mode] #nav.nav a.brand--identity > img.brand-symbol{
+  flex-basis:32px!important;width:32px!important;height:32px!important;min-width:32px!important;max-width:32px!important
+ }
+ :root[data-mode] #nav.nav a.brand--identity > .brand-lockup{
+  width:clamp(100px,31vw,120px)!important;max-width:120px!important;
+ }
+ :root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{
+  max-height:39px!important
+ }
+ :root[data-mode] #nav.nav .nav-acts{gap:4px!important}
+ :root[data-mode] #nav.nav .nav-acts :is(.atelier-nav-cta,.atelier-search-link){
+  display:none!important
+ }
+ :root[data-mode] #page-macchine > .wrap.phero{
+  width:100%!important;padding:30px clamp(15px,4vw,24px)!important
+ }
+ :root[data-mode] #page-macchine > .phero > h1.h2{
+  font-size:clamp(2rem,8vw,3rem)!important;line-height:1.11!important;
+  max-width:100%!important;text-wrap:pretty!important
+ }
+ :root[data-mode] #page-macchine .xtool-lab-feature{
+  border-radius:18px!important;min-width:0!important
+ }
+}
+@media(max-width:380px){
+ :root[data-mode] #nav.nav .nav-acts .icon-btn:not(.burger){
+  min-width:36px!important;width:36px!important;padding:7px!important
+ }
+ :root[data-mode] #page-macchine > .phero > h1.h2{font-size:clamp(1.85rem,8vw,2.4rem)!important}
+}

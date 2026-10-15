@@ -69,6 +69,10 @@ const summary={generatedAt:new Date().toISOString(),scans:all.length,
   notes:'Automated axe-core WCAG 2.0/2.1 A/AA smoke audit. Incomplete checks, images and actual screen-reader operation require human testing.',all};
 await writeFile(out+'/report.json',JSON.stringify(summary,null,2));
 console.log('AXE SUMMARY: '+summary.scans+' scans, '+summary.violations+' reported rule violations, '+summary.errors+' scan errors.');
-if(summary.errors)process.exitCode=1;
-/* Existing violations are reported, not ignored. Once triaged, add blocking
-   thresholds for critical/serious categories only after verifying exclusions. */
+if(summary.errors||summary.violations){
+ console.error('WCAG AA automatic baseline violated: '+summary.violations+
+   ' rule failures, '+summary.errors+' scan errors. Inspect artifacts/axe-audit/report.json');
+ process.exitCode=1;
+}
+/* Zero automated violations does not certify WCAG: incomplete cases,
+   dynamic states, full assistive technology and hardware testing remain. */

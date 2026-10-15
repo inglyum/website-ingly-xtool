@@ -397,3 +397,10 @@
 @media(prefers-reduced-motion:reduce){
  .maison-world,.maison-world>img{transition:none!important;transform:none!important}
 }
+
+/* The new standalone gold SVG is already correctly colored; never flatten it with filters. */
+:root[data-mode] .nav .brand img[src$="ingly-maison-mark.svg"],
+:root[data-mode] footer .brand img[src$="ingly-maison-mark.svg"]{
+ filter:none!important;background:transparent!important;transform:none!important;
+ width:48px!important;height:48px!important;object-fit:contain!important;
+}

@@ -1465,15 +1465,45 @@ function catturaModaleAperta(){
   try{ fn(); markDirty(); return true }
   catch(e){ console.warn('[INGLY] campi non recuperati dalla scheda aperta:', e); return false }
 }
+let _modalReturnFocus=null;
+const _modalControls='button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 function modal(html){
-  catturaModaleAperta();              /* salva ciò che si stava scrivendo */
-  $('modal').innerHTML=html;$('ovl').classList.add('on')}
-function closeModal(){$('ovl').classList.remove('on');
+  const overlay=$('ovl'),windowBox=$('modal');
+  if(!overlay.classList.contains('on'))_modalReturnFocus=document.activeElement;
+  catturaModaleAperta(); /* conserva i campi quando si passa a crop/Media Library */
+  windowBox.innerHTML=html;
+  windowBox.setAttribute('role','dialog');
+  windowBox.setAttribute('aria-modal','true');
+  windowBox.setAttribute('tabindex','-1');
+  const heading=windowBox.querySelector('h3,h2');
+  if(heading){heading.id='inglyAdminDialogHeading';windowBox.setAttribute('aria-labelledby',heading.id)}
+  else windowBox.setAttribute('aria-label','Finestra di modifica INGLY');
+  overlay.classList.add('on');
+  const first=windowBox.querySelector('input:not([type="hidden"]),select,textarea,button');
+  (first||windowBox).focus({preventScroll:true});
+}
+function closeModal(){
+ $('ovl').classList.remove('on');
  /* la scheda non è più aperta: il salvataggio automatico non deve più avere
     un prodotto a cui scrivere, altrimenti resterebbe agganciato all'ultimo */
  if(typeof _gatherAttivo!=='undefined') _gatherAttivo=null;
  _catturaModale = null;
+ const opener=_modalReturnFocus;_modalReturnFocus=null;
+ if(opener?.isConnected)opener.focus({preventScroll:true});
 }
+/* Tab e Shift+Tab restano dentro la finestra; Escape la chiude. */
+document.addEventListener('keydown',e=>{
+ if(!$('ovl').classList.contains('on'))return;
+ if(e.key==='Escape'){e.preventDefault();closeModal();return}
+ if(e.key!=='Tab')return;
+ const el=$('modal');
+ const visible=x=>x.getClientRects().length&&getComputedStyle(x).visibility!=='hidden';
+ const controls=[...el.querySelectorAll(_modalControls)].filter(visible);
+ if(!controls.length){e.preventDefault();el.focus();return}
+ const first=controls[0],last=controls[controls.length-1],a=document.activeElement;
+ if(e.shiftKey&&(a===first||!el.contains(a))){e.preventDefault();last.focus()}
+ else if(!e.shiftKey&&(a===last||!el.contains(a))){e.preventDefault();first.focus()}
+},true);
 $('ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeModal()});
 
 /* ---------- impostazioni ---------- */

@@ -5,6 +5,7 @@ import { observeAll } from './animations.js';
 import { F, renderRV, renderChips, renderShop, currentProduct } from './products.js';
 import { updateSeo } from './seo.js';
 import { L, T } from './utils.js';
+import { openFocusLayer, closeFocusLayer } from './accessibility.js';
 
 /* L'elenco delle rotte non vive più qui: vive in rotte.js, e `404.html` lo
    riceve dal build. Erano due copie, e la seconda era rimasta indietro di
@@ -99,8 +100,16 @@ export function show(page){
     document.querySelectorAll('.page').forEach(x=>x.classList.remove('active','leaving'));
     next.classList.add('active');
     document.querySelectorAll('.nav-links [data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===page));
-    toggleMenu(false);
+    const fromMobileMenu=document.getElementById('mm')?.classList.contains('open');
+    toggleMenu(false,{restoreFocus:false});
     document.body.classList.toggle('on-product',page==='product');
+    /* Chi sceglie una pagina dal menu non deve restare con il focus
+       su un link che è diventato inert dopo la navigazione. */
+    if(fromMobileMenu){
+      const heading=next.querySelector('h1,h2,[role="heading"]')||next;
+      if(!heading.hasAttribute('tabindex'))heading.setAttribute('tabindex','-1');
+      heading.focus({preventScroll:true});
+    }
     window.scrollTo({top:0,behavior:'instant'});
     if(page==='shop')renderRV();
     updateSeo(page,L,T,page==='product'?currentProduct():null);
@@ -129,7 +138,23 @@ export function go(page,search){
 }
 
 export function goShop(cat){F.cat.clear();F.sub.clear();F.mat.clear();if(cat)F.cat.add(cat);renderChips();renderShop();go('shop')}
-export function toggleMenu(open){document.getElementById('mm').classList.toggle('open',open)}
+export function toggleMenu(open,{restoreFocus=true}={}){
+  const menu=document.getElementById('mm');
+  const trigger=document.querySelector('[data-action="menu-open"]');
+  if(!menu)return;
+  const wasOpen=menu.classList.contains('open');
+  if(open) menu.removeAttribute('inert');
+  menu.classList.toggle('open',!!open);
+  menu.setAttribute('aria-hidden',String(!open));
+  if(!open) menu.setAttribute('inert','');
+  trigger?.setAttribute('aria-expanded',String(!!open));
+  if(open&&!wasOpen){
+    openFocusLayer(menu,{
+      trigger,initialFocus:menu.querySelector('[data-action="menu-close"]'),
+      onEscape:()=>toggleMenu(false)
+    });
+  }else if(!open&&wasOpen)closeFocusLayer(menu,{restore:restoreFocus});
+}
 
 export function initNav(){
   /* Gestisci pulsanti Avanti/Indietro del browser */

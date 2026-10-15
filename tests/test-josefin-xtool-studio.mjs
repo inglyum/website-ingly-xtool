@@ -49,7 +49,7 @@ assert.equal(d.getElementById('inglyGeneratorSize').textContent,'250 × 65 mm');
 assert(generatorJs.includes("const svg=open+layers+'</svg>'"), 'Export must not include simulated coloured material');
 assert(generatorJs.includes('INGLY_PREVIEW_MATERIAL'), 'Preview can have material appearance');
 assert((html.includes('Converti in tracciato') || generatorJs.includes('converti il testo in tracciati')) && generatorJs.includes('INGLY_CUT'),'Generator preflight guidance expected');
-assert(generatorHtml.includes('genThemeToggle')&&generatorHtml.includes('data-generator-mode'), 'Theme switch missing');
+assert(generatorHtml.includes('genThemeToggle')&&generatorHtml.includes('dataset.generatorMode'), 'Theme switch missing');
 assert(generatorCss.includes('html[data-generator-mode="light"]')&&generatorCss.includes('--g-body'), 'Generator styling missing');
 for(const id of ['p3','f2','uv','wonderpress']){
  const m=machines.find(x=>x.id===id);

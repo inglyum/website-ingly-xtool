@@ -22,6 +22,8 @@ jobs:
         run: node scripts/generate-sitemap.mjs --verifica
       - name: Suite completa
         run: npm test
+      - name: Verifica Josefin Popup, Generatori e specifiche xTool
+        run: node tests/test-josefin-xtool-studio.mjs
       - name: Verifica Maison reference e dashboard Admin
         run: node tests/test-maison-live.mjs
       - name: Test Signature Showcase e Admin

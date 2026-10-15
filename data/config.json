@@ -204,5 +204,72 @@
       "it": "Accendo il laser\nScelgo il materiale\nIncido la tua idea",
       "en": "Igniting the laser\nChoosing the material\nEngraving your idea"
     }
-  }
+  },
+  "showcaseBenefits": [
+    {
+      "id": "custom",
+      "title": {
+        "it": "Design su misura",
+        "en": "Custom design"
+      },
+      "subtitle": {
+        "it": "Le tue idee, la nostra esperienza",
+        "en": "Your ideas, our expertise"
+      },
+      "url": "personalizza",
+      "icon": "diamond"
+    },
+    {
+      "id": "engrave",
+      "title": {
+        "it": "Incisione di precisione",
+        "en": "Precision engraving"
+      },
+      "subtitle": {
+        "it": "Dettagli che fanno la differenza",
+        "en": "Details that make a difference"
+      },
+      "url": "tecnologie",
+      "icon": "spark"
+    },
+    {
+      "id": "materials",
+      "title": {
+        "it": "Materiali selezionati",
+        "en": "Selected materials"
+      },
+      "subtitle": {
+        "it": "Legno, acrilico, metallo e altro",
+        "en": "Wood, acrylic, metal and more"
+      },
+      "url": "materiali",
+      "icon": "shield"
+    },
+    {
+      "id": "delivery",
+      "title": {
+        "it": "Consegne in Italia",
+        "en": "Delivery across Italy"
+      },
+      "subtitle": {
+        "it": "Scopri le condizioni di spedizione",
+        "en": "Explore delivery conditions"
+      },
+      "url": "faq",
+      "icon": "truck"
+    },
+    {
+      "id": "gifts",
+      "title": {
+        "it": "Regali che raccontano",
+        "en": "Gifts with a story"
+      },
+      "subtitle": {
+        "it": "Creati per ogni occasione",
+        "en": "Made for every occasion"
+      },
+      "url": "shop",
+      "icon": "gift"
+    }
+  ]
 }

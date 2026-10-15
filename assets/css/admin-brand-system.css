@@ -170,3 +170,31 @@
   width:106px!important;max-height:36px!important
  }
 }
+
+
+/* 2026-10-15: compact Admin diagnostics.
+   The dashboard's "Cosa manca per vendere" markup sets inline
+   min-width:200px on its text column. Paired with its action button
+   and mobile sidebar, that produced 111px horizontal overflow at 320px.
+   Wrap the action while keeping the message legible. */
+@media (max-width: 650px) {
+ :root[data-mode] .list-it {
+   display:flex;
+   flex-wrap:wrap;
+   align-items:flex-start;
+   gap:8px;
+   max-width:100%;
+   min-width:0;
+ }
+ :root[data-mode] .list-it > div[style*="min-width:200px"] {
+   flex:1 1 calc(100% - 40px)!important;
+   min-width:0!important;
+   max-width:100%;
+   overflow-wrap:anywhere;
+ }
+ :root[data-mode] .list-it > button.btn {
+   flex:0 0 auto;
+   max-width:100%;
+   margin-left:auto;
+ }
+}

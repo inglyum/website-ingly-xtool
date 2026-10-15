@@ -24,7 +24,20 @@ export const BASE = (() => {
   try{
     const u = new URL('../../', import.meta.url).pathname;   // → "/" oppure "/Il-sito-AI/"
     return u.endsWith('/') ? u : u + '/';
-  }catch(e){ return '/' }
+  }catch(e){
+    /* Nel bundle IIFE import.meta.url non esiste. Recuperiamo la base
+       dallo script fallback, anziché assumere '/' e rompere Pages sotto /repo/. */
+    try{
+      const script=document.currentScript && document.currentScript.src
+        || document.querySelector('script[nomodule][src*="app.fallback.js"]')?.src
+        || document.querySelector('script[src*="app.fallback.js"]')?.src;
+      if(script){
+        const base=new URL('../../',script).pathname;
+        return base.endsWith('/')?base:base+'/';
+      }
+    }catch(ignore){}
+    return '/';
+  }
 })();
 
 /* percorso della pagina corrente, tolta la base */

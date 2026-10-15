@@ -17,7 +17,7 @@ try{
     await page.waitForTimeout(650);
     const samples=await page.evaluate(sels=>{
       const parseColor=str=>{
-        const m=String(str).match(/rgba?\\(\\s*(\\d+)[,\\s]+(\\d+)[,\\s]+(\\d+)(?:[,\\s/]+([\\d.]+))?/i);
+        const m=String(str).match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s\/]+([\d.]+))?/i);
         return m?[+m[1],+m[2],+m[3],m[4]===undefined?1:+m[4]]:null
       };
       const luminance=v=>{

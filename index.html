@@ -177,6 +177,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/notte-oro.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
+<script defer src="assets/js/notte-oro-loader.js"></script>
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
@@ -232,7 +233,17 @@ setTimeout(function(){
      elemento `position:fixed` dentro una .page prende quella come blocco
      contenitore invece dello schermo. -->
 <div class="filters-velo" data-action="filtri-chiudi" aria-hidden="true"></div>
-<div class="loader" id="loader"><div class="lin"><img src="assets/images/ingly-logo.svg" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
+<div class="loader atelier-loading" id="loader" role="status" aria-label="INGLY DESIGN, caricamento">
+ <div class="atelier-loader__veil" aria-hidden="true"></div>
+ <div class="lin atelier-loader__inner">
+  <div class="atelier-loader__seal"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="154" height="154" fetchpriority="high"><svg viewBox="0 0 200 200" aria-hidden="true" class="atelier-loader__trace"><circle cx="100" cy="100" r="87" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></div>
+  <strong class="atelier-loader__brand">INGLY <small>DESIGN · ITALY</small></strong>
+  <span id="ldrTxt" class="atelier-loader__caption">Incidiamo la tua idea</span>
+  <div class="lbar atelier-loader__rail" role="progressbar" aria-label="Risorse essenziali" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="atelierLoaderFill"></i></div>
+  <output id="atelierLoaderPercent" class="atelier-loader__percent">0%</output>
+  <button class="atelier-loader__skip" type="button" id="atelierLoaderSkip">Salta</button>
+ </div>
+</div>
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>
 

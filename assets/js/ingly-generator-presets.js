@@ -23,13 +23,17 @@
    for(const [key,id] of Object.entries(controls)){
     const input=document.getElementById(id);
     if(!input)continue;
-    input.value=preset[key];
+    const lang=document.documentElement.lang==='en'?'en':'it';
+    const translated={name:'Your name',desk:'DESIGN STUDIO',oval:'Thank you!',keyring:'INGLY'};
+    input.value=key==='text'&&lang==='en'?(translated[button.dataset.inglyPreset]||preset[key]):preset[key];
     input.dispatchEvent(new Event('input',{bubbles:true}));
     input.dispatchEvent(new Event('change',{bubbles:true}));
    }
    updateSelected(button.dataset.inglyPreset);
    const status=document.getElementById('inglyGeneratorStatus');
-   if(status)status.textContent='Modello iniziale selezionato. Verifica dimensioni, tolleranze e conversione dei font in tracciati prima del taglio.';
+   if(status)status.textContent=document.documentElement.lang==='en'
+     ?'Preset selected. Check dimensions, tolerances and conversion of fonts to paths before cutting.'
+     :'Modello iniziale selezionato. Verifica dimensioni, tolleranze e conversione dei font in tracciati prima del taglio.';
   });
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});

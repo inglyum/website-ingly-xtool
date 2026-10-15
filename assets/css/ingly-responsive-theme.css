@@ -225,3 +225,11 @@
 @media(max-width:640px){.ingly-commerce-spots__grid{grid-template-columns:minmax(0,1fr)}.ingly-commerce-spot{grid-template-columns:minmax(0,.8fr) minmax(0,1fr)}.ingly-commerce-spot__image,.ingly-commerce-spot__image img{height:100%;min-height:180px}.ingly-commerce-spot__content{padding:16px;gap:9px}}
 @media(max-width:400px){.ingly-commerce-spot{grid-template-columns:1fr}.ingly-commerce-spot__image,.ingly-commerce-spot__image img{height:165px;min-height:165px}}
 @media(prefers-reduced-motion:reduce){.ingly-commerce-spot,.ingly-commerce-spot__image img{transition:none!important}.ingly-commerce-spot:hover{transform:none}.ingly-commerce-spot:hover img{transform:none}}
+
+/* Creator quote: scoped responsive fields with theme-aware contrast */
+:root[data-mode] .ingly-parametric__notes{display:flex;flex-direction:column;gap:9px;margin-top:17px;font-weight:700;color:var(--ux-text)}
+:root[data-mode] .ingly-parametric__notes textarea{display:block;width:100%;min-height:84px;padding:13px 14px;border-radius:12px;border:1px solid var(--ux-border)!important;background:var(--ux-card)!important;color:var(--ux-text)!important;line-height:1.45;resize:vertical}
+:root[data-mode] .ingly-parametric__notes textarea:focus-visible{outline:2px solid var(--ux-primary);outline-offset:2px}
+:root[data-mode] .ingly-parametric__buttons{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+:root[data-mode] .ingly-parametric__buttons .btn{min-height:45px}
+@media(max-width:540px){:root[data-mode] .ingly-parametric__buttons{flex-direction:column}:root[data-mode] .ingly-parametric__buttons .btn{width:100%;justify-content:center}}

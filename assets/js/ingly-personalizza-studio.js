@@ -77,7 +77,9 @@
       canvas.innerHTML=current.previewSvg;
       canvas.dataset.material=material;
       $('inglyGeneratorSize').textContent=w+' × '+h+' mm';
-      $('inglyGeneratorStatus').textContent='Anteprima aggiornata · Verifica le dimensioni prima del taglio.';
+      $('inglyGeneratorStatus').textContent=document.documentElement.lang==='en'
+        ?'Preview updated · Check dimensions before cutting.'
+        :'Anteprima aggiornata · Verifica le dimensioni prima del taglio.';
     };
     for(const id of inputs)$(id).addEventListener('input',update);
     $('inglyGeneratorDownload').addEventListener('click',()=>{
@@ -88,7 +90,9 @@
       a.href=url;a.download='ingly-targa-personalizzata-editabile.svg';
       document.body.append(a);a.click();a.remove();
       setTimeout(()=>URL.revokeObjectURL(url),1500);
-      $('inglyGeneratorStatus').textContent='SVG esportato: converti il testo in tracciati e verifica i gruppi prima di tagliare.';
+      $('inglyGeneratorStatus').textContent=document.documentElement.lang==='en'
+        ?'SVG exported: convert text to paths and inspect all groups before cutting.'
+        :'SVG esportato: converti il testo in tracciati e verifica i gruppi prima di tagliare.';
     });
     const quote=$('inglyGeneratorQuote');
     if(quote)quote.addEventListener('click',()=>{

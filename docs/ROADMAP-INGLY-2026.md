@@ -3,6 +3,29 @@ Data audit: 15 ottobre 2026
 Base: branch main + hotfix \`fix/brand-header-machine-20261015\`.
 Obiettivo: un e-commerce premium credibile, realmente usabile su smartphone e amministrabile senza confondere immagini decorative, prodotti fisici, download e servizi.
 
+## Stato verificato 16 ottobre 2026 — INGLY DESIGN
+
+> Questa roadmap separa **completato**, **strumentato ma ancora da bonificare** e **dipendente da input reali**. Un test automatico verde non è una certificazione WCAG né la prova di un checkout con pagamenti online.
+
+| Intervento | Fase | Evidenza / limite |
+| --- | --- | --- |
+| Wordmark autentico **INGLY** con I visibile, header/footer/Admin e watermark nei temi | **Integrato** — PR #54 | Asset SVG corretti; QA e GitHub Pages conclusi con successo |
+| Audit cromatico dark/light | **Strumentato** — PR #54 | 30 campioni computati; tutti con sfondi complessi da verificare visivamente; nessuna certificazione WCAG |
+| Menu, carrello, zoom, tastiera | **Integrato** — PR #51 | 64 scan responsive + 11 test tastiera; restano screen reader e dispositivi fisici |
+| Controllo stock nelle aggiunte/checkout e sostituzioni media controllate | **Integrato** — PR #57 | Test automatici di integrazione; lo stock in tempo reale e il checkout online richiedono backend esterni |
+| Audit WCAG A/AA automatizzato | **In revisione** — PR #58 | 20 scan axe-core nei due temi e alle due larghezze; report triage prima di bloccare release |
+| Fotografie originali dei prodotti pubblici | **Dipende dagli originali** | Ultimo censimento: 43 copertine pubbliche mancanti; la Media Library offre coda per SKU e CSV, non inventa il prodotto |
+| Gallerie, crop, preview, associazione e sicurezza Media Library | **Parziale** | Upload/crop, coda, manifest, associazione confermata; da fare test reali di upload e pubblicazione |
+| Shop, catalogo, Admin | **In consolidamento** | CRUD, varianti, prezzi, categoria, traduzioni e flussi ordine richiedono collaudo E2E con dati di produzione |
+
+### Criteri di uscita prima della release commerciale completa
+- Confrontare homepage/Shop/Admin su iPhone Safari e Android Chrome **reali**, in dark/light, includendo zoom 200% e testi lunghi IT/EN
+- Provare VoiceOver e TalkBack per ordine focus, dialog, prodotto, checkout, filtri e modali; registrare difetti e fix
+- Revisionare singolarmente le segnalazioni contrasto su fotografie, gradienti e superfici traslucide; adottare soglie 4.5:1 testo normale, 3:1 testo grande e controlli UI dove pertinente
+- Ottenere foto originali delle schede pubbliche prive di media, verificarne SKU e diritti di utilizzo, poi caricarle e confermarle dall'Admin
+- Eseguire una pubblicazione di prova completa con 1 prodotto/1 variante/1 galleria e rollback verificato; non pubblicare foto non corrispondenti ai prodotti
+- Configurare il canale di pagamento, la consegna e la gestione ordini **solo quando i servizi reali sono autorizzati e testabili**; non confondere il checkout WhatsApp con una transazione online
+
 ## Aggiornamento operativo — 15 ottobre 2026 (PR #47–#49)
 
 - **PR #47, integrata:** corretto l'errore `max-width:84px` che restringeva la navbar; test di regressione aggiunto.

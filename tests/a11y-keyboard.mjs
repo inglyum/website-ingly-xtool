@@ -47,6 +47,9 @@ try{
     assert.match(p.url(),/product/);
    });
    await run(mode+' product lightbox via keyboard and Escape',async()=>{
+    // The first Shop card may intentionally have no photo: use a known photographed SKU.
+    await p.goto(url+'/product/1/',{waitUntil:'domcontentloaded'});
+    await p.waitForSelector('#page-product.active',{timeout:12000});
     const photo=p.locator('#ppArt[role="button"][aria-disabled="false"]');
     await photo.waitFor({state:'visible'});
     await photo.focus();

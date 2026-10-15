@@ -1088,8 +1088,18 @@ export function closeCart(){
   closeFocusLayer(drawer);
 }
 
+function confirmCurrentStock(){
+  const updated=reconcileStock(cart,P);
+  const compact=rows=>rows.map(r=>[r.rif,r.q]);
+  if(JSON.stringify(compact(updated))!==JSON.stringify(compact(cart))){
+    cart=updated;saveCart();renderCart();openCart();
+    toast(L==='it'?'Disponibilità cambiata: controlla le quantità prima dell’ordine.':'Availability changed: review cart quantities before ordering.');
+    return false;
+  }
+  return true;
+}
 export function checkoutWhatsApp(){
-  cart=reconcileStock(cart,P);saveCart();renderCart();
+  if(!confirmCurrentStock())return;
   if(!cart.length){ toast(T('crtE')); return }
   /* Il canale è una scelta dell'Admin, non una costante del codice: il
      modello dice quale si può usare davvero e, se quello chiesto è
@@ -1134,7 +1144,7 @@ export function checkoutWhatsApp(){
 }
 
 export function checkoutEmail(){
-  cart=reconcileStock(cart,P);saveCart();renderCart();
+  if(!confirmCurrentStock())return;
   if(!cart.length){ toast(T('crtE')); return }
   /* porta alla pagina preventivo con prodotti pre-compilati nel campo note */
   const summary=cart.map(i=>CM.descriviRiga(i,L)).join(', ');

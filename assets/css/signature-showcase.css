@@ -146,7 +146,8 @@
 }
 :root[data-mode] #page-home .hero.signature-hero::after{
   content:"";position:absolute;inset:0;z-index:1;
-  background:linear-gradient(113deg,transparent 38%,rgba(248,180,95,.06) 38.08%,transparent 38.16%);
+  background:radial-gradient(260px circle at var(--signature-pointer-x,78%) var(--signature-pointer-y,34%),rgba(244,176,91,.075),transparent 83%),
+             linear-gradient(113deg,transparent 38%,rgba(248,180,95,.06) 38.08%,transparent 38.16%);
   background-size:cover;opacity:1!important;pointer-events:none;
 }
 :root[data-mode] #page-home .hero.signature-hero>.hero-bg{display:none!important}
@@ -431,3 +432,5 @@
   :root[data-mode] #page-home .signature-benefit{transition:none!important}
 }
 /* When system fonts are slow, content still renders with Georgia / system-ui. */
+
+:root[data-mode] #page-home .signature-hero--image-unavailable .signature-hero-media{background:radial-gradient(circle at 75% 35%,rgba(227,173,98,.24),transparent 60%),#080e19!important}

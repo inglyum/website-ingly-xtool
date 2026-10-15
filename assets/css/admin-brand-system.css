@@ -287,3 +287,16 @@
 :root[data-mode="light"] button[data-shortcut-view] :is(b,strong,small,span){
  color:#17253d!important;opacity:1!important
 }
+
+
+/* More specific than the global :is(.content,.view,.card) :is(p,small,.hint)
+   rule: the latter intentionally affects ordinary gray help text but must
+   not wash out light text on a dark product thumbnail. */
+:root[data-mode="light"] .content .maison-admin-product small,
+:root[data-mode="light"] .view .maison-admin-product small{
+ color:#f8f3ea!important;opacity:1!important
+}
+:root[data-mode="light"] #gcSetupBtn{
+ background:#e7edf5!important;color:#17253d!important;
+ border-color:#9dacbf!important;opacity:1!important
+}

@@ -29,11 +29,13 @@ async function selfHeal(){
 }
 
 loadData().then(D=>{
+  window.dispatchEvent(new CustomEvent('ingly:site-data-ready',{detail:{CONFIG:D.CONFIG||{}}}));
   /* La manutenzione si decide QUI, con i dati del sito in mano: se è
      accesa il sito non parte proprio. Prima la decideva uno script a parte
      che leggeva config.json per conto suo, e il risultato era un velo
      sopra un sito che sotto continuava a caricare il catalogo. */
   if(modalita(D)==='ferma'){
+    window.dispatchEvent(new Event('ingly:loader-maintenance'));
     const m=manutenzione(D, (navigator.language||'it').startsWith('it')?'it':'en');
     const ov=document.getElementById('maintenanceOverlay');
     if(ov){

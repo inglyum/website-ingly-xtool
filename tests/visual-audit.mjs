@@ -134,6 +134,15 @@ try {
           }
           if (metrics.documentWidth > width + 6)
             problems.push('horizontal overflow by ' + (metrics.documentWidth - width) + 'px');
+          /* Keep real screenshot evidence of corrected INGLY I, not only a string test. */
+          if ((route.name==='home'||route.name==='admin') && (width===320||width===1440)){
+            const name=route.name==='admin'?'.brand-admin-lockup':'.ingly-footer-signature';
+            const mark=page.locator(name).first();
+            if(await mark.count()){
+              await mark.screenshot({path:join(out,'brand-'+route.name+'-'+width+'-'+mode+'.png'),
+                animations:'disabled',timeout:7000}).catch(e=>console.warn('Brand capture skipped:',e.message));
+            }
+          }
           const screenshot = route.name + '-' + width + '-' + mode + '.png';
           await page.screenshot({ path: join(out, screenshot), fullPage: false, animations: 'disabled' });
           findings.push({ route: route.name, width, mode, status, ...metrics, problems, runtimeErrors: errors.slice(0, 5), screenshot });

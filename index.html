@@ -334,7 +334,7 @@ setTimeout(function(){
   <button type="button" data-action="open-cart" aria-label="Apri il carrello"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h3l3 13h12l3-9H6"/></svg><span>Carrello</span></button>
 </nav>
 
-<div class="mobile-menu" id="mm" role="dialog" aria-modal="true" aria-label="Menu di navigazione" aria-hidden="true">
+<div class="mobile-menu" id="mm" role="dialog" aria-modal="true" aria-label="Menu di navigazione" aria-hidden="true" inert>
   <button type="button" class="mclose" data-action="menu-close" aria-label="Chiudi il menu">✕</button>
   <div class="dr-testa"><span class="dr-eyebrow">INGLY DESIGN</span></div>
   <div class="dr-corpo"></div>
@@ -1243,7 +1243,7 @@ setTimeout(function(){
 </footer>
 
 <div class="overlay" id="overlay" data-action="close-cart"></div>
-<aside class="drawer" id="drawer" aria-label="Cart" role="dialog" aria-modal="true">
+<aside class="drawer" id="drawer" aria-label="Carrello" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" inert>
   <div class="dr-head">
     <div>
       <h3 data-i18n="crtH">Il tuo carrello</h3>

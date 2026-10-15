@@ -1202,7 +1202,7 @@ img[src$="assets/images/logo.png"]{content:url("../images/ingly-logo.svg");objec
 }
 .ingly-skip-link:focus-visible{top:12px;outline:3px solid #fff;outline-offset:2px}
 .pcard-open:focus-visible,
-#ppMain[role="button"]:focus-visible,
+#ppArt[role="button"]:focus-visible,
 .thumb:focus-visible{
   outline:3px solid var(--laser,#d7b66d)!important;
   outline-offset:3px;

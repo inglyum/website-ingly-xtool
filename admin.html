@@ -2081,8 +2081,12 @@ function renderMaisonAdminDashboard(){
  const heading=$('maisonAdminHeroHeadline');
  if(heading)heading.textContent=String(config.slogan?.it||'Diamo forma alle tue idee.')
   .replace(/\*\*/g,' ').replace(/\s+/g,' ').trim().slice(0,110);
- const products=(S.P||[]).filter(p=>p&&!p.hidden&&p.img).slice(0,4);
- const photos=(S.P||[]).filter(p=>p&&p.img).slice(0,8);
+ const effectivePhoto=p=>{
+   const st=photoStatusAdmin(p);
+   return st.state==='ready'?st.main:(st.state==='gallery'?st.galleryFound[0]:'');
+ };
+ const products=(S.P||[]).filter(p=>p&&!p.hidden&&effectivePhoto(p)).slice(0,4);
+ const photos=(S.P||[]).filter(p=>p&&effectivePhoto(p)).slice(0,8);
  const safePath=p=>/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif)$/i.test(String(p||''))&&!String(p).includes('..')
   ?String(p):'';
  const label=p=>typeof p.n==='object'?(p.n.it||p.n.en||'Prodotto'):String(p.n||'Prodotto');
@@ -2092,7 +2096,7 @@ function renderMaisonAdminDashboard(){
    products.forEach(p=>{
      const button=document.createElement('button');button.type='button';
      button.className='maison-admin-product';
-     const img=document.createElement('img');img.src=safePath(p.img)||'img/cat-casa.webp';
+     const img=document.createElement('img');img.src=imgPreviewSrc(safePath(effectivePhoto(p)));
      img.alt='';img.loading='lazy';
      const name=document.createElement('strong');name.textContent=label(p);
      const state=document.createElement('small');state.textContent='Prodotto #'+p.id+' · Apri catalogo';
@@ -2106,7 +2110,7 @@ function renderMaisonAdminDashboard(){
    photos.forEach(p=>{
      const button=document.createElement('button');button.type='button';
      button.className='maison-admin-media-thumb';
-     const img=document.createElement('img');img.src=safePath(p.img)||'img/cat-casa.webp';
+     const img=document.createElement('img');img.src=imgPreviewSrc(safePath(effectivePhoto(p)));
      img.alt=label(p);img.loading='lazy';button.append(img);
      button.title='Apri la Media Library';
      button.onclick=()=>go('media');

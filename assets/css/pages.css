@@ -2181,3 +2181,13 @@ footer a:hover{color:var(--blue-hi)}
   .signature-b2b-visual img{min-height:220px}
   #page-business .b2b-cards{grid-template-columns:1fr}
 }
+
+/* INGLY originali: firma di brand e badge del service centre — asset esistenti */
+.ingly-footer-signature{display:flex!important;align-items:center;justify-content:center;gap:clamp(1rem,3vw,2.5rem);white-space:normal}
+.ingly-footer-signature img{width:clamp(65px,9vw,132px);height:auto;aspect-ratio:1;object-fit:contain;flex:none;opacity:.78}
+.ingly-footer-signature span{font:inherit;letter-spacing:inherit}
+.ingly-service-centre__badge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:clamp(12px,2vw,28px);background:linear-gradient(140deg,#f6f8f9,#eaf0f5);border-radius:clamp(16px,2vw,28px);min-width:0;overflow:hidden}
+.ingly-service-centre__badge img{display:block;width:100%;max-width:640px;height:auto;object-fit:contain;aspect-ratio:820/520}
+.ingly-service-centre__squad{margin:0;color:#223047!important;font-size:.82rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-align:center}
+:root[data-mode="dark"] .ingly-service-centre__badge{background:linear-gradient(145deg,#f5f8f9,#e8eef6)}
+@media(max-width:640px){.ingly-footer-signature{gap:14px}.ingly-footer-signature img{width:72px}.ingly-service-centre__badge{padding:12px}}

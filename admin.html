@@ -3624,7 +3624,7 @@ $('mSelDel').onclick=()=>{const list=[...SEL];
  if(used.length&&!confirm(used.length+' immagini selezionate sono ANCORA USATE dal sito.\nEliminarle lascerà dei buchi. Continuare?'))return;
  list.forEach(p=>{ // elimina anche le varianti collegate
   [p,p.replace(/\.webp$/,'-800.webp'),p.replace(/\.webp$/,'-400.webp')].forEach(x=>{
-   if((REPO_IMG||[]).includes(x.replace(/^img\//,''))&&!DELETES.includes(x))DELETES.push(x)});
+   if((mediaInventory()||[]).includes(x.replace(/^img\//,''))&&!DELETES.includes(x))DELETES.push(x)});
   MEDIA=MEDIA.filter(m=>m.path!==p)});
  SEL.clear();markDirty();renderMedia();toast(list.length+' immagini messe in coda di eliminazione — premi Pubblica per applicare')};
 $('mSelAssign').onclick=()=>{const list=[...SEL].filter(p=>!isVariant(p));if(!list.length)return toast('Nessuna immagine selezionata');
@@ -3634,7 +3634,14 @@ $('mSelAssign').onclick=()=>{const list=[...SEL].filter(p=>!isVariant(p));if(!li
   <div><label>Ruolo</label><select id="asR"><option value="main">Foto principale (la prima)</option><option value="gal">Aggiungi alla gallery</option><option value="both">Prima principale, le altre in gallery</option></select></div></div>
   <div class="hint" style="margin-top:8px">Le immagini sono già nel repository: l'assegnazione cambia solo i dati del prodotto, non ricarica nulla.</div>
   <hr class="hr"><button class="btn pri" id="asOk">✔ Assegna</button> <button class="btn" onclick="closeModal()">Annulla</button>`);
- $('asOk').onclick=()=>{const p=S.P.find(x=>x.id===+$('asP').value),r=$('asR').value;
+ $('asOk').onclick=()=>{
+  const p=S.P.find(x=>x.id===+$('asP').value),r=$('asR').value;
+  if(!p)return;
+  const existing=p.img||'img/'+p.id+'.webp';
+  const proposed=list[0];
+  if((r==='main'||r==='both')&&existing&&existing!==proposed&&
+     (mediaInventory()||[]).includes(existing.replace(/^img\//,''))&&
+     !confirm('La copertina attuale '+existing+' è ancora presente. Vuoi davvero sostituirla con '+proposed+'? La modifica resterà in bozza.'))return;
   list.forEach((path,k)=>{
    if(r==='main'||(r==='both'&&k===0)){p.img=path}
    else{p.gallery=p.gallery||[];if(!p.gallery.includes(path))p.gallery.push(path)}});
@@ -3673,8 +3680,9 @@ function pickIcon(current,cb){
 
 /* selettore immagini dalla libreria del repository */
 function pickFromLibrary(cb){
- if(!REPO_IMG){toast('Prima esegui «Scansiona repository» nella Media Library');return}
- const list=(REPO_IMG||[]).map(n=>'img/'+n).filter(p=>!isVariant(p));
+ const inventory=mediaInventory();
+ if(!inventory){toast('Inventario non disponibile: collega il repository o carica il manifest.');return}
+ const list=inventory.map(n=>'img/'+n).filter(p=>!isVariant(p));
  const chosen=new Set();
  modal(`<h3>🗂 Scegli dalla libreria <span class="chip">${list.length} immagini</span></h3>
   <input type="text" id="lbQ" placeholder="Cerca…" style="margin-bottom:10px">
@@ -3689,7 +3697,7 @@ function pickFromLibrary(cb){
   $('lbGrid').querySelectorAll('[data-lb]').forEach(el=>el.onclick=()=>{const p=el.dataset.lb;
    chosen.has(p)?chosen.delete(p):chosen.add(p);draw()})};
  $('lbQ').oninput=draw;draw();
- $('lbOk').onclick=()=>{closeModal();cb([...chosen])}}
+ $('lbOk').onclick=()=>{if(!chosen.size){toast('Seleziona almeno un’immagine.');return}closeModal();cb([...chosen])}}
 
 /* ================== SEZIONE BUSINESS ================== */
 const BIZ_KEYS=['bizEye','bizH2','bizSub','bizCta'];

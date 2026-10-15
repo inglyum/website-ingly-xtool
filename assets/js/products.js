@@ -12,6 +12,7 @@ const esc = t => String(t == null ? '' : t)
 import { refTag, onOrderPlaced } from './referral.js';
 import * as PR from './prezzi.js';
 import * as CM from './commerce.js';
+import {canAddUnits,reconcileStock,trackedStock,reservedUnits} from './stock-guards.js';
 import * as CL from './collezioni.js';
 const { MAT_ART, MATN, CATS, P, DIG, CONFIG } = window.INGLY;
 
@@ -941,7 +942,7 @@ function loadCart(){
     const c=localStorage.getItem('ingly_cart'); if(!c) return;
     /* legge anche le tre forme vecchie: chi aveva il carrello pieno al
        momento dell'aggiornamento non deve trovarlo vuoto */
-    CM.deserializza(c,{P,DIG}).forEach(r=>cart.push(r));
+    cart=reconcileStock(CM.deserializza(c,{P,DIG}),P);
   }catch(e){}
 }
 
@@ -953,17 +954,33 @@ export function addLab(lab,q=1,u=0){
 }
 
 export function addToCart(id,q=1,mat,txt,u){
-  const x=P.find(k=>k.id===+id); if(!x) return;
+  const x=P.find(k=>k.id===+id); if(!x||x.hidden===true) return;
+  const allowed=canAddUnits(x,cart,q);
+  if(!allowed.allowed){
+    toast(L==='it'?'Prodotto esaurito: quantità non disponibile.':'Sold out: quantity unavailable.');
+    return;
+  }
   cart=CM.aggiungi(cart,CM.daProdotto(x,{
-    q, mat:mat||MATN[x.mat][L], txt:txt||'',
-    unitario:u??x.price, bg:matArt(x.mat).bg,
+    q:allowed.quantity, mat:mat||(MATN[x.mat]||{})[L]||x.mat||'',
+    txt:txt||'',unitario:u??x.price,bg:matArt(x.mat).bg,
   }));
   renderCart();saveCart();toast(T('added'));openCart();
 }
 export function rmCart(i){cart.splice(+i,1);renderCart();saveCart()}
 export function cQty(i,d){
   i=+i; const r=cart[i]; if(!r||r.qFissa) return;
-  r.q=Math.max(1,r.q+ +d);renderCart();saveCart();
+  const proposed=Math.max(1,r.q+Number(d||0));
+  const p=['physical','custom'].includes(r.tipo)?P.find(p=>String(p.id)===String(r.id)):null;
+  const stock=trackedStock(p);
+  if(stock!==null){
+    const room=Math.max(0,stock-reservedUnits(cart,r.id,i));
+    if(room===0){cart.splice(i,1);renderCart();saveCart();return}
+    if(proposed>room){
+      r.q=room;
+      toast(L==='it'?'Quantità massima disponibile raggiunta.':'Maximum available quantity reached.');
+    }else r.q=proposed;
+  }else r.q=proposed;
+  renderCart();saveCart();
 }
 
 export function applyCoupon(){
@@ -1071,7 +1088,18 @@ export function closeCart(){
   closeFocusLayer(drawer);
 }
 
+function confirmCurrentStock(){
+  const updated=reconcileStock(cart,P);
+  const compact=rows=>rows.map(r=>[r.rif,r.q]);
+  if(JSON.stringify(compact(updated))!==JSON.stringify(compact(cart))){
+    cart=updated;saveCart();renderCart();openCart();
+    toast(L==='it'?'Disponibilità cambiata: controlla le quantità prima dell’ordine.':'Availability changed: review cart quantities before ordering.');
+    return false;
+  }
+  return true;
+}
 export function checkoutWhatsApp(){
+  if(!confirmCurrentStock())return;
   if(!cart.length){ toast(T('crtE')); return }
   /* Il canale è una scelta dell'Admin, non una costante del codice: il
      modello dice quale si può usare davvero e, se quello chiesto è
@@ -1116,6 +1144,7 @@ export function checkoutWhatsApp(){
 }
 
 export function checkoutEmail(){
+  if(!confirmCurrentStock())return;
   if(!cart.length){ toast(T('crtE')); return }
   /* porta alla pagina preventivo con prodotti pre-compilati nel campo note */
   const summary=cart.map(i=>CM.descriviRiga(i,L)).join(', ');

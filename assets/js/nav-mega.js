@@ -23,7 +23,7 @@ const $ = id => document.getElementById(id);
 /* Quale famiglia copre la pagina che si sta guardando. Una famiglia può
    coprire più rotte — xTOOL Lab vale per /macchine e /demo — quindi non
    basta confrontare il percorso con la rotta della voce. */
-const COPERTE = { xtool: ['macchine', 'demo'], materiali: ['materiali', 'tecnologie'], shop: ['shop', 'product'] };
+const COPERTE = { xtool: ['macchine', 'demo', 'academy', 'tecnologie'], materiali: ['materiali'], shop: ['shop', 'product', 'digital'] };
 function famigliaCorrente() {
   const p = location.pathname.replace(BASE, '').replace(/^\/+/, '').split('/')[0] || '';
   if (!p) return '';

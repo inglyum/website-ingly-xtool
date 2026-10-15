@@ -640,6 +640,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 
   <!-- ============ HOME & HERO ============ -->
   <section class="view" id="v-hero">
+    <section class="card" id="showcaseStripEditor" aria-labelledby="showcaseStripHeading">
+      <h3 id="showcaseStripHeading">Home · Fascia servizi sotto la Hero</h3>
+      <p class="hint">Modifica i servizi della Home in stile Notte & Oro. Testi IT/EN, icone e collegamenti sono gestiti qui. Puoi aggiungere, riordinare o rimuovere le schede; la pubblicazione resta separata.</p>
+      <div id="showcaseBenefitsRows" style="display:grid;gap:12px;margin:16px 0" aria-live="polite"></div>
+      <div class="actions" style="display:flex;gap:9px;flex-wrap:wrap">
+        <button type="button" class="btn pri" id="showcaseAdd">＋ Aggiungi servizio</button>
+        <button type="button" class="btn" id="showcasePreview">Anteprima completa</button>
+      </div>
+    </section>
     <div class="card admin-loader-studio" id="adminLoaderStudio">
       <div class="admin-loader-studio__header">
         <div><h3>Loader INGLY · Logo inciso</h3>
@@ -3639,7 +3648,80 @@ function renderLoaderStudio(){
  updatePreview();
 }
 
-function renderHero(){bindAll();renderAbout();sloganPreview();renderHeroImage();renderLoaderStudio();
+
+/* Showcase service strip: structured, fully editable CONFIG data.
+ * Existing Publish, Preview, History and Draft logic handles persistence.
+ * Editor text is NEVER interpolated into innerHTML. */
+function renderShowcaseStrip(){
+ const host=$('showcaseBenefitsRows');
+ if(!host||!S.CONFIG)return;
+ if(!Array.isArray(S.CONFIG.showcaseBenefits))S.CONFIG.showcaseBenefits=[];
+ const data=S.CONFIG.showcaseBenefits;
+ const urls=['shop','personalizza','materiali','tecnologie','macchine','business','digital','academy','demo','faq','about','quote'];
+ const icons=[['diamond','Design'],['spark','Incisione'],['shield','Qualità'],['truck','Spedizioni'],['gift','Regali']];
+ const make=(tag,cls,text)=>{
+   const e=document.createElement(tag);if(cls)e.className=cls;
+   if(text!==undefined)e.textContent=text;
+   return e;
+ };
+ const button=(label,cb,disabled=false)=>{
+   const b=make('button','btn sm',label);b.type='button';b.disabled=disabled;b.onclick=cb;return b;
+ };
+ host.replaceChildren();
+ data.forEach((item,i)=>{
+  if(!item||typeof item!=='object')return;
+  const card=make('div','card');
+  card.style.cssText='padding:13px;border:1px solid var(--line);background:var(--card);border-radius:12px';
+  const head=make('div','row');
+  head.style.cssText='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;margin-bottom:10px';
+  head.append(make('strong','','Servizio '+(i+1)));
+  const actions=make('div','');actions.style.cssText='display:flex;gap:6px';
+  actions.append(button('↑',()=>{
+    if(i<=0)return;[data[i-1],data[i]]=[data[i],data[i-1]];markDirty();renderShowcaseStrip();
+  },i===0));
+  actions.append(button('↓',()=>{
+    if(i>=data.length-1)return;[data[i+1],data[i]]=[data[i],data[i+1]];markDirty();renderShowcaseStrip();
+  },i===data.length-1));
+  actions.append(button('Rimuovi',()=>{
+    data.splice(i,1);markDirty();renderShowcaseStrip();
+  }));
+  head.append(actions);card.append(head);
+  const fields=make('div','row c2');fields.style.cssText='display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px';
+  const makeText=(caption,group,lang)=>{
+    item[group]=item[group]||{it:'',en:''};
+    const lab=make('label','',caption);
+    const input=make('input','');input.type='text';input.maxLength=125;input.value=item[group][lang]||'';
+    input.addEventListener('input',()=>{item[group][lang]=input.value;markDirty()});
+    lab.append(input);fields.append(lab);
+  };
+  makeText('Titolo IT','title','it');
+  makeText('Title EN','title','en');
+  makeText('Sottotitolo IT','subtitle','it');
+  makeText('Subtitle EN','subtitle','en');
+  const makeSelect=(caption,key,values)=>{
+    const lab=make('label','',caption),select=make('select','');
+    for(const [value,text] of values){
+      const opt=make('option','',text);opt.value=value;select.append(opt);
+    }
+    select.value=item[key]||values[0][0];
+    select.addEventListener('change',()=>{item[key]=select.value;markDirty()});
+    lab.append(select);fields.append(lab);
+  };
+  makeSelect('Icona','icon',icons);
+  makeSelect('Collegamento','url',urls.map(v=>[v,v]));
+  card.append(fields);host.append(card);
+ });
+ $('showcaseAdd').disabled=data.length>=6;
+ $('showcaseAdd').onclick=()=>{
+  if(data.length>=6){toast('Massimo 6 servizi.');return}
+  data.push({id:'custom-'+Date.now().toString(36),title:{it:'Nuovo servizio',en:'New service'},
+   subtitle:{it:'Descrivi il beneficio',en:'Describe the benefit'},url:'shop',icon:'gift'});
+  markDirty();renderShowcaseStrip();
+ };
+ $('showcasePreview').onclick=()=>openAdminPreview(false);
+}
+
+function renderHero(){bindAll();renderAbout();sloganPreview();renderHeroImage();renderLoaderStudio();renderShowcaseStrip();
  const pick=$('heroImageUpload'),fromLibrary=$('heroImageLibrary'),sample=$('heroImageSample');
  if(pick)pick.onclick=()=>pickImage('img/hero-home',path=>{
   S.CONFIG.heroImage=path;S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageDemo=false;

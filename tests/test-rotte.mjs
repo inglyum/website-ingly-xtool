@@ -161,10 +161,10 @@ check('l\'elenco combacia con il disco', man.file.length === suDisco.length, `el
 check('è un elenco di ciò che c\'è, non di ciò che manca',
   man.file.every(f => suDisco.includes(f)));
 const utils = readFileSync('assets/js/utils.js', 'utf8');
-check('imgTag non emette nulla per una foto assente', /if\(!esiste\(s\)\) return '';/.test(utils));
+check('imgTag non emette nulla per una foto assente', /const src = fotoDisponibili\(x\)\[0\];/.test(utils) && /if \(!src\) return '';/.test(utils));
 /* se l'elenco manca il sito deve comportarsi come prima, non nascondere
    foto che esistono: il guasto deve cadere dal lato sicuro */
-check('senza elenco si chiede comunque', /return true;\s*\/\* nessun elenco/.test(utils));
+check('senza elenco si chiede comunque', /if \(!Array\.isArray\(elenco\)\) return true;/.test(utils));
 check('il wrapper legacy porta l\'elenco', /IMMAGINI:/.test(readFileSync('scripts/build.mjs', 'utf8')));
 check('il sito lo carica', /immagini:'IMMAGINI'/.test(readFileSync('assets/js/data-loader.js', 'utf8')));
 /* se la pubblicazione dall'Admin non aggiornasse l'elenco, una foto appena

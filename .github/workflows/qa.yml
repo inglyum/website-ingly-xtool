@@ -24,6 +24,10 @@ jobs:
         run: npm test
       - name: Test Signature Showcase e Admin
         run: node tests/test-signature-showcase.mjs
+      - name: Valida audit eCommerce Skills con dati reali e Admin
+        run: node tests/test-ecommerce-quality.mjs
+      - name: Report di qualità ecommerce (non blocca la pubblicazione)
+        run: node scripts/ecommerce-audit.mjs
       - name: Invarianti design ecommerce e dati B2B
         run: node tests/test-signature-ui.mjs
       - name: Verifica palette Notte e Oro

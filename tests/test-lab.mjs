@@ -183,8 +183,13 @@ check('daPrezzo torna null quando non c\'è nessun prezzo', LAB.daPrezzo(LAB.mat
 const finto = JSON.parse(JSON.stringify(D));
 const fl = finto.MATERIALI.materiali.find(m => m.id === 'legno');
 fl.vendita.attivo = true; fl.vendita.varianti[0].prezzo = 12.5; fl.vendita.varianti[1].prezzo = 18;
+fl.vendita.varianti[0].stock = 4; fl.vendita.varianti[1].stock = 3;
 check('con prezzi e interruttore acceso diventa vendibile', LAB.inVendita(fl));
 check('daPrezzo prende il minimo', LAB.daPrezzo(fl) === 12.5);
+const senzaStock=JSON.parse(JSON.stringify(fl));senzaStock.vendita.varianti.forEach(v=>v.stock=null);
+check('senza stock verificato il materiale non entra in vendita', !LAB.inVendita(senzaStock));
+const esaurito=JSON.parse(JSON.stringify(fl));esaurito.vendita.varianti.forEach(v=>v.stock=0);
+check('nessuna disponibilità acquistabile quando stock zero', !LAB.inVendita(esaurito));
 check('le opzioni si ricavano dalle varianti', LAB.opzioni(fl).spessore.length >= 2);
 /* L'interruttore conta quanto i prezzi: si pubblica quando si è pronti. */
 const spento = JSON.parse(JSON.stringify(fl)); spento.vendita.attivo = false;

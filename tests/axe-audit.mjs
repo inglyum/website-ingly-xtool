@@ -26,7 +26,13 @@ try{
           let count=null;try{count=x.cssRules.length}catch(e){}
           return {href:x.href,rules:count};
         });
-        return {mode:document.documentElement.getAttribute('data-mode'),footerTextColor:el?getComputedStyle(el).color:null,stylesheets:stylesheet};
+        const chain=[];for(let n=el;n;n=n.parentElement){
+          const c=getComputedStyle(n);
+          chain.push({node:n.tagName.toLowerCase()+'.'+n.className,opacity:c.opacity,
+            color:c.color,filter:c.filter,visibility:c.visibility,mixBlendMode:c.mixBlendMode});
+        }
+        return {mode:document.documentElement.getAttribute('data-mode'),
+          footerTextColor:el?getComputedStyle(el).color:null,chain,stylesheets:stylesheet};
       });
       console.log('AXE STYLE PROBE '+mode+': '+JSON.stringify(probe));
     }

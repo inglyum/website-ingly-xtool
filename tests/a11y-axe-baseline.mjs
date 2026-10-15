@@ -30,6 +30,10 @@ try{
     results.push({route:route.name,mode,status:'scanned',violations:issues,
       incomplete:scan.incomplete.map(x=>({id:x.id,count:x.nodes.length}))});
     console.log('AXE '+route.name+' '+mode+': '+issues.length+' types, '+issues.reduce((n,v)=>n+v.count,0)+' elements');
+    for(const issue of issues){
+      console.log('AXE DETAIL '+route.name+' '+mode+' '+issue.id+' ['+issue.impact+'] '+issue.count+' nodes: '+
+        issue.elements.slice(0,4).map(e=>e.selector+' ('+(e.summary||'').replace(/\\s+/g,' ').slice(0,110)+')').join(' | '));
+    }
    }catch(e){
     results.push({route:route.name,mode,status:'error',error:String(e)});
     console.error('AXE error '+route.name+' '+mode+': '+e);

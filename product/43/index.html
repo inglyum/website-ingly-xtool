@@ -152,7 +152,11 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/signature-showcase.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/maison-reference.css">
+<link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>
@@ -160,6 +164,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script defer src="assets/js/signature-showcase.js"></script>
 <script defer src="assets/js/maison-reference.js"></script>
+<script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
      Con «defer» veniva scaricato da tutti, anche da chi stava già usando i
@@ -764,6 +769,50 @@ setTimeout(function(){
     <h1 class="h2" data-i18n="perH1">Tu scegli il pezzo. <span class="hl on">Il resto lo scrivi tu.</span></h1>
     <p class="sub" data-i18n="perSub">Un nome, una data, un logo: su questi pezzi la personalizzazione è prevista dal progetto, non aggiunta dopo.</p>
   </div>
+  <section class="ingly-parametric wrap" id="inglyParametric" aria-labelledby="inglyParametricTitle">
+    <div class="ingly-parametric__intro">
+      <span class="eyebrow">INGLY DESIGN / DESIGN STUDIO</span>
+      <h2 id="inglyParametricTitle">La tua idea, <em>prende forma.</em></h2>
+      <p>Prova un'insegna con il tuo nome, scegli dimensioni e materiale, guarda l'anteprima in tempo reale. Il file SVG resta modificabile: prima del taglio occorre verificare misure, spessori, font e tracciati nel software laser.</p>
+    </div>
+    <div class="ingly-parametric__layout">
+      <div class="ingly-parametric__panel">
+        <label for="inglyGeneratorName">Testo personalizzato
+          <input id="inglyGeneratorName" maxlength="28" value="Il tuo nome" autocomplete="off">
+        </label>
+        <div class="ingly-parametric__two">
+          <label for="inglyGeneratorWidth">Larghezza (mm)
+            <input id="inglyGeneratorWidth" type="number" min="50" max="500" step="5" value="180">
+          </label>
+          <label for="inglyGeneratorHeight">Altezza (mm)
+            <input id="inglyGeneratorHeight" type="number" min="25" max="250" step="5" value="65">
+          </label>
+        </div>
+        <div class="ingly-parametric__two">
+          <label for="inglyGeneratorMaterial">Aspetto materiale
+            <select id="inglyGeneratorMaterial"><option value="wood">Legno naturale</option><option value="acrylic">Plexiglass</option><option value="metal">Metallo</option></select>
+          </label>
+          <label for="inglyGeneratorShape">Forma
+            <select id="inglyGeneratorShape"><option value="rounded">Rettangolo stondato</option><option value="ellipse">Ovale</option><option value="rectangle">Rettangolo</option></select>
+          </label>
+        </div>
+        <label for="inglyGeneratorFont">Stile lettering
+          <select id="inglyGeneratorFont"><option value="josefin">Josefin Sans</option><option value="serif">Serif classico</option><option value="mono">Mono tecnico</option></select>
+        </label>
+        <div class="ingly-parametric__buttons">
+          <button type="button" class="btn btn-primary" id="inglyGeneratorDownload">Esporta SVG <span aria-hidden="true">↓</span></button>
+          <a class="btn btn-ghost" href="generatori.html">Generator Studio completo ↗</a>
+        </div>
+        <p class="ingly-parametric__fine">Anteprima creativa, non file di taglio collaudato. Il testo SVG non viene convertito in curve: usa la funzione “Converti in tracciato” nel tuo software laser prima della produzione.</p>
+      </div>
+      <div class="ingly-parametric__preview">
+        <div class="ingly-parametric__preview-header"><span>ANTEPRIMA LIVE</span><span id="inglyGeneratorSize">180 × 65 mm</span></div>
+        <div id="inglyGeneratorCanvas" role="img" aria-label="Anteprima parametrica della targa personalizzata"></div>
+        <p id="inglyGeneratorStatus" role="status" aria-live="polite">Modifica i parametri per visualizzare l'anteprima.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- La vetrina: fotografie di pezzi usciti davvero dall'officina, prese
        dal portfolio. Nessuna immagine di repertorio e nessun mockup
        generato: quello che si vede qui è stato fatto. -->
@@ -1315,7 +1364,17 @@ setTimeout(function(){
       }
       document.getElementById('exitPopEmoji').textContent=ep.emoji||'🎁';
       document.getElementById('exitPopTitle').textContent=t(ep.titolo);
-      document.getElementById('exitPopMsg').innerHTML=t(ep.messaggio).replace(/<b>/g,'<b style="color:#eae8f5">');
+      /* Allow only <b> emphasis; never execute HTML saved in the CMS. */
+      const messageEl=document.getElementById('exitPopMsg');
+      const pieces=t(ep.messaggio).split(/(<\/?b>)/gi);
+      const fragment=document.createDocumentFragment();
+      let bold=null;
+      pieces.forEach(part=>{
+        if(/^<b>$/i.test(part)){bold=document.createElement('strong');fragment.append(bold)}
+        else if(/^<\/b>$/i.test(part))bold=null;
+        else (bold||fragment).append(document.createTextNode(part));
+      });
+      messageEl.replaceChildren(fragment);
       document.getElementById('exitPopBtn').textContent=t(ep.btnTesto);
       document.getElementById('exitPopNota').textContent=t(ep.notaTesto);
       /* Il codice: visibile, copiabile con un clic, e già scritto nel messaggio
@@ -1350,19 +1409,36 @@ setTimeout(function(){
       const storageKey='ingly_exit_shown';
       if(ep.mostraSoloUnaVolta&&sessionStorage.getItem(storageKey))return;
       let shown=false;
+      let priorFocus=null;
       function show(){
         if(shown)return;shown=true;
+        priorFocus=document.activeElement;
         if(ep.mostraSoloUnaVolta)sessionStorage.setItem(storageKey,'1');
         const p=document.getElementById('exitPopup');
         p.style.display='flex';
-        requestAnimationFrame(()=>{inner.style.transform='none';inner.style.opacity='1'});
+        requestAnimationFrame(()=>{inner.style.transform='none';inner.style.opacity='1';
+          document.getElementById('exitClose').focus()});
       }
       inner.style.transform='scale(.92)';inner.style.opacity='0';inner.style.transition='transform .35s cubic-bezier(.22,1,.36,1),opacity .35s';
       document.addEventListener('mouseleave',e=>{if(e.clientY<10)show()},{once:true});
       setTimeout(show,(ep.delaySecondi||45)*1000);
       const p=document.getElementById('exitPopup');
-      document.getElementById('exitClose').onclick=()=>{p.style.display='none'};
-      p.addEventListener('click',e=>{if(e.target===p)p.style.display='none'});
+      const dismiss=()=>{
+        p.style.display='none';
+        if(priorFocus&&typeof priorFocus.focus==='function')priorFocus.focus();
+      };
+      document.getElementById('exitClose').onclick=dismiss;
+      p.addEventListener('click',e=>{if(e.target===p)dismiss()});
+      p.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){e.preventDefault();dismiss();return}
+        if(e.key!=='Tab')return;
+        const focusable=[...p.querySelectorAll('button:not([disabled]),a[href],input:not([disabled])')]
+          .filter(el=>el.getClientRects().length);
+        if(!focusable.length)return;
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+      });
     })
     .catch(()=>{});
 })();

@@ -37,3 +37,5 @@ jobs:
             git commit -m "build: sync unified brand storefront and tests [skip ci]"
             git push origin HEAD:feat/brand-system-20261015
           fi
+
+# Re-run after head/base-order fix

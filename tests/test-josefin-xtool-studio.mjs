@@ -48,14 +48,14 @@ d.getElementById('inglyGeneratorWidth').dispatchEvent(new w.Event('input'));
 assert.equal(d.getElementById('inglyGeneratorSize').textContent,'250 × 65 mm');
 assert(generatorJs.includes("const svg=open+layers+'</svg>'"), 'Export must not include simulated coloured material');
 assert(generatorJs.includes('INGLY_PREVIEW_MATERIAL'), 'Preview can have material appearance');
-assert(generatorJs.includes('text')&&generatorJs.includes('file SVG'),'Generator guidance expected');
+assert(html.includes('convertire il testo in tracciati')&&generatorJs.includes('INGLY_CUT'),'Generator preflight guidance expected');
 assert(generatorHtml.includes('genThemeToggle')&&generatorHtml.includes('data-generator-mode'), 'Theme switch missing');
 assert(generatorCss.includes('html[data-generator-mode="light"]')&&generatorCss.includes('--g-body'), 'Generator styling missing');
 for(const id of ['p3','f2','uv','wonderpress']){
  const m=machines.find(x=>x.id===id);
  assert(m?.specificheUfficiali?.values?.length>=3, 'Official machine data missing '+id);
  assert(m.specificheUfficiali.source.startsWith('https://'), 'Must cite actual official doc '+id);
- assert(/(?:support\.)?xtool\.com\//.test(m.specificheUfficiali.source), 'Official source must be xtool '+id);
+ assert(/(?:www\.|support\.)?xtool\.com\//.test(m.specificheUfficiali.source), 'Official source must be xtool '+id);
 }
 assert(machines.find(x=>x.id==='uv').specificheUfficiali.note.it.includes('stampante UV'), 'O1 must not be called laser');
 assert(machines.find(x=>x.id==='f2').specificheUfficiali.values.some(v=>v.value.includes('115 × 115')),'F2 correct area');

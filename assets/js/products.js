@@ -601,10 +601,12 @@ function renderProductContactLinks(){
   const body=(L==='it'?'Buongiorno INGLY DESIGN, vorrei informazioni su questo prodotto.':'Hello INGLY DESIGN, I would like information about this product.')+'\n\n'+(L==='it'?'Prodotto: ':'Product: ')+(cur.n[L]||cur.n.it||'')+'\n'+(L==='it'?'Categoria: ':'Category: ')+catName+'\n'+(L==='it'?'Materiale: ':'Material: ')+material+'\n'+(L==='it'?'Quantità indicativa: ':'Estimated quantity: ')+qty+'\n'+(L==='it'?'Link: ':'Link: ')+url+'\n\n'+(L==='it'?'Potete consigliarmi materiale, finitura, tempi e prezzo?':'Could you advise on material, finish, lead time and price?');
   wa.href=waUrl||'#';wa.hidden=!waUrl;
   wa.target='_blank';wa.rel='noopener noreferrer';
-  wa.querySelector('span').textContent=(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp');
+  const waText=wa.querySelector('span')||wa.appendChild(document.createElement('span'));
+  waText.textContent=(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp');
   em.href=email?'mailto:'+email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body):'#';
   em.hidden=c.emailVisibile===false||!email;
-  em.querySelector('span').textContent=(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email');
+  const emText=em.querySelector('span')||em.appendChild(document.createElement('span'));
+  emText.textContent=(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email');
   const primary=String(c.canalePrimario||'whatsapp').toLowerCase();
   wa.classList.toggle('btn-primary',primary!=='email');
   wa.classList.toggle('btn-ghost',primary==='email');

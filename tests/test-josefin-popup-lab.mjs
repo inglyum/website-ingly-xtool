@@ -21,6 +21,10 @@ assert(html.includes("fetch('data/config.json'+V)"),'Popup must read CMS configu
 assert(html.includes("data-wa-keep"),'WhatsApp offer message must survive');
 assert(d.querySelector('#page-personalizza #inglyParametric'),'Personalization generator must remain');
 assert(d.querySelector('#page-personalizza #inglyGeneratorDownload'),'SVG download workflow must remain');
+assert.equal(d.querySelectorAll('#inglyGeneratorPresets button[data-ingly-preset]').length,4,'Four generator presets should exist');
+assert(html.includes('assets/js/ingly-generator-presets.js'),'Preset controller not loaded');
+new Function(rd('assets/js/ingly-generator-presets.js'));
+
 const facts=d.querySelectorAll('#page-macchine .ingly-lab-fact');
 assert.equal(facts.length,4);
 const full=[...facts].map(x=>x.textContent).join(' ');

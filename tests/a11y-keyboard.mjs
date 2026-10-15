@@ -47,7 +47,7 @@ try{
     assert.match(p.url(),/product/);
    });
    await run(mode+' product lightbox via keyboard and Escape',async()=>{
-    const photo=p.locator('#ppMain[role="button"][aria-disabled="false"]');
+    const photo=p.locator('#ppArt[role="button"][aria-disabled="false"]');
     await photo.waitFor({state:'visible'});
     await photo.focus();
     await p.keyboard.press('Enter');

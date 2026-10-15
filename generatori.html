@@ -21,11 +21,15 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 @media(max-width:760px){.wrap{width:min(100% - 22px,680px)}.topin{height:62px}.toplinks a:not(.btn){display:none}.hero{padding:42px 0 28px}.layout{grid-template-columns:1fr;gap:12px}.sidebar{position:static}.tool-list{grid-template-columns:1fr 1fr}.tool{padding:9px;gap:8px}.tool-icon{height:34px;width:34px;flex-basis:34px;font-size:17px}.tool b{font-size:11px}.tool small{font-size:9px}.workhead{padding:16px;flex-direction:column}.workactions{justify-content:flex-start}.preview-side,.controls{padding:15px}.canvas{min-height:260px}.feature-grid{grid-template-columns:1fr}.hero p{font-size:15px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ingly-generator-theme.css">
 </head>
 <body>
 <header class="top"><div class="wrap topin">
-<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark" style="padding:0;background:#fff"><img src="assets/images/ingly-logo.svg" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:12px"></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
-<nav class="toplinks" aria-label="Navigazione"><a href="shop">Shop</a><a href="digital">File digitali</a><a href="academy">Academy</a><a class="btn quiet" href="admin.html">Admin ↗</a></nav>
+<a class="brand" href="./" aria-label="INGLY DESIGN homepage"><span class="brandmark"><img src="assets/images/ingly-maison-mark.svg" alt="" width="42" height="42"></span><span>INGLY DESIGN<small>GENERATOR STUDIO · BETA</small></span></a>
+<nav class="toplinks" aria-label="Navigazione"><a href="shop">Shop</a><a href="digital">File digitali</a><a href="academy">Academy</a><a href="personalizza">Personalizza</a><button type="button" id="genThemeToggle" class="btn quiet" aria-label="Alterna modalità chiara e scura">◐ Tema</button><a class="btn quiet" href="admin.html">Admin ↗</a></nav>
 </div></header>
 <div class="wrap">
 <section class="hero"><div class="eyebrow">Creative tools · Made for makers</div><h1>Dall’idea al file.<br><span>Pronto per il laser.</span></h1><p>Un laboratorio di strumenti parametrici firmato INGLY DESIGN. Personalizza misure e dettagli, controlla l’anteprima e scarica file SVG da rifinire nel tuo software di lavorazione.</p><div class="chips"><span class="chip">SVG modificabile</span><span class="chip">Anteprima in tempo reale</span><span class="chip">File locale · Privacy first</span><span class="chip">Laser · Craft · Maker</span></div></section>
@@ -315,6 +319,19 @@ catalogue=data.GENERATORI.filter(x=>x&&x.id&&x.modulo);
 }).catch(()=>{}).finally(()=>{if(!catalogue.some(x=>x.id===activeId&&x.attivo!==false))activeId=(activeModules()[0]||{id:''}).id;renderFilters();renderList();if(activeId)select(activeId);else{$('activeTitle').textContent='Nessun generatore attivo';$('activeDesc').textContent='Attiva un generatore dal pannello Admin oppure aggiungi una nuova voce.';$('activeIcon').textContent='✳';$('fields').innerHTML='<p class="hint">Nessun generatore disponibile in questo momento.</p>';$('canvas').innerHTML='<div style="text-align:center;color:#a2b0ca;padding:22px">Catalogo vuoto</div>';$('sizeLabel').textContent='—';$('statW').textContent='—';$('statH').textContent='—';$('statPaths').textContent='—';$('download').disabled=true;$('download2').disabled=true;$('png').disabled=true}});
 }
 init();
+})();
+</script>
+<script>
+/* Self-contained theme switch: does not affect the SVG generator logic. */
+(function(){
+const btn=document.getElementById('genThemeToggle');if(!btn)return;
+const key='ingly_generator_theme';
+const apply=mode=>{document.documentElement.dataset.generatorMode=mode;
+  btn.textContent=mode==='light'?'☾ Notte':'☀ Giorno';
+  btn.setAttribute('aria-label',mode==='light'?'Attiva modalità notte':'Attiva modalità giorno');};
+try{apply(localStorage.getItem(key)==='light'?'light':'dark')}catch(e){apply('dark')}
+btn.addEventListener('click',()=>{const next=document.documentElement.dataset.generatorMode==='light'?'dark':'light';apply(next);
+try{localStorage.setItem(key,next)}catch(e){}});
 })();
 </script>
 </body></html>

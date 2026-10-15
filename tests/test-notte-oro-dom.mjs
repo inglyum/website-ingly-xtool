@@ -39,7 +39,7 @@ assert.equal(cards.querySelectorAll('.atelier-machine__body').length,w.INGLY.MAC
 assert.ok(grid.querySelector('.atelier-compat-table tbody tr'),'Capability matrix missing');
 const loader=d.getElementById('loader');
 d.getElementById('atelierLoaderSkip').click();
-assert.ok(loader.classList.contains('off'),'Skip must dismiss loader');
-assert.equal(w.sessionStorage.getItem('ingly_notte_oro_loaded'),'1');
+assert.ok(loader.classList.contains('ingly-loader-finished'),'Skip must initiate curtain exit');
+assert.equal(w.sessionStorage.getItem('ingly_loader_seen_v3'),'1');
 w.close();
 console.log('Notte & Oro DOM smoke PASS: safe personalization, machine matrix, loader skip');

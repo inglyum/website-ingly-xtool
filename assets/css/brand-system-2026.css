@@ -476,3 +476,15 @@
  color:#315c9a!important;
 }
 :root[data-mode="light"] :is(#sbName,#sbPrice){color:#17253d!important}
+
+
+/* WCAG AA: legacy footer labels used opacity: .5; axe measured text
+   after alpha compositing, so adjusting the declared color alone
+   did not meet 4.5:1. Remove decorative text fading, not watermark. */
+:root[data-mode] footer :is(
+ .ft-eyebrow,.ft-claim,.ft-desc,.ft-col h4,.ft-col a,.ft-col p,
+ .ft-luogo,.fbottom,.brand-lockup small
+){opacity:1!important}
+:root[data-mode="light"] :is(#sbName,#sbPrice){
+ color:#fff!important;opacity:1!important
+}

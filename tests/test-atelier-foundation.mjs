@@ -45,4 +45,14 @@ for(const target of ['href="shop" data-nav="shop"','href="personalizza" data-nav
 assert.ok(css.includes('backdrop-filter:blur(22px)'), 'Translucent nav missing');
 assert.ok(css.includes('prefers-reduced-motion:no-preference'), 'Hover motion must be opt-in');
 assert.ok(css.includes('@supports not (backdrop-filter:blur(1px))'), 'Glass fallback missing');
+const appJS=read('assets/js/main.js');
+assert.ok(appJS.includes('function inglyTechGlyph('), 'Consistent SVG icon map missing');
+assert.ok(appJS.includes('function inglyMaterialGlyph('), 'Material SVG icons missing');
+assert.ok(appJS.includes('inglyTechGlyph(t)'), 'Ticker has not been migrated to icons');
+assert.ok(!appJS.includes('class="tc-emoji">${t.emoji'), 'Ticker still uses emoji');
+assert.ok(!html.includes('src="assets/images/xtool-authorized-service-centre.svg"'), 'Distorted unofficial badge still rendered');
+assert.ok(html.includes('class="ingly-service-centre__media atelier-service-art"'), 'Service Centre editorial panel missing');
+assert.ok(css.includes('.tech-ticker .tc-emoji svg'), 'SVG styling missing');
+assert.ok(css.includes('prefers-reduced-motion:reduce'), 'Ticker accessible motion fallback missing');
+console.log('Atelier visual cleanup: icon ticker + authorized-service panel PASS');
 console.log('Atelier Phase 1 + navigation polish: theme contrast, glass, CTA, mobile dock PASS');

@@ -163,11 +163,35 @@ function renderTitoloHero(){
 function setLang(l){setL(l);applyI18n();renderAll();const pg=currentPage();updateSeo(pg,L,T,pg==='product'?prod.currentProduct():null)}
 
 /* ---- contenuti statici ---- */
+function inglyTechGlyph(t){
+ const n=String((t?.n||'')+' '+(t?.t||'')).toLowerCase();
+ const icons={
+  beam:'<path d="M4 12h16M12 4v5M12 15v5M6 6l3 3m6 6 3 3m0-12-3 3m-6 6-3 3"/><circle cx="12" cy="12" r="2.4"/>',
+  print:'<rect x="5" y="3" width="14" height="5" rx="1.2"/><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M7 15h10v6H7zm9-3h.1"/>',
+  uv:'<circle cx="12" cy="12" r="9"/><path d="m12 5 2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',
+  cube:'<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 5v9l9 5 9-5V8M12 13v9"/>',
+  fiber:'<path d="m3 18 8-12 4 8 3-5 3 9M2 20h20M10 3h4"/>',
+  roller:'<path d="M4 9h16M4 15h16M8 6v12m8-12v12M3 5h18v14H3z"/>'
+ };
+ const kind=/3d|resina|fdm/.test(n)?'cube':/dtf|stampa tess|press/.test(n)?'print':/uv/.test(n)?'uv':/fibra|fiber|mopa|ir/.test(n)?'fiber':/co2|co₂|laser|diodo/.test(n)?'beam':'roller';
+ return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">'+icons[kind]+'</svg>';
+}
+function inglyMaterialGlyph(v){
+ const n=String(v||'').toLowerCase();
+ const shapes={
+  wood:'<path d="M4 4h16v16H4zM8 8c2-2 6-2 8 0s2 6 0 8-6 2-8 0-2-6 0-8Z"/>',
+  clear:'<path d="M4 8 12 3l8 5-8 5-8-5Zm0 0v9l8 5 8-5V8M12 13v9"/>',
+  metal:'<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M7 9h10m-10 4h10"/>',
+  thread:'<path d="M4 5c8-4 8 6 16 2M4 12c8-4 8 6 16 2M4 19c8-4 8 6 16 2"/>'
+ };
+ const kind=/plex|vetro|glass|pla|petg|acril/.test(n)?'clear':/metal|accia|allumin/.test(n)?'metal':/tessut|fabric|pelle|leather/.test(n)?'thread':'wood';
+ return '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">'+shapes[kind]+'</svg>';
+}
 function renderTicker(){
   const el=$('techTicker'); if(!el) return;
-  const cards=TECH.map(t=>`<div class="ttcard"><span class="tc-emoji">${t.emoji||'⚡'}</span><div class="tc-body"><span class="tc-name">${t.n}</span><span class="tc-sub">${t.t}</span></div>${t.badge?`<span class="tc-badge">${t.badge}</span>`:''}</div>`).join('');
+  const cards=TECH.map(t=>`<div class="ttcard"><span class="tc-emoji">${inglyTechGlyph(t)}</span><div class="tc-body"><span class="tc-name">${t.n}</span><span class="tc-sub">${t.t}</span></div>${t.badge?`<span class="tc-badge">${t.badge}</span>`:''}</div>`).join('');
   const row1=cards+cards; /* duplicato per loop infinito */
-  const mats=(window.INGLY.MATERIALS||[]).map(m=>`<div class="ttcard"><span class="tc-emoji">◆</span><div class="tc-body"><span class="tc-name">${Array.isArray(m)?m[0]:m}</span><span class="tc-sub">${Array.isArray(m)&&m[1]?m[1]:'Materiale premium'}</span></div></div>`).join('');
+  const mats=(window.INGLY.MATERIALS||[]).map(m=>`<div class="ttcard"><span class="tc-emoji">${inglyMaterialGlyph(Array.isArray(m)?m[0]:m)}</span><div class="tc-body"><span class="tc-name">${Array.isArray(m)?m[0]:m}</span><span class="tc-sub">${Array.isArray(m)&&m[1]?m[1]:'Materiale premium'}</span></div></div>`).join('');
   const row2=(mats||cards)+( mats||cards);
   el.innerHTML=`<div class="tt-row"><div class="tt-track">${row1}</div></div><div class="tt-row tt-row--rev"><div class="tt-track">${row2}</div></div>`;
 }
@@ -175,7 +199,7 @@ function renderTech(){
   $('techGrid').innerHTML=TECH.map(t=>`
     <div class="mcard ${t.lg?'m-lg':''} reveal-blur stagger-${TECH.indexOf(t)+1}">
       <div class="mcard-sweep"></div>
-      <span class="mcard-emoji">${t.emoji||'⚡'}</span>
+      <span class="mcard-emoji">${inglyTechGlyph(t)}</span>
       <span class="mtype">${t.t}</span>
       <h3>${t.n}</h3>
       <p>${t.d[L]}</p>

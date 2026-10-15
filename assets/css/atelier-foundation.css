@@ -477,3 +477,149 @@ html {scroll-padding-top:100px;}
 @supports not (backdrop-filter:blur(1px)){
   :root[data-mode] :is(.nav,.ia-pannello,.topbar,.atelier-mobile-dock,.quote-form){background:var(--at-surface)!important}
 }
+
+/* =========================================================
+   PHASE 1.2 — Ticker & xTool Service visual reconciliation
+   ========================================================= */
+:root[data-mode] .tech-ticker{
+  --ticker-bg:var(--at-bg-deep);
+  --ticker-card:var(--at-pane);
+  --ticker-card-hover:var(--at-surface-raised);
+  --ticker-bordo:var(--at-glass-edge);
+  --ticker-nome:var(--at-text);
+  --ticker-sub:var(--at-muted);
+  --ticker-badge-bg:var(--at-glow);
+  --ticker-badge-testo:var(--at-amber-text);
+  --ticker-badge-bordo:var(--at-glass-edge);
+  background:linear-gradient(120deg,var(--at-bg-deep),var(--at-surface),var(--at-bg-deep))!important;
+  border-block:1px solid var(--at-edge)!important;
+  padding:10px 0!important;
+}
+:root[data-mode] .tech-ticker .tt-row{padding:4px 0;min-height:0}
+:root[data-mode] .tech-ticker .tt-track{animation-duration:68s}
+:root[data-mode] .tech-ticker .tt-row--rev .tt-track{animation-duration:76s}
+:root[data-mode] .tech-ticker .ttcard{
+  min-height:56px;
+  margin:0 5px;
+  padding:9px 15px;
+  gap:11px;
+  background:var(--at-pane)!important;
+  border:1px solid var(--at-glass-edge)!important;
+  border-radius:13px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  color:var(--at-text);
+  backdrop-filter:none;
+  transform:none;
+}
+:root[data-mode] .tech-ticker .ttcard:hover{
+  background:var(--at-surface-raised)!important;
+  border-color:var(--at-amber)!important;
+}
+:root[data-mode] .tech-ticker .tc-emoji,
+:root[data-mode] .mcard-emoji{
+  display:grid;place-items:center;flex:none;
+  width:34px;height:34px;
+  color:var(--at-amber-text);background:var(--at-glow);
+  border:1px solid var(--at-edge);border-radius:10px;
+  font-size:0;line-height:1;
+}
+:root[data-mode] .tech-ticker .tc-emoji svg,
+:root[data-mode] .mcard-emoji svg{
+  display:block;width:20px;height:20px;
+  fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+:root[data-mode] .tech-ticker .tc-name{
+  font:600 13px/1.2 var(--at-body);
+  letter-spacing:-.01em;color:var(--at-text)!important;
+}
+:root[data-mode] .tech-ticker .tc-sub{
+  font:450 10px/1.35 var(--at-mono);
+  letter-spacing:.09em;
+  color:var(--at-muted)!important;
+}
+:root[data-mode] .tech-ticker .tc-badge{
+  font:550 10px/1 var(--at-mono);
+  letter-spacing:.04em;
+  padding:6px 9px;margin-left:5px;
+  border-color:var(--at-edge);
+  color:var(--at-amber-text)!important;
+  background:var(--at-glow)!important;
+}
+:root[data-mode] .tech-ticker::before{
+  background:linear-gradient(90deg,var(--at-bg-deep),transparent)!important;
+}
+:root[data-mode] .tech-ticker::after{
+  background:linear-gradient(270deg,var(--at-bg-deep),transparent)!important;
+}
+:root[data-mode] .ingly-service-centre{
+  background:linear-gradient(125deg,var(--at-pane-glow),transparent 62%),var(--at-surface)!important;
+  border-color:var(--at-glass-edge)!important;
+  border-radius:clamp(20px,3vw,34px);
+  padding:clamp(22px,3vw,46px);
+  gap:clamp(22px,4vw,54px);
+}
+:root[data-mode] .ingly-service-centre__media.atelier-service-art{
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  align-items:flex-start;min-height:350px;
+  padding:clamp(26px,4vw,55px);
+  overflow:hidden;border-radius:22px;
+  color:var(--at-text);
+  border:1px solid var(--at-glass-edge);
+  background:
+    radial-gradient(ellipse at 86% 18%,rgba(255,122,47,.19),transparent 48%),
+    linear-gradient(142deg,var(--at-surface-raised),var(--at-bg-deep));
+}
+:root[data-mode="light"] .ingly-service-centre__media.atelier-service-art{
+  color:var(--at-text);
+  background:
+    radial-gradient(ellipse at 90% 10%,rgba(191,71,16,.10),transparent 50%),
+    linear-gradient(142deg,var(--at-surface),var(--at-bg-deep));
+}
+.atelier-service-art__eyebrow{
+  font:500 clamp(10px,1vw,12px)/1.4 var(--at-mono);
+  color:var(--at-amber-text);
+  letter-spacing:.17em;
+}
+.atelier-service-art__eyebrow span{color:var(--at-muted);padding-inline:8px}
+.atelier-service-art__icon{
+  width:clamp(62px,9vw,105px);
+  margin-block:clamp(22px,3vw,40px);
+  color:var(--at-amber);
+  filter:drop-shadow(0 4px 20px var(--at-glow));
+}
+.atelier-service-art__title{
+  margin:0!important;
+  font:550 clamp(2rem,3.4vw,3.8rem)/1.08 var(--at-display)!important;
+  letter-spacing:-.045em;
+  color:var(--at-text)!important;
+  text-wrap:balance;
+}
+.atelier-service-art__caption{
+  margin:18px 0 0!important;
+  color:var(--at-muted)!important;
+  font:400 clamp(13px,1.1vw,16px)/1.6 var(--at-body)!important;
+}
+.atelier-service-art__line{
+  display:block;width:85px;height:2px;margin-top:28px;
+  background:linear-gradient(90deg,var(--at-amber),transparent);
+}
+:root[data-mode] .ingly-service-centre__copy .eyebrow{color:var(--at-amber-text)!important}
+:root[data-mode] .ingly-service-centre__copy h2{
+  font-family:var(--at-display)!important;
+  font-size:clamp(2.05rem,4vw,4.2rem)!important;
+  line-height:1.12;letter-spacing:-.04em;
+}
+:root[data-mode] .ingly-service-centre__copy h2 em{color:var(--at-amber-text)}
+@media(max-width:900px){
+ :root[data-mode] .ingly-service-centre__media.atelier-service-art{min-height:270px}
+}
+@media(max-width:560px){
+ :root[data-mode] .tech-ticker .ttcard{min-height:52px;padding:8px 12px}
+ :root[data-mode] .tech-ticker .tc-badge{display:none}
+ :root[data-mode] .ingly-service-centre__media.atelier-service-art{min-height:250px;padding:24px}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] .tech-ticker .tt-track{animation:none!important;transform:none!important}
+ :root[data-mode] .tech-ticker .tt-row{overflow-x:auto;scrollbar-width:thin}
+}

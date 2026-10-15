@@ -145,8 +145,11 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/responsive.css">
 <link rel="stylesheet" href="assets/css/premium-2026.css">
 <link rel="stylesheet" href="assets/css/atelier-foundation.css">
+<link rel="stylesheet" href="assets/css/notte-oro.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
+<script defer src="assets/js/notte-oro-loader.js"></script>
+<script defer src="assets/js/notte-oro-ui.js"></script>
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
@@ -203,7 +206,17 @@ setTimeout(function(){
      elemento `position:fixed` dentro una .page prende quella come blocco
      contenitore invece dello schermo. -->
 <div class="filters-velo" data-action="filtri-chiudi" aria-hidden="true"></div>
-<div class="loader" id="loader"><div class="lin"><img src="assets/images/ingly-logo.svg" alt="INGLY" width="130" height="130" fetchpriority="high"><div class="lbar"><i></i></div><span id="ldrTxt">Precisione in caricamento</span></div></div>
+<div class="loader atelier-loading" id="loader" role="status" aria-label="INGLY DESIGN, caricamento">
+ <div class="atelier-loader__veil" aria-hidden="true"></div>
+ <div class="lin atelier-loader__inner">
+  <div class="atelier-loader__seal"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="154" height="154" fetchpriority="high"><svg viewBox="0 0 200 200" aria-hidden="true" class="atelier-loader__trace"><circle cx="100" cy="100" r="87" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></div>
+  <strong class="atelier-loader__brand">INGLY <small>DESIGN · ITALY</small></strong>
+  <span id="ldrTxt" class="atelier-loader__caption">Incidiamo la tua idea</span>
+  <div class="lbar atelier-loader__rail" role="progressbar" aria-label="Risorse essenziali" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="atelierLoaderFill"></i></div>
+  <output id="atelierLoaderPercent" class="atelier-loader__percent">0%</output>
+  <button class="atelier-loader__skip" type="button" id="atelierLoaderSkip">Salta</button>
+ </div>
+</div>
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>
 
@@ -215,7 +228,7 @@ setTimeout(function(){
       <button type="button" id="atelierAnnouncementClose" class="atelier-announcement__close" aria-label="Chiudi gli avvisi" title="Chiudi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div style="display:flex;gap:14px;align-items:center">
-      <div class="socials" id="soc1"></div>
+      
       <button class="mode-btn" id="modeBtn" type="button" aria-label="Cambia tema" title="Chiaro / scuro"><svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.7 8.7 0 1 0 11 11Z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.5 5.5l1.6 1.6M16.9 16.9l1.6 1.6M18.5 5.5l-1.6 1.6M7.1 16.9l-1.6 1.6"/></svg></button>
 <div class="lang"><button id="langIT" class="on" data-action="lang" data-l="it">IT</button><button id="langEN" data-action="lang" data-l="en">EN</button></div>
     </div>
@@ -300,8 +313,8 @@ setTimeout(function(){
         <h1 id="heroH1"></h1>
         <p class="sub" data-i18n="heroSub"></p>
         <div class="hero-ctas">
-          <a class="btn btn-primary magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span> <span class="arr">→</span></a>
-          <a class="btn btn-ghost magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="ctaQuote">Personalizza la tua idea</span></a>
+          <a class="btn btn-primary magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span></a>
         </div>
         <div class="hero-proof" aria-label="Servizi INGLY DESIGN">
           <span><i aria-hidden="true">✦</i> Progettazione su misura</span>
@@ -310,7 +323,7 @@ setTimeout(function(){
         </div>
       </div>
       <div class="hero-visual" id="heroVisual">
-        <div class="coin-scene"><div class="coin" id="coin"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width: 800px) 90vw, 46vw" alt="Esempio dimostrativo di creazioni personalizzate, immagine sostituibile dal pannello Admin" width="800" height="600" fetchpriority="high" decoding="async"></div></div><p class="hero-image-note">Immagine dimostrativa · sostituibile dall’Admin</p>
+        <div class="coin-scene"><div class="coin" id="coin"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width: 800px) 90vw, 46vw" alt="Esempio dimostrativo di creazioni personalizzate, immagine sostituibile dal pannello Admin" width="800" height="600" fetchpriority="high" decoding="async"></div></div>
         <div class="fcard fc1" id="heroCard1"></div>
         <div class="fcard fc2" id="heroCard2"></div>
         <div class="fcard fc3" id="heroCard3"></div>
@@ -319,10 +332,45 @@ setTimeout(function(){
     <div class="scroll-cue">Scroll</div>
   </div>
 
+
+  <!-- Live editorial preview: concept only, leads to existing personalization. -->
+  <section class="atelier-configurator sec" id="atelierConfig" aria-labelledby="atelierConfigTitle">
+    <div class="wrap atelier-configurator__layout">
+      <div class="atelier-configurator__controls">
+        <span class="eyebrow">INGLY DESIGN / PERSONALIZZA</span>
+        <h2 id="atelierConfigTitle">Il tuo nome.<br><em>La tua impronta.</em></h2>
+        <p>Parti da poche lettere, scegli il materiale e immagina come diventerà il tuo prossimo oggetto unico.</p>
+        <div class="atelier-configurator__fields">
+          <label for="atelierName">Testo da incidere
+            <input id="atelierName" maxlength="26" type="text" autocomplete="off" placeholder="Scrivi il tuo nome" value="Unico come te">
+          </label>
+          <label for="atelierMaterial">Materiale
+            <select id="atelierMaterial"><option value="wood">Legno naturale</option><option value="acrylic">Plexiglass</option><option value="metal">Metallo</option></select>
+          </label>
+          <label for="atelierFont">Stile
+            <select id="atelierFont"><option value="signature">Firma elegante</option><option value="serif">Editoriale</option><option value="mono">Tecnico</option></select>
+          </label>
+        </div>
+        <a href="personalizza" data-nav="personalizza" class="btn btn-primary">Personalizza il tuo progetto <span aria-hidden="true">→</span></a>
+        <p class="atelier-configurator__fine">Anteprima creativa del testo: finiture e resa dell'incisione dipendono dal materiale reale.</p>
+      </div>
+      <div class="atelier-configurator__preview" data-material="wood" aria-label="Anteprima dal vivo della personalizzazione">
+        <span class="atelier-configurator__prelabel">YOUR IDEA / ENGRAVING STUDY 001</span>
+        <div class="atelier-configurator__sample">
+          <div class="atelier-configurator__sample-line" aria-hidden="true"></div>
+          <output id="atelierNamePreview" class="atelier-configurator__inscription" aria-live="polite">Unico come te</output>
+          <span class="atelier-configurator__register" aria-hidden="true">+</span>
+        </div>
+        <div class="atelier-configurator__preview-meta"><span>ANTEPRIMA TESTO</span><span id="atelierPreviewMaterial">LEGNO NATURALE</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="atelier-signature-rule" aria-hidden="true"></div>
+
   <section class="ingly-material-studies sec" aria-labelledby="inglyMaterialStudiesTitle">
     <div class="wrap">
       <div class="ingly-material-heading">
-        <div><span class="eyebrow">INGLY DESIGN / MATERIAL LIBRARY</span><h2 id="inglyMaterialStudiesTitle">La materia dà forma alle idee.</h2><p>Scopri i materiali, le loro caratteristiche e le lavorazioni possibili. Immagini fotografiche dimostrative, sostituibili nell’Admin.</p></div>
+        <div><span class="eyebrow">INGLY DESIGN / MATERIAL LIBRARY</span><h2 id="inglyMaterialStudiesTitle">La materia dà forma alle idee.</h2><p>Scopri materiali, superfici, finiture e possibilità creative. La scelta giusta comincia da ciò che vuoi raccontare.</p></div>
         <a class="ingly-material-all" href="materiali" data-nav="materiali">Esplora tutti i materiali ↗</a>
       </div>
       <div class="ingly-material-grid">

@@ -1196,7 +1196,7 @@ img[src$="assets/images/logo.png"]{content:url("../images/ingly-logo.svg");objec
 .ingly-skip-link{
   position:fixed;left:12px;top:-90px;z-index:10020;
   display:inline-flex;padding:12px 18px;border-radius:10px;
-  background:#101929;color:#fff;border:2px solid #d9ba73;
+  background:var(--ink);color:var(--paper);border:2px solid var(--laser);
   font:600 14px/1.4 system-ui,sans-serif;
   box-shadow:0 4px 18px rgba(0,0,0,.4);
 }

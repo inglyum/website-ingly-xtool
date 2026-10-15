@@ -43,6 +43,21 @@ assert.equal(maxOne.findings.length,1);
 assert(maxOne.truncated);
 assert.equal(typeof maxOne.totals.error,'number');
 assert(!JSON.stringify(sample).includes('conversion rate 90'),'Never invent business KPIs');
+const trueMedia=auditStore({
+ products:[
+  {id:91,hidden:false,n:{it:'Fotografia non presente',en:'Missing'},desc:{it:'Prova'},cat:'valid',img:'img/91.webp'},
+  {id:92,hidden:false,n:{it:'Foto gallery',en:'Gallery'},desc:{it:'Prova'},cat:'valid',img:'img/92.webp',gallery:['img/92-g1.webp']},
+  {id:93,hidden:false,n:{it:'Foto bozza',en:'Staged'},desc:{it:'Prova'},cat:'valid',img:'img/93.webp'}
+ ],
+ categories:[{id:'valid',n:{it:'Valid'}}],
+ imageInventory:['92-g1.webp'],stagedImages:['img/93.webp']
+});
+assert.equal(trueMedia.metrics.visibleWithoutPhoto,1,'Only truly absent product photo counts');
+assert(trueMedia.findings.some(f=>f.code==='missing_primary_image'&&f.id==='91'));
+assert(trueMedia.findings.some(f=>f.code==='missing_cover_image'&&f.id==='92'));
+assert(!trueMedia.findings.some(f=>f.code==='missing_primary_image'&&f.id==='93'));
+const queuedDelete=auditStore({products:[{id:93,n:{it:'Delete'},cat:'valid',img:'img/93.webp'}],categories:[{id:'valid'}],imageInventory:['93.webp'],deletedImages:['img/93.webp']});
+assert.equal(queuedDelete.metrics.visibleWithoutPhoto,1,'Pending deletion must affect photo health');
 const actual=auditStore({
  products:JSON.parse(rd('data/products.json')),
  categories:JSON.parse(rd('data/categories.json')),

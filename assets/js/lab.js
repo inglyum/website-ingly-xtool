@@ -40,7 +40,7 @@ export function listaLingua(v, L = 'it') {
 
 const idValido = x => x && /^[a-z0-9-]+$/.test(String(x.id || ''));
 
-export const materiali = (D = {}) => ((D.MATERIALI && D.MATERIALI.materiali) || []).filter(idValido);
+export const materiali = (D = {}) => ((D.MATERIALI && D.MATERIALI.materiali) || []).filter(m => idValido(m) && m.stato !== 'archiviato' && m.stato !== 'bozza' && m.stato !== 'archiviato');
 export const tecnologie = (D = {}) => ((D.TECNOLOGIE && D.TECNOLOGIE.tecnologie) || []).filter(idValido);
 export const macchine = (D = {}) => ((D.MACCHINE && D.MACCHINE.macchine) || []).filter(idValido);
 
@@ -662,7 +662,7 @@ export function schemaMacchina(D, m, opt = {}) {
 
 /* ---------- materiali in vendita ---------- */
 
-export const varianti = m => (m && m.vendita && m.vendita.varianti) || [];
+export const varianti = m => ((m && m.vendita && m.vendita.varianti) || []).filter(v => v && v.stato !== 'archiviato');
 
 /** Vendibile davvero: acceso dall'Admin, con almeno una variante prezzata. */
 export function inVendita(m) {

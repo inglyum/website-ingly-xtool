@@ -67,6 +67,22 @@ try {
               titleRight: visible(title) ? titleRect?.right : null,
               titleLeft: visible(title) ? titleRect?.left : null,
               titleVisible: visible(title),
+              overflowCandidates: Array.from(document.body.querySelectorAll('*'))
+                .filter(el => {
+                  const rect = el.getBoundingClientRect();
+                  const css = getComputedStyle(el);
+                  return rect.width > 0 && rect.right > window.innerWidth + 3 &&
+                    css.display !== 'none' && css.visibility !== 'hidden' &&
+                    css.position !== 'fixed';
+                })
+                .slice(0, 12)
+                .map(el => {
+                  const rect = el.getBoundingClientRect();
+                  return { tag: el.tagName.toLowerCase(), id: el.id,
+                    className: typeof el.className === 'string' ? el.className.slice(0, 90) : '',
+                    left: Math.round(rect.left), right: Math.round(rect.right),
+                    width: Math.round(rect.width), minWidth: getComputedStyle(el).minWidth };
+                }),
             };
           });
           const problems = [];
@@ -88,6 +104,8 @@ try {
           await page.screenshot({ path: join(out, screenshot), fullPage: false, animations: 'disabled' });
           findings.push({ route: route.name, width, mode, status, ...metrics, problems, runtimeErrors: errors.slice(0, 5), screenshot });
           console.log((problems.length ? 'WARN ' : 'PASS ') + route.name + ' ' + width + ' ' + mode + (problems.length ? ': ' + problems.join('; ') : ''));
+          if (problems.length && metrics.overflowCandidates.length)
+            console.log('CULPRITS ' + route.name + ' ' + width + ' ' + mode + ' ' + JSON.stringify(metrics.overflowCandidates));
         } catch (error) {
           findings.push({ route: route.name, width, mode, problems: [String(error)], runtimeErrors: errors });
           console.error('ERROR ' + route.name + ' ' + width + ' ' + mode + ' ' + error);

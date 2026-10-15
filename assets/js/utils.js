@@ -34,14 +34,43 @@ export const focalOf = src => { const f = window.INGLY && window.INGLY.FOCAL; co
    — repository vecchio, pubblicazione parziale — si chiede comunque, come
    prima: meglio una richiesta in più che una foto vera non mostrata. */
 export const esiste = s => {
-  const el = (window.INGLY && window.INGLY.IMMAGINI && window.INGLY.IMMAGINI.file);
-  if (!Array.isArray(el) || !el.length) return true;          /* nessun elenco: fiducia */
-  return el.includes(String(s || '').replace(/^.*\//, '').split('?')[0]);
+  const src = String(s || '').split(/[?#]/)[0];
+  if (!src) return false;
+  /* L'inventario certifica solo `img/`. URL remoti e asset editoriali
+     non sono nel manifest locale e non devono essere falsi negativi. */
+  if (/^(?:https?:)?\/\//i.test(src) || /^data:image\//i.test(src) || src.startsWith('assets/')) return true;
+  if (!src.startsWith('img/')) return true;
+  const elenco = window.INGLY?.IMMAGINI?.file;
+  if (!Array.isArray(elenco)) return true; /* vecchio deploy, manifest assente */
+  return elenco.includes(src.slice(4));
 };
 
-export const imgTag = x => { const s = x.img||CONFIG.cartellaImmagini+x.id+'.webp';
-  if(!esiste(s)) return '';                                    /* resta il segnaposto del materiale */
-  return `<img class="pimgph" src="${imgV(s)}"${srcsetFor(s)}${focalOf(s)} alt="" loading="lazy">` };
+/* Una sola fonte di verità per card, pagina prodotto e lightbox.
+   Se la foto principale manca ma una foto gallery esiste, la usiamo come
+   copertina. I file mancanti non entrano mai nel DOM: niente 404 fittizi,
+   slider vuoti o lightbox che visualizzano un'immagine rotta. */
+export function fotoDisponibili(x = {}) {
+  const main = x.img || ((CONFIG.cartellaImmagini || 'img/') + x.id + '.webp');
+  const sources = [main, ...(Array.isArray(x.gallery) ? x.gallery : [])];
+  const seen = new Set();
+  return sources.filter(src => {
+    if (typeof src !== 'string' || !src.trim() || !esiste(src)) return false;
+    const key = src.split(/[?#]/)[0];
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const escapeAlt = s => String(s == null ? '' : s)
+  .replace(/&/g,'&amp;').replace(/"/g,'&quot;')
+  .replace(/</g,'&lt;').replace(/>/g,'&gt;');
+export const imgTag = x => {
+  const src = fotoDisponibili(x)[0];
+  if (!src) return ''; /* gradiente e icona esistenti, non una foto inventata */
+  const alt = x.n?.[L] || x.n?.it || x.n?.en || '';
+  return `<img class="pimgph" src="${imgV(src)}"${srcsetFor(src)}${focalOf(src)} alt="${escapeAlt(alt)}" loading="lazy" decoding="async" onerror="this.remove()">`;
+};
 
 let toastT;
 export function toast(msg){

@@ -1,7 +1,7 @@
 /* ============ PRODUCTS (modulo) ============
    Catalogo, shop (filtri/ricerca/ordinamento), pagina prodotto con
    configuratore e prezzo live, digitale, carrello, wishlist. */
-import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, icon, toast, L, esiste as esisteFoto } from './utils.js';
+import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, fotoDisponibili, icon, toast, L, esiste as esisteFoto } from './utils.js';
 
 /* I titoli del portfolio li scrive una persona nell'Admin: entrano in un
    attributo alt e in una didascalia, quindi passano da qui. */
@@ -725,8 +725,14 @@ export function renderPP(){
 function renderGalFrame(){
   const src=galShots[galIdx]||'';
   const art=$('ppArt');
-  art.innerHTML=cur.icon+`<img class="pimgph" src="${src}" alt="${cur.n[L].replace(/"/g,'')}" loading="eager">`
-    +`<span class="pp-zoomhint">🔍 ${T('zoomHint')||'Clicca per ingrandire'}</span>`;
+  $('ppMain')?.classList.toggle('pp-no-photo',!src);
+  /* Nessuna foto disponibile: lascia visibile l'icona/gradiente del materiale,
+     senza <img src=""> o zoom che si apre sul nulla. */
+  const caption = L==='it' ? 'Foto del prodotto non disponibile' : 'Product photo unavailable';
+  art.innerHTML = cur.icon + (src
+    ? `<img class="pimgph" src="${src}" alt="${esc(cur.n[L]||cur.n.it)}" loading="eager" onerror="this.remove()">`+
+      `<span class="pp-zoomhint">🔍 ${T('zoomHint')||'Clicca per ingrandire'}</span>`
+    : `<span class="pp-photo-label">${caption}</span>`);
   /* sincronizza thumbnail */
   document.querySelectorAll('#ppThumbs .thumb').forEach((el,i)=>el.classList.toggle('on',i===galIdx));
 }
@@ -742,8 +748,8 @@ function initGalSwipe(){
   },{passive:true});
 }
 
-export function galPrev(){galIdx=(galIdx-1+galShots.length)%galShots.length;renderGalFrame()}
-export function galNext(){galIdx=(galIdx+1)%galShots.length;renderGalFrame()}
+export function galPrev(){if(!galShots.length)return;galIdx=(galIdx-1+galShots.length)%galShots.length;renderGalFrame()}
+export function galNext(){if(!galShots.length)return;galIdx=(galIdx+1)%galShots.length;renderGalFrame()}
 
 function renderReviews(){
   const total=cur.rev||0;
@@ -785,16 +791,13 @@ export function ppTabShow(tab){
 }
 
 export function galleryOf(x){
-  const main=x.img||(CONFIG.cartellaImmagini+x.id+'.webp');
-  return [main,...(x.gallery||[])].map(imgV);
+  return fotoDisponibili(x).map(imgV);
 }
 export function ppThumb(el){
-  galIdx=+(el.dataset.idx||0);
-  el.parentNode.querySelectorAll('.thumb').forEach(x=>x.classList.remove('on'));
-  el.classList.add('on');
-  const src=el.dataset.src; if(!src)return;
-  const art=$('ppArt'), img=art.querySelector('img.pimgph');
-  if(img) img.src=src; else art.insertAdjacentHTML('beforeend',`<img class="pimgph" src="${src}" alt="" loading="lazy">`);
+  const idx=Number(el?.dataset?.idx);
+  if(!Number.isInteger(idx)||idx<0||idx>=galShots.length) return;
+  galIdx=idx;
+  renderGalFrame();
 }
 export function qty(d){sel.qty=Math.max(1,sel.qty+ +d);$('ppQty').textContent=sel.qty;price()}
 
@@ -1134,6 +1137,7 @@ export function openPhoto(src){
 }
 export function openLightbox(startSrc){
   LBX.list=galleryOf(cur);
+  if(!LBX.list.length) return;
   /* confronta i percorsi senza query (?v=) per trovare la foto giusta */
   const norm=s=>String(s||'').split('?')[0];
   const idx=LBX.list.findIndex(s=>norm(s)===norm(startSrc));

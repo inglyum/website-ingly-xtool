@@ -174,7 +174,7 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
           { n: t('Tecnologie di lavorazione', 'Technologies'), href: via(base, 'tecnologie') },
           { n: t('Academy e corsi', 'Academy and courses'), href: via(base, 'academy') },
           { n: t('Prenota una demo gratuita', 'Book a free demo'), href: via(base, 'demo') },
-          { n: t('Authorized Service Centre', 'Authorized Service Centre'), href: via(base, 'macchine#inglyServiceTitle') }
+          { n: t('Authorized Service Centre', 'Authorized Service Centre'), href: via(base, 'macchine') }
         ])
       ],
       evidenza: {

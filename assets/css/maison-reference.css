@@ -1,0 +1,406 @@
+/*
+ * INGLY MAISON — LIVE REFERENCE EDITION
+ * Approved inspiration: elegant dark showroom, ivory day studio,
+ * ink/gold typography, six product pathways and a real editable Admin.
+ * This stylesheet is loaded AFTER prior themes. No business logic is changed.
+ */
+
+/* One identity, two complete color environments */
+:root[data-mode="dark"],:root{
+  --ma-bg:#090a0c;--ma-deep:#07080a;--ma-panel:#121316;
+  --ma-raised:#191a1d;--ma-text:#fbf8f1;--ma-muted:#c8c3b9;
+  --ma-line:rgba(223,172,91,.28);--ma-gold:#dba953;
+  --ma-gold-hi:#ffd68c;--ma-on-gold:#17120b;
+  --ma-glass:rgba(12,13,16,.82);
+  --ma-grid:rgba(220,174,102,.055);
+  --ma-accent-shadow:rgba(212,148,55,.16);
+  --ma-serif:'Playfair Display',Georgia,serif;
+  --ma-body:'Manrope',system-ui,sans-serif;
+  --no-ink:var(--ma-bg);--no-surface:var(--ma-panel);
+  --no-surface-2:var(--ma-raised);--no-paper:var(--ma-text);
+  --no-muted:var(--ma-muted);--no-border:#35312c;
+  --no-gold:var(--ma-gold);--no-gold-high:var(--ma-gold-hi);
+  --no-gold-low:#b88135;--no-on-gold:var(--ma-on-gold);
+  --no-glass:var(--ma-glass);--no-title:var(--ma-serif);--no-copy:var(--ma-body);
+  --at-bg:var(--ma-bg);--at-bg-deep:var(--ma-deep);
+  --at-surface:var(--ma-panel);--at-surface-raised:var(--ma-raised);
+  --at-text:var(--ma-text);--at-muted:var(--ma-muted);
+  --at-display:var(--ma-serif);--at-body:var(--ma-body);
+  --at-amber:var(--ma-gold);--at-amber-text:var(--ma-gold-hi);
+  --at-edge:var(--ma-line);--at-glow:var(--ma-accent-shadow);
+  --ink:var(--ma-text);--ink-soft:var(--ma-muted);
+  --paper:var(--ma-bg);--white:var(--ma-panel);
+  --line:var(--ma-line);--blue:var(--ma-gold);
+  --blue-hi:var(--ma-gold-hi);--bg-deep:var(--ma-bg);
+  --signature-gold:var(--ma-gold);--signature-gold-hi:var(--ma-gold-hi);
+  color-scheme:dark;
+}
+:root[data-mode="light"]{
+  --ma-bg:#f9f5eb;--ma-deep:#f2e9d9;--ma-panel:#fffcf6;
+  --ma-raised:#f2e8d8;--ma-text:#231c18;--ma-muted:#63564d;
+  --ma-line:rgba(153,103,49,.28);--ma-gold:#a36d2b;
+  --ma-gold-hi:#7f4c18;--ma-on-gold:#19100a;
+  --ma-glass:rgba(255,251,243,.94);
+  --ma-grid:rgba(163,109,43,.048);
+  --ma-accent-shadow:rgba(163,109,43,.09);
+  --no-ink:var(--ma-bg);--no-surface:var(--ma-panel);
+  --no-surface-2:var(--ma-raised);--no-paper:var(--ma-text);
+  --no-muted:var(--ma-muted);--no-border:#d8c4a6;
+  --no-gold:var(--ma-gold);--no-gold-high:var(--ma-gold-hi);
+  --no-gold-low:#b98645;--no-on-gold:#211508;
+  --no-glass:var(--ma-glass);--no-title:var(--ma-serif);--no-copy:var(--ma-body);
+  --at-bg:var(--ma-bg);--at-bg-deep:var(--ma-deep);
+  --at-surface:var(--ma-panel);--at-surface-raised:var(--ma-raised);
+  --at-text:var(--ma-text);--at-muted:var(--ma-muted);
+  --at-display:var(--ma-serif);--at-body:var(--ma-body);
+  --at-amber:var(--ma-gold);--at-amber-text:var(--ma-gold-hi);
+  --at-edge:var(--ma-line);--at-glow:var(--ma-accent-shadow);
+  --ink:var(--ma-text);--ink-soft:var(--ma-muted);
+  --paper:var(--ma-bg);--white:var(--ma-panel);
+  --line:var(--ma-line);--blue:var(--ma-gold);
+  --blue-hi:var(--ma-gold-hi);--bg-deep:var(--ma-bg);
+  --signature-gold:var(--ma-gold);--signature-gold-hi:var(--ma-gold-hi);
+  color-scheme:light;
+}
+:root[data-mode] body{
+  background:var(--ma-bg)!important;color:var(--ma-text)!important;
+  font:450 16px/1.65 var(--ma-body)!important;
+}
+:root[data-mode] :is(h1,h2,h3,.h2,.brand>span,.ft-claim){
+  font-family:var(--ma-serif)!important;letter-spacing:-.018em!important;
+}
+:root[data-mode] :is(.phero,.page,.sec,.ingly-material-studies,.atelier-configurator,
+ .journey-sec,.news,.cta-band,.footer,.story-section){
+  color:var(--ma-text);
+}
+:root[data-mode] :is(.eyebrow,.hero-tag,.vs-eyebrow){
+  color:var(--ma-gold-hi)!important;
+}
+:root[data-mode] a:focus-visible,:root[data-mode] button:focus-visible,
+:root[data-mode] input:focus-visible,:root[data-mode] select:focus-visible{
+  outline:3px solid var(--ma-gold-hi)!important;outline-offset:3px;
+}
+/* One understated pattern per area, repeated in both modes */
+:root[data-mode] .maison-worlds,
+:root[data-mode] .ingly-material-studies{
+  background-color:var(--ma-bg)!important;
+  background-image:radial-gradient(circle,var(--ma-grid) .75px,transparent 1px)!important;
+  background-size:25px 25px!important;
+}
+:root[data-mode] .atelier-configurator{
+  background:linear-gradient(130deg,var(--ma-bg),var(--ma-panel) 65%,var(--ma-bg))!important;
+}
+:root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.p-card,
+ .bcard,.dcard,.ingly-material-tile,.atelier-compat-section){
+  background:var(--ma-panel)!important;border:1px solid var(--ma-line)!important;
+  color:var(--ma-text)!important;
+}
+:root[data-mode] .btn-ghost{
+  background:transparent!important;border:1px solid var(--ma-line)!important;
+  color:var(--ma-text)!important;
+}
+/* Storefront chrome follows theme, never an always-black bar */
+:root[data-mode] .topbar{
+  background:var(--ma-bg)!important;
+  color:var(--ma-muted)!important;
+  border-color:var(--ma-line)!important;
+}
+:root[data-mode] .topbar .atelier-announcement__text{color:var(--ma-muted)!important}
+:root[data-mode] .topbar .atelier-announcement__mark{background:var(--ma-gold)!important}
+:root[data-mode] .topbar :is(.mode-btn,.lang button){
+  color:var(--ma-text)!important;background:transparent!important;
+}
+:root[data-mode] .topbar .lang button.on{
+  background:linear-gradient(120deg,#c69045,#efc77d)!important;
+  color:#1c150e!important;
+}
+:root[data-mode] .nav,
+:root[data-mode] .nav.scrolled{
+  background:var(--ma-glass)!important;color:var(--ma-text)!important;
+  border-color:var(--ma-line)!important;
+  box-shadow:0 12px 35px rgba(0,0,0,.08)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.12);
+  backdrop-filter:blur(22px) saturate(1.12);
+}
+:root[data-mode] .nav .brand{align-items:center}
+:root[data-mode] .nav .brand img{
+  width:48px!important;height:48px!important;
+  border-radius:50%;object-fit:contain;
+  background:transparent!important;
+  filter:sepia(1) saturate(1.25) hue-rotate(354deg) brightness(1.15) contrast(1.04)!important;
+  transform:none!important;
+  box-shadow:none!important;
+}
+:root[data-mode="light"] .nav .brand img{
+  filter:sepia(1) saturate(.85) hue-rotate(354deg) contrast(1.17)!important;
+}
+:root[data-mode] .nav .brand>span{
+  color:var(--ma-text)!important;font:600 clamp(21px,1.65vw,26px)/1.06 var(--ma-serif)!important;
+  letter-spacing:.01em!important;
+}
+:root[data-mode] .nav .brand small{
+  font:600 9px/1.5 var(--ss-mono)!important;
+  color:var(--ma-gold-hi)!important;letter-spacing:.22em!important;
+}
+:root[data-mode] .nav .ia-voce,
+:root[data-mode] .nav .icon-btn{
+  color:var(--ma-text)!important;font-family:var(--ma-body)!important;
+}
+:root[data-mode] .nav .ia-voce:hover,
+:root[data-mode] .nav .ia-voce.active{
+  color:var(--ma-gold-hi)!important;
+  background:var(--ma-accent-shadow)!important;
+}
+:root[data-mode] .ia-pannello{
+  background:var(--ma-panel)!important;color:var(--ma-text)!important;
+  border:1px solid var(--ma-line)!important;box-shadow:0 16px 45px rgba(0,0,0,.13);
+}
+:root[data-mode] .ia-pannello :is(a,span,h3){color:var(--ma-text)!important}
+:root[data-mode] .ia-pannello a:hover{color:var(--ma-gold-hi)!important}
+:root[data-mode] .ia-freccia{color:var(--ma-muted)!important}
+/* Genuine working CTAs — warm gold in both modes */
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta){
+  color:#17120b!important;
+  background:linear-gradient(115deg,#c58b3f,#eed08f 52%,#d6a359)!important;
+  border:1px solid rgba(152,101,36,.3)!important;
+  box-shadow:0 8px 28px var(--ma-accent-shadow)!important;
+  border-radius:13px!important;
+}
+:root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta):hover{
+  filter:brightness(1.05);
+  box-shadow:0 13px 36px rgba(174,113,37,.18)!important;
+}
+/* HERO: photo on right, precise typographic scale and theme-aware wash */
+:root[data-mode] #page-home .hero.signature-hero{
+  min-height:clamp(650px,77svh,850px)!important;background:var(--ma-bg)!important;
+  color:var(--ma-text)!important;
+  border-bottom:1px solid var(--ma-line);
+}
+:root[data-mode] #page-home .hero.signature-hero::before{
+  opacity:1!important;
+  background:
+    linear-gradient(90deg,var(--ma-bg) 0%,var(--ma-bg) 19%,
+      color-mix(in srgb,var(--ma-bg) 91%,transparent) 34%,
+      color-mix(in srgb,var(--ma-bg) 50%,transparent) 54%,transparent 84%),
+    linear-gradient(0deg,color-mix(in srgb,var(--ma-bg) 45%,transparent),transparent 37%)!important;
+}
+:root[data-mode] #page-home .hero.signature-hero::after{
+  opacity:.34!important;
+  background:linear-gradient(116deg,transparent 42%,var(--ma-line) 42.07%,transparent 42.14%)!important;
+  pointer-events:none;
+}
+:root[data-mode] #page-home .signature-hero .hero-grid{
+  max-width:1500px;min-height:clamp(550px,70svh,750px);
+  padding:clamp(60px,7vw,105px) clamp(20px,3vw,46px) clamp(52px,5vw,76px)!important;
+}
+:root[data-mode] #page-home .signature-hero-copy{
+  width:min(55%,670px);
+  text-shadow:none!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-tag{
+  background:var(--ma-glass)!important;
+  border-color:var(--ma-line)!important;color:var(--ma-gold-hi)!important;
+  font:600 10px/1.4 var(--ss-mono)!important;
+}
+:root[data-mode] #page-home .signature-hero #heroH1{
+  font:600 clamp(3.25rem,5.2vw,6.2rem)/1.09 var(--ma-serif)!important;
+  letter-spacing:-.018em!important;
+  color:var(--ma-text)!important;max-width:13.2ch!important;
+  margin:25px 0 22px!important;
+}
+:root[data-mode] #page-home .signature-hero #heroH1 .engrave{
+  color:var(--ma-gold-hi)!important;-webkit-text-fill-color:var(--ma-gold-hi)!important;
+  font-style:italic;
+}
+:root[data-mode] #page-home .signature-hero .sub{
+  color:var(--ma-muted)!important;
+  font:450 clamp(1rem,1.12vw,1.18rem)/1.72 var(--ma-body)!important;
+  max-width:47ch!important;
+}
+:root[data-mode] #page-home .signature-hero-assurance{
+  color:var(--ma-muted)!important;
+}
+:root[data-mode] #page-home .signature-hero-assurance__line{background:var(--ma-gold)}
+:root[data-mode] #page-home .hero.signature-hero .signature-hero-media{
+  width:74%!important;background:var(--ma-panel)!important;
+}
+:root[data-mode] #page-home .signature-hero-media img{
+  filter:contrast(1.06) saturate(.95)!important;
+  object-fit:cover!important;
+}
+:root[data-mode="light"] #page-home .signature-hero-media img{
+  filter:brightness(1.11) saturate(.84) contrast(.97)!important;
+}
+:root[data-mode] #page-home .signature-hero-media__shade{
+  background:linear-gradient(90deg,var(--ma-bg),transparent 59%),
+    linear-gradient(0deg,color-mix(in srgb,var(--ma-bg) 36%,transparent),transparent 44%)!important;
+}
+:root[data-mode] #page-home .signature-hero-media__trace{
+  opacity:.42;color:var(--ma-gold);box-shadow:0 0 15px var(--ma-accent-shadow);
+}
+/* Benefit strip: same atmospheric glass in light and dark */
+:root[data-mode] #page-home .signature-hero .signature-benefits{
+  background:var(--ma-glass)!important;
+  border-block:1px solid var(--ma-line)!important;
+  box-shadow:0 -12px 32px rgba(0,0,0,.07)!important;
+}
+:root[data-mode] #page-home .signature-benefit{
+  color:var(--ma-text)!important;border-color:var(--ma-line)!important;
+}
+:root[data-mode] #page-home .signature-benefit__icon{
+  color:var(--ma-gold-hi)!important;border-color:var(--ma-gold)!important;
+}
+:root[data-mode] #page-home .signature-benefit__words strong{color:var(--ma-text)!important}
+:root[data-mode] #page-home .signature-benefit__words small{color:var(--ma-muted)!important}
+/* Six premium photographic destinations, with working real-product images */
+:root[data-mode] .maison-worlds{
+  padding:clamp(55px,6vw,96px) 0 clamp(65px,7vw,110px);
+  border-bottom:1px solid var(--ma-line);
+}
+.maison-worlds .wrap{max-width:1520px!important}
+.maison-worlds__heading{
+  max-width:850px;text-align:center;margin:0 auto clamp(28px,3vw,46px);
+}
+:root[data-mode] .maison-worlds__heading .eyebrow{
+  font:600 11px/1.3 var(--ss-mono)!important;
+  letter-spacing:.26em!important;color:var(--ma-gold-hi)!important;
+}
+:root[data-mode] .maison-worlds__heading h2{
+  font:600 clamp(2rem,3.2vw,3.65rem)/1.22 var(--ma-serif)!important;
+  letter-spacing:-.015em!important;color:var(--ma-text)!important;
+  margin:13px 0 8px!important;
+}
+:root[data-mode] .maison-worlds__heading h2 em{
+  font-style:italic;color:var(--ma-gold-hi)!important;
+}
+:root[data-mode] .maison-worlds__heading p{
+  font:450 clamp(.94rem,1vw,1.05rem)/1.65 var(--ma-body)!important;
+  color:var(--ma-muted)!important;
+}
+.maison-worlds__grid{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:clamp(10px,1.3vw,19px);
+}
+:root[data-mode] .maison-world{
+  position:relative;display:block;min-width:0;aspect-ratio:4/4.7;
+  overflow:hidden;border:1px solid var(--ma-line);border-radius:16px;
+  background:var(--ma-panel);text-decoration:none;
+  box-shadow:0 12px 27px rgba(0,0,0,.12);
+  isolation:isolate;transition:border-color .22s,transform .25s,box-shadow .25s;
+}
+.maison-world>img{width:100%;height:100%;display:block;object-fit:cover;
+ transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.maison-world__shade{position:absolute;inset:0;z-index:1;
+ background:linear-gradient(0deg,rgba(3,5,8,.89),rgba(3,5,8,.18) 60%,transparent);
+ pointer-events:none}
+.maison-world__content{position:absolute;z-index:2;bottom:0;left:0;right:0;
+ padding:clamp(13px,1.4vw,23px);display:grid;gap:5px;color:#fbf8f1}
+.maison-world__content strong{font:600 clamp(1.17rem,1.45vw,1.6rem)/1.2 var(--ma-serif)!important}
+.maison-world__content small{font:450 12px/1.45 var(--ma-body)!important;color:#e6dfd3}
+.maison-world__arrow{display:grid;place-items:center;margin-top:7px;width:34px;height:34px;
+ border:1px solid #dba953a8;border-radius:50%;color:#f5c77f;font-size:20px}
+.maison-world:hover,.maison-world:focus-visible{
+ transform:translateY(-4px);border-color:var(--ma-gold);
+ box-shadow:0 17px 35px rgba(0,0,0,.14)}
+.maison-world:hover>img{transform:scale(1.04)}
+/* Theme-aware cross-page components */
+:root[data-mode] :is(.phero,.xtool-lab-feature,.ingly-service-centre,
+ .atelier-compat-section,.hero-section,.lab-container){
+  color:var(--ma-text)!important;
+}
+:root[data-mode] .xtool-lab-feature{
+  background:linear-gradient(132deg,var(--ma-panel),var(--ma-raised))!important;
+  border:1px solid var(--ma-line)!important;box-shadow:0 14px 38px var(--ma-accent-shadow)!important;
+}
+:root[data-mode] .xtool-lab-feature::before{
+  background-image:linear-gradient(var(--ma-grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--ma-grid) 1px,transparent 1px);
+  opacity:1;
+}
+:root[data-mode] .xtool-lab-copy h2,
+:root[data-mode] .xtool-lab-copy h2:not(.eyebrow){color:var(--ma-text)!important;
+ font:600 clamp(2rem,3.8vw,3.4rem)/1.16 var(--ma-serif)!important}
+:root[data-mode] .xtool-lab-accent{color:var(--ma-gold-hi)!important}
+:root[data-mode] .xtool-lab-copy>p:not(.eyebrow){
+  color:var(--ma-muted)!important;line-height:1.7!important
+}
+:root[data-mode] .xtool-host-text strong{color:var(--ma-text)!important}
+:root[data-mode] .xtool-host-text small,
+:root[data-mode] .xtool-lab-note{color:var(--ma-muted)!important}
+:root[data-mode] .xtool-host-mark{
+  color:var(--ma-gold-hi)!important;
+  background:var(--ma-raised)!important;border-color:var(--ma-line)!important}
+:root[data-mode] .xtool-lab-art{
+  background:var(--ma-panel)!important;border-color:var(--ma-line)!important}
+:root[data-mode] .xtool-lab-art>span{
+  color:#fbf8f1;background:rgba(12,13,15,.86)!important;border-color:#dba95344}
+:root[data-mode] :is(.xtool-lab-copy .eyebrow,.atelier-service-art__eyebrow){
+  color:var(--ma-gold-hi)!important;
+}
+:root[data-mode] .atelier-service-art{background:var(--ma-raised)!important}
+:root[data-mode] .atelier-service-art__title{color:var(--ma-text)!important}
+:root[data-mode] .atelier-service-art__caption{color:var(--ma-muted)!important}
+:root[data-mode] :is(.phero .sub,.lab-p,.rcard p,.ingly-material-heading p){
+  color:var(--ma-muted)!important;
+}
+:root[data-mode] .atelier-configurator__controls>p{color:var(--ma-muted)!important}
+:root[data-mode] .atelier-configurator__fields :is(input,select){
+  color:var(--ma-text)!important;background:var(--ma-panel)!important;border-color:var(--ma-line)!important;
+}
+:root[data-mode] .ingly-material-studies .ingly-material-heading h2{
+  color:var(--ma-text)!important;
+}
+:root[data-mode] footer{background:var(--ma-panel)!important;color:var(--ma-text)!important}
+/* Light mode needs readable cool tech accents rather than invisible cyan */
+:root[data-mode="light"] #page-macchine .eyebrow,
+:root[data-mode="light"] #page-tecnologie .eyebrow{color:#775027!important}
+:root[data-mode="light"] .academy-note,
+:root[data-mode="light"] .xtool-lab-copy p{color:var(--ma-muted)!important}
+:root[data-mode="light"] .atelier-configurator__preview{color:#fbf8f1!important}
+/* Avoid night-only decorative layers leaking into day mode */
+:root[data-mode="light"] #page-home .signature-hero .hero-ctas .btn-ghost{
+  color:var(--ma-text)!important;background:var(--ma-glass)!important;
+}
+:root[data-mode="light"] #page-home .signature-hero .hero-tag{
+  color:var(--ma-gold-hi)!important;
+}
+@media(max-width:1280px){
+  .maison-worlds__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  :root[data-mode] .maison-world{aspect-ratio:4/3.15}
+}
+@media(max-width:760px){
+  :root[data-mode] #page-home .signature-hero .hero-grid{
+    min-height:620px;padding:220px 24px 45px!important;
+  }
+  :root[data-mode] #page-home .signature-hero-copy{width:100%}
+  :root[data-mode] #page-home .signature-hero #heroH1{
+    font-size:clamp(2.65rem,8.4vw,4.7rem)!important;
+  }
+  :root[data-mode] #page-home .hero.signature-hero::before{
+    background:linear-gradient(0deg,var(--ma-bg) 0%,
+      color-mix(in srgb,var(--ma-bg) 88%,transparent) 33%,
+      color-mix(in srgb,var(--ma-bg) 34%,transparent) 78%)!important;
+  }
+  :root[data-mode] .maison-world{aspect-ratio:4/4}
+}
+@media(max-width:540px){
+  .maison-worlds__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  :root[data-mode] .maison-world{aspect-ratio:4/5}
+  .maison-world__content{padding:11px}
+  .maison-world__content strong{font-size:1.15rem!important}
+  .maison-world__content small{font-size:10px!important}
+  :root[data-mode] #page-home .signature-hero #heroH1{
+    font-size:clamp(2.62rem,10vw,3.5rem)!important;
+  }
+  :root[data-mode] #page-home .signature-hero .hero-grid{padding:220px 18px 40px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .maison-world,.maison-world>img{transition:none!important;transform:none!important}
+}
+
+/* The new standalone gold SVG is already correctly colored; never flatten it with filters. */
+:root[data-mode] .nav .brand img[src$="ingly-maison-mark.svg"],
+:root[data-mode] footer .brand img[src$="ingly-maison-mark.svg"]{
+ filter:none!important;background:transparent!important;transform:none!important;
+ width:48px!important;height:48px!important;object-fit:contain!important;
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="t d">
+<title id="t">INGLY DESIGN</title>
+<desc id="d">Monogramma circolare oro con INGLY e dettagli del laser</desc>
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#F2D49B"/><stop offset=".52" stop-color="#D4A15B"/><stop offset="1" stop-color="#916027"/></linearGradient></defs>
+<circle cx="120" cy="120" r="108" fill="none" stroke="url(#g)" stroke-width="2.3"/>
+<circle cx="120" cy="120" r="97" fill="none" stroke="#D1A165" stroke-opacity=".53" stroke-width=".8" stroke-dasharray="2 5"/>
+<circle cx="120" cy="120" r="83" fill="none" stroke="url(#g)" stroke-width="1.4"/>
+<path d="M53 90 187 150M54 151 188 88" stroke="#D3A269" stroke-width=".85" stroke-opacity=".42"/>
+<path d="M69 70 79 60M170 180 180 170M72 173 83 185M160 52 173 65" stroke="url(#g)" stroke-width="2" stroke-linecap="round"/>
+<path d="M120 39v17M120 185v17M39 120h15M186 120h15" stroke="#D9B271" stroke-width="1.35"/>
+<g fill="#E4BB7A"><path d="M120 58 123.2 68 133 71.1 123 74.2 120 84.5 116.9 74.2 107 71.1 116.9 68z"/>
+<path d="M120 160 122 166 128 168 122 170 120 176 118 170 112 168 118 166z"/></g>
+<text x="120" y="137" fill="url(#g)" font-family="Georgia,'Times New Roman',serif" font-size="40" font-weight="700" text-anchor="middle" letter-spacing="-2">INGLY</text>
+<path d="M79 146h82" stroke="url(#g)" stroke-width="1.6"/>
+<text x="120" y="159" fill="#E2BA7B" font-family="Arial,sans-serif" font-size="8" text-anchor="middle" letter-spacing="3.5">DESIGN</text>
+</svg>

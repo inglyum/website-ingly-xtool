@@ -336,13 +336,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 </style>
 
 <link rel="stylesheet" href="assets/css/admin-notte-oro.css">
+<link rel="stylesheet" href="assets/css/admin-maison.css">
 </head>
 <body>
 <script src="assets/js/artwork.js"></script>
 <script src="assets/js/generatori-catalog.js"></script>
 <div class="shell" id="shell">
 <aside class="side">
-  <div class="brand"><img src="assets/images/ingly-logo.svg" onerror="this.style.display='none'" alt=""><div><b>INGLY</b><span>Admin 3.0</span></div></div>
+  <div class="brand"><img src="assets/images/ingly-maison-mark.svg" onerror="this.style.display='none'" alt=""><div><b>INGLY</b><span>Admin 3.0</span></div></div>
   <div id="nav"></div>
 </aside>
 <button id="sideToggle" title="Comprimi/espandi sidebar">‹</button>
@@ -360,6 +361,56 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <section class="view" id="v-dash">
     <div id="dashBloccanti"></div>
     <div class="dash" id="dashCards"></div>
+    <!-- MAISON LIVE DASHBOARD: all preview media and counts are drawn from the current draft. -->
+    <div id="maisonAdminDashboard" class="maison-admin-overview" aria-label="Studio visuale INGLY">
+      <div class="maison-admin-welcome"><div><span class="maison-admin-kicker">INGLY DESIGN / STUDIO</span>
+        <h2>Il tuo laboratorio, <em>sempre sotto controllo.</em></h2>
+        <p>Anteprima e accesso diretto agli strumenti reali di gestione del tuo ecommerce.</p></div>
+        <button type="button" class="btn pri" id="maisonAdminNewProd">＋ Nuovo prodotto</button>
+      </div>
+      <div class="maison-admin-main-grid">
+        <section class="card maison-admin-hero-preview" aria-labelledby="maisonHomeLabel">
+          <div class="maison-admin-pane-head"><div><h3 id="maisonHomeLabel">Gestione contenuti Home</h3>
+          <p class="hint">Titolo, fotografia, colori e pulsanti della pagina iniziale</p></div>
+          <button type="button" class="btn sm" id="maisonEditHero">Modifica Home →</button></div>
+          <div class="maison-admin-picture" id="maisonAdminPicture">
+            <img id="maisonAdminHeroImage" src="img/cat-custom.webp" alt="Anteprima della copertina Home" width="960" height="510" loading="lazy">
+            <div class="maison-admin-picture-copy"><strong id="maisonAdminHeroHeadline">Diamo forma alle tue idee.</strong>
+              <small>Anteprima visuale · modifica dall'Admin</small></div>
+          </div>
+        </section>
+        <section class="card maison-admin-theme-panel" aria-labelledby="maisonThemeLabel">
+          <div class="maison-admin-pane-head"><div><h3 id="maisonThemeLabel">Tema e modalità</h3>
+          <p class="hint">La stessa identità, nella versione Notte e in quella Avorio</p></div>
+          <button type="button" class="btn sm" id="maisonEditBackground">Gestisci i temi →</button></div>
+          <div class="maison-admin-theme-grid">
+            <button type="button" class="maison-admin-theme-option maison-admin-dark-preview" id="maisonThemeDark">
+              <span class="maison-admin-theme-logo">INGLY <small>DESIGN · ITALY</small></span>
+              <span class="maison-admin-theme-heading">Le tue <em>idee.</em></span>
+              <span class="maison-admin-theme-description">Modalità scura · nero e oro</span>
+            </button>
+            <button type="button" class="maison-admin-theme-option maison-admin-light-preview" id="maisonThemeLight">
+              <span class="maison-admin-theme-logo">INGLY <small>DESIGN · ITALY</small></span>
+              <span class="maison-admin-theme-heading">Le tue <em>idee.</em></span>
+              <span class="maison-admin-theme-description">Modalità chiara · avorio e oro</span>
+            </button>
+          </div>
+          <p class="maison-admin-theme-help">Seleziona una modalità per aprire il relativo editor sfondi. Le modifiche restano in bozza fino a Pubblica.</p>
+        </section>
+      </div>
+      <div class="maison-admin-lower-grid">
+        <section class="card maison-admin-products" aria-labelledby="maisonRecentTitle">
+          <div class="maison-admin-pane-head"><h3 id="maisonRecentTitle">Prodotti del catalogo</h3>
+            <button type="button" class="btn sm" id="maisonManageProducts">Gestisci prodotti →</button></div>
+          <div id="maisonRecentProducts" class="maison-admin-product-grid"></div>
+        </section>
+        <section class="card maison-admin-media" aria-labelledby="maisonMediaTitle">
+          <div class="maison-admin-pane-head"><h3 id="maisonMediaTitle">Media Library</h3>
+            <button type="button" class="btn sm" id="maisonManageMedia">Apri libreria →</button></div>
+          <div id="maisonRecentMedia" class="maison-admin-media-grid"></div>
+        </section>
+      </div>
+    </div>
     <div class="card admin-launchpad">
       <div class="vs-head"><div><div class="vs-eyebrow">Azioni rapide</div><h3 class="vs-title">Gestisci il sito in pochi click</h3><p class="vs-intro">Carica una foto, crea o modifica prodotti e categorie, oppure cambia la stagione del sito.</p></div><span class="vs-status">Admin · controllo visuale</span></div>
       <div class="admin-launch-grid">
@@ -1980,6 +2031,68 @@ $('goPrev').onclick=()=>openAdminPreview(false);
 })();
 
 /* ================== DASHBOARD ================== */
+
+/* Live Studio overview from the existing Admin draft, never fake metrics.
+   Buttons route to editors that already handle create/edit/delete/publish. */
+function renderMaisonAdminDashboard(){
+ const host=$('maisonAdminDashboard');if(!host)return;
+ const on=(id,cb)=>{const el=$(id);if(el)el.onclick=cb};
+ on('maisonAdminNewProd',()=>{go('prod');$('pNew')?.click()});
+ on('maisonEditHero',()=>go('hero'));
+ on('maisonEditBackground',()=>go('bg'));
+ on('maisonManageProducts',()=>go('prod'));
+ on('maisonManageMedia',()=>go('media'));
+ const pickTheme=(mode)=>{
+   go('bg');
+   if(typeof SF_PREV_TEMA!=='undefined'){
+     SF_PREV_TEMA=mode;
+     renderSfondi();
+   }
+ };
+ on('maisonThemeDark',()=>pickTheme('scuro'));
+ on('maisonThemeLight',()=>pickTheme('chiaro'));
+ const config=S.CONFIG||{};
+ const path=String(config.heroImage||'img/cat-custom.webp');
+ const hero=$('maisonAdminHeroImage');
+ if(hero)hero.src=/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif)$/i.test(path)&&!path.includes('..')
+   ?path:'img/cat-custom.webp';
+ const heading=$('maisonAdminHeroHeadline');
+ if(heading)heading.textContent=String(config.slogan?.it||'Diamo forma alle tue idee.')
+  .replace(/\*\*/g,' ').replace(/\s+/g,' ').trim().slice(0,110);
+ const products=(S.P||[]).filter(p=>p&&!p.hidden&&p.img).slice(0,4);
+ const photos=(S.P||[]).filter(p=>p&&p.img).slice(0,8);
+ const safePath=p=>/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif)$/i.test(String(p||''))&&!String(p).includes('..')
+  ?String(p):'';
+ const label=p=>typeof p.n==='object'?(p.n.it||p.n.en||'Prodotto'):String(p.n||'Prodotto');
+ const prod=$('maisonRecentProducts'),med=$('maisonRecentMedia');
+ if(prod){
+   prod.replaceChildren();
+   products.forEach(p=>{
+     const button=document.createElement('button');button.type='button';
+     button.className='maison-admin-product';
+     const img=document.createElement('img');img.src=safePath(p.img)||'img/cat-casa.webp';
+     img.alt='';img.loading='lazy';
+     const name=document.createElement('strong');name.textContent=label(p);
+     const state=document.createElement('small');state.textContent='Prodotto #'+p.id+' · Apri catalogo';
+     button.append(img,name,state);
+     button.onclick=()=>{go('prod');const search=$('pSearch');if(search){search.value=String(p.id);renderProd()}};
+     prod.append(button);
+   });
+ }
+ if(med){
+   med.replaceChildren();
+   photos.forEach(p=>{
+     const button=document.createElement('button');button.type='button';
+     button.className='maison-admin-media-thumb';
+     const img=document.createElement('img');img.src=safePath(p.img)||'img/cat-casa.webp';
+     img.alt=label(p);img.loading='lazy';button.append(img);
+     button.title='Apri la Media Library';
+     button.onclick=()=>go('media');
+     med.append(button);
+   });
+ }
+}
+
 function renderDash(){
  const P=S.P||[],dig=(S.DIGI&&S.DIGI.bundle)||[],port=(S.C&&S.C.PORT)||[];
  const vis=P.filter(p=>!p.hidden).length;
@@ -1988,6 +2101,7 @@ function renderDash(){
  const heroN=(S.CONFIG&&S.CONFIG.heroFeatured&&S.CONFIG.heroFeatured.length)||0;
  const revTot=P.reduce((s,p)=>s+(p.rev||0),0);
  const pend=pending();
+ renderMaisonAdminDashboard();
  $('dashCards').innerHTML=[
   {t:'Prodotti attivi',v:vis,tot:P.length,c:'b'},
   {t:'Senza foto',v:noPhoto,c:noPhoto?'w':'g'},

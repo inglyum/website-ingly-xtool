@@ -181,12 +181,14 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/signature-showcase.css">
+<link rel="stylesheet" href="assets/css/maison-reference.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>
 <script defer src="assets/js/notte-oro-ui.js"></script>
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script defer src="assets/js/signature-showcase.js"></script>
+<script defer src="assets/js/maison-reference.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
      Con «defer» veniva scaricato da tutti, anche da chi stava già usando i
@@ -284,7 +286,7 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" style="top:36px">
   <div class="wrap nav-in">
-    <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand" data-nav="home"><img src="assets/images/ingly-maison-mark.svg" alt="INGLY DESIGN logo" width="44" height="44"><span>INGLY<small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
@@ -393,6 +395,49 @@ setTimeout(function(){
     <div class="scroll-cue">Scroll</div>
   </div>
 
+
+  <!-- Six visual pathways inspired by the approved references; each card links to a working page. -->
+  <section class="maison-worlds" id="maisonWorlds" aria-labelledby="maisonWorldsTitle">
+    <div class="wrap">
+      <div class="maison-worlds__heading">
+        <span class="eyebrow" data-maison-it="LE NOSTRE CREAZIONI" data-maison-en="OUR CREATIONS">LE NOSTRE CREAZIONI</span>
+        <h2 id="maisonWorldsTitle"><span data-maison-it="Materiali, idee e" data-maison-en="Materials, ideas and">Materiali, idee e</span> <em data-maison-it="infinite possibilità." data-maison-en="endless possibilities.">infinite possibilità.</em></h2>
+        <p data-maison-it="Scegli un mondo creativo: ogni progetto parte dalla tua idea." data-maison-en="Explore what we make: every project begins with your idea.">Scegli un mondo creativo: ogni progetto parte dalla tua idea.</p>
+      </div>
+      <div class="maison-worlds__grid">
+        <a class="maison-world" href="shop" data-nav="shop" aria-label="Legno">
+          <img src="img/3.webp" alt="Quadro ritratto inciso su legno, prodotto del catalogo" width="570" height="420" loading="lazy" decoding="async">
+          <span class="maison-world__shade" aria-hidden="true"></span>
+          <span class="maison-world__content"><strong data-maison-it="Legno" data-maison-en="Wood">Legno</strong><small data-maison-it="Calore naturale, dettagli incisi" data-maison-en="Natural warmth, engraved detail">Calore naturale, dettagli incisi</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="maison-world" href="shop" data-nav="shop" aria-label="Acrilico">
+          <img src="img/5.webp" alt="Targa nascita luminosa in plexiglass, prodotto del catalogo" width="570" height="420" loading="lazy" decoding="async">
+          <span class="maison-world__shade" aria-hidden="true"></span>
+          <span class="maison-world__content"><strong data-maison-it="Acrilico" data-maison-en="Acrylic">Acrilico</strong><small data-maison-it="Luce, trasparenza, emozione" data-maison-en="Light, clarity, emotion">Luce, trasparenza, emozione</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="maison-world" href="shop" data-nav="shop" aria-label="Metallo">
+          <img src="img/17.webp" alt="Medaglietta personalizzata, esempio di marcatura" width="570" height="420" loading="lazy" decoding="async">
+          <span class="maison-world__shade" aria-hidden="true"></span>
+          <span class="maison-world__content"><strong data-maison-it="Metallo" data-maison-en="Metal">Metallo</strong><small data-maison-it="Dettagli che restano" data-maison-en="Details made to last">Dettagli che restano</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="maison-world" href="tecnologie" data-nav="tecnologie" aria-label="Stampa UV">
+          <img src="img/cat-tecnologie.webp" alt="Copertina illustrativa delle tecnologie di personalizzazione" width="570" height="420" loading="lazy" decoding="async">
+          <span class="maison-world__shade" aria-hidden="true"></span>
+          <span class="maison-world__content"><strong data-maison-it="Stampa UV" data-maison-en="UV Printing">Stampa UV</strong><small data-maison-it="Colore per le tue idee" data-maison-en="Colour for your ideas">Colore per le tue idee</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="maison-world" href="shop" data-nav="shop" aria-label="Stampa 3D">
+          <img src="img/2.webp" alt="Lampada quadro luna 3D, prodotto del catalogo" width="570" height="420" loading="lazy" decoding="async">
+          <span class="maison-world__shade" aria-hidden="true"></span>
+          <span class="maison-world__content"><strong data-maison-it="Stampa 3D" data-maison-en="3D Printing">Stampa 3D</strong><small data-maison-it="Dall'idea al volume" data-maison-en="From idea to object">Dall'idea al volume</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="maison-world" href="shop" data-nav="shop" aria-label="Regali unici">
+          <img src="img/cat-eventi.webp" alt="Copertina illustrative delle creazioni per eventi" width="570" height="420" loading="lazy" decoding="async">
+          <span class="maison-world__shade" aria-hidden="true"></span>
+          <span class="maison-world__content"><strong data-maison-it="Regali unici" data-maison-en="Unique Gifts">Regali unici</strong><small data-maison-it="Un pensiero per ogni occasione" data-maison-en="A thoughtful gift for every occasion">Un pensiero per ogni occasione</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- Live editorial preview: concept only, leads to existing personalization. -->
   <section class="atelier-configurator sec" id="atelierConfig" aria-labelledby="atelierConfigTitle">
@@ -1026,7 +1071,7 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand"><img src="assets/images/ingly-logo.svg" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand"><img src="assets/images/ingly-maison-mark.svg" alt="INGLY" width="44" height="44" loading="lazy"><span>INGLY<small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>

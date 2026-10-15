@@ -18,7 +18,7 @@ try{
   const p=await ctx.newPage();
   try{
    await p.goto(url+'/shop/',{waitUntil:'domcontentloaded'});
-   await p.waitForSelector('.pcard[role="link"]',{timeout:18000});
+   await p.waitForSelector('.pcard-open',{timeout:18000});
    await run(mode+' skip link',async()=>{
     const skip=p.locator('.ingly-skip-link');
     assert.equal(await skip.count(),1);
@@ -40,7 +40,7 @@ try{
     assert.equal(await open.evaluate(el=>document.activeElement===el),true);
    });
    await run(mode+' product card via Enter',async()=>{
-    const card=p.locator('.pcard[role="link"]').first();
+    const card=p.locator('.pcard-open').first();
     await card.focus();
     await p.keyboard.press('Enter');
     await p.waitForSelector('#page-product.active',{timeout:7000});

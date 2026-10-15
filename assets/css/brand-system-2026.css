@@ -256,3 +256,41 @@
  :root[data-mode] #techTicker .tt-track{animation:none!important}
  :root[data-mode] :is(.p-card,.fitem,.btn,.ttcard){transition:none!important}
 }
+
+/* Reconcile photographic hero with readable white-mode copy. */
+:root[data-mode="light"] #page-home .signature-hero-media__shade{
+ background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.91) 24%,rgba(255,255,255,.4) 52%,transparent 78%),
+ linear-gradient(0deg,rgba(255,255,255,.22),transparent 55%)!important
+}
+:root[data-mode="dark"] #page-home .signature-hero-media__shade{
+ background:linear-gradient(90deg,#080d15 0%,rgba(8,13,21,.76) 24%,rgba(8,13,21,.10) 62%,transparent 90%),
+ linear-gradient(0deg,rgba(8,13,21,.40),transparent 45%)!important
+}
+:root[data-mode] #page-home .signature-hero :is(#heroH1,.sub,.signature-hero-assurance){
+ color:var(--brand-ink)!important;text-shadow:none!important
+}
+:root[data-mode] #page-home .signature-hero .hero-tag{
+ background:var(--brand-glass)!important;color:var(--brand-gold)!important;
+ border-color:var(--brand-border-strong)!important
+}
+:root[data-mode="light"] #page-home .signature-hero .btn-ghost{
+ background:rgba(255,255,255,.92)!important;color:var(--brand-ink)!important
+}
+@media(max-width:760px){
+ :root[data-mode] #page-home .signature-hero-media{width:100%!important;opacity:.64!important}
+ :root[data-mode="light"] #page-home .signature-hero-media__shade{
+  background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.77) 40%,rgba(255,255,255,.69))!important
+ }
+ :root[data-mode="dark"] #page-home .signature-hero-media__shade{
+  background:linear-gradient(180deg,rgba(8,13,21,.84),rgba(8,13,21,.82) 45%,rgba(8,13,21,.86))!important
+ }
+ :root[data-mode] #page-home .signature-hero-copy{
+  width:100%!important;max-width:100%!important;padding-inline:clamp(4px,3vw,16px)!important
+ }
+ :root[data-mode] #page-home .signature-hero #heroH1{
+  font-size:clamp(2.25rem,9vw,3.6rem)!important;max-width:100%!important;
+  overflow-wrap:break-word!important;line-height:1.05!important
+ }
+ :root[data-mode] #page-home .signature-hero .hero-ctas{display:flex;flex-wrap:wrap;gap:10px}
+ :root[data-mode] #page-home .signature-hero .hero-ctas .btn{min-height:46px!important}
+}

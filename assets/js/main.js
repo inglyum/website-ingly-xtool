@@ -790,10 +790,10 @@ function initDelegation(){
     if(card&&e.target===card){
       e.preventDefault();prod.openProduct(+card.dataset.id);return;
     }
-    const preview=e.target.closest('#ppMain[role="button"]');
+    const preview=e.target.closest('#ppArt[role="button"]');
     if(preview&&e.target===preview&&preview.getAttribute('aria-disabled')!=='true'){
       e.preventDefault();
-      const img=preview.querySelector('#ppArt img');
+      const img=preview.querySelector('img');
       if(img)prod.openLightbox(img.getAttribute('src'));
     }
   });

@@ -171,7 +171,8 @@
     "journeyLabSub": "Macchine, tecnologie e demo",
     "journeyBusiness": "Business",
     "journeyBusinessSub": "Personalizzazioni professionali",
-    "journeyExplore": "Esplora"
+    "journeyExplore": "Esplora",
+    "navCreate": "Crea il tuo pezzo"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -345,7 +346,8 @@
     "journeyLabSub": "Machines, technology and demos",
     "journeyBusiness": "Business",
     "journeyBusinessSub": "Professional customisation",
-    "journeyExplore": "Explore"
+    "journeyExplore": "Explore",
+    "navCreate": "Create your piece"
   },
   "wOpen": {
     "it": "Apri Wishlist",

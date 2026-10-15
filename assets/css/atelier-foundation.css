@@ -623,3 +623,103 @@ html {scroll-padding-top:100px;}
  :root[data-mode] .tech-ticker .tt-track{animation:none!important;transform:none!important}
  :root[data-mode] .tech-ticker .tt-row{overflow-x:auto;scrollbar-width:thin}
 }
+
+/* ==============================================================
+   PHASE 2 — Commerce navigation: 5 direct destinations
+   ============================================================== */
+:root[data-mode] .topbar{
+  min-height:36px;
+  padding:0!important;
+  background:var(--at-bg-deep)!important;
+  border-bottom:1px solid var(--at-edge)!important;
+  color:var(--at-muted)!important;
+}
+:root[data-mode] .topbar[hidden]{display:none!important}
+:root[data-mode] .topbar .wrap{min-height:36px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.atelier-announcement{display:flex;align-items:center;gap:11px;min-width:0}
+.atelier-announcement__mark{
+  width:6px;height:6px;flex:none;border-radius:50%;
+  background:var(--at-amber);box-shadow:0 0 10px var(--at-glow);
+}
+.atelier-announcement__text{
+  color:var(--at-muted);font:500 11px/1.35 var(--at-body);
+  letter-spacing:.02em;
+}
+.atelier-announcement__close{
+  display:grid;place-items:center;flex:none;width:29px;height:29px;
+  border:1px solid transparent;background:none;color:var(--at-muted);
+  border-radius:9px;cursor:pointer;
+}
+.atelier-announcement__close svg{
+  width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;
+}
+.atelier-announcement__close:hover{color:var(--at-amber-text);border-color:var(--at-glass-edge)}
+:root[data-mode] .nav{
+  padding-block:clamp(8px,1vw,12px)!important;
+  transition:transform .28s var(--at-ease),background-color .25s,border-color .25s,box-shadow .25s!important;
+  will-change:auto;
+}
+:root[data-mode] .nav.atelier-nav-hidden{transform:translateY(calc(-100% - 50px))}
+:root[data-mode] .nav:focus-within{transform:none!important}
+:root[data-mode] .nav .nav-in{max-width:1380px;gap:clamp(8px,1.3vw,20px)}
+:root[data-mode] .nav .brand{flex:none;min-width:0;font-size:18px;white-space:nowrap}
+:root[data-mode] .nav .brand img{width:38px;height:38px}
+:root[data-mode] .nav .brand small{letter-spacing:.22em;font-size:8px}
+:root[data-mode] .ia-barra{gap:clamp(1px,.45vw,7px)}
+:root[data-mode] .ia-gruppo{flex:none}
+:root[data-mode] .ia-voce{
+  font:560 clamp(12px,.95vw,14px)/1.2 var(--at-body)!important;
+  letter-spacing:-.01em!important;
+  padding:10px clamp(8px,.9vw,14px)!important;
+  border-radius:10px;
+}
+:root[data-mode] .ia-freccia{border-radius:10px;color:var(--at-muted)}
+:root[data-mode] .ia-freccia:hover,:root[data-mode] .ia-freccia[aria-expanded="true"]{
+  color:var(--at-amber-text);
+  background:var(--at-glow)!important;
+}
+:root[data-mode] .nav-acts{gap:2px}
+:root[data-mode] .atelier-nav-cta{display:inline-flex!important;min-height:40px}
+:root[data-mode] .atelier-search-link{display:grid}
+:root[data-mode] .ia-pannello{border-radius:0 0 22px 22px;overflow:hidden}
+:root[data-mode] .ia-pannello-in{
+  max-width:1350px;gap:clamp(20px,3vw,44px);
+  padding-block:clamp(22px,3vw,40px);
+}
+:root[data-mode] .ia-col-tit{
+  font:550 11px/1.4 var(--at-mono);
+  letter-spacing:.08em;color:var(--at-amber-text)!important;
+}
+:root[data-mode] .ia-lista a{font-family:var(--at-body);font-size:14px;line-height:1.5}
+:root[data-mode] .ft-cols{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(20px,3vw,40px);
+}
+:root[data-mode] .ft-col--brand{grid-column:1/-1;max-width:760px;margin-bottom:16px}
+:root[data-mode] .ft-col a{line-height:1.55}
+:root[data-mode] .ft-col a[href="mailto:inglydesign@gmail.com"]{overflow-wrap:anywhere}
+@media(max-width:1260px){
+  :root[data-mode] .atelier-nav-cta{font-size:11px;padding-inline:10px}
+  :root[data-mode] .nav-acts .icon-btn{width:38px;height:38px}
+}
+@media(max-width:1110px){
+  :root[data-mode] .atelier-nav-cta{display:none!important}
+}
+@media(max-width:900px){
+  :root[data-mode] .nav.atelier-nav-hidden{transform:none!important}
+  :root[data-mode] .topbar .socials{display:none}
+  :root[data-mode] .ft-cols{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  :root[data-mode] .topbar .wrap{gap:8px;padding-inline:10px}
+  .atelier-announcement__text{font-size:10px}
+  .atelier-announcement__close{width:27px;height:27px}
+  :root[data-mode] .topbar .lang{gap:2px}
+  :root[data-mode] .ft-cols{gap:25px 18px}
+  :root[data-mode] .ft-col--brand{margin-bottom:6px}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] .nav{transition:none!important}
+ :root[data-mode] .nav.atelier-nav-hidden{transform:none!important}
+}

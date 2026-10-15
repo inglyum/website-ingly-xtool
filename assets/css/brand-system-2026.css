@@ -306,7 +306,7 @@
 :root[data-mode] #nav.nav .nav-in{
  display:flex!important;flex-wrap:nowrap!important;align-items:center!important;
  justify-content:space-between!important;gap:clamp(8px,1.2vw,18px)!important;
- min-height:62px!important;max-width:84px!important;
+ min-height:62px!important;max-height:84px!important;
 }
 :root[data-mode] #nav.nav a.brand--identity{
  display:inline-flex!important;flex:0 0 auto!important;min-width:0!important;

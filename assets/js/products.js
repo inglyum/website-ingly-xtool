@@ -725,6 +725,7 @@ export function renderPP(){
 function renderGalFrame(){
   const src=galShots[galIdx]||'';
   const art=$('ppArt');
+  $('ppMain')?.classList.toggle('pp-no-photo',!src);
   /* Nessuna foto disponibile: lascia visibile l'icona/gradiente del materiale,
      senza <img src=""> o zoom che si apre sul nulla. */
   const caption = L==='it' ? 'Foto del prodotto non disponibile' : 'Product photo unavailable';

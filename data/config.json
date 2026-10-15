@@ -189,5 +189,20 @@
   },
   "heroImageKind": "illustrative-example",
   "heroImageDemo": true,
-  "heroImageReplaceable": true
+  "heroImageReplaceable": true,
+  "loader": {
+    "enabled": true,
+    "theme": "auto",
+    "minMs": 2000,
+    "maxMs": 3600,
+    "oncePerSession": true,
+    "headline": {
+      "it": "Ispiriamo la creazione.",
+      "en": "We inspire creation."
+    },
+    "messages": {
+      "it": "Accendo il laser\nScelgo il materiale\nIncido la tua idea",
+      "en": "Igniting the laser\nChoosing the material\nEngraving your idea"
+    }
+  }
 }

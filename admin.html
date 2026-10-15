@@ -2985,8 +2985,9 @@ function editDig(i){
  <div class="row c3"><div><label>Formati (virgola)</label><input type="text" id="ed_f" value="${esc((d.f||[]).join(','))}"></div><div><label>Prezzo €</label><input type="number" step="0.01" id="ed_p" value="${d.price==null?'':esc(d.price)}"></div><div><label>Icona</label><input type="text" id="ed_ic" class="emoji-in" value="${esc(d.icon||'')}"></div></div>
  <div class="row c2"><div><label>Categoria</label><select id="ed_cat"><option value="">—</option>${opt(cats,d.cat,c=>(c.n&&c.n.it)||c.id)}</select></div>
   <div><label>Licenza</label><select id="ed_lic"><option value="">—</option>${opt(lics,d.licenza,l=>(l.n&&l.n.it)||l.id)}</select></div></div>
- <div><label>Sommario (IT)</label><input type="text" id="ed_som" value="${esc((d.sommario&&d.sommario.it)||'')}"></div>
- <div><label>Descrizione (IT)</label><textarea id="ed_desc" rows="3">${esc((d.descrizione&&d.descrizione.it)||'')}</textarea></div>
+ <div class="row c2"><div><label>Sommario (IT)</label><input type="text" id="ed_som" value="${esc((d.sommario&&d.sommario.it)||'')}"></div><div><label>Summary (EN)</label><input type="text" id="ed_som_en" value="${esc((d.sommario&&d.sommario.en)||'')}"></div></div>
+ <div class="row c2"><div><label>Descrizione (IT)</label><textarea id="ed_desc" rows="3">${esc((d.descrizione&&d.descrizione.it)||'')}</textarea></div><div><label>Description (EN)</label><textarea id="ed_desc_en" rows="3">${esc((d.descrizione&&d.descrizione.en)||'')}</textarea></div></div>
+ <div><label>Copertina esistente nel repository (percorso relativo)</label><input type="text" id="ed_img" value="${esc(d.img||'')}" placeholder="assets/images/digital-covers/cover-101.svg"></div>
 
  <hr class="hr"><h3 style="font-size:13.5px">Cosa c'è dentro</h3>
  <div class="hint" style="margin-bottom:6px">Una riga per gruppo di file: <b>quantità</b> e <b>cosa contiene</b>. Un bundle pubblicato senza questo viene bloccato dalla validazione: è l'elenco che il cliente legge prima di pagare.</div>
@@ -3013,6 +3014,7 @@ function editDig(i){
   <div><label>Versione</label><input type="text" id="ed_ver" value="${esc(d.versione||'')}" placeholder="1.0"></div>
   <div><label>Peso</label><input type="text" id="ed_peso" value="${esc(d.peso||'')}" placeholder="48 MB"></div></div>
 
+ <div><label>Delivery time (EN)</label><input type="text" id="ed_ctem_en" value="${esc((cons.tempi&&cons.tempi.en)||'')}" placeholder="within 24 hours"></div>
  <hr class="hr"><div class="row c2"><div><label>Stato</label><select id="ed_stato">
    <option value="bozza"${d.stato==='bozza'?' selected':''}>Bozza — non compare sul sito</option>
    <option value="archiviato"${d.stato==='archiviato'?' selected':''}>Archiviato — mantiene lo storico</option>
@@ -3028,8 +3030,9 @@ function editDig(i){
   d.f=$('ed_f').value.split(',').map(x=>x.trim().toUpperCase()).filter(Boolean);
   d.price=$('ed_p').value===''?null:Number($('ed_p').value);
   d.icon=$('ed_ic').value;d.cat=$('ed_cat').value;d.licenza=$('ed_lic').value;
-  d.sommario=d.sommario||{};d.sommario.it=$('ed_som').value;
-  d.descrizione=d.descrizione||{};d.descrizione.it=$('ed_desc').value;
+  d.sommario=d.sommario||{};d.sommario.it=$('ed_som').value;d.sommario.en=$('ed_som_en').value;
+  d.descrizione=d.descrizione||{};d.descrizione.it=$('ed_desc').value;d.descrizione.en=$('ed_desc_en').value;
+  d.img=$('ed_img').value.trim();
   d.contenuto=[...document.querySelectorAll('#ed_cont [data-cr]')].map(r=>{
    const k=r.dataset.cr;
    const t=r.querySelector('[data-cot="'+k+'"]').value.trim();
@@ -3039,7 +3042,7 @@ function editDig(i){
   d.compatibilita=d.compatibilita||{macchine:[],software:[],note:{it:'',en:''}};
   d.compatibilita.macchine=[...document.querySelectorAll('[data-cmac]:checked')].map(c=>c.dataset.cmac);
   d.compatibilita.software=[...document.querySelectorAll('[data-csw]:checked')].map(c=>c.dataset.csw);
-  d.consegna={modo:$('ed_cons').value,url:$('ed_cursl').value.trim(),tempi:{it:$('ed_ctem').value,en:((d.consegna||{}).tempi||{}).en||''}};
+  d.consegna={modo:$('ed_cons').value,url:$('ed_cursl').value.trim(),tempi:{it:$('ed_ctem').value,en:$('ed_ctem_en').value}};
   d.versione=$('ed_ver').value.trim();d.peso=$('ed_peso').value.trim();
   d.stato=$('ed_stato').value;d.inEvidenza=$('ed_ev').value==='1';
  }

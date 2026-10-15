@@ -541,6 +541,19 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
         </div>
       </div>
     </div>
+  <!-- FOTO DA COMPLETARE: usa solo il catalogo e l'inventario effettivo -->
+    <section class="card" aria-labelledby="photoQueueTitle">
+      <div class="photo-queue-head">
+        <div><h3 id="photoQueueTitle">📷 Fotografie da completare</h3>
+          <p class="hint">Prima i prodotti pubblici. Carica la foto originale verificata: viene preparata in bozza, mai pubblicata automaticamente.</p></div>
+        <div class="photo-queue-actions">
+          <button type="button" class="btn sm" id="mPhotoPublic" aria-pressed="true">Solo pubblici</button>
+          <button type="button" class="btn sm" id="mPhotoExport">↓ Esporta lista CSV</button>
+        </div>
+      </div>
+      <div id="mPhotoStats" class="photo-queue-stats" aria-live="polite">Calcolo fotografie…</div>
+      <div id="mPhotoQueue" class="photo-queue-list"></div>
+    </section>
     <div class="card"><h3>🗂 Libreria <span class="sp"></span>
       <button class="btn sm" id="mScan">🔍 Scansiona repository</button>
       <input type="text" id="mSearch" placeholder="Cerca…" style="width:160px">
@@ -2068,9 +2081,13 @@ function renderMaisonAdminDashboard(){
  const heading=$('maisonAdminHeroHeadline');
  if(heading)heading.textContent=String(config.slogan?.it||'Diamo forma alle tue idee.')
   .replace(/\*\*/g,' ').replace(/\s+/g,' ').trim().slice(0,110);
- const products=(S.P||[]).filter(p=>p&&!p.hidden&&p.img).slice(0,4);
- const photos=(S.P||[]).filter(p=>p&&p.img).slice(0,8);
- const safePath=p=>/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif)$/i.test(String(p||''))&&!String(p).includes('..')
+ const effectivePhoto=p=>{
+   const st=photoStatusAdmin(p);
+   return st.state==='ready'?st.main:(st.state==='gallery'?st.galleryFound[0]:'');
+ };
+ const products=(S.P||[]).filter(p=>p&&!p.hidden&&effectivePhoto(p)).slice(0,4);
+ const photos=(S.P||[]).filter(p=>p&&effectivePhoto(p)).slice(0,8);
+ const safePath=p=>/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif|svg)$/i.test(String(p||''))&&!String(p).includes('..')
   ?String(p):'';
  const label=p=>typeof p.n==='object'?(p.n.it||p.n.en||'Prodotto'):String(p.n||'Prodotto');
  const prod=$('maisonRecentProducts'),med=$('maisonRecentMedia');
@@ -2079,7 +2096,7 @@ function renderMaisonAdminDashboard(){
    products.forEach(p=>{
      const button=document.createElement('button');button.type='button';
      button.className='maison-admin-product';
-     const img=document.createElement('img');img.src=safePath(p.img)||'img/cat-casa.webp';
+     const img=document.createElement('img');img.src=imgPreviewSrc(safePath(effectivePhoto(p)));
      img.alt='';img.loading='lazy';
      const name=document.createElement('strong');name.textContent=label(p);
      const state=document.createElement('small');state.textContent='Prodotto #'+p.id+' · Apri catalogo';
@@ -2093,7 +2110,7 @@ function renderMaisonAdminDashboard(){
    photos.forEach(p=>{
      const button=document.createElement('button');button.type='button';
      button.className='maison-admin-media-thumb';
-     const img=document.createElement('img');img.src=safePath(p.img)||'img/cat-casa.webp';
+     const img=document.createElement('img');img.src=imgPreviewSrc(safePath(effectivePhoto(p)));
      img.alt=label(p);img.loading='lazy';button.append(img);
      button.title='Apri la Media Library';
      button.onclick=()=>go('media');
@@ -3159,6 +3176,7 @@ async function stageWithVariants(path,proc){
  if(!path.endsWith('.webp'))return;
  const vs=await makeVariants(proc);
  for(const v of vs){const p=path.replace(/\.webp$/,'-'+v.w+'.webp');
+  DELETES=DELETES.filter(x=>x!==p);
   MEDIA=MEDIA.filter(m=>m.path!==p);
   MEDIA.push({path:p,b64:b64buf(v.buf),url:URL.createObjectURL(v.blob),size:v.buf.byteLength,w:v.w,h:0,hash:'',variant:true})}
  if(!S.C.MV||Array.isArray(S.C.MV))S.C.MV={};
@@ -3173,6 +3191,7 @@ async function processImage(file){
  return{ext:'webp',blob,buf,w,h}}
 async function stageFile(path,proc){const hash=await sha1(proc.buf);
  const dup=MEDIA.find(m=>m.hash===hash&&m.path!==path);
+ DELETES=DELETES.filter(p=>p!==path); /* caricare di nuovo annulla l'eliminazione in coda */
  MEDIA=MEDIA.filter(m=>m.path!==path);
  MEDIA.push({path,b64:b64buf(proc.buf),url:URL.createObjectURL(proc.blob),size:proc.buf.byteLength,w:proc.w,h:proc.h,hash});
  if(dup)toast('Nota: immagine identica già presente come '+dup.path);
@@ -3217,13 +3236,14 @@ function renderMRows(){
   const tipo=MEDIA_DEST.tipoDi(s.dest), ruolo=s.slot||'main';
   const path=MEDIA_DEST.percorso(s.dest,{ext:s.proc.ext,ruolo,nomeFile:s.name,
     portfolio:mdDati().portfolio, occupati:giaPresi,
-    galleryEsistenti:(()=>{const p=(S.P||[]).find(x=>'p:'+x.id===s.dest);return (p&&p.gallery)||[]})()});
+    galleryEsistenti:(()=>{const p=(S.P||[]).find(x=>'p:'+x.id===s.dest);const rg=new RegExp('^'+p?.id+'-g[0-9]+\\.');const existing=(mediaInventory()||[]).filter(n=>rg.test(n)).map(n=>'img/'+n);return [...(p?.gallery||[]),...existing,...MEDIA.map(m=>m.path)]})()});
   if(MEDIA_DEST.tipoDi(s.dest)==='free') giaPresi.push(path);
   return `<div class="list-it" style="align-items:flex-start;flex-wrap:wrap;gap:10px">
   <img src="${s.url}" style="width:62px;height:62px;object-fit:cover;border-radius:9px;border:1px solid var(--line)">
   <div style="flex:1;min-width:180px">
    <div class="mono" style="font-size:11.5px;overflow:hidden;text-overflow:ellipsis">${esc(s.name)}</div>
    <div class="hint">${Math.round(s.proc.buf.byteLength/1024)} KB${s.proc.w?' · '+s.proc.w+'×'+s.proc.h:''}</div>
+   ${s.suggested?`<div class="hint" style="margin-top:6px">≈ Proposta per #${s.suggested.id}: non assegnata automaticamente</div><button type="button" class="btn sm" data-mrtake="${i}" style="margin-top:4px">Conferma proposta →</button>`:'' }
    ${s.auto?`<div class="chip ${s.auto.sicurezza==='certa'?'ok':'warn'}" style="margin-top:5px">
      ${s.auto.sicurezza==='certa'?'✔ abbinata da sola':'≈ probabile'} · ${esc(s.auto.motivo)}${s.auto.galleria?' · va in gallery':''}</div>
      ${s.auto.sostituisce?'<div class="chip warn" style="margin-top:4px">⚠ sostituisce la foto attuale del prodotto</div>':''}`:''}
@@ -3242,14 +3262,23 @@ function renderMRows(){
 
  STAGE_TMP.forEach((s,i)=>{
   const d=document.querySelector(`[data-mrd="${i}"]`),sl=document.querySelector(`[data-mrs="${i}"]`);
-  if(d){ if(s.dest)d.value=s.dest; else s.dest=d.value; d.onchange=()=>{s.dest=d.value;renderMRows()} }
+  if(d){ if(s.dest)d.value=s.dest; else s.dest=d.value; d.onchange=()=>{s.dest=d.value;delete s.auto;delete s.suggested;renderMRows()} }
   if(sl){ sl.value=s.slot||'main'; sl.onchange=()=>{s.slot=sl.value;renderMRows()} }
  });
  /* cambio tipo: riparte dal primo elemento di quel tipo */
  document.querySelectorAll('[data-mrt]').forEach(b=>b.onclick=()=>{
   const i=+b.dataset.mrt, t=b.dataset.tipo, primo=MEDIA_DEST.elementiPerTipo(t,mdDati())[0];
-  STAGE_TMP[i].dest=primo?primo.valore:'free';
+  STAGE_TMP[i].dest=primo?primo.valore:'free';delete STAGE_TMP[i].auto;delete STAGE_TMP[i].suggested;
   if(!MEDIA_DEST.vuoleRuolo(t)) STAGE_TMP[i].slot='main';
+  renderMRows();
+ });
+ document.querySelectorAll('[data-mrtake]').forEach(b=>b.onclick=()=>{
+  const item=STAGE_TMP[+b.dataset.mrtake];
+  if(!item?.suggested)return;
+  item.dest='p:'+item.suggested.id;
+  item.slot=item.suggested.galleria?'gal':'main';
+  item.auto=item.suggested;
+  delete item.suggested;
   renderMRows();
  });
  document.querySelectorAll('[data-mrx]').forEach(b=>b.onclick=()=>{STAGE_TMP.splice(+b.dataset.mrx,1);
@@ -3265,7 +3294,7 @@ async function handleFiles(files){if(!files.length)return;STAGE_TMP=[];
  renderAllBar();
  renderMRows();
  toast(r.abbinate
-   ? r.abbinate+' su '+r.totale+' abbinate da sole — controlla e conferma'
+   ? r.certe+' da ID file · '+(r.abbinate-r.certe)+' suggerimenti non applicati — verifica le immagini'
    : STAGE_TMP.length+' immagini pronte: scegli dove va ognuna')}
 
 /* Prova ad assegnare da sé ogni file al suo prodotto, leggendo il nome.
@@ -3278,9 +3307,10 @@ function abbinaAutomatico(){
  const esiti=window.ABBINA.abbinaTutti(STAGE_TMP.map(x=>x.name), S.P||[]);
  esiti.forEach((e,i)=>{
    const t=STAGE_TMP[i]; if(!t||!e.abbinato) return;
+   if(e.abbinato.sicurezza==='probabile'){t.dest='free';t.slot='main';t.suggested=e.abbinato;return;}
    t.dest='p:'+e.abbinato.id;
    t.slot=e.abbinato.galleria?'gal':'main';
-   t.auto=e.abbinato;                       /* lo mostriamo nella riga */
+   t.auto=e.abbinato;  /* ID file, non prova che la fotografia corrisponda al prodotto */
  });
  return window.ABBINA.riassunto(esiti);
 }
@@ -3302,13 +3332,24 @@ function renderAllBar(){
  if(lab){ const t=MEDIA_DEST.TIPI.find(x=>x.id===MD_TIPO); lab.textContent=t?t.nome:'Elemento' }
 }
 $('mApplyAll').onclick=()=>{const d=$('mAllDest').value,s=$('mAllSlot').value;
- STAGE_TMP.forEach(x=>{x.dest=d;x.slot=MEDIA_DEST.vuoleRuolo(MEDIA_DEST.tipoDi(d))?s:'main'});
+ STAGE_TMP.forEach(x=>{x.dest=d;x.slot=MEDIA_DEST.vuoleRuolo(MEDIA_DEST.tipoDi(d))?s:'main';delete x.auto;delete x.suggested});
  renderMRows();toast('Applicato a tutte le immagini')};
 $('mCancel').onclick=()=>{STAGE_TMP=[];$('mAssign').style.display='none'};
 async function addToGallery(p,proc){p.gallery=p.gallery||[];let n=1,path;
- do{path='img/'+p.id+'-g'+n+'.'+proc.ext;n++}while(p.gallery.includes(path)||MEDIA.some(m=>m.path===path));
+ do{path='img/'+p.id+'-g'+n+'.'+proc.ext;n++}while(p.gallery.includes(path)||MEDIA.some(m=>m.path===path)||(mediaInventory()||[]).includes(path.slice(4)));
  await stageFile(path,proc);p.gallery.push(path);return path}
-$('mDoAssign').onclick=async()=>{let n=0;
+$('mDoAssign').onclick=async()=>{
+ const overwrites=STAGE_TMP.filter(s=>{
+  if(!s.dest?.startsWith('p:')||!['main','both'].includes(s.slot||'main'))return false;
+  const path='img/'+s.dest.slice(2)+'.'+s.proc.ext;
+  return (mediaInventory()||[]).includes(path.slice(4)) || MEDIA.some(m=>m.path===path);
+ });
+ const matches=STAGE_TMP.filter(s=>s.auto&&s.dest?.startsWith('p:'));
+ if((overwrites.length||matches.length)&&!confirm(
+  (overwrites.length?'Attenzione: '+overwrites.length+' fotografie esistenti verranno sostituite.\\n':'')+
+  (matches.length?'Associazioni suggerite dal nome: '+matches.length+'. Confermi la corrispondenza visiva?\\n':'')+
+  'Le modifiche resteranno in bozza finché non premi Pubblica. Procedere?'))return;
+ let n=0;
  for(const s of STAGE_TMP){const dest=s.dest||'free',slot=s.slot||'main';
   if(dest.startsWith('p:')){const p=S.P.find(x=>x.id===+dest.slice(2));if(!p)continue;
    if(slot==='main'||slot==='both'){const path='img/'+p.id+'.'+s.proc.ext;await stageWithVariants(path,s.proc);
@@ -3395,6 +3436,85 @@ function referencedPaths(){const set=new Set();(S.P||[]).forEach(p=>{set.add(p.i
  ((S.C&&S.C.REVIEWS)||[]).forEach(r=>(r.ph||[]).forEach(p=>set.add(p)));
  (((S.C&&S.C.SPONSORS)||{}).lista||[]).forEach(s=>{if(s.logo)set.add(s.logo)});
  [...set].forEach(p=>{if(/\.webp$/.test(p)){set.add(p.replace(/\.webp$/,'-800.webp'));set.add(p.replace(/\.webp$/,'-400.webp'))}});return set}
+/* Inventario condiviso: scanner GitHub quando disponibile; in alternativa
+   il manifest già caricato. Non dedurre mai l'esistenza da un campo "img". */
+function mediaInventory(){return Array.isArray(REPO_IMG)?REPO_IMG:
+  (Array.isArray(S.IMG?.file)?S.IMG.file:null)}
+function photoStatusAdmin(p){
+ const inventory=mediaInventory();
+ if(window.PHOTO_QUEUE)
+   return window.PHOTO_QUEUE.photoStatus(p,inventory,MEDIA.map(m=>m.path),DELETES);
+ /* fallback solo durante il caricamento del modulo */
+ const main=p.img||'img/'+p.id+'.webp',files=inventory||[];
+ const usable=MEDIA.some(m=>m.path===main)||files.includes(main.replace(/^img\//,''));
+ return {state:usable?'ready':'unknown',main,mainExists:usable,galleryFound:[]};
+}
+let photoQueuePublicOnly=true;
+function renderPhotoWorklist(){
+ const stats=$('mPhotoStats'),list=$('mPhotoQueue');
+ if(!stats||!list)return;
+ const api=window.PHOTO_QUEUE;
+ if(!api){stats.textContent='Preparazione elenco immagini…';return}
+ const inventory=mediaInventory();
+ if(!inventory){
+  stats.textContent='Inventario non disponibile: collega il repository o carica il manifest per verificare le fotografie.';
+  list.replaceChildren();return;
+ }
+ const staged=MEDIA.map(m=>m.path);
+ const queue=api.buildPhotoQueue(S.P||[],inventory,staged,DELETES);
+ const summary=api.photoSummary(S.P||[],inventory,staged,DELETES);
+ stats.textContent=summary.visibleMissingAll+' prodotti pubblici senza fotografie · '+
+   summary.visibleNeedsCover+' da completare (inclusi '+summary.galleryOnly+' con foto solo in gallery, tra tutti i prodotti) · '+
+   queue.length+' da completare complessivamente';
+ const rows=queue.filter(x=>!photoQueuePublicOnly||x.visible);
+ list.innerHTML=rows.map(x=>{
+  const name=x.product.n?.it||x.product.n?.en||('Prodotto '+x.id);
+  const status=x.state==='gallery'?'Gallery presente · manca la copertina':'Nessuna fotografia disponibile';
+  return `<div class="photo-queue-row">
+    <div class="photo-queue-id">#${esc(String(x.id))}</div>
+    <div class="photo-queue-details">
+      <b>${esc(name)}</b>
+      <small>${esc(x.product.sku||'SKU non definito')} · ${esc(x.product.cat||'Categoria da definire')} · ${x.visible?'Pubblico':'Nascosto'}</small>
+      <span>${esc(status)}</span>
+    </div>
+    <div class="photo-queue-actions">
+      <button type="button" class="btn sm pri" data-photo-upload="${esc(String(x.id))}" aria-label="Carica foto del prodotto ${esc(String(x.id))}">↑ Carica foto</button>
+      <button type="button" class="btn sm" data-photo-edit="${esc(String(x.id))}">Modifica →</button>
+    </div>
+  </div>`;
+ }).join('')||'<p class="hint">Nessun prodotto da completare con i filtri correnti.</p>';
+ list.querySelectorAll('[data-photo-upload]').forEach(button=>button.onclick=()=>{
+  const p=(S.P||[]).find(x=>String(x.id)===button.dataset.photoUpload);
+  if(!p)return;
+  pickImage('img/'+p.id,path=>{
+    p.img=path;markDirty();renderMedia();
+    toast('Foto di #'+p.id+' pronta in bozza. Verifica il risultato e pubblica manualmente.');
+  },'prodotto');
+ });
+ list.querySelectorAll('[data-photo-edit]').forEach(button=>button.onclick=()=>{
+  const id=button.dataset.photoEdit;
+  go('prod');
+  $('pSearch').value=id;
+  $('pCatF').value='';
+  $('pStatusF').value='';
+  renderProd();
+ });
+}
+$('mPhotoPublic').onclick=()=>{
+ photoQueuePublicOnly=!photoQueuePublicOnly;
+ $('mPhotoPublic').setAttribute('aria-pressed',String(photoQueuePublicOnly));
+ $('mPhotoPublic').textContent=photoQueuePublicOnly?'Solo pubblici':'Tutti i prodotti';
+ renderPhotoWorklist();
+};
+$('mPhotoExport').onclick=()=>{
+ const api=window.PHOTO_QUEUE,inventory=mediaInventory();
+ if(!api||!inventory){toast('Inventario immagini non ancora disponibile');return}
+ const queue=api.buildPhotoQueue(S.P||[],inventory,MEDIA.map(m=>m.path),DELETES);
+ const blob=new Blob([api.exportPhotoCSV(queue)],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='INGLY-fotografie-da-completare.csv';document.body.append(a);
+ a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
 let SEL=new Set();
 function usageOf(path,ref){const u=[];
  (S.P||[]).forEach(p=>{if((p.img||'img/'+p.id+'.webp')===path)u.push('foto principale #'+p.id);
@@ -3408,14 +3528,14 @@ function usageOf(path,ref){const u=[];
  return u}
 function mediaItems(){const ref=referencedPaths();const items=[];const bySha={};
  MEDIA.forEach(m=>items.push({path:m.path,src:m.url,st:true,size:m.size,w:m.w,h:m.h,variant:isVariant(m.path)}));
- (REPO_IMG||[]).forEach(n=>{const path='img/'+n;if(MEDIA.some(m=>m.path===path))return;
+ (mediaInventory()||[]).forEach(n=>{const path='img/'+n;if(MEDIA.some(m=>m.path===path))return;
   const meta=REPO_META[n]||{};
   items.push({path,src:LIVE()+path+'?v='+(meta.sha||'').slice(0,8),repo:true,sha:meta.sha,size:meta.size,variant:isVariant(path)})});
  items.forEach(i=>{if(i.sha){(bySha[i.sha]=bySha[i.sha]||[]).push(i)}});
  items.forEach(i=>{i.used=usageOf(i.path,ref);
   i.dup=i.sha&&bySha[i.sha].length>1?bySha[i.sha].filter(x=>x.path!==i.path).map(x=>x.path):[];
   i.orph=!i.used.length&&!i.variant&&!DELETES.includes(i.path);
-  i.variants=(REPO_IMG||[]).filter(n=>isVariant('img/'+n)&&parentOf('img/'+n)===i.path).length
+  i.variants=(mediaInventory()||[]).filter(n=>isVariant('img/'+n)&&parentOf('img/'+n)===i.path).length
              +MEDIA.filter(m=>isVariant(m.path)&&parentOf(m.path)===i.path).length});
  return items}
 function renderMedia(){const q=($('mSearch').value||'').toLowerCase();
@@ -3459,11 +3579,11 @@ function renderMedia(){const q=($('mSearch').value||'').toLowerCase();
    toast('Punto focale: '+x+'% '+y+'% ✔ (in bozza)')};
   const fc=$('fcClear');if(fc)fc.onclick=()=>{delete S.C.FOCAL[p];markDirty();closeModal();toast('Punto focale rimosso')}});
  const orph=all.filter(i=>i.orph&&!i.variant).length,dup=all.filter(i=>i.dup.length).length;
- $('mStats').innerHTML=`In coda: <b>${MEDIA.filter(m=>!isVariant(m.path)).length}</b> · Nel repository: <b>${REPO_IMG?REPO_IMG.filter(n=>!isVariant('img/'+n)).length:'? (scansiona)'}</b>`
+ $('mStats').innerHTML=`In coda: <b>${MEDIA.filter(m=>!isVariant(m.path)).length}</b> · Nel repository: <b>${mediaInventory()?mediaInventory().filter(n=>!isVariant('img/'+n)).length:'? (scansiona)'}</b>`
   +(orph?` · <span style="color:var(--warn)">orfane: ${orph}</span>`:'')
   +(dup?` · <span style="color:var(--warn)">doppioni: ${dup}</span>`:'')
   +(DELETES.length?` · <span style="color:var(--err)">da eliminare: ${DELETES.length}</span>`:'');
- renderSelBar()}
+ renderSelBar();renderPhotoWorklist()}
 function renderSelBar(){const n=SEL.size;$('mSelBar').style.display=n?'flex':'none';$('mSelN').textContent=n+' selezionate'}
 ['mSearch'].forEach(id=>$(id).oninput=renderMedia);
 ['mHideVar','mOnlyOrph','mOnlyDup'].forEach(id=>$(id).onchange=renderMedia);
@@ -5817,6 +5937,9 @@ $('seoAiGen').onclick=async()=>{
   window.MEDIA_DEST = MD;   /* «MD» è già usato nell'Admin per le date */
   import * as AB from './assets/js/admin/abbina-foto.js';
   window.ABBINA = AB;       /* abbinamento automatico foto → prodotto */
+  import * as PQ from './assets/js/admin/photo-worklist.js';
+  window.PHOTO_QUEUE = PQ;
+  if(typeof renderPhotoWorklist === 'function') renderPhotoWorklist();
   import * as VE from './assets/js/verticali.js';
   window.VERTICALI_MOD = VE;   /* conteggio prodotti delle pagine di settore */
   import * as SF from './assets/js/sfondi.js';

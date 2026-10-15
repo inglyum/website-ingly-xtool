@@ -37,7 +37,9 @@ jobs:
           done
           cat /tmp/ingly-dev-server.log
           exit 1
-      - name: Browser screenshot and responsive audit (baseline; warning-only)
+      - name: Chromium responsive audit — fail on geometric regressions
+        env:
+          INGLY_VISUAL_STRICT: '1'
         run: node tests/visual-audit.mjs
       - name: Upload screenshot evidence and JSON report
         if: always()

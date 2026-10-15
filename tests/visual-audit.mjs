@@ -17,6 +17,7 @@ const routes = [
   { name: 'personalizza', path: '/personalizza/' },
   { name: 'macchine', path: '/macchine/' },
   { name: 'admin', path: '/admin.html' },
+  { name: 'admin-media', path: '/admin.html' },
   { name: 'product-with-photo', path: '/product/1/' },
   { name: 'product-without-photo', path: '/product/9/' },
 ];
@@ -47,6 +48,13 @@ try {
           const response = await page.goto(root + route.path, { waitUntil: 'domcontentloaded', timeout: 25000 });
           status = response?.status();
           await page.waitForTimeout(900);
+          if (route.name === 'admin-media') {
+            await page.waitForFunction(() => !!window.PHOTO_QUEUE &&
+              !!document.querySelector('#v-dash.on .dcard'), undefined, {timeout:15000});
+            await page.evaluate(() => go('media'));
+            await page.waitForFunction(() => !!document.querySelector('#v-media.on') &&
+              !!document.querySelector('#mPhotoQueue .photo-queue-row'), undefined, {timeout:10000});
+          }
           if (route.name.startsWith('product-')) {
             await page.waitForFunction(() => !!document.querySelector('#page-product.active') &&
               !!document.querySelector('#ppName')?.textContent?.trim(), undefined, { timeout: 12000 });
@@ -77,6 +85,9 @@ try {
               productImageSrc: document.querySelector('#ppArt img.pimgph')?.getAttribute('src') ?? null,
               productMissingLabel: !!document.querySelector('#ppArt .pp-photo-label'),
               productGalleryArrowsVisible: Array.from(document.querySelectorAll('#page-product .gal-arrow')).some(visible),
+              adminMediaVisible: !!document.querySelector('#v-media.on'),
+              adminPhotoQueueRows: document.querySelectorAll('#mPhotoQueue .photo-queue-row').length,
+              adminPhotoStats: document.querySelector('#mPhotoStats')?.textContent?.slice(0,180)||'',
 
               overflowCandidates: Array.from(document.body.querySelectorAll('*'))
                 .filter(el => {
@@ -99,7 +110,7 @@ try {
           const problems = [];
           if (!status || status >= 400) problems.push('HTTP ' + status);
           if (metrics.mode !== mode) problems.push('theme mismatch: ' + metrics.mode);
-          if (route.name !== 'admin') {
+          if (!route.name.startsWith('admin')) {
             if (metrics.navWidth === null || metrics.navWidth < width * 0.75)
               problems.push('navbar compressed/absent: width ' + metrics.navWidth);
             if (metrics.wordmarks !== 1) problems.push('header wordmark count ' + metrics.wordmarks);
@@ -109,6 +120,10 @@ try {
           if (route.name === 'macchine' && metrics.titleVisible &&
               (metrics.titleLeft < -2 || metrics.titleRight > width + 2))
             problems.push('machine heading clipped horizontally');
+          if (route.name === 'admin-media' &&
+              (!metrics.adminMediaVisible || metrics.adminPhotoQueueRows === 0 ||
+               !metrics.adminPhotoStats.includes('prodotti pubblici')))
+            problems.push('admin missing-photo worklist unavailable');
           if (route.name === 'product-with-photo') {
             if (metrics.productImages < 1 || !metrics.productImageSrc || metrics.productMissingLabel)
               problems.push('existing product photograph missing in detail view');
@@ -145,5 +160,9 @@ try {
   }, null, 2));
 }
 console.log('Visual audit: ' + findings.length + ' scans, ' + findings.filter(f => f.problems.length).length + ' warnings.');
-// Initial baseline is observation-only. Promote to blocking after fixing detected
-// issues and validating the baseline against at least one physical phone.
+/* Geometric/accessibility smoke tests can now block a regression.
+   Real-phone certification and WCAG review remain distinct checks. */
+if (process.env.INGLY_VISUAL_STRICT === '1' && findings.some(x => x.problems.length)) {
+  console.error('INGLY visual regression detected — see report.json and screenshots.');
+  process.exitCode = 1;
+}

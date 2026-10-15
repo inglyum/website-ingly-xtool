@@ -225,3 +225,13 @@
  .photo-queue-actions .btn{white-space:normal;min-height:38px}
  .photo-queue-head > .photo-queue-actions{width:100%}
 }
+
+
+/* P0 BRAND LEGIBILITY — distinguish the initial I at every mobile size. */
+:root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark{
+ object-fit:contain!important;object-position:left center!important;
+ aspect-ratio:1470/420!important;min-width:0!important;
+}
+:root[data-mode] .brand--admin .brand-admin-lockup{
+ min-width:0!important;overflow:visible!important;
+}

@@ -729,12 +729,12 @@ function renderGalFrame(){
   const art=$('ppArt');
   const display=$('ppMain');
   display?.classList.toggle('pp-no-photo',!src);
-  if(display){
-    display.tabIndex=src?0:-1;
-    display.setAttribute('role','button');
-    display.setAttribute('aria-disabled',String(!src));
-    display.setAttribute('aria-label',src?(L==='it'?'Ingrandisci fotografia del prodotto':'Enlarge product photo'):(L==='it'?'Fotografia non disponibile':'Photo unavailable'));
-  }
+  /* Il trigger è #ppArt, non #ppMain: così le frecce gallery restano
+     controlli separati, mai annidati dentro un altro pulsante. */
+  art.tabIndex=src?0:-1;
+  art.setAttribute('role','button');
+  art.setAttribute('aria-disabled',String(!src));
+  art.setAttribute('aria-label',src?(L==='it'?'Ingrandisci fotografia del prodotto':'Enlarge product photo'):(L==='it'?'Fotografia non disponibile':'Photo unavailable'));
   /* Nessuna foto disponibile: lascia visibile l'icona/gradiente del materiale,
      senza <img src=""> o zoom che si apre sul nulla. */
   const caption = L==='it' ? 'Foto del prodotto non disponibile' : 'Product photo unavailable';

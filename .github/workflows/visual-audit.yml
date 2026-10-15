@@ -1,0 +1,53 @@
+name: INGLY — visual browser audit
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'admin.html'
+      - 'assets/css/**'
+      - 'assets/js/**'
+      - 'assets/images/**'
+      - 'tests/visual-audit.mjs'
+      - '.github/workflows/visual-audit.yml'
+permissions:
+  contents: read
+jobs:
+  visual-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install local project dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install browser automation for QA
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Start INGLY development server
+        run: |
+          node scripts/dev-server.mjs 8080 > /tmp/ingly-dev-server.log 2>&1 &
+          echo $! > /tmp/ingly-dev-server.pid
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8080/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/ingly-dev-server.log
+          exit 1
+      - name: Browser screenshot and responsive audit (baseline; warning-only)
+        run: node tests/visual-audit.mjs
+      - name: Upload screenshot evidence and JSON report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingly-responsive-screenshots
+          path: artifacts/visual-audit/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Stop development server
+        if: always()
+        run: |
+          if [ -f /tmp/ingly-dev-server.pid ]; then kill "$(cat /tmp/ingly-dev-server.pid)" || true; fi

@@ -160,5 +160,9 @@ try {
   }, null, 2));
 }
 console.log('Visual audit: ' + findings.length + ' scans, ' + findings.filter(f => f.problems.length).length + ' warnings.');
-// Initial baseline is observation-only. Promote to blocking after fixing detected
-// issues and validating the baseline against at least one physical phone.
+/* Geometric/accessibility smoke tests can now block a regression.
+   Real-phone certification and WCAG review remain distinct checks. */
+if (process.env.INGLY_VISUAL_STRICT === '1' && findings.some(x => x.problems.length)) {
+  console.error('INGLY visual regression detected — see report.json and screenshots.');
+  process.exitCode = 1;
+}

@@ -253,3 +253,83 @@ html{scroll-padding-top:90px}
  :root[data-mode] #page-home .hero-visual .coin::after{display:none!important}
  :root[data-mode] .atelier-signature-rule::after{transition:none!important}
 }
+
+/* PHASE 8 — live type/material preview: no generated production file. */
+:root[data-mode] .atelier-configurator{padding-block:var(--no-section);
+ background:linear-gradient(125deg,var(--no-ink),var(--no-surface) 62%,var(--no-ink))!important}
+:root[data-mode] .atelier-configurator__layout{
+ display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+ gap:clamp(24px,6vw,88px);align-items:center;max-width:1330px}
+.atelier-configurator h2{font-size:clamp(2.35rem,4.2vw,4.6rem);
+ margin:14px 0 21px}
+.atelier-configurator h2 em{font-family:var(--no-title);font-weight:500;
+ color:var(--no-gold-high)}
+.atelier-configurator__controls>p{color:var(--no-muted);max-width:53ch}
+.atelier-configurator__fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;
+ margin:28px 0 24px}
+.atelier-configurator__fields label{font:500 12px/1.4 var(--no-mono);
+ color:var(--no-muted);display:flex;flex-direction:column;gap:9px}
+.atelier-configurator__fields label:first-child{grid-column:1/-1}
+.atelier-configurator__fields input,.atelier-configurator__fields select{
+ background:var(--no-surface);border:1px solid var(--no-border);
+ color:var(--no-paper);padding:14px;border-radius:11px;width:100%;
+ font:500 15px/1.35 var(--no-copy);min-height:49px}
+.atelier-configurator__fine{font:400 12px/1.7 var(--no-copy)!important;
+ color:var(--no-muted)!important;margin-top:12px}
+.atelier-configurator__preview{position:relative;min-height:480px;
+ background:radial-gradient(ellipse at 48% 24%,#e0b06a1b,transparent 66%),#10131e;
+ border:1px solid #e0b06a40;border-radius:20px;padding:clamp(18px,3vw,40px);
+ display:flex;flex-direction:column;justify-content:space-between;
+ box-shadow:0 27px 66px #0005;overflow:hidden;color:#f5efe3}
+.atelier-configurator__prelabel,.atelier-configurator__preview-meta{
+ font:500 10px/1.6 var(--no-mono);letter-spacing:.12em;color:#b9b4a8}
+.atelier-configurator__preview-meta{display:flex;justify-content:space-between;gap:12px}
+.atelier-configurator__sample{aspect-ratio:16/9;width:min(88%,520px);
+ position:relative;margin:auto;display:grid;place-items:center;
+ overflow:hidden;border-radius:12px;
+ box-shadow:0 21px 36px #0005,inset 0 0 18px #0004;
+ transform:perspective(850px) rotateX(7deg) rotateZ(-3deg);
+ transition:background .28s ease,border-color .28s ease}
+.atelier-configurator__preview[data-material="wood"] .atelier-configurator__sample{
+ background:repeating-linear-gradient(174deg,#b98655,#b98655 9px,#ad794b 12px,#c28a56 15px);
+ border:7px solid #8c5934}
+.atelier-configurator__preview[data-material="acrylic"] .atelier-configurator__sample{
+ background:linear-gradient(130deg,#a7e1ed32,#367b9b88,#91dfeb3d);
+ border:7px solid #85d6e0;box-shadow:0 20px 35px #0007,0 0 22px #6fd3e842}
+.atelier-configurator__preview[data-material="metal"] .atelier-configurator__sample{
+ background:repeating-linear-gradient(177deg,#89929d,#b5bdc3 3px,#909ca5 5px);
+ border:7px solid #68717a}
+.atelier-configurator__inscription{
+ display:block;max-width:90%;word-break:break-word;text-align:center;
+ font:500 clamp(22px,3.3vw,44px)/1.25 var(--no-script);
+ letter-spacing:.012em;color:#4c2d17;
+ text-shadow:0 1px 2px #f2d4a770;
+ user-select:none}
+.atelier-configurator__preview[data-material="acrylic"] .atelier-configurator__inscription{
+ color:#e8f7f7;text-shadow:0 1px 4px #77c9d9}
+.atelier-configurator__preview[data-material="metal"] .atelier-configurator__inscription{
+ color:#303a43;text-shadow:0 1px 2px #f9ffff80}
+.atelier-configurator__inscription[data-font="serif"]{font-family:var(--no-title);font-style:italic}
+.atelier-configurator__inscription[data-font="mono"]{
+ font-family:var(--no-mono);font-size:clamp(15px,2.25vw,27px);font-style:normal}
+.atelier-configurator__sample-line{position:absolute;inset:11px;pointer-events:none;
+ border:1px solid #fff4}
+.atelier-configurator__register{position:absolute;right:13px;bottom:10px;
+ font:18px/1 var(--no-mono);color:#fff6}
+/* PHASE 5 — image reveals use composited opacity; never block content by default */
+:root[data-mode] .atelier-reveal-img{opacity:1;transform:none}
+@media(prefers-reduced-motion:no-preference){
+ :root[data-mode] .atelier-reveal-img.atelier-reveal-enter{
+  animation:atelierReveal .7s both ease}
+ @keyframes atelierReveal{from{opacity:.65;transform:translateY(10px)}
+  to{opacity:1;transform:none}}
+}
+@media(max-width:850px){:root[data-mode] .atelier-configurator__layout{
+ grid-template-columns:1fr}.atelier-configurator__preview{min-height:380px}}
+@media(max-width:480px){:root[data-mode] .atelier-configurator__fields{
+ grid-template-columns:1fr}.atelier-configurator__fields label:first-child{grid-column:auto}
+ .atelier-configurator__preview{min-height:310px;padding:17px}
+ .atelier-configurator__sample{width:96%}
+}
+@media(prefers-reduced-motion:reduce){.atelier-configurator__sample{transform:none!important;
+ transition:none!important}}

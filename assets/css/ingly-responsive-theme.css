@@ -187,3 +187,16 @@
 @media(prefers-reduced-motion:reduce){
  :root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta):hover{filter:none}
 }
+
+/* WHITE MODE: canonical white surfaces; override legacy dark blocks safely */
+:root[data-mode="light"]{--ux-bg:#fff;--ux-bg2:#f4f8fc;--ux-card:#fff;--ux-text:#14223a;--ux-muted:#425875;--ux-header:rgba(255,255,255,.97)}
+:root[data-mode="light"] body{background:radial-gradient(ellipse 65% 48% at 90% 0%,rgba(79,154,239,.095),transparent 74%),linear-gradient(180deg,#fff 0%,#f5f9fe 78%,#fff)!important;color:#14223a!important}
+:root[data-mode="light"] :is(.page,.sec,.sec.dark,.phero,.wrap,.hero,.signature-hero,#page-home,#page-shop,#page-materiali,#page-macchine,#page-personalizza,#page-digital){color:var(--ux-text)!important}
+:root[data-mode="light"] :is(.sec.dark,.filters,.shop-layout,.product-detail,.pdetail,.mach-grid,.matgrid,.digital-preview-grid){background-color:transparent!important}
+:root[data-mode="light"] :is(.nav,.topbar,.mobile-menu,.atelier-mobile-dock,.drawer,.mega-menu){background:rgba(255,255,255,.97)!important;color:#14223a!important}
+:root[data-mode="light"] :is(.rcard,.p-card,.fitem,.machine-explore-card,.digital-preview-card,.b2b-card,.filters,.ft-col){background:#fff!important;color:#14223a!important}
+:root[data-mode="light"] :is(.page,.sec,.hero,.phero,.shop-layout) :is(h1,h2,h3,h4,p,li,label,small){color:inherit}
+:root[data-mode="light"] :is(.page,.sec,.hero,.phero,.shop-layout) :is(p,small,.sub,.hint){color:var(--ux-muted)}
+:root[data-mode="light"] :is(.page,.sec,.hero,.phero) .hl.on{-webkit-text-fill-color:transparent!important}
+:root[data-mode="light"] .ingly-footer-signature img{opacity:1}
+@media(max-width:560px){:root[data-mode="light"] :is(.nav,.topbar,.atelier-mobile-dock){background:rgba(255,255,255,.98)!important}}

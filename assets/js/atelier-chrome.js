@@ -52,6 +52,7 @@
     });
     document.getElementById('langIT')?.addEventListener('click', () => queueMicrotask(update));
     document.getElementById('langEN')?.addEventListener('click', () => queueMicrotask(update));
+    window.addEventListener('ingly:language-change', update);
     window.addEventListener('resize', alignHeader, { passive: true });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once:true });

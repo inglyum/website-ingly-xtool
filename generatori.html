@@ -20,6 +20,72 @@ a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cur
 @media(max-width:1060px){.layout{grid-template-columns:255px minmax(0,1fr)}.workspace{grid-template-columns:1fr}.preview-side{border-right:0;border-bottom:1px solid var(--line)}.controls{padding-top:18px}.canvas{min-height:300px}.feature-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.wrap{width:min(100% - 22px,680px)}.topin{height:62px}.toplinks a:not(.btn){display:none}.hero{padding:42px 0 28px}.layout{grid-template-columns:1fr;gap:12px}.sidebar{position:static}.tool-list{grid-template-columns:1fr 1fr}.tool{padding:9px;gap:8px}.tool-icon{height:34px;width:34px;flex-basis:34px;font-size:17px}.tool b{font-size:11px}.tool small{font-size:9px}.workhead{padding:16px;flex-direction:column}.workactions{justify-content:flex-start}.preview-side,.controls{padding:15px}.canvas{min-height:260px}.feature-grid{grid-template-columns:1fr}.hero p{font-size:15px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+
+/* INGLY Generator Studio: independent, functional light/dark palette */
+html[data-generator-mode="light"]{
+ color-scheme:light;
+ --bg:#fff;--panel:#fff;--panel2:#f4f8fc;
+ --line:rgba(31,86,143,.20);--ink:#17253f;--muted:#4b6180;
+ --blue:#095e9b;--cyan:#116db0;--green:#087d58;
+}
+html[data-generator-mode="light"] body{
+ background:radial-gradient(ellipse 60% 44% at 90% 6%,rgba(76,155,237,.12),transparent 75%),
+ radial-gradient(ellipse 48% 50% at 0 60%,rgba(23,191,136,.07),transparent 74%),
+ linear-gradient(180deg,#fff,#f6faff 68%,#fff);
+ color:var(--ink)
+}
+html[data-generator-mode="light"] .top{background:rgba(255,255,255,.96)}
+html[data-generator-mode="light"] .toplinks a:hover{color:var(--blue)}
+html[data-generator-mode="light"] .panel{background:linear-gradient(140deg,#fff,#f9fbff);box-shadow:0 14px 40px rgba(43,86,134,.09)}
+html[data-generator-mode="light"] .btn{background:#fff;color:var(--ink);border-color:var(--line)}
+html[data-generator-mode="light"] .btn:hover{background:#edf6ff}
+html[data-generator-mode="light"] .btn.primary{color:#081827;background:linear-gradient(110deg,#67eab7,#80c9fb 54%,#b8aaf2);border-color:transparent;box-shadow:0 10px 22px rgba(32,123,210,.16)}
+html[data-generator-mode="light"] .btn.quiet{background:var(--panel2)}
+html[data-generator-mode="light"] .eyebrow,
+html[data-generator-mode="light"] .panel-title{color:var(--blue)}
+html[data-generator-mode="light"] h1 span{background:linear-gradient(110deg,#087552,#1266b4,#6656ac);-webkit-background-clip:text;background-clip:text}
+html[data-generator-mode="light"] .chip{color:var(--muted);background:#fff}
+html[data-generator-mode="light"] .search{background:#fff;color:var(--ink)}
+html[data-generator-mode="light"] .filter.active{background:#dcf0ff;color:#124e84;border-color:var(--blue)}
+html[data-generator-mode="light"] .tool{background:#f7faff;color:var(--ink)}
+html[data-generator-mode="light"] .tool:hover{background:#edf6ff}
+html[data-generator-mode="light"] .tool.active{background:linear-gradient(110deg,#e0f5ff,#ecf4ff);border-color:#8eb8ea;box-shadow:inset 3px 0 #3277cb}
+html[data-generator-mode="light"] .tool-icon{background:linear-gradient(140deg,#d5efff,#e8f1fc);color:#145b98}
+html[data-generator-mode="light"] .canvas{
+ background-color:#f6faff;
+ background-image:linear-gradient(#266faf12 1px,transparent 1px),linear-gradient(90deg,#266faf12 1px,transparent 1px);
+ border-color:var(--line)
+}
+html[data-generator-mode="light"] .canvas-note{color:#435f80;background:rgba(255,255,255,.93)}
+html[data-generator-mode="light"] .stat,
+html[data-generator-mode="light"] .feature{background:#f7faff}
+html[data-generator-mode="light"] .field label{color:var(--ink)}
+html[data-generator-mode="light"] .field input,
+html[data-generator-mode="light"] .field select{background:#fff;color:var(--ink);border-color:var(--line)}
+html[data-generator-mode="light"] .notice{color:#815411;border-color:#c69c3a61;background:#fff9e9}
+html[data-generator-mode="light"] .toast{background:#fff;border-color:var(--line);box-shadow:0 12px 30px rgba(20,60,130,.15)}
+html[data-generator-mode="light"] input::placeholder{color:var(--muted)}
+/* Control height and wrapping on narrow phones */
+#genLangToggle,#genThemeToggle{min-height:44px;white-space:nowrap}
+@media(max-width:760px){
+ .topin{height:auto;min-height:64px;padding-block:8px;gap:8px}
+ .toplinks{gap:6px}
+ .toplinks .btn{padding:9px 10px;font-size:12px}
+ .brand{min-width:0}
+ .brand small{font-size:9px}
+ .brandmark{flex:none}
+ .tool-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tool{min-width:0}
+ .tool span:last-child{min-width:0;overflow-wrap:anywhere}
+ .workactions .btn{min-height:44px}
+}
+@media(max-width:420px){
+ .topin{flex-wrap:wrap;justify-content:center}
+ .toplinks{width:100%;justify-content:center}
+ .hero{padding-top:30px}
+ .tool-list{grid-template-columns:1fr}
+ .toplinks .btn{flex:1;justify-content:center}
+}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -428,16 +494,30 @@ init();
 })();
 </script>
 <script>
-/* Self-contained theme switch: does not affect the SVG generator logic. */
+/* Theme matches the main site and stays readable in both languages. */
 (function(){
 const btn=document.getElementById('genThemeToggle');if(!btn)return;
-const key='ingly_generator_theme';
-const apply=mode=>{document.documentElement.dataset.generatorMode=mode;
-  btn.textContent=mode==='light'?'☾ Notte':'☀ Giorno';
-  btn.setAttribute('aria-label',mode==='light'?'Attiva modalità notte':'Attiva modalità giorno');};
-try{apply(localStorage.getItem(key)==='light'?'light':'dark')}catch(e){apply('dark')}
-btn.addEventListener('click',()=>{const next=document.documentElement.dataset.generatorMode==='light'?'dark':'light';apply(next);
-try{localStorage.setItem(key,next)}catch(e){}});
+const key='ingly_mode',root=document.documentElement;
+const stored=()=>{try{const v=localStorage.getItem(key);return v==='light'||v==='dark'?v:null}catch(e){return null}};
+const system=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)');
+const apply=mode=>{
+ const v=mode==='light'?'light':'dark';
+ root.dataset.generatorMode=v;
+ root.setAttribute('data-mode',v);
+ const en=root.lang==='en';
+ btn.textContent=v==='light'?(en?'☾ Dark':'☾ Notte'):(en?'☀ Light':'☀ Giorno');
+ btn.setAttribute('aria-label',v==='light'?(en?'Switch to dark mode':'Attiva modalità notte'):(en?'Switch to light mode':'Attiva modalità giorno'));
+ btn.setAttribute('aria-pressed',String(v==='light'));
+ const meta=document.querySelector('meta[name="theme-color"]');
+ if(meta)meta.content=v==='light'?'#ffffff':'#080e1c';
+};
+apply(stored()||(system&&system.matches?'light':'dark'));
+btn.addEventListener('click',()=>{
+ const next=root.dataset.generatorMode==='light'?'dark':'light';
+ apply(next);try{localStorage.setItem(key,next)}catch(e){}
+});
+document.addEventListener('ingly:gen-language',()=>apply(root.dataset.generatorMode));
+try{system?.addEventListener('change',e=>{if(!stored())apply(e.matches?'light':'dark')})}catch(_){}
 })();
 </script>
 </body></html>

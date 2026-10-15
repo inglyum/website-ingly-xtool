@@ -265,6 +265,7 @@ setTimeout(function(){
       <a href="quote" data-nav="quote"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
     </nav>
     <div class="nav-acts">
+      <a class="atelier-nav-cta" href="personalizza" data-nav="personalizza" data-i18n="navCreate">Crea il tuo pezzo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
       <button class="icon-btn" aria-label="Wishlist" data-action="open-wish"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg><span class="badge" id="wishBadge">0</span></button>
       <button class="icon-btn" aria-label="Cart" data-action="open-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2 2h3l3.2 13.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="badge" id="cartBadge">0</span></button>
       <a class="icon-btn" href="generatori.html" title="Generator Studio" aria-label="Apri Generator Studio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.2 6.1 6.1 2.2-6.1 2.2-2.2 6.1-2.2-6.1-6.1-2.2 6.1-2.2z"/><path d="M19 15.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg></a>
@@ -273,6 +274,13 @@ setTimeout(function(){
   </div>
   <div id="iaPannelli"></div>
 </header>
+
+<nav class="atelier-mobile-dock" aria-label="Azioni rapide">
+  <a href="shop" data-nav="shop" aria-label="Vai allo Shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18l-2 12H5L3 8zm4 0V5a5 5 0 0 1 10 0v3"/></svg><span>Shop</span></a>
+  <a href="personalizza" data-nav="personalizza" aria-label="Personalizza un prodotto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3z"/></svg><span>Personalizza</span></a>
+  <a href="https://wa.me/393296904627?text=Ciao%20INGLY%21%20Vorrei%20informazioni%20su%20una%20creazione." target="_blank" rel="noopener noreferrer" aria-label="Scrivici su WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-4.7A8.5 8.5 0 1 1 20 11.5Z"/><path d="M9 9.5c.7 2 2 3.3 4 4l1.3-1.2 2.2 1.1c-.4 1.8-2.1 2.3-3.9 1.7a8.6 8.6 0 0 1-4.8-4.8c-.6-1.8-.1-3.5 1.7-3.9l1.1 2.2z"/></svg><span>WhatsApp</span></a>
+  <button type="button" data-action="open-cart" aria-label="Apri il carrello"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h3l3 13h12l3-9H6"/></svg><span>Carrello</span></button>
+</nav>
 
 <div class="mobile-menu" id="mm">
   <button class="mclose" data-action="menu-close">✕</button>
@@ -929,7 +937,7 @@ setTimeout(function(){
         <a href="tecnologie" data-nav="tecnologie">Tecnologie</a>
         <a href="macchine" data-nav="macchine">Macchine</a>
         <a href="demo" data-nav="demo">Demo gratuita</a>
-        <a href="generatori.html">✳ Generator Studio</a></div>
+        <a href="generatori.html">Generator Studio</a></div>
       <div class="ft-col"><h4 data-i18n="ftCo">Studio</h4>
         <a href="about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>
         <a href="portfolio" data-nav="portfolio">Portfolio</a>

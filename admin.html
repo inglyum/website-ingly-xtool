@@ -3241,6 +3241,7 @@ function renderMRows(){
   <div style="flex:1;min-width:180px">
    <div class="mono" style="font-size:11.5px;overflow:hidden;text-overflow:ellipsis">${esc(s.name)}</div>
    <div class="hint">${Math.round(s.proc.buf.byteLength/1024)} KB${s.proc.w?' · '+s.proc.w+'×'+s.proc.h:''}</div>
+   ${s.suggested?`<div class="hint" style="margin-top:6px">≈ Proposta per #${s.suggested.id}: non assegnata automaticamente</div><button type="button" class="btn sm" data-mrtake="${i}" style="margin-top:4px">Conferma proposta →</button>`:'' }
    ${s.auto?`<div class="chip ${s.auto.sicurezza==='certa'?'ok':'warn'}" style="margin-top:5px">
      ${s.auto.sicurezza==='certa'?'✔ abbinata da sola':'≈ probabile'} · ${esc(s.auto.motivo)}${s.auto.galleria?' · va in gallery':''}</div>
      ${s.auto.sostituisce?'<div class="chip warn" style="margin-top:4px">⚠ sostituisce la foto attuale del prodotto</div>':''}`:''}
@@ -3267,6 +3268,15 @@ function renderMRows(){
   const i=+b.dataset.mrt, t=b.dataset.tipo, primo=MEDIA_DEST.elementiPerTipo(t,mdDati())[0];
   STAGE_TMP[i].dest=primo?primo.valore:'free';delete STAGE_TMP[i].auto;delete STAGE_TMP[i].suggested;
   if(!MEDIA_DEST.vuoleRuolo(t)) STAGE_TMP[i].slot='main';
+  renderMRows();
+ });
+ document.querySelectorAll('[data-mrtake]').forEach(b=>b.onclick=()=>{
+  const item=STAGE_TMP[+b.dataset.mrtake];
+  if(!item?.suggested)return;
+  item.dest='p:'+item.suggested.id;
+  item.slot=item.suggested.galleria?'gal':'main';
+  item.auto=item.suggested;
+  delete item.suggested;
   renderMRows();
  });
  document.querySelectorAll('[data-mrx]').forEach(b=>b.onclick=()=>{STAGE_TMP.splice(+b.dataset.mrx,1);
@@ -3326,7 +3336,18 @@ $('mCancel').onclick=()=>{STAGE_TMP=[];$('mAssign').style.display='none'};
 async function addToGallery(p,proc){p.gallery=p.gallery||[];let n=1,path;
  do{path='img/'+p.id+'-g'+n+'.'+proc.ext;n++}while(p.gallery.includes(path)||MEDIA.some(m=>m.path===path)||(mediaInventory()||[]).includes(path.slice(4)));
  await stageFile(path,proc);p.gallery.push(path);return path}
-$('mDoAssign').onclick=async()=>{let n=0;
+$('mDoAssign').onclick=async()=>{
+ const overwrites=STAGE_TMP.filter(s=>{
+  if(!s.dest?.startsWith('p:')||!['main','both'].includes(s.slot||'main'))return false;
+  const path='img/'+s.dest.slice(2)+'.'+s.proc.ext;
+  return (mediaInventory()||[]).includes(path.slice(4)) || MEDIA.some(m=>m.path===path);
+ });
+ const matches=STAGE_TMP.filter(s=>s.auto&&s.dest?.startsWith('p:'));
+ if((overwrites.length||matches.length)&&!confirm(
+  (overwrites.length?'Attenzione: '+overwrites.length+' fotografie esistenti verranno sostituite.\\n':'')+
+  (matches.length?'Associazioni suggerite dal nome: '+matches.length+'. Confermi la corrispondenza visiva?\\n':'')+
+  'Le modifiche resteranno in bozza finché non premi Pubblica. Procedere?'))return;
+ let n=0;
  for(const s of STAGE_TMP){const dest=s.dest||'free',slot=s.slot||'main';
   if(dest.startsWith('p:')){const p=S.P.find(x=>x.id===+dest.slice(2));if(!p)continue;
    if(slot==='main'||slot==='both'){const path='img/'+p.id+'.'+s.proc.ext;await stageWithVariants(path,s.proc);

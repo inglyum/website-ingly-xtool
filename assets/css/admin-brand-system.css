@@ -235,3 +235,23 @@
 :root[data-mode] .brand--admin .brand-admin-lockup{
  min-width:0!important;overflow:visible!important;
 }
+
+
+/* WCAG screenshot audit: light Admin dashboard had old dark-card descendants
+   and light-on-light action labels. Use a single legible operational palette. */
+:root[data-mode="light"] :is(.list-it .btn:not(.pri):not(.err),
+ .content .btn[data-go]:not(.pri):not(.err)){
+ background:#e7edf5!important;color:#26364b!important;
+ border:1px solid #91a1b5!important;
+}
+:root[data-mode="light"] .dcard{
+ background:#fff!important;color:#17263d!important;
+ border-color:#c1cada!important;
+}
+:root[data-mode="light"] .dcard :is(b,span,small){
+ color:#26374b!important;
+}
+:root[data-mode="light"] .chip.err{
+ background:#fff0f0!important;color:#9c2536!important;
+ border-color:#b55b66!important;
+}

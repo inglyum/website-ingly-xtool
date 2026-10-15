@@ -248,3 +248,11 @@
 }
 :root[data-mode="light"] .dcard b{color:var(--ab-text)!important}
 :root[data-mode="light"] .dcard span{color:var(--ab-muted)!important;opacity:1!important}
+
+/* Last axe finding: Maison product tiles had dark backgrounds in daytime mode. */
+:root[data-mode="light"] .maison-admin-product{
+ background:var(--ab-surface)!important;color:var(--ab-text)!important;
+ border-color:var(--ab-border)!important;
+}
+:root[data-mode="light"] .maison-admin-product strong{color:var(--ab-text)!important}
+:root[data-mode="light"] .maison-admin-product small{color:var(--ab-muted)!important}

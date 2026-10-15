@@ -26,6 +26,8 @@ jobs:
         run: node tests/test-josefin-xtool-studio.mjs
       - name: Verifica Maison reference e dashboard Admin
         run: node tests/test-maison-live.mjs
+      - name: Verifica popup Josefin e specifiche ufficiali xTool
+        run: node tests/test-josefin-popup-lab.mjs
       - name: Test Signature Showcase e Admin
         run: node tests/test-signature-showcase.mjs
       - name: Valida audit eCommerce Skills con dati reali e Admin

@@ -128,3 +128,15 @@ input:focus,select:focus,textarea:focus{border-color:#dba953!important;box-shado
  filter:none!important;border-radius:50%;background:transparent!important;
  object-fit:contain!important;width:52px!important;height:52px!important;
 }
+
+/* Josefin Sans extends to Admin; no changes to edit/publish functionality. */
+:root{--ma-body:'Josefin Sans','Manrope',system-ui,sans-serif;
+      --ma-serif:'Josefin Sans','Manrope',system-ui,sans-serif}
+body,.btn,.nit,.hint,label,small,input,select,textarea,.content p,.content a{
+ font-family:'Josefin Sans','Manrope',system-ui,sans-serif!important;
+}
+.top h1,.card h3,.maison-admin-welcome h2,.brand b,.maison-admin-theme-heading,
+.maison-admin-picture-copy strong,.dcard b{
+ font-family:'Josefin Sans','Manrope',system-ui,sans-serif!important;
+ letter-spacing:-.025em!important;font-weight:600!important;
+}

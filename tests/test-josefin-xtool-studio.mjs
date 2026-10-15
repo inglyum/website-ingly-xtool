@@ -1,0 +1,71 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {JSDOM} from 'jsdom';
+const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
+const html=read('index.html');
+const admin=read('admin.html');
+const css=read('assets/css/ingly-josefin-studio.css');
+const generatorCss=read('assets/css/ingly-generator-theme.css');
+const generatorHtml=read('generatori.html');
+const generatorJs=read('assets/js/ingly-personalizza-studio.js');
+const labJs=read('assets/js/lab-ui.js');
+const machines=JSON.parse(read('data/macchine.json')).macchine;
+assert(html.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
+assert(admin.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
+assert(generatorHtml.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
+assert(html.includes('assets/css/ingly-josefin-studio.css'));
+assert(generatorHtml.includes('assets/css/ingly-generator-theme.css'));
+assert(css.includes('#exitPopup #exitPopInner'), 'Premium popup treatment missing');
+assert(css.includes('#exitPopup #exitWaBtn')&&css.includes('linear-gradient(115deg'), 'Gold CTA missing');
+assert(css.includes('@media(max-width:690px)'), 'Responsive popup missing');
+assert(css.includes(':root[data-mode="light"] #exitPopup'), 'Day popup missing');
+assert(css.includes('max-height:min(91dvh'), 'Popup must fit available viewport');
+assert(html.includes('id="exitClose"')&&html.includes("e.key==='Escape'"), 'Escape-to-dismiss missing');
+assert(html.includes('document.createTextNode(part)'), 'Popup body markup must be sanitized');
+for(const id of ['inglyParametric','inglyGeneratorName','inglyGeneratorWidth','inglyGeneratorHeight',
+ 'inglyGeneratorMaterial','inglyGeneratorShape','inglyGeneratorFont','inglyGeneratorCanvas','inglyGeneratorDownload']){
+ assert(html.includes('id="'+id+'"'),'Missing working parameter control '+id);
+}
+new Function(generatorJs);
+const dom=new JSDOM(html,{url:'https://inglyum.github.io/website-ingly-xtool/',runScripts:'outside-only'});
+const w=dom.window,d=w.document;
+w.eval(generatorJs);
+d.dispatchEvent(new w.Event('DOMContentLoaded'));
+const canvas=d.getElementById('inglyGeneratorCanvas');
+assert(canvas.querySelector('svg'),'Generator must render a genuine SVG preview');
+assert.equal(canvas.querySelectorAll('#INGLY_CUT').length,1);
+assert.equal(canvas.querySelectorAll('#INGLY_ENGRAVE').length,1);
+const input=d.getElementById('inglyGeneratorName');
+input.value='<img src=x onerror=alert(1)>';
+input.dispatchEvent(new w.Event('input',{bubbles:true}));
+assert(!canvas.querySelector('img'), 'User text must be escaped, never injected as HTML');
+assert(canvas.querySelector('svg').textContent.includes('img src=x'), 'User text must still be displayed');
+d.getElementById('inglyGeneratorShape').value='ellipse';
+d.getElementById('inglyGeneratorShape').dispatchEvent(new w.Event('input'));
+assert(canvas.querySelector('#INGLY_CUT ellipse'), 'Shape selection must update cut geometry');
+d.getElementById('inglyGeneratorWidth').value='250';
+d.getElementById('inglyGeneratorWidth').dispatchEvent(new w.Event('input'));
+assert.equal(d.getElementById('inglyGeneratorSize').textContent,'250 × 65 mm');
+assert(generatorJs.includes("const svg=open+layers+'</svg>'"), 'Export must not include simulated coloured material');
+assert(generatorJs.includes('INGLY_PREVIEW_MATERIAL'), 'Preview can have material appearance');
+assert(generatorJs.includes('text')&&generatorJs.includes('file SVG'),'Generator guidance expected');
+assert(generatorHtml.includes('genThemeToggle')&&generatorHtml.includes('data-generator-mode'), 'Theme switch missing');
+assert(generatorCss.includes('html[data-generator-mode="light"]')&&generatorCss.includes('--g-body'), 'Generator styling missing');
+for(const id of ['p3','f2','uv','wonderpress']){
+ const m=machines.find(x=>x.id===id);
+ assert(m?.specificheUfficiali?.values?.length>=3, 'Official machine data missing '+id);
+ assert(m.specificheUfficiali.source.startsWith('https://'), 'Must cite actual official doc '+id);
+ assert(/(?:support\.)?xtool\.com\//.test(m.specificheUfficiali.source), 'Official source must be xtool '+id);
+}
+assert(machines.find(x=>x.id==='uv').specificheUfficiali.note.it.includes('stampante UV'), 'O1 must not be called laser');
+assert(machines.find(x=>x.id==='f2').specificheUfficiali.values.some(v=>v.value.includes('115 × 115')),'F2 correct area');
+assert(machines.find(x=>x.id==='p3').specificheUfficiali.values.some(v=>v.value.includes('915 × 458')),'P3 correct area');
+assert(labJs.includes('m.specificheUfficiali.values'),'Machine cards must use updated data source');
+assert(labJs.includes('m.specificheUfficiali.source'),'Machine source must appear in the page');
+new Function(read('assets/js/ingly-personalizza-studio.js'));
+const adminDOM=new JSDOM(admin);
+const adminScripts=[...adminDOM.window.document.querySelectorAll('script:not([src]):not([type="module"])')]
+ .filter(x=>x.textContent.includes('function renderHero()'));
+assert.equal(adminScripts.length,1);new Function(adminScripts[0].textContent);
+w.close();
+console.log('Josefin popup, Personalizza SVG generator and official xTool specifications: PASS');

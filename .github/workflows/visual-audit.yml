@@ -10,6 +10,7 @@ on:
       - 'assets/images/**'
       - 'tests/visual-audit.mjs'
       - 'tests/a11y-keyboard.mjs'
+      - 'tests/a11y-axe-baseline.mjs'
       - '.github/workflows/visual-audit.yml'
 permissions:
   contents: read
@@ -30,7 +31,7 @@ jobs:
           node scripts/prerender.mjs
       - name: Install browser automation for QA
         run: |
-          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npm install --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.10.3
           npx playwright install --with-deps chromium
       - name: Start INGLY development server
         run: |
@@ -48,6 +49,8 @@ jobs:
         run: node tests/visual-audit.mjs
       - name: Keyboard accessibility regression — interactive controls
         run: node tests/a11y-keyboard.mjs
+      - name: Axe WCAG baseline (issues collected for manual triage)
+        run: node tests/a11y-axe-baseline.mjs
       - name: Upload screenshot evidence and JSON report
         if: always()
         uses: actions/upload-artifact@v4

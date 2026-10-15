@@ -25,6 +25,20 @@ jobs:
         run: |
           node scripts/prerender.mjs
           node scripts/generate-sitemap.mjs
+      - name: Debug temporaneo della pagina prodotto dopo la build
+        shell: bash
+        run: |
+          cp tests/test-sito.mjs /tmp/ingly-test-sito-original.mjs
+          python3 - <<'PY'
+          p='tests/test-sito.mjs'
+          s=open(p).read()
+          s=s.replace("vc.on('jsdomError', e => {", "vc.on('jsdomError', e => { console.log('DIAGNOSTICA-JSDOM', e.stack, e.detail && e.detail.stack);")
+          s=s.replace("if(card) card.click();", "console.log('DIAGNOSTICA-PRODUCT', id, !!card, win.location.pathname, doc.querySelectorAll('[data-action=\\\"open-product\\\"]').length); if(card) card.click();")
+          open(p,'w').write(s)
+          PY
+          node tests/test-sito.mjs > /tmp/ingly-debug-sito.log 2>&1 || true
+          grep 'DIAGNOSTICA-' /tmp/ingly-debug-sito.log | head -50 || true
+          cp /tmp/ingly-test-sito-original.mjs tests/test-sito.mjs
       - name: Esegue tutti i test
         run: npm test
       - name: Commit atomico dei file generati

@@ -442,3 +442,17 @@
  }
  :root[data-mode] #page-macchine > .phero > h1.h2{font-size:clamp(1.85rem,8vw,2.4rem)!important}
 }
+
+
+/* P0 BRAND 2026-10-16 — original vector's missing I ascender fixed.
+   Keep the complete wordmark visible and its contrast intentional. */
+:root[data-mode] :is(#nav.nav .brand--identity,footer .ft-col--brand .brand--identity)
+ :is(.brand-lockup,img.brand-wordmark){overflow:visible!important;clip-path:none!important;}
+:root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark,
+:root[data-mode] footer .ft-col--brand .brand-lockup img.brand-wordmark,
+:root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
+ aspect-ratio:1470/420!important;object-fit:contain!important;
+ object-position:left center!important;
+}
+:root[data-mode="dark"] footer .ingly-footer-signature img.brand-wordmark{opacity:.18!important}
+:root[data-mode="light"] footer .ingly-footer-signature img.brand-wordmark{opacity:.15!important}

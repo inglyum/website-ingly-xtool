@@ -161,7 +161,14 @@ function renderTitoloHero(){
   });
 }
 
-function setLang(l){setL(l);applyI18n();renderAll();const pg=currentPage();updateSeo(pg,L,T,pg==='product'?prod.currentProduct():null)}
+function setLang(l){
+ const next=l==='en'?'en':'it';
+ setL(next);
+ try{localStorage.setItem('ingly_lang',next)}catch(e){}
+ applyI18n();renderAll();
+ const pg=currentPage();updateSeo(pg,L,T,pg==='product'?prod.currentProduct():null);
+ window.dispatchEvent(new CustomEvent('ingly:language-change',{detail:{language:next}}));
+}
 
 /* ---- contenuti statici ---- */
 function inglyTechGlyph(t){
@@ -783,6 +790,9 @@ safeRun('delega eventi',initDelegation);
 safeRun('condivisione',initShare);
 safeRun('FOMO',initFomo);
 safeRun('feed Instagram',()=>renderInstagramFeed('igFeedSection'));
+safeRun('lingua memorizzata',()=>{
+ try{const saved=localStorage.getItem('ingly_lang');if(saved==='en'||saved==='it')setL(saved)}catch(e){}
+});
 safeRun('traduzioni',applyI18n);
 safeRun('filtri URL',()=>prod.readFiltersFromURL());
 safeRun('render iniziale',renderAll);

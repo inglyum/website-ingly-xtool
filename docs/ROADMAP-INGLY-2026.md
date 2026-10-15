@@ -3,6 +3,20 @@ Data audit: 15 ottobre 2026
 Base: branch main + hotfix \`fix/brand-header-machine-20261015\`.
 Obiettivo: un e-commerce premium credibile, realmente usabile su smartphone e amministrabile senza confondere immagini decorative, prodotti fisici, download e servizi.
 
+## Aggiornamento operativo — 15 ottobre 2026 (PR #47–#49)
+
+- **PR #47, integrata:** corretto l'errore `max-width:84px` che restringeva la navbar; test di regressione aggiunto.
+- **PR #48, integrata:** audit Chromium di Home, Shop, Personalizza, Macchine e Admin a 320/390/768/1440 px, temi Giorno e Notte. Dopo la correzione della dashboard Admin: 40 controlli geometrici senza warning e deploy GitHub Pages riuscito.
+- **PR #49, in lavorazione:** selezione centralizzata delle foto realmente presenti, possibilità di usare una gallery valida se manca la cover, niente zoom/slideshow vuoti, fallback onesto per la scheda prodotto.
+- **Fase 1, non ancora certificata:** aggiungere audit WCAG con contrasto effettivo, focus/keyboard, navigazione e interazioni, screenshot comparativi esaminati e test su dispositivi fisici.
+- **Fase 2, non ancora conclusa:** rimangono da fornire le 43 fotografie mancanti dei prodotti pubblici (77 contando anche le bozze/nascosti, secondo audit 15/10/2026). Ogni foto deve essere pertinente e verificata, non una rappresentazione sintetica scambiata per un oggetto prodotto.
+
+### Condizioni di uscita dalla Fase 2
+1. Dall'Admin si vedono chiaramente le schede pubbliche senza fotografie; se una gallery autentica è già disponibile, può fungere da copertina.
+2. Nessuna immagine con percorso locale non presente nell'inventario è caricata nello Shop, nel dettaglio o nel lightbox.
+3. Foto di copertina e foto gallery hanno corrispondenza confermata articolo/SKU e alt IT/EN; file ottimizzati e resa controllata su smartphone.
+4. Prima del rilascio catalogo completo: foto caricate e validate per le 43 schede pubbliche, o schede nascoste/indicate in modo esplicito (scelta commerciale da approvare).
+
 ## Stato immediato — Hotfix P0
 **Motivo:** screenshot reale del proprietario mostra emblema circolare + due wordmark trasformati in piccoli cerchi, header gigantesco, titolo Machine Lab tagliato.
 **Causa confermata nel codice:** header/footer contenevano entrambe le immagini \`ingly-wordmark-light.svg\` e \`ingly-wordmark-dark.svg\`. Le regole storiche \`.nav .brand img\` con width/height forzati e border-radius circolare sovrascrivevano le immagini. Anche \`.brand-wordmark\` aveva \`display:block!important\`, quindi le regole generiche di occultamento del tema perdevano nella cascata. \`#page-macchine\` aveva titolo lungo e font/area non vincolati in tutte le varianti responsive.

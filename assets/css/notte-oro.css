@@ -123,3 +123,133 @@ html{scroll-padding-top:90px}
  :root[data-mode] :is(.hero,.btn,.rcard,.vert-card,.p-card){animation:none!important;
  transition:none!important;transform:none!important}
 }
+
+/* PHASE 2 — Laser-engraving first-session loader; never block SEO DOM. */
+:root[data-mode] .loader.atelier-loading{
+ z-index:10000!important;position:fixed;inset:0;opacity:1!important;
+ visibility:visible!important;pointer-events:auto!important;
+ background:radial-gradient(circle at 50% 40%,#21263b 0,#0d0f1c 65%,#090b14 100%)!important;
+ color:#f5efe3!important;display:flex!important;align-items:center;justify-content:center;
+ transition:opacity .38s ease!important}
+:root[data-mode] .loader.atelier-exit{
+ pointer-events:none!important;opacity:0!important;visibility:hidden!important;
+ transition:opacity .45s ease,visibility .45s!important}
+:root[data-mode] .atelier-loader__inner{
+ display:flex!important;flex-direction:column;align-items:center;justify-content:center;
+ text-align:center;gap:10px;max-width:380px;padding:30px}
+.atelier-loader__veil{position:absolute;inset:0;pointer-events:none;
+ opacity:.17;background-image:radial-gradient(circle,#c4ab7b 0.6px,transparent 0.9px);
+ background-size:28px 28px;mask-image:radial-gradient(circle,black,transparent 78%)}
+.atelier-loader__seal{position:relative;width:clamp(140px,16vw,176px);aspect-ratio:1}
+.atelier-loader__seal img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 21px #e0b06a35)}
+.atelier-loader__trace{position:absolute;inset:-9%;width:118%;height:118%;color:#e0b06a;
+ transform:rotate(-90deg);stroke-dasharray:548;stroke-dashoffset:548;
+ animation:atelier-engrave 1.6s cubic-bezier(.25,.9,.25,1) .1s both}
+.atelier-loader__brand{font:650 25px/1 var(--no-title);letter-spacing:.11em;color:#f5efe3}
+.atelier-loader__brand small{display:block;padding-top:9px;
+ font:500 10px/1 var(--no-mono);letter-spacing:.24em;color:#e0b06a}
+:root[data-mode] .atelier-loader__caption{font:italic 22px/1.3 var(--no-title);
+ color:#f5efe3!important;margin:12px 0 4px;min-height:29px}
+:root[data-mode] .atelier-loader__rail{width:min(255px,65vw);height:3px;border:0;
+ border-radius:3px;background:#2a2f48;overflow:visible;position:relative}
+:root[data-mode] .atelier-loader__rail i{display:block;height:100%;width:0;
+ border-radius:3px;background:#e0b06a;box-shadow:0 0 13px #ff8a3d77;transition:width .12s linear}
+.atelier-loader__percent{font:500 11px/1.4 var(--no-mono);letter-spacing:.08em;color:#b9b4a8}
+.atelier-loader__skip{margin-top:6px;border:1px solid #34394d;border-radius:10px;
+ background:transparent;color:#e4dcd0;padding:9px 18px;min-height:44px;cursor:pointer}
+.atelier-loader__skip:hover{border-color:#e0b06a}
+@keyframes atelier-engrave{to{stroke-dashoffset:0}}
+/* PHASE 3 — one-row utility bar, coherent five-item header */
+:root[data-mode] .topbar{
+ position:relative;z-index:93!important;background:var(--no-ink)!important;
+ min-height:32px!important;border-bottom:1px solid var(--no-border)!important}
+:root[data-mode] .topbar .wrap{min-height:32px!important;gap:10px}
+:root[data-mode] .topbar .socials{display:none!important}
+:root[data-mode] .nav{z-index:92!important;box-shadow:0 8px 35px #00000021!important;
+ border-bottom:1px solid var(--no-border)!important}
+:root[data-mode] .nav .nav-in{gap:clamp(8px,1.2vw,18px)}
+:root[data-mode] .brand img{filter:none!important;transform:none!important}
+:root[data-mode] .nav .brand>span{font-family:var(--no-title);
+ font-size:clamp(18px,1.45vw,23px);font-weight:650;letter-spacing:.012em}
+:root[data-mode] .brand small{font:500 8px/1.6 var(--no-mono);
+ letter-spacing:.18em;color:var(--no-muted)}
+:root[data-mode] .ia-voce{color:var(--no-paper)!important;
+ font:650 clamp(12px,.92vw,14px)/1.4 var(--no-copy)!important;
+ letter-spacing:0!important}
+:root[data-mode] .ia-voce.active{color:var(--no-gold-high)!important}
+:root[data-mode] .ia-voce.active::after{height:2px;background:var(--no-gold)!important}
+:root[data-mode] .ia-pannello{border:1px solid var(--no-border);
+ box-shadow:var(--no-shadow)!important;border-radius:0 0 18px 18px}
+:root[data-mode] :is(.ia-pannello a,.ia-pannello h3){color:var(--no-paper)}
+:root[data-mode] .nav .icon-btn svg{stroke-width:1.6}
+:root[data-mode] .atelier-nav-cta{border-radius:12px!important;
+ font-family:var(--no-copy);font-size:12px!important}
+:root[data-mode] .atelier-announcement__mark{background:var(--no-gold);box-shadow:none}
+:root[data-mode] .atelier-announcement__text{color:var(--no-muted)}
+:root[data-mode] .lang button.on{background:var(--no-gold)!important;color:var(--no-on-gold)!important}
+:root[data-mode] .atelier-mobile-dock{background:var(--no-glass)!important;
+ border-color:var(--no-border)!important}
+:root[data-mode] .ft-cols{grid-template-columns:repeat(4,minmax(0,1fr))}
+:root[data-mode] .ft-col--brand{grid-column:1/-1}
+:root[data-mode] footer .ft-col h4{color:var(--no-gold-high)!important}
+:root[data-mode] footer a{color:var(--no-muted)}
+:root[data-mode] footer a:hover{color:var(--no-gold-high)}
+/* PHASE 4 — Hero: light reveals matter; subtle, performance-friendly motion. */
+:root[data-mode] #page-home .hero{
+ position:relative;isolation:isolate;
+ background-color:var(--no-ink)!important;
+ background-image:radial-gradient(ellipse 56% 60% at 86% 35%,#ff8a3d1e,transparent 78%)!important}
+:root[data-mode] #page-home .hero::after{opacity:.18!important;
+ background-image:linear-gradient(115deg,transparent 48%,#ff8a3d12 48.1%,transparent 48.25%)!important}
+:root[data-mode] #page-home .hero .hero-tag{background:var(--no-surface)!important;
+ color:var(--no-gold-high)!important;border:1px solid var(--no-border)!important}
+:root[data-mode] #page-home .hero-grid{max-width:1380px;gap:clamp(26px,5vw,68px)}
+:root[data-mode] #page-home .hero-visual{
+ border:1px solid #e0b06a55!important;border-radius:20px!important;
+ box-shadow:0 24px 80px #0008,0 0 55px #ff8a3d0e!important}
+:root[data-mode] #page-home .hero-visual .coin{animation:none!important;transform:none!important}
+:root[data-mode] #page-home .hero-visual .coin::after{
+ background:linear-gradient(110deg,transparent 30%,#ff8a3d24 50%,transparent 70%);
+ transition:transform .7s var(--no-motion)}
+:root[data-mode] #page-home .hero-proof i{color:var(--no-gold);font-style:normal}
+:root[data-mode] #page-home #heroH1 .engrave{position:relative;
+ color:var(--no-gold-high)!important;font-style:italic;isolation:isolate}
+:root[data-mode] #page-home #heroH1 .engrave::after{
+ content:'';position:absolute;left:0;right:0;bottom:.03em;height:2px;
+ background:linear-gradient(90deg,transparent,var(--no-laser),var(--no-gold));
+ transform:scaleX(0);transform-origin:left;
+ animation:atelier-laser-word 1.2s ease .55s both}
+@keyframes atelier-laser-word{to{transform:scaleX(1)}}
+/* PHASE 5 — one decorative motif per area and tactile material cards */
+:root[data-mode] #page-home .ingly-material-studies{
+ background-image:radial-gradient(circle,#e0b06a1d 0.75px,transparent 1px)!important;
+ background-size:26px 26px!important}
+:root[data-mode] #page-home .ingly-material-heading{margin-bottom:28px}
+:root[data-mode] #page-home .ingly-material-grid{
+ grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.8vw,22px)}
+:root[data-mode] #page-home .ingly-material-grid .ingly-material-tile{
+ background:var(--no-surface)!important;border-radius:16px!important}
+:root[data-mode] #page-home .ingly-material-grid .ingly-material-tile img{
+ aspect-ratio:16/9!important;max-height:205px!important;object-fit:cover}
+:root[data-mode] .atelier-signature-rule{height:1px;width:100%;position:relative;
+ overflow:hidden;background:var(--no-border)}
+:root[data-mode] .atelier-signature-rule::after{
+ content:'';position:absolute;inset:0;width:38%;
+ background:linear-gradient(90deg,transparent,var(--no-laser),var(--no-gold),transparent);
+ transform:translateX(-130%);transition:transform 1.2s ease}
+:root[data-mode] .atelier-signature-rule.in::after{transform:translateX(350%)}
+:root[data-mode] :is(.p-card,.rcard,.vert-card,.lab-card)::after{
+ border-color:var(--no-border);pointer-events:none}
+@media(max-width:960px){:root[data-mode] .ft-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){
+ :root[data-mode] .nav{padding-block:8px!important}
+ :root[data-mode] #page-home .hero{padding-top:100px!important}
+ :root[data-mode] #page-home .ingly-material-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ :root[data-mode] #page-home .ingly-material-grid .ingly-material-tile img{max-height:146px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .atelier-loader__trace{animation:none!important;stroke-dashoffset:0}
+ :root[data-mode] #page-home #heroH1 .engrave::after{animation:none!important;transform:scaleX(1)}
+ :root[data-mode] #page-home .hero-visual .coin::after{display:none!important}
+ :root[data-mode] .atelier-signature-rule::after{transition:none!important}
+}

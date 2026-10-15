@@ -224,3 +224,12 @@
 @media(prefers-reduced-motion:reduce){
  #exitPopInner{transition:none!important;animation:none!important}
 }
+
+/* When no product is selected, do not show an empty image tile on mobile. */
+#exitPopup #exitPopProd[style*="display: none"]{display:none!important}
+:root[data-mode] #page-home .signature-hero #heroH1,
+:root[data-mode] #page-personalizza .phero h1,
+:root[data-mode] #page-macchine .phero h1{
+ font-family:var(--ingly-type)!important;font-weight:600!important;
+ letter-spacing:-.04em!important;
+}

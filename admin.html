@@ -987,6 +987,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <button class="btn sm pri" data-labtab="mat">🧱 Materiali</button>
       <button class="btn sm" data-labtab="tec">⚡ Tecnologie</button>
       <button class="btn sm" data-labtab="mac">🛠 Macchine</button>
+      <button class="btn sm" data-labtab="matpro">🧱 Negozio materiali PRO</button>
+      <button class="btn sm" data-labtab="macpro">⚙️ Catalogo macchine PRO</button>
       <button class="btn sm" data-labtab="cor">🎓 Corsi</button>
       <button class="btn sm" data-labtab="demo">📅 Demo gratuita</button>
     </div>
@@ -1404,6 +1406,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 </div>
 <div class="ovl" id="ovl"><div class="modal" id="modal"></div></div>
 <div id="toast"></div>
+<script src="assets/js/admin/editor-collezione.js"></script>
 <script>
 /* ================================================================
    INGLY ADMIN 2.0 — motore
@@ -4464,6 +4467,8 @@ function renderLab(){
  if(LABTAB==='mat')return labMateriali(B);
  if(LABTAB==='tec')return labTecnologie(B);
  if(LABTAB==='mac')return labMacchine(B);
+ if(LABTAB==='matpro')return labEditorMateriali(B);
+ if(LABTAB==='macpro')return labEditorMacchine(B);
  if(LABTAB==='cor')return labCorsi(B);
  if(LABTAB==='demo')return labDemo(B);
 }
@@ -4571,6 +4576,88 @@ function labMacchine(B){
  document.querySelectorAll('[data-lcm]').forEach(b=>b.onclick=()=>{
   const[i,d]=b.dataset.lcm.split(',').map(Number);const j=i+d;const A=S.MAC.catalogo;
   if(j<0||j>=A.length)return;[A[i],A[j]]=[A[j],A[i]];markDirty();renderLab()});
+}
+
+
+/* ---- Editor universale: si appoggia a S + markDirty, senza un nuovo flusso di pubblicazione ---- */
+async function caricaImmagineCollezione(file, prefix) {
+ if(!file || !/^image\//i.test(file.type))throw Error('Seleziona un file immagine valido.');
+ const proc=await processImage(file);
+ const path=prefix.replace(/[^a-z0-9/_-]/gi,'-')+'-'+Date.now()+'.'+proc.ext;
+ await stageWithVariants(path,proc);
+ return path;
+}
+function labEditorMateriali(B) {
+ const E=window.INGLY_COLLECTION_EDITOR;
+ if(!E){B.textContent='Editor avanzato non caricato';return}
+ const varianti=[
+  {key:'formato',label:'Formato',type:'testo'},
+  {key:'spessore',label:'Spessore',type:'testo'},
+  {key:'colore',label:'Colore',type:'testo'},
+  {key:'sku',label:'SKU',type:'testo'},
+  {key:'prezzo',label:'Prezzo (€)',type:'prezzo|null'},
+  {key:'compareAt',label:'Prezzo di listino (€)',type:'prezzo|null'},
+  {key:'stock',label:'Giacenza',type:'numero|null'},
+  {key:'img',label:'Percorso immagine',type:'testo'}
+ ];
+ const schema=[
+  {key:'n',label:'Nome',type:'testo-it-en',required:true},
+  {key:'sommario',label:'Sommario',type:'area-it-en'},
+  {key:'descrizione',label:'Descrizione',type:'area-it-en'},
+  {key:'tech',label:'Tecnologie',type:'chips',options:(S.TEC.tecnologie||[]).map(t=>({value:t.id,label:labL(t.n,'it')||t.id}))},
+  {key:'macchine',label:'Macchine compatibili',type:'chips',options:(S.MAC.macchine||[]).map(t=>({value:t.id,label:labL(t.n,'it')||t.id}))},
+  {key:'spessori',label:'Spessori disponibili',type:'elenco-it-en'},
+  {key:'usi',label:'Utilizzi',type:'elenco-it-en'},
+  {key:'consigli',label:'Consigli',type:'elenco-it-en'},
+  {key:'limiti',label:'Limiti',type:'elenco-it-en'},
+  {key:'vendita.attivo',label:'Vendita attiva',type:'booleano'},
+  {key:'vendita.varianti',label:'Varianti commerciali',type:'ripetitore',schema:varianti},
+  {key:'galleria',label:'Galleria fotografica',type:'galleria'}
+ ];
+ E.mount({root:B,items:S.MAT.materiali,schema,title:'Negozio materiali',
+  file:'data/materiali.json',percorso:'materiali',area:'materiali',
+  onChange:markDirty,upload:caricaImmagineCollezione,
+  create:()=>({id:'nuovo-materiale',cat:'',n:{it:'Nuovo materiale',en:'New material'},
+   sommario:{it:'',en:''},descrizione:{it:'',en:''},tech:[],macchine:[],
+   vendita:{attivo:false,varianti:[]},stato:'bozza'})});
+}
+function labEditorMacchine(B) {
+ const E=window.INGLY_COLLECTION_EDITOR;
+ if(!E){B.textContent='Editor avanzato non caricato';return}
+ const specs=[
+  {key:'specs.sorgente',label:'Sorgente (verificata)',type:'testo'},
+  {key:'specs.velocitaMax',label:'Velocità max (verificata)',type:'testo'},
+  {key:'specs.areaLavoro',label:'Area lavoro (verificata)',type:'testo'},
+  {key:'specs.potenza',label:'Potenza (verificata)',type:'testo'}
+ ];
+ const schema=[
+  {key:'n',label:'Modello',type:'testo-it-en',required:true},
+  {key:'ruolo',label:'Ruolo',type:'area-it-en'},
+  {key:'serie',label:'Serie',type:'testo'},
+  {key:'tecnologia',label:'Tecnologia',type:'testo'},
+  {key:'famiglie',label:'Famiglie',type:'chips',options:['co2','diodo','ir','fiber','mopa','uv','stampa','pressa','metallo','dtf','multifunzione']},
+  {key:'utilizzo',label:'Come si utilizza',type:'elenco-it-en'},
+  {key:'utilePer',label:'Utile per',type:'elenco-it-en'},
+  {key:'nonUtilePer',label:'Non utile per',type:'elenco-it-en'},
+  {key:'materialiOk',label:'Materiali lavorabili',type:'chips',options:(S.MAT.materiali||[]).map(m=>({value:m.id,label:labL(m.n,'it')||m.id}))},
+  {key:'materialiNo',label:'Materiali esclusi',type:'chips',options:(S.MAT.materiali||[]).map(m=>({value:m.id,label:labL(m.n,'it')||m.id}))},
+  ...specs,
+  {key:'fonte.url',label:'Fonte ufficiale',type:'url'},
+  {key:'fonte.verificatoIl',label:'Data verifica (YYYY-MM-DD)',type:'testo'},
+  {key:'daCompletare',label:'Specifiche in verifica',type:'booleano'},
+  {key:'inOfficina',label:'In officina',type:'booleano'},
+  {key:'demoDisponibile',label:'Demo disponibile',type:'booleano'},
+  {key:'assistenza',label:'Assistenza',type:'booleano'},
+  {key:'galleria',label:'Fotografie e alt IT/EN',type:'galleria'}
+ ];
+ E.mount({root:B,items:S.MAC.catalogo,schema,title:'Catalogo macchine xTool',
+  file:'data/macchine.json',percorso:'catalogo',area:'macchine',
+  onChange:markDirty,upload:caricaImmagineCollezione,
+  create:()=>({id:'nuova-macchina',serie:'',n:{it:'Nuovo modello',en:'New model'},ruolo:{it:'',en:''},
+   specs:{sorgente:null,potenza:null,areaLavoro:null,velocitaMax:null},utilizzo:{it:[],en:[]},
+   utilePer:{it:[],en:[]},nonUtilePer:{it:[],en:[]},materialiOk:[],materialiNo:[],
+   galleria:[],fonte:{url:'',verificatoIl:''},inOfficina:false,demoDisponibile:false,
+   assistenza:false,daCompletare:true,stato:'bozza'})});
 }
 
 /* ---- corsi: si creano qui, e nascono in bozza ---- */

@@ -245,6 +245,7 @@ function setLang(l){
  setL(next);
  try{localStorage.setItem('ingly_lang',next)}catch(e){}
  applyI18n();renderAll();
+ for(const id of ['langIT','langEN']) document.getElementById(id)?.setAttribute('aria-pressed',String(id==='lang'+next.toUpperCase()));
  const pg=currentPage();updateSeo(pg,L,T,pg==='product'?prod.currentProduct():null);
  window.dispatchEvent(new CustomEvent('ingly:language-change',{detail:{language:next}}));
 }
@@ -405,9 +406,9 @@ function bindLightbox(){
   const box=document.getElementById('lightbox'); if(!box) return;
   const main=document.getElementById('ppMain');
   if(main) main.addEventListener('click', e=>{
-    if(e.target.closest('[data-action="pp-thumb"]')) return;
+    if(e.target.closest('button,[data-action]')) return;
     const img=document.querySelector('#ppArt img');
-    prod.openLightbox(img?img.getAttribute('src'):'');
+    if(img)prod.openLightbox(img.getAttribute('src'));
   });
   /* clic su una miniatura → apre QUELLA foto nello zoom (non riparte dalla principale) */
   const thumbs=document.getElementById('ppThumbs');
@@ -446,10 +447,11 @@ function bindLightbox(){
   document.getElementById('lbxNext').addEventListener('click', e=>{e.stopPropagation();prod.lbxMove(1)});
   box.addEventListener('click', e=>{ if(e.target===box) prod.closeLightbox() });
   document.addEventListener('keydown', e=>{
-    if(box.hidden) return;
-    if(e.key==='Escape'){ prod.closeLightbox(); prod.closeProject(); }
-    if(e.key==='ArrowLeft') prod.lbxMove(-1);
-    if(e.key==='ArrowRight') prod.lbxMove(1);
+    if(!box.hidden){
+      if(e.key==='ArrowLeft'){e.preventDefault();prod.lbxMove(-1)}
+      if(e.key==='ArrowRight'){e.preventDefault();prod.lbxMove(1)}
+    }
+    if(e.key==='Escape'&&!document.getElementById('projModal')?.hidden)prod.closeProject();
   });
 }
 /* 2.4 — fascia promozionale con finestra di date (stessa logica del calendario dei temi) */
@@ -781,6 +783,19 @@ function initDelegation(){
   document.addEventListener('click',e=>{
     const el=e.target.closest('[data-action]');if(!el)return;
     const fn=actions[el.dataset.action];if(fn){if(el.tagName==='A'&&el.getAttribute('href')==='#')e.preventDefault();fn(el,e)}
+  });
+  document.addEventListener('keydown',e=>{
+    if(!['Enter',' '].includes(e.key))return;
+    const card=e.target.closest('.pcard[data-action="open-product"]');
+    if(card&&e.target===card){
+      e.preventDefault();prod.openProduct(+card.dataset.id);return;
+    }
+    const preview=e.target.closest('#ppMain[role="button"]');
+    if(preview&&e.target===preview&&preview.getAttribute('aria-disabled')!=='true'){
+      e.preventDefault();
+      const img=preview.querySelector('#ppArt img');
+      if(img)prod.openLightbox(img.getAttribute('src'));
+    }
   });
 }
 

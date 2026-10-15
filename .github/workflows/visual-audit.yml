@@ -9,6 +9,7 @@ on:
       - 'assets/js/**'
       - 'assets/images/**'
       - 'tests/visual-audit.mjs'
+      - 'tests/a11y-keyboard.mjs'
       - '.github/workflows/visual-audit.yml'
 permissions:
   contents: read
@@ -41,6 +42,8 @@ jobs:
         env:
           INGLY_VISUAL_STRICT: '1'
         run: node tests/visual-audit.mjs
+      - name: Keyboard accessibility regression — interactive controls
+        run: node tests/a11y-keyboard.mjs
       - name: Upload screenshot evidence and JSON report
         if: always()
         uses: actions/upload-artifact@v4

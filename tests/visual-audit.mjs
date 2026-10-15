@@ -17,6 +17,8 @@ const routes = [
   { name: 'personalizza', path: '/personalizza/' },
   { name: 'macchine', path: '/macchine/' },
   { name: 'admin', path: '/admin.html' },
+  { name: 'product-with-photo', path: '/product/1/' },
+  { name: 'product-without-photo', path: '/product/9/' },
 ];
 const widths = [320, 390, 768, 1440];
 const modes = ['dark', 'light'];
@@ -45,6 +47,10 @@ try {
           const response = await page.goto(root + route.path, { waitUntil: 'domcontentloaded', timeout: 25000 });
           status = response?.status();
           await page.waitForTimeout(900);
+          if (route.name.startsWith('product-')) {
+            await page.waitForFunction(() => !!document.querySelector('#page-product.active') &&
+              !!document.querySelector('#ppName')?.textContent?.trim(), undefined, { timeout: 12000 });
+          }
           const metrics = await page.evaluate(() => {
             const nav = document.querySelector('#nav .nav-in');
             const navRect = nav?.getBoundingClientRect();
@@ -67,6 +73,11 @@ try {
               titleRight: visible(title) ? titleRect?.right : null,
               titleLeft: visible(title) ? titleRect?.left : null,
               titleVisible: visible(title),
+              productImages: document.querySelectorAll('#ppArt img.pimgph').length,
+              productImageSrc: document.querySelector('#ppArt img.pimgph')?.getAttribute('src') ?? null,
+              productMissingLabel: !!document.querySelector('#ppArt .pp-photo-label'),
+              productGalleryArrowsVisible: Array.from(document.querySelectorAll('#page-product .gal-arrow')).some(visible),
+
               overflowCandidates: Array.from(document.body.querySelectorAll('*'))
                 .filter(el => {
                   const rect = el.getBoundingClientRect();
@@ -98,6 +109,14 @@ try {
           if (route.name === 'macchine' && metrics.titleVisible &&
               (metrics.titleLeft < -2 || metrics.titleRight > width + 2))
             problems.push('machine heading clipped horizontally');
+          if (route.name === 'product-with-photo') {
+            if (metrics.productImages < 1 || !metrics.productImageSrc || metrics.productMissingLabel)
+              problems.push('existing product photograph missing in detail view');
+          }
+          if (route.name === 'product-without-photo') {
+            if (metrics.productImages !== 0 || !metrics.productMissingLabel || metrics.productGalleryArrowsVisible)
+              problems.push('unphotographed product uses a broken image or unusable gallery controls');
+          }
           if (metrics.documentWidth > width + 6)
             problems.push('horizontal overflow by ' + (metrics.documentWidth - width) + 'px');
           const screenshot = route.name + '-' + width + '-' + mode + '.png';

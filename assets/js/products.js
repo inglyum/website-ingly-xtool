@@ -145,7 +145,8 @@ function stockBadge(x){
 
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
-  return `<article class="pcard reveal in" role="link" tabindex="0" aria-label="${L==='it'?'Apri prodotto':'Open product'}: ${esc(x.n[L]||x.n.it)}" data-action="open-product" data-id="${x.id}">
+  return `<article class="pcard reveal in" data-action="open-product" data-id="${x.id}">
+    <button type="button" class="pcard-open" aria-label="${L==='it'?'Apri prodotto':'Open product'}: ${esc(x.n[L]||x.n.it)}" data-action="open-product" data-id="${x.id}"></button>
     <div class="pimg" style="background:${a.bg}">
       ${x.tag?`<span class="ptag ${x.tag==='Limited'?'y':x.tag==='B2B'?'b':''}">${x.tag}</span>`:''}
       <button class="wish ${lsWish().has(x.id)?'on':''}" aria-label="Wishlist" data-action="wish" data-id="${x.id}"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg></button>

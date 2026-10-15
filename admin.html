@@ -2087,7 +2087,7 @@ function renderMaisonAdminDashboard(){
  };
  const products=(S.P||[]).filter(p=>p&&!p.hidden&&effectivePhoto(p)).slice(0,4);
  const photos=(S.P||[]).filter(p=>p&&effectivePhoto(p)).slice(0,8);
- const safePath=p=>/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif)$/i.test(String(p||''))&&!String(p).includes('..')
+ const safePath=p=>/^(img\/|assets\/images\/)[\w./-]+\.(webp|png|jpg|jpeg|avif|svg)$/i.test(String(p||''))&&!String(p).includes('..')
   ?String(p):'';
  const label=p=>typeof p.n==='object'?(p.n.it||p.n.en||'Prodotto'):String(p.n||'Prodotto');
  const prod=$('maisonRecentProducts'),med=$('maisonRecentMedia');
@@ -3176,6 +3176,7 @@ async function stageWithVariants(path,proc){
  if(!path.endsWith('.webp'))return;
  const vs=await makeVariants(proc);
  for(const v of vs){const p=path.replace(/\.webp$/,'-'+v.w+'.webp');
+  DELETES=DELETES.filter(x=>x!==p);
   MEDIA=MEDIA.filter(m=>m.path!==p);
   MEDIA.push({path:p,b64:b64buf(v.buf),url:URL.createObjectURL(v.blob),size:v.buf.byteLength,w:v.w,h:0,hash:'',variant:true})}
  if(!S.C.MV||Array.isArray(S.C.MV))S.C.MV={};
@@ -3190,6 +3191,7 @@ async function processImage(file){
  return{ext:'webp',blob,buf,w,h}}
 async function stageFile(path,proc){const hash=await sha1(proc.buf);
  const dup=MEDIA.find(m=>m.hash===hash&&m.path!==path);
+ DELETES=DELETES.filter(p=>p!==path); /* caricare di nuovo annulla l'eliminazione in coda */
  MEDIA=MEDIA.filter(m=>m.path!==path);
  MEDIA.push({path,b64:b64buf(proc.buf),url:URL.createObjectURL(proc.blob),size:proc.buf.byteLength,w:proc.w,h:proc.h,hash});
  if(dup)toast('Nota: immagine identica già presente come '+dup.path);
@@ -3526,14 +3528,14 @@ function usageOf(path,ref){const u=[];
  return u}
 function mediaItems(){const ref=referencedPaths();const items=[];const bySha={};
  MEDIA.forEach(m=>items.push({path:m.path,src:m.url,st:true,size:m.size,w:m.w,h:m.h,variant:isVariant(m.path)}));
- (REPO_IMG||[]).forEach(n=>{const path='img/'+n;if(MEDIA.some(m=>m.path===path))return;
+ (mediaInventory()||[]).forEach(n=>{const path='img/'+n;if(MEDIA.some(m=>m.path===path))return;
   const meta=REPO_META[n]||{};
   items.push({path,src:LIVE()+path+'?v='+(meta.sha||'').slice(0,8),repo:true,sha:meta.sha,size:meta.size,variant:isVariant(path)})});
  items.forEach(i=>{if(i.sha){(bySha[i.sha]=bySha[i.sha]||[]).push(i)}});
  items.forEach(i=>{i.used=usageOf(i.path,ref);
   i.dup=i.sha&&bySha[i.sha].length>1?bySha[i.sha].filter(x=>x.path!==i.path).map(x=>x.path):[];
   i.orph=!i.used.length&&!i.variant&&!DELETES.includes(i.path);
-  i.variants=(REPO_IMG||[]).filter(n=>isVariant('img/'+n)&&parentOf('img/'+n)===i.path).length
+  i.variants=(mediaInventory()||[]).filter(n=>isVariant('img/'+n)&&parentOf('img/'+n)===i.path).length
              +MEDIA.filter(m=>isVariant(m.path)&&parentOf(m.path)===i.path).length});
  return items}
 function renderMedia(){const q=($('mSearch').value||'').toLowerCase();
@@ -3577,7 +3579,7 @@ function renderMedia(){const q=($('mSearch').value||'').toLowerCase();
    toast('Punto focale: '+x+'% '+y+'% ✔ (in bozza)')};
   const fc=$('fcClear');if(fc)fc.onclick=()=>{delete S.C.FOCAL[p];markDirty();closeModal();toast('Punto focale rimosso')}});
  const orph=all.filter(i=>i.orph&&!i.variant).length,dup=all.filter(i=>i.dup.length).length;
- $('mStats').innerHTML=`In coda: <b>${MEDIA.filter(m=>!isVariant(m.path)).length}</b> · Nel repository: <b>${REPO_IMG?REPO_IMG.filter(n=>!isVariant('img/'+n)).length:'? (scansiona)'}</b>`
+ $('mStats').innerHTML=`In coda: <b>${MEDIA.filter(m=>!isVariant(m.path)).length}</b> · Nel repository: <b>${mediaInventory()?mediaInventory().filter(n=>!isVariant('img/'+n)).length:'? (scansiona)'}</b>`
   +(orph?` · <span style="color:var(--warn)">orfane: ${orph}</span>`:'')
   +(dup?` · <span style="color:var(--warn)">doppioni: ${dup}</span>`:'')
   +(DELETES.length?` · <span style="color:var(--err)">da eliminare: ${DELETES.length}</span>`:'');

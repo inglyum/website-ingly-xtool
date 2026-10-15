@@ -30,6 +30,8 @@ jobs:
         run: node tests/test-notte-oro-integration.mjs
       - name: Smoke test interazioni live Notte e Oro
         run: node tests/test-notte-oro-dom.mjs
+      - name: Verifica loader originale e integrazione Admin
+        run: node tests/test-owner-loader-admin.mjs
       - name: Verifica sintassi degli script Notte e Oro
         run: |
           node --check assets/js/notte-oro-loader.js

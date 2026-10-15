@@ -335,6 +335,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
+<link rel="stylesheet" href="assets/css/admin-notte-oro.css">
 </head>
 <body>
 <script src="assets/js/artwork.js"></script>
@@ -639,6 +640,61 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 
   <!-- ============ HOME & HERO ============ -->
   <section class="view" id="v-hero">
+    <div class="card admin-loader-studio" id="adminLoaderStudio">
+      <div class="admin-loader-studio__header">
+        <div><h3>Loader INGLY · Logo inciso</h3>
+        <p class="hint">Animazione originale a due tendine, con fascio laser, scintille e slogan.
+          Modifica qui i contenuti: anteprima in bozza, poi Pubblica per aggiornare il sito.</p></div>
+        <span class="admin-loader-studio__pill">INGLY / NOTTE & ORO</span>
+      </div>
+      <div class="row c3">
+        <div><label for="adminLoaderEnabled">Stato del loader</label>
+          <select id="adminLoaderEnabled" data-b="CONFIG.loader.enabled">
+            <option value="true">Attivo</option><option value="false">Disattivato</option>
+          </select></div>
+        <div><label for="adminLoaderTheme">Tema</label><select id="adminLoaderTheme" data-b="CONFIG.loader.theme">
+          <option value="auto">Segue tema sito</option><option value="dark">Notte</option><option value="light">Giorno</option>
+        </select></div>
+        <div><label for="adminLoaderOnce">Frequenza</label><select id="adminLoaderOnce" data-b="CONFIG.loader.oncePerSession">
+          <option value="true">Una volta per sessione</option><option value="false">A ogni visita</option>
+        </select></div>
+      </div>
+      <div class="row c2">
+        <div><label for="adminLoaderMin">Durata minima (millisecondi)</label>
+          <input id="adminLoaderMin" type="number" min="500" max="4500" step="100" data-b="CONFIG.loader.minMs"></div>
+        <div><label for="adminLoaderMax">Durata massima (millisecondi)</label>
+          <input id="adminLoaderMax" type="number" min="1000" max="5500" step="100" data-b="CONFIG.loader.maxMs"></div>
+      </div>
+      <div class="row c2">
+        <div><label for="adminLoaderHeadlineIt">Slogan IT</label><input id="adminLoaderHeadlineIt" type="text" maxlength="100" data-b="CONFIG.loader.headline.it"></div>
+        <div><label for="adminLoaderHeadlineEn">Slogan EN</label><input id="adminLoaderHeadlineEn" type="text" maxlength="100" data-b="CONFIG.loader.headline.en"></div>
+      </div>
+      <div class="row c2">
+        <div><label for="adminLoaderMessagesIt">Messaggi di caricamento · IT</label>
+          <textarea id="adminLoaderMessagesIt" rows="4" data-b="CONFIG.loader.messages.it" placeholder="Un messaggio per riga"></textarea></div>
+        <div><label for="adminLoaderMessagesEn">Loading messages · EN</label>
+          <textarea id="adminLoaderMessagesEn" rows="4" data-b="CONFIG.loader.messages.en" placeholder="One message per line"></textarea></div>
+      </div>
+      <div class="actions">
+        <select id="adminLoaderMessageLang" aria-label="Lingua da modificare" style="width:auto">
+          <option value="it">Messaggi IT</option><option value="en">Messaggi EN</option>
+        </select>
+        <button class="btn sm" id="adminLoaderAdd" type="button">＋ Aggiungi messaggio</button>
+        <button class="btn sm" id="adminLoaderRemove" type="button">− Rimuovi ultimo</button>
+        <button class="btn sm" id="adminLoaderReset" type="button">Ripristina loader</button>
+      </div>
+      <div class="admin-loader-studio__preview" aria-live="polite">
+        <small>ANTEPRIMA TESTI / RISORSE PRINCIPALI</small>
+        <strong id="adminLoaderPreviewHeadline">Ispiriamo la creazione.</strong>
+        <small id="adminLoaderPreviewMsg">Accendo il laser</small>
+        <div class="rail" aria-hidden="true"></div>
+      </div>
+      <div class="actions">
+        <button class="btn pri" type="button" id="adminLoaderTest">Prova l'animazione completa</button>
+        <button class="btn" type="button" id="adminLoaderEditHelp">Come si pubblica?</button>
+      </div>
+      <p class="admin-loader-studio__note">Per aggiungere o rimuovere messaggi puoi usare i pulsanti oppure modificare direttamente le righe. L'anteprima completa apre il sito con i dati in bozza: nessuna modifica diventa pubblica fino a Pubblica.</p>
+    </div>
     <div class="card" style="border:2px solid var(--accent)"><h3>✨ Titolo della Hero</h3>
       <div class="hint">La scritta grande in cima alla home. Scrivila in chiaro: le parole fra
        <b class="mono">**doppio asterisco**</b> sono quelle che il raggio laser incide, e andare a capo
@@ -1799,17 +1855,20 @@ function go(v){
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
 /* ANTEPRIMA: apre il sito reale usando i dati in bozza (sessionStorage, solo per te) */
-$('goPrev').onclick=()=>{
+function openAdminPreview(forceLoader=false){
  try{
   const payload=Object.assign({CONFIG:S.CONFIG,D:S.D,SOCIALS:S.SOCIALS,P:S.P,CATS:S.CATS,
     MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR,COLLEZIONI:S.COLL,
     IMMAGINI_MACCHINE:S.IMGMAC,DIGITALE:S.DIGI,DIG:(S.DIGI&&S.DIGI.bundle)||[]},S.C);
   sessionStorage.setItem('__INGLY_PREVIEW__',JSON.stringify(payload));
   const base=location.pathname.replace(/admin\.html?$/,'').replace(/admin\/?$/,'');
-  const w=window.open(base+'index.html?__preview=1#/home','_ingly_preview');
+  const url=base+'index.html?__preview=1'+(forceLoader?'&loaderPreview=1':'')+'#/home';
+  const w=window.open(url,'_ingly_preview');
   if(!w)toast('Il browser ha bloccato la finestra: consenti i popup per questo sito');
-  else toast('Anteprima aperta: vedi le modifiche NON ancora pubblicate');
- }catch(e){toast('Anteprima non disponibile: '+(e.message||e))}};
+  else toast('Anteprima aperta: le modifiche restano in bozza');
+ }catch(e){toast('Anteprima non disponibile: '+(e.message||e))}
+}
+$('goPrev').onclick=()=>openAdminPreview(false);
 
 /* ===== SIDEBAR TOGGLE ===== */
 (function(){
@@ -3529,7 +3588,58 @@ function renderHeroImage(){
  const kind=S.CONFIG.heroImageKind||'illustrative-example';
  preview.innerHTML='<img src="'+esc(imgPreviewSrc(path))+'" alt="Anteprima della copertina Home" width="420" height="260" style="display:block;width:min(100%,420px);max-height:260px;object-fit:cover;border-radius:13px;border:1px solid var(--line)" onerror="this.style.opacity=.22"><p class="hint mono" style="margin-top:8px">'+esc(path)+' · '+esc(kind)+'</p>';
 }
-function renderHero(){bindAll();renderAbout();sloganPreview();renderHeroImage();
+/* Loader Studio uses CONFIG (single publishing source), not local-only settings. */
+function renderLoaderStudio(){
+ const card=$('adminLoaderStudio');if(!card||!S.CONFIG)return;
+ const fallback={
+  enabled:true,theme:'auto',oncePerSession:true,minMs:2000,maxMs:3600,
+  headline:{it:'Ispiriamo la creazione.',en:'We inspire creation.'},
+  messages:{it:'Accendo il laser\nScelgo il materiale\nIncido la tua idea',
+    en:'Igniting the laser\nChoosing the material\nEngraving your idea'}
+ };
+ S.CONFIG.loader=S.CONFIG.loader||JSON.parse(JSON.stringify(fallback));
+ const cfg=S.CONFIG.loader;
+ cfg.headline=cfg.headline||{...fallback.headline};
+ cfg.messages=cfg.messages||{...fallback.messages};
+ /* bindAll() runs inside renderHero; refresh new controls after normalized config */
+ const ids=['Enabled','Theme','Once','Min','Max','HeadlineIt','HeadlineEn','MessagesIt','MessagesEn'];
+ const paths=['enabled','theme','oncePerSession','minMs','maxMs','headline.it','headline.en','messages.it','messages.en'];
+ ids.forEach((id,i)=>{const el=$('adminLoader'+id),v=getPath(cfg,paths[i]);
+   if(el&&v!==undefined)el.value=String(v)});
+ const messagesFor=lang=>String(cfg.messages[lang]||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+ const updatePreview=()=>{
+  $('adminLoaderPreviewHeadline').textContent=String(cfg.headline.it||fallback.headline.it).slice(0,100);
+  $('adminLoaderPreviewMsg').textContent=messagesFor('it')[0]||'Nessun messaggio: aggiungine uno';
+ };
+ const sync=(lang)=>{
+  const area=$('adminLoaderMessages'+(lang==='en'?'En':'It'));
+  area.value=cfg.messages[lang]||'';
+  updatePreview();
+ };
+ // The global data-b binding already persists typing to the same draft snapshot.
+ card.querySelectorAll('[data-b]').forEach(el=>el.addEventListener('input',updatePreview,{once:false}));
+ $('adminLoaderAdd').onclick=()=>{
+  const lang=$('adminLoaderMessageLang').value;
+  const lines=messagesFor(lang);
+  if(lines.length>=10){toast('Massimo 10 messaggi per lingua.');return}
+  lines.push(lang==='it'?'Nuovo messaggio':'New message');
+  cfg.messages[lang]=lines.join('\n');markDirty();sync(lang);
+ };
+ $('adminLoaderRemove').onclick=()=>{
+  const lang=$('adminLoaderMessageLang').value,lines=messagesFor(lang);
+  lines.pop();cfg.messages[lang]=lines.join('\n');markDirty();sync(lang);
+ };
+ $('adminLoaderReset').onclick=()=>{
+  if(!confirm('Ripristinare tutte le impostazioni del loader? Le altre modifiche non saranno cancellate.'))return;
+  S.CONFIG.loader=JSON.parse(JSON.stringify(fallback));
+  markDirty();renderHero();toast('Loader ripristinato nella bozza.');
+ };
+ $('adminLoaderTest').onclick=()=>openAdminPreview(true);
+ $('adminLoaderEditHelp').onclick=()=>go('pub');
+ updatePreview();
+}
+
+function renderHero(){bindAll();renderAbout();sloganPreview();renderHeroImage();renderLoaderStudio();
  const pick=$('heroImageUpload'),fromLibrary=$('heroImageLibrary'),sample=$('heroImageSample');
  if(pick)pick.onclick=()=>pickImage('img/hero-home',path=>{
   S.CONFIG.heroImage=path;S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageDemo=false;

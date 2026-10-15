@@ -175,6 +175,8 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/premium-2026.css">
 <link rel="stylesheet" href="assets/css/atelier-foundation.css">
 <link rel="stylesheet" href="assets/css/notte-oro.css">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/ingly-user-loader.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>
@@ -234,16 +236,28 @@ setTimeout(function(){
      elemento `position:fixed` dentro una .page prende quella come blocco
      contenitore invece dello schermo. -->
 <div class="filters-velo" data-action="filtri-chiudi" aria-hidden="true"></div>
-<div class="loader atelier-loading" id="loader" role="status" aria-label="INGLY DESIGN, caricamento">
- <div class="atelier-loader__veil" aria-hidden="true"></div>
- <div class="lin atelier-loader__inner">
-  <div class="atelier-loader__seal"><img src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="154" height="154" fetchpriority="high"><svg viewBox="0 0 200 200" aria-hidden="true" class="atelier-loader__trace"><circle cx="100" cy="100" r="87" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></div>
-  <strong class="atelier-loader__brand">INGLY <small>DESIGN · ITALY</small></strong>
-  <span id="ldrTxt" class="atelier-loader__caption">Incidiamo la tua idea</span>
-  <div class="lbar atelier-loader__rail" role="progressbar" aria-label="Risorse essenziali" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="atelierLoaderFill"></i></div>
-  <output id="atelierLoaderPercent" class="atelier-loader__percent">0%</output>
-  <button class="atelier-loader__skip" type="button" id="atelierLoaderSkip">Salta</button>
+<!-- INGLY LOADER — adapted from the supplied ingly-loader (3).html.
+     Split-curtain / engraved reveal / sparks. No duplicate app state or external image hotlinks. -->
+<div class="loader ingly-custom-loader" id="loader" role="status" aria-label="INGLY DESIGN — caricamento">
+ <div class="ingly-loader-half ingly-loader-top" aria-hidden="true"></div>
+ <div class="ingly-loader-half ingly-loader-bottom" aria-hidden="true"></div>
+ <div class="ingly-loader-grain" aria-hidden="true"></div>
+ <div class="ingly-loader-stage">
+  <div class="ingly-loader-badge" id="inglyLoaderBadge">
+   <img class="ingly-loader-logo ingly-loader-ghost" src="assets/images/ingly-logo.svg" alt="" width="280" height="280" fetchpriority="high">
+   <div class="ingly-loader-live" id="inglyLoaderLive">
+    <img class="ingly-loader-logo" src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="280" height="280" fetchpriority="high">
+   </div>
+   <canvas id="inglyLoaderSparks" class="ingly-loader-sparks" aria-hidden="true"></canvas>
+   <div class="ingly-loader-beam" id="inglyLoaderBeam" aria-hidden="true"></div>
+  </div>
+  <p class="ingly-loader-slogan" id="inglyLoaderHeadline" aria-label="Ispiriamo la creazione."></p>
+  <div class="ingly-loader-progress">
+    <div class="ingly-loader-track" id="inglyLoaderTrack" role="progressbar" aria-label="Risorse principali" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="atelierLoaderFill"></i></div>
+    <div class="ingly-loader-row"><span id="ldrTxt">Accendo il laser</span><output id="atelierLoaderPercent">000%</output></div>
+  </div>
  </div>
+ <button id="atelierLoaderSkip" class="ingly-loader-skip" type="button" aria-label="Salta l'animazione introduttiva">Salta</button>
 </div>
 <div class="progress" id="progress"></div>
 <div class="glow" id="glow"></div>

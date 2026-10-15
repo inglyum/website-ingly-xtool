@@ -4062,7 +4062,7 @@ function validaBozza(){
    err.push('Macchina '+m.id+': fonte non HTTPS.');
   if(m.stato==='pubblicato'&&m.daCompletare===false&&Object.keys(m.specs||{}).length
       &&!(m.fonte&&/^https:\/\/[^/]*xtool\.com\//i.test(m.fonte.url||''))
-      &&!((S.MAC&&S.MAC.macchine)||[]).some(x=>x.id===m.id&&x.specificheUfficiali&&x.specificheUfficiali.source))
+      &&!((S.MAC&&S.MAC.macchine)||[]).some(x=>(x.id===m.id||(m.id==='o1-uv'&&x.id==='uv'))&&x.specificheUfficiali&&x.specificheUfficiali.source))
    err.push('Macchina '+m.id+': dati tecnici senza fonte xTool verificabile.');
  });
  /* La vecchia lista non deve tornare: se ricompare in content.json le due

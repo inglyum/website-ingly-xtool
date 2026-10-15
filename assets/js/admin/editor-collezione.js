@@ -11,8 +11,8 @@
   function write(obj, path, value) {
     const list = parts(path);
     let node = obj;
-    list.slice(0, -1).forEach(key => {
-      const next = list[list.indexOf(key) + 1];
+    list.slice(0, -1).forEach((key, i) => {
+      const next = list[i + 1];
       if (!node[key] || typeof node[key] !== 'object') node[key] = /^\d+$/.test(next) ? [] : {};
       node = node[key];
     });
@@ -36,11 +36,13 @@
       for (const f of schema) {
         const val = read(obj, f.key);
         const label = f.label || f.key;
-        if (f.required && (val == null || val === '' || (Array.isArray(val) && !val.length)))
+        if (f.required && (val == null || val === '' || (Array.isArray(val) && !val.length) ||
+          ((f.type === 'testo-it-en' || f.type === 'area-it-en') && (!val.it || !val.en))))
           errors.push(name + ': campo obbligatorio ' + label);
         if ((f.type === 'numero|null' || f.type === 'prezzo|null') && val != null &&
           (!Number.isFinite(Number(val)) || Number(val) < (f.min == null ? 0 : f.min)))
           errors.push(name + ': numero non valido in ' + label);
+        if (f.type === 'url' && val && !/^https:\/\//i.test(val)) errors.push(name + ': URL non HTTPS in ' + label);
         if (f.type === 'immagine' && val && val.src && (!val.alt || !String(val.alt.it || '').trim() || !String(val.alt.en || '').trim()))
           errors.push(name + ': alt IT ed EN obbligatori per ' + label);
         if (f.type === 'galleria' && Array.isArray(val)) val.forEach((img, j) => {
@@ -79,14 +81,18 @@
   }
   function field(f, obj, path) {
     const at = path + '.' + f.key, v = read(obj, f.key), label = f.label || f.key;
+    if (f.type === 'elenco') {
+      return valueInput('area', Array.isArray(v) ? v.join('\n') : '', at, label, f)
+        .replace('data-ed-type="testo"', 'data-ed-type="righe"');
+    }
     if (f.type === 'testo-it-en' || f.type === 'area-it-en' || f.type === 'elenco-it-en') {
       const k = f.type === 'testo-it-en' ? 'testo' : 'area';
       const it = f.type === 'elenco-it-en' && Array.isArray(v && v.it) ? v.it.join('\n') : v && v.it;
       const en = f.type === 'elenco-it-en' && Array.isArray(v && v.en) ? v.en.join('\n') : v && v.en;
       const kind = f.type === 'elenco-it-en' ? 'righe' : k;
       return '<div class="row c2">' +
-        valueInput(k, it, at + '.it', label + ' IT', f).replace('data-ed-type="'+ k + '"', 'data-ed-type="' + kind + '"') +
-        valueInput(k, en, at + '.en', label + ' EN', f).replace('data-ed-type="'+ k + '"', 'data-ed-type="' + kind + '"') + '</div>';
+        valueInput(k, it, at + '.it', label + ' IT', f).replace('data-ed-type="testo"', 'data-ed-type="' + kind + '"') +
+        valueInput(k, en, at + '.en', label + ' EN', f).replace('data-ed-type="testo"', 'data-ed-type="' + kind + '"') + '</div>';
     }
     if (f.type === 'immagine') {
       const im = v && typeof v === 'object' ? v : {src:'',alt:{it:'',en:''}};
@@ -106,7 +112,7 @@
         imgs.map((im, j) => '<div class="card"><div class="searchrow"><b>#' + (j+1) + '</b>' +
           ['up','down','archive'].map(action => '<button type="button" class="btn sm" data-ed-nested="' + esc(at) +
             '" data-ed-pos="' + j + '" data-ed-task="' + action + '">' +
-            ({up:'↑',down:'↓',archive:'Archivia'}[action]) + '</button>').join('') + '</div>' +
+            ({up:'↑',down:'↓',archive:im.stato==='archiviato'?'Ripristina':'Archivia'}[action]) + '</button>').join('') + '</div>' +
           schema.map(child => field(child, im, at + '.' + j)).join('') +
           (f.type === 'galleria' ? '<label>Carica file<input type="file" accept="image/*" data-ed-upload="' +
             esc(at + '.' + j) + '"></label>' : '') + '</div>').join('') + '</fieldset>';
@@ -187,7 +193,11 @@
         replace(path,group);changed();render();return;
       }
       const path = b.dataset.edNested, group = locate(path) || [], j = Number(b.dataset.edPos), a = b.dataset.edTask;
-      if (a === 'archive') { group[j]._statoPrimaArchivio = group[j].stato || 'attivo';group[j].stato = 'archiviato'; }
+      if (a === 'archive') {
+        if (group[j].stato === 'archiviato') {
+          group[j].stato = group[j]._statoPrimaArchivio || 'bozza';delete group[j]._statoPrimaArchivio;
+        } else {group[j]._statoPrimaArchivio=group[j].stato || 'attivo';group[j].stato='archiviato';}
+      }
       else { const k = j + (a === 'up' ? -1 : 1); if (k>=0 && k<group.length) [group[k],group[j]]=[group[j],group[k]]; }
       changed();render();
     });

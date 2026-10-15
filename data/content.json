@@ -4592,6 +4592,20 @@
       "ordine": 7
     },
     {
+      "id": "print-cut",
+      "modulo": "link-interno",
+      "nome": {"it": "Print & Cut Studio", "en": "Print & Cut Studio"},
+      "descrizione": {
+        "it": "Rileva la sagoma di un'immagine trasparente ed esporta un SVG dimensionale con margine e kerf; serve comunque una prova macchina.",
+        "en": "Detect a transparent image outline and export a dimensional SVG with margin and kerf; a physical machine test is still required."
+      },
+      "categoria": "Stampa e taglio",
+      "icona": "✂",
+      "attivo": true,
+      "ordine": 10,
+      "url": "print-cut.html"
+    },
+    {
       "id": "cuttle-templates",
       "modulo": "link-esterno",
       "nome": {

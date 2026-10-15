@@ -287,6 +287,7 @@ function bindMode(){
     document.documentElement.setAttribute('data-mode',v);
     try{ localStorage.setItem('ingly_mode',v) }catch(e){}
     btn.setAttribute('aria-pressed', v==='light'?'true':'false');
+    const mobile=document.getElementById('mobileModeBtn');if(mobile){mobile.setAttribute('aria-pressed',v==='light'?'true':'false');mobile.title=v==='light'?'Tema scuro':'Tema chiaro';}
     btn.title = v==='light' ? 'Passa al tema scuro' : 'Passa al tema chiaro';
   };
   set(document.documentElement.getAttribute('data-mode')||'dark');
@@ -295,6 +296,8 @@ function bindMode(){
     set(document.documentElement.getAttribute('data-mode')==='light'?'dark':'light');
     setTimeout(()=>document.documentElement.classList.remove('theme-anim'),450);
   });
+  const mobileMode=document.getElementById('mobileModeBtn');
+  if(mobileMode)mobileMode.addEventListener('click',()=>btn.click());
   /* se l'utente non ha mai scelto, segue le preferenze del sistema anche a sito aperto */
   try{
     matchMedia('(prefers-color-scheme: light)').addEventListener('change',e=>{

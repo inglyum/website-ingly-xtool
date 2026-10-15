@@ -94,7 +94,7 @@ check('la seconda colonna è il resto della gamma',
   xt.colonne[1].voci.length === D.MACCHINE.catalogo.filter(m => !m.inOfficina).length);
 check('porta alla demo', /demo/.test(xt.evidenza.cta.href));
 check('Academy e Tecnologie sono nel Lab', ['academy','tecnologie'].every(route=>xt.colonne[2].voci.some(v=>v.href.endsWith('/'+route))));
-check('Service Centre nel Lab', xt.colonne[2].voci.some(v=>v.href.includes('inglyServiceTitle')));
+check('Service Centre nel Lab', xt.colonne[2].voci.some(v=>/Service Centre/.test(v.n) && v.href.endsWith('/macchine')));
 const dg = IA.pannello('digital', { ...D, DIG: leggi('data/content.json').DIG || [] });
 check('i file digitali hanno il loro pannello e gli strumenti creativi', dg.colonne.length === 3);
 /* i formati arrivano dai file che esistono: un elenco a mano prometterebbe

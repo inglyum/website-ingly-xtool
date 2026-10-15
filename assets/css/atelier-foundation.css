@@ -469,3 +469,11 @@ html {scroll-padding-top:100px;}
  :root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.pcard,.p-card,.bcard,.dcard,.ingly-material-tile,.ingly-biz-service):hover{transform:none!important}
  :root[data-mode] :is(.atelier-nav-cta,.btn-primary,.btn-blue){transition:none!important}
 }
+/* Performance: blur glass only on the header, menus and larger hero/quote surfaces.
+   Opaque fallback remains for browsers without backdrop-filter support. */
+:root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.pcard,.p-card,.bcard,.dcard,.ingly-material-tile,.ingly-biz-service){
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+@supports not (backdrop-filter:blur(1px)){
+  :root[data-mode] :is(.nav,.ia-pannello,.topbar,.atelier-mobile-dock,.quote-form){background:var(--at-surface)!important}
+}

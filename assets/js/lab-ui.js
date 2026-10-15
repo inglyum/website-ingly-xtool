@@ -554,14 +554,14 @@ function legaVendita(m, L) {
     const el = $('vPrezzo');
     if (el) el.textContent = v ? prezzoLab(v.prezzo, L) : t2('Combinazione non disponibile', 'Combination unavailable', L);
     const b = $('vAdd');
-    if (b) b.disabled = !v || v.prezzo == null;
+    if (b) b.disabled = !v || v.prezzo == null || !Number.isInteger(v.stock) || v.stock <= 0 || v.stato === 'bozza' || v.stato === 'esaurito';
   };
   ['vFormato', 'vSpessore', 'vColore'].forEach(id => $(id)?.addEventListener('change', mostra));
   mostra();
 
   $('vAdd')?.addEventListener('click', () => {
     const v = leggi();
-    if (!v || v.prezzo == null) return;
+    if (!v || v.prezzo == null || !Number.isInteger(v.stock) || v.stock <= 0 || v.stato === 'bozza' || v.stato === 'esaurito') return;
     const g = String(m.grad || '').split(',');
     CART.addLab({
       tipo: 'materiale', rif: 'mat:' + v.id,

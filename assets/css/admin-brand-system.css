@@ -238,3 +238,13 @@
 :root[data-mode="dark"] :is(.chip.err,.btn.err){color:#ff9ba4!important}
 :root[data-mode="dark"] :is(.chip.ok,.btn.ok){color:#8bdfac!important}
 :root[data-mode="dark"] :is(.chip.warn,.btn.warn){color:#ffc078!important}
+
+
+/* Legacy Maison dashboard tiles retained dark fills even when the user switched
+   to a light theme, which produced black text on black backgrounds. */
+:root[data-mode="light"] :is(.dcard,.admin-launch){
+ background:var(--ab-surface)!important;
+ border-color:var(--ab-border)!important;color:var(--ab-text)!important;
+}
+:root[data-mode="light"] .dcard b{color:var(--ab-text)!important}
+:root[data-mode="light"] .dcard span{color:var(--ab-muted)!important;opacity:1!important}

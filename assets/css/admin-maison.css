@@ -140,3 +140,19 @@ body,.btn,.nit,.hint,label,small,input,select,textarea,.content p,.content a{
  font-family:'Josefin Sans','Manrope',system-ui,sans-serif!important;
  letter-spacing:-.025em!important;font-weight:600!important;
 }
+
+/* Offer Studio follows Admin Notte & Oro; remove legacy WhatsApp-green accents. */
+#inglyOfferAdminStudio{
+ border:1px solid rgba(219,169,83,.42)!important;
+ background:linear-gradient(138deg,#151618,#1c1a16)!important;
+}
+#inglyOfferAdminStudio>h3{
+ color:#f0cb8d!important;font-family:'Josefin Sans','Manrope',sans-serif!important;
+ letter-spacing:-.02em!important;
+}
+#inglyOfferAdminStudio :is(input[type="checkbox"],input[type="radio"]){accent-color:#dba953!important}
+#inglyOfferAdminStudio :is(label,.hint){font-family:'Josefin Sans','Manrope',sans-serif!important}
+#inglyOfferAdminStudio :is(.btn.ok,.btn.pri){
+ background:linear-gradient(110deg,#c38a3f,#edc780,#d8a357)!important;
+ color:#191108!important;border-color:#e2bb78!important;
+}

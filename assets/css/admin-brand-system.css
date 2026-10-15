@@ -149,3 +149,24 @@
 @media(prefers-reduced-motion:reduce){
  :root[data-mode] :is(#maisonThemeDark,#maisonThemeLight){transition:none!important}
 }
+
+
+/* HOTFIX: only one authentic wordmark per lockup. */
+:root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark{
+ display:block!important;flex:none!important;width:145px!important;
+ height:auto!important;max-height:48px!important;
+ aspect-ratio:1430/460!important;object-fit:contain!important;
+ border-radius:0!important;background:transparent!important;
+ filter:none!important;opacity:1!important;transform:none!important
+}
+:root[data-mode="light"] .brand--admin .brand-admin-lockup img.brand-wordmark{
+ filter:brightness(0)!important
+}
+:root[data-mode] .brand--admin .brand-admin-lockup{
+ gap:2px!important;min-height:0!important
+}
+@media(max-width:650px){
+ :root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark{
+  width:106px!important;max-height:36px!important
+ }
+}

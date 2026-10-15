@@ -195,6 +195,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script defer src="assets/js/signature-showcase.js"></script>
 <script defer src="assets/js/maison-reference.js"></script>
+<script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
@@ -823,6 +824,15 @@ setTimeout(function(){
         <label for="inglyGeneratorFont">Stile lettering
           <select id="inglyGeneratorFont"><option value="josefin">Josefin Sans</option><option value="serif">Serif classico</option><option value="mono">Mono tecnico</option></select>
         </label>
+        <div class="ingly-generator-presets" id="inglyGeneratorPresets" aria-label="Modelli rapidi di personalizzazione">
+          <span class="ingly-generator-presets__label">PARTI DA UN MODELLO</span>
+          <div class="ingly-generator-presets__options">
+            <button type="button" data-ingly-preset="name" aria-pressed="true">Targa nome</button>
+            <button type="button" data-ingly-preset="desk" aria-pressed="false">Targa ufficio</button>
+            <button type="button" data-ingly-preset="oval" aria-pressed="false">Bomboniera ovale</button>
+            <button type="button" data-ingly-preset="keyring" aria-pressed="false">Portachiavi</button>
+          </div>
+        </div>
         <div class="ingly-parametric__buttons">
           <button type="button" class="btn btn-primary" id="inglyGeneratorDownload">Esporta SVG <span aria-hidden="true">↓</span></button>
           <a class="btn btn-ghost" href="generatori.html">Generator Studio completo ↗</a>

@@ -19,6 +19,17 @@ try{
    try{
     const res=await page.goto(root+route,{waitUntil:'domcontentloaded',timeout:30000});
     await page.waitForTimeout(650);
+    if(route==='/' && width===390){
+      const probe=await page.evaluate(()=>{
+        const el=document.querySelector('footer .ft-eyebrow');
+        const stylesheet=[...document.styleSheets].filter(x=>x.href?.includes('brand-system-2026.css')).map(x=>{
+          let count=null;try{count=x.cssRules.length}catch(e){}
+          return {href:x.href,rules:count};
+        });
+        return {mode:document.documentElement.getAttribute('data-mode'),footerTextColor:el?getComputedStyle(el).color:null,stylesheets:stylesheet};
+      });
+      console.log('AXE STYLE PROBE '+mode+': '+JSON.stringify(probe));
+    }
     await page.addScriptTag({path:'node_modules/axe-core/axe.min.js'});
     const result=await page.evaluate(async()=>await window.axe.run(document,{
       runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']},
@@ -35,6 +46,9 @@ try{
       incomplete:result.incomplete.map(v=>({id:v.id,affectedNodes:v.nodes.length}))
     });
     console.log('AXE '+mode+' '+width+' '+route+': '+issues.length+' violations, '+result.incomplete.length+' inconclusive rules');
+    if(route==='/'||route==='/admin.html')
+      for(const issue of issues)console.log('AXE ISSUE '+mode+' '+width+' '+route+' '+issue.id+' '+issue.affectedNodes+' nodes '+JSON.stringify(issue.nodes.slice(0,3).map(x=>x.target)));
+
    }catch(error){
     all.push({route,mode,width,error:String(error)});
     console.error('AXE ERROR '+mode+' '+width+' '+route+': '+error);

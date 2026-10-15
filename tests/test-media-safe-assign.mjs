@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const html=readFileSync('admin.html','utf8');
+assert.match(html,/function mediaInventory\(\)/,'Media manifest fallback exists');
+assert.match(html,/function pickFromLibrary\(cb\)\{\s*const inventory=mediaInventory\(\)/,'Gallery picker uses same repository/manifest source');
+assert.match(html,/if\(!chosen\.size\)/,'Empty image selection rejected');
+assert.match(html,/const existing=p\.img\|\|'img\/'\+p\.id\+'\.webp'/,'Detect original current cover');
+assert.match(html,/confirm\('La copertina attuale /,'Bulk assignment warns on real existing cover overwrite');
+assert.match(html,/mediaInventory\(\)\|\|\[\]\)\.includes\(x\.replace/,'Deletion applies across manifest-backed files');
+console.log('✔ Admin Media Library: one inventory source, prevent empty selection and confirm real cover overwrites');

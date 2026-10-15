@@ -240,7 +240,7 @@ export function renderTutto(L = 'it') {
 export function aggiungi(id) {
   const d = D();
   const b = DG.trova(d, id);
-  if (!b) return;
-  if (!DG.acquistabile(b)) return;
+  if (!b || b.stato !== 'pubblicato') return;
+  if (!DG.acquistabile(b) || b.price == null || !Number.isFinite(Number(b.price)) || Number(b.price) < 0) return;
   CART.addDigital(b.id);
 }

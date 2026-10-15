@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const html=readFileSync('index.html','utf8');
+const css=readFileSync('assets/css/ingly-responsive-theme.css','utf8');
+const main=readFileSync('assets/js/main.js','utf8');
+assert.ok(html.includes('id="modeBtn"'),'Controllo tema mancante');
+assert.ok(html.includes('id="mobileModeBtn"'),'Controllo tema mobile mancante');
+assert.ok(main.includes("mobileMode.addEventListener('click',()=>btn.click())"),'Tema mobile non sincronizzato');
+assert.ok(main.includes("localStorage.setItem('ingly_mode',v)"),'Tema non persistito');
+assert.ok(html.includes('href="assets/css/ingly-responsive-theme.css"'),'CSS responsive mancante');
+assert.ok(html.indexOf('ingly-responsive-theme.css')>html.indexOf('ingly-josefin-studio.css'),'Il tema finale deve prevalere');
+assert.ok(css.includes(':root[data-mode="light"]') && css.includes(':root[data-mode="dark"]'),'Token per entrambi i temi');
+for(const token of ['--ux-text','--ux-bg','--ux-border','--ux-grad','--ux-card']) assert.ok(css.includes(token),'Token mancante '+token);
+for(const width of ['820px','560px'])assert.ok(css.includes('max-width:'+width),'Breakpoint mancante '+width);
+assert.ok(css.includes('prefers-reduced-motion:reduce'),'Accessibilità animazioni');
+assert.ok(css.includes('.mode-btn:focus-visible'),'Focus visibile');
+assert.ok(css.includes('grid-template-columns:minmax(0,1fr)'),'Griglia smartphone non adattata');
+console.log('✔ UI: due temi, sfumature, toggle persistente, mobile e accessibilità.');

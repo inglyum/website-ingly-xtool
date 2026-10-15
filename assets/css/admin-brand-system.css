@@ -225,3 +225,16 @@
  .photo-queue-actions .btn{white-space:normal;min-height:38px}
  .photo-queue-head > .photo-queue-actions{width:100%}
 }
+
+
+/* P0 light Admin: buttons were nearly white on white surfaces. */
+:root[data-mode="light"] :is(.btn:not(.pri),.btn.sm:not(.pri),button[data-go],.chip,.list-it button) {
+ color:var(--ab-text)!important;
+}
+:root[data-mode="light"] :is(.chip.err,.btn.err){color:#962536!important}
+:root[data-mode="light"] :is(.chip.warn,.btn.warn){color:#805000!important}
+:root[data-mode="light"] :is(.chip.ok,.btn.ok){color:#17613d!important}
+:root[data-mode="light"] :is(.chip.laser,.chip.gold){color:var(--ab-gold)!important}
+:root[data-mode="dark"] :is(.chip.err,.btn.err){color:#ff9ba4!important}
+:root[data-mode="dark"] :is(.chip.ok,.btn.ok){color:#8bdfac!important}
+:root[data-mode="dark"] :is(.chip.warn,.btn.warn){color:#ffc078!important}

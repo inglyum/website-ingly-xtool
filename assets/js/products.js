@@ -2,6 +2,7 @@
    Catalogo, shop (filtri/ricerca/ordinamento), pagina prodotto con
    configuratore e prezzo live, digitale, carrello, wishlist. */
 import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, fotoDisponibili, icon, toast, L, esiste as esisteFoto } from './utils.js';
+import {openFocusLayer,closeFocusLayer} from './accessibility.js';
 
 /* I titoli del portfolio li scrive una persona nell'Admin: entrano in un
    attributo alt e in una didascalia, quindi passano da qui. */
@@ -144,7 +145,7 @@ function stockBadge(x){
 
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
-  return `<article class="pcard reveal in" data-action="open-product" data-id="${x.id}">
+  return `<article class="pcard reveal in" role="link" tabindex="0" aria-label="${L==='it'?'Apri prodotto':'Open product'}: ${esc(x.n[L]||x.n.it)}" data-action="open-product" data-id="${x.id}">
     <div class="pimg" style="background:${a.bg}">
       ${x.tag?`<span class="ptag ${x.tag==='Limited'?'y':x.tag==='B2B'?'b':''}">${x.tag}</span>`:''}
       <button class="wish ${lsWish().has(x.id)?'on':''}" aria-label="Wishlist" data-action="wish" data-id="${x.id}"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg></button>
@@ -676,7 +677,7 @@ export function renderPP(){
 
   const tw=$('ppThumbs');
   tw.style.display=galShots.length>1?'':'none';
-  tw.innerHTML=galShots.length>1?galShots.map((src,i)=>`<div class="thumb ${i===0?'on':''}" style="background:${a.bg}" data-action="pp-thumb" data-src="${src}" data-idx="${i}" role="button" tabindex="0"><img src="${src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></div>`).join(''):'';
+  tw.innerHTML=galShots.length>1?galShots.map((src,i)=>`<button type="button" class="thumb ${i===0?'on':''}" style="background:${a.bg}" data-action="pp-thumb" data-src="${src}" data-idx="${i}" aria-label="${L==='it'?'Foto':'Photo'} ${i+1} ${L==='it'?'di':'of'} ${galShots.length}" aria-pressed="${i===0?'true':'false'}"><img src="${src}" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"></button>`).join(''):'';
 
   /* frecce: mostra solo se più di 1 foto */
   const show=galShots.length>1?'':'none';
@@ -725,7 +726,14 @@ export function renderPP(){
 function renderGalFrame(){
   const src=galShots[galIdx]||'';
   const art=$('ppArt');
-  $('ppMain')?.classList.toggle('pp-no-photo',!src);
+  const display=$('ppMain');
+  display?.classList.toggle('pp-no-photo',!src);
+  if(display){
+    display.tabIndex=src?0:-1;
+    display.setAttribute('role','button');
+    display.setAttribute('aria-disabled',String(!src));
+    display.setAttribute('aria-label',src?(L==='it'?'Ingrandisci fotografia del prodotto':'Enlarge product photo'):(L==='it'?'Fotografia non disponibile':'Photo unavailable'));
+  }
   /* Nessuna foto disponibile: lascia visibile l'icona/gradiente del materiale,
      senza <img src=""> o zoom che si apre sul nulla. */
   const caption = L==='it' ? 'Foto del prodotto non disponibile' : 'Product photo unavailable';
@@ -734,7 +742,7 @@ function renderGalFrame(){
       `<span class="pp-zoomhint">🔍 ${T('zoomHint')||'Clicca per ingrandire'}</span>`
     : `<span class="pp-photo-label">${caption}</span>`);
   /* sincronizza thumbnail */
-  document.querySelectorAll('#ppThumbs .thumb').forEach((el,i)=>el.classList.toggle('on',i===galIdx));
+  document.querySelectorAll('#ppThumbs .thumb').forEach((el,i)=>{el.classList.toggle('on',i===galIdx);el.setAttribute('aria-pressed',String(i===galIdx));});
 }
 
 function initGalSwipe(){
@@ -1047,10 +1055,20 @@ export function renderCart(){
 }
 
 export function openCart(){
-  $('drawer').classList.add('open');$('overlay').classList.add('open');
-  $('drawer').focus();
+  const drawer=$('drawer');
+  if(!drawer)return;
+  drawer.removeAttribute('inert');
+  drawer.setAttribute('aria-hidden','false');
+  drawer.classList.add('open');$('overlay').classList.add('open');
+  openFocusLayer(drawer,{initialFocus:drawer.querySelector('[data-action="close-cart"]'),onEscape:closeCart});
 }
-export function closeCart(){$('drawer').classList.remove('open');$('overlay').classList.remove('open')}
+export function closeCart(){
+  const drawer=$('drawer'); if(!drawer)return;
+  drawer.classList.remove('open');$('overlay').classList.remove('open');
+  drawer.setAttribute('aria-hidden','true');
+  drawer.setAttribute('inert','');
+  closeFocusLayer(drawer);
+}
 
 export function checkoutWhatsApp(){
   if(!cart.length){ toast(T('crtE')); return }
@@ -1134,6 +1152,7 @@ export function openPhoto(src){
   const box=$('lightbox'); if(!box) return;
   box.hidden=false; document.body.style.overflow='hidden';
   document.body.classList.add('lbx-open'); paintLbx();
+  openFocusLayer(box,{initialFocus:$('lbxClose'),onEscape:closeLightbox});
 }
 export function openLightbox(startSrc){
   LBX.list=galleryOf(cur);
@@ -1146,6 +1165,7 @@ export function openLightbox(startSrc){
   box.hidden=false; document.body.style.overflow='hidden';
   document.body.classList.add('lbx-open');
   paintLbx();
+  openFocusLayer(box,{initialFocus:$('lbxClose'),onEscape:closeLightbox});
 }
 function paintLbx(){
   const im=$('lbxImg'); if(!im) return;
@@ -1161,6 +1181,7 @@ export function closeLightbox(){
   const box=$('lightbox'); if(!box) return;
   box.hidden=true; document.body.style.overflow='';
   document.body.classList.remove('lbx-open');
+  closeFocusLayer(box);
 }
 
 
@@ -1238,6 +1259,7 @@ export function openSeries(list,startSrc){
   box.hidden=false; document.body.style.overflow='hidden';
   document.body.classList.add('lbx-open');
   paintLbx();
+  openFocusLayer(box,{initialFocus:$('lbxClose'),onEscape:closeLightbox});
 }
 
 

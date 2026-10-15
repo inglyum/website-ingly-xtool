@@ -1,4 +1,4 @@
-name: INGLY — build e verifica router fallback
+name: INGLY — verifica build con product CTA sicura
 on:
   push:
     branches: [feat/admin-totale]
@@ -21,27 +21,10 @@ jobs:
       - run: npm install --no-audit --no-fund
       - name: Rigenera fallback e dataset
         run: npm run build
-      - name: Identifica funzione minificata del dettaglio prodotto
-        run: |
-          node -e "const fs=require('fs');const l=fs.readFileSync('assets/js/app.fallback.js','utf8').split('\\n');console.log('SOURCE-LINE59-START',l[58]?.slice(0,1100));console.log('SOURCE-LINE59-AFTER',l[58]?.slice(3200,4100));"
       - name: Rigenera pagine per robot e motori di ricerca
         run: |
           node scripts/prerender.mjs
           node scripts/generate-sitemap.mjs
-      - name: Debug temporaneo della pagina prodotto dopo la build
-        shell: bash
-        run: |
-          cp tests/test-sito.mjs /tmp/ingly-test-sito-original.mjs
-          python3 - <<'PY'
-          p='tests/test-sito.mjs'
-          s=open(p).read()
-          s=s.replace("vc.on('jsdomError', e => {", "vc.on('jsdomError', e => { console.log('DIAGNOSTICA-JSDOM', JSON.stringify(e.detail && e.detail.stack), JSON.stringify(e.stack));")
-          s=s.replace("if(card) card.click();", "console.log('DIAGNOSTICA-PRODUCT', id, !!card, win.location.pathname, doc.querySelectorAll('[data-action=\\\"open-product\\\"]').length); if(card) card.click();")
-          open(p,'w').write(s)
-          PY
-          node tests/test-sito.mjs > /tmp/ingly-debug-sito.log 2>&1 || true
-          grep 'DIAGNOSTICA-' /tmp/ingly-debug-sito.log | head -50 || true
-          cp /tmp/ingly-test-sito-original.mjs tests/test-sito.mjs
       - name: Esegue tutti i test
         run: npm test
       - name: Commit atomico dei file generati

@@ -24,6 +24,16 @@ for(const svg of ['assets/images/ingly-wordmark-light.svg','assets/images/ingly-
  const s=read(svg);
  assert.ok(s.includes('viewBox="0 0 1610 590"'),'Logo must have cropped viewBox '+svg);
  assert.ok(s.includes('<path fill="currentColor"'),'Logo remains vector');
+ const doc = new JSDOM(s, {contentType:'image/svg+xml'}).window.document;
+ const root = doc.documentElement;
+ const vb = root.viewBox?.baseVal || null;
+ assert.equal(root.getAttribute('viewBox'),'0 0 1610 590');
+ const shapes=[...root.querySelectorAll('path')];
+ assert.equal(shapes.length,2,'INGLY needs isolated I and the original NGLY glyph path');
+ assert.equal(shapes[0].getAttribute('d'),'M0 80 H118 V510 L0 389 Z M0 418 L84 510 H0 Z','Leading I must remain intact');
+ assert.equal(shapes[1].getAttribute('fill'),'currentColor','Original remaining letters unchanged');
+ assert.equal(shapes[1].parentElement.getAttribute('transform'),'translate(165 0)','Preserve clear space between I and N');
+ assert.ok(!s.includes('viewBox="0 135 1430 460"'),'Never restore clipped NGLY logo');
 }
 const hero=d.querySelector('#page-macchine > .wrap.phero');
 assert.ok(hero?.querySelector('h1.h2')?.textContent.includes('Il parco macchine'));

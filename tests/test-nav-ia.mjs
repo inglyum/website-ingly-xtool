@@ -24,18 +24,18 @@ const D = {
   VERTICALI: leggi('data/content.json').VERTICALI || []
 };
 
-console.log('\n=== LE SETTE FAMIGLIE, PER OBIETTIVO ===');
+console.log('\n=== LE CINQUE FAMIGLIE, PER OBIETTIVO ===');
 /* Prima erano cinque e mettevano sullo stesso piano cose di natura
    diversa: «Lab» conteneva materiali, tecnologie E macchine — tre mondi
    commerciali in una tendina — mentre i file digitali, che si vendono, non
    avevano voce propria. «Studio» occupava una delle cinque posizioni per
    contenuti che nessuno cerca prima di aver deciso di comprare. */
-check('la barra ha sette voci, non tredici', IA.FAMIGLIE.length === 7, String(IA.FAMIGLIE.length));
+check('la barra ha cinque voci principali', IA.FAMIGLIE.length === 5, String(IA.FAMIGLIE.length));
 check('ogni famiglia porta a una pagina sua', IA.FAMIGLIE.every(f => f.rotta && /^[a-z-]+$/.test(f.rotta)));
 /* Un gruppo che si apre soltanto è una trappola per chi usa la tastiera. */
 check('nessuna famiglia è un contenitore vuoto',
   IA.FAMIGLIE.every(f => IA.pannello(f.id, D).colonne.length > 0 || f.rotta));
-check('i file digitali hanno una voce propria', IA.FAMIGLIE.some(f => f.id === 'digital'));
+check('i file digitali sono raggiungibili dal menu Shop', IA.pannello('shop', D).colonne.some(c => c.voci.some(v => v.href.endsWith('/digital'))));
 check('le macchine hanno una voce propria', IA.FAMIGLIE.some(f => f.id === 'xtool'));
 check('lo studio è uscito dalla barra', !IA.FAMIGLIE.some(f => f.id === 'studio'));
 check('ed è finito fra le secondarie', IA.SECONDARIE.map(v => v.id).includes('about'));
@@ -52,7 +52,7 @@ check('con un prodotto marcato compare',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
 check('la voce rimane visibile anche con prodotto nascosto',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
-check('le altre sei restano comunque', IA.famiglieVive({ ...D, P: [] }).length === 7);
+check('rimangono cinque landing principali', IA.famiglieVive({ ...D, P: [] }).length === 5);
 check('la barra contiene Personalizza anche senza prodotti',
   /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
 check('e la contiene quando c\'è', 
@@ -82,7 +82,7 @@ check('le tecnologie del menu sono quelle vere',
 const xt = IA.pannello('xtool', D);
 /* Le macchine che abbiamo vengono prima e in una colonna loro: sono le
    uniche che si possono venire a vedere. */
-check('xTOOL Lab separa quelle in officina dal resto', xt.colonne.length === 2);
+check('xTOOL Lab mantiene in officina, altre macchine e percorsi', xt.colonne.length === 3);
 /* una macchina tagliata dalla fetta sarebbe una pagina che esiste e dal
    menu non si raggiunge */
 check('nessuna macchina resta fuori dal menu',
@@ -93,6 +93,8 @@ check('e lo dichiara su ogni voce', xt.colonne[0].voci.every(v => v.nota));
 check('la seconda colonna è il resto della gamma',
   xt.colonne[1].voci.length === D.MACCHINE.catalogo.filter(m => !m.inOfficina).length);
 check('porta alla demo', /demo/.test(xt.evidenza.cta.href));
+check('Academy e Tecnologie sono nel Lab', ['academy','tecnologie'].every(route=>xt.colonne[2].voci.some(v=>v.href.endsWith('/'+route))));
+check('Service Centre nel Lab', xt.colonne[2].voci.some(v=>v.href.includes('inglyServiceTitle')));
 const dg = IA.pannello('digital', { ...D, DIG: leggi('data/content.json').DIG || [] });
 check('i file digitali hanno il loro pannello e gli strumenti creativi', dg.colonne.length === 3);
 /* i formati arrivano dai file che esistono: un elenco a mano prometterebbe

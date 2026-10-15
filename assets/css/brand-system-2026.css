@@ -465,3 +465,18 @@
 :root[data-mode] footer .ft-col--brand .brand-lockup small{color:var(--brand-gold)!important}
 :root[data-mode="light"] .journey-card .journey-link{color:#1a4fb5!important}
 :root[data-mode="dark"] .journey-card .journey-link{color:var(--brand-gold-hi)!important}
+
+
+/* Axe WCAG fixes: inherited opacity was reducing contrast despite correct tokens. */
+:root[data-mode] footer :is(.ft-eyebrow,.ft-desc,.ft-col h4,.ft-col p,.ft-col a,.fbottom,.ft-credit,.ft-social a,.brand-lockup small){
+ opacity:1!important;filter:none!important;
+}
+/* Mobile purchase banner is dark in both themes. Hide outside product route,
+   and never render dark ink on its dark background in daytime mode. */
+body:not(.on-product) .stickybuy{display:none!important}
+:root[data-mode] body.on-product .stickybuy{
+ color:#f8f9fc!important;background:rgba(10,13,24,.96)!important;
+}
+:root[data-mode] body.on-product .stickybuy :is(#sbPrice,#sbName){
+ color:#f8f9fc!important;opacity:1!important;
+}

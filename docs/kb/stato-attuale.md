@@ -111,6 +111,20 @@
   tag[],racconto{it,en},video,evidenza,foto[],prima,dopo,prodotti[],social}`. Se presente, il clic sulla
   tessera apre la **scheda progetto** (`openProject`), altrimenti lo zoom. Editor completo in `editPort()`.
 
+## Commerce premium (ottobre 2026)
+- **Scheda prodotto riparata**: `applyConfig()` riscriveva ogni `mailto:` cancellandone il contenuto;
+  il pulsante email perdeva lo `<span>` e `renderPP()` si fermava a metà (niente foto, gallery,
+  correlati). Ora si riscrive solo l'indirizzo, e `setLabel()` ricrea l'etichetta se manca.
+- **Header su telefono**: `atelier-chrome.js` applica lo scostamento della barra avvisi solo se
+  l'header è `fixed`/`sticky`; con l'header in flusso lo spingeva 76px sopra il contenuto.
+- **Recensioni solo vere**: il campo `rev` non ha fonte verificabile → niente stelle né conteggi su
+  tessere e scheda, niente `aggregateRating` nel JSON-LD. La scheda mostra solo le recensioni del
+  laboratorio con `vf:true` (`content.json → REVIEWS`), dichiarate come tali. Ordinamento «Più richiesti».
+- **`assets/css/commerce-premium.css`** (ultimo foglio): titoli tessera su due righe, catalogo a due
+  colonne sotto 640px, un solo menu di ordinamento su telefono, pannello «servizio» `.pp-trust` nella
+  scheda (solo promesse già fatte altrove sul sito). Misure in `variables.css` (`--fs-pp-title`, …).
+- Prezzi: restano «su richiesta» per scelta del proprietario (`config.prezzi.mostra`, dall'Admin).
+
 ## Regole non negoziabili (imparate sul campo, da non violare mai)
 1. **Mai toccare `animation` su `img.pimgph`, `img.gimg`, `img.bimg`.**
    Le foto prodotto hanno `animation: imgfade` che le porta da 0 a 1 di opacità. Una regola successiva che

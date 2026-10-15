@@ -78,7 +78,16 @@ function applyConfig(){
      offerta include nome del prodotto, sconto e codice). Sovrascriverlo con il
      numero nudo cancellava proprio la parte utile. */
   document.querySelectorAll('a[href^="https://wa.me"]:not([data-wa-keep])').forEach(a=>a.href=CONFIG.whatsapp);
-  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{a.href='mailto:'+CONFIG.email;a.textContent=CONFIG.email});
+  /* Si riscrive solo l'indirizzo, mai il resto: oggetto e corpo precompilati
+     restano, e il testo si sostituisce solo nei link che mostrano l'indirizzo
+     nudo. Prima ogni mailto perdeva il suo contenuto: il pulsante email della
+     scheda prodotto perdeva lo <span> che renderPP cerca, e l'errore fermava
+     la scheda a metà — niente foto, niente gallery, niente correlati. */
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
+    const q=a.getAttribute('href').indexOf('?');
+    a.href='mailto:'+CONFIG.email+(q>=0?a.getAttribute('href').slice(q):'');
+    if(!a.children.length&&/@/.test(a.textContent)) a.textContent=CONFIG.email;
+  });
   $('ftCopy').textContent=CONFIG.copyright;
   $('ftLegal').textContent=CONFIG.legale;
   const st=CONFIG.statistiche, hb=document.querySelectorAll('.hero-meta .hm b');

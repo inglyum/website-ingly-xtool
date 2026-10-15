@@ -152,6 +152,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/signature-showcase.css">
+<link rel="stylesheet" href="assets/css/commerce-premium.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>
@@ -671,6 +672,13 @@ setTimeout(function(){
           <a class="btn btn-ghost product-contact-email" id="productContactEmail" href="mailto:inglydesign@gmail.com"><span>Richiedi via email</span></a>
           <p class="product-contact-note" id="productContactNote">Raccontaci cosa hai in mente: ti aiutiamo a scegliere materiali, finiture e personalizzazione.</p>
         </div>
+        <!-- Solo promesse che il laboratorio fa già altrove sul sito: niente garanzie inventate. -->
+        <ul class="pp-trust" aria-label="Il servizio INGLY DESIGN">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></svg><span data-i18n="ppTr1">Prova grafica inclusa: vedi il progetto prima della produzione</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg><span data-i18n="ppTr2">Materiale, spessore e finitura confermati con te prima di incidere</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-.1M17 19a2 2 0 1 0 0-.1"/></svg><span data-i18n="ppTr3">Spedizione gratuita in Italia sopra €79</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="ppTr4">Realizzato nel laboratorio INGLY DESIGN, in Italia</span></li>
+        </ul>
         <!-- Tabs -->
         <div class="pp-tabs" role="tablist">
           <button class="pp-tab active" data-action="pp-tab" data-tab="desc" role="tab" aria-selected="true" data-i18n="tabDesc">Descrizione</button>

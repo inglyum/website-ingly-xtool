@@ -29,8 +29,15 @@
       message.textContent = captions[language()][position];
       close.setAttribute('aria-label', language() === 'en' ? 'Dismiss announcements' : 'Chiudi gli avvisi');
     }
+    /* Lo scostamento serve solo a un header fisso o sticky, che altrimenti
+       finirebbe sotto la barra avvisi. Con l'header in flusso (pages.css lo
+       rende `relative`) la barra lo spinge già da sola: aggiungere `top`
+       lo faceva scendere sopra il contenuto — 76px su telefono, sopra il
+       percorso di navigazione e il titolo del prodotto. */
     function alignHeader() {
-      nav.style.top = (bar.hidden ? 0 : bar.getBoundingClientRect().height) + 'px';
+      const pos = getComputedStyle(nav).position;
+      const off = (pos === 'fixed' || pos === 'sticky') && !bar.hidden ? bar.getBoundingClientRect().height : 0;
+      nav.style.top = off + 'px';
     }
     try {
       if (sessionStorage.getItem('ingly_atelier_announcement_hidden') === '1') bar.hidden = true;

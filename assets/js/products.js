@@ -152,7 +152,7 @@ export function card(x){const a=matArt(x.mat);
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
     <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
-    <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span><span class="stars">★★★★★ <span>(${x.rev})</span></span></div></div></article>`}
+    <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span></div></div></article>`}
 
 export const currentProduct = () => cur;
 
@@ -581,6 +581,13 @@ function renderMaterialDetails(){
     (Array.isArray(material.limiti&&material.limiti[L])&&material.limiti[L].length?'<div class="pp-material-limit"><b>'+(L==='it'?'Da sapere':'Please note')+'</b><p>'+escapeMarkup(material.limiti[L][0])+'</p></div>':'')+
     '<p class="pp-material-foot">'+(L==='it'?'Spessore, finitura e disponibilità vengono confermati prima della produzione.':'Thickness, finish and availability are confirmed before production.')+'</p></section>';
 }
+/* L'etichetta vive in uno <span>; se qualcuno lo ha tolto lo si ricrea,
+   invece di lasciare che un pulsante fermi l'intera scheda prodotto. */
+function setLabel(link,text){
+  let span=link.querySelector('span');
+  if(!span){span=document.createElement('span');link.textContent='';link.append(span);}
+  span.textContent=text;
+}
 function renderProductContactLinks(){
   const c=CONFIG.conversione||{};
   const wrap=$('productContactActions'),wa=$('productContactWa'),em=$('productContactEmail');
@@ -601,10 +608,10 @@ function renderProductContactLinks(){
   const body=(L==='it'?'Buongiorno INGLY DESIGN, vorrei informazioni su questo prodotto.':'Hello INGLY DESIGN, I would like information about this product.')+'\n\n'+(L==='it'?'Prodotto: ':'Product: ')+(cur.n[L]||cur.n.it||'')+'\n'+(L==='it'?'Categoria: ':'Category: ')+catName+'\n'+(L==='it'?'Materiale: ':'Material: ')+material+'\n'+(L==='it'?'Quantità indicativa: ':'Estimated quantity: ')+qty+'\n'+(L==='it'?'Link: ':'Link: ')+url+'\n\n'+(L==='it'?'Potete consigliarmi materiale, finitura, tempi e prezzo?':'Could you advise on material, finish, lead time and price?');
   wa.href=waUrl||'#';wa.hidden=!waUrl;
   wa.target='_blank';wa.rel='noopener noreferrer';
-  wa.querySelector('span').textContent=(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp');
+  setLabel(wa,(c.etichettaWhatsApp&&c.etichettaWhatsApp[L])||(L==='it'?'Chiedi su WhatsApp':'Ask on WhatsApp'));
   em.href=email?'mailto:'+email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body):'#';
   em.hidden=c.emailVisibile===false||!email;
-  em.querySelector('span').textContent=(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email');
+  setLabel(em,(c.etichettaEmail&&c.etichettaEmail[L])||(L==='it'?'Richiedi via email':'Ask by email'));
   const primary=String(c.canalePrimario||'whatsapp').toLowerCase();
   wa.classList.toggle('btn-primary',primary!=='email');
   wa.classList.toggle('btn-ghost',primary==='email');
@@ -657,9 +664,9 @@ export function renderPP(){
   $('ppName').textContent=cur.n[L];
 
   /* rating row */
-  const pct=Math.min(100,Math.round((cur.rev||0)/2));
-  $('ppStars').innerHTML='★★★★★';
-  $('ppRevCount').textContent='('+((cur.rev||0))+' '+T('revs')+')';
+  /* `rev` è un conteggio senza fonte verificabile: non si mostra come voto.
+     Stelle e numeri compaiono solo con recensioni reali (vedi renderReviews). */
+  const rr=document.querySelector('.pp-rating-row');if(rr)rr.hidden=true;
 
   $('ppProd').textContent=cur.prod+' '+T('days');
   $('ppMat').textContent=(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||(L==='it'?'Da definire':'To be confirmed');
@@ -743,31 +750,25 @@ function initGalSwipe(){
 export function galPrev(){galIdx=(galIdx-1+galShots.length)%galShots.length;renderGalFrame()}
 export function galNext(){galIdx=(galIdx+1)%galShots.length;renderGalFrame()}
 
+/* Recensioni: solo quelle vere. Prima la scheda inventava una media fissa
+   (4.8) e una distribuzione «realistica» ricavata dal campo `rev`, che non
+   ha fonte. Ora si mostrano le recensioni del laboratorio marcate come
+   verificate (`content.json → REVIEWS`, `vf:true`) e dichiarate per quello
+   che sono: recensioni del laboratorio, non di questo singolo prodotto. */
 function renderReviews(){
-  const total=cur.rev||0;
-  /* genera distribuzione realistica basata sul totale */
-  const d5=Math.round(total*.68), d4=Math.round(total*.20), d3=Math.round(total*.07),
-        d2=Math.round(total*.03), d1=total-d5-d4-d3-d2;
-  const rows=[5,4,3,2,1].map((s,i)=>{
-    const n=[d5,d4,d3,d2,d1][i], pct=total?Math.round(n/total*100):0;
-    return `<div class="rv-row">
-      <span class="rv-star">${s}★</span>
-      <div class="rv-bar"><div class="rv-fill" style="width:${pct}%"></div></div>
-      <span class="rv-pct">${pct}%</span>
-    </div>`;
-  }).join('');
-  $('ppReviews').innerHTML=`
-    <div class="rv-overview">
-      <div class="rv-big">
-        <span class="rv-score">4.8</span>
-        <div class="rv-stars-big">★★★★★</div>
-        <span class="rv-tot">${total} ${T('revs')}</span>
-      </div>
-      <div class="rv-bars">${rows}</div>
-    </div>
-    <p class="pp-empty-tab" style="margin-top:20px;font-size:13px;color:var(--ink-soft)">
-      ${L==='it'?'Le recensioni dei clienti verificati sono raccolte via WhatsApp e mostrate nell\'app.':'Verified customer reviews are collected via WhatsApp and shown in the app.'}
-    </p>`;
+  const box=$('ppReviews'); if(!box) return;
+  const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const txt=v=>v&&typeof v==='object'?(v[L]||v.it||''):(v||'');
+  const vere=((window.INGLY&&window.INGLY.REVIEWS)||[]).filter(r=>r&&r.vf===true&&txt(r.q));
+  const intro=`<p class="pp-rv-intro">${L==='it'?'Recensioni verificate dei clienti del laboratorio INGLY DESIGN.':'Verified reviews from INGLY DESIGN workshop customers.'}</p>`;
+  box.innerHTML=vere.length?intro+'<div class="pp-rv-list">'+vere.map(r=>{
+    const st=Math.max(1,Math.min(5,Math.round(+r.st||0)));
+    return `<figure class="pp-rv">
+      ${r.st?`<div class="pp-rv-stars" aria-label="${st}/5">${'★'.repeat(st)}${'☆'.repeat(5-st)}</div>`:''}
+      <blockquote>${esc(txt(r.q)).replace(/\n/g,'<br>')}</blockquote>
+      <figcaption><b>${esc(r.w)}</b>${txt(r.s)?' · '+esc(txt(r.s)):''} <span class="pp-rv-vf">✓ ${L==='it'?'Verificata':'Verified'}</span></figcaption>
+    </figure>`}).join('')+'</div>'
+    :`<p class="pp-empty-tab">${L==='it'?'Le recensioni compaiono qui solo dopo la verifica dell\'ordine.':'Reviews appear here only after the order has been verified.'}</p>`;
 }
 
 /* ---- tab switching ---- */

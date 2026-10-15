@@ -1,4 +1,4 @@
-name: INGLY — allinea build branch Admin Totale
+name: INGLY — build e verifica router fallback
 on:
   push:
     branches: [feat/admin-totale]

@@ -4,6 +4,7 @@ const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } =
 import { $, T, L, setL, toast } from './utils.js';
 import * as u from './utils.js';
 import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda, BASE } from './navigation.js';
+import { ensureAccessibilityShell } from './accessibility.js';
 import { initAnimations, observeAll } from './animations.js';
 import * as prod from './products.js';
 import { renderUrg, initForms } from './forms.js';
@@ -870,6 +871,7 @@ function initBgPicker(){
 }
 
 /* ---- avvio ---- */
+safeRun('accessibilità navigazione',ensureAccessibilityShell);
 const _mq=$('mq');if(_mq)_mq.innerHTML+=_mq.innerHTML;
 safeRun('configurazione contatti',applyConfig);
 safeRun('link social',renderSocials);

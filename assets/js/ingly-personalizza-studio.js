@@ -31,6 +31,34 @@
     const svg=open+layers+'</svg>';
     return{svg,previewSvg,w,h,text};
   }
+  const labels={
+    material:{wood:{it:'Legno naturale',en:'Natural wood'},acrylic:{it:'Plexiglass',en:'Acrylic'},metal:{it:'Metallo',en:'Metal'}},
+    shape:{rounded:{it:'Rettangolo stondato',en:'Rounded rectangle'},rectangle:{it:'Rettangolo',en:'Rectangle'},ellipse:{it:'Ovale',en:'Oval'}},
+    font:{josefin:'Josefin Sans',serif:'Serif',mono:'Monospace'}
+  };
+  function quoteText(options,lang='it'){
+    const l=lang==='en'?'en':'it';
+    const name=String(options.name||'').trim().slice(0,28);
+    const w=clamp(options.w,50,500,180),h=clamp(options.h,25,250,65);
+    const material=(labels.material[options.material]||labels.material.wood)[l];
+    const shape=(labels.shape[options.shape]||labels.shape.rounded)[l];
+    const font=labels.font[options.font]||labels.font.josefin;
+    const notes=String(options.notes||'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,300);
+    return l==='en'
+      ?'INGLY DESIGN — Custom project quotation\nText: '+name+'\nSize: '+w+' × '+h+' mm\nMaterial: '+material+'\nShape: '+shape+'\nLettering: '+font+
+        (notes?'\nNotes: '+notes:'')+'\nPlease confirm feasibility, materials, price and delivery. I can attach the editable SVG separately.'
+      :'INGLY DESIGN — Richiesta preventivo personalizzato\nTesto: '+name+'\nMisure: '+w+' × '+h+' mm\nMateriale: '+material+'\nForma: '+shape+'\nLettering: '+font+
+        (notes?'\nNote: '+notes:'')+'\nVorrei confermare fattibilità, materiali, prezzo e consegna. Posso allegare separatamente il file SVG modificabile.';
+  }
+  function whatsappQuote(raw,message){
+    try{
+      const url=new URL(String(raw||''));
+      if(url.protocol!=='https:'||!['wa.me','api.whatsapp.com','web.whatsapp.com'].includes(url.hostname))return '';
+      url.searchParams.set('text',message);
+      return url.href;
+    }catch(_){return ''}
+  }
+  window.INGLY_PARAMETRIC_QUOTE=Object.freeze({quoteText,whatsappQuote});
   function init(){
     const root=document.getElementById('inglyParametric');
     if(!root)return;
@@ -61,6 +89,37 @@
       document.body.append(a);a.click();a.remove();
       setTimeout(()=>URL.revokeObjectURL(url),1500);
       $('inglyGeneratorStatus').textContent='SVG esportato: converti il testo in tracciati e verifica i gruppi prima di tagliare.';
+    });
+    const quote=$('inglyGeneratorQuote');
+    if(quote)quote.addEventListener('click',()=>{
+      if(!current)return;
+      const lang=document.documentElement.lang==='en'?'en':'it';
+      const msg=quoteText({
+        name:current.text,w:current.w,h:current.h,
+        material:$('inglyGeneratorMaterial').value,
+        shape:$('inglyGeneratorShape').value,
+        font:$('inglyGeneratorFont').value,
+        notes:($('inglyGeneratorNotes')||{}).value||''
+      },lang);
+      const config=(window.INGLY&&window.INGLY.CONFIG)||{};
+      const target=whatsappQuote(config.whatsapp,msg);
+      if(target){
+        const a=document.createElement('a');
+        a.href=target;a.target='_blank';a.rel='noopener noreferrer';
+        document.body.appendChild(a);a.click();a.remove();
+        $('inglyGeneratorStatus').textContent=lang==='en'
+          ?'Quotation request prepared. You can attach your exported SVG in WhatsApp.'
+          :'Richiesta di preventivo preparata. Puoi allegare il file SVG esportato su WhatsApp.';
+      }else{
+        const email=String(config.email||'');
+        if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+          const link='mailto:'+email+'?subject='+encodeURIComponent('INGLY DESIGN — '+(lang==='en'?'Custom quote':'Preventivo personalizzato'))+
+            '&body='+encodeURIComponent(msg);
+          window.location.href=link;
+        }else $('inglyGeneratorStatus').textContent=lang==='en'
+          ?'Contact is not configured. Please use the main contact page.'
+          :'Contatto non configurato. Utilizza la pagina Contatti del sito.';
+      }
     });
     update();
   }

@@ -135,8 +135,10 @@ export function toggleMenu(open,{restoreFocus=true}={}){
   const trigger=document.querySelector('[data-action="menu-open"]');
   if(!menu)return;
   const wasOpen=menu.classList.contains('open');
+  if(open) menu.removeAttribute('inert');
   menu.classList.toggle('open',!!open);
   menu.setAttribute('aria-hidden',String(!open));
+  if(!open) menu.setAttribute('inert','');
   trigger?.setAttribute('aria-expanded',String(!!open));
   if(open&&!wasOpen){
     openFocusLayer(menu,{

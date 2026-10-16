@@ -169,3 +169,5 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - **Non ancora collegato al pulsante di restore e non esegue il recupero dei binari**: `ok` del preflight non certifica contenuto o hash dei file. Prima di ripubblicare uno snapshot storico serviranno integrazione UI, download/staging dei blob, verifica SHA/contenuto e commit coerente in sandbox. Nessuna modifica alle fotografie o allo stock live.
 - Resta aperto il collaudo E2E Admin con repository isolato, upload singolo/batch e restore immagini binarie; non dichiarare Sprint 07 completato.
 
+
+- **Integrazione successiva PR #83:** il pulsante Cronologia ora esegue prima del cambio bozza il confronto degli SHA GitHub dei file `img/` dello snapshot storico con i file presenti sul branch live. Impedisce il restore JSON in caso di immagini eliminate o binari differenti; i test sono inclusi nella suite. Questa è una barriera fail-closed, **non** un motore di recupero file binari: per snapshot con foto cambiate serve un flusso separato di staging/restore e verifica sandbox. La CI di questo commit va verificata prima del merge.

@@ -549,3 +549,27 @@
 :root[data-mode] #page-macchine .xtool-lab-feature :is(p,small,strong,span){
  font-family:'Inter',Arial,system-ui,sans-serif!important;
 }
+
+/* Sprint 03 — xTool Service Centre presentation. No global selectors,
+   no distortion of the canonical INGLY vector paths. */
+:root[data-mode] #page-macchine .ingly-service-centre__badge{
+ position:relative;isolation:isolate;
+ background:linear-gradient(145deg,#07131e,#112738 60%,#07131e)!important;
+ border:1px solid rgba(73,188,146,.36)!important;
+ color:#f5f8f9!important;
+ box-shadow:0 22px 64px rgba(0,0,0,.19),inset 0 0 0 1px rgba(255,255,255,.025);
+}
+:root[data-mode] #page-macchine .ingly-service-centre__badge img{
+ width:100%;height:auto;max-width:100%;aspect-ratio:820/520;
+ display:block;object-fit:contain;filter:none!important;
+}
+:root[data-mode] #page-macchine .ingly-service-centre__squad{
+ color:#bce9d5!important;max-width:46ch;
+ text-transform:none;letter-spacing:.04em;font-size:.77rem;
+ line-height:1.5;
+}
+@media(max-width:640px){
+ :root[data-mode] #page-macchine .ingly-service-centre__badge{
+  padding:10px!important;border-radius:20px!important;
+ }
+}

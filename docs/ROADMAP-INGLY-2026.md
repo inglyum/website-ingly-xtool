@@ -1,5 +1,14 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
 
+## Sprint 03 — Tessera xTool Service Centre premium (16 ottobre 2026)
+- Asset SVG a sfondo tecnico scuro, luci verde/blu e tipografia leggibile nella sezione Macchine.
+- Il badge riutilizza senza modificarli i tre tracciati del wordmark originale INGLY, inclusa la I bipartita.
+- Nuovo percorso dell'asset per evitare la cache di vecchie varianti; il precedente SVG rimane per compatibilità.
+- La disponibilità effettiva dei servizi viene confermata caso per caso; nessuna falsa certificazione tecnica implicita nei test.
+- Test vettoriale e browser QA; autorizzazione commerciale del badge e verifica fisica ancora separate.
+
+
+
 ## Stato aggiornato — Sprint 01 concluso; Sprint 02 Media Readiness (16 ottobre 2026)
 
 - **PR #69**: master SVG INGLY con iniziale I bicomponente; footer, header, Admin e asset Service Centre / font tecnico Lab (merge e test browser riusciti).

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="520" viewBox="0 0 820 520" role="img" aria-labelledby="badgeTitle badgeDesc">
+<title id="badgeTitle">INGLY DESIGN · xTool Authorized Service Centre</title>
+<desc id="badgeDesc">Tessera xTool Squad su fondo grafite con accenti verde e blu. Marchio INGLY vettoriale originale completo, titolo del servizio e firma.</desc>
+<defs>
+ <linearGradient id="night" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06101c"/><stop offset=".52" stop-color="#0b1927"/><stop offset="1" stop-color="#081521"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#27ef50"/><stop offset="1" stop-color="#00bc36"/></linearGradient>
+ <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#19df5a"/><stop offset=".54" stop-color="#29dfc3"/><stop offset="1" stop-color="#247aff"/></linearGradient>
+ <radialGradient id="aurora"><stop stop-color="#0a924e" stop-opacity=".28"/><stop offset="1" stop-color="#0a924e" stop-opacity="0"/></radialGradient>
+ <radialGradient id="blueglow"><stop stop-color="#236dcd" stop-opacity=".25"/><stop offset="1" stop-color="#236dcd" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="820" height="520" rx="30" fill="url(#night)"/>
+<ellipse cx="215" cy="144" rx="350" ry="270" fill="url(#aurora)"/>
+<ellipse cx="670" cy="280" rx="320" ry="260" fill="url(#blueglow)"/>
+<path d="M0 110L145 0H223L0 280Z" fill="#16c95b" opacity=".065"/>
+<path d="M820 92L685 0H620L820 256Z" fill="#247aff" opacity=".095"/>
+<rect x="16" y="16" width="788" height="488" rx="24" fill="none" stroke="#84e3bb" stroke-opacity=".20" stroke-width="1.5"/>
+<rect x="344" y="26" width="132" height="132" rx="29" fill="url(#green)" stroke="#b1ffc0" stroke-opacity=".7" stroke-width="2.5"/>
+<path d="M367 68H396L411 88L430 68H453L428 96L454 129H425L410 109L393 129H366L393 97Z" fill="#072c1e"/>
+<text x="410" y="148" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="800" letter-spacing="1" fill="#062718">xTool</text>
+<!-- The original I and NGLY vector geometry are reused verbatim from the approved INGLY master. -->
+<g transform="translate(190 170) scale(.36)">
+ <path id="badge-ingly-i-stem" d="M-179 81H-51V509L-179 375Z" fill="#eef6f2"/>
+ <path id="badge-ingly-i-foot" d="M-179 418L-90 512H-179Z" fill="#2de571"/>
+ <path id="badge-ingly-ngly" d="M641,322 680,395 722,394 730,400 730,518 754,512 780,501 822,474 822,322Z M1,147 118,147 118,507 1,507Z M1429,147 1327,147 1322,152 1267,245 1269,253 1317,326Z M1066,147 1204,361 1204,507 1303,507 1303,352 1172,147Z M873,147 872,506 1157,506 1157,425 973,425 971,423 971,147Z M300,147 300,265 415,385 415,147Z M634,141 594,149 558,164 522,188 498,213 481,238 465,276 458,317 460,364 469,399 485,432 501,454 534,484 565,502 606,516 640,521 682,520 704,515 704,432 675,438 653,438 631,434 606,423 580,400 565,374 558,344 559,314 567,286 581,263 609,238 626,230 655,224 686,225 716,234 736,246 760,268 823,209 791,178 744,153 693,141Z M1,0 1,152 3,157 415,589 415,434Z" fill="#eef6f2" fill-rule="evenodd"/>
+</g>
+<rect x="105" y="394" width="250" height="4" rx="2" fill="#28df71"/>
+<rect x="470" y="394" width="245" height="4" rx="2" fill="#3194ff"/>
+<path d="M378 390L366 403H382L394 390ZM404 390L392 403H408L420 390ZM430 390L418 403H434L446 390Z" fill="url(#accent)"/>
+<text x="410" y="441" font-family="Arial,Helvetica,sans-serif" text-anchor="middle" font-size="31" font-weight="700" fill="#f3f8fa">Authorized <tspan fill="#48c6ff">Service Centre</tspan></text>
+<text x="410" y="477" font-family="Arial,Helvetica,sans-serif" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="5" fill="#d0e2e6">XTOOL SQUAD</text>
+</svg>

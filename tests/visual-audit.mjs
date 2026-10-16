@@ -80,6 +80,15 @@ try {
             return {
               pathname: location.pathname,
               loaderVisible: (()=>{const x=document.getElementById('loader');return !!x&&!x.hidden&&getComputedStyle(x).display!=='none'&&getComputedStyle(x).visibility!=='hidden'})(),
+              pwaHiddenStyles: (() => {
+                const bar=document.getElementById('pwaBar');
+                if(!bar)return null;
+                const previous=bar.hidden;
+                bar.hidden=true;
+                const cssHidden=getComputedStyle(bar).display==='none';
+                bar.hidden=previous;
+                return cssHidden;
+              })(),
               mode: document.documentElement.getAttribute('data-mode'),
               viewport: window.innerWidth,
               documentWidth: document.documentElement.scrollWidth,
@@ -122,6 +131,8 @@ try {
           if (!status || status >= 400) problems.push('HTTP ' + status);
           if(metrics.loaderVisible)problems.push('intro loader still covering page after skip');
           if (metrics.mode !== mode) problems.push('theme mismatch: ' + metrics.mode);
+          if(!route.name.startsWith('admin') && metrics.pwaHiddenStyles!==true)
+            problems.push('PWA install bar ignores hidden attribute');
           if (!route.name.startsWith('admin')) {
             if (metrics.navWidth === null || metrics.navWidth < width * 0.75)
               problems.push('navbar compressed/absent: width ' + metrics.navWidth);

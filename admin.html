@@ -3419,7 +3419,9 @@ $('mDoAssign').onclick=async()=>{
     if(s.proc.ext!=='webp')p.img=path;else delete p.img}
    if(slot==='gal'||slot==='both')await addToGallery(p,s.proc);
   }else if(dest.startsWith('c:')){const cat=S.CATS.find(x=>x.id===dest.slice(2));if(!cat)continue;
-   const path='img/cat-'+cat.id+'.'+s.proc.ext;await stageWithVariants(path,s.proc);cat.img=path;
+   const path='img/cat-'+cat.id+'.'+s.proc.ext;await stageWithVariants(path,s.proc);
+   const {recordOwnerUpload}=await import('./assets/js/admin/media-provenance.mjs');
+   recordOwnerUpload(cat,path,{type:'Categoria'});
   }else if(dest==='t:new'){
    /* crea la tessera Portfolio al volo: prima si poteva assegnare un'immagine
       solo a tessere già esistenti, quindi da qui non si poteva pubblicare un
@@ -3435,8 +3437,8 @@ $('mDoAssign').onclick=async()=>{
   }else if(dest.startsWith('m:')){
    const mat=(S.MAT&&S.MAT.materiali||[]).find(x=>x.id===dest.slice(2));if(!mat)continue;
    const path=MEDIA_DEST.percorso(dest,{ext:s.proc.ext});await stageWithVariants(path,s.proc);
-   mat.img=path;mat.assetKind='ingly-original';mat.isDemo=false;mat.replaceable=true;
-   mat.altIT='Fotografia del materiale '+(mat.n?.it||mat.id);mat.altEN='Material photo '+(mat.n?.en||mat.id);
+   const {recordOwnerUpload}=await import('./assets/js/admin/media-provenance.mjs');
+   recordOwnerUpload(mat,path,{type:'Materiale'});
   }else if(dest.startsWith('x:')){
    const machine=(S.IMGMAC&&S.IMGMAC.macchine||[]).find(x=>x.id===dest.slice(2));if(!machine)continue;
    const path=MEDIA_DEST.percorso(dest,{ext:s.proc.ext});await stageWithVariants(path,s.proc);

@@ -1221,7 +1221,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <section class="view" id="v-hist">
     <div class="card"><h3>🕘 Cronologia pubblicazioni <button class="btn sm sp" id="histRefresh">↺ Aggiorna</button></h3>
       <div id="histList" class="hint">…</div>
-      <div class="hint" style="margin-top:10px">«Ripristina» carica i dati di quel commit come <b>bozza</b> nell'Admin: controlli e poi pubblichi (nessuna modifica avviene senza un tuo commit).</div>
+      <div class="hint" style="margin-top:10px">«Ripristina» verifica i 14 file dati prima di caricare una <b>bozza</b>; non modifica il sito online. I file immagine non vengono ripristinati automaticamente: verifica anche la Media Library prima di pubblicare.</div>
     </div>
   </section>
 
@@ -5474,12 +5474,45 @@ async function renderHist(){$('histList').textContent='Caricamento…';
   document.querySelectorAll('[data-rb]').forEach(b=>b.onclick=()=>rollback(b.dataset.rb))}
  catch(e){$('histList').textContent=ghErrHint(e)}}
 $('histRefresh').onclick=renderHist;
-async function rollback(sha){if(!confirm('Caricare i dati del commit '+sha.slice(0,7)+' come bozza?\n(Nulla viene pubblicato finché non premi tu «Pubblica».)'))return;
- try{toast('Recupero dati dal commit…');
-  const res=await Promise.all(FILES.map(f=>gh(`/contents/data/${f}.json?ref=${sha}`,{headers:{Accept:'application/vnd.github.raw+json'}}).catch(()=>null)));
-  let n=0;FILES.forEach((f,i)=>{if(res[i]){if(f==='content')S.C=res[i];else S[KEY[f]]=res[i];n++}});
-  markDirty();go('pub');toast(n+' file ripristinati in bozza dal commit '+sha.slice(0,7))}
- catch(e){toast(ghErrHint(e))}}
+async function rollback(sha){
+ if(!/^[0-9a-f]{40}$/i.test(String(sha))){
+  toast('Commit non valido: ripristino annullato');return;
+ }
+ if(MEDIA.length||DELETES.length){
+  toast('Ripristino sospeso: pubblica o scarta prima le immagini in coda e le eliminazioni.');
+  return;
+ }
+ if(pending()&&!confirm('Ci sono modifiche dati NON PUBBLICATE. Il ripristino le sostituirà.\nPer conservarle, salva prima un backup dall’Admin.\n\nContinuare?'))return;
+ if(!confirm('Ripristinare TUTTI i file dati del commit '+sha.slice(0,7)+' come bozza?\nSe un file è mancante, non verrà cambiato nulla. Pubblicazione manuale.'))return;
+ try{
+  toast('Controllo integrità snapshot '+sha.slice(0,7)+'…');
+  const responses=await Promise.allSettled(FILES.map(f=>
+   gh('/contents/data/'+f+'.json?ref='+encodeURIComponent(sha),
+    {headers:{Accept:'application/vnd.github.raw+json'}})));
+  const {checkRestoreSnapshot}=await import('./assets/js/admin/rollback-safety.mjs');
+  const verified=checkRestoreSnapshot(FILES,responses);
+  if(!verified.ok){
+   modal('<h3>Ripristino annullato: snapshot incompleto</h3>'+
+     '<p class="hint">Nessun dato della bozza è stato modificato. Seleziona un commit completo o usa un backup.</p>'+
+     '<ul>'+verified.errors.slice(0,12).map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul>'+
+     '<button class="btn" onclick="closeModal()">Chiudi</button>');
+   toast('Ripristino non applicato: '+verified.errors.length+' errori nello snapshot');
+   return;
+  }
+  // All 14 payloads are verified before the first assignment.
+  const oldData=Object.fromEntries(FILES.map(f=>[f,S[KEY[f]]]));
+  try{
+   FILES.forEach(f=>{S[KEY[f]]=verified.data[f]});
+   normalize();
+   markDirty();
+  }catch(error){
+   FILES.forEach(f=>{S[KEY[f]]=oldData[f]});
+   throw error;
+  }
+  go('pub');
+  toast(FILES.length+' file ripristinati in bozza dal commit '+sha.slice(0,7)+'. Verifica prima di pubblicare.');
+ }catch(e){toast('Ripristino non riuscito: '+ghErrHint(e))}
+}
 
 /* ================== HEALTH CENTER ================== */
 $('hRun').onclick=async()=>{const out=[];const log=(cls,agent,msg)=>{out.push(`<div class="${cls}"><b>[${agent}]</b> ${msg}</div>`);$('hLog').innerHTML=out.join('')};

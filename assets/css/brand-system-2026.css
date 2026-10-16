@@ -488,3 +488,100 @@
 :root[data-mode="light"] :is(#sbName,#sbPrice){
  color:#fff!important;opacity:1!important
 }
+
+
+/* INGLY Sprint 01 — authoritative navigation finish (storefront).
+   Legacy skins remain as fallback; this component wins after them. */
+:root[data-mode] #nav.nav[data-component="site-header"]{
+  width:100%;background:var(--brand-glass)!important;
+  border-bottom:1px solid var(--brand-border)!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 8px 28px var(--brand-halo)!important;
+  transform:none!important;
+}
+:root[data-mode] #nav.nav[data-component="site-header"] .nav-in{
+  width:min(100%,1440px);margin-inline:auto;
+  padding-inline:clamp(14px,2.4vw,35px)!important;
+  gap:clamp(8px,1.15vw,18px)!important;
+}
+:root[data-mode] #nav.nav .ia-barra{
+  align-items:center;justify-content:center;
+  flex:1 1 auto;min-width:0;gap:clamp(1px,.4vw,7px);
+}
+:root[data-mode] #nav.nav .ia-gruppo{
+  display:inline-flex;align-items:center;gap:2px;
+  border:1px solid transparent;border-radius:14px;
+  transition:background-color .18s ease,border-color .18s ease;
+}
+:root[data-mode] #nav.nav .ia-voce{
+  display:inline-flex;align-items:center;min-height:44px;
+  padding:9px clamp(7px,.75vw,13px)!important;
+  font:650 clamp(12px,.9vw,14px)/1.15 var(--brand-text)!important;
+  color:var(--brand-ink)!important;
+  white-space:nowrap;letter-spacing:-.01em!important;
+}
+:root[data-mode] #nav.nav .ia-gruppo:is(:hover,:focus-within,.qui){
+  background:var(--brand-halo)!important;border-color:var(--brand-border)!important;
+}
+:root[data-mode] #nav.nav .ia-freccia{
+  display:grid;place-items:center;
+  min-width:36px;min-height:44px;padding:0;
+  border-radius:11px;color:var(--brand-ink)!important;
+}
+:root[data-mode] #nav.nav .ia-pannello{
+  color:var(--brand-ink)!important;
+  background:var(--brand-surface)!important;
+  border:1px solid var(--brand-border)!important;
+  border-top-color:var(--brand-border-strong)!important;
+  box-shadow:var(--brand-shadow)!important;
+}
+:root[data-mode] #nav.nav .ia-pannello :is(.ia-col-tit,.ia-ev-testo,.ia-lista a,.ia-tutto,.ia-evidenza){
+  color:var(--brand-ink)!important;
+}
+:root[data-mode] #nav.nav .ia-pannello .ia-col-tit,
+:root[data-mode] #nav.nav .ia-pannello .ia-ev-testo{
+  color:var(--brand-muted)!important;opacity:1!important;
+}
+:root[data-mode] #nav.nav .ia-pannello .ia-evidenza{
+  background:var(--brand-elevated)!important;
+  border:1px solid var(--brand-border)!important;
+}
+:root[data-mode] #nav.nav .ia-lista a:focus-visible,
+:root[data-mode] #nav.nav .ia-tutto:focus-visible,
+:root[data-mode] #nav.nav :is(.ia-voce,.ia-freccia):focus-visible{
+  outline:3px solid var(--brand-gold)!important;outline-offset:2px!important;
+}
+:root[data-mode] #nav.nav .nav-acts .icon-btn,
+:root[data-mode] #nav.nav .nav-acts .burger{
+  min-width:44px;min-height:44px;
+  flex:0 0 auto;display:grid;place-items:center;
+}
+/* Desktop presents five primary families; secondary content stays in
+   footer and mobile drawer. The mobile menu is the single fallback. */
+@media(min-width:1101px){
+ :root[data-mode] #nav.nav .nav-acts .burger{display:none!important}
+}
+@media(max-width:1100px){
+ :root[data-mode] #nav.nav .ia-barra{display:none!important}
+ :root[data-mode] #nav.nav .nav-acts .burger{display:grid!important}
+ :root[data-mode] #mm.mobile-menu{
+   max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;
+   background:var(--brand-bg)!important;color:var(--brand-ink)!important;
+   padding-bottom:max(28px,env(safe-area-inset-bottom))!important;
+ }
+ :root[data-mode] #mm .dr-corpo{width:min(100%,580px);margin-inline:auto}
+ :root[data-mode] #mm :is(.dr-fam,.dr-freccia,.mclose,.dr-fondo .btn){
+   min-height:44px;touch-action:manipulation;
+ }
+ :root[data-mode] #mm :is(.dr-fam,.dr-sub a){color:var(--brand-ink)!important}
+}
+@media(max-width:420px){
+ :root[data-mode] #nav.nav .nav-in{gap:6px!important;padding-inline:10px!important}
+ :root[data-mode] #nav.nav a.brand--identity{max-width:158px!important}
+ :root[data-mode] #nav.nav .brand--identity .brand-lockup{width:clamp(90px,28vw,110px)!important}
+ :root[data-mode] #nav.nav .nav-acts{gap:2px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] #nav.nav .ia-gruppo,
+ :root[data-mode] #nav.nav .ia-pannello{transition:none!important}
+}

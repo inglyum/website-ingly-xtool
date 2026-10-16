@@ -993,6 +993,14 @@ export function applyCoupon(){
 }
 
 export function renderCart(){
+  // Repainting an item removes its button from the DOM. Restore keyboard
+  // focus to the equivalent action so Tab/Enter users can continue editing.
+  const itemRoot=$('drItems');
+  const active=document.activeElement;
+  const hadItemFocus=!!(active&&itemRoot?.contains(active));
+  const priorAction=hadItemFocus?active.dataset.action:null;
+  const priorIndex=hadItemFocus?Number(active.dataset.i):NaN;
+  const priorDelta=hadItemFocus?active.dataset.d:null;
   /* un solo calcolo per il badge, la barra della spedizione e i totali:
      tre reduce separati sono tre occasioni di mostrare tre numeri diversi */
   const tot=CM.totali(cart,{coupon:activeCoupon,soglia:FREE_SHIP});
@@ -1006,6 +1014,10 @@ export function renderCart(){
         /* la riga sa già dirsi: nessun ramo per tipo, quindi nessun tipo
            che resta fuori quando se ne aggiunge uno */
         const nm=CM.nomeIn(i.nome,L);
+        const qtyGroup=L==='it'?'Quantità per ':'Quantity for ';
+        const increase=L==='it'?'Aumenta quantità di ':'Increase quantity of ';
+        const decrease=L==='it'?'Diminuisci quantità di ':'Decrease quantity of ';
+        const remove=L==='it'?'Rimuovi dal carrello: ':'Remove from cart: ';
         const ic=i.icon;
         const bg=i.bg||matArt().bg;
         const meta=CM.nomeIn(i.meta,L);
@@ -1013,11 +1025,11 @@ export function renderCart(){
         return `<div class="ditem">
           <div class="di-img" style="background:${bg}">${ic}</div>
           <div style="flex:1;min-width:0">
-            <h4>${nm}</h4>
-            <div class="di-meta">${meta}</div>
+            <h4>${esc(nm)}</h4>
+            <div class="di-meta">${esc(meta)}</div>
             <div class="di-actions">
-              ${(i.qFissa)?'':`<div class="qty"><button data-action="cart-qty" data-i="${x}" data-d="-1" aria-label="−">−</button><b>${i.q}</b><button data-action="cart-qty" data-i="${x}" data-d="1" aria-label="+">+</button></div>`}
-              <button class="di-rm" data-action="cart-rm" data-i="${x}">${T('rm')}</button>
+              ${(i.qFissa)?'':`<div class="qty" role="group" aria-label="${esc(qtyGroup+nm+': '+i.q)}"><button type="button" data-action="cart-qty" data-i="${x}" data-d="-1" aria-label="${esc(decrease+nm)}">−</button><b aria-hidden="true">${i.q}</b><button type="button" data-action="cart-qty" data-i="${x}" data-d="1" aria-label="${esc(increase+nm)}">+</button></div>`}
+              <button type="button" class="di-rm" data-action="cart-rm" data-i="${x}" aria-label="${esc(remove+nm)}">${T('rm')}</button>
             </div>
           </div>
           <div class="di-price-col">
@@ -1070,6 +1082,15 @@ export function renderCart(){
     if(!b.dataset.testoOrig) b.dataset.testoOrig=b.textContent;
     b.textContent=prezziVisibili()?b.dataset.testoOrig:PR.etichettaAzione(CONFIG,L);
   });
+  if(hadItemFocus){
+    const idx=Number.isInteger(priorIndex)?priorIndex:0;
+    const buttons=[...itemRoot.querySelectorAll('button[data-action]')];
+    const same=buttons.find(el=>el.dataset.action===priorAction&&Number(el.dataset.i)===idx&&
+      (priorAction!=='cart-qty'||el.dataset.d===priorDelta));
+    const fallback=buttons.find(el=>el.dataset.action==='cart-rm'&&Number(el.dataset.i)===Math.min(idx,cart.length-1))||
+      $('drawer')?.querySelector('[data-action="close-cart"]');
+    (same||fallback)?.focus({preventScroll:true});
+  }
 }
 
 export function openCart(){

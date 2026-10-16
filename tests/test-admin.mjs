@@ -60,6 +60,13 @@ check('dati caricati (dashboard popolata)', /\d/.test($('dashCards').textContent
 check('stato sincronizzazione mostrato', !/caricamento/.test($('syncTxt').textContent));
 check('nessun errore JS al boot', errors.length === 0, errors.slice(0, 3).join(' | '));
 
+const dash=doc.querySelector('.nit[data-go="dash"]');
+dash.click(); await wait(50);dash.click(); await wait(50);
+check('dashboard: azioni rapide non duplicate dopo due visite',
+  doc.querySelectorAll('#dashQuickActions').length===1);
+check('dashboard: visual di repertorio esplicitati',
+  $('dashCards').textContent.includes('Visual di repertorio') &&
+  !$('dashCards').textContent.includes('Recensioni totali'));
 console.log('\n=== 2. Navigazione di TUTTE le sezioni ===');
 const views = ['dash','prod','cats','dig','generators','media','port','biz','sponsor','themes','tech','hero','texts','faq','adv','contacts','seo','pub','hist','health','backup','set'];
 for (const v of views) {

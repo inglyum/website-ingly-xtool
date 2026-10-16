@@ -1,45 +1,61 @@
-# INGLY DESIGN — Sito web
+# INGLY DESIGN — E-commerce e Admin CMS
 
-Sito statico premium di INGLY DESIGN (incisione laser, stampa UV/DTF, 3D — made in Italy).
-Bilingue IT/EN, catalogo config-driven, tema immersivo. **Nessuna dipendenza, nessuna build richiesta.**
+Sito ufficiale INGLY DESIGN: creazioni personalizzate, lavorazioni laser e tecnologie di fabbricazione. Il progetto pubblicato è **statico su GitHub Pages** e usa un **CMS Git-based** per gestire e pubblicare i dati del catalogo. Questa guida descrive l'architettura attuale, non le precedenti demo.
 
-## Avvio locale
-Doppio click su `index.html`: funziona subito (doppio motore di avvio: moduli ES quando c'è un server, bundle di riserva `app.fallback.js` quando si apre da file). Per lo sviluppo con ricarica: `npx serve .`
+## Link operativi (riferimenti da conservare)
 
-## Regola d'oro per le modifiche (Admin 2.0)
-- **Tutto passa dal pannello**: apri `admin.html`, modifica, premi **Pubblica** → un solo commit
-  atomico aggiorna JSON + immagini + file legacy + versione, poi verifica il sito live da solo.
-- Mai modificare `data/*.json` o `data/*.js` a mano, mai copiare immagini a mano.
-- Modifichi **`assets/js/`** (codice del sito) → esegui `npm run build` per rigenerare `app.fallback.js` e `dist/`.
-- Architettura completa: `docs/ARCHITECTURE.md` · roadmap: `docs/ROADMAP.md`.
+| Risorsa | Collegamento | Utilizzo |
+| --- | --- | --- |
+| Repository e codice sorgente | [inglyum/website-ingly-xtool](https://github.com/inglyum/website-ingly-xtool) | Branch principale `main`, codice e pull request |
+| Sito online | [INGLY DESIGN](https://inglyum.github.io/website-ingly-xtool/) | Ultima versione pubblicata su GitHub Pages |
+| Admin Panel | [INGLY Admin](https://inglyum.github.io/website-ingly-xtool/admin.html) | Catalogo, categorie, immagini, contenuti e bozze |
+| GitHub Actions | [Build, QA e deploy](https://github.com/inglyum/website-ingly-xtool/actions) | Test automatici, browser audit, WCAG e pubblicazione |
 
-## Struttura
+Pagine correlate: [Generator Studio](https://inglyum.github.io/website-ingly-xtool/personalizza), [Machine Lab](https://inglyum.github.io/website-ingly-xtool/macchine), [Shop](https://inglyum.github.io/website-ingly-xtool/shop/).
+
+## Architettura attuale
+
+- `index.html`: shell del negozio pubblico, navigazione e sezioni.
+- `admin.html`: editor del CMS con stato in bozza, Media Library e pubblicazione controllata tramite GitHub.
+- `data/products.json`, `data/categories.json`, `data/config.json`: dati e configurazione del catalogo.
+- `data/immagini.json`: inventario generato dei file presenti in `img/`; **non** va riempito con percorsi inventati.
+- `assets/js/products.js`, `assets/js/commerce.js`, `assets/js/stock-guards.js`: logica Shop, carrello e disponibilità.
+- `assets/js/admin/`: gestione fotografica, associazione SKU, foto mancanti e destinazioni.
+- `assets/css/brand-system-2026.css`, `assets/css/admin-brand-system.css`: design system pubblico/Admin, temi Giorno e Notte.
+- `generatori.html`, `print-cut.html`, `assets/js/print-cut-kernel.js`: strumenti di progettazione e SVG Print & Cut.
+
+La pubblicazione dall'Admin usa il repository GitHub come sorgente dei dati. Evitare database o backend paralleli non autorizzati e non modificare prezzi, stock, prodotti o immagini senza verifiche.
+
+## Sviluppo e test
+
+Usare Node.js e i comandi previsti dal progetto:
+
+```bash
+npm ci
+npm run build
+npm test
 ```
-index.html                pagina unica (SPA con routing #/pagina)
-assets/css/               reset → variables → animations → layout → components → pages → responsive
-assets/js/                utils, navigation (router), animations, products, forms, lazyload, app (bootstrap)
-assets/images/logo.png    logo (un solo file, riusato ovunque)
-favicon/                  icone 16→512 + apple-touch
-data/config.js            ⚙️ PANNELLO DI CONTROLLO (contatti, social, statistiche)
-data/i18n.js              🌍 tutti i testi IT/EN
-data/catalog.js           🗂 categorie, prodotti, digitali, FAQ, recensioni, portfolio
-components/               partial di riferimento (header/hero/footer)
-```
 
-## INGLY DESIGN Generator Studio
-- Pagina pubblica: `generatori.html` — generatori SVG parametrici in-browser.
-- Catalogo controllato dall’Admin: `data/content.json`, proprietà `GENERATORI`.
-- Scheda Admin: **Creative Tools → Generatori INGLY**; modifiche in bozza fino a **Pubblica**.
-- I motori disponibili sono implementati in `generatori.html`; le voci possono riutilizzare un motore o collegare strumenti esterni via HTTPS. Un nuovo algoritmo richiede il relativo codice, non solo una nuova voce nel catalogo.
-- Gli SVG sono modelli tecnici da verificare su materiale e macchina prima del taglio definitivo.
+Per il server locale: `npm run serve`. Prima di integrare una modifica: verificare build, test, workflow della PR e assenza di regressioni. La pubblicazione del sito è completata **solo** quando GitHub Pages conferma un deploy riuscito.
 
-## Dove modificare
-- **Contatti/social/numeri** → `data/config.js`
-- **Testi e traduzioni** → `data/i18n.js`
-- **Prodotti/categorie** → `data/catalog.js` (istruzioni nei banner)
-- **Foto prodotti** → cartella `img/` con `<id>.jpg` (compaiono da sole)
-- **Colori** → `assets/css/variables.css` (secondo blocco `:root`)
+Le verifiche automatizzate comprendono controlli dati, geometria responsive Chromium, navigazione da tastiera, contrasto e scansioni axe-core. **Non costituiscono certificazione WCAG 2.2 AA**: sono ancora necessari test manuali su Safari/iPhone, Android/Chrome, VoiceOver, TalkBack, NVDA e zoom.
 
-## Deploy
-GitHub Pages (repo `ingly-design-website`) o Cloudflare Pages. Dominio: https://www.inglydesign.it
-Guida completa e CI/CD nelle Fasi 11–12 del piano di modernizzazione.
+## Limitazioni commerciali e fotografie
+
+- Il checkout attuale prevede richiesta/ordine via **WhatsApp**; non è una piattaforma di pagamento online transazionale.
+- Audit inventario del **16 ottobre 2026**: **97 schede prodotto**, **77 copertine non presenti nel manifest**, di cui **43 riferite a schede pubbliche**. Sono dati di censimento, da ricalcolare dopo nuovi upload e pubblicazioni.
+- La disponibilità di un percorso o di un file non dimostra automaticamente che la foto ritragga l'articolo venduto. Non sostituire fotografie reali con contenuti sintetici presentati come prodotti fabbricati.
+- L'output del Generator Studio / Print & Cut richiede controlli di scala, kerf, tolleranze e prove fisiche sulla macchina prima della produzione.
+
+## Documentazione tecnica
+
+- [Roadmap corrente](docs/ROADMAP-INGLY-2026.md)
+- [Architettura](docs/ARCHITECTURE.md)
+- [Design system](docs/INGLY-DESIGN-SYSTEM.md)
+- [CMS e pubblicazione](docs/ADMIN.md)
+- [Commerce](docs/COMMERCE.md)
+- [Protocollo di accessibilità reale](docs/ACCESSIBILITY-MANUAL-QA.md)
+- [Catalogo foto mancanti](docs/CATALOGO-FOTO-DA-CARICARE.md)
+- [Ripristino e recovery](docs/RIPRISTINO.md)
+
+Per ogni sviluppo rilevante: partire dall'ultimo `main`, creare un branch, aprire una PR, verificare QA e deploy, aggiornare la roadmap. Il brand deve rimanere **INGLY DESIGN** con la **I** iniziale completa e il logo originale.

@@ -4,7 +4,7 @@
   "principles": "Medusa-inspired ProductImage/ProductCategory relation, ordering and metadata, without deploying a Medusa backend",
   "createdOn": "2026-10-16",
   "ownerWork": false,
-  "sourceLicense": "https://unsplash.com/license",
+  "sourceLicense": "https://www.pexels.com/license/",
   "rules": [
     "Images describe themes, not owned INGLY-made products",
     "No stock image enters portfolio or claims real customer work",
@@ -46,16 +46,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/Ghxq6VXEgOM",
-        "photographer": "Hemanth Nirujogi",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/8271816/",
+        "photographer": "Ron Lach",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Vaso in vetro su tavolo di legno, ambientazione casa. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for casa. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "Ghxq6VXEgOM"
+      "altIT": "Arredamento e oggetti decorativi in vetro e legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of casa, not an INGLY DESIGN customer project.",
+      "photoId": "8271816"
     },
     {
       "id": "category:eventi",
@@ -91,16 +91,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/WIO1q3FJMpE",
-        "photographer": "Katie Puzatova",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/4645991/",
+        "photographer": "ArtHouse Studio",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Segnaposto e composizione floreale per un evento. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for eventi. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "WIO1q3FJMpE"
+      "altIT": "Dettagli floreali e segnaposto per cerimonie. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of eventi, not an INGLY DESIGN customer project.",
+      "photoId": "4645991"
     },
     {
       "id": "category:animali",
@@ -136,16 +136,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/DOjV44G_1oI",
-        "photographer": "Lesli Whitecotton",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/20843108/",
+        "photographer": "Diego Romero",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Cane con targhetta identificativa sul collare. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for animali. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "DOjV44G_1oI"
+      "altIT": "Cane con collare: riferimento per accessori personalizzati per animali. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of animali, not an INGLY DESIGN customer project.",
+      "photoId": "20843108"
     },
     {
       "id": "category:accessori",
@@ -181,16 +181,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/47h4o-KNVpk",
-        "photographer": "Валентина Вехкалахти",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/7679889/",
+        "photographer": "MART PRODUCTION",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Orecchini intagliati a laser nel legno, esempio accessori. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for accessori. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "47h4o-KNVpk"
+      "altIT": "Accessori e gioielli artigianali su vassoi in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of accessori, not an INGLY DESIGN customer project.",
+      "photoId": "7679889"
     },
     {
       "id": "category:b2b",
@@ -226,16 +226,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/6CBSpQHAdso",
-        "photographer": "Samantha Fields",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/8092466/",
+        "photographer": "Fotografo Pexels da verificare",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Taglieri in legno presentati come omaggi aziendali. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for b2b. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "6CBSpQHAdso"
+      "altIT": "Scrivania professionale: quaderno, penna e accessori. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of b2b, not an INGLY DESIGN customer project.",
+      "photoId": "8092466"
     },
     {
       "id": "category:bambini",
@@ -271,16 +271,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/Ukp07LmMi-k",
-        "photographer": "Jason Leung",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/3663054/",
+        "photographer": "cottonbro studio",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Giocattoli in legno e libri per bambini. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for bambini. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "Ukp07LmMi-k"
+      "altIT": "Giocattoli in legno di dinosauri per bambini. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of bambini, not an INGLY DESIGN customer project.",
+      "photoId": "3663054"
     },
     {
       "id": "category:stagionale",
@@ -316,16 +316,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/aL8TuG0-gOk",
-        "photographer": "Markus Spiske",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/13464116/",
+        "photographer": "Mateusz Feliksik",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Decorazione natalizia artigianale in legno. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for stagionale. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "aL8TuG0-gOk"
+      "altIT": "Ornamenti natalizi artigianali in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of stagionale, not an INGLY DESIGN customer project.",
+      "photoId": "13464116"
     },
     {
       "id": "category:digitale",
@@ -361,16 +361,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/K8LBiiWuoA8",
-        "photographer": "Rodrigo Rodrigues",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/12902996/",
+        "photographer": "Mizuno K",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Postazione di progettazione digitale con laptop. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for digitale. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "K8LBiiWuoA8"
+      "altIT": "Designer al lavoro su un laptop. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of digitale, not an INGLY DESIGN customer project.",
+      "photoId": "12902996"
     },
     {
       "id": "category:custom",
@@ -406,16 +406,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/ZgmkmQp62P0",
-        "photographer": "Josh Davies",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/30983996/",
+        "photographer": "Opt Lasers from Poland",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Componenti in legno lavorati tramite taglio laser. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for custom. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "ZgmkmQp62P0"
+      "altIT": "Incisione laser reale di una tavola in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of custom, not an INGLY DESIGN customer project.",
+      "photoId": "30983996"
     },
     {
       "id": "category:materiali",
@@ -451,16 +451,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/HsDS3_lGINY",
-        "photographer": "Kelly Sikkema",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/4452516/",
+        "photographer": "Vlada Karpovich",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Campioni di materiali in pelle con finiture metalliche. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for materiali. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "HsDS3_lGINY"
+      "altIT": "Campioni di pelle e materiali in un laboratorio. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of materiali, not an INGLY DESIGN customer project.",
+      "photoId": "4452516"
     },
     {
       "id": "category:tecnologie",
@@ -496,16 +496,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/9dXGUQbtGoM",
-        "photographer": "Zoshua Colah",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/38030790/",
+        "photographer": "Sóc Năng Động",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Macchina laser al lavoro su un materiale in laboratorio. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for tecnologie. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "9dXGUQbtGoM"
+      "altIT": "Macchina laser in funzione su superficie in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of tecnologie, not an INGLY DESIGN customer project.",
+      "photoId": "38030790"
     },
     {
       "id": "category:limited",
@@ -541,16 +541,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/Q_6BS8IN0J8",
-        "photographer": "Nikhil Mitra",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/5873/",
+        "photographer": "Karolina Grabowska",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Oggetto decorativo artigianale in legno dal design speciale. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for limited. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "Q_6BS8IN0J8"
+      "altIT": "Sculture decorative artigianali in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of limited, not an INGLY DESIGN customer project.",
+      "photoId": "5873"
     },
     {
       "id": "category:nuova-ms3k34dc",
@@ -586,16 +586,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/Y0vVE0j_KYM",
-        "photographer": "Grant Durr",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/3663056/",
+        "photographer": "cottonbro studio",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Modello meccanico giocattolo in legno originale, senza personaggi concessi. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for nuova-ms3k34dc. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "Y0vVE0j_KYM"
+      "altIT": "Giocattoli originali a forma di animali in legno; nessun personaggio registrato. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of nuova-ms3k34dc, not an INGLY DESIGN customer project.",
+      "photoId": "3663056"
     },
     {
       "id": "material:legno",
@@ -631,16 +631,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/JH_R66BihvA",
-        "photographer": "simon",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/37162561/",
+        "photographer": "Pew Nguyen",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Venature naturali di tavole in legno di quercia. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for legno. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "JH_R66BihvA"
+      "altIT": "Assi di legno in un vero laboratorio di falegnameria. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of legno, not an INGLY DESIGN customer project.",
+      "photoId": "37162561"
     },
     {
       "id": "material:plexiglass",
@@ -676,16 +676,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/p3FBqTpDh-A",
-        "photographer": "Declan Sun",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/7699825/",
+        "photographer": "Yaroslav Shuraev",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Insegne realizzate con lastre trasparenti e colorate di acrilico. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for plexiglass. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "p3FBqTpDh-A"
+      "altIT": "Pannello trasparente in plexiglass utilizzato per un'opera artistica. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of plexiglass, not an INGLY DESIGN customer project.",
+      "photoId": "7699825"
     },
     {
       "id": "material:metallo",
@@ -721,16 +721,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/AFKX0ei32lA",
-        "photographer": "remapstudio",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/31413496/",
+        "photographer": "David Underland",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Superficie metallica reale con micrograffi e texture. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for metallo. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "AFKX0ei32lA"
+      "altIT": "Macro fotografica di lamiera metallica mandorlata. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of metallo, not an INGLY DESIGN customer project.",
+      "photoId": "31413496"
     },
     {
       "id": "material:pelle",
@@ -766,16 +766,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/xJkTCbtuqAY",
-        "photographer": "Felipe Santana",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/6653225/",
+        "photographer": "cottonbro studio",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Superficie in pelle marrone, campione materico. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for pelle. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "xJkTCbtuqAY"
+      "altIT": "Mano su superficie di pelle naturale marrone. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of pelle, not an INGLY DESIGN customer project.",
+      "photoId": "6653225"
     },
     {
       "id": "material:vetro",
@@ -811,16 +811,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/caLZjNiAHrU",
-        "photographer": "chang min",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/4272619/",
+        "photographer": "cottonbro studio",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Vaso in vetro trasparente su sfondo luminoso. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for vetro. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "caLZjNiAHrU"
+      "altIT": "Vasi in vetro trasparente e riflessi su piano bianco. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of vetro, not an INGLY DESIGN customer project.",
+      "photoId": "4272619"
     },
     {
       "id": "material:bamboo",
@@ -856,16 +856,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/NvveAH5HlDk",
-        "photographer": "Domina Petric",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/8251485/",
+        "photographer": "PNW Production",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Dettaglio di superficie in bambù naturale. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for bamboo. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "NvveAH5HlDk"
+      "altIT": "Canne di bambù naturale viste dall'alto. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of bamboo, not an INGLY DESIGN customer project.",
+      "photoId": "8251485"
     },
     {
       "id": "material:mdf",
@@ -901,16 +901,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/F6cL5B7Gnz8",
-        "photographer": "LUCIA LU",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/8817831/",
+        "photographer": "Ron Lach",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Pannelli di legno compensato impilati. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for mdf. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "F6cL5B7Gnz8"
+      "altIT": "Pannelli lignei impilati: immagine illustrativa, non prova di MDF certificato. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of mdf, not an INGLY DESIGN customer project.",
+      "photoId": "8817831"
     },
     {
       "id": "material:pla",
@@ -946,16 +946,16 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/MzLDrWp3NYc",
+        "sourceUrl": "https://www.pexels.com/photo/31353177/",
         "photographer": "Jakub Żerdzicki",
-        "license": "Unsplash License",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Bobine colorate di filamento per stampa 3D. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for pla. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "MzLDrWp3NYc"
+      "altIT": "Bobine di filamento colorate per stampante 3D. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of pla, not an INGLY DESIGN customer project.",
+      "photoId": "31353177"
     },
     {
       "id": "material:tessuto",
@@ -991,16 +991,17 @@
         "assetKind": "licensed-stock",
         "isDemo": true,
         "replaceable": true,
-        "sourceUrl": "https://unsplash.com/photos/xTaOPMa6wAE",
-        "photographer": "Annie Spratt",
-        "license": "Unsplash License",
+        "sourceUrl": "https://www.pexels.com/photo/7232409/",
+        "photographer": "Artem Podrez",
+        "license": "Pexels License",
         "notInPortfolio": true,
         "notOwnerProduct": true,
         "verifiedSource": "2026-10-16"
       },
-      "altIT": "Texture autentica di lino beige naturale. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
-      "altEN": "Real reference photograph for tessuto. Stock photo, not an INGLY DESIGN product.",
-      "photoId": "xTaOPMa6wAE"
+      "altIT": "Macro fotografica reale di tessuto lino beige. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of tessuto, not an INGLY DESIGN customer project.",
+      "photoId": "7232409"
     }
-  ]
+  ],
+  "sourcePolicy": "Verified genuine Pexels photographic sources; no AI-generated images or Unsplash download endpoints. Credits preserved with every category/material."
 }

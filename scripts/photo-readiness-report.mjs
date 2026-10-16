@@ -54,7 +54,7 @@ const lines=[
  '',
  '| ID | SKU | Categoria | Prodotto | Stato | File atteso |',
  '| ---: | --- | --- | --- | --- | --- |',
- ...publicQueue.map(x=>`| ${esc(x.id)} | ${esc(x.sku)} | ${esc(x.category)} | ${esc(x.name)} | ${x.state==='gallery'?'Gallery presente, serve cover':'Foto assente'} | \\`${esc(x.expectedPath)}\\` |`),
+ ...publicQueue.map(x=>`| ${esc(x.id)} | ${esc(x.sku)} | ${esc(x.category)} | ${esc(x.name)} | ${x.state==='gallery'?'Gallery presente, serve cover':'Foto assente'} | ${esc(x.expectedPath)} |`),
  '',
  '## Regole di pubblicazione',
  '',

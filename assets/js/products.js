@@ -146,7 +146,7 @@ function stockBadge(x){
 
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
-  return `<article class="pcard reveal in" data-action="open-product" data-id="${x.id}">
+  return `<article class="pcard reveal in" data-component="product-card" data-action="open-product" data-id="${x.id}">
     <button type="button" class="pcard-open" aria-label="${L==='it'?'Apri prodotto':'Open product'}: ${esc(x.n[L]||x.n.it)}" data-action="open-product" data-id="${x.id}"></button>
     <div class="pimg" style="background:${a.bg}">
       ${x.tag?`<span class="ptag ${x.tag==='Limited'?'y':x.tag==='B2B'?'b':''}">${x.tag}</span>`:''}

@@ -119,7 +119,7 @@
 }
 :root[data-mode] .brand-lockup .brand-wordmark {
  display:block!important;width:clamp(108px,10.8vw,172px)!important;
- height:auto!important;aspect-ratio:1450/610;object-fit:contain!important;
+ height:auto!important;aspect-ratio:1640/420;object-fit:contain!important;
  margin:0!important;padding:0!important;max-width:100%!important;
  filter:none!important;opacity:1!important
 }
@@ -208,7 +208,7 @@
 }
 :root[data-mode] footer .ingly-footer-signature img {
  width:min(100%,1360px)!important;height:auto!important;max-height:none!important;
- aspect-ratio:1450/610!important;object-fit:contain!important;display:block!important;
+ aspect-ratio:1640/420!important;object-fit:contain!important;display:block!important;
  margin:0 auto!important;filter:none!important;pointer-events:none!important;
  opacity:.072!important
 }
@@ -330,7 +330,7 @@
 :root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{
  display:block!important;position:static!important;flex:0 0 auto!important;
  width:100%!important;height:auto!important;max-width:100%!important;
- min-width:0!important;max-height:50px!important;aspect-ratio:1430/460!important;
+ min-width:0!important;max-height:50px!important;aspect-ratio:1640/420!important;
  border:none!important;border-radius:0!important;background:transparent!important;
  object-fit:contain!important;object-position:left center!important;
  margin:0!important;padding:0!important;filter:none!important;
@@ -362,7 +362,7 @@
 }
 :root[data-mode] footer .ft-col--brand .brand-lockup img.brand-wordmark{
  display:block!important;width:154px!important;height:auto!important;max-height:54px!important;
- aspect-ratio:1430/460!important;border-radius:0!important;background:transparent!important;
+ aspect-ratio:1640/420!important;border-radius:0!important;background:transparent!important;
  object-fit:contain!important;filter:none!important;flex:none!important
 }
 :root[data-mode="light"] footer .ft-col--brand .brand-lockup img.brand-wordmark{
@@ -374,7 +374,7 @@
 }
 :root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
  width:min(100%,1200px)!important;height:auto!important;max-height:none!important;
- aspect-ratio:1430/460!important;border-radius:0!important;
+ aspect-ratio:1640/420!important;border-radius:0!important;
  margin:0 auto!important;filter:none!important;display:block!important;opacity:.07!important
 }
 :root[data-mode="light"] footer .ingly-footer-signature img.brand-wordmark{
@@ -451,7 +451,7 @@
 :root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark,
 :root[data-mode] footer .ft-col--brand .brand-lockup img.brand-wordmark,
 :root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
- aspect-ratio:1470/420!important;object-fit:contain!important;
+ aspect-ratio:1640/420!important;object-fit:contain!important;
  object-position:left center!important;
 }
 :root[data-mode="dark"] footer .ingly-footer-signature img.brand-wordmark{opacity:.18!important}
@@ -521,4 +521,31 @@
 :root[data-mode] #nav .ia-pannello .ia-lista a:focus-visible {
   color:var(--brand-gold-hi)!important;
   background:var(--brand-halo)!important;
+}
+
+/* P0 2026-10-16: actual INGLY I + original NGLY vectors; preserve full bounds. */
+:root[data-mode] :is(#nav .brand-lockup,footer .brand-lockup) img.brand-wordmark,
+:root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
+ aspect-ratio:1640/420!important;object-fit:contain!important;
+ object-position:left center!important;overflow:visible!important;
+}
+:root[data-mode] footer .ingly-footer-signature{
+ overflow:visible!important;max-width:100%;
+}
+:root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
+ width:min(100%,1360px)!important;height:auto!important;max-width:100%!important;
+}
+/* xTool-inspired technical typography, not the proprietary xTool logo font.
+   INGLY global brand continues with Josefin Sans. */
+:root[data-mode] :is(#page-macchine,#page-materiali,#page-tecnologie)
+ :is(h1,h2,h3,p,.eyebrow,.sub,.lab-h3,.lab-spec,.vert-tit,.vert-sub,.xtool-host-text,.xtool-lab-copy,.xtool-lab-accent){
+ font-family:'Inter',Arial,system-ui,sans-serif!important;
+}
+:root[data-mode] #page-macchine > .phero > h1.h2,
+:root[data-mode] #page-macchine .xtool-lab-copy h2{
+ font-family:'Inter',Arial,system-ui,sans-serif!important;
+ font-weight:700!important;letter-spacing:-.038em!important;
+}
+:root[data-mode] #page-macchine .xtool-lab-feature :is(p,small,strong,span){
+ font-family:'Inter',Arial,system-ui,sans-serif!important;
 }

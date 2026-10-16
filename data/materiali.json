@@ -174,14 +174,25 @@
           }
         ]
       },
-      "img": "img/3.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-legno.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Legno, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Wood, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/37162561/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Assi di legno in un vero laboratorio di falegnameria. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of legno, not an INGLY DESIGN customer project.",
+      "previousCover": "img/3.webp",
+      "photographer": "Pew Nguyen",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "plexiglass",
@@ -355,14 +366,25 @@
           }
         ]
       },
-      "img": "img/5.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-plexiglass.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Plexiglass, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Acrylic, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/7699825/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Pannello trasparente in plexiglass utilizzato per un'opera artistica. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of plexiglass, not an INGLY DESIGN customer project.",
+      "previousCover": "img/5.webp",
+      "photographer": "Yaroslav Shuraev",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "metallo",
@@ -510,14 +532,25 @@
           }
         ]
       },
-      "img": "img/17.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-metallo.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Metallo, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Metal, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/31413496/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Macro fotografica di lamiera metallica mandorlata. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of metallo, not an INGLY DESIGN customer project.",
+      "previousCover": "img/17.webp",
+      "photographer": "David Underland",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "pelle",
@@ -642,14 +675,25 @@
           }
         ]
       },
-      "img": "img/cat-accessori.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-pelle.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Pelle, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Leather, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/6653225/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Mano su superficie di pelle naturale marrone. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of pelle, not an INGLY DESIGN customer project.",
+      "previousCover": "img/cat-accessori.webp",
+      "photographer": "cottonbro studio",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "vetro",
@@ -758,14 +802,25 @@
         "unita": null,
         "varianti": []
       },
-      "img": "img/14.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-vetro.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Vetro, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Glass, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/4272619/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Vasi in vetro trasparente e riflessi su piano bianco. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of vetro, not an INGLY DESIGN customer project.",
+      "previousCover": "img/14.webp",
+      "photographer": "cottonbro studio",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "bamboo",
@@ -890,14 +945,25 @@
           }
         ]
       },
-      "img": "img/cat-casa.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-bamboo.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Bambù, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Bamboo, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/8251485/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Canne di bambù naturale viste dall'alto. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of bamboo, not an INGLY DESIGN customer project.",
+      "previousCover": "img/cat-casa.webp",
+      "photographer": "PNW Production",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "mdf",
@@ -1034,14 +1100,25 @@
           }
         ]
       },
-      "img": "img/8.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-mdf.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a MDF e compensato, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to MDF and plywood, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/8817831/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Pannelli lignei impilati: immagine illustrativa, non prova di MDF certificato. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of mdf, not an INGLY DESIGN customer project.",
+      "previousCover": "img/8.webp",
+      "photographer": "Ron Lach",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "pla",
@@ -1172,14 +1249,25 @@
           }
         ]
       },
-      "img": "img/2.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-pla.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a PLA e PETG, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to PLA and PETG, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/31353177/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Bobine di filamento colorate per stampante 3D. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of pla, not an INGLY DESIGN customer project.",
+      "previousCover": "img/2.webp",
+      "photographer": "Jakub Żerdzicki",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     },
     {
       "id": "tessuto",
@@ -1325,14 +1413,25 @@
           }
         ]
       },
-      "img": "img/cat-b2b.webp",
-      "assetKind": "illustrative-product-photo",
+      "img": "img/material-tessuto.webp",
+      "assetKind": "licensed-stock",
       "isDemo": true,
       "replaceable": true,
-      "sourceUrl": "",
-      "licenseStatus": "Verificare provenienza e diritti della fotografia esistente prima di un impiego commerciale",
-      "altIT": "Fotografia di una creazione dimostrativa collegata a Tessuto, non campione certificato del materiale",
-      "altEN": "Illustrative product photo related to Textile, not a certified material sample"
+      "sourceUrl": "https://www.pexels.com/photo/7232409/",
+      "licenseStatus": "Pexels License",
+      "altIT": "Macro fotografica reale di tessuto lino beige. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+      "altEN": "Real licensed stock photograph of tessuto, not an INGLY DESIGN customer project.",
+      "previousCover": "img/cat-b2b.webp",
+      "photographer": "Artem Podrez",
+      "imageMeta": {
+        "width": 1200,
+        "height": 800,
+        "focalPoint": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "objectFit": "cover"
+      }
     }
   ],
   "maiLavorare": {

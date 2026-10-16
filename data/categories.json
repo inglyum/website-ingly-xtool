@@ -1,452 +1,673 @@
 [
- {
-  "id": "casa",
-  "ic": "🏠",
-  "n": {
-   "it": "Casa & Arredamento",
-   "en": "Home & Living"
+  {
+    "id": "casa",
+    "ic": "🏠",
+    "n": {
+      "it": "Casa & Arredamento",
+      "en": "Home & Living"
+    },
+    "s": {
+      "it": "Targhe, lampade, quadri",
+      "en": "Plaques, lamps, art"
+    },
+    "sub": [
+      {
+        "it": "Decorazioni nome",
+        "en": "Name decor"
+      },
+      {
+        "it": "Targhe casa",
+        "en": "House plaques"
+      },
+      {
+        "it": "Quadri incisi",
+        "en": "Engraved art"
+      },
+      {
+        "it": "Lampade LED",
+        "en": "LED lamps"
+      },
+      {
+        "it": "Segnaletica interna",
+        "en": "Interior signage"
+      },
+      {
+        "it": "Decor 3D",
+        "en": "3D decor"
+      },
+      {
+        "it": "Portachiavi casa",
+        "en": "House keychains"
+      }
+    ],
+    "big": "1",
+    "bg": "linear-gradient(150deg,#f3e7d3,#e2c9a2)",
+    "icon": "casa",
+    "img": "img/cat-casa.webp",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/8271816/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Arredamento e oggetti decorativi in vetro e legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of casa, not an INGLY DESIGN customer project.",
+    "photographer": "Ron Lach",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "s": {
-   "it": "Targhe, lampade, quadri",
-   "en": "Plaques, lamps, art"
+  {
+    "id": "eventi",
+    "ic": "🎉",
+    "n": {
+      "it": "Eventi, Feste & Ricorrenze",
+      "en": "Events & Celebrations"
+    },
+    "s": {
+      "it": "Nozze, lauree, compleanni",
+      "en": "Weddings, graduations, birthdays"
+    },
+    "sub": [
+      {
+        "it": "Compleanni",
+        "en": "Birthdays"
+      },
+      {
+        "it": "Nozze",
+        "en": "Weddings"
+      },
+      {
+        "it": "Lauree",
+        "en": "Graduations"
+      },
+      {
+        "it": "Battesimi & Comunioni",
+        "en": "Baptisms & Communions"
+      },
+      {
+        "it": "Baby shower & Gender reveal",
+        "en": "Baby shower & Gender reveal"
+      },
+      {
+        "it": "Anniversari",
+        "en": "Anniversaries"
+      },
+      {
+        "it": "Festa mamma/papà/nonni",
+        "en": "Mother's/Father's day"
+      }
+    ],
+    "big": "1",
+    "bg": "linear-gradient(150deg,#fdf1f3,#fadde3)",
+    "icon": "eventi",
+    "img": "img/cat-eventi.webp",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/4645991/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Dettagli floreali e segnaposto per cerimonie. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of eventi, not an INGLY DESIGN customer project.",
+    "photographer": "ArtHouse Studio",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "sub": [
-   {
-    "it": "Decorazioni nome",
-    "en": "Name decor"
-   },
-   {
-    "it": "Targhe casa",
-    "en": "House plaques"
-   },
-   {
-    "it": "Quadri incisi",
-    "en": "Engraved art"
-   },
-   {
-    "it": "Lampade LED",
-    "en": "LED lamps"
-   },
-   {
-    "it": "Segnaletica interna",
-    "en": "Interior signage"
-   },
-   {
-    "it": "Decor 3D",
-    "en": "3D decor"
-   },
-   {
-    "it": "Portachiavi casa",
-    "en": "House keychains"
-   }
-  ],
-  "big": "1",
-  "bg": "linear-gradient(150deg,#f3e7d3,#e2c9a2)",
-  "icon": "casa",
-  "img": "img/cat-casa.webp"
- },
- {
-  "id": "eventi",
-  "ic": "🎉",
-  "n": {
-   "it": "Eventi, Feste & Ricorrenze",
-   "en": "Events & Celebrations"
+  {
+    "id": "animali",
+    "ic": "🐾",
+    "n": {
+      "it": "Animali",
+      "en": "Pets"
+    },
+    "s": {
+      "it": "Medagliette & ritratti",
+      "en": "Tags & portraits"
+    },
+    "sub": [
+      {
+        "it": "Medagliette cane/gatto",
+        "en": "Dog/cat tags"
+      },
+      {
+        "it": "QR pet tag",
+        "en": "QR pet tags"
+      },
+      {
+        "it": "Ritratti su legno",
+        "en": "Wood portraits"
+      },
+      {
+        "it": "Targhe pet",
+        "en": "Pet plaques"
+      }
+    ],
+    "icon": "animali",
+    "img": "img/cat-animali.webp",
+    "big": "",
+    "bg": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/20843108/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Cane con collare: riferimento per accessori personalizzati per animali. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of animali, not an INGLY DESIGN customer project.",
+    "photographer": "Diego Romero",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "s": {
-   "it": "Nozze, lauree, compleanni",
-   "en": "Weddings, graduations, birthdays"
+  {
+    "id": "accessori",
+    "ic": "🎒",
+    "n": {
+      "it": "Accessori",
+      "en": "Accessories"
+    },
+    "s": {
+      "it": "Portachiavi, gioielli, cover",
+      "en": "Keychains, jewelry, covers"
+    },
+    "sub": [
+      {
+        "it": "Portachiavi",
+        "en": "Keychains"
+      },
+      {
+        "it": "Apribottiglie",
+        "en": "Bottle openers"
+      },
+      {
+        "it": "Etichette bagagli",
+        "en": "Luggage tags"
+      },
+      {
+        "it": "Collane & charms",
+        "en": "Necklaces & charms"
+      },
+      {
+        "it": "Bracciali",
+        "en": "Bracelets"
+      },
+      {
+        "it": "Cover",
+        "en": "Covers"
+      }
+    ],
+    "icon": "accessori",
+    "img": "img/cat-accessori.webp",
+    "big": "",
+    "bg": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/7679889/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Accessori e gioielli artigianali su vassoi in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of accessori, not an INGLY DESIGN customer project.",
+    "photographer": "MART PRODUCTION",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "sub": [
-   {
-    "it": "Compleanni",
-    "en": "Birthdays"
-   },
-   {
-    "it": "Nozze",
-    "en": "Weddings"
-   },
-   {
-    "it": "Lauree",
-    "en": "Graduations"
-   },
-   {
-    "it": "Battesimi & Comunioni",
-    "en": "Baptisms & Communions"
-   },
-   {
-    "it": "Baby shower & Gender reveal",
-    "en": "Baby shower & Gender reveal"
-   },
-   {
-    "it": "Anniversari",
-    "en": "Anniversaries"
-   },
-   {
-    "it": "Festa mamma/papà/nonni",
-    "en": "Mother's/Father's day"
-   }
-  ],
-  "big": "1",
-  "bg": "linear-gradient(150deg,#fdf1f3,#fadde3)",
-  "icon": "eventi",
-  "img": "img/cat-eventi.webp"
- },
- {
-  "id": "animali",
-  "ic": "🐾",
-  "n": {
-   "it": "Animali",
-   "en": "Pets"
+  {
+    "id": "b2b",
+    "ic": "🏢",
+    "n": {
+      "it": "Aziendale & B2B",
+      "en": "Corporate & B2B"
+    },
+    "s": {
+      "it": "Gadget, targhe, conto terzi",
+      "en": "Gadgets, plaques, production"
+    },
+    "sub": [
+      {
+        "it": "Targhe professionali",
+        "en": "Professional plaques"
+      },
+      {
+        "it": "Gadget aziendali",
+        "en": "Corporate gadgets"
+      },
+      {
+        "it": "Penne & borracce",
+        "en": "Pens & bottles"
+      },
+      {
+        "it": "QR menu",
+        "en": "QR menus"
+      },
+      {
+        "it": "Conto terzi",
+        "en": "Third-party production"
+      },
+      {
+        "it": "Incisioni industriali",
+        "en": "Industrial engraving"
+      },
+      {
+        "it": "Prototipazione",
+        "en": "Prototyping"
+      }
+    ],
+    "w": 1,
+    "icon": "aziendale",
+    "img": "img/cat-b2b.webp",
+    "big": "",
+    "bg": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/8092466/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Scrivania professionale: quaderno, penna e accessori. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of b2b, not an INGLY DESIGN customer project.",
+    "photographer": "Fotografo Pexels da verificare",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "s": {
-   "it": "Medagliette & ritratti",
-   "en": "Tags & portraits"
+  {
+    "id": "bambini",
+    "ic": "👶",
+    "n": {
+      "it": "Bambini",
+      "en": "Kids"
+    },
+    "s": {
+      "it": "Nascita & cameretta",
+      "en": "Birth & nursery"
+    },
+    "sub": [
+      {
+        "it": "Targhe nascita",
+        "en": "Birth plaques"
+      },
+      {
+        "it": "Nome 3D",
+        "en": "3D names"
+      },
+      {
+        "it": "Misuratori crescita",
+        "en": "Growth charts"
+      },
+      {
+        "it": "Lampade baby",
+        "en": "Baby lamps"
+      },
+      {
+        "it": "Cornici baby",
+        "en": "Baby frames"
+      }
+    ],
+    "bg": "linear-gradient(150deg,#eefaf1,#d6f2df)",
+    "icon": "bambini",
+    "img": "img/cat-bambini.webp",
+    "big": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/3663054/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Giocattoli in legno di dinosauri per bambini. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of bambini, not an INGLY DESIGN customer project.",
+    "photographer": "cottonbro studio",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "sub": [
-   {
-    "it": "Medagliette cane/gatto",
-    "en": "Dog/cat tags"
-   },
-   {
-    "it": "QR pet tag",
-    "en": "QR pet tags"
-   },
-   {
-    "it": "Ritratti su legno",
-    "en": "Wood portraits"
-   },
-   {
-    "it": "Targhe pet",
-    "en": "Pet plaques"
-   }
-  ],
-  "icon": "animali",
-  "img": "img/cat-animali.webp",
-  "big": "",
-  "bg": ""
- },
- {
-  "id": "accessori",
-  "ic": "🎒",
-  "n": {
-   "it": "Accessori",
-   "en": "Accessories"
+  {
+    "id": "stagionale",
+    "ic": "🎄",
+    "n": {
+      "it": "Stagionale",
+      "en": "Seasonal"
+    },
+    "s": {
+      "it": "Natale, Pasqua, Halloween…",
+      "en": "Christmas, Easter, Halloween…"
+    },
+    "sub": [
+      {
+        "it": "Natale",
+        "en": "Christmas"
+      },
+      {
+        "it": "San Valentino",
+        "en": "Valentine's"
+      },
+      {
+        "it": "Pasqua",
+        "en": "Easter"
+      },
+      {
+        "it": "Halloween",
+        "en": "Halloween"
+      },
+      {
+        "it": "Estate & viaggio",
+        "en": "Summer & travel"
+      },
+      {
+        "it": "Back to school",
+        "en": "Back to school"
+      }
+    ],
+    "bg": "linear-gradient(150deg,#fdeaea,#f6cfcf)",
+    "icon": "stagionale",
+    "img": "img/cat-stagionale.webp",
+    "big": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/13464116/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Ornamenti natalizi artigianali in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of stagionale, not an INGLY DESIGN customer project.",
+    "photographer": "Mateusz Feliksik",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "s": {
-   "it": "Portachiavi, gioielli, cover",
-   "en": "Keychains, jewelry, covers"
+  {
+    "id": "digitale",
+    "ic": "💾",
+    "n": {
+      "it": "Digitale",
+      "en": "Digital"
+    },
+    "s": {
+      "it": "SVG, DXF, STL, progetti",
+      "en": "SVG, DXF, STL, projects"
+    },
+    "sub": [
+      {
+        "it": "File SVG",
+        "en": "SVG files"
+      },
+      {
+        "it": "File DXF",
+        "en": "DXF files"
+      },
+      {
+        "it": "File 3D STL",
+        "en": "3D STL files"
+      },
+      {
+        "it": "Template",
+        "en": "Templates"
+      },
+      {
+        "it": "Bundle makers",
+        "en": "Maker bundles"
+      }
+    ],
+    "bg": "linear-gradient(150deg,#f4f0ff,#e3daf8)",
+    "go": "digital",
+    "icon": "digitale",
+    "img": "img/cat-digitale.webp",
+    "big": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/12902996/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Designer al lavoro su un laptop. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of digitale, not an INGLY DESIGN customer project.",
+    "photographer": "Mizuno K",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "sub": [
-   {
-    "it": "Portachiavi",
-    "en": "Keychains"
-   },
-   {
-    "it": "Apribottiglie",
-    "en": "Bottle openers"
-   },
-   {
-    "it": "Etichette bagagli",
-    "en": "Luggage tags"
-   },
-   {
-    "it": "Collane & charms",
-    "en": "Necklaces & charms"
-   },
-   {
-    "it": "Bracciali",
-    "en": "Bracelets"
-   },
-   {
-    "it": "Cover",
-    "en": "Covers"
-   }
-  ],
-  "icon": "accessori",
-  "img": "img/cat-accessori.webp",
-  "big": "",
-  "bg": ""
- },
- {
-  "id": "b2b",
-  "ic": "🏢",
-  "n": {
-   "it": "Aziendale & B2B",
-   "en": "Corporate & B2B"
+  {
+    "id": "custom",
+    "ic": "🛠️",
+    "n": {
+      "it": "Custom su Richiesta",
+      "en": "Custom on Request"
+    },
+    "s": {
+      "it": "Su misura, il tuo oggetto",
+      "en": "Made to measure"
+    },
+    "sub": [],
+    "bg": "linear-gradient(150deg,#211f2e,#3a3752)",
+    "darkc": 1,
+    "go": "quote",
+    "w": 1,
+    "icon": "custom",
+    "img": "img/cat-custom.webp",
+    "big": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/30983996/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Incisione laser reale di una tavola in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of custom, not an INGLY DESIGN customer project.",
+    "photographer": "Opt Lasers from Poland",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "s": {
-   "it": "Gadget, targhe, conto terzi",
-   "en": "Gadgets, plaques, production"
+  {
+    "id": "materiali",
+    "ic": "🧱",
+    "n": {
+      "it": "Materiali",
+      "en": "Materials"
+    },
+    "s": {
+      "it": "Materiali selezionati per le tue lavorazioni",
+      "en": "Selected materials for your projects"
+    },
+    "sub": [],
+    "go": "materiali",
+    "icon": "materiali",
+    "img": "img/cat-materiali.webp",
+    "big": "",
+    "bg": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/4452516/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Campioni di pelle e materiali in un laboratorio. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of materiali, not an INGLY DESIGN customer project.",
+    "photographer": "Vlada Karpovich",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "sub": [
-   {
-    "it": "Targhe professionali",
-    "en": "Professional plaques"
-   },
-   {
-    "it": "Gadget aziendali",
-    "en": "Corporate gadgets"
-   },
-   {
-    "it": "Penne & borracce",
-    "en": "Pens & bottles"
-   },
-   {
-    "it": "QR menu",
-    "en": "QR menus"
-   },
-   {
-    "it": "Conto terzi",
-    "en": "Third-party production"
-   },
-   {
-    "it": "Incisioni industriali",
-    "en": "Industrial engraving"
-   },
-   {
-    "it": "Prototipazione",
-    "en": "Prototyping"
-   }
-  ],
-  "w": 1,
-  "icon": "aziendale",
-  "img": "img/cat-b2b.webp",
-  "big": "",
-  "bg": ""
- },
- {
-  "id": "bambini",
-  "ic": "👶",
-  "n": {
-   "it": "Bambini",
-   "en": "Kids"
+  {
+    "id": "tecnologie",
+    "ic": "🔥",
+    "n": {
+      "it": "Tecnologie",
+      "en": "Technologies"
+    },
+    "s": {
+      "it": "Laser, UV, DTF e stampa 3D",
+      "en": "Laser, UV, DTF and 3D printing"
+    },
+    "sub": [],
+    "go": "tecnologie",
+    "icon": "tecnologie",
+    "img": "img/cat-tecnologie.webp",
+    "big": "",
+    "bg": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/38030790/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Macchina laser in funzione su superficie in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of tecnologie, not an INGLY DESIGN customer project.",
+    "photographer": "Sóc Năng Động",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "s": {
-   "it": "Nascita & cameretta",
-   "en": "Birth & nursery"
+  {
+    "id": "limited",
+    "ic": "🧨",
+    "n": {
+      "it": "Edizioni Limitate",
+      "en": "Limited Editions"
+    },
+    "s": {
+      "it": "Serie speciali & collab",
+      "en": "Special series & collabs"
+    },
+    "sub": [
+      {
+        "it": "Serie speciali",
+        "en": "Special series"
+      },
+      {
+        "it": "Collaborazioni",
+        "en": "Collaborations"
+      },
+      {
+        "it": "Collezioni tematiche",
+        "en": "Themed collections"
+      }
+    ],
+    "bg": "linear-gradient(150deg,#fff8e0,#fdeeb5)",
+    "icon": "limited",
+    "img": "img/cat-limited.webp",
+    "big": "",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/15824752/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Sculture decorative in legno e gesso esposte in una galleria. Fotografia reale di repertorio, non lavoro INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of limited, not an INGLY DESIGN customer project.",
+    "photographer": "PeopleByOwen",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
   },
-  "sub": [
-   {
-    "it": "Targhe nascita",
-    "en": "Birth plaques"
-   },
-   {
-    "it": "Nome 3D",
-    "en": "3D names"
-   },
-   {
-    "it": "Misuratori crescita",
-    "en": "Growth charts"
-   },
-   {
-    "it": "Lampade baby",
-    "en": "Baby lamps"
-   },
-   {
-    "it": "Cornici baby",
-    "en": "Baby frames"
-   }
-  ],
-  "bg": "linear-gradient(150deg,#eefaf1,#d6f2df)",
-  "icon": "bambini",
-  "img": "img/cat-bambini.webp",
-  "big": ""
- },
- {
-  "id": "stagionale",
-  "ic": "🎄",
-  "n": {
-   "it": "Stagionale",
-   "en": "Seasonal"
-  },
-  "s": {
-   "it": "Natale, Pasqua, Halloween…",
-   "en": "Christmas, Easter, Halloween…"
-  },
-  "sub": [
-   {
-    "it": "Natale",
-    "en": "Christmas"
-   },
-   {
-    "it": "San Valentino",
-    "en": "Valentine's"
-   },
-   {
-    "it": "Pasqua",
-    "en": "Easter"
-   },
-   {
-    "it": "Halloween",
-    "en": "Halloween"
-   },
-   {
-    "it": "Estate & viaggio",
-    "en": "Summer & travel"
-   },
-   {
-    "it": "Back to school",
-    "en": "Back to school"
-   }
-  ],
-  "bg": "linear-gradient(150deg,#fdeaea,#f6cfcf)",
-  "icon": "stagionale",
-  "img": "img/cat-stagionale.webp",
-  "big": ""
- },
- {
-  "id": "digitale",
-  "ic": "💾",
-  "n": {
-   "it": "Digitale",
-   "en": "Digital"
-  },
-  "s": {
-   "it": "SVG, DXF, STL, progetti",
-   "en": "SVG, DXF, STL, projects"
-  },
-  "sub": [
-   {
-    "it": "File SVG",
-    "en": "SVG files"
-   },
-   {
-    "it": "File DXF",
-    "en": "DXF files"
-   },
-   {
-    "it": "File 3D STL",
-    "en": "3D STL files"
-   },
-   {
-    "it": "Template",
-    "en": "Templates"
-   },
-   {
-    "it": "Bundle makers",
-    "en": "Maker bundles"
-   }
-  ],
-  "bg": "linear-gradient(150deg,#f4f0ff,#e3daf8)",
-  "go": "digital",
-  "icon": "digitale",
-  "img": "img/cat-digitale.webp",
-  "big": ""
- },
- {
-  "id": "custom",
-  "ic": "🛠️",
-  "n": {
-   "it": "Custom su Richiesta",
-   "en": "Custom on Request"
-  },
-  "s": {
-   "it": "Su misura, il tuo oggetto",
-   "en": "Made to measure"
-  },
-  "sub": [],
-  "bg": "linear-gradient(150deg,#211f2e,#3a3752)",
-  "darkc": 1,
-  "go": "quote",
-  "w": 1,
-  "icon": "custom",
-  "img": "img/cat-custom.webp",
-  "big": ""
- },
- {
-  "id": "materiali",
-  "ic": "🧱",
-  "n": {
-   "it": "Materiali",
-   "en": "Materials"
-  },
-  "s": {
-   "it": "Materiali selezionati per le tue lavorazioni",
-   "en": "Selected materials for your projects"
-  },
-  "sub": [],
-  "go": "materiali",
-  "icon": "materiali",
-  "img": "img/cat-materiali.webp",
-  "big": "",
-  "bg": ""
- },
- {
-  "id": "tecnologie",
-  "ic": "🔥",
-  "n": {
-   "it": "Tecnologie",
-   "en": "Technologies"
-  },
-  "s": {
-   "it": "Laser, UV, DTF e stampa 3D",
-   "en": "Laser, UV, DTF and 3D printing"
-  },
-  "sub": [],
-  "go": "tecnologie",
-  "icon": "tecnologie",
-  "img": "img/cat-tecnologie.webp",
-  "big": "",
-  "bg": ""
- },
- {
-  "id": "limited",
-  "ic": "🧨",
-  "n": {
-   "it": "Edizioni Limitate",
-   "en": "Limited Editions"
-  },
-  "s": {
-   "it": "Serie speciali & collab",
-   "en": "Special series & collabs"
-  },
-  "sub": [
-   {
-    "it": "Serie speciali",
-    "en": "Special series"
-   },
-   {
-    "it": "Collaborazioni",
-    "en": "Collaborations"
-   },
-   {
-    "it": "Collezioni tematiche",
-    "en": "Themed collections"
-   }
-  ],
-  "bg": "linear-gradient(150deg,#fff8e0,#fdeeb5)",
-  "icon": "limited",
-  "img": "img/cat-limited.webp",
-  "big": ""
- },
- {
-  "id": "nuova-ms3k34dc",
-  "ic": "✨",
-  "n": {
-   "it": "Supereroi e Anime",
-   "en": "Superheroes & Anime"
-  },
-  "s": {
-   "it": "Decorazioni, nomi e idee per chi ama i mondi pop",
-   "en": "Decor, names and ideas inspired by pop culture"
-  },
-  "sub": [
-   {
-    "it": "One piece",
-    "en": "One piece"
-   },
-   {
-    "it": "Supereroi",
-    "en": "Superheroes"
-   },
-   {
-    "it": "Anime & Manga",
-    "en": "Anime & Manga"
-   }
-  ],
-  "big": "✨",
-  "bg": "linear-gradient(145deg,#30261d 0%,#64513a 48%,#b89b68 100%)",
-  "img": "img/cat-nuova-ms3k34dc.webp",
-  "icon": "limited"
- }
+  {
+    "id": "nuova-ms3k34dc",
+    "ic": "✨",
+    "n": {
+      "it": "Supereroi e Anime",
+      "en": "Superheroes & Anime"
+    },
+    "s": {
+      "it": "Decorazioni, nomi e idee per chi ama i mondi pop",
+      "en": "Decor, names and ideas inspired by pop culture"
+    },
+    "sub": [
+      {
+        "it": "One piece",
+        "en": "One piece"
+      },
+      {
+        "it": "Supereroi",
+        "en": "Superheroes"
+      },
+      {
+        "it": "Anime & Manga",
+        "en": "Anime & Manga"
+      }
+    ],
+    "big": "✨",
+    "bg": "linear-gradient(145deg,#30261d 0%,#64513a 48%,#b89b68 100%)",
+    "img": "img/cat-nuova-ms3k34dc.webp",
+    "icon": "limited",
+    "assetKind": "licensed-stock",
+    "isDemo": true,
+    "replaceable": true,
+    "sourceUrl": "https://www.pexels.com/photo/3663056/",
+    "licenseStatus": "Pexels License",
+    "altIT": "Giocattoli originali a forma di animali in legno; nessun personaggio registrato. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
+    "altEN": "Real licensed stock photograph of nuova-ms3k34dc, not an INGLY DESIGN customer project.",
+    "photographer": "cottonbro studio",
+    "imageMeta": {
+      "width": 1200,
+      "height": 800,
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "objectFit": "cover"
+    }
+  }
 ]

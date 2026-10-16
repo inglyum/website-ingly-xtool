@@ -7,7 +7,8 @@ import {readFileSync} from 'node:fs';
 import {auditStore} from '../assets/js/ecommerce-quality.mjs';
 const rd=p=>JSON.parse(readFileSync(new URL('../data/'+p+'.json',import.meta.url),'utf8'));
 const report=auditStore({products:rd('products'),categories:rd('categories'),
-  config:rd('config'),digital:rd('digitale'),materials:rd('materiali')});
+  config:rd('config'),digital:rd('digitale'),materials:rd('materiali'),
+  imageInventory:rd('immagini').file});
 if(process.argv.includes('--json')){
   process.stdout.write(JSON.stringify(report,null,2)+'\n');
 }else{

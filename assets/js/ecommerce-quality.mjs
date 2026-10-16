@@ -30,6 +30,21 @@ export function auditStore(input={},options={}){
     totals[severity]++;
     if(findings.length<limit)findings.push({severity,area,code,id:String(id||''),message,action});
   };
+  // Identical inventory semantics to Media Library: a filled product.img field
+  // cannot prove that a real local file exists. Preserve backwards-compatible
+  // field-based diagnostics only when an inventory has not been supplied.
+  const images=Array.isArray(input.imageInventory)?new Set(
+    input.imageInventory.map(x=>str(x).replace(/^img\//,'').split(/[?#]/)[0])):null;
+  const staged=new Set((input.stagedImages||[]).map(x=>str(x).split(/[?#]/)[0]));
+  const removed=new Set((input.deletedImages||[]).map(x=>str(x).split(/[?#]/)[0]));
+  const mediaExists=src=>{
+    const path=str(src).split(/[?#]/)[0];
+    if(!path||removed.has(path))return false;
+    if(staged.has(path))return true;
+    if(externalAsset(path)||path.startsWith('assets/'))return null;
+    if(!path.startsWith('img/'))return null;
+    return images?images.has(path.slice(4)):null;
+  };
   const visible=products.filter(p=>p&&!p.hidden);
   let missingPhoto=0,missingItalian=0,missingEnglish=0,missingDescription=0;
   for(const p of visible){
@@ -42,8 +57,27 @@ export function auditStore(input={},options={}){
     if(p.desc&&typeof p.desc==='object'&&!descEN){
       add('info','Prodotti','missing_description_en',id,'Descrizione inglese assente.','Prodotti → controlla contenuti IT/EN.')
     }
-    if(!str(p.img)&&!(Array.isArray(p.gallery)&&p.gallery.some(Boolean))){
-      missingPhoto++;add('warning','Fotografia','missing_primary_image',id,'Nessuna immagine del prodotto.','Media Library → aggiungi e associa una foto pertinente.');
+    const gallery=Array.isArray(p.gallery)?p.gallery.filter(Boolean):[];
+    const candidates=[str(p.img)||'img/'+id+'.webp',...gallery];
+    if(images){
+      const found=candidates.filter(path=>mediaExists(path)===true);
+      const unknown=candidates.some(path=>mediaExists(path)===null);
+      if(!found.length&&!unknown){
+        missingPhoto++;add('warning','Fotografia','missing_primary_image',id,
+          'Nessuna fotografia reale trovata nell’inventario per questa scheda.',
+          'Media Library → carica una foto pertinente e verifica l’associazione.');
+      }else if(found.length&&mediaExists(candidates[0])!==true){
+        add('warning','Fotografia','missing_cover_image',id,
+          'Copertina mancante: la scheda mostra una fotografia della gallery.',
+          'Media Library → promuovi una fotografia autentica a copertina.');
+      }else if(!found.length&&unknown){
+        add('info','Fotografia','unverifiable_image',id,
+          'La fonte fotografica è esterna o non verificabile dall’inventario.',
+          'Apri la scheda per controllare la foto e i relativi diritti.');
+      }
+    }else if(!str(p.img)&&!gallery.length){
+      missingPhoto++;add('warning','Fotografia','missing_primary_image',id,
+        'Nessuna immagine del prodotto.','Media Library → aggiungi e associa una foto pertinente.');
     }
     if(str(p.img)&&!localAsset(p.img)&&!externalAsset(p.img)){
       add('warning','Fotografia','suspicious_image_path',id,'Percorso immagine non standard.','Media Library → verifica che il file sia raggiungibile.');

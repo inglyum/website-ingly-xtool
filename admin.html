@@ -1992,7 +1992,10 @@ async function renderEcommerceQuality(){
        categories:S.CATS||[],
        config:S.CONFIG||{},
        digital:S.DIGI||{},
-       materials:S.MAT||{}
+       materials:S.MAT||{},
+       imageInventory:mediaInventory(),
+       stagedImages:MEDIA.map(m=>m.path),
+       deletedImages:DELETES
      });
      lastEcommerceReport=report;
      exportBtn.disabled=false;

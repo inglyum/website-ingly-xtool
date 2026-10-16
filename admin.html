@@ -3590,6 +3590,22 @@ function usageOf(path,ref){const u=[];
  (((S.C&&S.C.THEMES)||{}).temi||[]).forEach(t=>{Object.entries(t.art||{}).forEach(([c,p])=>{if(p===path)u.push('tema '+t.n.it+' · '+c)})});
  ((S.C&&S.C.REVIEWS)||[]).forEach(r=>{if((r.ph||[]).includes(path))u.push('recensione '+(r.w||''))});
  (((S.C&&S.C.SPONSORS)||{}).lista||[]).forEach(s=>{if(s.logo===path)u.push('sponsor '+s.nome)});
+ /* Coverage previously omitted: materials, digital downloads, machine cards,
+    Academy and home hero. These paths are also published by the Media Library. */
+ ((S.MAT&&S.MAT.materiali)||[]).forEach(m=>{
+  if(m.img===path)u.push('materiale '+(m.n?.it||m.id));
+ });
+ ((S.IMGMAC&&S.IMGMAC.macchine)||[]).forEach(m=>{
+  if(m.file===path)u.push('macchina '+(m.modello||m.id));
+ });
+ ((S.DIGI&&S.DIGI.bundle)||[]).forEach(d=>{
+  if(d.img===path)u.push('file digitale '+(d.n?.it||d.id));
+  if((d.anteprime||[]).includes(path))u.push('anteprima digitale '+(d.id||''));
+ });
+ ((S.COR&&S.COR.corsi)||[]).forEach(c=>{
+  if(c.img===path)u.push('corso '+(c.n?.it||c.id));
+ });
+ if(S.CONFIG&&S.CONFIG.heroImage===path)u.push('immagine principale Home');
  return u}
 function mediaItems(){const ref=referencedPaths();const items=[];const bySha={};
  MEDIA.forEach(m=>items.push({path:m.path,src:m.url,st:true,size:m.size,w:m.w,h:m.h,variant:isVariant(m.path)}));
@@ -4222,6 +4238,14 @@ function renderAbout(){const am=S.CONFIG.aboutMedia=S.CONFIG.aboutMedia||{tipo:'
    meglio bloccare qui che pubblicare dati che fanno crollare il sito. */
 function validaBozza(){
  const err=[],warn=[];
+ /* P0: never commit media deletions that are still referenced in the draft.
+    A confirmation on staging is not permission to publish broken product pages. */
+ for(const path of DELETES){
+  const used=usageOf(path);
+  if(used.length)err.push('Immagine '+path+' ancora utilizzata da: '+
+   used.slice(0,6).join(', ')+(used.length>6?' e altre sezioni':'')+
+   '. Riassegna prima le immagini o annulla l’eliminazione.');
+ }
  const MA=(S.C&&S.C.MAT_ART)||{};
  const cats=S.CATS||[],prods=S.P||[];
  if(!cats.length)err.push('Nessuna categoria: il sito non può funzionare.');

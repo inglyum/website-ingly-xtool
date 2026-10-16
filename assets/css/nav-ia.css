@@ -279,9 +279,10 @@ html:not(.ia-attiva) .ia-barra{display:none}
 
 /* INGLY DESIGN — menu stabile e palette continua */
 :root{
-  --ingly-surface:#111629;
-  --ingly-surface-raised:#171d34;
-  --ingly-gold:#c3a46b;
+  /* Compatibility aliases only; the approved brand tokens own the colors. */
+  --ingly-surface:var(--brand-surface,#111629);
+  --ingly-surface-raised:var(--brand-elevated,#171d34);
+  --ingly-gold:var(--brand-gold,#c3a46b);
 }
 .ia-pannello{
   background:var(--ingly-surface)!important;

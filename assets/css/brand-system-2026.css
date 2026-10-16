@@ -573,3 +573,65 @@
   padding:10px!important;border-radius:20px!important;
  }
 }
+
+
+/* Sprint UI-P0 — Shop surface continuity & restrained warm glow.
+ * Scoped to Shop only: no global override of the design systems. */
+:root[data-mode="dark"] #page-shop {
+  --shop-halo:rgba(220,166,88,.14);
+  --shop-halo-cool:rgba(75,111,164,.10);
+  --shop-surface:#080d15;
+}
+:root[data-mode="light"] #page-shop {
+  --shop-halo:rgba(165,110,43,.075);
+  --shop-halo-cool:rgba(86,118,170,.065);
+  --shop-surface:#fff;
+}
+:root[data-mode] #page-shop {
+  position:relative;
+  isolation:isolate;
+  background-color:var(--shop-surface)!important;
+  background-image:
+    radial-gradient(ellipse 65% 34% at 50% 2%,var(--shop-halo),transparent 90%),
+    radial-gradient(ellipse 62% 43% at 100% 58%,var(--shop-halo-cool),transparent 90%)!important;
+  background-repeat:no-repeat!important;
+  box-shadow:none!important;
+}
+:root[data-mode] #page-shop > :is(.wrap,.phero,.shop-intro,.ingly-commerce-spots,.shop-layout) {
+  position:relative;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none;
+}
+:root[data-mode] #page-shop .phero {
+  border-bottom:1px solid var(--brand-border);
+  padding-block:clamp(32px,5vw,72px) clamp(22px,3.2vw,48px);
+}
+:root[data-mode] #page-shop .shop-intro {
+  padding-block:clamp(18px,2.5vw,36px);
+}
+:root[data-mode] #page-shop .shop-cats > :is(a,button,[role="button"]),
+:root[data-mode] #page-shop .shop-colls > :is(a,button,[role="button"]) {
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+@media (hover:hover) {
+ :root[data-mode] #page-shop .shop-cats > :is(a,button,[role="button"]):hover {
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(0,0,0,.16),0 0 24px var(--shop-halo)!important;
+ }
+}
+:root[data-mode] #page-shop :is(a,button):focus-visible {
+  outline:3px solid var(--brand-gold)!important;
+  outline-offset:3px;
+}
+:root[data-mode] .brand-lockup .brand-wordmark {
+  object-fit:contain!important;
+  object-position:left center!important;
+  flex-shrink:0!important;
+}
+@media (prefers-reduced-motion:reduce) {
+ :root[data-mode] #page-shop .shop-cats > :is(a,button,[role="button"]),
+ :root[data-mode] #page-shop .shop-colls > :is(a,button,[role="button"]) {
+  transition:none!important;transform:none!important;
+ }
+}

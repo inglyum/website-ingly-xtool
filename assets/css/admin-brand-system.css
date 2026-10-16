@@ -303,6 +303,6 @@
 
 /* Full approved INGLY geometry: same wordmark in Admin and Storefront. */
 :root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark{
- aspect-ratio:1640/420!important;object-fit:contain!important;
+ aspect-ratio:1670/630!important;object-fit:contain!important;
  object-position:left center!important;overflow:visible!important;
 }

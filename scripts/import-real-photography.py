@@ -54,7 +54,7 @@ def load_image(photo_id: str) -> tuple[Image.Image,str]:
     url = (f"https://images.pexels.com/photos/{photo_id}/pexels-photo-{photo_id}.jpeg"
            "?auto=compress&cs=tinysrgb&w=1800")
     blob = http(url)
-    if blob[:3] != b'\\xff\\xd8\\xff' and not blob.startswith(b'\\x89PNG'):
+    if blob[:3] != bytes((0xff,0xd8,0xff)) and not blob.startswith(bytes((0x89,0x50,0x4e,0x47))):
         raise ValueError(f"Source is not a JPEG/PNG photo for id {photo_id}; magic={blob[:24]!r}, bytes={len(blob)}")
     image = Image.open(io.BytesIO(blob))
     image.verify()

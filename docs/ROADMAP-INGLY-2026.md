@@ -1,4 +1,14 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
+
+## Stato aggiornato — Sprint 01 concluso; Sprint 02 Media Readiness (16 ottobre 2026)
+
+- **PR #69**: master SVG INGLY con iniziale I bicomponente; footer, header, Admin e asset Service Centre / font tecnico Lab (merge e test browser riusciti).
+- **PR #70**: libreria `foundation-components.css`, 16 test di percorsi responsive e inventario CSS (merge e deploy riusciti).
+- **PR #71**: risolta sovrapposizione della barra PWA al footer con `[hidden]`, card compatta e test desktop/mobile (merge riuscito; verificare deploy finale).
+- **Fase 02**: `scripts/photo-readiness-report.mjs` produce ad ogni QA coda SKU/CSV e sintesi categoria, dalle sole foto realmente presenti nel manifest. Non sostituisce foto, non cambia catalogo, non inventa KPI.
+- **Blocco commerciale residuo**: fotografie autentiche delle schede pubbliche mancanti, collaudo su smartphone reali/screen reader e workflow di ordini/pagamenti autorizzato.
+
+
 Data audit: 15 ottobre 2026
 Base: branch main + hotfix \`fix/brand-header-machine-20261015\`.
 Obiettivo: un e-commerce premium credibile, realmente usabile su smartphone e amministrabile senza confondere immagini decorative, prodotti fisici, download e servizi.

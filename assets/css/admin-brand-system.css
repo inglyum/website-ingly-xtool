@@ -300,3 +300,34 @@
  background:#e7edf5!important;color:#17253d!important;
  border-color:#9dacbf!important;opacity:1!important
 }
+
+
+/* INGLY Sprint 01 — Admin uses the same Foundation contracts
+   (palette stays authoritative in the Admin brand-system file). */
+:root[data-mode] [data-component="admin-topbar"]{
+ background:var(--ab-glass)!important;
+ color:var(--ab-text)!important;
+ border-bottom:1px solid var(--ab-border)!important;
+ gap:clamp(8px,1.3vw,18px);min-height:64px;
+}
+:root[data-mode] [data-component="admin-sidebar"]{
+ background:var(--ab-glass)!important;color:var(--ab-text)!important;
+ border-right:1px solid var(--ab-border)!important;
+}
+:root[data-mode] [data-component="admin-dialog"]{
+ color:var(--ab-text)!important;border-color:var(--ab-border)!important;
+ border-radius:18px;
+}
+:root[data-mode] [data-component="admin-topbar"] .btn{
+ min-height:44px;
+}
+:root[data-mode="light"] [data-component="admin-topbar"] :is(h1,button,span){
+ color:var(--ab-text);
+}
+@media(max-width:760px){
+ :root[data-mode] [data-component="admin-topbar"]{
+   display:flex;flex-wrap:wrap;gap:8px;padding-block:10px!important;
+ }
+ :root[data-mode] [data-component="admin-topbar"] .btn{min-height:44px}
+ :root[data-mode] [data-component="admin-sidebar"]{max-width:100vw}
+}

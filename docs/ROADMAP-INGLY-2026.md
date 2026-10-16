@@ -1,5 +1,14 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
 
+## Sprint 05 — Cronologia Admin: ripristino atomico dei dati (16 ottobre 2026)
+- La precedente funzione ignorava file non disponibili e poteva mescolare dati di commit diversi: ora richiede tutti i 14 JSON, validati prima di modificare la bozza.
+- Commit storico incompleto: nessuna modifica; un errore descrive i file non recuperabili. Upload/eliminazioni media in staging bloccano il ripristino.
+- Modifiche dati in bozza: conferma aggiuntiva. La cronologia ripristina solo una nuova bozza, mai la versione online automaticamente.
+- I file binari non vengono ripristinati; serve ancora collaudo E2E con repository di prova, immagini vere e checksum.
+- Test automatico rollback-safety inserito nella suite CI.
+
+
+
 ## Sprint 04 — Sostituzione delle foto demo senza metadati falsi (16 ottobre 2026)
 - Upload categoria/materiale: chi sostituisce una foto stock dalla Media Library non eredita fotografo, fonte Pexels, licenza o dimensioni della foto precedente.
 - L’immagine è marcata come **originale dichiarato dal titolare**, non come prova di autenticità verificata da terzi.

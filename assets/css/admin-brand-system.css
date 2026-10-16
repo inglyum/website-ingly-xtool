@@ -300,3 +300,9 @@
  background:#e7edf5!important;color:#17253d!important;
  border-color:#9dacbf!important;opacity:1!important
 }
+
+/* Full approved INGLY geometry: same wordmark in Admin and Storefront. */
+:root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark{
+ aspect-ratio:1670/630!important;object-fit:contain!important;
+ object-position:left center!important;overflow:visible!important;
+}

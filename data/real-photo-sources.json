@@ -22,16 +22,25 @@
         "src": "img/cat-casa.webp",
         "srcset": [
           {
-            "path": "img/cat-casa-400.webp",
-            "width": 400
+            "url": "img/cat-casa.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 46244,
+            "sha256": "3db0a2f23ebb82348cee1b0ea2cf7b92b40098e02ce06d806b8737ed8105fc45"
           },
           {
-            "path": "img/cat-casa-800.webp",
-            "width": 800
+            "url": "img/cat-casa-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 23046,
+            "sha256": "9122292e08911b1575dabb09d2d536e5c9db7c144c46893303702259d0ef7575"
           },
           {
-            "path": "img/cat-casa.webp",
-            "width": 1200
+            "url": "img/cat-casa-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 9044,
+            "sha256": "9cbb510ded3adf8f0f24ebfdb03b3e424034c7fb6896ac2ac67540384e8f763e"
           }
         ],
         "width": 1200,
@@ -55,7 +64,7 @@
       },
       "altIT": "Arredamento e oggetti decorativi in vetro e legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of casa, not an INGLY DESIGN customer project.",
-      "photoId": "8271816"
+      "resolvedImageUrl": "https://images.pexels.com/photos/8271816/pexels-photo-8271816.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:eventi",
@@ -67,16 +76,25 @@
         "src": "img/cat-eventi.webp",
         "srcset": [
           {
-            "path": "img/cat-eventi-400.webp",
-            "width": 400
+            "url": "img/cat-eventi.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 53664,
+            "sha256": "143a4a444519b4dcaa483057d479b83d48dc6fc7ec0e0cad36827348883bb6cf"
           },
           {
-            "path": "img/cat-eventi-800.webp",
-            "width": 800
+            "url": "img/cat-eventi-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 23520,
+            "sha256": "4bce61892966ed651d96c131235c6f285ac3b8d4de71c25e6eb66c470ebcc3f7"
           },
           {
-            "path": "img/cat-eventi.webp",
-            "width": 1200
+            "url": "img/cat-eventi-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 9682,
+            "sha256": "4a60c15d17a68b601a0ce8f13d547b544a4e2d571f62c54377a435f8b89b8e56"
           }
         ],
         "width": 1200,
@@ -100,7 +118,7 @@
       },
       "altIT": "Dettagli floreali e segnaposto per cerimonie. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of eventi, not an INGLY DESIGN customer project.",
-      "photoId": "4645991"
+      "resolvedImageUrl": "https://images.pexels.com/photos/4645991/pexels-photo-4645991.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:animali",
@@ -112,16 +130,25 @@
         "src": "img/cat-animali.webp",
         "srcset": [
           {
-            "path": "img/cat-animali-400.webp",
-            "width": 400
+            "url": "img/cat-animali.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 75742,
+            "sha256": "5ec337deae513505f3d275af54cb01191b0d48ed473aec5aaf1b8f8da549550c"
           },
           {
-            "path": "img/cat-animali-800.webp",
-            "width": 800
+            "url": "img/cat-animali-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 28254,
+            "sha256": "67d010cc1ab96c88d77056f7c063dfeda3f6a06806dbe692c0798a79a885479f"
           },
           {
-            "path": "img/cat-animali.webp",
-            "width": 1200
+            "url": "img/cat-animali-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 10782,
+            "sha256": "26339b6a8dc34ed32d146ea18402121f790f9d7673b9c458fe5e8e72f87fd2ba"
           }
         ],
         "width": 1200,
@@ -145,7 +172,7 @@
       },
       "altIT": "Cane con collare: riferimento per accessori personalizzati per animali. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of animali, not an INGLY DESIGN customer project.",
-      "photoId": "20843108"
+      "resolvedImageUrl": "https://images.pexels.com/photos/20843108/pexels-photo-20843108.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:accessori",
@@ -157,16 +184,25 @@
         "src": "img/cat-accessori.webp",
         "srcset": [
           {
-            "path": "img/cat-accessori-400.webp",
-            "width": 400
+            "url": "img/cat-accessori.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 197380,
+            "sha256": "4ddae68f72573a8ce3251462be669a3c698fcefe8dd8ca61bcb4e588fc5efd6c"
           },
           {
-            "path": "img/cat-accessori-800.webp",
-            "width": 800
+            "url": "img/cat-accessori-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 88006,
+            "sha256": "78c06d54363a1466a0e08edc454ff162c55c23b1d92dd61e2c12725c37854515"
           },
           {
-            "path": "img/cat-accessori.webp",
-            "width": 1200
+            "url": "img/cat-accessori-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 28798,
+            "sha256": "af958e334c85126d1d6387886849cc68766ed16647870e0cd3c6113b59162d17"
           }
         ],
         "width": 1200,
@@ -190,7 +226,7 @@
       },
       "altIT": "Accessori e gioielli artigianali su vassoi in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of accessori, not an INGLY DESIGN customer project.",
-      "photoId": "7679889"
+      "resolvedImageUrl": "https://images.pexels.com/photos/7679889/pexels-photo-7679889.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:b2b",
@@ -202,16 +238,25 @@
         "src": "img/cat-b2b.webp",
         "srcset": [
           {
-            "path": "img/cat-b2b-400.webp",
-            "width": 400
+            "url": "img/cat-b2b.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 18956,
+            "sha256": "7c79afc18691b6a7ae6064135519fcde20559a880de430387997e956d51e575a"
           },
           {
-            "path": "img/cat-b2b-800.webp",
-            "width": 800
+            "url": "img/cat-b2b-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 8354,
+            "sha256": "330132b9d67f9f2a6bd20157b0b8b468d861ee2f5506aae6e016e4aebc09bb82"
           },
           {
-            "path": "img/cat-b2b.webp",
-            "width": 1200
+            "url": "img/cat-b2b-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 3034,
+            "sha256": "f8dfc448a6f9c90fb82b8515e68d0e56e6b6f764e76fea2a82a30eaa37a10f28"
           }
         ],
         "width": 1200,
@@ -235,7 +280,7 @@
       },
       "altIT": "Scrivania professionale: quaderno, penna e accessori. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of b2b, not an INGLY DESIGN customer project.",
-      "photoId": "8092466"
+      "resolvedImageUrl": "https://images.pexels.com/photos/8092466/pexels-photo-8092466.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:bambini",
@@ -247,16 +292,25 @@
         "src": "img/cat-bambini.webp",
         "srcset": [
           {
-            "path": "img/cat-bambini-400.webp",
-            "width": 400
+            "url": "img/cat-bambini.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 34758,
+            "sha256": "7a640850e2d05eee57368e8bd8a37811d1fc75665ef9e1358ff5f38ef00f8088"
           },
           {
-            "path": "img/cat-bambini-800.webp",
-            "width": 800
+            "url": "img/cat-bambini-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 16040,
+            "sha256": "772c6b7156e5f9153b7832a1d476afc451dbb2dc71134b0f3e6c809853ad4dfc"
           },
           {
-            "path": "img/cat-bambini.webp",
-            "width": 1200
+            "url": "img/cat-bambini-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 6618,
+            "sha256": "908dd16557a62a3cc6d21d8be61e5390b047a927d653b3ac695a5b025b7bdb73"
           }
         ],
         "width": 1200,
@@ -280,7 +334,7 @@
       },
       "altIT": "Giocattoli in legno di dinosauri per bambini. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of bambini, not an INGLY DESIGN customer project.",
-      "photoId": "3663054"
+      "resolvedImageUrl": "https://images.pexels.com/photos/3663054/pexels-photo-3663054.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:stagionale",
@@ -292,16 +346,25 @@
         "src": "img/cat-stagionale.webp",
         "srcset": [
           {
-            "path": "img/cat-stagionale-400.webp",
-            "width": 400
+            "url": "img/cat-stagionale.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 184280,
+            "sha256": "2431a7d61b2b8e73ff60182a7e33e1e1344c873cce462f84f7eec24343e9fa3b"
           },
           {
-            "path": "img/cat-stagionale-800.webp",
-            "width": 800
+            "url": "img/cat-stagionale-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 77152,
+            "sha256": "43b931991916948a8dec8fb6a7f6bdb3158885ca78bcc8e11d1cda34703365fe"
           },
           {
-            "path": "img/cat-stagionale.webp",
-            "width": 1200
+            "url": "img/cat-stagionale-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 26686,
+            "sha256": "765ec7257929b5b0e2c88bc5da4917052ce1682cc2635ff97870ebf188f2d432"
           }
         ],
         "width": 1200,
@@ -325,7 +388,7 @@
       },
       "altIT": "Ornamenti natalizi artigianali in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of stagionale, not an INGLY DESIGN customer project.",
-      "photoId": "13464116"
+      "resolvedImageUrl": "https://images.pexels.com/photos/13464116/pexels-photo-13464116.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:digitale",
@@ -337,16 +400,25 @@
         "src": "img/cat-digitale.webp",
         "srcset": [
           {
-            "path": "img/cat-digitale-400.webp",
-            "width": 400
+            "url": "img/cat-digitale.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 63790,
+            "sha256": "825df3c5c48c3a777d292f711dcf4f39fa3a8895c423244713bbf9850d67c411"
           },
           {
-            "path": "img/cat-digitale-800.webp",
-            "width": 800
+            "url": "img/cat-digitale-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 29374,
+            "sha256": "99fb51469b9e0b44902f8a6a3d119b97a82a607b885ddd5c016f084e4b7d2803"
           },
           {
-            "path": "img/cat-digitale.webp",
-            "width": 1200
+            "url": "img/cat-digitale-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 12390,
+            "sha256": "5255e09c3753458edb776ffcba96e5677ab52577eacfdfc84854b8a92d472535"
           }
         ],
         "width": 1200,
@@ -370,7 +442,7 @@
       },
       "altIT": "Designer al lavoro su un laptop. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of digitale, not an INGLY DESIGN customer project.",
-      "photoId": "12902996"
+      "resolvedImageUrl": "https://images.pexels.com/photos/12902996/pexels-photo-12902996.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:custom",
@@ -382,16 +454,25 @@
         "src": "img/cat-custom.webp",
         "srcset": [
           {
-            "path": "img/cat-custom-400.webp",
-            "width": 400
+            "url": "img/cat-custom.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 37824,
+            "sha256": "65a540cec418011b2ff04f7853a33193bf30350c00f48f738306aa11c4ded2bd"
           },
           {
-            "path": "img/cat-custom-800.webp",
-            "width": 800
+            "url": "img/cat-custom-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 18620,
+            "sha256": "04be501eeec2bacb60c19a82e7f98f8525a1b5fa42d67235e252088068959116"
           },
           {
-            "path": "img/cat-custom.webp",
-            "width": 1200
+            "url": "img/cat-custom-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 7894,
+            "sha256": "88b8c4181642237adced2f6cc6d13775035bc003c03ec8b846f4391729c1bead"
           }
         ],
         "width": 1200,
@@ -415,7 +496,7 @@
       },
       "altIT": "Incisione laser reale di una tavola in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of custom, not an INGLY DESIGN customer project.",
-      "photoId": "30983996"
+      "resolvedImageUrl": "https://images.pexels.com/photos/30983996/pexels-photo-30983996.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:materiali",
@@ -427,16 +508,25 @@
         "src": "img/cat-materiali.webp",
         "srcset": [
           {
-            "path": "img/cat-materiali-400.webp",
-            "width": 400
+            "url": "img/cat-materiali.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 56264,
+            "sha256": "6f37ca82fd3b727c6b93ef4f3d37191db7881fb70a43830d7a3c2a04105bc3b9"
           },
           {
-            "path": "img/cat-materiali-800.webp",
-            "width": 800
+            "url": "img/cat-materiali-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 26214,
+            "sha256": "5ee5330e0837f7316a21a0c01b935471439c647b4f74c129ae20750f4b87f28b"
           },
           {
-            "path": "img/cat-materiali.webp",
-            "width": 1200
+            "url": "img/cat-materiali-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 10590,
+            "sha256": "427e1bd249fa764e01f2417da7c5af434accd301eaa4ac758891d5fe944614dd"
           }
         ],
         "width": 1200,
@@ -460,7 +550,7 @@
       },
       "altIT": "Campioni di pelle e materiali in un laboratorio. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of materiali, not an INGLY DESIGN customer project.",
-      "photoId": "4452516"
+      "resolvedImageUrl": "https://images.pexels.com/photos/4452516/pexels-photo-4452516.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:tecnologie",
@@ -472,16 +562,25 @@
         "src": "img/cat-tecnologie.webp",
         "srcset": [
           {
-            "path": "img/cat-tecnologie-400.webp",
-            "width": 400
+            "url": "img/cat-tecnologie.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 38030,
+            "sha256": "76df4efa64185a76a7b13dcbf7d5f08807c56fc336e58fe11ebd5908b8cfa96c"
           },
           {
-            "path": "img/cat-tecnologie-800.webp",
-            "width": 800
+            "url": "img/cat-tecnologie-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 16326,
+            "sha256": "cc452995b232c4653ab218711c13ef3aaf2d92c3bc8ffb62c0953ce41863e3e3"
           },
           {
-            "path": "img/cat-tecnologie.webp",
-            "width": 1200
+            "url": "img/cat-tecnologie-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 6130,
+            "sha256": "d5893f4e1b4e57deca3930a7551cb691a0fe165982caf02c81554c3776034fc9"
           }
         ],
         "width": 1200,
@@ -505,7 +604,7 @@
       },
       "altIT": "Macchina laser in funzione su superficie in legno. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of tecnologie, not an INGLY DESIGN customer project.",
-      "photoId": "38030790"
+      "resolvedImageUrl": "https://images.pexels.com/photos/38030790/pexels-photo-38030790.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:limited",
@@ -517,16 +616,25 @@
         "src": "img/cat-limited.webp",
         "srcset": [
           {
-            "path": "img/cat-limited-400.webp",
-            "width": 400
+            "url": "img/cat-limited.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 150676,
+            "sha256": "712ee9b4958d745c78f7e3515d3720788a5f7d1bc801ed6603a473e7da4e1edb"
           },
           {
-            "path": "img/cat-limited-800.webp",
-            "width": 800
+            "url": "img/cat-limited-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 56212,
+            "sha256": "5fa98d48c8e51757bbbec79851e0f9a7f0066eb846ca13d594a1f2d39f43b3c2"
           },
           {
-            "path": "img/cat-limited.webp",
-            "width": 1200
+            "url": "img/cat-limited-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 17250,
+            "sha256": "9ba474e0052021570416b64689ab36067c84e96de51ecc142ba841a6a61f39b5"
           }
         ],
         "width": 1200,
@@ -550,7 +658,7 @@
       },
       "altIT": "Sculture decorative in legno e gesso esposte in una galleria. Fotografia reale di repertorio, non lavoro INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of limited, not an INGLY DESIGN customer project.",
-      "photoId": "15824752"
+      "resolvedImageUrl": "https://images.pexels.com/photos/15824752/pexels-photo-15824752.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "category:nuova-ms3k34dc",
@@ -562,16 +670,25 @@
         "src": "img/cat-nuova-ms3k34dc.webp",
         "srcset": [
           {
-            "path": "img/cat-nuova-ms3k34dc-400.webp",
-            "width": 400
+            "url": "img/cat-nuova-ms3k34dc.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 49808,
+            "sha256": "6f1743e9d39a5379cd579caa029ac1e0941f2c87c2856bfc062b5dd809938eeb"
           },
           {
-            "path": "img/cat-nuova-ms3k34dc-800.webp",
-            "width": 800
+            "url": "img/cat-nuova-ms3k34dc-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 22116,
+            "sha256": "90b228094a8d75b982c32bd576ec9364ecb49a75d8f91dcf81c00621d70cb104"
           },
           {
-            "path": "img/cat-nuova-ms3k34dc.webp",
-            "width": 1200
+            "url": "img/cat-nuova-ms3k34dc-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 8432,
+            "sha256": "cab0f7041c7b4f84357688fa1450d00fb1d57beaebbd2bd6ca39902379a7bff0"
           }
         ],
         "width": 1200,
@@ -595,7 +712,7 @@
       },
       "altIT": "Giocattoli originali a forma di animali in legno; nessun personaggio registrato. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of nuova-ms3k34dc, not an INGLY DESIGN customer project.",
-      "photoId": "3663056"
+      "resolvedImageUrl": "https://images.pexels.com/photos/3663056/pexels-photo-3663056.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:legno",
@@ -607,16 +724,25 @@
         "src": "img/material-legno.webp",
         "srcset": [
           {
-            "path": "img/material-legno-400.webp",
-            "width": 400
+            "url": "img/material-legno.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 116220,
+            "sha256": "a3c5120102030f8c18eadeee74191ecded0f535f3032e89eb87c773de86d16c8"
           },
           {
-            "path": "img/material-legno-800.webp",
-            "width": 800
+            "url": "img/material-legno-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 44708,
+            "sha256": "1a66d4da01625e9635cc4efa0c0ca902026a31891a179d87cd1b9486f26893c6"
           },
           {
-            "path": "img/material-legno.webp",
-            "width": 1200
+            "url": "img/material-legno-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 15044,
+            "sha256": "2c7bd28523297dddd5354ada9c0611a10f7db05236f4e3c2a8cefc8b4525e4c1"
           }
         ],
         "width": 1200,
@@ -640,7 +766,7 @@
       },
       "altIT": "Assi di legno in un vero laboratorio di falegnameria. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of legno, not an INGLY DESIGN customer project.",
-      "photoId": "37162561"
+      "resolvedImageUrl": "https://images.pexels.com/photos/37162561/pexels-photo-37162561.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:plexiglass",
@@ -652,16 +778,25 @@
         "src": "img/material-plexiglass.webp",
         "srcset": [
           {
-            "path": "img/material-plexiglass-400.webp",
-            "width": 400
+            "url": "img/material-plexiglass.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 46682,
+            "sha256": "ca4dd9f9668b61cdc3989bd414a3d6c23657b45c3450f4c45cc329502069a927"
           },
           {
-            "path": "img/material-plexiglass-800.webp",
-            "width": 800
+            "url": "img/material-plexiglass-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 20020,
+            "sha256": "e635d00eb4c8ea2914045551bfa39003aaccc03a4efa40ce3b53bac1bbe75e36"
           },
           {
-            "path": "img/material-plexiglass.webp",
-            "width": 1200
+            "url": "img/material-plexiglass-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 6636,
+            "sha256": "a62f428c98209abda021b8eaceceb8d32fb07dba2b7dcbc883f148c60e74497a"
           }
         ],
         "width": 1200,
@@ -685,7 +820,7 @@
       },
       "altIT": "Pannello trasparente in plexiglass utilizzato per un'opera artistica. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of plexiglass, not an INGLY DESIGN customer project.",
-      "photoId": "7699825"
+      "resolvedImageUrl": "https://images.pexels.com/photos/7699825/pexels-photo-7699825.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:metallo",
@@ -697,16 +832,25 @@
         "src": "img/material-metallo.webp",
         "srcset": [
           {
-            "path": "img/material-metallo-400.webp",
-            "width": 400
+            "url": "img/material-metallo.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 389212,
+            "sha256": "0d8cdc106ce83c9b60be59cdb5aad33e375601bb23aaa7df589ef5089fcaa12e"
           },
           {
-            "path": "img/material-metallo-800.webp",
-            "width": 800
+            "url": "img/material-metallo-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 160644,
+            "sha256": "576cf3296170461e2bcc2e01cc0800e07164c309730cce5feb8ed5ceb50ce563"
           },
           {
-            "path": "img/material-metallo.webp",
-            "width": 1200
+            "url": "img/material-metallo-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 45058,
+            "sha256": "6e68eb4b4bab060fdd6041a34eff003ccfe18d1c1e71ad9fc35137bd4e076526"
           }
         ],
         "width": 1200,
@@ -730,7 +874,7 @@
       },
       "altIT": "Macro fotografica di lamiera metallica mandorlata. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of metallo, not an INGLY DESIGN customer project.",
-      "photoId": "31413496"
+      "resolvedImageUrl": "https://images.pexels.com/photos/31413496/pexels-photo-31413496.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:pelle",
@@ -742,16 +886,25 @@
         "src": "img/material-pelle.webp",
         "srcset": [
           {
-            "path": "img/material-pelle-400.webp",
-            "width": 400
+            "url": "img/material-pelle.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 52226,
+            "sha256": "dc6a2a68186a17767d57367880682d385469b3723d1d3727b32445b4916fdf00"
           },
           {
-            "path": "img/material-pelle-800.webp",
-            "width": 800
+            "url": "img/material-pelle-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 18310,
+            "sha256": "095357ee096dad50a125b1af5324f65abd03d523f517ba8361c5ce167df9945a"
           },
           {
-            "path": "img/material-pelle.webp",
-            "width": 1200
+            "url": "img/material-pelle-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 5770,
+            "sha256": "5c5a9354cb04bd13864f94e609eaecdd5042dc759feba30181ad5b0f7c3c4585"
           }
         ],
         "width": 1200,
@@ -775,7 +928,7 @@
       },
       "altIT": "Mano su superficie di pelle naturale marrone. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of pelle, not an INGLY DESIGN customer project.",
-      "photoId": "6653225"
+      "resolvedImageUrl": "https://images.pexels.com/photos/6653225/pexels-photo-6653225.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:vetro",
@@ -787,16 +940,25 @@
         "src": "img/material-vetro.webp",
         "srcset": [
           {
-            "path": "img/material-vetro-400.webp",
-            "width": 400
+            "url": "img/material-vetro.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 32198,
+            "sha256": "e1282634b59872cab42b767c7c028c53aa5bca15f82cba9af1afd558d34c3bf4"
           },
           {
-            "path": "img/material-vetro-800.webp",
-            "width": 800
+            "url": "img/material-vetro-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 12910,
+            "sha256": "2e05786c95850651f0638807114c2230e1d22dd8c2a8dc6e4c0a20f58134b168"
           },
           {
-            "path": "img/material-vetro.webp",
-            "width": 1200
+            "url": "img/material-vetro-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 5018,
+            "sha256": "0662ebd14f845219e92aac24bbff0235f72c8490261a0b547a06ac2a539cc5e2"
           }
         ],
         "width": 1200,
@@ -820,7 +982,7 @@
       },
       "altIT": "Vasi in vetro trasparente e riflessi su piano bianco. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of vetro, not an INGLY DESIGN customer project.",
-      "photoId": "4272619"
+      "resolvedImageUrl": "https://images.pexels.com/photos/4272619/pexels-photo-4272619.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:bamboo",
@@ -832,16 +994,25 @@
         "src": "img/material-bamboo.webp",
         "srcset": [
           {
-            "path": "img/material-bamboo-400.webp",
-            "width": 400
+            "url": "img/material-bamboo.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 112048,
+            "sha256": "339bcdb2d4b070724c2e88d2c0afdffe76fc2a892e356c45cc22606748268c64"
           },
           {
-            "path": "img/material-bamboo-800.webp",
-            "width": 800
+            "url": "img/material-bamboo-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 55388,
+            "sha256": "664030bd2ab9004cfff3aa0a21a304db78a141d4d8def54fdfb3dcc33f23c044"
           },
           {
-            "path": "img/material-bamboo.webp",
-            "width": 1200
+            "url": "img/material-bamboo-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 21852,
+            "sha256": "66c5e654e611a81d020c57b50b3d53d290fba36f93f3712a3be3a4abf2310962"
           }
         ],
         "width": 1200,
@@ -865,7 +1036,7 @@
       },
       "altIT": "Canne di bambù naturale viste dall'alto. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of bamboo, not an INGLY DESIGN customer project.",
-      "photoId": "8251485"
+      "resolvedImageUrl": "https://images.pexels.com/photos/8251485/pexels-photo-8251485.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:mdf",
@@ -877,16 +1048,25 @@
         "src": "img/material-mdf.webp",
         "srcset": [
           {
-            "path": "img/material-mdf-400.webp",
-            "width": 400
+            "url": "img/material-mdf.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 44562,
+            "sha256": "3dae889db2e19ddaa356a4a144bd8dc51e30f1f4a0f0a97e81790d7f948ef885"
           },
           {
-            "path": "img/material-mdf-800.webp",
-            "width": 800
+            "url": "img/material-mdf-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 19338,
+            "sha256": "c2cfa6c5a8e39299521dfc86e0ee9180f06fd55c9762f5b42a9ed2ea57eee386"
           },
           {
-            "path": "img/material-mdf.webp",
-            "width": 1200
+            "url": "img/material-mdf-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 7230,
+            "sha256": "2cf2105e093f9b00e71989884f1484e9efb96110dcf92724a706a23cba13eb1b"
           }
         ],
         "width": 1200,
@@ -910,7 +1090,7 @@
       },
       "altIT": "Pannelli lignei impilati: immagine illustrativa, non prova di MDF certificato. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of mdf, not an INGLY DESIGN customer project.",
-      "photoId": "8817831"
+      "resolvedImageUrl": "https://images.pexels.com/photos/8817831/pexels-photo-8817831.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:pla",
@@ -922,16 +1102,25 @@
         "src": "img/material-pla.webp",
         "srcset": [
           {
-            "path": "img/material-pla-400.webp",
-            "width": 400
+            "url": "img/material-pla.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 33822,
+            "sha256": "bb9ea67f31e58e916780b840a83fb859ac7262520348425b55c33908e1f78786"
           },
           {
-            "path": "img/material-pla-800.webp",
-            "width": 800
+            "url": "img/material-pla-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 17660,
+            "sha256": "952a8370244e9a18a9d3a1af55b88e001f5c60fa455beecf9f1c86e8310f870a"
           },
           {
-            "path": "img/material-pla.webp",
-            "width": 1200
+            "url": "img/material-pla-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 7406,
+            "sha256": "23a49996afe01d84fb80600fccd2ed5cbc0c6f8c78c408aa2d4ea7af28d12a5a"
           }
         ],
         "width": 1200,
@@ -955,7 +1144,7 @@
       },
       "altIT": "Bobine di filamento colorate per stampante 3D. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of pla, not an INGLY DESIGN customer project.",
-      "photoId": "31353177"
+      "resolvedImageUrl": "https://images.pexels.com/photos/31353177/pexels-photo-31353177.jpeg?auto=compress&cs=tinysrgb&w=1800"
     },
     {
       "id": "material:tessuto",
@@ -967,16 +1156,25 @@
         "src": "img/material-tessuto.webp",
         "srcset": [
           {
-            "path": "img/material-tessuto-400.webp",
-            "width": 400
+            "url": "img/material-tessuto.webp",
+            "width": 1200,
+            "height": 800,
+            "bytes": 118276,
+            "sha256": "a714cd93697c3f71d1413a7240455cc253f77a453a36a98327d49b547c3d57a0"
           },
           {
-            "path": "img/material-tessuto-800.webp",
-            "width": 800
+            "url": "img/material-tessuto-800.webp",
+            "width": 800,
+            "height": 533,
+            "bytes": 57444,
+            "sha256": "e3579ce822db75c3e352e4d9c0646d1f6e4ce2c4aeda8a25cab141a74995c088"
           },
           {
-            "path": "img/material-tessuto.webp",
-            "width": 1200
+            "url": "img/material-tessuto-400.webp",
+            "width": 400,
+            "height": 267,
+            "bytes": 9298,
+            "sha256": "5a2210545790b8094d95a310e59319cc5c93a3b788210a3201de4dcc93589ced"
           }
         ],
         "width": 1200,
@@ -1000,7 +1198,7 @@
       },
       "altIT": "Macro fotografica reale di tessuto lino beige. Fotografia reale di repertorio; non realizzazione INGLY DESIGN.",
       "altEN": "Real licensed stock photograph of tessuto, not an INGLY DESIGN customer project.",
-      "photoId": "7232409"
+      "resolvedImageUrl": "https://images.pexels.com/photos/7232409/pexels-photo-7232409.jpeg?auto=compress&cs=tinysrgb&w=1800"
     }
   ],
   "sourcePolicy": "Verified genuine Pexels photographic sources; no AI-generated images or Unsplash download endpoints. Credits preserved with every category/material."

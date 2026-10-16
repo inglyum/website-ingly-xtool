@@ -147,6 +147,8 @@ function apri(fam, trigger) {
   chiudi({ fuoco: false });
   const pan = $('ia-pan-' + fam);
   if (!pan) return;
+  /* Closing the panel schedules a delayed hidden=true. Clear that race
+     when switching families quickly, or the freshly opened panel disappears. */
   pan.hidden = false;
   /* Un fotogramma prima di animare: senza, il browser salta la transizione
      perché l'elemento è appena uscito da display:none. */
@@ -162,7 +164,10 @@ export function chiudi({ fuoco = true } = {}) {
   const pan = $('ia-pan-' + aperto);
   if (pan) {
     pan.classList.remove('aperto');
-    const via = () => { pan.hidden = true; pan.removeEventListener('transitionend', via); };
+    const via = () => {
+      pan.removeEventListener('transitionend', via);
+      if (!pan.classList.contains('aperto')) pan.hidden = true;
+    };
     pan.addEventListener('transitionend', via);
     setTimeout(via, 500);            /* se la transizione non parte, nascondi comunque */
   }
@@ -211,31 +216,21 @@ function montaCassetto(D, L) {
 /* ---------- stati dell'header ---------- */
 
 function statiHeader() {
-  const nav = document.querySelector('.nav');
-  if (!nav) return;
-  let lastY = window.scrollY;
-  let scheduled = false;
-  const leggi = () => {
-    scheduled = false;
-    const currentY = window.scrollY;
-    const distance = currentY - lastY;
-    const pastHero = currentY > 220;
-    nav.classList.toggle('compatto', currentY > 24);
-    if (!pastHero || aperto || nav.matches(':focus-within')) {
-      nav.classList.remove('atelier-nav-hidden');
-    } else if (distance > 10) {
-      nav.classList.add('atelier-nav-hidden');
-    } else if (distance < -8) {
-      nav.classList.remove('atelier-nav-hidden');
-    }
-    if (Math.abs(distance) >= 6) lastY = currentY;
+  const nav=document.querySelector('.nav');
+  if(!nav)return;
+  /* Sprint 01: navigation stays visible on desktop and mobile.
+     Former scroll-down auto-hide could strand keyboard users and make
+     destinations inaccessible while the user was reading the page. */
+  let queued=false;
+  const apply=()=>{
+    queued=false;
+    nav.classList.toggle('compatto',window.scrollY>24);
+    nav.classList.remove('atelier-nav-hidden');
   };
-  addEventListener('scroll', () => {
-    if (!scheduled) {
-      scheduled = true;
-      requestAnimationFrame(leggi);
-    }
-  }, { passive: true });
-  nav.addEventListener('focusin', () => nav.classList.remove('atelier-nav-hidden'));
-  leggi();
+  window.addEventListener('scroll',()=>{
+    if(queued)return;
+    queued=true;requestAnimationFrame(apply);
+  },{passive:true});
+  nav.addEventListener('focusin',()=>nav.classList.remove('atelier-nav-hidden'));
+  apply();
 }

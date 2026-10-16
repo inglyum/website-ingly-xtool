@@ -41,3 +41,39 @@ export function auditRestoreMedia(historic,current,historicTree,currentTree){
   errors,missing,available,unchanged,extraLive,
   historicalCount:source.length,liveCount:liveSet.size};
 }
+
+/* GitHub contents directory entries carry blob SHA; compare bytes by identity,
+ * not only filenames. Fail closed for incomplete inventory or changed images. */
+export function auditRestoreMediaBlobs(historic,current,historicEntries,currentEntries){
+ const names=manifest=>{
+  if(!manifest||!Array.isArray(manifest.file))return null;
+  const set=new Set();
+  for(const n of manifest.file){
+   if(typeof n!=='string'||!VALID_NAME.test(n)||n.includes('..')||set.has(n))return null;
+   set.add(n);
+  }
+  return set;
+ };
+ const historicNames=names(historic),currentNames=names(current);
+ const errors=[],mismatched=[];
+ if(!historicNames||!currentNames)errors.push('Manifest immagini incompleto o non sicuro');
+ const index=(entries,label)=>{
+  const map=new Map();
+  if(!Array.isArray(entries)){errors.push('Inventario '+label+' non disponibile');return map}
+  for(const e of entries){
+   if(!e||e.type!=='file'||typeof e.name!=='string')continue;
+   if(map.has(e.name)){errors.push('Duplicato in inventario '+label);continue}
+   if(!/^[0-9a-f]{40}$/i.test(e.sha||'')){errors.push('SHA non valido in '+label);continue}
+   map.set(e.name,e.sha.toLowerCase());
+  }
+  return map;
+ };
+ const past=index(historicEntries,'storico'),live=index(currentEntries,'corrente');
+ if(historicNames)for(const name of historicNames){
+  if(!past.has(name))errors.push('File storico non trovato: '+name);
+  else if(!live.has(name))mismatched.push(name+' (assente nel live)');
+  else if(past.get(name)!==live.get(name))mismatched.push(name+' (contenuto diverso)');
+ }
+ return {ok:errors.length===0&&mismatched.length===0,errors,mismatched,
+  checked:historicNames?historicNames.size:0};
+}

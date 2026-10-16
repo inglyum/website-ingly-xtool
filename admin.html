@@ -341,25 +341,26 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/admin-maison.css">
+<link rel="stylesheet" href="assets/css/foundation-components.css">
 <link rel="stylesheet" href="assets/css/admin-brand-system.css">
 </head>
 <body>
 <script src="assets/js/artwork.js"></script>
 <script src="assets/js/generatori-catalog.js"></script>
 <div class="shell" id="shell">
-<aside class="side">
+<aside class="side" data-component="admin-sidebar">
   <div class="brand brand--admin"><img src="assets/images/ingly-logo.svg" alt="" width="40" height="40"><div class="brand-admin-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg" alt="INGLY" width="145" height="61"><span>DESIGN · ADMIN</span></div></div>
   <div id="nav"></div>
 </aside>
 <button id="sideToggle" title="Comprimi/espandi sidebar">‹</button>
 <div class="footbar">Fonte di verità: <span class="mono">data/*.json</span> · commit atomici</div>
 <div class="main">
-  <div class="top">
+  <div class="top" data-component="admin-topbar">
     <h1 id="vtitle">Dashboard</h1>
     <div class="sync"><span class="dot" id="syncDot"></span><span id="syncTxt">caricamento…</span></div>
     <button type="button" class="btn admin-theme-switch" id="adminThemeSwitch" aria-label="Attiva modalità chiara" aria-pressed="false">☀ Chiaro</button>
     <button class="btn" id="goPrev" title="Apri il sito con i dati in bozza">👁 Anteprima</button>
-  <button class="btn pri" id="goPub">🚀 Pubblica <span id="pubN" class="pill" style="background:rgba(0,0,0,.18);border:none"></span></button>
+  <button class="btn pri" data-ui="cta" id="goPub">🚀 Pubblica <span id="pubN" class="pill" style="background:rgba(0,0,0,.18);border:none"></span></button>
   </div>
   <div class="content">
 
@@ -1420,7 +1421,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   </div>
 </div>
 </div>
-<div class="ovl" id="ovl"><div class="modal" id="modal"></div></div>
+<div class="ovl" id="ovl"><div class="modal" data-component="admin-dialog" id="modal"></div></div>
 <div id="toast"></div>
 <script src="assets/js/admin/editor-collezione.js"></script>
 <script>

@@ -48,40 +48,20 @@ def http(url: str) -> bytes:
     raise RuntimeError(f"Photo URL unavailable: {url} ({last})")
 
 def load_image(photo_id: str) -> tuple[Image.Image,str]:
-    # Unsplash download redirects to original images.unsplash.com raster photo.
-    download = f"https://unsplash.com/photos/{urllib.parse.quote(photo_id)}/download?force=true&w=1800"
-    candidate_urls = [download]
-    # Fallback: discover the real photo CDN URL from the editorial photo page.
-    try:
-        html = http(f"https://unsplash.com/photos/{urllib.parse.quote(photo_id)}").decode("utf-8", errors="ignore")
-        for pattern in [
-            r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"',
-            r'<meta[^>]+content="([^"]+)"[^>]+property="og:image"',
-        ]:
-            found = re.search(pattern, html, flags=re.IGNORECASE)
-            if found:
-                url = found.group(1).replace("&amp;", "&")
-                if url.startswith("https://images.unsplash.com/"):
-                    candidate_urls.append(url)
-                break
-    except Exception:
-        pass
-
-    errors = []
-    for url in candidate_urls:
-        try:
-            blob = http(url)
-            image = Image.open(io.BytesIO(blob))
-            image.verify()
-            image = Image.open(io.BytesIO(blob)).convert("RGB")
-            if min(image.size) < 400 or max(image.size) < 1000:
-                raise ValueError(f"Source resolution too small: {image.size}")
-            if image.width / max(1, image.height) > 6:
-                raise ValueError("Image appears to be a thin banner, not a material photo")
-            return image, url
-        except Exception as exc:
-            errors.append(f"{url}: {exc}")
-    raise RuntimeError(" / ".join(errors))
+    # Pexels direct photographic CDN: tested on GitHub Actions without API keys.
+    # Never use Unsplash webpage scraping, which responded HTTP 401.
+    photo_id = str(int(photo_id))
+    url = (f"https://images.pexels.com/photos/{photo_id}/pexels-photo-{photo_id}.jpeg"
+           "?auto=compress&cs=tinysrgb&w=1800")
+    blob = http(url)
+    image = Image.open(io.BytesIO(blob))
+    image.verify()
+    image = Image.open(io.BytesIO(blob)).convert("RGB")
+    if min(image.size) < 400 or max(image.size) < 1000:
+        raise ValueError(f"Actual source resolution too small: {image.size}")
+    if image.width / max(1, image.height) > 6:
+        raise ValueError("Extreme banner ratio is unsuitable for material photography")
+    return image, url
 
 def main() -> None:
     raw = json.loads((DATA / "real-photo-sources.json").read_text(encoding="utf-8"))
@@ -98,10 +78,15 @@ def main() -> None:
     # First build all asset bytes before mutating any JSON to avoid mixed state.
     for n, item in enumerate(items, 1):
         provenance = item["provenance"]
-        if provenance["assetKind"] != "licensed-stock" or provenance["license"] != "Unsplash License":
+        if provenance["assetKind"] != "licensed-stock" or provenance["license"] != "Pexels License":
             raise AssertionError("Only reviewed genuine licensed stock photographs may be imported")
         if provenance["notOwnerProduct"] is not True or provenance["notInPortfolio"] is not True:
             raise AssertionError("Stock photos must not be claimed as INGLY customer products")
+        if not re.match(r"^https://www\.pexels\.com/photo/\d+/$", provenance["sourceUrl"]):
+            raise AssertionError(f"Unreviewed stock provenance for {item['id']}")
+        if not str(item["photoId"]).isdigit():
+            raise AssertionError(f"Invalid Pexels photo ID for {item['id']}")
+
         ent_id = item["entityId"]
         obj = (cat_by_id if item["entityType"] == "category" else mat_by_id).get(ent_id)
         if obj is None:
@@ -129,7 +114,7 @@ def main() -> None:
             "isDemo":True,
             "replaceable":True,
             "sourceUrl":item["provenance"]["sourceUrl"],
-            "licenseStatus":"Unsplash License",
+            "licenseStatus":"Pexels License",
             "altIT":item["altIT"],
             "altEN":item["altEN"],
             "photographer":item["provenance"]["photographer"],

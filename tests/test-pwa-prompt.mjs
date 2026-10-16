@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {JSDOM} from 'jsdom';
+const html=readFileSync('index.html','utf8'),css=readFileSync('assets/css/components.css','utf8');
+const d=new JSDOM(html).window.document;
+const bar=d.querySelector('#pwaBar');
+assert.ok(bar,'PWA prompt must exist');
+assert.ok(bar.hidden,'Initial PWA prompt must be hidden');
+assert.equal(bar.getAttribute('role'),'region','Accessible install region');
+assert.ok(bar.querySelector('#pwaInstall') && bar.querySelector('#pwaDismiss'));
+assert.equal(bar.querySelector('#pwaDismiss').getAttribute('aria-label'),'Chiudi proposta di installazione');
+assert.match(css,/\.pwa-install-bar\[hidden\]\s*\{\s*display:none\s*\}/,'Hidden PWA must defeat display flex');
+assert.match(css,/width:min\(510px,calc\(100vw - 28px\)\)/,'Compact desktop banner');
+assert.match(css,/@media\(max-width:480px\)/,'Safe mobile layout');
+assert.match(css,/prefers-reduced-motion:reduce/,'Respect reduced motion');
+console.log('✔ PWA install bar remains hidden before install event and is compact when shown');

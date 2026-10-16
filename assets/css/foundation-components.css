@@ -1,0 +1,49 @@
+/* Sprint 01 — shared component contracts; no duplicate product or admin logic.
+   Imported directly before the per-app brand-system integration layer.
+   Theme palette is owned ONLY by brand-system-2026.css / admin-brand-system.css. */
+:root[data-mode]{
+ --ui-bg:var(--brand-bg,var(--ab-bg));
+ --ui-surface:var(--brand-surface,var(--ab-surface));
+ --ui-raised:var(--brand-elevated,var(--ab-raised));
+ --ui-fg:var(--brand-ink,var(--ab-text));
+ --ui-muted:var(--brand-muted,var(--ab-muted));
+ --ui-stroke:var(--brand-border,var(--ab-border));
+ --ui-accent:var(--brand-gold,var(--ab-gold));
+ --ui-action-fg:var(--brand-action-ink,#15202d);
+ --ui-font:'Josefin Sans',system-ui,sans-serif;
+ --ui-radius-card:18px;--ui-radius-control:12px;
+ --ui-shadow:var(--brand-shadow,var(--ab-shadow));
+ --ui-touch:44px;
+}
+:root[data-mode] [data-component="site-header"],
+:root[data-mode] [data-component="admin-topbar"]{
+ color:var(--ui-fg);border-color:var(--ui-stroke);
+}
+:root[data-mode] [data-ui="cta"],:root[data-mode] [data-component="primary-cta"]{
+ display:inline-flex;align-items:center;justify-content:center;gap:9px;
+ min-height:var(--ui-touch);border-radius:var(--ui-radius-control);
+ font-family:var(--ui-font);font-weight:650;text-decoration:none;
+ transition:background-color .18s ease,border-color .18s ease,transform .18s ease;
+}
+:root[data-mode] [data-component="product-card"],
+:root[data-mode] [data-component="admin-card"]{
+ border-radius:var(--ui-radius-card);border-color:var(--ui-stroke);
+ min-width:0;
+}
+:root[data-mode] [data-component="site-dialog"],
+:root[data-mode] [data-component="admin-dialog"]{
+ color:var(--ui-fg);border-color:var(--ui-stroke);
+}
+:root[data-mode] [data-component="site-footer"]{
+ border-top:1px solid var(--ui-stroke);color:var(--ui-fg);
+}
+:root[data-mode] :is([data-ui="cta"],[data-component="primary-cta"],[data-component="product-card"],
+ [data-component="site-dialog"],[data-component="admin-dialog"],[data-component="site-header"]) :focus-visible{
+ outline:3px solid var(--ui-accent);outline-offset:3px;
+}
+@media(hover:hover){
+ :root[data-mode] [data-ui="cta"]:hover{transform:translateY(-1px)}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] [data-ui="cta"],:root[data-mode] [data-component="primary-cta"]{transition:none;transform:none}
+}

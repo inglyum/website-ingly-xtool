@@ -2,7 +2,8 @@
    Strategia:
    - CSS / JS → Network-first con fallback cache (il deploy deve SEMPRE arrivare)
    - JSON data → Network-first con fallback cache (dati freschi ogni volta)
-   - Immagini / font → Cache-first (contenuto immutabile, si può cachare a lungo)
+   - Foto prodotto e asset grafici modificabili → Network-first con fallback offline
+   - Altre immagini/font immutabili → Cache-first
    - HTML / navigazione → Network-first con fallback offline page
    Offline page: mostrata solo se non si può caricare nessuna risorsa HTML.
 
@@ -29,7 +30,7 @@
 const BASE = new URL('./', self.location).pathname;
 const via  = p => BASE + String(p).replace(/^\/+/, '');
 
-const CACHE_VER   = 'ingly-v14';
+const CACHE_VER   = 'ingly-v15';
 const CACHE_ASSETS= CACHE_VER + '-assets';
 const CACHE_DATA  = CACHE_VER + '-data';
 const CACHE_IMG   = CACHE_VER + '-img';
@@ -116,9 +117,15 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  /* Immagini → Cache-first (30gg) */
+  /* Media assegnati dall'Admin e asset del brand mantengono lo stesso URL
+     dopo la pubblicazione. Cache-first li rende obsoleti indefinitamente,
+     persino quando il nuovo logo SVG è già online. */
   if(/\.(webp|jpg|jpeg|png|svg|gif|ico)$/i.test(url.pathname)){
-    e.respondWith(cacheFirst(e.request, CACHE_IMG));
+    const mutableMedia=url.pathname.startsWith(via('img/')) ||
+      url.pathname.startsWith(via('assets/images/'));
+    e.respondWith(mutableMedia
+      ? networkFirst(e.request,CACHE_IMG,4000)
+      : cacheFirst(e.request,CACHE_IMG));
     return;
   }
 

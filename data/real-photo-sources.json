@@ -1,0 +1,1006 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedFor": "INGLY DESIGN",
+  "principles": "Medusa-inspired ProductImage/ProductCategory relation, ordering and metadata, without deploying a Medusa backend",
+  "createdOn": "2026-10-16",
+  "ownerWork": false,
+  "sourceLicense": "https://unsplash.com/license",
+  "rules": [
+    "Images describe themes, not owned INGLY-made products",
+    "No stock image enters portfolio or claims real customer work",
+    "Keep original photographer/source metadata and alt descriptions",
+    "Admin may replace images by category/material ID"
+  ],
+  "items": [
+    {
+      "id": "category:casa",
+      "entityType": "category",
+      "entityId": "casa",
+      "position": 0,
+      "handle": "casa",
+      "media": {
+        "src": "img/cat-casa.webp",
+        "srcset": [
+          {
+            "path": "img/cat-casa-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-casa-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-casa.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/Ghxq6VXEgOM",
+        "photographer": "Hemanth Nirujogi",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Vaso in vetro su tavolo di legno, ambientazione casa. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for casa. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "Ghxq6VXEgOM"
+    },
+    {
+      "id": "category:eventi",
+      "entityType": "category",
+      "entityId": "eventi",
+      "position": 0,
+      "handle": "eventi",
+      "media": {
+        "src": "img/cat-eventi.webp",
+        "srcset": [
+          {
+            "path": "img/cat-eventi-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-eventi-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-eventi.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/WIO1q3FJMpE",
+        "photographer": "Katie Puzatova",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Segnaposto e composizione floreale per un evento. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for eventi. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "WIO1q3FJMpE"
+    },
+    {
+      "id": "category:animali",
+      "entityType": "category",
+      "entityId": "animali",
+      "position": 0,
+      "handle": "animali",
+      "media": {
+        "src": "img/cat-animali.webp",
+        "srcset": [
+          {
+            "path": "img/cat-animali-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-animali-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-animali.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/DOjV44G_1oI",
+        "photographer": "Lesli Whitecotton",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Cane con targhetta identificativa sul collare. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for animali. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "DOjV44G_1oI"
+    },
+    {
+      "id": "category:accessori",
+      "entityType": "category",
+      "entityId": "accessori",
+      "position": 0,
+      "handle": "accessori",
+      "media": {
+        "src": "img/cat-accessori.webp",
+        "srcset": [
+          {
+            "path": "img/cat-accessori-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-accessori-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-accessori.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/47h4o-KNVpk",
+        "photographer": "Валентина Вехкалахти",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Orecchini intagliati a laser nel legno, esempio accessori. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for accessori. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "47h4o-KNVpk"
+    },
+    {
+      "id": "category:b2b",
+      "entityType": "category",
+      "entityId": "b2b",
+      "position": 0,
+      "handle": "b2b",
+      "media": {
+        "src": "img/cat-b2b.webp",
+        "srcset": [
+          {
+            "path": "img/cat-b2b-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-b2b-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-b2b.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/6CBSpQHAdso",
+        "photographer": "Samantha Fields",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Taglieri in legno presentati come omaggi aziendali. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for b2b. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "6CBSpQHAdso"
+    },
+    {
+      "id": "category:bambini",
+      "entityType": "category",
+      "entityId": "bambini",
+      "position": 0,
+      "handle": "bambini",
+      "media": {
+        "src": "img/cat-bambini.webp",
+        "srcset": [
+          {
+            "path": "img/cat-bambini-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-bambini-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-bambini.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/Ukp07LmMi-k",
+        "photographer": "Jason Leung",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Giocattoli in legno e libri per bambini. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for bambini. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "Ukp07LmMi-k"
+    },
+    {
+      "id": "category:stagionale",
+      "entityType": "category",
+      "entityId": "stagionale",
+      "position": 0,
+      "handle": "stagionale",
+      "media": {
+        "src": "img/cat-stagionale.webp",
+        "srcset": [
+          {
+            "path": "img/cat-stagionale-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-stagionale-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-stagionale.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/aL8TuG0-gOk",
+        "photographer": "Markus Spiske",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Decorazione natalizia artigianale in legno. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for stagionale. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "aL8TuG0-gOk"
+    },
+    {
+      "id": "category:digitale",
+      "entityType": "category",
+      "entityId": "digitale",
+      "position": 0,
+      "handle": "digitale",
+      "media": {
+        "src": "img/cat-digitale.webp",
+        "srcset": [
+          {
+            "path": "img/cat-digitale-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-digitale-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-digitale.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/K8LBiiWuoA8",
+        "photographer": "Rodrigo Rodrigues",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Postazione di progettazione digitale con laptop. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for digitale. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "K8LBiiWuoA8"
+    },
+    {
+      "id": "category:custom",
+      "entityType": "category",
+      "entityId": "custom",
+      "position": 0,
+      "handle": "custom",
+      "media": {
+        "src": "img/cat-custom.webp",
+        "srcset": [
+          {
+            "path": "img/cat-custom-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-custom-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-custom.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/ZgmkmQp62P0",
+        "photographer": "Josh Davies",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Componenti in legno lavorati tramite taglio laser. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for custom. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "ZgmkmQp62P0"
+    },
+    {
+      "id": "category:materiali",
+      "entityType": "category",
+      "entityId": "materiali",
+      "position": 0,
+      "handle": "materiali",
+      "media": {
+        "src": "img/cat-materiali.webp",
+        "srcset": [
+          {
+            "path": "img/cat-materiali-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-materiali-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-materiali.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/HsDS3_lGINY",
+        "photographer": "Kelly Sikkema",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Campioni di materiali in pelle con finiture metalliche. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for materiali. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "HsDS3_lGINY"
+    },
+    {
+      "id": "category:tecnologie",
+      "entityType": "category",
+      "entityId": "tecnologie",
+      "position": 0,
+      "handle": "tecnologie",
+      "media": {
+        "src": "img/cat-tecnologie.webp",
+        "srcset": [
+          {
+            "path": "img/cat-tecnologie-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-tecnologie-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-tecnologie.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/9dXGUQbtGoM",
+        "photographer": "Zoshua Colah",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Macchina laser al lavoro su un materiale in laboratorio. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for tecnologie. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "9dXGUQbtGoM"
+    },
+    {
+      "id": "category:limited",
+      "entityType": "category",
+      "entityId": "limited",
+      "position": 0,
+      "handle": "limited",
+      "media": {
+        "src": "img/cat-limited.webp",
+        "srcset": [
+          {
+            "path": "img/cat-limited-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-limited-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-limited.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/Q_6BS8IN0J8",
+        "photographer": "Nikhil Mitra",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Oggetto decorativo artigianale in legno dal design speciale. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for limited. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "Q_6BS8IN0J8"
+    },
+    {
+      "id": "category:nuova-ms3k34dc",
+      "entityType": "category",
+      "entityId": "nuova-ms3k34dc",
+      "position": 0,
+      "handle": "nuova-ms3k34dc",
+      "media": {
+        "src": "img/cat-nuova-ms3k34dc.webp",
+        "srcset": [
+          {
+            "path": "img/cat-nuova-ms3k34dc-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/cat-nuova-ms3k34dc-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/cat-nuova-ms3k34dc.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/Y0vVE0j_KYM",
+        "photographer": "Grant Durr",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Modello meccanico giocattolo in legno originale, senza personaggi concessi. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for nuova-ms3k34dc. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "Y0vVE0j_KYM"
+    },
+    {
+      "id": "material:legno",
+      "entityType": "material",
+      "entityId": "legno",
+      "position": 0,
+      "handle": "legno",
+      "media": {
+        "src": "img/material-legno.webp",
+        "srcset": [
+          {
+            "path": "img/material-legno-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-legno-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-legno.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/JH_R66BihvA",
+        "photographer": "simon",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Venature naturali di tavole in legno di quercia. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for legno. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "JH_R66BihvA"
+    },
+    {
+      "id": "material:plexiglass",
+      "entityType": "material",
+      "entityId": "plexiglass",
+      "position": 0,
+      "handle": "plexiglass",
+      "media": {
+        "src": "img/material-plexiglass.webp",
+        "srcset": [
+          {
+            "path": "img/material-plexiglass-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-plexiglass-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-plexiglass.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/p3FBqTpDh-A",
+        "photographer": "Declan Sun",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Insegne realizzate con lastre trasparenti e colorate di acrilico. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for plexiglass. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "p3FBqTpDh-A"
+    },
+    {
+      "id": "material:metallo",
+      "entityType": "material",
+      "entityId": "metallo",
+      "position": 0,
+      "handle": "metallo",
+      "media": {
+        "src": "img/material-metallo.webp",
+        "srcset": [
+          {
+            "path": "img/material-metallo-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-metallo-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-metallo.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/AFKX0ei32lA",
+        "photographer": "remapstudio",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Superficie metallica reale con micrograffi e texture. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for metallo. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "AFKX0ei32lA"
+    },
+    {
+      "id": "material:pelle",
+      "entityType": "material",
+      "entityId": "pelle",
+      "position": 0,
+      "handle": "pelle",
+      "media": {
+        "src": "img/material-pelle.webp",
+        "srcset": [
+          {
+            "path": "img/material-pelle-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-pelle-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-pelle.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/xJkTCbtuqAY",
+        "photographer": "Felipe Santana",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Superficie in pelle marrone, campione materico. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for pelle. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "xJkTCbtuqAY"
+    },
+    {
+      "id": "material:vetro",
+      "entityType": "material",
+      "entityId": "vetro",
+      "position": 0,
+      "handle": "vetro",
+      "media": {
+        "src": "img/material-vetro.webp",
+        "srcset": [
+          {
+            "path": "img/material-vetro-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-vetro-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-vetro.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/caLZjNiAHrU",
+        "photographer": "chang min",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Vaso in vetro trasparente su sfondo luminoso. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for vetro. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "caLZjNiAHrU"
+    },
+    {
+      "id": "material:bamboo",
+      "entityType": "material",
+      "entityId": "bamboo",
+      "position": 0,
+      "handle": "bamboo",
+      "media": {
+        "src": "img/material-bamboo.webp",
+        "srcset": [
+          {
+            "path": "img/material-bamboo-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-bamboo-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-bamboo.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/NvveAH5HlDk",
+        "photographer": "Domina Petric",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Dettaglio di superficie in bambù naturale. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for bamboo. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "NvveAH5HlDk"
+    },
+    {
+      "id": "material:mdf",
+      "entityType": "material",
+      "entityId": "mdf",
+      "position": 0,
+      "handle": "mdf",
+      "media": {
+        "src": "img/material-mdf.webp",
+        "srcset": [
+          {
+            "path": "img/material-mdf-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-mdf-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-mdf.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/F6cL5B7Gnz8",
+        "photographer": "LUCIA LU",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Pannelli di legno compensato impilati. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for mdf. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "F6cL5B7Gnz8"
+    },
+    {
+      "id": "material:pla",
+      "entityType": "material",
+      "entityId": "pla",
+      "position": 0,
+      "handle": "pla",
+      "media": {
+        "src": "img/material-pla.webp",
+        "srcset": [
+          {
+            "path": "img/material-pla-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-pla-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-pla.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/MzLDrWp3NYc",
+        "photographer": "Jakub Żerdzicki",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Bobine colorate di filamento per stampa 3D. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for pla. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "MzLDrWp3NYc"
+    },
+    {
+      "id": "material:tessuto",
+      "entityType": "material",
+      "entityId": "tessuto",
+      "position": 0,
+      "handle": "tessuto",
+      "media": {
+        "src": "img/material-tessuto.webp",
+        "srcset": [
+          {
+            "path": "img/material-tessuto-400.webp",
+            "width": 400
+          },
+          {
+            "path": "img/material-tessuto-800.webp",
+            "width": 800
+          },
+          {
+            "path": "img/material-tessuto.webp",
+            "width": 1200
+          }
+        ],
+        "width": 1200,
+        "height": 800,
+        "fit": "cover",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "provenance": {
+        "assetKind": "licensed-stock",
+        "isDemo": true,
+        "replaceable": true,
+        "sourceUrl": "https://unsplash.com/photos/xTaOPMa6wAE",
+        "photographer": "Annie Spratt",
+        "license": "Unsplash License",
+        "notInPortfolio": true,
+        "notOwnerProduct": true,
+        "verifiedSource": "2026-10-16"
+      },
+      "altIT": "Texture autentica di lino beige naturale. Fotografia di repertorio, non un prodotto realizzato da INGLY DESIGN.",
+      "altEN": "Real reference photograph for tessuto. Stock photo, not an INGLY DESIGN product.",
+      "photoId": "xTaOPMa6wAE"
+    }
+  ]
+}

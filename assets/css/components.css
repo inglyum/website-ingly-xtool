@@ -1027,10 +1027,35 @@ body{background-color:var(--paper)}
 .ref-code{background:var(--bg-deep);border:1px dashed var(--line);border-radius:8px;padding:5px 14px;font-family:var(--fd);font-size:15px;font-weight:700;letter-spacing:.08em;color:var(--accent)}
 .ref-copy{font-size:12.5px!important;padding:5px 12px!important}
 
-/* ===== PWA INSTALL BAR ===== */
-.pwa-install-bar{position:fixed;bottom:0;left:0;right:0;z-index:9500;background:var(--bg-card);border-top:1px solid var(--line);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 24px rgba(0,0,0,.3);animation:slideUp .35s ease}
-.pwa-btns{display:flex;gap:8px;flex-shrink:0}
-@media(max-width:480px){.pwa-install-bar{flex-direction:column;text-align:center}}
+/* ===== PWA INSTALL BAR — visible only when the browser offers installation ===== */
+.pwa-install-bar{
+ position:fixed;z-index:9500;
+ bottom:max(14px,env(safe-area-inset-bottom));
+ right:max(14px,env(safe-area-inset-right));left:auto;
+ width:min(510px,calc(100vw - 28px));max-width:100%;
+ display:flex;align-items:center;justify-content:space-between;gap:16px;
+ padding:16px 18px;box-sizing:border-box;
+ background:var(--brand-surface,var(--bg-card));color:var(--brand-ink,var(--ink));
+ border:1px solid var(--brand-border,var(--line));border-radius:18px;
+ box-shadow:var(--brand-shadow,0 8px 30px rgba(0,0,0,.24));
+ animation:slideUp .35s ease;
+}
+/* Stronger specificity than .pwa-install-bar; do not show a hidden control. */
+.pwa-install-bar[hidden]{display:none}
+.pwa-install-copy{margin:0;flex:1;min-width:0;font-size:clamp(13px,1.3vw,15px);
+ line-height:1.4;font-weight:650}
+.pwa-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pwa-install-bar .pwa-btns button{min-height:44px;min-width:44px;flex-shrink:0}
+.pwa-install-bar .pwa-btns button:focus-visible{
+ outline:3px solid var(--brand-gold,var(--accent));outline-offset:3px;
+}
+@media(max-width:480px){
+ .pwa-install-bar{left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));
+ width:calc(100vw - 24px);gap:10px;padding:12px 14px}
+ .pwa-install-copy{font-size:13px;line-height:1.35}
+ .pwa-install-bar .pwa-btns button{padding-inline:10px}
+}
+@media(prefers-reduced-motion:reduce){.pwa-install-bar{animation:none;transition:none}}
 
 /* ===== FOMO TOAST ===== */
 .fomo-toast{position:fixed;bottom:90px;left:20px;z-index:9400;background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.35);font-size:13.5px;max-width:320px;transform:translateX(-360px);transition:transform .45s cubic-bezier(.2,.7,.3,1),opacity .45s}

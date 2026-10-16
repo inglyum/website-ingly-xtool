@@ -21,6 +21,7 @@ assert.equal(checkRestoreSnapshot(files,complete.slice(1)).ok,false);
 assert.equal(checkRestoreSnapshot([...files.slice(0,-1),files[0]],complete).ok,false);
 const html=readFileSync('admin.html','utf8');
 assert.match(html,/Promise\.allSettled\(FILES\.map\(/,'Fetch all files without swallowing errors');
+assert.match(html,/Object\.assign\(\{\},opt\|\|\{\},\{headers:ghH\(\(opt\|\|\{\}\)\.headers\)\}\)/,'Custom raw Accept must not overwrite Bearer token');
 assert.match(html,/if\(!verified\.ok\)/,'Abort before changing Admin state');
 assert.match(html,/if\(MEDIA\.length\|\|DELETES\.length\)/,'Do not risk staged image operations');
 assert.match(html,/S\[KEY\[f\]\]=oldData\[f\]/,'Recover old state if normalization fails');

@@ -1,5 +1,11 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
 
+## Sprint 03 — Asset xTool premium con logo autentico
+- Tessera xTool Service Centre con sfondo tecnico verde/blu e tracciati INGLY originali, I inclusa.
+- Asset e CSS confinati alla sezione Macchine, con percorso nuovo e controllo regressioni vettoriali.
+- Nessun dato commerciale o Admin alterato. Servizi e autorizzazioni da verificare separatamente.
+
+
 ## Sprint 03 — Dashboard affidabile e Media Provenance · 16 ottobre 2026
 
 - Dashboard Admin: la card **Azioni rapide** ora si aggiorna senza duplicarsi a ogni ritorno sulla Home del pannello.

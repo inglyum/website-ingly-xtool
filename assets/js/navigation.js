@@ -6,6 +6,7 @@ import { F, renderRV, renderChips, renderShop, currentProduct } from './products
 import { updateSeo } from './seo.js';
 import { L, T } from './utils.js';
 import { openFocusLayer, closeFocusLayer } from './accessibility.js';
+import { routeClickTarget } from './navigation-link-policy.js';
 
 /* L'elenco delle rotte non vive più qui: vive in rotte.js, e `404.html` lo
    riceve dal build. Erano due copie, e la seconda era rimasta indietro di
@@ -131,7 +132,7 @@ export function go(page,search){
   /* gli indirizzi nascono sempre sotto la base: in produzione "/shop",
      in un'anteprima su GitHub Pages "/Il-sito-AI/shop" */
   const mId=page==='product'&&/^id=(\d+)$/.exec(search||'');
-  const url=mId ? BASE+'product/'+mId[1]+'/' : BASE+page+(search?'?'+search:'');
+  const url=mId ? BASE+'product/'+mId[1]+'/' : BASE+(page==='home'?'':page)+(search?'?'+search:'');
   if(relPath().split('?')[0]===page&&!search){show(page);return;}
   history.pushState({page,search:search||null},'',(url));
   show(page);
@@ -157,47 +158,42 @@ export function toggleMenu(open,{restoreFocus=true}={}){
 }
 
 export function initNav(){
-  /* Gestisci pulsanti Avanti/Indietro del browser */
+  /* Cronologia, inclusa la navigazione su schede profonde. */
   addEventListener('popstate',()=>show(currentPage()));
 
-  /* Intercetta tutti i click su <a href="/..."> interni per usare pushState */
   document.addEventListener('click',e=>{
     const a=e.target.closest('a[href]');
-    if(!a)return;
-    const href=a.getAttribute('href');
-    if(!href||href.startsWith('http')||href.startsWith('mailto')||href.startsWith('tel')||href.startsWith('wa.'))return;
-    const clean=href.replace(/^#\//,'/').replace(/^#/,'/');
-    /* Un collegamento scritto sotto la base ("/Il-sito-AI/materiali/legno")
-       va letto togliendo la base, altrimenti il primo segmento è il nome del
-       repository e nessuna rotta corrisponde: il clic sfugge all'intercettore
-       e ricarica tutto il sito. Succedeva ovunque il sito non stia nella
-       radice del dominio, cioè in ogni anteprima su GitHub Pages. */
-    const senzaBase = (BASE !== '/' && clean.startsWith(BASE)) ? clean.slice(BASE.length) : clean;
-    const percorso=senzaBase.replace(/^\/+/,'').split('?')[0]||'home';
-    /* /business/ristoranti è una pagina di settore e resta dentro la sezione
-       Business. Senza questo ramo il collegamento ricarica tutto il sito da
-       capo: funziona — il file statico esiste — ma è un secondo di attesa e
-       uno sfarfallio per niente. */
-    const seg=percorso.split('/');
-    /* Le schede del Lab si comportano come i settori Business: restano
-       dentro la loro sezione invece di ricaricare tutto il sito. */
-    if(['materiali','tecnologie','macchine','academy'].includes(seg[0]) && seg[1] && /^[a-z0-9-]+$/.test(seg[1])){
-      e.preventDefault();
-      const dest=BASE+seg[0]+'/'+seg[1];
-      if(location.pathname.replace(/\/$/,'')!==dest.replace(/\/$/,'')) history.pushState({page:seg[0]},'',dest);
-      show(seg[0]);
-      return;
-    }
-    if(seg[0]==='business' && seg[1] && /^[a-z0-9-]+$/.test(seg[1])){
-      e.preventDefault();
-      const dest=BASE+seg[0]+'/'+seg[1];
-      if(location.pathname.replace(/\/$/,'')!==dest.replace(/\/$/,'')) history.pushState({page:'business'},'',dest);
-      show('business');
-      return;
-    }
+    const target=routeClickTarget(e,a,{
+      base:BASE,baseURI:document.baseURI,origin:location.origin
+    });
+    if(!target)return;
+    const seg=target.segments;
     const page=seg[0]||'home';
-    if(!PAGES.includes(page))return;
+
+    /* I prodotti prerenderizzati hanno URL /product/7/ — non perdere l'ID
+       convertendoli in /product senza query. */
+    if(page==='product'&&seg[1]&&/^\d+$/.test(seg[1])&&seg.length===2){
+      e.preventDefault();
+      go('product','id='+seg[1]);
+      return;
+    }
+
+    /* Sottopagine materiali, macchine e settori B2B: mantenere la route
+       originale per cronologia, condivisione e aggiornamento del contenuto. */
+    const scheda=['materiali','tecnologie','macchine','academy'].includes(page)||
+      page==='business';
+    if(scheda&&seg.length===2&&/^[a-z0-9-]+$/.test(seg[1])){
+      e.preventDefault();
+      const dest=target.path+(target.query?'?'+target.query:'');
+      if(location.pathname+location.search!==dest)
+        history.pushState({page},'',dest);
+      show(page);
+      return;
+    }
+
+    /* Nessun routing per path non riconosciuti: la navigazione resta nativa. */
+    if(seg.length>1||!PAGES.includes(page))return;
     e.preventDefault();
-    go(page,clean.includes('?')?clean.split('?')[1]:null);
+    go(page,target.query||null);
   },true);
 }

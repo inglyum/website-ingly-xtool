@@ -47,6 +47,15 @@ let legato = false;
    poterla annullare, altrimenti si naviga e il pannello si apre lo stesso
    sopra la pagina appena aperta. */
 let attesa = null;
+/* A closing panel can be reopened before its transition timeout fires. */
+const pendingPanelClose=new WeakMap();
+function cancelPanelClose(panel){
+  const job=pendingPanelClose.get(panel);
+  if(!job)return;
+  clearTimeout(job.timer);
+  panel.removeEventListener('transitionend',job.finish);
+  pendingPanelClose.delete(panel);
+}
 
 export function initNavIA(D, L = 'it') {
   const barra = $('iaBarra');
@@ -147,13 +156,14 @@ function apri(fam, trigger) {
   chiudi({ fuoco: false });
   const pan = $('ia-pan-' + fam);
   if (!pan) return;
+  cancelPanelClose(pan);
   pan.hidden = false;
+  aperto = fam;
   /* Un fotogramma prima di animare: senza, il browser salta la transizione
      perché l'elemento è appena uscito da display:none. */
-  requestAnimationFrame(() => pan.classList.add('aperto'));
+  requestAnimationFrame(() => { if(aperto===fam && !pan.hidden)pan.classList.add('aperto'); });
   (trigger.closest('.ia-gruppo')?.querySelector('.ia-freccia') || trigger).setAttribute('aria-expanded', 'true');
   document.querySelector('.ia-velo')?.classList.add('on');
-  aperto = fam;
   ultimoTrigger = trigger;
 }
 
@@ -161,10 +171,20 @@ export function chiudi({ fuoco = true } = {}) {
   if (!aperto) return;
   const pan = $('ia-pan-' + aperto);
   if (pan) {
+    cancelPanelClose(pan);
     pan.classList.remove('aperto');
-    const via = () => { pan.hidden = true; pan.removeEventListener('transitionend', via); };
-    pan.addEventListener('transitionend', via);
-    setTimeout(via, 500);            /* se la transizione non parte, nascondi comunque */
+    const finish = event => {
+      if(event && event.target!==pan)return; // Ignore child animations.
+      const job=pendingPanelClose.get(pan);
+      if(!job || job.finish!==finish)return;
+      clearTimeout(job.timer);
+      pan.removeEventListener('transitionend',finish);
+      pendingPanelClose.delete(pan);
+      pan.hidden=true;
+    };
+    pan.addEventListener('transitionend',finish);
+    const timer=setTimeout(()=>finish(),500); // Safety if transitions are disabled.
+    pendingPanelClose.set(pan,{timer,finish});
   }
   document.querySelector(`.ia-freccia[data-apri="${aperto}"]`)?.setAttribute('aria-expanded', 'false');
   document.querySelector('.ia-velo')?.classList.remove('on');

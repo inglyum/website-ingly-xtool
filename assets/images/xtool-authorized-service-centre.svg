@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520" role="img" aria-labelledby="t d"><title id="t">xTool Authorized Service Centre</title><desc id="d">Badge informativo dedicato al servizio autorizzato xTool, realizzato da INGLY DESIGN sulla base del materiale fornito.</desc><defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#04e714"/><stop offset="1" stop-color="#00b915"/></linearGradient><linearGradient id="b" x2="1"><stop stop-color="#43c8c8"/><stop offset="1" stop-color="#4981c9"/></linearGradient></defs><rect width="820" height="520" rx="35" fill="#f5f8f6"/><rect x="260" y="32" width="300" height="300" rx="72" fill="url(#g)"/><g fill="#153d24"><path d="M322 122h62l73 77-25 28zM496 122h65l-96 105 96 94h-65l-66-64-62 64h-65l153-167z"/></g><text x="410" y="296" text-anchor="middle" font-size="45" letter-spacing="9" font-family="Arial,sans-serif" font-weight="bold" fill="#153d24">XTOOL</text><text x="410" y="399" text-anchor="middle" font-size="39" font-family="Arial,sans-serif" font-weight="700" fill="url(#b)">Authorized Service Centre</text><text x="410" y="442" text-anchor="middle" font-size="19" letter-spacing="6" font-family="Arial,sans-serif" fill="#395c64">INGLY DESIGN</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="520" viewBox="0 0 820 520" role="img" aria-labelledby="t d">
+<title id="t">xTool Authorized Service Centre — INGLY DESIGN</title>
+<desc id="d">Tessera informativa xTool Squad fornita da INGLY DESIGN. Emblema verde xTool, titolo Authorized Service Centre e firma INGLY DESIGN, con gerarchia accessibile e senza sovrapposizioni.</desc>
+<defs>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#05dd18"/><stop offset="1" stop-color="#00be13"/></linearGradient>
+ <linearGradient id="aqua" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#18bfc7"/><stop offset="1" stop-color="#407bca"/></linearGradient>
+</defs>
+<rect width="820" height="520" rx="36" fill="#fbfcfd"/>
+<rect x="18" y="18" width="784" height="484" rx="28" fill="none" stroke="#dbe7e2" stroke-width="2"/>
+<rect x="326" y="39" width="168" height="168" rx="40" fill="url(#green)"/>
+<!-- Simple stand-alone X emblem. No embedded/overprinted microtext. -->
+<path d="M365 91H400L416 112L434 91H466L434 127L467 164H433L415 145L398 164H364L397 126Z" fill="#153a27"/>
+<text x="410" y="252" fill="#172b36" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" letter-spacing=".7">xTool</text>
+<path d="M285 274H535" stroke="#dce7e5" stroke-width="2"/>
+<text x="410" y="326" fill="#172b36" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700">Authorized Service Centre</text>
+<rect x="204" y="355" width="412" height="4" rx="2" fill="url(#aqua)"/>
+<text x="410" y="401" fill="#223949" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" letter-spacing="5.5">INGLY DESIGN</text>
+<text x="410" y="457" fill="#516879" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="600" letter-spacing="2">XTOOL SQUAD · INGLY DESIGN</text>
+</svg>

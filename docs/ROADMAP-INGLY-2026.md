@@ -3,6 +3,16 @@ Data audit: 15 ottobre 2026
 Base: branch main + hotfix \`fix/brand-header-machine-20261015\`.
 Obiettivo: un e-commerce premium credibile, realmente usabile su smartphone e amministrabile senza confondere immagini decorative, prodotti fisici, download e servizi.
 
+## Sprint 01 — Foundation & Navigation (16 ottobre 2026)
+Stato iniziale verificato: `main` `4c7c2b32a1b6`. La PR #60 è già integrata, così come #61 e #62; non riaprire questa attività.
+
+### Workstream P0: routing e comportamento del browser
+- Link con Ctrl/Cmd/Shift/Alt, tab separata, download, anchor e destinazione esterna: mantenere comportamento nativo.
+- Home: non creare percorsi /home non pubblicati; puntare alla radice di GitHub Pages.
+- Schede prodotto /product/ID/: mantenere ID, query e cronologia.
+- Test di regressione eseguiti dalla suite CI `test-navigation-policy.mjs`.
+- Collaudo browser mobile, screenshot e test assistivi reali necessari prima dell'approvazione finale.
+
 ## Stato verificato 16 ottobre 2026 — INGLY DESIGN
 
 > Questa roadmap separa **completato**, **strumentato ma ancora da bonificare** e **dipendente da input reali**. Un test automatico verde non è una certificazione WCAG né la prova di un checkout con pagamenti online.

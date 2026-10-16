@@ -8,7 +8,7 @@ const index=read('index.html');
 assert.match(nav,/--ingly-surface:var\(--brand-surface/,'Legacy nav background must reference central palette');
 assert.match(nav,/--ingly-gold:var\(--brand-gold/,'No detached gold palette');
 assert.match(brand,/:root\[data-mode\] \.ia-pannello\s*\{\s*background:var\(--brand-surface\)!important;/,
-  'The mega-panel must use approved surface in both modes');
+  'The mega-panel must outrank legacy high-specificity glass rules in both modes');
 assert.match(brand,/:root\[data-mode\] \.ia-pannello \.ia-lista a,/,
   'Menu link foreground needs theme-safe override');
 assert.match(brand,/:root\[data-mode\] \.ia-pannello \.ia-col-tit,/,

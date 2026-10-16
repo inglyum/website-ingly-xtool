@@ -493,32 +493,32 @@
 /* Sprint 01 — Single themed navigation surface.
    Legacy pages.css and nav-ia.css contain fixed dark/light overrides.
    The final brand stylesheet owns the visible mega menu in both modes. */
-:root[data-mode] .ia-pannello {
+:root[data-mode] #nav .ia-pannello {
   background:var(--brand-surface)!important;
   color:var(--brand-ink)!important;
   border-color:var(--brand-border)!important;
   box-shadow:var(--brand-shadow)!important;
 }
-:root[data-mode] .ia-pannello .ia-lista a,
-:root[data-mode] .ia-pannello .ia-ev-tit {
+:root[data-mode] #nav .ia-pannello .ia-lista a,
+:root[data-mode] #nav .ia-pannello .ia-ev-tit {
   color:var(--brand-ink)!important;
 }
-:root[data-mode] .ia-pannello .ia-col-tit,
-:root[data-mode] .ia-pannello .ia-ev-testo {
+:root[data-mode] #nav .ia-pannello .ia-col-tit,
+:root[data-mode] #nav .ia-pannello .ia-ev-testo {
   color:var(--brand-muted)!important;
   opacity:1;
 }
-:root[data-mode] .ia-pannello .ia-evidenza {
+:root[data-mode] #nav .ia-pannello .ia-evidenza {
   background:var(--brand-elevated)!important;
   border-color:var(--brand-border)!important;
 }
-:root[data-mode] .ia-pannello .ia-tutto,
-:root[data-mode] .ia-pannello .ia-ev-occhiello,
-:root[data-mode] .ia-pannello .ia-ev-cta {
+:root[data-mode] #nav .ia-pannello .ia-tutto,
+:root[data-mode] #nav .ia-pannello .ia-ev-occhiello,
+:root[data-mode] #nav .ia-pannello .ia-ev-cta {
   color:var(--brand-gold)!important;
 }
-:root[data-mode] .ia-pannello .ia-lista a:hover,
-:root[data-mode] .ia-pannello .ia-lista a:focus-visible {
+:root[data-mode] #nav .ia-pannello .ia-lista a:hover,
+:root[data-mode] #nav .ia-pannello .ia-lista a:focus-visible {
   color:var(--brand-gold-hi)!important;
   background:var(--brand-halo)!important;
 }

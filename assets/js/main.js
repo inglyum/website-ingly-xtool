@@ -106,6 +106,10 @@ const STATIC_UI_TRANSLATIONS={
     it:'Per richieste di assistenza o riparazione, la disponibilità e la tipologia di intervento vengono confermate caso per caso.',
     en:'For service or repair requests, availability and the type of assistance are confirmed individually.'
   },
+  serviceBadgeCaption:{
+    it:'INGLY DESIGN · Supporto tecnico, informazioni e demo su richiesta',
+    en:'INGLY DESIGN · Technical support, information and demos on request'
+  },
   serviceContact:{it:'Contatta il Service Centre',en:'Contact the Service Centre'},
   bookDemo:{it:'Prenota una demo xTool',en:'Book an xTool demo'},
   shopPathsEyebrow:{it:'SCOPRI IL MONDO INGLY',en:'EXPLORE INGLY'},

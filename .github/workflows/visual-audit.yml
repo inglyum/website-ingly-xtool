@@ -22,6 +22,9 @@ on:
       - 'tests/a11y-keyboard.mjs'
       - 'tests/contrast-audit.mjs'
       - 'tests/axe-audit.mjs'
+      - 'tests/sprint-01-journeys.mjs'
+      - 'tests/sprint-01-compare.mjs'
+      - 'scripts/audit-foundation-css.mjs'
       - '.github/workflows/visual-audit.yml'
 permissions:
   contents: read
@@ -31,6 +34,11 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout main baseline for screenshot comparisons
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: sprint-01-baseline
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -40,6 +48,8 @@ jobs:
         run: |
           npm run build
           node scripts/prerender.mjs
+      - name: Inventory CSS selectors and potential collisions
+        run: node scripts/audit-foundation-css.mjs
       - name: Install browser automation for QA
         run: |
           npm install --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.10.3
@@ -54,6 +64,16 @@ jobs:
           done
           cat /tmp/ingly-dev-server.log
           exit 1
+      - name: Start main baseline server
+        run: |
+          (cd sprint-01-baseline && node scripts/dev-server.mjs 8081 > /tmp/ingly-main-baseline.log 2>&1) &
+          echo $! > /tmp/ingly-main-baseline.pid
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8081/ > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/ingly-main-baseline.log
+          exit 1
       - name: Chromium responsive audit — fail on geometric regressions
         env:
           INGLY_VISUAL_STRICT: '1'
@@ -64,6 +84,11 @@ jobs:
         run: node tests/contrast-audit.mjs
       - name: WCAG axe-core 20-case light/dark audit (baseline report)
         run: node tests/axe-audit.mjs
+      - name: Sprint 01 — four journeys in two themes and widths
+        run: node tests/sprint-01-journeys.mjs
+      - name: Sprint 01 — comparison screenshots with main baseline
+        if: always()
+        run: node tests/sprint-01-compare.mjs
       - name: Upload screenshot evidence and JSON report
         if: always()
         uses: actions/upload-artifact@v4
@@ -73,9 +98,13 @@ jobs:
             artifacts/visual-audit/
             artifacts/contrast-audit/
             artifacts/axe-audit/
+            artifacts/foundation-css/
+            artifacts/sprint-01-journeys/
+            artifacts/sprint-01-comparisons/
           if-no-files-found: warn
           retention-days: 14
       - name: Stop development server
         if: always()
         run: |
           if [ -f /tmp/ingly-dev-server.pid ]; then kill "$(cat /tmp/ingly-dev-server.pid)" || true; fi
+          if [ -f /tmp/ingly-main-baseline.pid ]; then kill "$(cat /tmp/ingly-main-baseline.pid)" || true; fi

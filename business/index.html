@@ -1231,14 +1231,14 @@ setTimeout(function(){
   <div class="dr-head">
     <div>
       <h3 data-i18n="crtH">Il tuo carrello</h3>
-      <span class="dr-count" id="drCount"></span>
+      <span class="dr-count" id="drCount" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
     <button class="icon-btn" data-action="close-cart" aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   </div>
   <!-- barra avanzamento spedizione gratuita -->
   <div class="dr-ship-bar" id="drShipBar">
     <div class="dr-ship-track"><div class="dr-ship-fill" id="drShipFill"></div></div>
-    <p class="dr-ship-msg" id="drShipMsg"></p>
+    <p class="dr-ship-msg" id="drShipMsg" aria-live="polite" aria-atomic="true"></p>
   </div>
   <div class="dr-items" id="drItems"></div>
   <div class="dr-foot">
@@ -1247,7 +1247,7 @@ setTimeout(function(){
       <input class="dr-coupon-input" id="drCouponInput" type="text" placeholder="Codice sconto" autocomplete="off" maxlength="20">
       <button class="btn" style="padding:0 16px;font-size:13px" data-action="apply-coupon">Applica</button>
     </div>
-    <div class="dr-coupon-msg" id="drCouponMsg"></div>
+    <div class="dr-coupon-msg" id="drCouponMsg" role="status" aria-live="polite" aria-atomic="true"></div>
     <!-- totali -->
     <div class="dr-subtotal"><span data-i18n="crtSub">Subtotale</span><span id="drSubtotal">€0,00</span></div>
     <div class="dr-discount-row" id="drDiscountRow" style="display:none">

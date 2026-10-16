@@ -20,5 +20,5 @@ for (const [name,page] of [['store',html],['admin',admin]]) {
 }
 assert.match(css,/footer \.ingly-footer-signature img\.brand-wordmark\{opacity:\.18!important\}/,'Readable dark watermark');
 assert.match(css,/footer \.ingly-footer-signature img\.brand-wordmark\{opacity:\.15!important\}/,'Readable light watermark');
-assert.match(acss,/aspect-ratio:1640\/420!important/,'Admin uses same wordmark proportion');
+assert.match(acss,/aspect-ratio:1670\/630!important/,'Admin uses same wordmark proportion');
 console.log('✔ INGLY wordmark letter I geometry, shared storefront/Admin source and both theme watermarks');

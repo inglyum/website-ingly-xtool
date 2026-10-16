@@ -16,7 +16,7 @@ for(const selector of ['#nav .brand-wordmark','footer .ft-col--brand .brand-word
  'footer .ingly-footer-signature img.brand-wordmark'])
  assert.equal(d.querySelectorAll(selector).length,1,'Single approved wordmark '+selector);
 assert.match(css,/font-family:'Inter',Arial,system-ui,sans-serif!important/);
-assert.match(css,/footer \.ingly-footer-signature img\.brand-wordmark[\s\S]*?aspect-ratio:1640\/420/);
-assert.match(read('assets/css/admin-brand-system.css'),/aspect-ratio:1640\/420!important/);
+assert.match(css,/footer \.ingly-footer-signature img\.brand-wordmark[\s\S]*?aspect-ratio:1670\/630/);
+assert.match(read('assets/css/admin-brand-system.css'),/aspect-ratio:1670\/630!important/);
 assert.match(admin,/assets\/images\/ingly-wordmark-light\.svg/);
 console.log('✔ Full INGLY: separate I, unchanged original vectors, consistent admin/footer, Lab typography');

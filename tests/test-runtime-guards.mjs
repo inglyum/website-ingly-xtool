@@ -19,6 +19,13 @@ assert.ok(Number(swVersion)>=14,'service worker must invalidate the old visual a
 const root=read('index.html');
 const htmlVersion = (root.match(/CACHE_WANT='ingly-v(\d+)'/)||[])[1];
 assert.equal(swVersion,htmlVersion,'HTML recovery requests the same cache generation as service worker');
+assert.ok(Number(swVersion)>=15,'New cache generation must evict old brand SVG and product media');
+assert.match(sw,/url\.pathname\.startsWith\(via\('img\/'\)\)/,'Catalog product images must refresh when Admin republishes a file');
+assert.match(sw,/url\.pathname\.startsWith\(via\('assets\/images\/'\)\)/,'Wordmark and editable assets must refresh');
+assert.match(sw,/mutableMedia\s*\?\s*networkFirst\(e\.request,CACHE_IMG,4000\)/,'Mutable images are network-first, not permanent cache-first');
+assert.match(sw,/cacheFirst\(e\.request,CACHE_IMG\)/,'Immutable images preserve cache-first offline behavior');
+assert.match(root,/FLAG='ingly_cachefix_v15'/,'Version-specific recovery prevents session-wide stale cache masking');
+
 const nav=read('assets/js/nav-mega.js');
 assert.doesNotMatch(nav,/addEventListener\('pointerenter'/,'mega menu never opens by pointer hover');
 const fallback=read('assets/js/app.fallback.js');

@@ -190,6 +190,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
 <link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
 <link rel="stylesheet" href="assets/css/ingly-responsive-theme.css">
+<link rel="stylesheet" href="assets/css/foundation-components.css">
 <link rel="stylesheet" href="assets/css/brand-system-2026.css">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
@@ -296,7 +297,7 @@ setTimeout(function(){
   </div>
 </div>
 
-<header class="nav scrolled" id="nav" style="top:36px">
+<header class="nav scrolled" id="nav" data-component="site-header" style="top:36px">
   <div class="wrap nav-in">
     <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
@@ -316,7 +317,7 @@ setTimeout(function(){
       <a href="quote" data-nav="quote"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i> <span data-i18n="nQuote">Preventivo</span></a>
     </nav>
     <div class="nav-acts">
-      <a class="atelier-nav-cta" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
+      <a class="atelier-nav-cta" data-component="primary-cta" data-ui="cta" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></a>
       <a class="icon-btn atelier-search-link" href="shop" data-nav="shop" aria-label="Vai allo Shop per cercare prodotti" title="Cerca nello Shop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 5 5"/></svg></a>
       <button class="icon-btn" aria-label="Wishlist" data-action="open-wish"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg><span class="badge" id="wishBadge">0</span></button>
       <button class="icon-btn" aria-label="Cart" data-action="open-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2 2h3l3.2 13.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L23 7H6"/></svg><span class="badge" id="cartBadge">0</span></button>
@@ -334,7 +335,7 @@ setTimeout(function(){
   <button type="button" data-action="open-cart" aria-label="Apri il carrello"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h3l3 13h12l3-9H6"/></svg><span>Carrello</span></button>
 </nav>
 
-<div class="mobile-menu" id="mm" role="dialog" aria-modal="true" aria-label="Menu di navigazione" aria-hidden="true" inert>
+<div class="mobile-menu" data-component="site-dialog" id="mm" role="dialog" aria-modal="true" aria-label="Menu di navigazione" aria-hidden="true" inert>
   <button type="button" class="mclose" data-action="menu-close" aria-label="Chiudi il menu">✕</button>
   <div class="dr-testa"><span class="dr-eyebrow">INGLY DESIGN</span></div>
   <div class="dr-corpo"></div>
@@ -1199,7 +1200,7 @@ setTimeout(function(){
     <p class="sp-cta" id="spCta"></p>
   </div>
 </section>
-<footer>
+<footer data-component="site-footer">
   <div class="wrap">
 
     <!-- La chiusura: una domanda, non un elenco di link. -->
@@ -1244,7 +1245,7 @@ setTimeout(function(){
 </footer>
 
 <div class="overlay" id="overlay" data-action="close-cart"></div>
-<aside class="drawer" id="drawer" aria-label="Carrello" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" inert>
+<aside class="drawer" data-component="site-dialog" id="drawer" aria-label="Carrello" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" inert>
   <div class="dr-head">
     <div>
       <h3 data-i18n="crtH">Il tuo carrello</h3>
@@ -1322,7 +1323,7 @@ setTimeout(function(){
     <div class="proj-body" id="projBody"></div>
   </div>
 </div>
-<div id="lightbox" class="lbx" hidden role="dialog" aria-modal="true" aria-label="Zoom foto">
+<div id="lightbox" class="lbx" data-component="site-dialog" hidden role="dialog" aria-modal="true" aria-label="Zoom foto">
   <button class="lbx-x" id="lbxClose" aria-label="Chiudi">✕</button>
   <button class="lbx-nav lbx-prev" id="lbxPrev" aria-label="Precedente">‹</button>
   <img id="lbxImg" alt="">

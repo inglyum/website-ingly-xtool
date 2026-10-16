@@ -16,17 +16,24 @@ assert.equal(photos.filter(p=>p.entityType==='material').length,9);
 for(const p of photos) {
  const o=actual.get(p.id);
  assert.ok(o,'Unknown related catalog ID '+p.id);
- assert.equal(o.img,p.media.src,'Imported responsive source must be product/category cover');
- assert.equal(o.assetKind,'licensed-stock','No AI-generated source for '+p.id);
- assert.equal(o.isDemo,true,'Source must not masquerade as real INGLY work');
+ const stock=o.assetKind==='licensed-stock'&&o.isDemo===true;
+ const ownerDeclared=o.assetKind==='ingly-original'&&o.isDemo===false;
+ assert.ok(stock||ownerDeclared,'Asset must remain explicitly labelled as stock or owner-declared: '+p.id);
  assert.equal(o.replaceable,true,'Asset must be replaceable from Admin');
  assert.ok(o.altIT && o.altEN,'Accessible IT/EN alt text missing '+p.id);
- assert.equal(o.sourceUrl,p.provenance.sourceUrl);
+ if(stock){
+  assert.equal(o.img,p.media.src,'Licensed stock cover must match its source manifest');
+  assert.equal(o.sourceUrl,p.provenance.sourceUrl);
+ }else{
+  assert.ok(!o.sourceUrl&&!o.photographer,'Owner upload must not retain Pexels attribution');
+  assert.ok(existsSync(o.img),'Owner upload file missing: '+o.img);
+ }
  assert.equal(p.provenance.license,'Pexels License');
  assert.equal(p.provenance.notInPortfolio,true);
  assert.equal(p.provenance.notOwnerProduct,true);
  assert.equal(p.media.srcset.length,3);
- for(const shot of p.media.srcset){
+ // Archived Pexels variants may legitimately be removed after replacement.
+ if(stock)for(const shot of p.media.srcset){
   assert.ok(existsSync(shot.url),'Missing real image '+shot.url);
   const header=readFileSync(shot.url);
   assert.equal(header.subarray(0,4).toString('ascii'),'RIFF','WebP header '+shot.url);
@@ -42,4 +49,4 @@ assert.ok(styles[styles.length-1].includes('brand-system-2026.css'),'Last author
 assert.ok(html.includes('Fotografie di repertorio a scopo illustrativo'),'Home labels genuine stock imagery');
 assert.ok(html.includes('Foto ufficiale xTool'),'xTool manufacturer images should be clearly attributed');
 assert.ok(existsSync('assets/css/real-photography.css'));
-console.log('PASS authentic-photos: 22 source entries, 66 local WebP sizes, all category/material links, license and real-photography layout');
+console.log('PASS provenance-aware category/material photos: archived sources retained, owner replacements permitted, labels and local files verified');

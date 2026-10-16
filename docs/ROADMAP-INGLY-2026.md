@@ -1,5 +1,14 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
 
+## Sprint 04 — Sostituzione delle foto demo senza metadati falsi (16 ottobre 2026)
+- Upload categoria/materiale: chi sostituisce una foto stock dalla Media Library non eredita fotografo, fonte Pexels, licenza o dimensioni della foto precedente.
+- L’immagine è marcata come **originale dichiarato dal titolare**, non come prova di autenticità verificata da terzi.
+- Copertura test modificata: gli originali inseriti dall'Admin sono consentiti al posto delle 22 foto demo iniziali, purché il percorso locale esista e gli alt IT/EN siano presenti.
+- La lista delle fonti storiche Pexels resta disponibile per attribuzioni di immagini ancora demo; nessun prodotto, prezzo o stock modificato.
+- È ancora necessario un collaudo reale del caricamento singolo, della scelta da Library, del commit e del rollback.
+
+
+
 ## Sprint 03 — Asset xTool premium con logo autentico
 - Tessera xTool Service Centre con sfondo tecnico verde/blu e tracciati INGLY originali, I inclusa.
 - Asset e CSS confinati alla sezione Macchine, con percorso nuovo e controllo regressioni vettoriali.

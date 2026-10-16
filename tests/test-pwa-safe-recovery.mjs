@@ -32,7 +32,7 @@ async function run({names,registrations=[],alreadyRecovered=false}){
     location:{reload(){reloads++}}
   };
   vm.runInNewContext(script,context);
-  for(let i=0;i<8;i++)await Promise.resolve();
+  await new Promise(resolve=>setTimeout(resolve,25));
   return {deleted,unregistered,reloads,states,scope};
 }
 const site='https://inglyum.github.io/website-ingly-xtool/';

@@ -1,5 +1,13 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
 
+## Sprint 06 — Sicurezza eliminazione Media Library (16 ottobre 2026)
+- Prima della pubblicazione l'Admin verifica ogni file selezionato per eliminazione: se è ancora referenziato, produce un **errore bloccante**, non un semplice avviso di conferma.
+- Copertura estesa a prodotti, gallery, categorie, materiali, macchine xTool, anteprime digitali, corsi Academy e immagine principale Home, oltre ai riferimenti già supportati.
+- La correzione non cancella immagini e non modifica i dati commerciali. Riassegna prima un'immagine o annulla l'eliminazione, poi ripubblica.
+- Test con riferimenti simulati nelle varie sezioni e verifica del blocco durante la pubblicazione. Rimane QA manuale di caricamento/rollback immagine e revisione delle fonti reali.
+
+
+
 ## Sprint 05 — Cronologia Admin: ripristino atomico dei dati (16 ottobre 2026)
 - La precedente funzione ignorava file non disponibili e poteva mescolare dati di commit diversi: ora richiede tutti i 14 JSON, validati prima di modificare la bozza.
 - Commit storico incompleto: nessuna modifica; un errore descrive i file non recuperabili. Upload/eliminazioni media in staging bloccano il ripristino.

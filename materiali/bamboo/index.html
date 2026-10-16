@@ -1315,11 +1315,11 @@ setTimeout(function(){
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"><span class="dotl" aria-hidden="true"></span><span id="toastMsg"></span></div>
 
 <!-- Install PWA prompt -->
-<div class="pwa-install-bar" id="pwaBar" hidden>
-  <span>📲 Aggiungi INGLY alla schermata home</span>
+<div class="pwa-install-bar" id="pwaBar" role="region" aria-label="Installazione app INGLY DESIGN" hidden>
+  <p class="pwa-install-copy">📲 Aggiungi INGLY alla schermata home</p>
   <div class="pwa-btns">
-    <button class="btn btn-primary" id="pwaInstall" style="font-size:13px;padding:6px 16px">Installa</button>
-    <button class="btn btn-ghost" id="pwaDismiss" style="font-size:12px;padding:5px 10px">✕</button>
+    <button class="btn btn-primary" type="button" id="pwaInstall">Installa</button>
+    <button class="btn btn-ghost" type="button" id="pwaDismiss" aria-label="Chiudi proposta di installazione">✕</button>
   </div>
 </div>
 

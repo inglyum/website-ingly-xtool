@@ -28,7 +28,8 @@ assert.ok(foundation.includes('prefers-reduced-motion'),'Respect motion preferen
 assert.match(storeCSS,/:root\[data-mode\] #nav \.ia-pannello/,'Keep verified theme-owner selector from #66');
 assert.match(storeCSS,/#nav \.ia-pannello\s*\{\s*background:var\(--brand-surface\)!important/,'Verified opaque mega-menu surface in both modes');
 assert.match(storeCSS,/@media\(max-width:1100px\)/);
-assert.match(adminCSS,/\[data-component="admin-topbar"\]/);
+assert.match(foundation,/\[data-component="admin-topbar"\]/,'Foundation owns shared topbar contract');
+assert.match(adminCSS,/--ab-/,'Admin brand palette remains authoritative');
 assert.ok(nav.includes("cancelPanelClose(pan)"),'Preserve fast-reopen fix in #67');
 assert.ok(nav.includes("pendingPanelClose.set(pan"),'Avoid stale menu close timer');
 for(const [name,route] of [['store','shop-product-cart'],['creator','customize-quote'],['lab','lab-demo'],['admin','admin-media-products']]){

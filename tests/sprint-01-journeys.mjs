@@ -78,9 +78,16 @@ try{
       Lab disclosure when possible, otherwise follow the page's Demo CTA. */
    if(mobile){
     await p.locator('#nav [data-action="menu-open"]').click();
-    const link=p.locator('#mm a[href$="/demo"]').first();
-    if(await link.count())await link.click();
-    else await p.locator('#page-macchine a[href*="demo"]').first().click();
+    /* The Lab sub-navigation is an accordion: clicking a collapsed link
+       can be intercepted by the parent Lab heading. Expand first. */
+    const labRow=p.locator('#mm .dr-item').filter({
+      has:p.locator('a.dr-fam[href$="/macchine"]')
+    }).first();
+    const expand=labRow.locator('.dr-freccia[data-apri]').first();
+    await expand.click();
+    assert.equal(await expand.getAttribute('aria-expanded'),'true');
+    const link=labRow.locator('.dr-sub.aperto a[href$="/demo"]').first();
+    await link.click();
    }else{
     const toggle=p.locator('#iaBarra .ia-freccia[data-apri="xtool"]');
     await toggle.click();

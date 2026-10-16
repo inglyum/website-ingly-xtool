@@ -18,6 +18,11 @@ Obiettivo: un e-commerce premium credibile, realmente usabile su smartphone e am
 | Gallerie, crop, preview, associazione e sicurezza Media Library | **Parziale** | Upload/crop, coda, manifest, associazione confermata; da fare test reali di upload e pubblicazione |
 | Shop, catalogo, Admin | **In consolidamento** | CRUD, varianti, prezzi, categoria, traduzioni e flussi ordine richiedono collaudo E2E con dati di produzione |
 
+### Intervento integrato — 16 ottobre 2026
+- **PR #53 integrata**: Health Center e audit CLI controllano l'inventario file reale, non presumono che un percorso `img` sia una fotografia effettivamente presente. Stato bozza e rimozioni programmate inclusi; non modifica il catalogo.
+- **Censimento ripetuto** sullo stato corrente dopo PR #53: 97 prodotti, 77 copertine non presenti nel manifest, 43 relative a schede pubbliche. Nessuna gallery alternativa valida per quei 43 prodotti. La disponibilità di un file nel manifest non certifica che rappresenti il prodotto.
+- **QA manuale aperta**: test su iOS/Android, screen reader e caricamento immagini autentiche. I dati commerciali non sono stati alterati.
+
 ### Criteri di uscita prima della release commerciale completa
 - Confrontare homepage/Shop/Admin su iPhone Safari e Android Chrome **reali**, in dark/light, includendo zoom 200% e testi lunghi IT/EN
 - Provare VoiceOver e TalkBack per ordine focus, dialog, prodotto, checkout, filtri e modali; registrare difetti e fix

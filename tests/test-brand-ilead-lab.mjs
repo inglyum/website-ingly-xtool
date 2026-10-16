@@ -6,9 +6,9 @@ const css=read('assets/css/brand-system-2026.css');
 for(const theme of ['light','dark']){
  const svg=read('assets/images/ingly-wordmark-'+theme+'.svg');
  const d=new JSDOM(svg,{contentType:'image/svg+xml'}).window.document;
- assert.equal(d.documentElement.getAttribute('viewBox'),'-16 125 1640 420');
- assert.equal(d.querySelector('#ingly-initial-i')?.getAttribute('d'),'M0 147H98V507H0Z');
- const original=d.querySelector('g[transform="translate(166 0)"] path');
+ assert.equal(d.documentElement.getAttribute('viewBox'),'-205 -20 1670 630');
+ assert.equal(d.querySelector('#ingly-letter-i-stem')?.getAttribute('d'),'M-179 81H-51V509L-179 375Z');
+ const original=d.querySelector("#ingly-original-ngly");
  assert.match(original?.getAttribute('d')||'',/M641,322/);
 }
 const d=new JSDOM(site).window.document;

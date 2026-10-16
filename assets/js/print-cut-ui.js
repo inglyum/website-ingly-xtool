@@ -43,7 +43,7 @@ const translations={
  }
 };
 
-let language='it',canvas=null,imageData=null,imageName='design',current=null,trigger=null;
+let language='it',canvas=null,imageData=null,imageName='design',current=null,trigger=null,loadSequence=0;
 const getText=key=>translations[language][key];
 function localized(){
  document.documentElement.lang=language;
@@ -77,14 +77,26 @@ async function decode(file){
   });
  }finally{URL.revokeObjectURL(url)}
 }
+function clearArtwork(){
+ current=null;canvas=null;imageData=null;imageName='design';
+ $('cutDownload').disabled=true;$('printDownload').disabled=true;
+ const placeholder=document.createElement('p');
+ placeholder.className='empty';placeholder.textContent=getText('empty');
+ $('cutPreview').replaceChildren(placeholder);
+ $('cutDimensions').textContent='—';$('cutContours').textContent='—';
+}
 async function loadFile(file){
- current=null;$('cutDownload').disabled=true;$('printDownload').disabled=true;
+ const sequence=++loadSequence;
+ if(trigger){window.clearTimeout(trigger);trigger=null;}
+ clearArtwork();
  if(!file){setStatus(getText('choose'));return}
  if(!['image/png','image/webp','image/jpeg'].includes(file.type)){setStatus(getText('badFile'),true);return}
  if(file.size>15*1024*1024){setStatus(getText('fileTooLarge'),true);return}
  try{
   setStatus(getText('processing'));
   const img=await decode(file);
+  // A slower previous decode must never replace a newer file selection.
+  if(sequence!==loadSequence){if(typeof img.close==='function')img.close();return;}
   const iw=img.width||img.naturalWidth,ih=img.height||img.naturalHeight;
   if(iw<16||ih<16)throw Error(getText('resolution'));
   const factor=Math.min(1,640/Math.max(iw,ih));
@@ -99,7 +111,7 @@ async function loadFile(file){
     .normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
     .replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40)||'artwork';
   process();
- }catch(e){setStatus(e.message||String(e),true)}
+ }catch(e){if(sequence===loadSequence)setStatus(e.message||String(e),true)}
 }
 function number(id,min,max){
  const value=Number($(id).value);

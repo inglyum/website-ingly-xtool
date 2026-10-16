@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {JSDOM} from 'jsdom';
 import {alphaMask,dilate,padMask,traceOutlines,cutSvg} from '../assets/js/print-cut-kernel.js';
 const a=new Uint8ClampedArray(4*4*4);
 a[(1*4+2)*4+3]=255;
@@ -49,4 +50,44 @@ assert.ok(ui.includes("import {alphaMask,padMask,dilate,traceOutlines,cutSvg}"))
 assert.ok(studio.includes("modulo==='link-interno'")&&studio.includes("location.assign('print-cut.html')"));
 assert.ok(catalogue.some(t=>t.id==='print-cut'&&t.url==='print-cut.html'));
 assert.ok(readFileSync('scripts/generate-sitemap.mjs','utf8').includes("file: 'print-cut.html'"));
-console.log('✔ Print & Cut: maschere, dilatazione, isole, bordi, SVG mm e UI integrata.');
+// UI regression: an invalid replacement upload must not resurrect the previous
+// cut job when parameters change. Mock Canvas only; no external image/file IO.
+const dom=new JSDOM(page,{url:'https://inglyum.github.io/website-ingly-xtool/print-cut.html'});
+const win=dom.window;
+win.HTMLCanvasElement.prototype.getContext=function(){
+ const canvas=this;
+ return {
+  clearRect(){},drawImage(){},
+  getImageData(){
+   const data=new Uint8ClampedArray(canvas.width*canvas.height*4);
+   for(let y=8;y<24;y++)for(let x=8;x<24;x++)data[(y*canvas.width+x)*4+3]=255;
+   return {data};
+  }
+ };
+};
+win.HTMLCanvasElement.prototype.toDataURL=()=> 'data:image/png;base64,QUJDRA==';
+globalThis.window=win;
+globalThis.document=win.document;
+globalThis.localStorage=win.localStorage;
+globalThis.createImageBitmap=async()=>({width:32,height:32,close(){}});
+await import('../assets/js/print-cut-ui.js');
+const input=win.document.getElementById('artFile');
+const sendFile=file=>{
+ Object.defineProperty(input,'files',{value:[file],configurable:true});
+ input.dispatchEvent(new win.Event('change',{bubbles:true}));
+};
+sendFile({type:'image/png',size:200,name:'approved.png'});
+await new Promise(resolve=>setTimeout(resolve,45));
+assert.equal(win.document.getElementById('cutDownload').disabled,false,'Valid source enables exporting');
+assert.match(win.document.getElementById('cutPreview').innerHTML,/INGLY_CUT/);
+sendFile({type:'text/plain',size:10,name:'invalid.txt'});
+assert.equal(win.document.getElementById('cutDownload').disabled,true,'Reject invalid file');
+assert.equal(win.document.getElementById('cutPrintDownload')?.disabled??win.document.getElementById('printDownload').disabled,true,'Print output disabled');
+assert.doesNotMatch(win.document.getElementById('cutPreview').innerHTML,/INGLY_CUT/,'Old preview must be removed');
+win.document.getElementById('cutWidth').value='92';
+win.document.getElementById('cutWidth').dispatchEvent(new win.Event('input',{bubbles:true}));
+await new Promise(resolve=>setTimeout(resolve,190));
+assert.equal(win.document.getElementById('cutDownload').disabled,true,'Invalid selection must not recreate previous SVG');
+assert.doesNotMatch(win.document.getElementById('cutPreview').innerHTML,/INGLY_CUT/);
+win.close();
+console.log('✔ Print & Cut: maschere, dilatazione, isole, bordi, SVG mm e UI integrata, reset sicuro.');

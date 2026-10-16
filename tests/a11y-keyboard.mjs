@@ -75,6 +75,33 @@ try{
     assert.equal(await p.locator('#drawer').getAttribute('inert'),'');
     assert.equal(await open.evaluate(el=>document.activeElement===el),true);
    });
+   await run(mode+' cart item quantity focus, explicit labels and removal',async()=>{
+    await p.evaluate(async()=>{
+      const mod=await import(new URL('/assets/js/products.js',location.origin).href);
+      mod.addToCart(1,1);
+    });
+    await p.waitForSelector('#drawer.open #drItems .ditem',{timeout:6000});
+    const count=p.locator('#drCount');
+    assert.equal(await count.getAttribute('role'),'status');
+    const increase=p.locator('#drItems button[data-action="cart-qty"][data-d="1"]').first();
+    const label=await increase.getAttribute('aria-label');
+    assert.match(label,/Aumenta quantità di|Increase quantity of/);
+    assert.ok(label.length>23,'Product name included in quantity label');
+    const name=await p.locator('#drItems .ditem h4').first().textContent();
+    assert.ok(label.includes(name.trim()),'Quantity button identifies actual product');
+    await increase.focus();
+    await p.keyboard.press('Enter');
+    assert.equal(await p.locator('#drItems .qty b').first().textContent(),'2');
+    assert.equal(await increase.evaluate(el=>document.activeElement===el),true,'Repaint preserves focused quantity button');
+    const remove=p.locator('#drItems button[data-action="cart-rm"]').first();
+    assert.match(await remove.getAttribute('aria-label'),/Rimuovi dal carrello:|Remove from cart:/);
+    await remove.focus();
+    await p.keyboard.press('Enter');
+    assert.equal(await p.locator('#drItems .ditem').count(),0);
+    assert.equal(await p.locator('#drawer [data-action="close-cart"]').evaluate(el=>document.activeElement===el),true,'Focus returns to close control when cart is empty');
+    await p.keyboard.press('Escape');
+    await p.waitForFunction(()=>!document.getElementById('drawer')?.classList.contains('open'));
+   });
   }finally{await ctx.close()}
  }
  /* A mega-panel reopened quickly must not be hidden by the previous

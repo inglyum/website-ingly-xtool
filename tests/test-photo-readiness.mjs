@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {mkdtempSync,readFileSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {photoSummary,buildPhotoQueue} from '../assets/js/admin/photo-worklist.js';
+const products=JSON.parse(readFileSync('data/products.json','utf8'));
+const imageData=JSON.parse(readFileSync('data/immagini.json','utf8'));
+const stats=photoSummary(products,imageData.file);
+const queue=buildPhotoQueue(products,imageData.file);
+const folder=mkdtempSync(join(tmpdir(),'ingly-photo-readiness-'));
+try{
+ const processResult=spawnSync(process.execPath,['scripts/photo-readiness-report.mjs','--out',folder,'--json'],{encoding:'utf8'});
+ assert.equal(processResult.status,0,processResult.stderr);
+ const report=JSON.parse(readFileSync(join(folder,'status.json'),'utf8'));
+ assert.equal(report.inventoryAvailable,true);
+ assert.deepEqual(report.summary,stats);
+ assert.equal(report.queue.length,queue.length);
+ assert.equal(report.queue.filter(x=>x.visible&&x.state==='missing').length,stats.visibleMissingAll);
+ assert.equal(report.queue.filter(x=>x.visible).length,stats.visibleNeedsCover);
+ assert.equal(report.generatedAt,null,'Avoid changing artifacts each run for same source data');
+ const csv=readFileSync(join(folder,'photo-upload-queue.csv'),'utf8');
+ assert.ok(csv.startsWith('\uFEFF'),'CSV must be Excel UTF-8 BOM');
+ assert.match(csv,/SKU;|"SKU"/,'CSV contains SKU');
+ const md=readFileSync(join(folder,'README.md'),'utf8');
+ assert.match(md,/non corrispondenti al prodotto reale/i,'Do not pass generative assets as real photos');
+ assert.match(md,/Admin Media Library/);
+ const parsedStdout=JSON.parse(processResult.stdout);
+ assert.equal(parsedStdout.visibleNeedsCover,stats.visibleNeedsCover);
+}finally{rmSync(folder,{recursive:true,force:true})}
+console.log('✔ Catalog photo readiness: deterministic queue, public priorities, CSV and no inferred photos.');

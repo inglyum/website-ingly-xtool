@@ -146,7 +146,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
       /* Cache Storage è condiviso dall'intera origin: non cancellare dati
          di un'altra PWA ospitata su github.io. */
       var stale=keys.filter(function(k){
-        return /^ingly-v\\d+-(?:assets|data|img)$/.test(k) && k.indexOf(CACHE_WANT)!==0;
+        return /^ingly-v\d+-(?:assets|data|img)$/.test(k) && k.indexOf(CACHE_WANT)!==0;
       });
       if(!stale.length)return;                            /* già aggiornato: non fare nulla */
       sessionStorage.setItem(FLAG,'1');

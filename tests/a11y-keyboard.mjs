@@ -77,6 +77,32 @@ try{
    });
   }finally{await ctx.close()}
  }
+ /* A mega-panel reopened quickly must not be hidden by the previous
+    close timeout. Regression in rapid pointer/keyboard navigation. */
+ for(const mode of ['dark','light']){
+  const desk=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'reduce'});
+  await desk.addInitScript(x=>localStorage.setItem('ingly_mode',x),mode);
+  const p=await desk.newPage();
+  try{
+   await p.goto(url+'/',{waitUntil:'domcontentloaded'});
+   await p.addStyleTag({content:'#exitPopup{display:none!important;pointer-events:none!important}'});
+   await p.waitForSelector('.ia-freccia[data-apri]:visible',{timeout:14000});
+   await run(mode+' mega-menu quick reopen remains visible',async()=>{
+    const button=p.locator('.ia-freccia[data-apri]').first();
+    const family=await button.getAttribute('data-apri');
+    const panel=p.locator('#ia-pan-'+family);
+    await button.click();
+    await p.waitForFunction(id=>document.getElementById(id)?.hidden===false,'ia-pan-'+family);
+    await button.click();
+    await button.click();
+    await p.waitForTimeout(650);
+    assert.equal(await panel.isVisible(),true,'Reopen must cancel the stale close timeout');
+    assert.equal(await button.getAttribute('aria-expanded'),'true');
+    await button.click();
+    assert.equal(await button.getAttribute('aria-expanded'),'false');
+   });
+  }finally{await desk.close()}
+ }
  const ctx=await browser.newContext({viewport:{width:390,height:820},reducedMotion:'reduce'});
  const p=await ctx.newPage();
  try{

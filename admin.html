@@ -5523,6 +5523,21 @@ async function rollback(sha){
    toast('Ripristino non applicato: '+verified.errors.length+' errori nello snapshot');
    return;
   }
+  // A JSON-only restore must not point to historic images whose bytes differ.
+  // Fail closed if either GitHub inventory is incomplete or cannot be fetched.
+  const {auditRestoreMediaBlobs}=await import('./assets/js/admin/media-restore-preflight.mjs');
+  const [historicMedia,liveMedia]=await Promise.all([
+   gh('/contents/img?ref='+encodeURIComponent(sha)),
+   gh('/contents/img?ref='+encodeURIComponent(SET.branch))
+  ]);
+  const mediaAudit=auditRestoreMediaBlobs(verified.data.immagini,S.IMG,historicMedia,liveMedia);
+  if(!mediaAudit.ok){
+   modal('<h3>Ripristino sospeso: immagini non compatibili</h3>'+
+    '<p class="hint">Nessuna modifica alla bozza: i file originali delle immagini devono essere recuperati e verificati prima di applicare lo snapshot.</p>'+
+    '<ul>'+[...mediaAudit.errors,...mediaAudit.mismatched].slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+
+    '<button class="btn" onclick="closeModal()">Chiudi</button>');
+   toast('Ripristino sospeso: integrità foto da verificare');return;
+  }
   // All 14 payloads are verified before the first assignment.
   const oldData=Object.fromEntries(FILES.map(f=>[f,S[KEY[f]]]));
   try{

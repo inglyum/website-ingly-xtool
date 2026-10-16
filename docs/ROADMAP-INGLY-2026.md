@@ -161,3 +161,13 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 3. **Ordini e KPI**: non indicare acquisti finalizzati, spedizioni effettuate o percentuali analytics senza dati reali.
 4. **Generatori**: un SVG vettoriale in millimetri NON garantisce automaticamente registrazione camera o kerf della macchina.
 5. **Admin**: GitHub Pages è una piattaforma statica; autorizzazioni e token vanno gestiti con permessi minimali.
+
+## Sprint 07 — Media rollback preflight (16 ottobre 2026)
+
+- Aggiunto controllo **read-only** `assets/js/admin/media-restore-preflight.mjs` e test `tests/test-media-restore-preflight.mjs`, integrato in `npm test`.
+- Confronta inventario storico (`immagini.file`) con inventario del commit live e gli alberi Git: distingue immagini già presenti, binari recuperabili soltanto dal commit storico e file realmente mancanti; rifiuta path traversal, duplicati, formati non sicuri e inventari incompleti.
+- **Non ancora collegato al pulsante di restore e non esegue il recupero dei binari**: `ok` del preflight non certifica contenuto o hash dei file. Prima di ripubblicare uno snapshot storico serviranno integrazione UI, download/staging dei blob, verifica SHA/contenuto e commit coerente in sandbox. Nessuna modifica alle fotografie o allo stock live.
+- Resta aperto il collaudo E2E Admin con repository isolato, upload singolo/batch e restore immagini binarie; non dichiarare Sprint 07 completato.
+
+
+- **Integrazione successiva PR #83:** il pulsante Cronologia ora esegue prima del cambio bozza il confronto degli SHA GitHub dei file `img/` dello snapshot storico con i file presenti sul branch live. Impedisce il restore JSON in caso di immagini eliminate o binari differenti; i test sono inclusi nella suite. Questa è una barriera fail-closed, **non** un motore di recupero file binari: per snapshot con foto cambiate serve un flusso separato di staging/restore e verifica sandbox. La CI di questo commit va verificata prima del merge.

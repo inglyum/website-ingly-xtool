@@ -27,7 +27,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = False
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
-    "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+    "Accept": "image/jpeg,image/png;q=0.8,*/*;q=0.5",
     "Accept-Language": "en-US,en;q=0.9",
 }
 SIZES = [(1200, 800, ""), (800, 533, "-800"), (400, 267, "-400")]
@@ -54,6 +54,8 @@ def load_image(photo_id: str) -> tuple[Image.Image,str]:
     url = (f"https://images.pexels.com/photos/{photo_id}/pexels-photo-{photo_id}.jpeg"
            "?auto=compress&cs=tinysrgb&w=1800")
     blob = http(url)
+    if blob[:3] != b'\\xff\\xd8\\xff' and not blob.startswith(b'\\x89PNG'):
+        raise ValueError(f"Source is not a JPEG/PNG photo for id {photo_id}; magic={blob[:24]!r}, bytes={len(blob)}")
     image = Image.open(io.BytesIO(blob))
     image.verify()
     image = Image.open(io.BytesIO(blob)).convert("RGB")

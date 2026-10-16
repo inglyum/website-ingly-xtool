@@ -1,12 +1,18 @@
 # INGLY DESIGN — Roadmap operativa dopo la correzione del brand
 
-## Sprint 03 — Tessera xTool Service Centre premium (16 ottobre 2026)
-- Asset SVG a sfondo tecnico scuro, luci verde/blu e tipografia leggibile nella sezione Macchine.
-- Il badge riutilizza senza modificarli i tre tracciati del wordmark originale INGLY, inclusa la I bipartita.
-- Nuovo percorso dell'asset per evitare la cache di vecchie varianti; il precedente SVG rimane per compatibilità.
-- La disponibilità effettiva dei servizi viene confermata caso per caso; nessuna falsa certificazione tecnica implicita nei test.
-- Test vettoriale e browser QA; autorizzazione commerciale del badge e verifica fisica ancora separate.
+## Sprint 03 — Asset xTool premium con logo autentico
+- Tessera xTool Service Centre con sfondo tecnico verde/blu e tracciati INGLY originali, I inclusa.
+- Asset e CSS confinati alla sezione Macchine, con percorso nuovo e controllo regressioni vettoriali.
+- Nessun dato commerciale o Admin alterato. Servizi e autorizzazioni da verificare separatamente.
 
+
+## Sprint 03 — Dashboard affidabile e Media Provenance · 16 ottobre 2026
+
+- Dashboard Admin: la card **Azioni rapide** ora si aggiorna senza duplicarsi a ogni ritorno sulla Home del pannello.
+- Rimossa la metrica non verificata **Recensioni totali** ricavata dai valori demo `rev` del catalogo; sostituita con **Visual di repertorio**, basata sulle proprietà `assetKind` e `isDemo` effettivamente dichiarate.
+- Media Library: pannello di provenienza immagini con foto di repertorio, originali dichiarati e asset da verificare, con collegamenti alle fonti HTTPS quando presenti.
+- Test di regressione Node e JSDOM; nessuna fotografia riclassificata automaticamente, nessuna modifica a prezzi, stock, account o token.
+- **Rimane da fare**: revisione legale/commerciale delle foto e verifica diretta dei prodotti, upload e pubblicazione reale con rollback, collaudo su dispositivi fisici.
 
 
 ## Stato aggiornato — Sprint 01 concluso; Sprint 02 Media Readiness (16 ottobre 2026)

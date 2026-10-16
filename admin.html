@@ -542,6 +542,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
         </div>
       </div>
     </div>
+    <!-- Media provenance is evidence-based, not a sales KPI. -->
+    <section class="card" aria-labelledby="mOriginTitle">
+      <h3 id="mOriginTitle">Origine immagini · licenze e sostituzioni</h3>
+      <p class="hint">Le foto di repertorio sono immagini illustrative, non fotografie dei prodotti INGLY già realizzati. Lo stato “originale dichiarato” non equivale a verifica indipendente.</p>
+      <p id="mOriginStats" class="hint" role="status" aria-live="polite">Verifica provenienza in corso…</p>
+      <details><summary>Mostra dettagli di categorie e materiali</summary>
+        <ul id="mOriginList" style="display:grid;gap:8px;list-style:none;padding:0;margin:12px 0"></ul>
+      </details>
+    </section>
   <!-- FOTO DA COMPLETARE: usa solo il catalogo e l'inventario effettivo -->
     <section class="card" aria-labelledby="photoQueueTitle">
       <div class="photo-queue-head">
@@ -2164,7 +2173,8 @@ function renderDash(){
  const noPhoto=P.filter(fotoProdottoMancante).length;
  const noDesc=P.filter(p=>!p.desc||!p.desc.it||!p.desc.it.trim()).length;
  const heroN=(S.CONFIG&&S.CONFIG.heroFeatured&&S.CONFIG.heroFeatured.length)||0;
- const revTot=P.reduce((s,p)=>s+(p.rev||0),0);
+ const catalogDemoVisuals=[...(S.CATS||[]),...((S.MAT&&S.MAT.materiali)||[])]
+   .filter(item=>item.assetKind==='licensed-stock'&&item.isDemo===true).length;
  const pend=pending();
  renderMaisonAdminDashboard();
  $('dashCards').innerHTML=[
@@ -2174,7 +2184,7 @@ function renderDash(){
   {t:'In evidenza (hero)',v:heroN,c:''},
   {t:'Digitali',v:dig.length,c:''},
   {t:'Portfolio',v:port.length,c:''},
-  {t:'Recensioni totali',v:revTot.toLocaleString('it-IT'),c:'g'},
+  {t:'Visual di repertorio',v:catalogDemoVisuals,c:catalogDemoVisuals?'w':'g'},
   {t:'In bozza',v:pend,c:pend?'w':'g'},
  ].map(({t,v,tot,c})=>`<div class="dcard ${c}"><b>${v}${tot?'<small style="font-size:14px;color:var(--soft)"> / '+tot+'</small>':''}</b><span>${t}</span></div>`).join('');
 
@@ -2184,7 +2194,15 @@ function renderDash(){
   ['🎨 Sfondo sito','bg'],['🎯 Home & Hero','hero'],
   ['📊 Pubblica','pub'],['🕘 Cronologia','hist'],
  ];
- $('dashCards').insertAdjacentHTML('afterend',`<div class="card" style="margin-bottom:16px"><h3>⚡ Azioni rapide</h3><div style="display:flex;gap:8px;flex-wrap:wrap">${acts.map(([l,g])=>`<button class="btn" data-go="${g}">${l}</button>`).join('')}</div></div>`);
+ let quick=$('dashQuickActions');
+ if(!quick){
+  quick=document.createElement('div');
+  quick.id='dashQuickActions';
+  quick.className='card';
+  quick.style.marginBottom='16px';
+  $('dashCards').after(quick);
+ }
+ quick.innerHTML=`<h3>⚡ Azioni rapide</h3><div style="display:flex;gap:8px;flex-wrap:wrap">${acts.map(([l,g])=>`<button class="btn" data-go="${g}">${l}</button>`).join('')}</div>`;
 
  const h=[];
  h.push(`<div>Repository: <b class="mono">${esc(SET.owner)}/${esc(SET.repo)}</b> · branch <b class="mono">${esc(SET.branch)}</b></div>`);
@@ -3583,7 +3601,41 @@ function mediaItems(){const ref=referencedPaths();const items=[];const bySha={};
   i.variants=(mediaInventory()||[]).filter(n=>isVariant('img/'+n)&&parentOf('img/'+n)===i.path).length
              +MEDIA.filter(m=>isVariant(m.path)&&parentOf(m.path)===i.path).length});
  return items}
-function renderMedia(){const q=($('mSearch').value||'').toLowerCase();
+async function renderMediaProvenance(){
+ const stats=$('mOriginStats'),list=$('mOriginList');
+ if(!stats||!list)return;
+ try{
+  const {summarizeMediaProvenance}=await import('./assets/js/admin/media-provenance.mjs');
+  const {totals,rows}=summarizeMediaProvenance(S.CATS||[],S.MAT?.materiali||[]);
+  stats.textContent=totals.repertorio+' foto di repertorio dichiarate · '+
+    totals.originaleDichiarato+' originali dichiarati · '+
+    totals.daVerificare+' immagini con provenienza da verificare';
+  list.replaceChildren();
+  for(const x of rows){
+   const li=document.createElement('li');
+   li.className='hint';
+   const state=x.state==='repertorio'?'Foto di repertorio':
+      x.state==='originale-dichiarato'?'Originale dichiarato':'Provenienza da verificare';
+   li.textContent=x.type+' · '+x.name+' — '+state+' ('+x.path+')';
+   if(x.state==='repertorio'&&x.sourceUrl){
+    try{
+     const url=new URL(x.sourceUrl);
+     if(!['http:','https:'].includes(url.protocol))throw Error('unsafe scheme');
+     const a=document.createElement('a');
+     a.href=url.href;a.target='_blank';a.rel='noopener noreferrer';
+     a.textContent=' · Fonte';li.append(a);
+    }catch(_){}
+   }
+   list.append(li);
+  }
+ }catch(e){
+  stats.textContent='Provenienza non disponibile: '+String(e?.message||e);
+  list.replaceChildren();
+ }
+}
+function renderMedia(){
+ void renderMediaProvenance();
+ const q=($('mSearch').value||'').toLowerCase();
  const all=mediaItems();
  let show=all.filter(i=>!q||i.path.toLowerCase().includes(q));
  if($('mHideVar').checked)show=show.filter(i=>!i.variant);

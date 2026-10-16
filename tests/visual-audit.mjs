@@ -146,6 +146,33 @@ try {
           }
           if (metrics.documentWidth > width + 6)
             problems.push('horizontal overflow by ' + (metrics.documentWidth - width) + 'px');
+          /* Inspect the actual OPEN navigation: closed-menu axe scans cannot
+             detect fixed dark-on-dark or dark-on-light menu overrides. */
+          if(route.name==='home'&&width===1440){
+            const trigger=page.locator('.ia-freccia[data-apri]').first();
+            if(await trigger.count()&&await trigger.isVisible()){
+              await trigger.click();
+              const surface=await page.evaluate(()=>{
+                const panel=document.querySelector('.ia-pannello:not([hidden])');
+                if(!panel)return null;
+                const probe=document.createElement('span');
+                probe.style.backgroundColor='var(--brand-surface)';
+                probe.style.color='var(--brand-ink)';
+                document.body.append(probe);
+                const expected=getComputedStyle(probe);
+                const actual=getComputedStyle(panel);
+                const report={background:actual.backgroundColor,foreground:actual.color,
+                  expectedBackground:expected.backgroundColor,expectedForeground:expected.color};
+                probe.remove();
+                return report;
+              });
+              if(!surface||surface.background!==surface.expectedBackground||
+                surface.foreground!==surface.expectedForeground)
+                problems.push('mega-menu theme tokens mismatch: '+JSON.stringify(surface));
+              await page.screenshot({path:join(out,'nav-open-'+width+'-'+mode+'.png'),animations:'disabled'});
+              await trigger.click();
+            }else problems.push('mega-menu trigger unavailable at desktop width');
+          }
           const screenshot = route.name + '-' + width + '-' + mode + '.png';
           await page.screenshot({ path: join(out, screenshot), fullPage: false, animations: 'disabled' });
           findings.push({ route: route.name, width, mode, status, ...metrics, problems, runtimeErrors: errors.slice(0, 5), screenshot });

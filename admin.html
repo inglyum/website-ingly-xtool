@@ -1550,7 +1550,7 @@ function setToken(t){if(SET.remember)localStorage.setItem('ingly2_tok',t);else s
 const API=()=>`https://api.github.com/repos/${SET.owner}/${SET.repo}`;
 const LIVE=()=>`https://${SET.owner.toLowerCase()}.github.io/${SET.repo}/`;
 function ghH(extra){const h=Object.assign({Accept:'application/vnd.github+json'},extra||{});const t=token();if(t)h.Authorization='Bearer '+t;return h}
-async function gh(path,opt){const r=await fetch(API()+path,Object.assign({headers:ghH((opt||{}).headers)},opt));
+async function gh(path,opt){const r=await fetch(API()+path,Object.assign({},opt||{},{headers:ghH((opt||{}).headers)}));
  if(!r.ok){const b=await r.text().catch(()=>'');
   if(r.status===403&&r.headers.get('x-ratelimit-remaining')==='0')throw new Error('GitHub RATELIMIT su '+path);
   throw new Error('GitHub '+r.status+' su '+path+(b?' — '+b.slice(0,140):''))}

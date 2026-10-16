@@ -171,3 +171,9 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 
 
 - **Integrazione successiva PR #83:** il pulsante Cronologia ora esegue prima del cambio bozza il confronto degli SHA GitHub dei file `img/` dello snapshot storico con i file presenti sul branch live. Impedisce il restore JSON in caso di immagini eliminate o binari differenti; i test sono inclusi nella suite. Questa è una barriera fail-closed, **non** un motore di recupero file binari: per snapshot con foto cambiate serve un flusso separato di staging/restore e verifica sandbox. La CI di questo commit va verificata prima del merge.
+
+### Sprint 07 — Piano di recupero binari (PR successiva alla #83)
+
+- Preparato `historic-media-recovery-plan.mjs` per generare senza mutazioni una lista esatta di `img/` da recuperare dal commit storico con Git blob SHA, distinguendo file identici, modificati, cancellati e media live da preservare.
+- Test Node aggiunti a `npm test`: duplicati, path pericolosi, inventari incompleti, SHA non validi e protezione delle foto più recenti non incluse nello snapshot.
+- **Non pubblicare il piano come recupero completato:** mancano download con verifica binaria, staging temporaneo, E2E sandbox e commit atomico prima dell'attivazione UI.

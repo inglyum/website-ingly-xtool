@@ -7,11 +7,11 @@ const nav=read('assets/css/nav-ia.css');
 const index=read('index.html');
 assert.match(nav,/--ingly-surface:var\(--brand-surface/,'Legacy nav background must reference central palette');
 assert.match(nav,/--ingly-gold:var\(--brand-gold/,'No detached gold palette');
-assert.match(brand,/:root\[data-mode\] \.ia-pannello\s*\{\s*background:var\(--brand-surface\)!important;/,
+assert.match(brand,/:root\[data-mode\] #nav \.ia-pannello\s*\{\s*background:var\(--brand-surface\)!important;/,
   'The mega-panel must outrank legacy high-specificity glass rules in both modes');
-assert.match(brand,/:root\[data-mode\] \.ia-pannello \.ia-lista a,/,
+assert.match(brand,/:root\[data-mode\] #nav \.ia-pannello \.ia-lista a,/,
   'Menu link foreground needs theme-safe override');
-assert.match(brand,/:root\[data-mode\] \.ia-pannello \.ia-col-tit,/,
+assert.match(brand,/:root\[data-mode\] #nav \.ia-pannello \.ia-col-tit,/,
   'Subheading contrast needs semantic muted text');
 assert.match(brand,/\.ia-pannello \.ia-evidenza\s*\{\s*background:var\(--brand-elevated\)!important;/,
   'Editorial column must follow theme');

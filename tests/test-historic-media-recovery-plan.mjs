@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {planHistoricMediaRecovery} from '../assets/js/admin/historic-media-recovery-plan.mjs';
+const A='a'.repeat(40),B='b'.repeat(40),C='c'.repeat(40);
+const records=items=>items.map(([name,sha])=>({name,sha,type:'file'}));
+const past=records([['p.webp',A],['q.svg',B]]);
+const live=records([['p.webp',C],['additional.webp',C]]);
+let plan=planHistoricMediaRecovery({file:['p.webp','q.svg']},past,live);
+assert.equal(plan.ok,true);
+assert.equal(plan.requiresAtomicPublish,true);
+assert.deepEqual(plan.restore,[{path:'img/p.webp',blobSha:A,reason:'changed'},{path:'img/q.svg',blobSha:B,reason:'deleted'}]);
+assert.deepEqual(plan.preserve,['img/additional.webp'],'Do not delete unrelated live media');
+plan=planHistoricMediaRecovery({file:['p.webp']},past,records([['p.webp',A]]));
+assert.equal(plan.requiresRestore,false);
+assert.deepEqual(plan.identical,['img/p.webp']);
+for(const value of [null,{file:'bad'},{file:['../hack.svg']},{file:['p.webp','p.webp']}])
+ assert.equal(planHistoricMediaRecovery(value,past,live).ok,false);
+assert.equal(planHistoricMediaRecovery({file:['missing.webp']},past,live).ok,false);
+assert.equal(planHistoricMediaRecovery({file:['p.webp']},past,null).ok,false);
+assert.equal(planHistoricMediaRecovery({file:['p.webp']},records([['p.webp','wrong']]),live).ok,false);
+console.log('✔ Historical media recovery plan: blob SHA, atomic staging list and non-destructive preservation');

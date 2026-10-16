@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const html=readFileSync('admin.html','utf8');
+assert.match(html,/lascia vuoto = non tracciata \/ su richiesta/,'Blank stock must not claim unlimited availability');
+assert.match(html,/usa le frecce per riordinare/,'Gallery instruction matches actual controls');
+assert.match(html,/aria-label="Rimuovi immagine/,'Gallery remove has accessible label');
+assert.match(html,/aria-label="Sposta foto/,'Reorder arrows have accessible labels');
+assert.match(html,/mediaInventory\(\)\|\|\[\]\)\.some\(name=>name\.startsWith/,'Gallery upload checks inventory independent of file extension');
+assert.match(html,/Sostituire la copertina reale/,'Product picker confirms replacing existing cover');
+console.log('✔ Admin gallery: accurate stock label, accessible reorder, collision-safe file names, replacement confirmation');

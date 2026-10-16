@@ -2003,7 +2003,7 @@ async function renderEcommerceQuality(){
      const grid=el('div','ingly-ecom-stats');
      for(const [label,value] of [
        ['Prodotti visibili',report.metrics.visibleProducts],
-       ['Senza foto',report.metrics.visibleWithoutPhoto],
+       ['Senza foto',report.imageInventoryAvailable?report.metrics.visibleWithoutPhoto:'Da verificare'],
        ['Problemi critici',report.totals.error],
        ['Avvisi',report.totals.warning],
        ['Info',report.totals.info]]){
@@ -2012,6 +2012,11 @@ async function renderEcommerceQuality(){
        grid.append(card);
      }
      summary.append(grid);
+     if(!report.imageInventoryAvailable){
+       const notice=el('p','hint','Inventario immagini non disponibile: il numero dei prodotti senza foto non è verificabile. Ricollega il repository o ricarica il manifest dalla Media Library.');
+       notice.setAttribute('role','status');
+       summary.append(notice);
+     }
      summary.append(el('p','hint',report.note));
      const all=report.findings.slice(0,80);
      if(!all.length){

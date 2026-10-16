@@ -43,6 +43,7 @@ assert.equal(maxOne.findings.length,1);
 assert(maxOne.truncated);
 assert.equal(typeof maxOne.totals.error,'number');
 assert(!JSON.stringify(sample).includes('conversion rate 90'),'Never invent business KPIs');
+assert.equal(sample.imageInventoryAvailable,false,'Legacy audit without manifest must disclose missing evidence');
 const trueMedia=auditStore({
  products:[
   {id:91,hidden:false,n:{it:'Fotografia non presente',en:'Missing'},desc:{it:'Prova'},cat:'valid',img:'img/91.webp'},
@@ -53,6 +54,7 @@ const trueMedia=auditStore({
  imageInventory:['92-g1.webp'],stagedImages:['img/93.webp']
 });
 assert.equal(trueMedia.metrics.visibleWithoutPhoto,1,'Only truly absent product photo counts');
+assert.equal(trueMedia.imageInventoryAvailable,true,'A supplied manifest makes photo evidence available');
 assert(trueMedia.findings.some(f=>f.code==='missing_primary_image'&&f.id==='91'));
 assert(trueMedia.findings.some(f=>f.code==='missing_cover_image'&&f.id==='92'));
 assert(!trueMedia.findings.some(f=>f.code==='missing_primary_image'&&f.id==='93'));
@@ -81,6 +83,8 @@ assert(admin.includes("health:renderEcommerceQuality"),'Navigation must open qua
 assert(admin.includes("import('./assets/js/ecommerce-quality.mjs')"),'Admin must use exactly the tested engine');
 assert(admin.includes('S.P||[]')&&admin.includes('S.DIGI||{}'),'Admin must use current draft state');
 assert(admin.includes('report.findings.slice(0,80)'),'Admin must cap visible findings');
+assert(admin.includes("report.imageInventoryAvailable?report.metrics.visibleWithoutPhoto:'Da verificare'"),'Do not display a misleading missing-photo number without inventory');
+assert(admin.includes('Inventario immagini non disponibile:'),'Explain unavailable media inventory in the Admin UI');
 assert(admin.includes("document.createElement('a')"),'Export must create a real download');
 const dom=new JSDOM(admin);
 const scripts=[...dom.window.document.querySelectorAll('script:not([src]):not([type="module"])')]

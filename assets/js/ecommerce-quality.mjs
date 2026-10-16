@@ -35,6 +35,7 @@ export function auditStore(input={},options={}){
   // field-based diagnostics only when an inventory has not been supplied.
   const images=Array.isArray(input.imageInventory)?new Set(
     input.imageInventory.map(x=>str(x).replace(/^img\//,'').split(/[?#]/)[0])):null;
+  const imageInventoryAvailable=images!==null;
   const staged=new Set((input.stagedImages||[]).map(x=>str(x).split(/[?#]/)[0]));
   const removed=new Set((input.deletedImages||[]).map(x=>str(x).split(/[?#]/)[0]));
   const mediaExists=src=>{
@@ -136,6 +137,7 @@ export function auditStore(input={},options={}){
     a.area.localeCompare(b.area,'it')||a.id.localeCompare(b.id,'it'));
   return {
     version:1,
+    imageInventoryAvailable,
     method:'catalog-static-audit',
     note:'Controllo di completezza, non certificazione tecnica, SEO o performance. Verificare manualmente le foto, le licenze e le affermazioni commerciali.',
     totals,

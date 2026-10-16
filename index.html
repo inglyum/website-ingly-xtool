@@ -143,12 +143,20 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
     caches.keys().then(function(keys){
-      var stale=keys.filter(function(k){return k.indexOf(CACHE_WANT)!==0});
+      /* Cache Storage è condiviso dall'intera origin: non cancellare dati
+         di un'altra PWA ospitata su github.io. */
+      var stale=keys.filter(function(k){
+        return /^ingly-v\d+-(?:assets|data|img)$/.test(k) && k.indexOf(CACHE_WANT)!==0;
+      });
       if(!stale.length)return;                            /* già aggiornato: non fare nulla */
       sessionStorage.setItem(FLAG,'1');
-      return Promise.all(keys.map(function(k){return caches.delete(k)}))
+      var ownScope=new URL('./',document.baseURI).href;
+      return Promise.all(stale.map(function(k){return caches.delete(k)}))
         .then(function(){return navigator.serviceWorker.getRegistrations()})
-        .then(function(rs){return Promise.all(rs.map(function(r){return r.unregister()}))})
+        .then(function(rs){
+          return Promise.all(rs.filter(function(r){return r.scope===ownScope})
+            .map(function(r){return r.unregister()}));
+        })
         .then(function(){location.reload()});
     }).catch(function(){});
   }catch(e){}

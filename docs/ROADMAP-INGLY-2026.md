@@ -292,3 +292,26 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 
 ### Gate
 - Non dichiarare pubblicato fino a `npm test`, build, audit Chromium e Pages riusciti. Non dichiarare test reali sul laser o nell'Admin senza tali prove.
+
+## Sprint 14 — Preventivi senza perdita silenziosa (17/10/2026)
+
+### Problema commerciale rilevato nel codice esistente
+- `data/config.json` dichiara `formspreePreventivo`, `formspreePreventivoB2B` e `formspreeNewsletter` vuoti. Sul sito statico, senza endpoint, il form preventivi non trasmette richieste. Non confondere l'azione sul pulsante con la ricezione del contatto.
+- `forms.js` in caso di modulo non configurato prima mostrava un toast e terminava. A fallimento rete succedeva lo stesso, potenzialmente perdendo il lead.
+
+### Correzione software implementata
+- `quote-lead-fallback.js`: messaggio bilingue privato/azienda costruito solo con i campi FormData abilitati, omette token e campi tecnici. Whitelist host HTTPS `wa.me` e numeri validi, con email `mailto:` di ripiego se WhatsApp non è configurato.
+- Dopo submit, se endpoint preventivo è assente o fallisce, si rende un blocco visibile e accessibile **«Non abbiamo ancora ricevuto la richiesta»**; il cliente sceglie volontariamente se continuare con messaggio WhatsApp/email precompilato. Nessun redirect automatico e nessun messaggio inviato dall'app senza l'utente.
+- Il contenuto form NON viene cancellato in caso di fallimento. Se l'endpoint Formspree viene configurato e la richiesta va a buon fine, resta attivo il flusso originario ed è eliminato il vecchio banner fallback.
+- Newsletter/Brevo non usa questo ripiego: iscrizioni marketing richiedono un vero servizio + consenso.
+- Test dedicati alla protezione dell'URL, preservazione dei campi, comunicazione trasparente dello stato, fallback italiano/inglese e business.
+
+### Restano P0 / P1 per uso commerciale completo
+- P0: inserire un vero endpoint sicuro Formspree o backend proprietario nell'Admin per ricevere e archiviare i preventivi, con test operativo esterno e policy privacy.
+- P0: 43 schede pubbliche senza foto locali da completare solo con scatti autentici, e 34 nascoste da verificare separatamente.
+- P0: ripristino storico foto provato con autenticazione e blob reali in ambiente controllato.
+- P1: collegamento tra richiesta cliente, stato preventivo/ordine e notifiche; senza backend/connessione non chiamarlo CRM o pagamento integrato.
+- P1: generatori validati fisicamente, materiali sicuri, controlli smartphone reali.
+
+### Gate
+- Suite `npm test`, QA Chromium, audit layout WCAG, build e deploy GitHub Pages necessari per pubblicare.

@@ -3,6 +3,7 @@
    nell'admin (Contatti → Moduli). Senza ID configurato mostrano un avviso. */
 import { $, T, toast, L } from './utils.js';
 import { fromRef, myRef } from './referral.js';
+import { quoteFallback } from './quote-lead-fallback.js';
 const { D, CONFIG } = window.INGLY;
 
 export function renderUrg(){
@@ -15,9 +16,12 @@ const endpoint = k => {
   return id.startsWith('http') ? id : 'https://formspree.io/f/'+id;
 };
 
-async function send(form, key, okMsg, oggetto){
+async function send(form, key, okMsg, oggetto, options={}){
   const url=endpoint(key);
-  if(!url){ toast(T('formsOff')); return }
+  if(!url){
+    if(options.quote){quoteFallback(form,CONFIG,{business:!!options.business,language:L});return}
+    toast(T('formsOff'));return;
+  }
   const btn=form.querySelector('button[type="submit"],button:not([type])');
   const label=btn?btn.textContent:'';
   if(btn){ btn.disabled=true; btn.textContent='…' }
@@ -26,8 +30,12 @@ async function send(form, key, okMsg, oggetto){
     data.append('_subject', oggetto || 'INGLY — nuova richiesta dal sito');
     const r=await fetch(url,{method:'POST',body:data,headers:{Accept:'application/json'}});
     if(!r.ok) throw 0;
+    form.querySelector('[data-ingly-quote-fallback]')?.remove();
     toast(okMsg); form.reset();
-  }catch(e){ toast(T('formsErr')) }
+  }catch(e){
+    if(options.quote)quoteFallback(form,CONFIG,{business:!!options.business,language:L});
+    else toast(T('formsErr'));
+  }
   if(btn){ btn.disabled=false; btn.textContent=label }
 }
 
@@ -130,7 +138,7 @@ export function initForms(){
       const azienda = q.dataset.modo === 'azienda';
       const chiave = azienda && endpoint('formspreePreventivoB2B')
         ? 'formspreePreventivoB2B' : 'formspreePreventivo';
-      send(q, chiave, T('qOk'), azienda ? 'INGLY — richiesta AZIENDA dal sito' : null);
+      send(q, chiave, T('qOk'), azienda ? 'INGLY — richiesta AZIENDA dal sito' : null,{quote:true,business:azienda});
     });
   }
 }

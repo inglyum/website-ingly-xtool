@@ -962,3 +962,27 @@
  :root[data-mode] #page-macchine .ingly-finder-controls{grid-template-columns:1fr}
  :root[data-mode] #page-macchine .ingly-m2-duo__grid{grid-template-columns:1fr}
 }
+
+
+/* Sprint 14 — no lost quotation leads on a static site without Formspree. */
+:root[data-mode] form.quote-form .ingly-quote-fallback{
+ margin:20px 0 6px;padding:clamp(18px,3vw,26px);
+ border-radius:14px;border:1px solid var(--brand-border-strong);
+ background:var(--brand-surface);color:var(--brand-ink);
+ box-shadow:0 8px 34px rgba(6,16,30,.08);
+}
+:root[data-mode] form.quote-form .ingly-quote-fallback strong{
+ display:block;color:var(--brand-ink);
+ font:700 clamp(16px,1.8vw,20px)/1.35 var(--brand-text);
+}
+:root[data-mode] form.quote-form .ingly-quote-fallback p{
+ margin:12px 0 16px;color:var(--brand-muted);
+ font:500 14px/1.6 var(--brand-text);
+}
+:root[data-mode] form.quote-form .ingly-quote-fallback__link{
+ display:inline-flex;align-items:center;justify-content:center;min-height:48px;
+ padding:11px 22px;text-decoration:none;
+}
+:root[data-mode] form.quote-form .ingly-quote-fallback:focus-within{
+ outline:2px solid var(--brand-gold);outline-offset:3px;
+}

@@ -74,3 +74,32 @@ La uniformazione visiva **non** rappresenta completamento di un checkout con pag
 
 ### 10. Test di accettazione
 \`tests/test-brand-system.mjs\` controlla la presenza del wordmark originale, la separazione dei due temi, il fondo bianco nel logo circolare, lo stato tema Admin, il layout mobile e le preferenze condivise. Le altre suite di repository verificano l'assenza di regressioni funzionali.
+
+
+### 11. Livello Keynote — linguaggio Apple, identità INGLY (17 ottobre 2026)
+La vetrina adotta il ritmo di apple.com senza perdere il marchio. Il livello vive **in coda** a `assets/css/brand-system-2026.css` (che resta l'ultimo foglio caricato) e sostituisce, dove in conflitto, i punti 1, 3 e 4 sopra.
+
+| Aspetto | Prima | Ora |
+| --- | --- | --- |
+| Testo | Josefin Sans ovunque, più Manrope/Inter/Fraunces/Playfair/DM Serif a seconda del foglio | Font di sistema (`-apple-system`, SF Pro, poi Inter): token `--k-font-text` |
+| Titoli | Mix serif corsivi e sans | Solo Josefin Sans 600, mai corsivo, interlinea stretta: token `--k-font-display` |
+| Tela Notte | Navy `#080d15` con aloni radiali | Grafite neutra: `#000` / `#0b0d11` / `#141518`, nessun alone |
+| Tela Giorno | Bianco con aloni | `#fff` e `#f5f5f7` |
+| Accento | Oro satinato | Invariato: `#deb878` su scuro, `#8a5c22` su chiaro. Unico colore d'accento |
+| Pulsanti | Rettangoli con gradiente | Pillola (`border-radius:980px`), pieno oro o contorno |
+| Card | Raggi 12/16/20, ombre e bagliori | Raggio unico 18px, superfici piatte |
+| Header | 84px, opaco | 52-56px, vetro `saturate(180%) blur(20px)`, sticky |
+| Footer | Testo medio, colonne in riquadri | 12px grigio, colonne libere, wordmark al 7% |
+
+**Sezione Keynote della home** (`#inglyKeynote`, subito dopo l'hero): due tile a tutta larghezza (una chiara, una scura) e una griglia 2×3 di tile alternate, ognuna con titolo centrato, sottotitolo, azioni e fotografia sotto. Regole:
+- solo fotografie reali del portfolio INGLY (`img/port-*`) o copertine di categoria già dichiarate illustrative; nessun mockup, nessun URL esterno;
+- ogni `<img>` ha `alt`, `width`/`height`, `srcset` solo con varianti presenti su disco;
+- testi bilingui in `data-k-it`/`data-k-en`, applicati da `assets/js/ingly-keynote.js` con `textContent`, con ambito limitato alla sezione;
+- una foto che non carica nasconde il proprio riquadro: la tile resta leggibile come solo testo;
+- i colori delle tile sono fissi (chiara `#f5f5f7`, scura `#000`/`#101215`) in entrambe le modalità, come le tile di apple.com; i contrasti di testo e pulsanti sono ≥ 4.5:1.
+
+**Hero:** tile scura in entrambe le modalità, testo centrato in alto, fotografia a tutta pagina sotto un velo verticale.
+
+**Telefono:** tile senza margini né raggi sotto 480px; barra azioni a cinque voci su una sola riga (prima la quinta andava a capo).
+
+Test: `tests/test-keynote.mjs`.

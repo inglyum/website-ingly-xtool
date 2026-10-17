@@ -109,7 +109,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v15', FLAG='ingly_cachefix_v15';
+  var CACHE_WANT='ingly-v16', FLAG='ingly_cachefix_v16';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -179,6 +179,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/atelier-chrome.js"></script>
 <script defer src="assets/js/signature-showcase.js"></script>
 <script defer src="assets/js/maison-reference.js"></script>
+<script defer src="assets/js/ingly-keynote.js"></script>
 <script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script type="module" src="assets/js/app.js"></script>
@@ -397,6 +398,65 @@ setTimeout(function(){
     </div>
     <div class="scroll-cue">Scroll</div>
   </div>
+
+  <!-- KEYNOTE — la home racconta i lavori come Apple racconta i prodotti:
+       una tile per volta, titolo grande al centro, due azioni, la foto sotto.
+       Solo fotografie reali del portfolio INGLY (img/port-*), nessun mockup.
+       Testi bilingui in data-k-it / data-k-en, applicati da ingly-keynote.js. -->
+  <section class="ingly-keynote" id="inglyKeynote" aria-label="In evidenza da INGLY DESIGN">
+    <article class="kn-hero kn-hero--light" aria-labelledby="knMapTitle">
+      <div class="kn-copy">
+        <p class="kn-eyebrow" data-k-it="Dal laboratorio INGLY" data-k-en="From the INGLY workshop">Dal laboratorio INGLY</p>
+        <h2 id="knMapTitle" class="kn-title" data-k-it="La tua città. In cinque strati." data-k-en="Your city. In five layers.">La tua città. In cinque strati.</h2>
+        <p class="kn-sub" data-k-it="Mappe topografiche in legno pregiato, tagliate e incise a laser una per una." data-k-en="Topographic maps in fine wood, laser cut and engraved one by one.">Mappe topografiche in legno pregiato, tagliate e incise a laser una per una.</p>
+        <p class="kn-links">
+          <a class="kn-btn kn-btn--fill" href="quote" data-nav="quote" data-k-it="Richiedi la tua" data-k-en="Request yours">Richiedi la tua</a>
+          <a class="kn-btn kn-btn--line" href="portfolio" data-nav="portfolio" data-k-it="Guarda il portfolio" data-k-en="See the portfolio">Guarda il portfolio</a>
+        </p>
+      </div>
+      <figure class="kn-media"><img src="img/port-1.webp" srcset="img/port-1-400.webp 400w, img/port-1-800.webp 800w, img/port-1.webp 1600w" sizes="(max-width: 640px) 80vw, 460px" alt="Mappa topografica a cinque strati in legno, realizzata da INGLY DESIGN" width="1600" height="2000" loading="lazy" decoding="async"></figure>
+    </article>
+
+    <article class="kn-hero kn-hero--dark" aria-labelledby="knPortraitTitle">
+      <div class="kn-copy">
+        <p class="kn-eyebrow" data-k-it="Ritratti incisi" data-k-en="Engraved portraits">Ritratti incisi</p>
+        <h2 id="knPortraitTitle" class="kn-title" data-k-it="Un volto. Nel legno." data-k-en="A face. In wood.">Un volto. Nel legno.</h2>
+        <p class="kn-sub" data-k-it="Dalla tua fotografia a un ritratto inciso che resta nel tempo." data-k-en="From your photograph to an engraved portrait made to last.">Dalla tua fotografia a un ritratto inciso che resta nel tempo.</p>
+        <p class="kn-links">
+          <a class="kn-btn kn-btn--fill" href="personalizza" data-nav="personalizza" data-k-it="Personalizza" data-k-en="Personalise">Personalizza</a>
+          <a class="kn-btn kn-btn--line" href="shop" data-nav="shop" data-k-it="Vai allo Shop" data-k-en="Visit the Shop">Vai allo Shop</a>
+        </p>
+      </div>
+      <figure class="kn-media"><img src="img/port-10.webp" srcset="img/port-10-400.webp 400w, img/port-10-800.webp 800w, img/port-10.webp 1086w" sizes="(max-width: 640px) 80vw, 460px" alt="Ritratto di coppia inciso su legno, realizzato da INGLY DESIGN" width="1086" height="1448" loading="lazy" decoding="async"></figure>
+    </article>
+
+    <div class="kn-grid">
+      <a class="kn-tile kn-tile--light" href="shop" data-nav="shop">
+        <span class="kn-copy"><strong class="kn-tile__title" data-k-it="Il tempo, inciso." data-k-en="Time, engraved.">Il tempo, inciso.</strong><span class="kn-tile__sub" data-k-it="Orologi e complementi in legno per la casa." data-k-en="Wooden clocks and pieces for the home.">Orologi e complementi in legno per la casa.</span><span class="kn-more" data-k-it="Scopri lo Shop" data-k-en="Explore the Shop">Scopri lo Shop</span></span>
+        <span class="kn-media"><img src="img/port-22.webp" srcset="img/port-22-400.webp 400w, img/port-22-800.webp 800w, img/port-22.webp 1600w" sizes="(max-width: 820px) 80vw, 40vw" alt="Orologio in legno con albero della vita traforato, realizzato da INGLY DESIGN" width="1600" height="1600" loading="lazy" decoding="async"></span>
+      </a>
+      <a class="kn-tile kn-tile--dark" href="personalizza" data-nav="personalizza">
+        <span class="kn-copy"><strong class="kn-tile__title" data-k-it="La luce che firma." data-k-en="Light that signs.">La luce che firma.</strong><span class="kn-tile__sub" data-k-it="Plexiglass inciso e retroilluminato, su misura." data-k-en="Engraved, backlit acrylic, made to measure.">Plexiglass inciso e retroilluminato, su misura.</span><span class="kn-more" data-k-it="Personalizza" data-k-en="Personalise">Personalizza</span></span>
+        <span class="kn-media"><img src="img/port-6.webp" srcset="img/port-6-400.webp 400w, img/port-6-800.webp 800w, img/port-6.webp 870w" sizes="(max-width: 820px) 80vw, 40vw" alt="Lampada in plexiglass inciso a forma di mela, realizzata da INGLY DESIGN" width="870" height="1024" loading="lazy" decoding="async"></span>
+      </a>
+      <a class="kn-tile kn-tile--dark" href="materiali/pelle">
+        <span class="kn-copy"><strong class="kn-tile__title" data-k-it="Pelle. Per sempre." data-k-en="Leather. For good.">Pelle. Per sempre.</strong><span class="kn-tile__sub" data-k-it="Portachiavi e accessori con la tua foto incisa." data-k-en="Keyrings and accessories with your photo engraved.">Portachiavi e accessori con la tua foto incisa.</span><span class="kn-more" data-k-it="Scopri i materiali" data-k-en="Explore materials">Scopri i materiali</span></span>
+        <span class="kn-media"><img src="img/port-3.webp" srcset="img/port-3-400.webp 400w, img/port-3-800.webp 800w, img/port-3.webp 1002w" sizes="(max-width: 820px) 80vw, 40vw" alt="Portachiavi in pelle con fotografia incisa, realizzato da INGLY DESIGN" width="1002" height="742" loading="lazy" decoding="async"></span>
+      </a>
+      <a class="kn-tile kn-tile--light" href="shop" data-nav="shop">
+        <span class="kn-copy"><strong class="kn-tile__title" data-k-it="Parole che restano." data-k-en="Words that stay.">Parole che restano.</strong><span class="kn-tile__sub" data-k-it="Dediche incise per le persone che contano." data-k-en="Engraved dedications for the people who matter.">Dediche incise per le persone che contano.</span><span class="kn-more" data-k-it="Idee regalo" data-k-en="Gift ideas">Idee regalo</span></span>
+        <span class="kn-media"><img src="img/port-4.webp" srcset="img/port-4-400.webp 400w, img/port-4-800.webp 800w, img/port-4.webp 1280w" sizes="(max-width: 820px) 80vw, 40vw" alt="Targa rotonda in legno con dedica incisa e albero traforato, realizzata da INGLY DESIGN" width="1280" height="1600" loading="lazy" decoding="async"></span>
+      </a>
+      <a class="kn-tile kn-tile--light" href="digital" data-nav="digital">
+        <span class="kn-copy"><strong class="kn-tile__title" data-k-it="File pronti al taglio." data-k-en="Files ready to cut.">File pronti al taglio.</strong><span class="kn-tile__sub" data-k-it="SVG, DXF e STL per il tuo laser o la tua stampante 3D." data-k-en="SVG, DXF and STL for your laser or 3D printer.">SVG, DXF e STL per il tuo laser o la tua stampante 3D.</span><span class="kn-more" data-k-it="Vai al Digitale" data-k-en="Go to Digital">Vai al Digitale</span></span>
+        <span class="kn-media kn-media--cover"><img src="img/cat-digitale.webp" srcset="img/cat-digitale-400.webp 400w, img/cat-digitale-800.webp 800w, img/cat-digitale.webp 1200w" sizes="(max-width: 820px) 90vw, 45vw" alt="Progettazione digitale al computer, fotografia illustrativa" width="1200" height="800" loading="lazy" decoding="async"></span>
+      </a>
+      <a class="kn-tile kn-tile--dark" href="macchine" data-nav="macchine">
+        <span class="kn-copy"><strong class="kn-tile__title" data-k-it="xTool Lab." data-k-en="xTool Lab.">xTool Lab.</strong><span class="kn-tile__sub" data-k-it="Laser, stampa UV e termopressa: le macchine con cui lavoriamo." data-k-en="Laser, UV printing and heat press: the machines we work with.">Laser, stampa UV e termopressa: le macchine con cui lavoriamo.</span><span class="kn-more" data-k-it="Entra nel Lab" data-k-en="Enter the Lab">Entra nel Lab</span></span>
+        <span class="kn-media kn-media--cover"><img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width: 820px) 90vw, 45vw" alt="Testa laser in lavorazione, fotografia illustrativa" width="1200" height="800" loading="lazy" decoding="async"></span>
+      </a>
+    </div>
+  </section>
 
 
 

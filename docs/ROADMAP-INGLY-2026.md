@@ -188,3 +188,10 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Corretto `manifest.webmanifest`: `start_url` e `scope` relativi alla base GitHub Pages, shortcut `Homepage` prioritario, percorsi puliti compatibili con History API per Shop, Personalizza e Lab, share target per `/quote/`.
 - Test regressione `test-home-primary-entry.mjs` aggiunto alla CI.
 - Limite: se un browser riapre una scheda già aperta su `/macchine/`, il ripristino della scheda è un comportamento del browser, non un redirect dalla root. QA e deploy da verificare prima del merge.
+
+## Homepage premium — intervento successivo (17 ottobre 2026)
+
+- La homepage resta l'ingresso principale (`/`), mentre Macchine rimane sezione distinta.
+- Aggiunto canvas continuo della Home con glow caldi/freddi discreti nei temi Giorno e Notte, evitando di creare nuovi layer globali antagonisti.
+- Conservati markup Hero, font, CTA, catalogo e navigazione. Test statico inserito nella suite QA.
+- Restano QA visivo Chromium e comparazione mobile/light, brand PR #89 da integrare soltanto con audit verde, collaudo fotografico e restanti sprint Admin/Commerce/Generator.

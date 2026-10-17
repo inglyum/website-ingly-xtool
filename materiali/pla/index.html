@@ -182,7 +182,6 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/maison-reference.js"></script>
 <script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
-<script defer src="assets/js/ingly-hero-scroll.js"></script>
 <script defer src="assets/js/ingly-generator-draft.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
@@ -358,29 +357,7 @@ setTimeout(function(){
 <section class="page active" id="page-home">
   <div class="hero signature-hero">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
-    <!-- Full-bleed photographic hero: genuine page layout, NOT a screenshot/background of a website. -->
-    <div class="hero-visual signature-hero-media" id="heroVisual" aria-label="Creazioni e lavorazioni personalizzate INGLY">
-      <div class="coin-scene"><div class="coin" id="coin">
-        <img src="img/cat-custom.webp" srcset="img/cat-custom-400.webp 400w, img/cat-custom-800.webp 800w, img/cat-custom.webp 1200w" sizes="(max-width: 900px) 100vw, 68vw" alt="Composizione illustrativa di oggetti personalizzabili e incisioni laser" width="1200" height="800" fetchpriority="high" decoding="async">
-      </div></div>
-      <div class="signature-hero-media__shade" aria-hidden="true"></div>
-      <span class="signature-hero-media__trace" aria-hidden="true"></span>
-    </div>
-    <!-- INGLY signature sculpture: lightweight CSS 3D object (the original photograph remains as fallback). -->
-    <div class="ingly-hero-sculpture" id="inglyHeroSculpture" aria-hidden="true">
-      <div class="ingly-hero-sculpture__halo"></div>
-      <div class="ingly-hero-sculpture__stage" id="inglyHeroSculptureStage">
-        <div class="ingly-hero-sculpture__layer ingly-hero-sculpture__layer--wood"></div>
-        <div class="ingly-hero-sculpture__layer ingly-hero-sculpture__layer--metal"></div>
-        <div class="ingly-hero-sculpture__layer ingly-hero-sculpture__layer--acrylic"></div>
-        <div class="ingly-hero-sculpture__face">
-          <div class="ingly-hero-sculpture__edgeline"></div>
-          <img src="assets/images/ingly-wordmark-light.svg?v=20261017n2" alt="" width="500" height="148" loading="eager" decoding="async">
-          <span>DESIGN / MATERIALI / IDEE</span>
-        </div>
-      </div>
-      <div class="ingly-hero-sculpture__caption"><span>01 / INGLY OBJECT STUDY</span><span>LEGNO · ACRILICO · METALLO</span></div>
-    </div>
+    <!-- Hero deliberately text-only: no 3D scene or placeholder image. -->
     <div class="wrap hero-grid">
       <div class="signature-hero-copy">
         <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">INGLY DESIGN · CREAZIONI SU MISURA</span></span>

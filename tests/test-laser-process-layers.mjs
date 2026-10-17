@@ -30,13 +30,14 @@ assert.ok(canvas().includes('INGLY_ENGRAVE'),'Metal engraving remains available'
 assert.match(el('inglyGeneratorCompatibility').textContent,/nessun taglio CO₂/);
 const metalQuote=win.INGLY_PARAMETRIC_QUOTE.quoteText({name:'Metal',w:180,h:65,material:'metal',shape:'rounded',font:'josefin',score:true},'en');
 assert.match(metalQuote,/Score: no/,'Quote must not promise metal scoring');
+assert.equal((metalQuote.match(/Score:/g)||[]).length,1,'English quote has one scoring line');
 el('inglyGeneratorMaterial').value='leather';on(el('inglyGeneratorMaterial'));
 assert.ok(!el('inglyGeneratorScore').disabled,'Score allowed for verified PVC-free leather');
 assert.ok(canvas().includes('INGLY_CUT'),'Leather cut path restored');
 assert.ok(canvas().includes('INGLY_SCORE'),'Leather score path restored');
 assert.match(el('inglyGeneratorCompatibility').textContent,/senza PVC/);
 const quote=win.INGLY_PARAMETRIC_QUOTE.quoteText({name:'Idea',w:180,h:65,material:'leather',shape:'rounded',font:'serif',score:true},'it');
-assert.match(quote,/Score: sì/,'Quote includes SCORE');
+assert.match(quote,/SCORE: sì/,'Quote includes SCORE');
 assert.ok(!html.includes('<script src="https://'), 'No new remote script dependency in Personalizza');
 win.close();
 console.log('✔ Laser generator: real CUT/ENGRAVE/SCORE layers, safe metal suppression, leather and draft persistence');

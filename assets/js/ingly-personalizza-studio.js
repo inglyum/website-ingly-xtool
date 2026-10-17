@@ -56,7 +56,7 @@
     const score=Boolean(options.score)&&options.material!=='metal';
     const notes=String(options.notes||'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,300);
     return l==='en'
-      ?'INGLY DESIGN — Custom project quotation\nText: '+name+'\nSize: '+w+' × '+h+' mm\nMaterial: '+material+'\nShape: '+shape+'\nLettering: '+font+
+      ?'INGLY DESIGN — Custom project quotation\nText: '+name+'\nSize: '+w+' × '+h+' mm\nMaterial: '+material+'\nShape: '+shape+'\nLettering: '+font+'\nScore: '+(score?'sì':'no')+'\nScore: '+(score?'yes':'no')+
         (notes?'\nNotes: '+notes:'')+'\nPlease confirm feasibility, materials, price and delivery. I can attach the editable SVG separately.'
       :'INGLY DESIGN — Richiesta preventivo personalizzato\nTesto: '+name+'\nMisure: '+w+' × '+h+' mm\nMateriale: '+material+'\nForma: '+shape+'\nLettering: '+font+
         (notes?'\nNote: '+notes:'')+'\nVorrei confermare fattibilità, materiali, prezzo e consegna. Posso allegare separatamente il file SVG modificabile.';

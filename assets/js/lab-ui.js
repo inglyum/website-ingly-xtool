@@ -347,6 +347,9 @@ export function renderMacchine(L) {
             ${elencoMachine(t2('✕ Non utile per','✕ Not for',L),x.nonUtilePer)}
             ${x.paginaUfficiale ? '<small>'+t2('Scheda xTool ↗','xTool information ↗',L)+'</small>' : ''}
           </a>
+          <a class="ingly-machine-detail-link" href="${esc(via('/macchine/'+x.id))}" data-nav="macchine">
+            ${t2('Apri scheda completa','View full specifications',L)} ↗
+          </a>
           <label class="lab-p"><input type="checkbox" data-machine-compare="${esc(x.id)}"> ${t2('Confronta','Compare',L)}</label>
         </article>`).join('')}</div>
         <div class="lab-blocco" data-machine-comparison aria-live="polite"></div>` : ''}
@@ -728,6 +731,19 @@ export function renderMacchina(id, L, cardProdotto) {
       ${chips([m.specs.sorgente,
         m.specs.piano ? `${m.specs.piano.x} × ${m.specs.piano.y} ${m.specs.piano.unita || 'mm'}` : '',
         m.specs.velocitaMax || ''].filter(Boolean))}` : ''}
+    ${m.specificheUfficiali ? `<section class="ingly-official-specs" aria-label="${t2('Dati ufficiali della macchina','Official machine specifications',L)}">
+       <div class="ingly-official-specs__head">
+         <strong>${t2('xTool M2 · Specifiche verificate da documentazione','xTool M2 · Manufacturer specifications',L)}</strong>
+         <span>${t2('Fonte: xTool Support','Source: xTool Support',L)}</span>
+       </div>
+       <dl class="ingly-official-specs__list">
+         ${(m.specificheUfficiali.values||[]).map(v=>`<div><dt>${esc(t2(v.it,v.en,L))}</dt><dd>${esc(v.value)}</dd></div>`).join('')}
+       </dl>
+       <p class="ingly-official-specs__note">${esc(LAB.lingua(m.specificheUfficiali.note,L))}</p>
+       <a class="ingly-official-specs__source" href="${esc(m.specificheUfficiali.source)}" rel="noopener noreferrer" target="_blank">
+         ${t2('Apri documentazione ufficiale','Open official documentation')} ↗
+       </a>
+     </section>` : ''}
 
     ${tecs.length ? `<h3 class="vert-tit">${t2('Tecnologie', 'Technologies', L)}</h3>
       <div class="vert-grid">${tecs.map(t => tesseraTecnologia(t, L)).join('')}</div>` : ''}

@@ -195,3 +195,9 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Aggiunto canvas continuo della Home con glow caldi/freddi discreti nei temi Giorno e Notte, evitando di creare nuovi layer globali antagonisti.
 - Conservati markup Hero, font, CTA, catalogo e navigazione. Test statico inserito nella suite QA.
 - Restano QA visivo Chromium e comparazione mobile/light, brand PR #89 da integrare soltanto con audit verde, collaudo fotografico e restanti sprint Admin/Commerce/Generator.
+
+## P0 Brand: consolidamento senza conflitti (17/10/2026)
+
+- Riprese su main corrente solo le regole di presentazione del wordmark geometrico INGLY; nessuna alterazione dei tracciati originali.
+- Aggiunto test per assicurare che il master e le varianti dark/light abbiano la stessa geometria e la I separata.
+- Questa PR sostituisce la vecchia PR #89 conflittuale; attendere QA e visual audit prima del merge. Controllo ottico finale del riferimento ancora aperto.

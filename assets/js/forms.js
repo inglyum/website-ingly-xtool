@@ -30,6 +30,7 @@ async function send(form, key, okMsg, oggetto, options={}){
     data.append('_subject', oggetto || 'INGLY — nuova richiesta dal sito');
     const r=await fetch(url,{method:'POST',body:data,headers:{Accept:'application/json'}});
     if(!r.ok) throw 0;
+    form.querySelector('[data-ingly-quote-fallback]')?.remove();
     toast(okMsg); form.reset();
   }catch(e){
     if(options.quote)quoteFallback(form,CONFIG,{business:!!options.business,language:L});

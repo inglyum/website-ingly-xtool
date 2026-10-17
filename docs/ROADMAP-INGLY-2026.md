@@ -188,3 +188,8 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Corretto `manifest.webmanifest`: `start_url` e `scope` relativi alla base GitHub Pages, shortcut `Homepage` prioritario, percorsi puliti compatibili con History API per Shop, Personalizza e Lab, share target per `/quote/`.
 - Test regressione `test-home-primary-entry.mjs` aggiunto alla CI.
 - Limite: se un browser riapre una scheda già aperta su `/macchine/`, il ripristino della scheda è un comportamento del browser, non un redirect dalla root. QA e deploy da verificare prima del merge.
+
+## Sprint UI — riallineamento PR #87 sul main aggiornato (17/10/2026)
+
+- Riproposte in branch pulito, senza unire vecchi file completi, le regole di presentazione del wordmark originale da PR #87. Mantengono la I separata e riducono il clipping nell'header, con breakpoint responsive.
+- Test SVG dei percorsi geometrici aggiunto alla suite CI. Non viene modificato il master originale e non si dichiara conclusa la verifica percettiva sugli schermi fisici.

@@ -24,7 +24,7 @@ assert.match(sw,/url\.pathname\.startsWith\(via\('img\/'\)\)/,'Catalog product i
 assert.match(sw,/url\.pathname\.startsWith\(via\('assets\/images\/'\)\)/,'Wordmark and editable assets must refresh');
 assert.match(sw,/mutableMedia\s*\?\s*networkFirst\(e\.request,CACHE_IMG,4000\)/,'Mutable images are network-first, not permanent cache-first');
 assert.match(sw,/cacheFirst\(e\.request,CACHE_IMG\)/,'Immutable images preserve cache-first offline behavior');
-assert.match(root,/FLAG='ingly_cachefix_v15'/,'Version-specific recovery prevents session-wide stale cache masking');
+assert.match(root,/FLAG='ingly_cachefix_v16'/,'Version-specific recovery prevents session-wide stale cache masking');
 
 const nav=read('assets/js/nav-mega.js');
 assert.doesNotMatch(nav,/addEventListener\('pointerenter'/,'mega menu never opens by pointer hover');

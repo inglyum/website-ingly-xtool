@@ -9,4 +9,8 @@ assert.match(css,/prefers-reduced-motion:reduce/,'Respect reduced motion');
 assert.match(css,/focus-visible/,'Keyboard focus stays visible');
 assert.ok(html.indexOf('brand-system-2026.css')>html.indexOf('ingly-responsive-theme.css'),'Brand system remains last storefront CSS');
 assert.match(html,/assets\/images\/ingly-wordmark-light\.svg/,'Keep existing vector wordmark, no generated replacement');
+
+assert.match(css,/#page-shop \.shop-cats \.scat\{/,'Actual category component receives polish');
+assert.match(css,/#page-shop \.shop-cats \.scat::after/,'Readable photo overlay');
+assert.match(css,/#page-shop \.shop-cats \.scat:focus-visible/,'Category keyboard focus');
 console.log('✔ Shop visual P0: scoped continuous background, glow, focus, reduced-motion, preserved logo master');

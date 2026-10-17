@@ -635,3 +635,38 @@
   transition:none!important;transform:none!important;
  }
 }
+
+
+/* Shop polish 02: actual category component is .scat; unify overlays. */
+:root[data-mode] #page-shop .shop-cats .scat{
+ position:relative;isolation:isolate;overflow:hidden;
+ border:1px solid var(--brand-border)!important;
+ border-radius:clamp(14px,1.3vw,20px)!important;
+ background-color:var(--brand-surface)!important;
+ box-shadow:0 12px 34px rgba(0,0,0,.16)!important;
+ transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important;
+}
+:root[data-mode] #page-shop .shop-cats .scat::after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(180deg,transparent 18%,rgba(4,8,15,.58) 100%);
+ z-index:0;
+}
+:root[data-mode] #page-shop .shop-cats .scat > *{
+ position:relative;z-index:1;
+}
+:root[data-mode] #page-shop .shop-cats .scat:focus-visible{
+ outline:3px solid var(--brand-gold)!important;outline-offset:3px;
+}
+@media (hover:hover){
+ :root[data-mode] #page-shop .shop-cats .scat:hover{
+  transform:translateY(-3px);
+  border-color:var(--brand-border-strong)!important;
+  box-shadow:0 20px 42px rgba(0,0,0,.22),0 0 27px var(--shop-halo)!important;
+ }
+}
+@media (prefers-reduced-motion:reduce){
+ :root[data-mode] #page-shop .shop-cats .scat{
+  transition:none!important;
+ }
+ :root[data-mode] #page-shop .shop-cats .scat:hover{transform:none!important}
+}

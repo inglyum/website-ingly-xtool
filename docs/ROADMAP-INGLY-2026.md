@@ -179,3 +179,5 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Nessun ridisegno dei vettori logo: il master SVG originale e la I separata sono conservati; sola presentazione `object-position` migliorata. **La corrispondenza visiva con il riferimento originale fornito non è ancora certificata.**
 - Test statico `test-shop-visual-polish.mjs` nella CI; richiede audit Chromium screenshot in entrambi i temi su desktop/mobile e verifica visiva finale prima del merge.
 - Restano da affrontare: qualità visiva di tutte le altre pagine, contrasto delle card fotografiche, rapporto hero/categorie, pannello installazione PWA, verifica logo master sul riferimento e Admin Giorno/Notte.
+
+- **UI follow-up 17/10 — card Shop:** correzione selettore reale `.scat` (la patch precedente applicava gli hover a elementi generici). Uniformati bordo, profondità, overlay leggibilità, focus tastiera e reduced-motion. In attesa di CI e controllo visuale su mobile/light prima del merge.

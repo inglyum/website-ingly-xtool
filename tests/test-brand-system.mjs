@@ -14,14 +14,14 @@ assert.match(circle,/<circle cx="251" cy="252" r="225" fill="#fffdfa"\/>/,'Emble
 assert.match(dark,/fill="currentColor"/);
 assert.match(light,/color="#ffffff"/);
 assert.match(dark,/color="#10151f"/);
-for(const f of [dark,light])assert.ok(f.includes('viewBox="-205 -20 1670 630"') && f.includes('id="ingly-letter-i-stem"') && f.includes('id="ingly-letter-i-foot"') && f.includes('id="ingly-original-ngly"'),'INGLY initial I full-height, corrected SVG bounds');
+for(const f of [dark,light])assert.ok(f.includes('viewBox="-200 60 1660 490"') && f.includes('id="ingly-letter-i-stem"') && f.includes('id="ingly-letter-i-foot"') && f.includes('id="ingly-original-ngly"'),'INGLY initial I full-height, corrected SVG bounds');
 for(const name of ['brand-symbol','brand-lockup','brand-wordmark'])assert.ok(html.includes(name));
 assert.ok(html.includes('class="watermark ingly-footer-signature"'));
 assert.ok(!html.includes('<span>INGLY</span></div>\n    <div class="fbottom">'),'No decorative text typesetting for final logo');
 assert.ok(!html.includes('ingly-footer-signature" aria-label="INGLY DESIGN"><img src="assets/images/ingly-logo.svg"'),'Circular icon not competing as footer watermark');
 const storefrontDOM=new JSDOM(html);
 const logo=storefrontDOM.window.document.querySelector('.nav .brand-lockup .brand-wordmark');
-assert.ok(logo?.getAttribute('src')==='assets/images/ingly-wordmark-light.svg');
+assert.ok(logo?.getAttribute('src')==='assets/images/ingly-wordmark-light.svg?v=20261017n2');
 const mark=storefrontDOM.window.document.querySelector('footer .ingly-footer-signature');
 assert.equal(mark?.querySelectorAll('img').length,1,'Solo un wordmark in footer');
 assert.equal(storefrontDOM.window.document.querySelectorAll('.nav .brand-lockup img').length,1,'Solo un wordmark in header');

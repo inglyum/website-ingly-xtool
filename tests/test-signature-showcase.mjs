@@ -15,10 +15,9 @@ d.dispatchEvent(new w.Event('DOMContentLoaded'));
 const hero=d.querySelector('#page-home .signature-hero');
 assert(hero,'Home hero missing');
 assert.equal(hero.querySelectorAll('#heroH1').length,1,'Existing Admin headline must remain');
-const photo=hero.querySelector('#heroVisual .coin img');
-assert(photo,'Actual editable product image missing');
-assert(photo.getAttribute('src')?.startsWith('img/'),'Hero must use local picture');
-assert(!hero.querySelector('.hero-grid #heroVisual'),'Photo must be separate from copy for full-bleed treatment');
+assert(!hero.querySelector('#heroVisual'),'Hero intentionally contains no background photo');
+assert(!hero.querySelector('#inglyHeroSculpture'),'Hero intentionally contains no 3D sculpture');
+assert(!hero.querySelector('.coin-scene'),'No leftover rotating media');
 const links=[...hero.querySelectorAll('.signature-benefits__inner .signature-benefit')];
 assert.equal(links.length,config.showcaseBenefits.length,'Every Admin feature should appear');
 assert.deepEqual(links.map(a=>a.getAttribute('href')),config.showcaseBenefits.map(x=>x.url));
@@ -50,7 +49,7 @@ for(const phrase of ['function renderShowcaseStrip()','markDirty();renderShowcas
 assert(fallback.includes('showcaseBenefits'),'Legacy data fallback out of sync');
 assert(html.includes('assets/css/signature-showcase.css')&&html.includes('assets/js/signature-showcase.js'));
 assert(css.includes('@media(max-width:450px)')&&css.includes('prefers-reduced-motion:reduce'));
-assert(css.includes('.signature-hero-media img'),'Hero must use responsive actual image, not webpage screenshot');
+assert(html.includes('Hero deliberately text-only'),'Static branded hero must be explicit');
 assert(css.includes('--ss-night:#080e19')&&css.includes('--ss-gold:#e3ad62'),'Ink/gold identity missing');
 for(const link of ['shop','personalizza','materiali','tecnologie','faq'])assert(html.includes('href="'+link+'"'),'Missing live service link '+link);
 new Function(js);
@@ -59,4 +58,4 @@ const scripts=[...adminDom.window.document.querySelectorAll('script:not([src]):n
 assert.equal(scripts.length,1);
 new Function(scripts[0].textContent);
 w.close();
-console.log('Signature Showcase PASS: genuine DOM hero, image CMS, localization, safe links, Admin add/remove and syntax.');
+console.log('Signature Showcase PASS: static hero, localization, safe links, Admin add/remove and syntax.');

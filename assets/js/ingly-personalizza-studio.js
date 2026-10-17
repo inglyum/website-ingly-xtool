@@ -13,16 +13,26 @@
     ellipse:(w,h)=>'<ellipse cx="'+(w/2)+'" cy="'+(h/2)+'" rx="'+(w/2-0.7)+'" ry="'+(h/2-0.7)+'"/>'
   };
   const fonts={josefin:"'Josefin Sans', sans-serif",serif:"Georgia, serif",mono:"monospace"};
-  function generate({name,w,h,material,shape,font}){
+  function generate({name,w,h,material,shape,font,score=false}){
     const text=String(name||'Il tuo nome').trim().slice(0,28);
     const safeFont=fonts[font]||fonts.josefin;
     const cut=shapes[shape]||shapes.rounded;
-    const fill={wood:'#b88956',acrylic:'#66929a',metal:'#a4acb3'}[material]||'#b88956';
-    const contrast={wood:'#50331c',acrylic:'#effdff',metal:'#242c31'}[material]||'#50331c';
+    const fill={wood:'#b88956',acrylic:'#66929a',metal:'#a4acb3',leather:'#7a4b32'}[material]||'#b88956';
+    const contrast={wood:'#50331c',acrylic:'#effdff',metal:'#242c31',leather:'#f4e0c3'}[material]||'#50331c';
     const size=Math.max(7,Math.min(h*.32,w/(Math.max(text.length,2)*.53)));
     const open='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'mm" height="'+h+'mm" viewBox="0 0 '+w+' '+h+'" role="img" aria-label="Targa personalizzata">'+
       '<title>Targa personalizzata INGLY</title><desc>Bozza dimensionale: convertire il testo in tracciati prima del taglio.</desc>';
-    const layers='<g id="INGLY_CUT" stroke="#ff3344" stroke-width="0.2" fill="none">'+cut(w,h)+'</g>'+
+    // Metal is engraving-only here. Never export a false CO2 metal-cut operation.
+    const cutLayer=material==='metal'?'':'<g id="INGLY_CUT" stroke="#ff3344" stroke-width="0.2" fill="none">'+cut(w,h)+'</g>';
+    const innerScore={
+      rounded:(w,h)=>'<rect x="4" y="4" width="'+(w-8)+'" height="'+(h-8)+'" rx="'+Math.min(8,h/5)+'"/>',
+      rectangle:(w,h)=>'<rect x="4" y="4" width="'+(w-8)+'" height="'+(h-8)+'"/>',
+      ellipse:(w,h)=>'<ellipse cx="'+(w/2)+'" cy="'+(h/2)+'" rx="'+(w/2-4)+'" ry="'+(h/2-4)+'"/>'
+    };
+    const scoreLayer=score&&material!=='metal'
+      ?'<g id="INGLY_SCORE" stroke="#2469d5" stroke-width="0.2" fill="none">'+innerScore[shape in innerScore?shape:'rounded'](w,h)+'</g>'
+      :'';
+    const layers=cutLayer+scoreLayer+
       '<g id="INGLY_ENGRAVE" fill="'+contrast+'">'+
       '<text x="'+w/2+'" y="'+(h/2)+'" text-anchor="middle" dominant-baseline="central" font-size="'+size.toFixed(2)+'" font-family="'+xml(safeFont)+'">'+xml(text)+'</text>'+
       '</g>';
@@ -32,7 +42,7 @@
     return{svg,previewSvg,w,h,text};
   }
   const labels={
-    material:{wood:{it:'Legno naturale',en:'Natural wood'},acrylic:{it:'Plexiglass',en:'Acrylic'},metal:{it:'Metallo',en:'Metal'}},
+    material:{wood:{it:'Legno naturale',en:'Natural wood'},acrylic:{it:'Plexiglass',en:'Acrylic'},metal:{it:'Metallo (solo incisione)',en:'Metal (engraving only)'},leather:{it:'Pelle senza PVC',en:'PVC-free leather'}},
     shape:{rounded:{it:'Rettangolo stondato',en:'Rounded rectangle'},rectangle:{it:'Rettangolo',en:'Rectangle'},ellipse:{it:'Ovale',en:'Oval'}},
     font:{josefin:'Josefin Sans',serif:'Serif',mono:'Monospace'}
   };
@@ -43,6 +53,7 @@
     const material=(labels.material[options.material]||labels.material.wood)[l];
     const shape=(labels.shape[options.shape]||labels.shape.rounded)[l];
     const font=labels.font[options.font]||labels.font.josefin;
+    const score=Boolean(options.score)&&options.material!=='metal';
     const notes=String(options.notes||'').replace(/[\u0000-\u001f]/g,' ').trim().slice(0,300);
     return l==='en'
       ?'INGLY DESIGN — Custom project quotation\nText: '+name+'\nSize: '+w+' × '+h+' mm\nMaterial: '+material+'\nShape: '+shape+'\nLettering: '+font+
@@ -63,7 +74,7 @@
     const root=document.getElementById('inglyParametric');
     if(!root)return;
     const $=id=>document.getElementById(id);
-    const inputs=['inglyGeneratorName','inglyGeneratorWidth','inglyGeneratorHeight','inglyGeneratorMaterial','inglyGeneratorShape','inglyGeneratorFont'];
+    const inputs=['inglyGeneratorName','inglyGeneratorWidth','inglyGeneratorHeight','inglyGeneratorMaterial','inglyGeneratorShape','inglyGeneratorFont','inglyGeneratorScore'];
     let current=null;
     const update=()=>{
       const name=$('inglyGeneratorName').value||'Il tuo nome';
@@ -71,7 +82,9 @@
       const h=clamp($('inglyGeneratorHeight').value,25,250,65);
       const material=$('inglyGeneratorMaterial').value;
       const shape=$('inglyGeneratorShape').value,font=$('inglyGeneratorFont').value;
-      current=generate({name,w,h,material,shape,font});
+      const score=Boolean($('inglyGeneratorScore')?.checked)&&material!=='metal';
+      current=generate({name,w,h,material,shape,font,score});
+      const opt=$('inglyGeneratorScore');if(opt){opt.disabled=material==='metal';opt.closest('label')?.classList.toggle('ingly-score-disabled',material==='metal');}
       const canvas=$('inglyGeneratorCanvas');
       // Sanitized user text, not arbitrary HTML; all string-producing inputs are whitelisted or escaped.
       canvas.innerHTML=current.previewSvg;
@@ -103,6 +116,7 @@
         material:$('inglyGeneratorMaterial').value,
         shape:$('inglyGeneratorShape').value,
         font:$('inglyGeneratorFont').value,
+        score:Boolean($('inglyGeneratorScore')?.checked)&&$('inglyGeneratorMaterial').value!=='metal',
         notes:($('inglyGeneratorNotes')||{}).value||''
       },lang);
       const config=(window.INGLY&&window.INGLY.CONFIG)||{};

@@ -549,19 +549,132 @@
       "serie": "M",
       "famiglie": [
         "diodo",
-        "ir"
+        "ir",
+        "inkjet"
       ],
       "ruolo": {
-        "it": "La più versatile della serie: più sorgenti e automazione a bordo.",
-        "en": ""
+        "it": "Laser a diodo, incisione IR e stampa CMYK: tre moduli intercambiabili per prototipi, decorazioni e Print & Cut.",
+        "en": "Blue diode laser, IR engraving and CMYK printing: interchangeable modules for crafts, prototypes and Print & Cut."
       },
       "inOfficina": false,
       "assistenza": true,
       "demoDisponibile": false,
       "corso": null,
-      "specs": {},
-      "daCompletare": true,
-      "stato": "pubblicato"
+      "specs": {
+        "sorgente": "Diodo blu 10/20 W (445 nm) · IR 3 W (1064 nm) · CMYK inkjet",
+        "piano": {
+          "x": 426,
+          "y": 320,
+          "unita": "mm",
+          "note": "Diodo 10/20W; IR 412,5 × 310 mm; CMYK 300 × 294 mm"
+        },
+        "velocitaMax": "600 mm/s (XY)",
+        "classeSicurezza": "Classe 1",
+        "dimensioni": "610 × 569 × 180 mm",
+        "peso": "12,3 kg",
+        "ottiche": "Doppia camera per posizionamento",
+        "applicazioni": "Laser: taglio/incisione; IR: marcatura metalli; CMYK: stampa, Print Then Cut"
+      },
+      "daCompletare": false,
+      "stato": "pubblicato",
+      "materiali": [
+        {
+          "m": "Legno",
+          "taglio": true,
+          "incisione": true,
+          "modulo": "Diodo 10/20W"
+        },
+        {
+          "m": "Legno",
+          "stampa": true,
+          "modulo": "CMYK inkjet"
+        },
+        {
+          "m": "Acrilico opaco compatibile",
+          "taglio": "da verificare per colore/spessore",
+          "incisione": true,
+          "modulo": "Diodo 10/20W",
+          "note": "Il diodo blu non taglia acrilico trasparente"
+        },
+        {
+          "m": "Acrilico",
+          "stampa": true,
+          "modulo": "CMYK inkjet"
+        },
+        {
+          "m": "Pelle senza PVC",
+          "taglio": true,
+          "incisione": true,
+          "modulo": "Diodo 10/20W",
+          "note": "Verificare composizione materiale"
+        },
+        {
+          "m": "Carta e cartoncino",
+          "taglio": true,
+          "incisione": true,
+          "modulo": "Diodo 10/20W"
+        },
+        {
+          "m": "Carta / etichette",
+          "stampa": true,
+          "modulo": "CMYK inkjet"
+        },
+        {
+          "m": "Acciaio e altri metalli compatibili",
+          "marcatura": true,
+          "modulo": "IR 3W",
+          "note": "Non taglia metallo"
+        },
+        {
+          "m": "Tessuto canvas",
+          "stampa": true,
+          "modulo": "CMYK inkjet",
+          "note": "Verificare il supporto e la finitura"
+        }
+      ],
+      "specificheUfficiali": {
+        "source": "https://support.xtool.com/article/3324",
+        "values": [
+          {
+            "it": "Classe di sicurezza",
+            "en": "Safety class",
+            "value": "Classe 1"
+          },
+          {
+            "it": "Dimensioni e peso",
+            "en": "Dimensions and weight",
+            "value": "610 × 569 × 180 mm · 12,3 kg"
+          },
+          {
+            "it": "Laser diodo 10/20W",
+            "en": "10/20W diode",
+            "value": "426 × 320 mm"
+          },
+          {
+            "it": "Modulo IR 3W",
+            "en": "3W IR module",
+            "value": "412,5 × 310 mm"
+          },
+          {
+            "it": "Stampa CMYK",
+            "en": "CMYK printing",
+            "value": "300 × 294 mm"
+          },
+          {
+            "it": "Velocità movimento XY",
+            "en": "XY movement speed",
+            "value": "fino a 600 mm/s"
+          }
+        ],
+        "note": {
+          "it": "Specifiche ufficiali xTool (non prove eseguite nel laboratorio INGLY). M2 è illustrata a scopo informativo: non dichiarata presente in officina o disponibile per demo. La lavorazione dipende dal modulo installato.",
+          "en": "Official xTool specifications, not measurements taken at INGLY. M2 is informational only; not claimed to be on-site or demo-ready. Capability depends on the installed module."
+        }
+      },
+      "fonte": {
+        "nome": "xTool Support Center",
+        "url": "https://support.xtool.com/article/3324"
+      }
     },
     {
       "id": "f1",

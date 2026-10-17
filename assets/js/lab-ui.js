@@ -290,6 +290,7 @@ export function renderMacchine(L) {
     const foto=photoIndex.get(m.id)||{};
     return {...m, modello:LAB.lingua(m.n,L),
       origine: foto.origine || via('/assets/images/xtool-lab-default.svg'),
+       fotoVerificata:Boolean(foto.origine),
       paginaUfficiale:(m.fonte&&m.fonte.url)||foto.paginaUfficiale||'',
       alt:foto.alt||{it:LAB.lingua(m.n,'it'),en:LAB.lingua(m.n,'en')}};
   });
@@ -338,7 +339,7 @@ export function renderMacchine(L) {
               alt="${esc((x.alt && (x.alt[L] || x.alt.it)) || x.modello)}"
               width="580" height="400" loading="lazy" decoding="async"
               onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}'"></div>
-            <span class="machine-photo-label">${t2('Foto ufficiale xTool', 'Official xTool image', L)}</span>
+            <span class="machine-photo-label">${x.fotoVerificata ? t2('Foto ufficiale xTool', 'Official xTool image', L) : t2('Illustrazione generica · non foto del modello', 'Generic illustration · not a photo of this model', L)}</span>
             <b>${esc(x.modello)}</b>
             <small>${esc(LAB.lingua(x.ruolo,L))}</small>
             <small>${x.daCompletare ? t2('Specifiche in verifica','Specifications under verification',L) : t2('Specifiche disponibili nella scheda','Specifications in the model page',L)}</small>
@@ -346,6 +347,9 @@ export function renderMacchine(L) {
             ${elencoMachine(t2('✓ Utile per','✓ Good for',L),x.utilePer)}
             ${elencoMachine(t2('✕ Non utile per','✕ Not for',L),x.nonUtilePer)}
             ${x.paginaUfficiale ? '<small>'+t2('Scheda xTool ↗','xTool information ↗',L)+'</small>' : ''}
+          </a>
+          <a class="ingly-machine-detail-link" href="${esc(via('/macchine/'+x.id))}">
+            ${t2('Apri scheda completa','View full specifications',L)} ↗
           </a>
           <label class="lab-p"><input type="checkbox" data-machine-compare="${esc(x.id)}"> ${t2('Confronta','Compare',L)}</label>
         </article>`).join('')}</div>
@@ -728,6 +732,19 @@ export function renderMacchina(id, L, cardProdotto) {
       ${chips([m.specs.sorgente,
         m.specs.piano ? `${m.specs.piano.x} × ${m.specs.piano.y} ${m.specs.piano.unita || 'mm'}` : '',
         m.specs.velocitaMax || ''].filter(Boolean))}` : ''}
+    ${m.specificheUfficiali ? `<section class="ingly-official-specs" aria-label="${t2('Dati ufficiali della macchina','Official machine specifications',L)}">
+       <div class="ingly-official-specs__head">
+         <strong>${t2('xTool M2 · Specifiche verificate da documentazione','xTool M2 · Manufacturer specifications',L)}</strong>
+         <span>${t2('Fonte: xTool Support','Source: xTool Support',L)}</span>
+       </div>
+       <dl class="ingly-official-specs__list">
+         ${(m.specificheUfficiali.values||[]).map(v=>`<div><dt>${esc(t2(v.it,v.en,L))}</dt><dd>${esc(v.value)}</dd></div>`).join('')}
+       </dl>
+       <p class="ingly-official-specs__note">${esc(LAB.lingua(m.specificheUfficiali.note,L))}</p>
+       <a class="ingly-official-specs__source" href="${esc(m.specificheUfficiali.source)}" rel="noopener noreferrer" target="_blank">
+         ${t2('Apri documentazione ufficiale','Open official documentation',L)} ↗
+       </a>
+     </section>` : ''}
 
     ${tecs.length ? `<h3 class="vert-tit">${t2('Tecnologie', 'Technologies', L)}</h3>
       <div class="vert-grid">${tecs.map(t => tesseraTecnologia(t, L)).join('')}</div>` : ''}

@@ -28,7 +28,7 @@ for(const id of [2,3,5,17])assert(data.some(p=>p.id===id&&!p.hidden),'Featured i
 for(const src of ['img/cat-tecnologie.webp','img/cat-eventi.webp'])
  assert(cats.some(c=>c.img===src),'Image not listed in category catalog '+src);
 assert(home.querySelector('#heroH1'),'Hero title must stay editable in existing CMS');
-assert(home.querySelector('#heroVisual img'),'Hero remains a real image element');
+assert(!home.querySelector('#heroVisual, #inglyHeroSculpture'),'User-requested text-only Hero has no media or rotating object');
 assert(home.querySelector('#atelierConfig'),'Configurator must remain functional');
 assert(css.includes(':root[data-mode="dark"]')&&css.includes(':root[data-mode="light"]'),'Both modes need complete tokens');
 assert(css.includes('.xtool-lab-feature')&&css.includes('.xtool-lab-copy h2'),'Lab contrast fix missing');

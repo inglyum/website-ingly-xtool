@@ -567,6 +567,14 @@ export function corpoMacchina(D, m, opt = {}) {
     r.push('<h2>' + esc(L === 'it' ? 'Specifiche' : 'Specifications') + '</h2><ul><li>' + esc(m.specs.sorgente) + '</li>' +
       (m.specs.piano ? '<li>' + esc(m.specs.piano.x + ' × ' + m.specs.piano.y + ' ' + (m.specs.piano.unita || 'mm')) + '</li>' : '') + '</ul>');
   }
+  if (m.specificheUfficiali) {
+    r.push('<h2>'+esc(L==='it'?'Dati ufficiali xTool':'Official xTool specifications')+'</h2><dl>'+
+      (m.specificheUfficiali.values||[]).map(v=>'<dt>'+esc(L==='it'?v.it:v.en)+'</dt><dd>'+esc(v.value)+'</dd>').join('')+'</dl>');
+    r.push('<p>'+esc(lingua(m.specificheUfficiali.note,L))+'</p>');
+    const official=String(m.specificheUfficiali.source||'');
+    if(/^https:\/\/support\.xtool\.com\/article\/\d+$/.test(official))
+      r.push('<p><a href="'+esc(official)+'">'+esc(L==='it'?'Fonte ufficiale xTool':'Official xTool source')+'</a></p>');
+  }
   const tecs = tecnologieDiModello(D, m);
   if (tecs.length) {
     r.push('<h2>' + esc(L === 'it' ? 'Tecnologie' : 'Technologies') + '</h2><ul>' +

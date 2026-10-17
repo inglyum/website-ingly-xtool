@@ -237,7 +237,11 @@ check('solo le macchine davvero in officina sono provabili',
    dichiarate come tali invece di essere riempite con numeri plausibili. */
 check('l\'assistenza vale su tutta la gamma', LAB.catalogo(D).every(m => m.assistenza === true));
 check('le schede senza specifiche verificate lo dichiarano',
-  LAB.catalogo(D).filter(m => !m.inOfficina).every(m => m.daCompletare === true));
+  LAB.catalogo(D).filter(m => !m.inOfficina).every(m =>
+    m.daCompletare === true || (m.id === 'm2' &&
+      Array.isArray(m.specificheUfficiali?.values) &&
+      m.specificheUfficiali.source === 'https://support.xtool.com/article/3324' &&
+      m.inOfficina === false && m.demoDisponibile === false)));
 check('nessuna specifica inventata sulle macchine non possedute',
   LAB.catalogo(D).filter(m => m.daCompletare).every(m => !m.specs || !Object.keys(m.specs).length));
 check('una macchina porta alle sue tecnologie',

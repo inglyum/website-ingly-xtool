@@ -50,31 +50,72 @@
     });
     const machines=window.INGLY?.MACCHINE?.macchine||[];
     if(!machines.length || machineGrid.querySelector('.atelier-compat-section'))return;
+    const m2=(window.INGLY?.MACCHINE?.catalogo||[]).find(x=>x.id==='m2'&&x.stato==='pubblicato');
+    const cols=[...machines,...(m2?[{...m2,informativa:true}]:[])];
+    const L=document.documentElement.lang==='en'?'en':'it',t=(it,en)=>L==='en'?en:it;
     const section=document.createElement('section');section.className='atelier-compat-section';
-    const heading=document.createElement('h3');heading.textContent='Macchina × materiale';
-    const desc=document.createElement('p');desc.textContent='Compatibilità indicative dai dati INGLY. La lavorazione effettiva richiede prove sul materiale.';
-    const wrap=document.createElement('div');wrap.className='atelier-compat-scroll';
+    section.setAttribute('aria-labelledby','inglyCompatTitle');
+    const heading=document.createElement('h3');heading.id='inglyCompatTitle';
+    heading.textContent=t('Macchina × materiale','Machine × material');
+    const desc=document.createElement('p');desc.textContent=t(
+      'Operazioni documentate, non preset pronti per il laser. Verifica sempre composizione, modulo, spessore e parametri.',
+      'Documented operations, not ready-to-run presets. Always check composition, module, thickness and settings.');
+    const terms={cut:t('Taglio','Cut'),engrave:t('Incisione / marcatura','Engrave / mark'),
+      print:t('Stampa','Print'),transfer:t('Termotrasferimento','Heat transfer'),
+      test:t('Da verificare','Test required'),none:t('Non dichiarato','Not documented')};
+    const pill=op=>{const node=document.createElement('span');
+      node.className='atelier-compat-pill atelier-compat-pill--'+op;node.textContent=terms[op];return node};
+    const legend=document.createElement('div');legend.className='atelier-compat-legend';
+    legend.setAttribute('aria-label',t('Legenda lavorazioni','Processing legend'));
+    Object.keys(terms).forEach(op=>legend.append(pill(op)));
+    const wrap=document.createElement('div');wrap.className='atelier-compat-scroll';wrap.tabIndex=0;
+    wrap.setAttribute('role','region');
+    wrap.setAttribute('aria-label',t('Tabella compatibilità scorribile','Scrollable compatibility table'));
     const table=document.createElement('table');table.className='atelier-compat-table';
+    const caption=document.createElement('caption');caption.textContent=t(
+      'Macchine in officina e modello M2 a scopo informativo',
+      'Machines in workshop and informational M2 model');table.append(caption);
     const thead=document.createElement('thead'),header=document.createElement('tr');
-    const mh=document.createElement('th');mh.textContent='Materiale';mh.scope='col';header.append(mh);
-    machines.forEach(m=>{const th=document.createElement('th');th.textContent=m.n?.it||m.id;th.scope='col';header.append(th)});
+    const first=document.createElement('th');first.textContent=t('Materiale','Material');first.scope='col';header.append(first);
+    cols.forEach(m=>{const th=document.createElement('th');th.scope='col';th.textContent=m.n?.[L]||m.n?.it||m.id;
+      const sub=document.createElement('small');sub.textContent=m.informativa?t('Informativa · non in officina','Info only · not on site'):t('In officina','In workshop');
+      th.append(sub);header.append(th)});
     thead.append(header);table.append(thead);
     const tbody=document.createElement('tbody');
-    const types=[['Legno',/legno|compensato|mdf/i],['Plexiglass',/plexiglass|acrilic/i],
-      ['Metallo',/acciaio|alluminio|ottone|metallo|oro|argento/i],
-      ['Pelle vegetale',/pelle/i],['Vetro',/vetro/i],['Tessuto',/tessuto|capi/i]];
-    types.forEach(([label,pattern])=>{
-      const row=document.createElement('tr'),th=document.createElement('th');
-      th.scope='row';th.textContent=label;row.append(th);
-      machines.forEach(m=>{
-        const td=document.createElement('td');
-        const possible=(m.materiali||[]).some(x=>pattern.test(x.m||''))||(m.id==='wonderpress'&&label==='Tessuto');
-        td.textContent=possible?'●':'—';
-        td.title=possible?'Possibile: verificare finitura e parametri':'Non documentato nei dati';
-        if(possible)td.classList.add('atelier-compat-yes');
-        row.append(td);
-      });tbody.append(row);
-    });table.append(tbody);wrap.append(table);section.append(heading,desc,wrap);
+    const rows=[
+      [t('Legno / MDF','Wood / MDF'),/legno|compensato|mdf/i],
+      [t('Plexiglass','Acrylic'),/plexiglass|acrilic/i],
+      [t('Metallo','Metal'),/acciaio|alluminio|ottone|metallo|oro|argento/i],
+      [t('Pelle senza PVC','PVC-free leather'),/pelle/i],
+      [t('Vetro','Glass'),/vetro/i],
+      [t('Tessuto / canvas','Fabric / canvas'),/tessuto|capi|canvas/i],
+      [t('Carta / cartoncino','Paper / card'),/carta|cartoncino|etichette/i]
+    ];
+    rows.forEach(([label,re])=>{
+      const tr=document.createElement('tr'),th=document.createElement('th');th.scope='row';th.textContent=label;tr.append(th);
+      cols.forEach(m=>{
+        const matching=(m.materiali||[]).filter(x=>re.test(String(x.m||'')));
+        const ops=[];
+        if(matching.some(x=>x.taglio===true || typeof x.taglio==='string'&&!/da verificare|test|non/i.test(x.taglio)))ops.push('cut');
+        if(matching.some(x=>x.incisione===true||x.marcatura===true))ops.push('engrave');
+        if(matching.some(x=>x.stampa===true))ops.push('print');
+        if(m.id==='wonderpress'&&/tessuto|fabric/i.test(label))ops.push('transfer');
+        if(matching.some(x=>typeof x.taglio==='string'&&/da verificare|test/i.test(x.taglio)))ops.push('test');
+        const td=document.createElement('td'),body=document.createElement('div');body.className='atelier-compat-cell';
+        (ops.length?ops:['none']).forEach(op=>body.append(pill(op)));td.append(body);
+        if(m.informativa && matching.length){
+          const small=document.createElement('small');small.className='atelier-compat-info';
+          small.textContent=[...new Set(matching.map(x=>x.modulo).filter(Boolean))].join(' · ');td.append(small);
+        }
+        const notes=matching.map(x=>x.note).filter(Boolean);if(notes.length)td.title=notes.join(' · ');
+        tr.append(td);
+      });tbody.append(tr);
+    });
+    table.append(tbody);wrap.append(table);
+    const foot=document.createElement('p');foot.className='atelier-compat-source';
+    foot.textContent=t('Fonti: dati INGLY e supporto xTool per M2. «Non dichiarato» non equivale a incompatibile.',
+      'Sources: INGLY data and xTool support for M2. “Not documented” does not imply incompatibility.');
+    section.append(heading,desc,legend,wrap,foot);
     cards.insertAdjacentElement('afterend',section);
   };
   if(machineGrid){new MutationObserver(enhanceMachines).observe(machineGrid,{childList:true,subtree:false});enhanceMachines()}

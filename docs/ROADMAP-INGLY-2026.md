@@ -179,3 +179,10 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Nessun ridisegno dei vettori logo: il master SVG originale e la I separata sono conservati; sola presentazione `object-position` migliorata. **La corrispondenza visiva con il riferimento originale fornito non è ancora certificata.**
 - Test statico `test-shop-visual-polish.mjs` nella CI; richiede audit Chromium screenshot in entrambi i temi su desktop/mobile e verifica visiva finale prima del merge.
 - Restano da affrontare: qualità visiva di tutte le altre pagine, contrasto delle card fotografiche, rapporto hero/categorie, pannello installazione PWA, verifica logo master sul riferimento e Admin Giorno/Notte.
+
+## P0 — Fedeltà logo INGLY da immagine originale (17/10/2026)
+
+- Riferimento originale ricevuto dal titolare: simbolo I separato dal gruppo NGLY. I tracciati nel master attuale e nelle varianti SVG light/dark già condividono la stessa geometria; nessuna reinterpretazione via font o ridisegno.
+- Migliorata leggibilità del wordmark in navigazione, evitando limite di altezza artificiale, con larghezza responsive controllata e filtraggio tema corretto.
+- Aggiunto test di regressione: geometria path nelle due varianti uguale al master e I composta dai tracciati separati.
+- Restano da verificare: confronto visivo percettivo con il riferimento su dispositivi reali; audit visuale e CI necessari prima del merge. Il logo dell'immagine fornita è nero molto scuro su nero: per il sito si mantengono colorazioni ad alto contrasto senza mutare la silhouette.

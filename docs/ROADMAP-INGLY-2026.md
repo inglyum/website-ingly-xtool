@@ -195,3 +195,11 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Aggiunto canvas continuo della Home con glow caldi/freddi discreti nei temi Giorno e Notte, evitando di creare nuovi layer globali antagonisti.
 - Conservati markup Hero, font, CTA, catalogo e navigazione. Test statico inserito nella suite QA.
 - Restano QA visivo Chromium e comparazione mobile/light, brand PR #89 da integrare soltanto con audit verde, collaudo fotografico e restanti sprint Admin/Commerce/Generator.
+
+## P0 — Homepage INGLY-first / xTool partnership (17 ottobre 2026)
+
+- La sezione fotografica **xTool** non compare più immediatamente dopo la hero "creazioni su misura".
+- Riordinata la Home: **Hero INGLY → mondi/creazioni → configuratore → materiali → percorsi e collezioni → tecnologie/come funziona → portfolio → collaborazione xTool → sezioni finali**.
+- xTool presentata come **partner tecnologico**, mantenendo sorgenti ufficiali delle fotografie, link Lab e testi IT/EN; non viene inventata un'autorizzazione contrattuale.
+- Aggiunto test di regressione `test-home-brand-hierarchy.mjs` all'insieme `npm test`, per proteggere l'ordine delle sezioni.
+- Restano verifica QA Chromium responsive Giorno/Notte, audit browser visuale e deploy GitHub Pages. Non dichiarare completata la release prima del controllo sullo SHA integrato.

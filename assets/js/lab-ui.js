@@ -347,7 +347,7 @@ export function renderMacchine(L) {
             ${elencoMachine(t2('✕ Non utile per','✕ Not for',L),x.nonUtilePer)}
             ${x.paginaUfficiale ? '<small>'+t2('Scheda xTool ↗','xTool information ↗',L)+'</small>' : ''}
           </a>
-          <a class="ingly-machine-detail-link" href="${esc(via('/macchine/'+x.id))}" data-nav="macchine">
+          <a class="ingly-machine-detail-link" href="${esc(via('/macchine/'+x.id))}">
             ${t2('Apri scheda completa','View full specifications',L)} ↗
           </a>
           <label class="lab-p"><input type="checkbox" data-machine-compare="${esc(x.id)}"> ${t2('Confronta','Compare',L)}</label>
@@ -741,7 +741,7 @@ export function renderMacchina(id, L, cardProdotto) {
        </dl>
        <p class="ingly-official-specs__note">${esc(LAB.lingua(m.specificheUfficiali.note,L))}</p>
        <a class="ingly-official-specs__source" href="${esc(m.specificheUfficiali.source)}" rel="noopener noreferrer" target="_blank">
-         ${t2('Apri documentazione ufficiale','Open official documentation')} ↗
+         ${t2('Apri documentazione ufficiale','Open official documentation',L)} ↗
        </a>
      </section>` : ''}
 

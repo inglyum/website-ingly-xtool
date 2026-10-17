@@ -294,6 +294,7 @@ export function renderMacchine(L) {
       paginaUfficiale:(m.fonte&&m.fonte.url)||foto.paginaUfficiale||'',
       alt:foto.alt||{it:LAB.lingua(m.n,'it'),en:LAB.lingua(m.n,'en')}};
   });
+  const m2=LAB.catalogo(d).find(x=>x.id==='m2'&&Array.isArray(x.variantiLaser));
   const famiglie=[...new Set(informative.flatMap(m=>m.famiglie||[]))].sort();
   const techOptions=famiglie.map(t=>'<option value="'+esc(t)+'">'+esc(t.toUpperCase())+'</option>').join('');
   const elencoMachine=(titolo,v)=>{const items=LAB.listaLingua(v,L);return items.length?
@@ -303,6 +304,32 @@ export function renderMacchine(L) {
       <span class="eyebrow">${t2('Laboratorio e soluzioni INGLY', 'INGLY workshop and solutions', L)}</span>
       <p class="lab-p">${t2('Le macchine indicate qui descrivono capacità e applicazioni; la possibilità di provarle va sempre confermata nella Demo Room.', 'Machines here illustrate capabilities and applications; demo availability must be confirmed via the Demo Room.', L)}</p>
     </div>
+    ${m2?.variantiLaser?.length ? `
+      <section class="ingly-m2-duo" aria-labelledby="inglyM2ChoicesHeading">
+        <div class="ingly-m2-duo__intro">
+          <div>
+            <span class="eyebrow">xTool M2 · 10W / 20W</span>
+            <h3 id="inglyM2ChoicesHeading">${t2('Due varianti laser, una scelta chiara.','Two laser modules, one clear choice.',L)}</h3>
+            <p>${t2('Confronta i moduli diodo della M2. Scheda tecnica informativa: macchina non dichiarata presente in officina o disponibile per demo.','Compare M2 diode modules. Informational technical reference: not claimed to be owned or available for demo.',L)}</p>
+          </div>
+          <a class="ingly-m2-duo__link" href="${esc(via('/macchine/m2'))}">${t2('Scheda M2 completa','Full M2 guide',L)} ↗</a>
+        </div>
+        <div class="ingly-m2-duo__grid">
+          ${m2.variantiLaser.map(v=>`
+            <article class="ingly-m2-variant">
+              <span class="ingly-m2-variant__tag">${t2('Laser diodo blu','Blue diode laser',L)}</span>
+              <h4>${esc(v.label)}</h4>
+              <div class="ingly-m2-variant__power">${esc(v.potenza)}</div>
+              <dl>
+                <div><dt>${t2('Area utile','Work area',L)}</dt><dd>${esc(v.area)}</dd></div>
+                <div><dt>${t2('Alimentazione modulo','Module input',L)}</dt><dd>${esc(v.power)}</dd></div>
+                <div><dt>${t2('Sorgente','Source',L)}</dt><dd>${esc(v.tecnologia)}</dd></div>
+              </dl>
+              <p>${esc(LAB.lingua(m2.compatibilityPolicy?.note,L))}</p>
+              <a href="${esc(v.source)}" target="_blank" rel="noopener noreferrer">${t2('Dati ufficiali xTool','Official xTool data',L)} ↗</a>
+            </article>`).join('')}
+        </div>
+      </section>` : ''}
     ${lista.length ? `<div class="b2b-cards">${lista.map((m, i) => `
       <div class="rcard reveal" style="transition-delay:${i * .06}s">
         ${fotoMac(m, L, false)}

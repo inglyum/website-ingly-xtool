@@ -12,7 +12,7 @@
 }
 /* All major Home sections share one actual canvas. Deliberate cards retain
    their own surfaces; inner labels and controls are not overwritten. */
-:root[data-mode] #page-home{
+:root[data-mode] #page-home.page{
  background-color:var(--ingly-continuous)!important;
  background-image:
   radial-gradient(ellipse 70% 23% at 79% 11%,var(--brand-halo2),transparent 96%),

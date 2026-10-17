@@ -203,3 +203,12 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - xTool presentata come **partner tecnologico**, mantenendo sorgenti ufficiali delle fotografie, link Lab e testi IT/EN; non viene inventata un'autorizzazione contrattuale.
 - Aggiunto test di regressione `test-home-brand-hierarchy.mjs` all'insieme `npm test`, per proteggere l'ordine delle sezioni.
 - Restano verifica QA Chromium responsive Giorno/Notte, audit browser visuale e deploy GitHub Pages. Non dichiarare completata la release prima del controllo sullo SHA integrato.
+
+## P0 — 17/10/2026: difetto geometrico reale del logo INGLY
+
+- Segnalazione su screenshot: la **N** conteneva un grande triangolo che saliva oltre tutte le altre lettere e una diagonale discendente sotto la baseline. Precedenti correzioni CSS non potevano eliminarlo.
+- Corretto il *disegno vettoriale alla fonte*: N continua, con estremi entro y=147..507, senza spigolo alto a y=0 o coda a y=589; I separata e G/L/Y conservate.
+- Aggiornati master, variante chiara, variante scura, viewport del logo, aspect-ratio del sito e dell'Admin. URL del logo versionate e cache PWA incrementata per evitare la resa vecchia.
+- Aggiornati tre test legati alle vecchie dimensioni; nuovo test rigoroso `test-brand-n-silhouette.mjs` controlla geometria, parità delle varianti, cache e riferimenti Home/Admin.
+- Prima del merge: `npm test`, `npm run build`, audit visuale e screenshot CI. Dopo merge: verificare *deploy pubblicato* e confronto reale a https://inglyum.github.io/website-ingly-xtool/.
+- Le altre attività (Media Library PR #84, catalogo fotografico, generatori, QA mobile e commercio) rimangono aperte, e non vanno etichettate come completate.

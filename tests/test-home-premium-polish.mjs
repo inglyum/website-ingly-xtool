@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const css=readFileSync('assets/css/brand-system-2026.css','utf8');
+const html=readFileSync('index.html','utf8');
+assert.match(css,/:root\[data-mode\] #page-home\{/);
+assert.match(css,/--home-halo-a/);
+assert.match(css,/#page-home > \.hero/);
+assert.match(css,/prefers-reduced-motion:reduce/);
+assert.match(html,/<section class="page active" id="page-home">/);
+assert.match(html,/<section class="page" id="page-macchine">/);
+console.log('✔ Home premium: theme-aware continuous canvas and canonical Home entry');

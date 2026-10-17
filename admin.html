@@ -5523,33 +5523,54 @@ async function rollback(sha){
    toast('Ripristino non applicato: '+verified.errors.length+' errori nello snapshot');
    return;
   }
-  // A JSON-only restore must not point to historic images whose bytes differ.
-  // Fail closed if either GitHub inventory is incomplete or cannot be fetched.
-  const {auditRestoreMediaBlobs}=await import('./assets/js/admin/media-restore-preflight.mjs');
+  // Historic data must restore with their ORIGINAL verified media bytes.
+  // Extra live images remain untouched. Everything stays in draft until publish.
+  const {planHistoricMediaRecovery}=await import('./assets/js/admin/historic-media-recovery-plan.mjs');
+  const {stageHistoricMedia}=await import('./assets/js/admin/historic-media-binary-restore.mjs');
   const [historicMedia,liveMedia]=await Promise.all([
    gh('/contents/img?ref='+encodeURIComponent(sha)),
    gh('/contents/img?ref='+encodeURIComponent(SET.branch))
   ]);
-  const mediaAudit=auditRestoreMediaBlobs(verified.data.immagini,S.IMG,historicMedia,liveMedia);
-  if(!mediaAudit.ok){
-   modal('<h3>Ripristino sospeso: immagini non compatibili</h3>'+
-    '<p class="hint">Nessuna modifica alla bozza: i file originali delle immagini devono essere recuperati e verificati prima di applicare lo snapshot.</p>'+
-    '<ul>'+[...mediaAudit.errors,...mediaAudit.mismatched].slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'+
+  const mediaPlan=planHistoricMediaRecovery(verified.data.immagini,historicMedia,liveMedia);
+  if(!mediaPlan.ok){
+   modal('<h3>Ripristino sospeso: inventario foto incompleto</h3>'+
+    '<p class="hint">Nessun dato della bozza è stato modificato.</p>'+
+    '<ul>'+mediaPlan.errors.slice(0,12).map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul>'+
     '<button class="btn" onclick="closeModal()">Chiudi</button>');
-   toast('Ripristino sospeso: integrità foto da verificare');return;
+   toast('Ripristino foto non sicuro: inventario non valido');return;
+  }
+  let recovered=[];
+  if(mediaPlan.requiresRestore){
+   if(!confirm('Questo snapshot richiede '+mediaPlan.restore.length+
+     ' foto storiche da recuperare e verificare prima del ripristino. Le foto attuali extra ('+
+     mediaPlan.preserve.length+') saranno conservate. Nessuna pubblicazione automatica.\\n\\nContinuare?'))return;
+   toast('Recupero binari foto da GitHub, verifica SHA-1 in corso…');
+   const staged=await stageHistoricMedia(mediaPlan,
+    blobSha=>gh('/git/blobs/'+encodeURIComponent(blobSha)));
+   if(!staged.ok){
+    modal('<h3>Ripristino sospeso: file originali non verificati</h3>'+
+     '<p class="hint">Nessun dato né immagine della bozza è stato modificato.</p>'+
+     '<ul>'+staged.errors.slice(0,12).map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul>'+
+     '<button class="btn" onclick="closeModal()">Chiudi</button>');
+    toast('Ripristino foto interrotto: verifica non superata');return;
+   }
+   recovered=staged.media;
   }
   // All 14 payloads are verified before the first assignment.
   const oldData=Object.fromEntries(FILES.map(f=>[f,S[KEY[f]]]));
+  const oldMedia=MEDIA.slice();
   try{
    FILES.forEach(f=>{S[KEY[f]]=verified.data[f]});
    normalize();
+   MEDIA=[...oldMedia,...recovered];
    markDirty();
   }catch(error){
    FILES.forEach(f=>{S[KEY[f]]=oldData[f]});
+   MEDIA=oldMedia;
    throw error;
   }
   go('pub');
-  toast(FILES.length+' file ripristinati in bozza dal commit '+sha.slice(0,7)+'. Verifica prima di pubblicare.');
+  toast(FILES.length+' file e '+recovered.length+' foto verificate ripristinati IN BOZZA da '+sha.slice(0,7)+'. Pubblicazione manuale.');
  }catch(e){toast('Ripristino non riuscito: '+ghErrHint(e))}
 }
 

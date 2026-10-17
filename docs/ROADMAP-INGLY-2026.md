@@ -267,3 +267,28 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - **P1:** collaudo ordine/contatto/WhatsApp end-to-end con gestione lead e stati; checkout con pagamento non attivo, non inventarlo.
 - **P1:** convalida file macchina (font-to-path, kerf, margini, materiali, test laser fisici) e sviluppo generatori.
 - **P1:** verifica manuale iPhone e Android su dispositivi reali, performance e tappabilità dei controlli.
+
+## Sprint 13 · xTool-style material finder e varianti M2 visibili (17 ottobre 2026)
+
+### Fatto
+- La sezione **«Laboratorio e soluzioni INGLY»** presenta adesso due vere schede separate per **xTool M2 laser 10W e 20W** (stesso piano ufficiale 426 × 320 mm, alimentazioni modulo diverse), riprese dai dati del modello esistente invece che duplicate nel parco macchine posseduto.
+- Entrambe sono contrassegnate come **schede informative**, non macchine in officina/demo. Link alla pagina dettagli e alle specifiche ufficiali.
+- La precedente matrice con 7 materiali rimane consultabile aprendo **Confronto completo**, ma non occupa più tutto lo schermo al primo accesso.
+- Nuovo componente standalone `assets/js/ingly-material-finder.js`: tre menu per **macchina/modulo → materiale → lavorazione**, risposta immediata «Operazione documentata / Test necessario / Non documentata», con suggerimenti di sicurezza e fonti xTool. Scelte M2 **10W, 20W, IR3W e CMYK** separate, per non attribuire incisione metallo al solo diodo blu o stampa al modulo laser.
+- Stile essenziale originale, ispirato al flusso di selezione di xTool Studio e Materials Lab (non copia asset, UI proprietaria o parametri industriali senza fonte). UI in due temi, responsive e operabile da tastiera.
+- Aggiunto test jsdom di end-to-end del selettore, incluso guardrail taglio metallo e acrilico che richiede verifica. Nessuna potenza/velocità inventata.
+
+### Informazioni ufficiali
+- Specifiche moduli xTool M2: https://support.xtool.com/article/3324 e https://support.xtool.com/academy/lesson/2778?courseId=319
+- Principio UX e parametri ufficiali: https://support.xtool.com/article/1306 ; https://support.xtool.com/article/2399
+- Per lavorazione effettiva usare xTool Studio e suoi materiali ufficiali, non trattare la matrice come preset di produzione.
+
+### Attività commerciali rimaste aperte
+1. P0 — **Admin reale**: sessione con autenticazione autorizzata, aggiunta immagini, pubblicazione, ripristino completo da storico usando media veramente modificati.
+2. P0 — **Foto reali**: 43 prodotti pubblici senza cover locale su 63 (conteggio dal manifest, non prova della qualità delle altre foto); eseguire riprese prodotto e upload SKU verificato.
+3. P1 — **Lead/fatturazione**: collaudo richieste con il canale vero, risposta, stato preventivo e ordine, privacy e tempi di esecuzione; non spacciare WhatsApp per checkout a pagamento.
+4. P1 — **Generatori**: conversione font in curve, kerf, validazione file per macchina/materiale, prova fisica su campione, workflow print&cut.
+5. P1 — **Device reali**: prove su iPhone/Android fisici di accessibilità, performance e usabilità.
+
+### Gate
+- Non dichiarare pubblicato fino a `npm test`, build, audit Chromium e Pages riusciti. Non dichiarare test reali sul laser o nell'Admin senza tali prove.

@@ -115,7 +115,19 @@
     const foot=document.createElement('p');foot.className='atelier-compat-source';
     foot.textContent=t('Fonti: dati INGLY e supporto xTool per M2. «Non dichiarato» non equivale a incompatibile.',
       'Sources: INGLY data and xTool support for M2. “Not documented” does not imply incompatibility.');
-    section.append(heading,desc,legend,wrap,foot);
+    const finderHost=document.createElement('div');
+    finderHost.className='ingly-material-finder-host';
+    const finder=window.INGLY_MATERIAL_FINDER;
+    if(finder && typeof finder.mount==='function'){
+      finder.mount(finderHost,window.INGLY.MACCHINE,L);
+    }
+    const advanced=document.createElement('details');
+    advanced.className='ingly-finder-advanced';
+    if(!finder)advanced.open=true;
+    const summary=document.createElement('summary');
+    summary.textContent=t('Visualizza confronto completo di tutte le macchine','View full comparison of all machines');
+    advanced.append(summary,legend,wrap);
+    section.append(heading,desc,finderHost,advanced,foot);
     cards.insertAdjacentElement('afterend',section);
   };
   if(machineGrid){new MutationObserver(enhanceMachines).observe(machineGrid,{childList:true,subtree:false});enhanceMachines()}

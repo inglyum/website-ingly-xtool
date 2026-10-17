@@ -674,6 +674,33 @@
       "fonte": {
         "nome": "xTool Support Center",
         "url": "https://support.xtool.com/article/3324"
+      },
+      "variantiLaser": [
+        {
+          "id": "m2-10w",
+          "label": "xTool M2 · 10W",
+          "potenza": "10 W",
+          "tecnologia": "Diodo blu 445 nm",
+          "area": "426 × 320 mm",
+          "power": "25 V · 2 A",
+          "source": "https://support.xtool.com/academy/lesson/2778?courseId=319"
+        },
+        {
+          "id": "m2-20w",
+          "label": "xTool M2 · 20W",
+          "potenza": "20 W",
+          "tecnologia": "Diodo blu 445 nm",
+          "area": "426 × 320 mm",
+          "power": "25 V · 3,4 A",
+          "source": "https://support.xtool.com/academy/lesson/2778?courseId=319"
+        }
+      ],
+      "compatibilityPolicy": {
+        "note": {
+          "it": "Il modulo 20 W fornisce maggiore potenza, ma non indica automaticamente uno spessore di taglio certificato. Materiale, colore, parametri, aspirazione e verifica su campione restano obbligatori.",
+          "en": "20W is higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
+        },
+        "unavailable": "Modelli e moduli presentati a scopo informativo, non dichiarati nel laboratorio INGLY."
       }
     },
     {

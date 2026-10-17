@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const read=p=>readFileSync(p,'utf8');
+const original=read('assets/images/ingly-wordmark-master.svg');
+const light=read('assets/images/ingly-wordmark-light.svg');
+const dark=read('assets/images/ingly-wordmark-dark.svg');
+const paths=s=>Array.from(s.matchAll(/<path\s+id="([^"]+)"[^>]*d="([^"]+)"/g),m=>[m[1],m[2]]);
+assert.deepEqual(paths(light),paths(original),'Light wordmark has master geometry');
+assert.deepEqual(paths(dark),paths(original),'Dark wordmark has master geometry');
+assert.ok(paths(original).some(([id])=>id==='ingly-letter-i-stem'),'Independent I stem');
+assert.ok(paths(original).some(([id])=>id==='ingly-letter-i-foot'),'Independent I foot');
+assert.ok(paths(original).some(([id])=>id==='ingly-original-ngly'),'Original NGLY paths');
+const html=read('index.html');
+assert.match(html,/class="brand-wordmark" src="assets\/images\/ingly-wordmark-light\.svg"/);
+const css=read('assets/css/brand-system-2026.css');
+assert.match(css,/#nav\.nav \.brand--identity \.brand-lockup img\.brand-wordmark\{/);
+assert.match(css,/max-height:none!important/,'Avoid scaled-down header wordmark clipping');
+console.log('✔ INGLY brand source geometry preserved and header presentation enforced');

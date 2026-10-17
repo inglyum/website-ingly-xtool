@@ -16,7 +16,7 @@ assert.ok(hero.querySelector('a[href="personalizza"]'),'Primary CTA works');
 assert.ok(hero.querySelector('a[href="shop"]'),'Shop CTA remains');
 assert.ok(doc.querySelector('link[href="assets/css/ingly-immersive-2026.css"]'));
 assert.ok(!css.includes('.ingly-hero-sculpture__stage'),'Unused 3D styling removed');
-assert.ok(brand.includes('text-only hero'),'Brand CSS protects text-only layout');
+assert.ok(brand.includes('intentionally empty of visuals'),'Brand CSS protects text-only layout');
 assert.ok(css.includes('--ingly-continuous'),'Continuous surface retained');
 assert.ok(doc.querySelector('script[src="assets/js/ingly-generator-draft.js"]'),'Generator features retained');
 const home=html.slice(html.indexOf('id="page-home"'),html.indexOf('<!-- SHOP -->'));

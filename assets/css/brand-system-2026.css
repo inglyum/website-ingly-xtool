@@ -708,3 +708,132 @@
  object-fit:contain!important;object-position:left center!important;
  overflow:visible!important;
 }
+
+
+/* Sprint 12: Home is intentionally empty of visuals, keeping INGLY copy as
+ * the sole focal point. Brand effects only; no media, rotating elements or art. */
+:root[data-mode] #page-home .hero.signature-hero{
+ min-height:clamp(570px,68svh,780px)!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-grid{
+ min-height:clamp(450px,54svh,650px)!important;
+}
+:root[data-mode] #page-home .signature-hero-copy{
+ width:min(86%,860px)!important;max-width:860px!important;
+}
+:root[data-mode="dark"] #page-home .hero.signature-hero{
+ background:#080d15!important;
+}
+:root[data-mode="light"] #page-home .hero.signature-hero{
+ background:#fff!important;color:#152234!important;
+}
+:root[data-mode] #page-home .hero.signature-hero::before{
+ background:radial-gradient(ellipse 70% 76% at 55% 28%,var(--brand-halo),transparent 87%)!important;
+ opacity:.56!important;
+}
+:root[data-mode] #page-home .hero.signature-hero::after{display:none!important}
+@media(max-width:700px){
+ :root[data-mode] #page-home .hero.signature-hero{min-height:580px!important}
+ :root[data-mode] #page-home .signature-hero-copy{width:100%!important}
+}
+
+/* Machine × material: readable interactive matrix with an explicit legend. */
+:root[data-mode] #page-macchine .atelier-compat-section{
+ background:var(--brand-surface)!important;
+ border:1px solid var(--brand-border-strong)!important;
+ color:var(--brand-ink)!important;
+ padding:clamp(16px,2.5vw,34px)!important;
+ border-radius:20px!important;
+ margin-block:clamp(24px,4vw,52px)!important;
+ box-shadow:0 18px 60px rgba(4,10,21,.08);
+}
+:root[data-mode] #page-macchine .atelier-compat-section :is(h3,h4,strong){
+ color:var(--brand-ink)!important;
+}
+:root[data-mode] #page-macchine .atelier-compat-section p{
+ color:var(--brand-muted)!important;line-height:1.55!important;
+}
+:root[data-mode] #page-macchine .atelier-compat-legend{
+ display:flex;flex-wrap:wrap;gap:7px 11px;margin:18px 0 14px;
+}
+:root[data-mode] #page-macchine .atelier-compat-scroll{
+ max-width:100%;overflow:auto;max-height:600px;
+ border-radius:14px;border:1px solid var(--brand-border-strong);
+ background:var(--brand-surface)!important;
+ scrollbar-width:thin;overscroll-behavior-x:contain;
+}
+:root[data-mode] #page-macchine .atelier-compat-scroll:focus-visible{
+ outline:3px solid var(--brand-gold)!important;outline-offset:3px;
+}
+:root[data-mode] #page-macchine .atelier-compat-table{
+ border-collapse:separate!important;border-spacing:0!important;
+ margin:0!important;width:100%!important;min-width:940px!important;
+ font:500 13px/1.45 var(--brand-text)!important;
+ color:var(--brand-ink)!important;
+}
+:root[data-mode] #page-macchine .atelier-compat-table caption{
+ text-align:left;padding:12px 16px;background:var(--brand-glass);
+ color:var(--brand-muted);font-size:12px;
+}
+:root[data-mode] #page-macchine .atelier-compat-table th,
+:root[data-mode] #page-macchine .atelier-compat-table td{
+ border:0!important;border-bottom:1px solid var(--brand-border)!important;
+ border-right:1px solid var(--brand-border)!important;
+ padding:15px 13px!important;vertical-align:middle!important;
+ text-align:left!important;min-width:145px;
+}
+:root[data-mode] #page-macchine .atelier-compat-table thead th{
+ position:sticky;top:0;z-index:3;
+ background:var(--brand-surface-strong,var(--brand-surface))!important;
+ color:var(--brand-ink)!important;
+ font:700 13px/1.35 var(--brand-text)!important;
+ box-shadow:0 2px 0 var(--brand-border-strong);
+}
+:root[data-mode] #page-macchine .atelier-compat-table thead th:first-child{
+ left:0;z-index:5;min-width:168px;
+}
+:root[data-mode] #page-macchine .atelier-compat-table tbody th{
+ position:sticky;left:0;z-index:2;
+ background:var(--brand-surface-strong,var(--brand-surface))!important;
+ color:var(--brand-ink)!important;
+ font:700 13px/1.4 var(--brand-text)!important;
+}
+:root[data-mode] #page-macchine .atelier-compat-table tbody tr:nth-child(even) td{
+ background:var(--brand-glass)!important;
+}
+:root[data-mode] #page-macchine .atelier-compat-table tbody tr:hover td{
+ box-shadow:inset 0 0 0 999px rgba(180,148,95,.055);
+}
+:root[data-mode] #page-macchine .atelier-compat-table th small{
+ display:block;margin-top:5px;font-weight:500;color:var(--brand-muted);
+}
+:root[data-mode] #page-macchine .atelier-compat-cell{
+ display:flex;flex-wrap:wrap;align-items:center;gap:5px;
+}
+:root[data-mode] #page-macchine .atelier-compat-pill{
+ display:inline-flex;align-items:center;justify-content:center;
+ padding:5px 8px;border:1px solid currentColor;border-radius:7px;
+ font:700 11px/1.35 var(--brand-text)!important;white-space:nowrap;
+ letter-spacing:0!important;
+}
+:root[data-mode] #page-macchine .atelier-compat-pill--cut{color:#b94040;background:rgba(219,75,75,.075)}
+:root[data-mode] #page-macchine .atelier-compat-pill--engrave{color:#93621b;background:rgba(204,155,71,.095)}
+:root[data-mode] #page-macchine .atelier-compat-pill--print{color:#206da4;background:rgba(60,137,194,.09)}
+:root[data-mode] #page-macchine .atelier-compat-pill--transfer{color:#6c4eaf;background:rgba(129,98,192,.08)}
+:root[data-mode] #page-macchine .atelier-compat-pill--none{color:var(--brand-muted);border-style:dashed;background:transparent}
+:root[data-mode="dark"] #page-macchine .atelier-compat-pill--cut{color:#ffa7ab}
+:root[data-mode="dark"] #page-macchine .atelier-compat-pill--engrave{color:#f4d08a}
+:root[data-mode="dark"] #page-macchine .atelier-compat-pill--print{color:#a4d7ff}
+:root[data-mode="dark"] #page-macchine .atelier-compat-pill--transfer{color:#cbbaff}
+:root[data-mode] #page-macchine .atelier-compat-info{
+ display:block;margin-top:6px;color:var(--brand-muted);font-size:11px;
+ max-width:200px;line-height:1.4;
+}
+:root[data-mode] #page-macchine .atelier-compat-source{
+ display:block;margin-top:14px;color:var(--brand-muted);
+ font:500 12px/1.5 var(--brand-text);
+}
+@media(max-width:700px){
+ :root[data-mode] #page-macchine .atelier-compat-scroll{max-height:540px}
+ :root[data-mode] #page-macchine .atelier-compat-section{padding:14px!important}
+}

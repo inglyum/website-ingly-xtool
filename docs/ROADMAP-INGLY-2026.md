@@ -171,3 +171,11 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 
 
 - **Integrazione successiva PR #83:** il pulsante Cronologia ora esegue prima del cambio bozza il confronto degli SHA GitHub dei file `img/` dello snapshot storico con i file presenti sul branch live. Impedisce il restore JSON in caso di immagini eliminate o binari differenti; i test sono inclusi nella suite. Questa è una barriera fail-closed, **non** un motore di recupero file binari: per snapshot con foto cambiate serve un flusso separato di staging/restore e verifica sandbox. La CI di questo commit va verificata prima del merge.
+
+## Hotfix UI P0 — continuità grafica Shop (16 ottobre 2026)
+
+- Screenshot cliente: stacchi cromatici nel background Shop, glow troppo debole e fedeltà percettiva del wordmark da verificare.
+- Patch mirata nel CSS finale `brand-system-2026.css`: superficie continua con due halo premium dipendenti da Giorno/Notte, eliminazione di sfondi intermedi contrastanti nei contenitori principali dello Shop, focus visibile, hover moderato e rispetto di reduced-motion.
+- Nessun ridisegno dei vettori logo: il master SVG originale e la I separata sono conservati; sola presentazione `object-position` migliorata. **La corrispondenza visiva con il riferimento originale fornito non è ancora certificata.**
+- Test statico `test-shop-visual-polish.mjs` nella CI; richiede audit Chromium screenshot in entrambi i temi su desktop/mobile e verifica visiva finale prima del merge.
+- Restano da affrontare: qualità visiva di tutte le altre pagine, contrasto delle card fotografiche, rapporto hero/categorie, pannello installazione PWA, verifica logo master sul riferimento e Admin Giorno/Notte.

@@ -229,3 +229,11 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Generator Studio completo: UI avanzata editor laser/UV/DTF/case con export affidabili, non dichiarata operativa per macchine finché verificata.
 - Catalogo fotografico (foto autentiche mancanti), Media Library restore binario PR #84, Admin e commerce checkout reale non ancora implementato (richiesta preventivo/WhatsApp esistente).
 - Performance visiva su dispositivi fisici e audit estetico completo del sito.
+
+## Sprint 10 — Laser design layers (17/10/2026)
+
+- Il mini configuratore nella pagina Personalizza ora genera sezioni **INGLY_CUT** (rosso), **INGLY_SCORE** (blu su richiesta) e **INGLY_ENGRAVE** (testo vettorializzabile) per legno, acrilico e pelle priva di PVC.
+- Se è selezionato **metallo**, il file di output non genera CUT o SCORE: mantiene solo la possibile incisione; spessore e macchina sono da verificare. L'interfaccia disabilita l'opzione SCORE e lo comunica.
+- Aggiornato preventivo IT/EN con informazioni SCORE e persistenza bozza locale per nuovi parametri. La resa resta una bozza editabile, non un file già certificato per macchina.
+- Test CI `test-laser-process-layers.mjs`: verifica DOM, SVG, quote, guardrail metallo, pelle e ripristino.
+- Gate release: suite completa, build, Chromium, Pages e verifica SHA. Workflows laser professionali (text-to-path, kerf, nesting, supporto macchina) restano fasi successive, non simulati.

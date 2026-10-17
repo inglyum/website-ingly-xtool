@@ -670,3 +670,33 @@
  }
  :root[data-mode] #page-shop .shop-cats .scat:hover{transform:none!important}
 }
+
+
+/* Homepage premium P1: continuous canvas and restrained visual focal point. */
+:root[data-mode="dark"] #page-home{
+ --home-halo-a:rgba(215,163,88,.13);
+ --home-halo-b:rgba(71,113,169,.115);
+ --home-ground:#080d15;
+}
+:root[data-mode="light"] #page-home{
+ --home-halo-a:rgba(174,123,62,.09);
+ --home-halo-b:rgba(74,126,183,.07);
+ --home-ground:#fff;
+}
+:root[data-mode] #page-home{
+ position:relative;isolation:isolate;
+ background-color:var(--home-ground)!important;
+ background-image:radial-gradient(ellipse 80% 42% at 70% 4%,var(--home-halo-a),transparent 88%),
+ radial-gradient(ellipse 68% 34% at 0% 49%,var(--home-halo-b),transparent 90%)!important;
+ background-repeat:no-repeat!important;
+}
+:root[data-mode] #page-home > .hero{
+ background-color:transparent!important;
+ background-image:none!important;
+}
+:root[data-mode] #page-home .hero :is(.btn-primary,.atelier-nav-cta):focus-visible{
+ outline:3px solid var(--brand-gold)!important;outline-offset:3px;
+}
+@media (prefers-reduced-motion:reduce){
+ :root[data-mode] #page-home .hero :is(.btn-primary,.atelier-nav-cta){transition:none!important}
+}

@@ -3,9 +3,12 @@
  * open a prepared WhatsApp or email message. Nothing is sent automatically. */
 const skip=/^(?:_.*|password|token|api.?key|captcha|g-recaptcha-response|honeypot|website)$/i;
 function linesFromForm(form){
-  const data=new FormData(form),lines=[];
+  const View=form.ownerDocument?.defaultView;
+  const Data=View?.FormData||FormData;
+  const FileClass=View?.File;
+  const data=new Data(form),lines=[];
   for(const [k,value] of data){
-    if(skip.test(k)||value instanceof File)continue;
+    if(skip.test(k)||(FileClass&&value instanceof FileClass))continue;
     const text=String(value||'').trim().replace(/[\r\n]+/g,' ').slice(0,350);
     if(text)lines.push(String(k).slice(0,55)+': '+text);
   }

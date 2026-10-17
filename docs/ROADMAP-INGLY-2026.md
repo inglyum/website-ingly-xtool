@@ -181,3 +181,10 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Restano da affrontare: qualità visiva di tutte le altre pagine, contrasto delle card fotografiche, rapporto hero/categorie, pannello installazione PWA, verifica logo master sul riferimento e Admin Giorno/Notte.
 
 - **UI follow-up 17/10 — card Shop:** correzione selettore reale `.scat` (la patch precedente applicava gli hover a elementi generici). Uniformati bordo, profondità, overlay leggibilità, focus tastiera e reduced-motion. In attesa di CI e controllo visuale su mobile/light prima del merge.
+
+## P0 Homepage come unico ingresso principale — 17 ottobre 2026
+
+- Audit: `index.html` e `currentPage()` già selezionano Home alla root; `macchine` deve essere solo route secondaria esplicita.
+- Corretto `manifest.webmanifest`: `start_url` e `scope` relativi alla base GitHub Pages, shortcut `Homepage` prioritario, percorsi puliti compatibili con History API per Shop, Personalizza e Lab, share target per `/quote/`.
+- Test regressione `test-home-primary-entry.mjs` aggiunto alla CI.
+- Limite: se un browser riapre una scheda già aperta su `/macchine/`, il ripristino della scheda è un comportamento del browser, non un redirect dalla root. QA e deploy da verificare prima del merge.

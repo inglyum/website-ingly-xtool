@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const manifest=JSON.parse(readFileSync('manifest.webmanifest','utf8'));
+const html=readFileSync('index.html','utf8');
+const nav=readFileSync('assets/js/navigation.js','utf8');
+assert.equal(manifest.start_url,'./?source=pwa');
+assert.equal(manifest.scope,'./');
+assert.equal(manifest.shortcuts[0].url,'./','Homepage must be first entry');
+assert.ok(manifest.shortcuts.some(x=>x.url==='./macchine/'),'Machine Lab stays accessible but never default');
+for(const entry of manifest.shortcuts)assert.ok(entry.url.startsWith('./')&&!entry.url.includes('#'),'Native path under Pages base');
+assert.equal(manifest.share_target.action,'./quote/');
+assert.match(html,/<section class="page active" id="page-home">/,'Home initially active before JS');
+assert.match(html,/<section class="page" id="page-macchine">/,'Lab not initially active');
+assert.match(nav,/\|\|'home'/,'Unknown/empty router path defaults to home');
+console.log('✔ PWA installs and root access open Homepage; Lab remains explicit secondary route');

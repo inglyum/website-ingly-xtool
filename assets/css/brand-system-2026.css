@@ -670,3 +670,36 @@
  }
  :root[data-mode] #page-shop .shop-cats .scat:hover{transform:none!important}
 }
+
+/* BRAND P0 — faithful legibility of the supplied INGLY geometric master.
+ * No CSS text/font recreation and no SVG path distortion. */
+:root[data-mode] #nav.nav .brand--identity .brand-lockup{
+  flex:0 0 auto!important;
+  width:clamp(128px,12vw,176px)!important;
+  max-width:176px!important;
+  overflow:visible!important;
+}
+:root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark{
+  width:100%!important;
+  max-height:none!important;
+  height:auto!important;
+  aspect-ratio:1670 / 630!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  overflow:visible!important;
+}
+:root[data-mode] #nav.nav .brand--identity .brand-lockup small{
+  letter-spacing:.12em!important;
+}
+@media (max-width:1100px){
+ :root[data-mode] #nav.nav .brand--identity .brand-lockup{
+  width:clamp(106px,28vw,136px)!important;
+  max-width:136px!important;
+ }
+}
+:root[data-mode="dark"] #nav.nav .brand--identity img.brand-wordmark{
+ filter:none!important;
+}
+:root[data-mode="light"] #nav.nav .brand--identity img.brand-wordmark{
+ filter:brightness(0)!important;
+}

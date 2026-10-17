@@ -290,6 +290,7 @@ export function renderMacchine(L) {
     const foto=photoIndex.get(m.id)||{};
     return {...m, modello:LAB.lingua(m.n,L),
       origine: foto.origine || via('/assets/images/xtool-lab-default.svg'),
+       fotoVerificata:Boolean(foto.origine),
       paginaUfficiale:(m.fonte&&m.fonte.url)||foto.paginaUfficiale||'',
       alt:foto.alt||{it:LAB.lingua(m.n,'it'),en:LAB.lingua(m.n,'en')}};
   });
@@ -338,7 +339,7 @@ export function renderMacchine(L) {
               alt="${esc((x.alt && (x.alt[L] || x.alt.it)) || x.modello)}"
               width="580" height="400" loading="lazy" decoding="async"
               onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}'"></div>
-            <span class="machine-photo-label">${t2('Foto ufficiale xTool', 'Official xTool image', L)}</span>
+            <span class="machine-photo-label">${x.fotoVerificata ? t2('Foto ufficiale xTool', 'Official xTool image', L) : t2('Illustrazione generica · non foto del modello', 'Generic illustration · not a photo of this model', L)}</span>
             <b>${esc(x.modello)}</b>
             <small>${esc(LAB.lingua(x.ruolo,L))}</small>
             <small>${x.daCompletare ? t2('Specifiche in verifica','Specifications under verification',L) : t2('Specifiche disponibili nella scheda','Specifications in the model page',L)}</small>

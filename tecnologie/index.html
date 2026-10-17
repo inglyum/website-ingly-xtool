@@ -923,12 +923,15 @@ setTimeout(function(){
         </div>
         <div class="ingly-parametric__two">
           <label for="inglyGeneratorMaterial"><span data-inline-i18n="genMaterial">Aspetto materiale</span>
-            <select id="inglyGeneratorMaterial"><option value="wood">Legno naturale</option><option value="acrylic">Plexiglass</option><option value="metal">Metallo</option></select>
+            <select id="inglyGeneratorMaterial"><option value="wood">Legno naturale</option><option value="acrylic">Plexiglass</option><option value="metal">Metallo</option><option value="leather">Pelle senza PVC</option></select>
           </label>
           <label for="inglyGeneratorShape"><span data-inline-i18n="genShape">Forma</span>
             <select id="inglyGeneratorShape"><option value="rounded" data-inline-i18n="genRounded">Rettangolo stondato</option><option value="ellipse" data-inline-i18n="genOval">Ovale</option><option value="rectangle" data-inline-i18n="genRectangle">Rettangolo</option></select>
           </label>
         </div>
+        <label class="ingly-score-toggle" for="inglyGeneratorScore"><input id="inglyGeneratorScore" type="checkbox">
+          <span>Aggiungi linea SCORE interna <small>(traccia blu, facoltativa · non per metallo)</small></span>
+        </label>
         <label for="inglyGeneratorFont"><span data-inline-i18n="genFont">Stile lettering</span>
           <select id="inglyGeneratorFont"><option value="josefin">Josefin Sans</option><option value="serif" data-inline-i18n="genSerif">Serif classico</option><option value="mono" data-inline-i18n="genMono">Mono tecnico</option></select>
         </label>
@@ -965,6 +968,11 @@ setTimeout(function(){
       <div class="ingly-parametric__preview">
         <div class="ingly-parametric__preview-header"><span data-inline-i18n="genPreview">ANTEPRIMA LIVE</span><span id="inglyGeneratorSize">180 × 65 mm</span></div>
         <div id="inglyGeneratorCanvas" role="img" aria-label="Anteprima parametrica della targa personalizzata"></div>
+        <div class="ingly-studio-process-legend" aria-label="Legenda colori laser">
+          <span><i class="ingly-line-cut" aria-hidden="true"></i>CUT — rosso</span>
+          <span><i class="ingly-line-score" aria-hidden="true"></i>SCORE — blu</span>
+          <span><i class="ingly-line-engrave" aria-hidden="true"></i>ENGRAVE — riempimento</span>
+        </div>
         <div class="ingly-studio-compat" id="inglyGeneratorCompatibility" role="note">Anteprima dimensionale per incisione: verifica supporto, lavorazione e fattibilità prima della produzione.</div>
         <p id="inglyGeneratorStatus" role="status" aria-live="polite">Modifica i parametri per visualizzare l'anteprima.</p>
       </div>

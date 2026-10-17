@@ -109,7 +109,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v15', FLAG='ingly_cachefix_v15';
+  var CACHE_WANT='ingly-v16', FLAG='ingly_cachefix_v16';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -280,7 +280,7 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" data-component="site-header" style="top:36px">
   <div class="wrap nav-in">
-    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261017n2" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
@@ -1264,7 +1264,7 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261017n2" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>
@@ -1290,7 +1290,7 @@ setTimeout(function(){
         <span class="ft-luogo">Made in Italy · Consulenza e personalizzazioni</span></div>
     </div>
 
-    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN — wordmark originale"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg" alt="INGLY" loading="lazy" width="1670" height="630"></div>
+    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN — wordmark originale"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261017n2" alt="INGLY" loading="lazy" width="1670" height="630"></div>
     <div class="fbottom"><span id="ftCopy"></span><span id="ftLegal"></span></div>
   </div>
 </footer>

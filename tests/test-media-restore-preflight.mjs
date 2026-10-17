@@ -36,5 +36,6 @@ assert.equal(auditRestoreMediaBlobs(old,now,oldEntries,entries(['one.webp'],[A])
 assert.equal(auditRestoreMediaBlobs(old,now,oldEntries,null).ok,false);
 assert.equal(auditRestoreMediaBlobs({file:['../secrets.svg']},now,oldEntries,currentEntries).ok,false);
 const admin=readFileSync('admin.html','utf8');
-assert.match(admin,/auditRestoreMediaBlobs\(verified\.data\.immagini,S\.IMG,historicMedia,liveMedia\)/);
-assert.match(admin,/if\(!mediaAudit\.ok\)/);
+assert.match(admin,/planHistoricMediaRecovery\(verified\.data\.immagini,historicMedia,liveMedia\)/);
+assert.match(admin,/if\(!mediaPlan\.ok\)/);
+assert.match(admin,/stageHistoricMedia\(mediaPlan,/);

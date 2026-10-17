@@ -237,3 +237,12 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Aggiornato preventivo IT/EN con informazioni SCORE e persistenza bozza locale per nuovi parametri. La resa resta una bozza editabile, non un file già certificato per macchina.
 - Test CI `test-laser-process-layers.mjs`: verifica DOM, SVG, quote, guardrail metallo, pelle e ripristino.
 - Gate release: suite completa, build, Chromium, Pages e verifica SHA. Workflows laser professionali (text-to-path, kerf, nesting, supporto macchina) restano fasi successive, non simulati.
+
+## Sprint 11 — Admin: ripristino binario storico verificato (17 ottobre 2026)
+
+- Integra il planner di ripristino delle immagini nel rollback dell'Admin; inventaria file storici e correnti tramite GitHub, conserva i file live extra senza cancellarli.
+- Recupera solo i blob mancanti o cambiati da GitHub, valida base64, dimensioni e **SHA-1 Git dei byte reali**, usando WebCrypto; limiti: max 80 file, 8 MB/file, 40 MB complessivi per ripristino.
+- Se un blob non è valido o supera i limiti, il ripristino viene annullato senza mutare dati/bozza media. Il ripristino richiede conferma esplicita.
+- Le immagini verificate vanno in `MEDIA` insieme ai dati storici, senza pubblicazione automatica; la pubblicazione esistente le unisce a JSON e altre modifiche in un unico Git tree/commit. Aggiunta verifica concorrenza: se un file foto cambia dopo lo staging, l'Admin blocca la pubblicazione anziché sovrascriverlo.
+- Test SHA, integrità, quote memoria, assenza di mutazioni parziali, collegamento Admin e regressioni. Richiede CI + browser audit e test manuale con token GitHub autorizzato prima di certificare l'intero flusso live.
+- Resta il lavoro sulle foto autentiche mancanti del catalogo e la completezza dei generatori/commerce.

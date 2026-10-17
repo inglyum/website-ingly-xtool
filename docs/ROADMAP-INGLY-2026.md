@@ -212,3 +212,20 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Aggiornati tre test legati alle vecchie dimensioni; nuovo test rigoroso `test-brand-n-silhouette.mjs` controlla geometria, parità delle varianti, cache e riferimenti Home/Admin.
 - Prima del merge: `npm test`, `npm run build`, audit visuale e screenshot CI. Dopo merge: verificare *deploy pubblicato* e confronto reale a https://inglyum.github.io/website-ingly-xtool/.
 - Le altre attività (Media Library PR #84, catalogo fotografico, generatori, QA mobile e commercio) rimangono aperte, e non vanno etichettate come completate.
+
+## Sprint 09 — esperienza immersiva INGLY + Personalizza (17/10/2026)
+
+### Implementato nel branch
+- Home: oggetto geometrico 3D stratificato (legno, metallo, acrilico) composto in CSS e con marchio SVG originale. Rotazione legata al solo scroll visibile, no dipendenze WebGL/CDN, statico su mobile e con reduced motion. L'immagine editoriale esistente rimane un fallback se lo script non parte.
+- CSS finale separato `assets/css/ingly-immersive-2026.css`: sfondo continuo per le principali sezioni della Home, glow leggeri Giorno/Notte, studio e partner xTool tematizzati senza alterare l'identità globale INGLY.
+- Personalizza: stepper informativo, accesso ai generatori avanzati (Generator Studio / Print & Cut), pulsanti reali salva/ripristina/azzera bozza sul solo dispositivo; parametri convalidati e aggiornamento SVG live via eventi esistenti, guida compatibilità materiale. Non viene simulato un file già pronto per la produzione o un acquisto già pagato.
+- Aggiunti test jsdom che esercitano generatore, bozza e 3D; include le nuove verifiche in `npm test`.
+
+### Da collaudare prima del merge
+- npm test e npm run build + visual Chromium su desktop, mobile, dark/light, QA accessibilità e fallback senza JS.
+- Correzione di eventuali regressioni riscontrate, poi deploy Pages e verifica SHA servito.
+
+### Ancora aperto
+- Generator Studio completo: UI avanzata editor laser/UV/DTF/case con export affidabili, non dichiarata operativa per macchine finché verificata.
+- Catalogo fotografico (foto autentiche mancanti), Media Library restore binario PR #84, Admin e commerce checkout reale non ancora implementato (richiesta preventivo/WhatsApp esistente).
+- Performance visiva su dispositivi fisici e audit estetico completo del sito.

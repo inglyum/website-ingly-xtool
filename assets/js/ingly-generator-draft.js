@@ -6,14 +6,14 @@
   const ids={
     name:'inglyGeneratorName',w:'inglyGeneratorWidth',h:'inglyGeneratorHeight',
     material:'inglyGeneratorMaterial',shape:'inglyGeneratorShape',
-    font:'inglyGeneratorFont',notes:'inglyGeneratorNotes'
+    font:'inglyGeneratorFont',score:'inglyGeneratorScore',notes:'inglyGeneratorNotes'
   };
   const allowed={
-    material:['wood','acrylic','metal'],
+    material:['wood','acrylic','metal','leather'],
     shape:['rounded','ellipse','rectangle'],
     font:['josefin','serif','mono']
   };
-  const defaults=Object.freeze({name:'Il tuo nome',w:180,h:65,material:'wood',shape:'rounded',font:'josefin',notes:''});
+  const defaults=Object.freeze({name:'Il tuo nome',w:180,h:65,material:'wood',shape:'rounded',font:'josefin',score:false,notes:''});
   const size=(x,min,max,fallback)=>{
     if(String(x).trim()==='')return fallback;
     const n=Number(x);
@@ -26,6 +26,7 @@
     safe.notes=String(obj.notes??'').slice(0,300).replace(/[\u0000-\u001f]/g,' ');
     safe.w=size(obj.w,50,500,180);
     safe.h=size(obj.h,25,250,65);
+    safe.score=obj.score===true;
     for(const key of ['material','shape','font']){
       safe[key]=allowed[key].includes(obj[key])?obj[key]:defaults[key];
     }
@@ -40,11 +41,11 @@
     const isEnglish=()=>document.documentElement.lang==='en';
     const say=(it,en)=>{if(status)status.textContent=isEnglish()?en:it};
     const inputEvent=()=>new Event('input',{bubbles:true});
-    const snapshot=()=>validate(Object.fromEntries(Object.keys(ids).map(key=>[key,get(key)?.value])));
+    const snapshot=()=>validate(Object.fromEntries(Object.keys(ids).map(key=>[key,get(key)?.type==='checkbox'?get(key).checked:get(key)?.value])));
     const use=values=>{
       for(const [k,id] of Object.entries(ids)){
         const el=document.getElementById(id);
-        if(el)el.value=String(values[k]);
+        if(el){if(el.type==='checkbox')el.checked=Boolean(values[k]);else el.value=String(values[k]);}
       }
       // Notify the already installed parametric renderer and preset UI.
       get('name')?.dispatchEvent(inputEvent());
@@ -58,7 +59,8 @@
       const words={
         wood:['Legno — anteprima incisione. Controlla venature e spessore con il laboratorio.','Wood — engraving preview. Check grain and thickness with the workshop.'],
         acrylic:['Plexiglass — verifica colore, spessore e compatibilità prima del taglio.','Acrylic — confirm color, thickness and cut compatibility before production.'],
-        metal:['Metallo — l’incisione dipende dalla tecnologia disponibile; chiedi fattibilità.','Metal — engraving depends on the available equipment; request feasibility review.']
+        metal:['Metallo — solo incisione, nessun taglio CO₂. Conferma la tecnologia disponibile.','Metal — engraving only; no CO2 metal cutting. Confirm the available technology.'],
+        leather:['Pelle senza PVC — verificare composizione e sicurezza prima della lavorazione laser.','PVC-free leather — verify material composition and laser safety before use.']
       };
       badge.textContent=(words[m]||words.wood)[en?1:0];
     }

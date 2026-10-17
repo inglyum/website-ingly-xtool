@@ -189,3 +189,38 @@
 @media(prefers-reduced-motion:reduce){
  :root[data-mode] #page-home .ingly-photographic-lab__grid > a{transition:none!important;transform:none!important}
 }
+
+/* Sprint 10: distinct and clearly labelled fabrication intent layers.
+   Colors are export conventions; operators must verify laser presets. */
+:root[data-mode] #page-personalizza .ingly-score-toggle{
+ display:flex;align-items:flex-start;gap:11px;cursor:pointer;
+ padding:12px 15px;margin:10px 0;border:1px solid var(--brand-border);
+ background:var(--ingly-studio-panel);border-radius:12px;color:var(--brand-ink);
+ font:600 14px/1.45 var(--brand-text);
+}
+:root[data-mode] #page-personalizza .ingly-score-toggle input{
+ accent-color:var(--brand-gold);width:19px;height:19px;flex:none;margin-top:1px;
+}
+:root[data-mode] #page-personalizza .ingly-score-toggle small{
+ display:block;font:400 12px/1.4 var(--brand-text);color:var(--brand-muted);
+}
+:root[data-mode] #page-personalizza .ingly-score-toggle.ingly-score-disabled{
+ opacity:.64;cursor:not-allowed;
+}
+:root[data-mode] #page-personalizza .ingly-studio-process-legend{
+ display:flex;flex-wrap:wrap;gap:8px 15px;padding:10px 12px;
+ border:1px solid var(--brand-border);border-radius:10px;
+ color:var(--brand-muted);font:600 11px/1.4 var(--brand-text);
+}
+:root[data-mode] #page-personalizza .ingly-studio-process-legend span{
+ display:inline-flex;gap:7px;align-items:center;
+}
+:root[data-mode] #page-personalizza .ingly-studio-process-legend i{
+ display:inline-block;width:23px;height:4px;border-radius:3px;
+}
+:root[data-mode] #page-personalizza .ingly-line-cut{background:#ff3344}
+:root[data-mode] #page-personalizza .ingly-line-score{background:#2469d5}
+:root[data-mode] #page-personalizza .ingly-line-engrave{background:var(--brand-ink)}
+:root[data-mode] #page-personalizza .ingly-score-toggle:focus-within{
+ outline:2px solid var(--brand-gold);outline-offset:2px;
+}

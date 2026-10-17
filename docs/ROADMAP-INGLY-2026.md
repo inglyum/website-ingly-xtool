@@ -246,3 +246,24 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 - Le immagini verificate vanno in `MEDIA` insieme ai dati storici, senza pubblicazione automatica; la pubblicazione esistente le unisce a JSON e altre modifiche in un unico Git tree/commit. Aggiunta verifica concorrenza: se un file foto cambia dopo lo staging, l'Admin blocca la pubblicazione anziché sovrascriverlo.
 - Test SHA, integrità, quote memoria, assenza di mutazioni parziali, collegamento Admin e regressioni. Richiede CI + browser audit e test manuale con token GitHub autorizzato prima di certificare l'intero flusso live.
 - Resta il lavoro sulle foto autentiche mancanti del catalogo e la completezza dei generatori/commerce.
+
+## Sprint 12 — Homepage pulita + matrice macchina/materiale + xTool M2 (17/10/2026)
+
+### Modifiche del branch
+- Rimossa **completamente dalla Homepage** la scena 3D a rotazione e il visual fotografico della Hero, senza sostituirli con altri oggetti o placeholder. Restano testo INGLY, CTA, benefici e sfondo statico coerente; rimossa la registrazione dello script scroll 3D.
+- Migliorata la tabella realmente generata da `assets/js/notte-oro-ui.js`: 7 materiali, pill testuali Taglio/Incisione/Stampa/Trasferimento/Da verificare/Non dichiarato, legenda, intestazioni e prima colonna sticky, scroll tastiera, forte contrasto in tema chiaro/scuro.
+- Aggiunta xTool M2 alla matrice con badge **«solo informativa, non in officina»**. La M2 era già nel catalogo e nella rotta `/macchine/m2/`, ma prima aveva `specs: {}`: ora la stessa scheda (senza duplicati) include diodo 10/20 W, IR 3 W, stampa CMYK, dimensioni, peso, classe di sicurezza e aree lavoro distinte per modulo, con documentazione ufficiale xTool.
+- Link dalla galleria macchine informative alla scheda del modello e dettagli sia nell'app dinamica sia nella pagina prerenderizzata.
+- Regole di compatibilità conservative: non attribuire alla M2 taglio metallo, non dichiarare il taglio dell'acrilico trasparente con diodo blu, usare «da verificare» se colore/spessore non sono documentati.
+- Test statici e DOM aggiornati: rimozione Hero, M2, matrice e sicurezza, preservando CTA e dati.
+
+### Gate release
+- `npm test`, `npm run build`, audit Chromium desktop/mobile, Giorno/Notte, accessibilità, merge e Pages devono essere completati prima di dichiarare questa fase pubblicata.
+- Foto ufficiale M2 non importata dalla schermata di riferimento: contiene grafica di premi terzi. La scheda utilizza la policy media esistente, e aggiungerà un asset autorizzato/originale solo dopo verifica.
+
+### Roadmap commerciale rimasta aperta
+- **P0:** prova guidata dell'Admin con credenziali GitHub dell'utente, upload, modifica, pubblicazione e ripristino foto realmente modificate (non simulabile in CI senza autorizzazione).
+- **P0:** acquisizione fotografie autentiche mancanti e associazione a tutti i prodotti pubblicati; nessuna generazione etichettata come shooting reale.
+- **P1:** collaudo ordine/contatto/WhatsApp end-to-end con gestione lead e stati; checkout con pagamento non attivo, non inventarlo.
+- **P1:** convalida file macchina (font-to-path, kerf, margini, materiali, test laser fisici) e sviluppo generatori.
+- **P1:** verifica manuale iPhone e Android su dispositivi reali, performance e tappabilità dei controlli.

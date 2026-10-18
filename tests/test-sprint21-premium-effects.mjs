@@ -16,5 +16,5 @@ assert.match(js,/frameTimer=setTimeout\(\(\)=>finish\(\),1900\)/);
 const d=new JSDOM(html).window.document;
 const imgs=[d.querySelector('#nav .brand-wordmark'),d.querySelector('footer .ft-col--brand .brand-wordmark'),d.querySelector('footer .ingly-footer-signature .brand-wordmark')];
 assert.ok(imgs.every(Boolean));
-assert.equal(new Set(imgs.map(x=>new URL(x.src).pathname)).size,1,'all logos same SVG path');
+assert.equal(new Set(imgs.map(x=>new URL(x.getAttribute('src'),'https://ingly.test/').pathname)).size,1,'all logos same SVG path');
 console.log('✔ Gold laser highlight, opt-in short loader, canonical wordmark consistency');

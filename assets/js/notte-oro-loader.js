@@ -8,7 +8,7 @@
   'use strict';
   const SESSION_KEY='ingly_loader_seen_v3';
   const DEFAULT={
-    enabled:true,theme:'auto',minMs:2000,maxMs:3600,oncePerSession:true,
+    enabled:true,theme:'auto',minMs:850,maxMs:1250,oncePerSession:true,
     headline:{it:'Ispiriamo la creazione.',en:'We inspire creation.'},
     messages:{
       it:'Accendo il laser\nScelgo il materiale\nIncido la tua idea',
@@ -136,8 +136,8 @@
       const config=e?.detail?.CONFIG||window.INGLY?.CONFIG||{};
       options={...DEFAULT,...(config.loader||{})};
       try{sessionStorage.setItem('ingly_loader_config_v3',JSON.stringify(options))}catch(_){};
-      minMs=clamp(options.minMs,500,4500);
-      maxMs=clamp(options.maxMs,minMs,5500);
+      minMs=clamp(options.minMs,500,1400);
+      maxMs=clamp(options.maxMs,minMs,1800);
       if(options.enabled===false&&!override){immediate();return}
       markTheme();displayMessages();buildHeading();
       if(!override&&options.oncePerSession!==false&&hasSeen()){immediate();return}
@@ -244,7 +244,7 @@
     skip.addEventListener('click',()=>finish(),{once:true});
     frameId=requestAnimationFrame(step);
     // Guaranteed exit even if the document never finishes loading.
-    frameTimer=setTimeout(()=>finish(),5600);
+    frameTimer=setTimeout(()=>finish(),1900);
   };
   if(document.readyState==='loading')
     document.addEventListener('DOMContentLoaded',onReady,{once:true});

@@ -11,7 +11,7 @@ vc.on('jsdomError', e => errors.push('jsdomError: ' + (e.message || e)));
 vc.on('error', (...a) => errors.push('console.error: ' + a.join(' ')));
 
 const dom = new JSDOM(html, {
-  url: 'https://inglyum.github.io/sito-ingly/admin.html',
+  url: 'https://inglyum.github.io/website-ingly-xtool/admin.html',
   runScripts: 'dangerously',
   pretendToBeVisual: true,
   virtualConsole: vc,

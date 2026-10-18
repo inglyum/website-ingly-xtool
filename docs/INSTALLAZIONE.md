@@ -19,7 +19,7 @@ va online solo dopo un workflow e l'Admin non riesce a confermare la pubblicazio
 (L'Admin ora te lo dice da solo: pulsante **🩺 Diagnosi GitHub Pages**.)
 
 Dopo 1–2 minuti il sito è su:
-**https://inglyum.github.io/Sito-ingly/**
+**https://inglyum.github.io/website-ingly-xtool/**
 
 ## PASSO 3 — Crea il token (una volta sola)
 1. GitHub → foto profilo in alto a destra → **Settings**
@@ -36,7 +36,7 @@ Dopo 1–2 minuti il sito è su:
    (si vede una volta sola: copialo subito).
 
 ## PASSO 4 — Collega l'Admin
-1. Apri **https://inglyum.github.io/Sito-ingly/admin.html**
+1. Apri **https://inglyum.github.io/website-ingly-xtool/admin.html**
 2. Menu a sinistra → **⚙️ Impostazioni**
 3. Owner, Repository e Branch sono già compilati in automatico dall'indirizzo: controlla che siano giusti.
 4. Incolla il token nel campo **Token**, spunta *Ricorda il token su questo computer*.

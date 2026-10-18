@@ -1390,12 +1390,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
     <div class="card"><h3>🧭 Diagnosi caricamento dati</h3><div class="kv" id="loadDiag">—</div>
       <div style="margin-top:10px"><button class="btn" id="sReload">↺ Riprova a caricare i dati</button></div></div>
     <div class="card"><h3>ℹ️ Sito</h3><div class="kv" id="setInfo"></div></div>
-    <div class="card"><h3>📧 Brevo Newsletter (facoltativo)</h3>
-      <div class="row c2">
-        <div><label>API Key Brevo</label><input type="password" data-b="CONFIG.brevo.apiKey" placeholder="xkeysib-…"></div>
-        <div><label>ID Lista contatti</label><input type="text" data-b="CONFIG.brevo.listId" placeholder="es. 3"></div>
-      </div>
-      <div class="hint" style="margin-top:8px">Ottieni la chiave su <b>app.brevo.com → Impostazioni → API Keys</b>. Il piano gratuito include 300 email/giorno. L'ID lista si trova in <b>Contatti → Liste</b>. Quando configurato, la newsletter usa Brevo invece di Formspree.</div>
+    <div class="card"><h3>📧 Newsletter</h3>
+      <div class="hint">Le iscrizioni arrivano tramite <b>Formspree</b> (Contatti → endpoint «Newsletter»).<br>
+      <b>Non incollare qui chiavi API</b> (Brevo, Mailchimp…): tutto ciò che si pubblica da questo pannello
+      finisce in un file pubblico del sito. Per Brevo usa un suo <b>modulo d'iscrizione</b> (indirizzo
+      pubblico, senza chiave) oppure l'integrazione Formspree → Brevo.</div>
     </div>
     <div class="card"><h3>🤖 AI Generativa (facoltativo)</h3>
       <label style="margin-bottom:6px">Provider AI</label>
@@ -1517,7 +1516,7 @@ document.addEventListener('keydown',e=>{
 $('ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeModal()});
 
 /* ---------- impostazioni ---------- */
-const SET=Object.assign({owner:'inglyum',repo:'Il-sito-AI',branch:'main',remember:false},JSON.parse(localStorage.getItem('ingly2_set')||'{}'));
+const SET=Object.assign({owner:'inglyum',repo:'website-ingly-xtool',branch:'main',remember:false},JSON.parse(localStorage.getItem('ingly2_set')||'{}'));
 /* PROTEZIONE DEL SITO IN PRODUZIONE.
    Il repository di pubblicazione è ricordato nel browser (localStorage), non
    nel file: aprendo QUESTO admin su un computer che ha già usato quello di
@@ -1528,10 +1527,10 @@ const SET=Object.assign({owner:'inglyum',repo:'Il-sito-AI',branch:'main',remembe
   const PROD=/^sito-claude-code-?$/i;
   if(PROD.test(String(SET.repo||''))){
     const era=SET.repo;
-    SET.repo='Il-sito-AI';
+    SET.repo='website-ingly-xtool';
     try{localStorage.setItem('ingly2_set',JSON.stringify({owner:SET.owner,repo:SET.repo,branch:SET.branch,remember:SET.remember}))}catch(e){}
-    addEventListener('DOMContentLoaded',()=>{try{toast('Destinazione riportata su «Il-sito-AI»: era «'+era+'», il sito in produzione')}catch(e){}});
-    console.warn('[INGLY] destinazione di pubblicazione corretta: '+era+' → Il-sito-AI');
+    addEventListener('DOMContentLoaded',()=>{try{toast('Destinazione riportata su «website-ingly-xtool»: era «'+era+'», il sito in produzione')}catch(e){}});
+    console.warn('[INGLY] destinazione di pubblicazione corretta: '+era+' → website-ingly-xtool');
   }
 })();
 let AUTODETECTED=false;
@@ -4340,6 +4339,19 @@ function validaBozza(){
  /* La vecchia lista non deve tornare: se ricompare in content.json le due
     divergono in silenzio e il sito legge quella sbagliata. */
  if(S.C&&S.C.DIG!==undefined)err.push('content.json contiene ancora DIG: i file digitali stanno in data/digitale.json. Rimuovilo prima di pubblicare.');
+ /* REGOLA 6 — nessuna chiave nel sito pubblico: tutto ciò che si pubblica
+    da qui finisce in data/*.json, leggibile da chiunque. */
+ const FORMATI_CHIAVE=/xkeysib-[A-Za-z0-9-]{10,}|sk-ant-[A-Za-z0-9_-]{10,}|\bsk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|\bgh[pousr]_[A-Za-z0-9]{30,}/;
+ const NOME_SEGRETO=/^(api_?key|apikey|secret|client_?secret|token|access_?token|password|pass)$/i;
+ FILES.forEach(f=>{
+  const giro=(o,via)=>{if(o==null)return;
+   if(typeof o==='string'){if(FORMATI_CHIAVE.test(o))err.push('data/'+f+'.json → '+via+': sembra una chiave API. Le chiavi non vanno MAI pubblicate.');return}
+   if(typeof o!=='object')return;
+   for(const k of Object.keys(o)){const v=o[k];
+    if(NOME_SEGRETO.test(k)&&typeof v==='string'&&v.trim())err.push('data/'+f+'.json → '+via+'.'+k+': un campo «'+k+'» compilato finirebbe in un file pubblico.');
+    giro(v,via?via+'.'+k:k)}};
+  giro(S[KEY[f]],'');
+ });
  try{FILES.forEach(f=>JSON.parse(jstr(S[KEY[f]])))}catch(e){err.push('Dati non serializzabili: '+e.message)}
  return {err,warn};
 }

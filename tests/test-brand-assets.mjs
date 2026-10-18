@@ -14,5 +14,8 @@ assert.ok(css.includes('.ingly-service-centre__badge img'),'Layout service badge
 assert.ok(!html.includes('class="watermark" aria-hidden="true">INGLY</div>'),'Vecchia firma esclusa');
 console.log('✔ Brand: header, loader, footer e xTool Lab usano asset già nel repository.');
 
-assert.ok(html.includes('href="assets/css/brand-system-2026.css?v=20261018laser2"'),'Design system unificato non caricato');
+/* la versione dopo ?v= cambia a ogni rilascio del foglio (serve a far
+   scaricare la copia nuova): si verifica che il foglio sia caricato, non il
+   numero */
+assert.ok(/href="assets\/css\/brand-system-2026\.css\?v=[\w.-]+"/.test(html),'Design system unificato non caricato');
 assert.ok(html.includes('class="brand-lockup"'),'Wordmark e sottotitolo in header');

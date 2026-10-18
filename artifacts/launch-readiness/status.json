@@ -1,0 +1,43 @@
+{
+  "source": "read-only repository data; not end-to-end acceptance",
+  "visibleProducts": 63,
+  "visibleWithLocalCover": 13,
+  "visibleNeedingLocalCover": 50,
+  "gates": [
+    {
+      "id": "quotes-private",
+      "label": "Private quote endpoint configured",
+      "ok": false,
+      "evidence": "data/config.json moduli.formspreePreventivo",
+      "requiresLiveTest": true
+    },
+    {
+      "id": "quotes-business",
+      "label": "B2B quote endpoint configured",
+      "ok": false,
+      "evidence": "data/config.json moduli.formspreePreventivoB2B",
+      "requiresLiveTest": true
+    },
+    {
+      "id": "newsletter",
+      "label": "Newsletter endpoint configured",
+      "ok": false,
+      "evidence": "data/config.json moduli.formspreeNewsletter",
+      "requiresLiveTest": true
+    },
+    {
+      "id": "local-covers",
+      "label": "Visible products have local cover inventory entries",
+      "ok": false,
+      "evidence": "data/products.json + data/immagini.json",
+      "requiresLiveTest": false
+    }
+  ],
+  "manualGates": [
+    "authorized admin upload/publish/rollback",
+    "quote inbox receipt + privacy",
+    "real iOS and Android UX",
+    "verified original photographs and rights",
+    "actual Core Web Vitals"
+  ]
+}

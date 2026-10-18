@@ -30,8 +30,8 @@ dice con un messaggio. Prima di premere **Pubblica**, controlla comunque in
 Dopo un paio di minuti il sito è su:
 
 ```
-https://inglyum.github.io/Il-sito-AI/
-https://inglyum.github.io/Il-sito-AI/admin.html
+https://inglyum.github.io/website-ingly-xtool/
+https://inglyum.github.io/website-ingly-xtool/admin.html
 ```
 
 Il sito funziona anche dentro una sottocartella: il percorso base viene

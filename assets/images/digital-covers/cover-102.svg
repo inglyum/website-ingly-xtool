@@ -9,5 +9,5 @@
  <g transform="translate(470 330)" fill="none"><circle r="168" stroke="#d0e7e3" stroke-width="3"/><circle r="112" stroke="#d0e7e3" stroke-opacity=".8"/><path d="M-204 0H204M0-204V204M-150-150L150 150M-150 150L150-150" stroke="#94c9ca" stroke-dasharray="10 8" opacity=".8"/><path d="M-85 86V-85H85V86Z" stroke="#e4c998" stroke-width="10"/><circle r="47" stroke="#e4c998" stroke-width="8"/><path d="M-245-163h145M100 163h145" stroke="#e4c998" stroke-width="5"/></g>
  <rect x="57" y="570" width="846" height="87" rx="14" fill="#061312" fill-opacity=".56"/>
  <text x="80" y="610" fill="#f9edda" font-size="31" font-family="Arial,sans-serif" font-weight="700">Precision Lines</text>
- <text x="80" y="640" fill="#c5cdc6" font-size="16" font-family="Arial,sans-serif" letter-spacing="1">Engraving & cutting  ·  CONCEPT PREVIEW</text>
+ <text x="80" y="640" fill="#c5cdc6" font-size="16" font-family="Arial,sans-serif" letter-spacing="1">Engraving &amp; cutting  ·  CONCEPT PREVIEW</text>
  </svg>

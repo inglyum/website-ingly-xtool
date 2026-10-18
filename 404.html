@@ -15,7 +15,7 @@
   // Se è un file con estensione (es. .js, .css, .webp) non fare redirect — è un 404 reale
   if(/\.[a-zA-Z]{2,5}$/.test(path)) return;
   // Su GitHub Pages un repository di sviluppo è servito in una sottocartella
-  // (inglyum.github.io/Il-sito-AI/…): quella cartella fa parte della base e va
+  // (inglyum.github.io/website-ingly-xtool/…): quella cartella fa parte della base e va
   // conservata, altrimenti il redirect finisce fuori dal sito.
   // Riconoscimento deterministico: se il primo segmento NON è una pagina nota,
   // allora è la cartella di installazione. Nessuna dipendenza dal dominio.

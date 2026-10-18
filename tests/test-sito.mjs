@@ -94,7 +94,7 @@ const html = readFileSync(ROOT + '/index.html', 'utf8')
   .replace(/<script[^>]*src="[^"]*app\.js"[^>]*>\s*<\/script>/g, '');
 
 const dom = new JSDOM(html, {
-  url: 'https://inglyum.github.io/sito-ingly/',
+  url: 'https://inglyum.github.io/website-ingly-xtool/',
   runScripts: 'dangerously',
   pretendToBeVisual: true,
   virtualConsole: vc,
@@ -112,6 +112,11 @@ const dom = new JSDOM(html, {
   }
 });
 const win = dom.window, doc = win.document;
+/* I browser risolvono <base href="./"> rispetto all'indirizzo con cui la pagina
+   è stata caricata; jsdom invece lo ricalcola a ogni pushState, così dopo
+   /product/1/ il link «faq» puntava a /product/1/faq. Si fissa la base come
+   farebbe un browser, sulla radice del sito. */
+{ const b = doc.querySelector('base'); if (b) b.setAttribute('href', new win.URL(b.getAttribute('href'), win.location.href).href); }
 await new Promise(r => setTimeout(r, 300));
 
 // esegue il bundle di fallback (stesso codice del sito, senza moduli ES)
@@ -136,7 +141,10 @@ const vaiA = async (pagina) => {
   const link = doc.querySelector('.nav-links [data-nav="' + pagina + '"]');
   if(link) link.click();
   else {
-    win.history.pushState({}, '', '/' + pagina);
+    /* il sito vive in una sottocartella (<base href="./">): un percorso
+       scritto dalla radice («/faq») esce dal sito e il router, giustamente,
+       lo tratta come un indirizzo esterno. Si risolve rispetto alla base. */
+    win.history.pushState({}, '', new win.URL(pagina, doc.baseURI).pathname);
     win.dispatchEvent(new win.PopStateEvent('popstate'));
   }
   await wait(220);

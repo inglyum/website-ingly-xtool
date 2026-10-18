@@ -124,6 +124,17 @@ export function renderCats(){
       ${ph}<span class="ic">${icon(c.icon, c.ic)}</span>${cnt}<h3>${c.n[L]}</h3><p style="${light&&!c.img?'color:#4a4f6b':''}">${c.s[L]}</p></div>`}).join('');
 }
 
+/* ---- recensioni VERE ----
+   Prima ogni scheda mostrava ★★★★★ con il numero `rev` dei dati, e la scheda
+   prodotto un voto «4.8» fisso e una ripartizione per stelle inventata a
+   partire da quel numero. Nessuna di quelle recensioni esisteva: mostrarle è
+   una pratica commerciale scorretta (Codice del Consumo, direttiva Omnibus).
+   Ora contano solo le recensioni verificate (vf) e collegate al prodotto (pid)
+   in content.json → REVIEWS. Nessuna recensione = nessuna stella. */
+export const recensioniDi=p=>((window.INGLY&&window.INGLY.REVIEWS)||[]).filter(r=>r&&r.vf===true&&p&&String(r.pid)===String(p.id));
+export const mediaRecensioni=lista=>lista.length?Math.round(lista.reduce((s,r)=>s+Math.max(1,Math.min(5,+r.st||5)),0)/lista.length*10)/10:0;
+const stelle=v=>'★'.repeat(Math.round(v))+'☆'.repeat(5-Math.round(v));
+
 /* ---- card prodotto ---- */
 function stockBadge(x){
   if(x.stock===undefined||x.stock===null)return '';
@@ -155,7 +166,7 @@ export function card(x){const a=matArt(x.mat);
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
     <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
-    <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span><span class="stars">★★★★★ <span>(${x.rev})</span></span></div></div></article>`}
+    <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span>${(()=>{const rv=recensioniDi(x);return rv.length?`<span class="stars" aria-label="${mediaRecensioni(rv)}/5">${stelle(mediaRecensioni(rv))} <span>(${rv.length})</span></span>`:''})()}</div></div></article>`}
 
 export const currentProduct = () => cur;
 
@@ -504,7 +515,7 @@ export function renderShop(){
   const res=filterProducts();
   if(SORT==='pa')res.sort((a,b)=>a.price-b.price);
   if(SORT==='pd')res.sort((a,b)=>b.price-a.price);
-  if(SORT==='rv')res.sort((a,b)=>b.rev-a.rev);
+  if(SORT==='rv')res.sort((a,b)=>recensioniDi(b).length-recensioniDi(a).length);
   if(SORT==='nw')res.sort((a,b)=>b.id-a.id);   /* novità: gli ID più alti sono i più recenti */
   syncFiltersToURL();
   renderCollBanner();
@@ -677,9 +688,10 @@ export function renderPP(){
   $('ppName').textContent=cur.n[L];
 
   /* rating row */
-  const pct=Math.min(100,Math.round((cur.rev||0)/2));
-  $('ppStars').innerHTML='★★★★★';
-  $('ppRevCount').textContent='('+((cur.rev||0))+' '+T('revs')+')';
+  {const rv=recensioniDi(cur),riga=$('ppStars')&&$('ppStars').parentElement;
+   if(riga) riga.hidden=!rv.length;
+   $('ppStars').textContent=rv.length?stelle(mediaRecensioni(rv)):'';
+   $('ppRevCount').textContent=rv.length?'('+rv.length+' '+T('revs')+')':'';}
 
   $('ppProd').textContent=cur.prod+' '+T('days');
   $('ppMat').textContent=(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||(L==='it'?'Da definire':'To be confirmed');
@@ -777,30 +789,15 @@ export function galPrev(){if(!galShots.length)return;galIdx=(galIdx-1+galShots.l
 export function galNext(){if(!galShots.length)return;galIdx=(galIdx+1)%galShots.length;renderGalFrame()}
 
 function renderReviews(){
-  const total=cur.rev||0;
-  /* genera distribuzione realistica basata sul totale */
-  const d5=Math.round(total*.68), d4=Math.round(total*.20), d3=Math.round(total*.07),
-        d2=Math.round(total*.03), d1=total-d5-d4-d3-d2;
-  const rows=[5,4,3,2,1].map((s,i)=>{
-    const n=[d5,d4,d3,d2,d1][i], pct=total?Math.round(n/total*100):0;
-    return `<div class="rv-row">
-      <span class="rv-star">${s}★</span>
-      <div class="rv-bar"><div class="rv-fill" style="width:${pct}%"></div></div>
-      <span class="rv-pct">${pct}%</span>
-    </div>`;
-  }).join('');
-  $('ppReviews').innerHTML=`
-    <div class="rv-overview">
-      <div class="rv-big">
-        <span class="rv-score">4.8</span>
-        <div class="rv-stars-big">★★★★★</div>
-        <span class="rv-tot">${total} ${T('revs')}</span>
-      </div>
-      <div class="rv-bars">${rows}</div>
-    </div>
-    <p class="pp-empty-tab" style="margin-top:20px;font-size:13px;color:var(--ink-soft)">
-      ${L==='it'?'Le recensioni dei clienti verificati sono raccolte via WhatsApp e mostrate nell\'app.':'Verified customer reviews are collected via WhatsApp and shown in the app.'}
-    </p>`;
+  const rv=recensioniDi(cur);
+  const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  if(!rv.length){
+    $('ppReviews').innerHTML=`<p class="pp-empty-tab">${L==='it'?'Ancora nessuna recensione per questo prodotto. Dopo la consegna ti chiediamo un parere: lo pubblichiamo solo se è di un cliente verificato.':'No reviews for this product yet. After delivery we ask for your feedback, published only from verified customers.'}</p>`;
+    return;
+  }
+  const media=mediaRecensioni(rv);
+  $('ppReviews').innerHTML=`<div class="rv-overview"><div class="rv-big"><span class="rv-score">${media.toLocaleString(L==='it'?'it-IT':'en-GB')}</span><div class="rv-stars-big">${stelle(media)}</div><span class="rv-tot">${rv.length} ${T('revs')}</span></div></div>
+    <ul class="rv-lista">${rv.map(r=>`<li><strong>${esc(r.w||'')}</strong> ${stelle(+r.st||5)}<p>${esc((r.q&&(r.q[L]||r.q.it))||'')}</p></li>`).join('')}</ul>`;
 }
 
 /* ---- tab switching ---- */

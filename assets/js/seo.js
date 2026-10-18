@@ -178,12 +178,15 @@ export function updateSeo(page, L, T, product){
       "name":product.n[L], "sku":product.sku||('INGLY-'+product.id),
       "description":ENG.soloTesto(desc),
       "image":SCH.immagini(product,{base:base(),cartella:CONFIG.cartellaImmagini||"img/",L}),
-      "review":SCH.recensioni((window.INGLY.REVIEWS)||[],{L}),
+      "review":SCH.recensioni(((window.INGLY.REVIEWS)||[]).filter(r=>r&&r.vf===true&&String(r.pid)===String(product.id)),{L}),
       "category":cat?cat.n[L]:undefined,
       "material":product.mat||undefined,
       "brand":{"@type":"Brand","name":S.azienda||"INGLY DESIGN"},
-      "aggregateRating":product.rev?{"@type":"AggregateRating","ratingValue":String(product.rating||4.9),
-        "reviewCount":product.rev,"bestRating":"5","worstRating":"1"}:undefined,
+      /* solo recensioni verificate e collegate a questo prodotto: mai un voto
+         inventato (prima: 4.9 fisso e il numero `rev` dei dati) */
+      "aggregateRating":(()=>{const rv=((window.INGLY.REVIEWS)||[]).filter(r=>r&&r.vf===true&&String(r.pid)===String(product.id));
+        return rv.length?{"@type":"AggregateRating","ratingValue":String(Math.round(rv.reduce((s,r)=>s+Math.max(1,Math.min(5,+r.st||5)),0)/rv.length*10)/10),
+        "reviewCount":rv.length,"bestRating":"5","worstRating":"1"}:undefined})(),
       "offers":{"@type":"Offer",...(PR.mostraPrezzi(CONFIG)?{"price":product.price,"priceCurrency":"EUR",
         "priceValidUntil":new Date(Date.now()+31536000000).toISOString().slice(0,10)}:{}),
         "availability":product.hidden?"https://schema.org/OutOfStock":"https://schema.org/InStock",

@@ -55,19 +55,18 @@
     if(!ms.length)return null;
     target.replaceChildren();target.classList.add('ingly-material-finder','ingly-finder-v2');
     const title=doc.createElement('h4');
-    title.textContent=t(L,'Scegli cosa lavorare.','Scopri cosa puoi realizzare.');
-    if(L==='en')title.textContent='Find your material in seconds.';
+    title.textContent=t(L,'Trova la lavorazione giusta.','Find the right process.');
     const lead=doc.createElement('p');
     lead.textContent=t(L,
-      'Un solo controllo: scegli la macchina, indica la lavorazione e tocca il materiale. Risultato immediato.',
-      'Choose your machine, operation and material. See the result immediately.');
+      'Scegli macchina, lavorazione e materiale: ti mostriamo soltanto le compatibilità documentate.',
+      'Select a machine, process and material to see documented compatibility.');
     target.append(title,lead);
     const controls=doc.createElement('div');controls.className='ingly-finder-controls ingly-finder-controls--simple';
     const machineField=doc.createElement('label');
     const machineLabel=doc.createElement('span');machineLabel.textContent=t(L,'01 / Macchina e modulo','01 / Machine & module');
     const machine=doc.createElement('select');machine.setAttribute('aria-label',machineLabel.textContent);
     ms.forEach(m=>{const option=doc.createElement('option');option.value=m.selectorId;
-      option.textContent=(m.n?.[L]||m.n?.it||m.id)+(m.informativa?t(L,' · informativa',' · information only'):'');
+      option.textContent=(m.n?.[L]||m.n?.it||m.id)+(m.informativa?t(L,' · solo informativa',' · information only'):'');
       machine.append(option)});
     machine.value=ms[0].selectorId;machineField.append(machineLabel,machine);controls.append(machineField);
     // Keep selects for programmatic users / regression tests; visual interaction
@@ -110,6 +109,9 @@
       mBtns.set(m.id,{button:btn,state});tiles.append(btn);
     });
     target.append(mHeading,tiles);
+    const legend=doc.createElement('p');legend.className='ingly-finder-note ingly-finder-legend';
+    legend.textContent=t(L,'Supportato = documentato nei dati · Da verificare = serve prova su materiale reale · — = non documentato.','Supported = documented · Check required = test on actual material · — = not documented.');
+    target.append(legend);
     const result=doc.createElement('div');result.className='ingly-finder-result ingly-finder-result--simple';
     result.setAttribute('role','status');result.setAttribute('aria-live','polite');
     const more=doc.createElement('a');more.className='ingly-finder-more';
@@ -127,7 +129,7 @@
         const s=status(m,id,process.value).state;
         button.setAttribute('aria-pressed',String(id===material.value));
         button.dataset.status=s;
-        state.textContent=s==='yes'?t(L,'Disponibile','Available'):
+        state.textContent=s==='yes'?t(L,'Supportato','Supported'):
           s==='test'?t(L,'Da verificare','Check required'):'—';
       }
       const ans=status(m,material.value,process.value);
@@ -135,6 +137,9 @@
       tag.textContent=ans.state==='yes'?t(L,'Lavorazione documentata','Documented operation'):
         ans.state==='test'?t(L,'Serve una verifica','Check needed'):
         t(L,'Non documentata','Not documented');
+      const selection=doc.createElement('p');selection.className='ingly-finder-selection';
+      const materialTitle=materials.find(x=>x.id===material.value);
+      selection.textContent=names[process.value]+' · '+(materialTitle?.[L]||'');
       const machineName=doc.createElement('small');machineName.className='ingly-finder-machine';
       machineName.textContent=(m.n?.[L]||m.n?.it||m.id)+
         (m.informativa?t(L,' · non presente in officina',' · not on-site'):'');
@@ -151,7 +156,7 @@
       module.textContent=m.modulo?t(L,'Modulo: ','Module: ')+m.modulo:'';
       const note=doc.createElement('p');note.className='ingly-finder-note';
       note.textContent=[...new Set(ans.matches.map(x=>x.note).filter(Boolean))].join(' · ');
-      result.replaceChildren(machineName,tag,description,module,note);
+      result.replaceChildren(selection,machineName,tag,description,module,note);
       result.dataset.result=ans.state;result.dataset.module=m.modulo||'';
     };
     [machine,material,process].forEach(el=>el.addEventListener('change',update));update();

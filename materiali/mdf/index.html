@@ -5,8 +5,9 @@
 <base href="./">
 <script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
-<style>/* Prevent obsolete static home from flashing before the real app renders. */
-html.ingly-boot-pending main,html.ingly-boot-pending footer{visibility:hidden!important}
+<style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
+   Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
+html.ingly-boot-pending main>.page:not(#page-home),html.ingly-boot-pending #page-home>:not(.hero),html.ingly-boot-pending footer{visibility:hidden!important}
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,7 +78,7 @@ html.ingly-boot-pending main,html.ingly-boot-pending footer{visibility:hidden!im
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=Exo+2:ital,wght@0,600;0,700;1,600;1,700;1,800;1,900&family=Inter:wght@400;500;600&family=Caveat:wght@600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=Exo+2:ital,wght@0,600;0,700;1,600;1,700;1,800;1,900&family=Inter:wght@400;500;600&family=Caveat:wght@600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
 
 <!-- LA BASE DEL DOCUMENTO, SEMPRE E PRIMA DI TUTTO.
@@ -113,7 +114,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v16', FLAG='ingly_cachefix_v16';
+  var CACHE_WANT='ingly-v17', FLAG='ingly_cachefix_v17';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -137,7 +138,6 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
   }catch(e){}
 })();</script>
 <!-- Preload critical assets -->
-<link rel="preload" as="image" href="assets/images/og-image.jpg" fetchpriority="high">
 <link rel="preload" as="fetch" href="data/products.json" crossorigin>
 <link rel="modulepreload" href="assets/js/app.js">
 <link rel="modulepreload" href="assets/js/data-loader.js">
@@ -146,8 +146,8 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="modulepreload" href="assets/js/wishlist.js">
 <link rel="modulepreload" href="assets/js/referral.js">
 
-<script src="assets/js/artwork.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script defer src="assets/js/artwork.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/reset.css">
 <link rel="stylesheet" href="assets/css/variables.css">
 <link rel="stylesheet" href="assets/css/animations.css">
@@ -159,17 +159,17 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/premium-2026.css">
 <link rel="stylesheet" href="assets/css/atelier-foundation.css">
 <link rel="stylesheet" href="assets/css/notte-oro.css">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/ingly-user-loader.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/signature-showcase.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/maison-reference.css">
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
 <link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
 <link rel="stylesheet" href="assets/css/ingly-responsive-theme.css">
@@ -288,8 +288,8 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" data-component="site-header" style="top:36px">
   <div class="wrap nav-in">
-    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n3" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
-    <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale"></nav>
+    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
+    <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale" data-statica><span class="ia-gruppo"><a class="ia-voce" href="shop" data-nav="shop" data-fam="shop">Shop</a><button type="button" class="ia-freccia" data-apri="shop" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-shop" aria-label="Apri il menu Shop"><i class="ia-caret" aria-hidden="true"></i></button></span><span class="ia-gruppo"><a class="ia-voce" href="personalizza" data-nav="personalizza" data-fam="personalizza">Personalizza</a></span><span class="ia-gruppo"><a class="ia-voce" href="materiali" data-nav="materiali" data-fam="materiali">Materiali</a><button type="button" class="ia-freccia" data-apri="materiali" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-materiali" aria-label="Apri il menu Materiali"><i class="ia-caret" aria-hidden="true"></i></button></span><span class="ia-gruppo"><a class="ia-voce" href="business" data-nav="business" data-fam="business">Business</a><button type="button" class="ia-freccia" data-apri="business" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-business" aria-label="Apri il menu Business"><i class="ia-caret" aria-hidden="true"></i></button></span><span class="ia-gruppo"><a class="ia-voce" href="macchine" data-nav="macchine" data-fam="xtool">Lab</a><button type="button" class="ia-freccia" data-apri="xtool" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-xtool" aria-label="Apri il menu Lab"><i class="ia-caret" aria-hidden="true"></i></button></span></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
       <a href="./" data-nav="home" class="active"><i class="navic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></i> <span data-i18n="nHome">Home</span></a>
@@ -367,8 +367,8 @@ setTimeout(function(){
     <div class="wrap hero-grid">
       <div class="signature-hero-copy">
         <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">INGLY DESIGN · CREAZIONI SU MISURA</span></span>
-        <h1 id="heroH1"></h1>
-        <p class="sub" data-i18n="heroSub">Oggetti personalizzati, incisione laser e design. Dall'idea al risultato finale, con materiali e dettagli scelti insieme.</p>
+        <h1 id="heroH1"><span class="w"><span>Diamo</span></span> <span class="w"><span>forma</span></span> <span class="w"><span>alle</span></span> <span class="w"><span>tue</span></span> <span class="w"><span class="engrave" data-parola="idee.">idee.</span></span> </h1>
+        <p class="sub" data-i18n="heroSub">Con precisione, dall'idea al pezzo finito. Creazioni personalizzate, materiali selezionati e cura artigianale in Italia.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <span aria-hidden="true" class="arr">→</span></a>
           <a class="btn btn-ghost magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span></a>
@@ -1297,7 +1297,7 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n3" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
         <div class="socials" id="soc3"></div>
       </div>
@@ -1323,7 +1323,7 @@ setTimeout(function(){
         <span class="ft-luogo">Made in Italy · Consulenza e personalizzazioni</span></div>
     </div>
 
-    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN — wordmark originale"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n3" alt="INGLY" loading="lazy" width="1660" height="490"></div>
+    <div class="watermark ingly-footer-signature" aria-label="INGLY DESIGN — wordmark originale"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="INGLY" loading="lazy" width="1597" height="602"></div>
     <div class="fbottom"><span id="ftCopy"></span><span id="ftLegal"></span></div>
   </div>
 </footer>

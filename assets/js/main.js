@@ -2,6 +2,7 @@
    Bootstrap: configurazione, lingua, render, delega eventi, avvio router. */
 const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } = window.INGLY;
 import { $, T, L, setL, toast } from './utils.js';
+import { initRicerca } from './ricerca.js';
 import * as u from './utils.js';
 import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda, BASE } from './navigation.js';
 import { ensureAccessibilityShell } from './accessibility.js';
@@ -602,6 +603,7 @@ export function fermaPerManutenzione(D,L2){
 
 /* La navigazione a famiglie: se fallisce, resta quella piatta. */
 function renderNavIA(){
+  try{ initRicerca() }catch(e){ console.error('[INGLY] ricerca',e) }
   try{ initNavIA(window.INGLY||{},L) }
   catch(err){ console.warn('[INGLY] navigazione a famiglie non montata:',err) }
 }

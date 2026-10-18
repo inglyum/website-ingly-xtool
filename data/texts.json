@@ -172,7 +172,17 @@
     "journeyBusiness": "Business",
     "journeyBusinessSub": "Personalizzazioni professionali",
     "journeyExplore": "Esplora",
-    "navCreate": "Crea il tuo pezzo"
+    "navCreate": "Crea il tuo pezzo",
+    "rcTitolo": "Cerca nel sito",
+    "rcPh": "Cerca prodotti, materiali, idee regalo…",
+    "rcChiudi": "Chiudi la ricerca",
+    "rcAiuto": "Scrivi almeno due lettere: prodotti, categorie e materiali compaiono mentre scrivi.",
+    "rcNessuno": "Nessun risultato per",
+    "rcSuMisura": "Lo realizziamo su misura: chiedi un preventivo",
+    "rcProdotti": "Prodotti",
+    "rcCategorie": "Categorie",
+    "rcMateriali": "Materiali",
+    "rcTutti": "Vedi tutti i risultati nello Shop"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -347,7 +357,17 @@
     "journeyBusiness": "Business",
     "journeyBusinessSub": "Professional customisation",
     "journeyExplore": "Explore",
-    "navCreate": "Create your piece"
+    "navCreate": "Create your piece",
+    "rcTitolo": "Search the site",
+    "rcPh": "Search products, materials, gift ideas…",
+    "rcChiudi": "Close search",
+    "rcAiuto": "Type at least two letters: products, categories and materials appear as you type.",
+    "rcNessuno": "No results for",
+    "rcSuMisura": "We can make it to order: ask for a quote",
+    "rcProdotti": "Products",
+    "rcCategorie": "Categories",
+    "rcMateriali": "Materials",
+    "rcTutti": "See all results in the Shop"
   },
   "wOpen": {
     "it": "Apri Wishlist",

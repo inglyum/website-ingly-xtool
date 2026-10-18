@@ -92,7 +92,10 @@ function applyConfig(){
     if(!a.textContent.trim()||a.textContent.includes('@')) a.textContent=CONFIG.email;
   });
   $('ftCopy').textContent=CONFIG.copyright;
-  $('ftLegal').textContent=CONFIG.legale;
+  /* riga obbligatoria per legge (art. 35 DPR 633/72): nome, sede, P.IVA.
+     I link alle pagine legali sono già nell'HTML; qui si aggiornano i dati. */
+  {const d=CONFIG.datiLegali||{},el=$('ftPiva');
+   if(el) el.textContent=[d.ragioneSociale||d.nomeCommerciale||'INGLY DESIGN',d.sede,'P.IVA '+(d.piva||(L==='it'?'in corso di attribuzione':'being assigned'))].filter(Boolean).join(' · ');}
   const st=CONFIG.statistiche, hb=document.querySelectorAll('.hero-meta .hm b');
   if(hb.length===3){hb[0].textContent=st.pezzi.toLocaleString('it-IT')+'+';hb[1].textContent=st.materiali;hb[2].textContent=st.rating}
   document.querySelectorAll('#page-about .count').forEach((c,i)=>{const v=[st.pezzi,st.clienti,st.materiali,st.puntualita][i];if(v!=null)c.dataset.to=v});

@@ -5,7 +5,7 @@ const index=readFileSync('index.html','utf8');
 const css=readFileSync('assets/css/ux-fluidity-sprint16.css','utf8');
 const dom=new JSDOM(index);const d=dom.window.document;
 assert.ok(d.querySelector('link[href="assets/css/ux-fluidity-sprint16.css"]'));
-assert.ok(index.indexOf('brand-system-2026.css') < index.indexOf('ux-fluidity-sprint16.css'));
+assert.ok(index.indexOf('ux-fluidity-sprint16.css') < index.indexOf('brand-system-2026.css'));
 assert.ok(d.querySelector('input#q[type="search"][aria-controls="sugg"]'));
 assert.ok(d.querySelector('#sugg[role="listbox"]'));
 assert.match(css,/\.searchbar:focus-within/);

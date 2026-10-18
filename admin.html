@@ -2711,7 +2711,7 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
   <div class="row c2"><div><label>Nome (IT)</label><input type="text" id="ep_nit" value="${esc(p.n.it)}"></div><div><label>Nome (EN)</label><input type="text" id="ep_nen" value="${esc(p.n.en)}"></div></div>
   <div class="row c3"><div><label>Categoria</label><select id="ep_cat">${catOptions(p.cat)}</select></div><div><label>Sottocategoria</label><select id="ep_sub">${subOptions(p.cat,p.sub)}</select></div><div><label>Icona</label><input type="text" id="ep_icon" class="emoji-in" value="${esc(p.icon||'')}"></div></div>
   <div class="row c3"><div><label>Prezzo €</label><input type="number" id="ep_price" value="${p.price}" step="0.5"></div><div><label>Materiale</label><select id="ep_mat">${Object.keys(S.C.MAT_ART||{}).filter(k=>k!=='File').map(m=>`<option${m===p.mat?' selected':''}>${esc(m)}</option>`).join('')}${(S.C.MAT_ART&&S.C.MAT_ART[p.mat])?'':`<option selected>${esc(p.mat||'')}</option>`}</select></div><div><label>Giorni produzione</label><input type="number" id="ep_prod" value="${p.prod||3}"></div></div>
-  <div class="row c3"><div><label>Etichetta (es. Best)</label><input type="text" id="ep_tag" value="${esc(p.tag||'')}"></div><div><label>Collezioni (virgola)</label><input type="text" id="ep_coll" value="${esc((p.coll||[]).join(','))}"></div><div><label>Recensioni (n°)</label><input type="number" id="ep_rev" value="${p.rev||0}"></div></div>
+  <div class="row c3"><div><label>Etichetta (es. Best)</label><input type="text" id="ep_tag" value="${esc(p.tag||'')}"></div><div><label>Collezioni (virgola)</label><input type="text" id="ep_coll" value="${esc((p.coll||[]).join(','))}"></div><div><label>Recensioni (n°) — non mostrato</label><input type="number" id="ep_rev" value="${p.rev||0}" readonly title="Il sito non mostra più questo numero: le stelle arrivano solo da recensioni verificate collegate al prodotto (FAQ &amp; Recensioni)."></div></div>
   <div id="ep_tagAiWrap" style="margin:-2px 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
     <button class="btn sm" id="ep_tagAi">✨ Suggerisci tag AI</button>
     <span class="hint" id="ep_tagAiStatus"></span>
@@ -5156,6 +5156,8 @@ function renderFaq(){const F=(S.C.FAQS=S.C.FAQS||[]),R=(S.C.REVIEWS=S.C.REVIEWS|
   <div class="row c3"><div><label>Stelle</label><select data-rn="${i},st">${[5,4,3,2,1].map(n=>`<option value="${n}"${n===st?' selected':''}>${'★'.repeat(n)} ${n}</option>`).join('')}</select></div>
    <div><label>Data (facoltativa)</label><input type="text" value="${esc(r.dt||'')}" data-ra="${i},dt" placeholder="Marzo 2026"></div>
    <div><label>Cliente verificato</label><select data-rb="${i},vf"><option value="">No</option><option value="1"${r.vf?' selected':''}>Sì — mostra spunta</option></select></div></div>
+  <div class="row c2"><div><label>Prodotto recensito</label><select data-rp="${i}"><option value="">— nessuno (recensione generale) —</option>${(S.P||[]).filter(x=>!x.hidden).map(x=>`<option value="${x.id}"${String(r.pid)===String(x.id)?' selected':''}>${esc((x.n&&x.n.it)||('#'+x.id))}</option>`).join('')}</select></div>
+   <div class="hint" style="align-self:end">Le stelle compaiono nella scheda di un prodotto <b>solo</b> per recensioni <b>verificate</b> e collegate a quel prodotto. Mai numeri inventati: è vietato dal Codice del Consumo.</div></div>
   <label>📷 Foto della recensione <span class="hint">— foto reali del lavoro consegnato: è ciò che la rende credibile</span></label>
   <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:5px">
    ${r.ph.map((f,k)=>`<div style="position:relative;width:74px;height:74px;border-radius:10px;overflow:hidden;border:1px solid var(--line)">
@@ -5177,6 +5179,8 @@ function renderFaq(){const F=(S.C.FAQS=S.C.FAQS||[]),R=(S.C.REVIEWS=S.C.REVIEWS|
   S.C.REVIEWS[+i][f]=+el.value;markDirty();renderFaq()});
  document.querySelectorAll('[data-rb]').forEach(el=>el.onchange=()=>{const[i,f]=el.dataset.rb.split(',');
   el.value?S.C.REVIEWS[+i][f]=true:delete S.C.REVIEWS[+i][f];markDirty();renderFaq()});
+ document.querySelectorAll('[data-rp]').forEach(el=>el.onchange=()=>{const r=S.C.REVIEWS[+el.dataset.rp];
+  el.value?r.pid=+el.value:delete r.pid;markDirty()});
  document.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{const[i,d]=b.dataset.rm.split(',').map(Number);
   const j=i+d;if(j<0||j>=S.C.REVIEWS.length)return;
   [S.C.REVIEWS[i],S.C.REVIEWS[j]]=[S.C.REVIEWS[j],S.C.REVIEWS[i]];markDirty();renderFaq()});

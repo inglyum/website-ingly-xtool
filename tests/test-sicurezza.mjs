@@ -33,7 +33,7 @@ check('validate-data.mjs cerca le chiavi in tutti i data/*.json', /FORMATI_CHIAV
 
 console.log('\n=== IL SITO NON USA CHIAVI ===');
 check('forms.js non legge nessuna chiave dalla configurazione', !/apiKey|api-key/i.test(FRM));
-const segreti = /xkeysib-[A-Za-z0-9-]{10,}|sk-ant-[A-Za-z0-9_-]{10,}|\bsk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|\bgh[pousr]_[A-Za-z0-9]{30,}/;
+const segreti = /xkeysib-[A-Za-z0-9-]{10,}|sk-ant-[A-Za-z0-9_-]{10,}|\bsk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|\bgh[pousr]_[A-Za-z0-9]{30,}|\b[sr]k_(?:live|test)_[A-Za-z0-9]{16,}/;
 const conChiave = [];
 for (const d of ['data', 'assets/js']) {
   for (const f of readdirSync(d).filter(x => /\.(json|js)$/.test(x))) {

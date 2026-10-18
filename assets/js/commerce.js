@@ -322,6 +322,33 @@ export function adattatore(config = {}) {
   };
 }
 
+/* ---------- 5b. pagamento con carta (Stripe), predisposto e SPENTO ----------
+
+   Il sito è statico: non può creare una sessione di pagamento, quindi si usa
+   l'unico strumento Stripe che non richiede un server, i Payment Links: un
+   link per prodotto, creato nella dashboard Stripe. Nessuna chiave sta nel
+   sito — un Payment Link è un indirizzo pubblico, come un link WhatsApp.
+
+   Tre condizioni, tutte necessarie:
+   1. l'interruttore generale `checkout.stripe.attivo` è true (oggi false);
+   2. il prodotto è visibile e ha un prezzo;
+   3. il link è davvero https://buy.stripe.com/… — un indirizzo qualunque
+      scritto per errore non diventa mai un bottone «Paga». */
+export const STRIPE_LINK = /^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+(?:\?[^\s"'<>]*)?$/;
+
+export function stripeAttivo(config = {}) {
+  const s = config && config.checkout && config.checkout.stripe;
+  return Boolean(s && s.attivo === true);
+}
+
+/** Il Payment Link di un prodotto, oppure '' se il pagamento non si mostra. */
+export function stripeProdotto(config = {}, p = {}) {
+  if (!stripeAttivo(config) || !p || p.hidden) return '';
+  if (p.price == null || !(Number(p.price) > 0)) return '';
+  const url = str(((config && config.stripeLinks) || {})[p.id]).trim();
+  return STRIPE_LINK.test(url) ? url : '';
+}
+
 /* ---------- 6. il carrello in parole ---------- */
 
 /** Una riga come la leggerebbe una persona. */

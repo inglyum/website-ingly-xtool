@@ -43,7 +43,7 @@ if (CONFIG) {
 
 /* ---- REGOLA 6: NESSUNA CHIAVE NEI DATI PUBBLICATI ---- */
 {
-  const FORMATI_CHIAVE = /xkeysib-[A-Za-z0-9-]{10,}|sk-ant-[A-Za-z0-9_-]{10,}|\bsk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|\bgh[pousr]_[A-Za-z0-9]{30,}/;
+  const FORMATI_CHIAVE = /xkeysib-[A-Za-z0-9-]{10,}|sk-ant-[A-Za-z0-9_-]{10,}|\bsk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|\bgh[pousr]_[A-Za-z0-9]{30,}|\b[sr]k_(?:live|test)_[A-Za-z0-9]{16,}/;
   const NOME_SEGRETO = /^(api_?key|apikey|secret|client_?secret|token|access_?token|password|pass)$/i;
   for (const f of readdirSync('data').filter(x => x.endsWith('.json'))) {
     let d; try { d = JSON.parse(readFileSync('data/' + f, 'utf8')) } catch { continue }
@@ -59,6 +59,20 @@ if (CONFIG) {
     };
     giro(d, '');
   }
+}
+
+/* ---- STRIPE PAYMENT LINKS (predisposti, spenti finché checkout.stripe.attivo) ----
+   Solo indirizzi https://buy.stripe.com/… e solo per prodotti che esistono. */
+{
+  let C = {}; try { C = JSON.parse(readFileSync('data/config.json', 'utf8')) } catch {}
+  const SL = (C && C.stripeLinks) || {};
+  const STRIPE_LINK = /^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+(?:\?[^\s"'<>]*)?$/;
+  const ids = new Set((Array.isArray(P) ? P : []).map(p => String(p.id)));
+  for (const id of Object.keys(SL)) {
+    if (!STRIPE_LINK.test(String(SL[id] || '').trim())) errors.push(`config.json → stripeLinks.${id}: non è un Stripe Payment Link (https://buy.stripe.com/…)`);
+    if (!ids.has(String(id))) errors.push(`config.json → stripeLinks.${id}: il prodotto ${id} non esiste`);
+  }
+  if (C.checkout && C.checkout.stripe && typeof C.checkout.stripe.attivo !== 'boolean') errors.push('config.json → checkout.stripe.attivo deve essere true o false');
 }
 
 /* ---- FILE DIGITALI ----

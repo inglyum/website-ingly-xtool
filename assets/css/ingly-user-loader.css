@@ -132,3 +132,31 @@ html.ingly-loader-lock{overflow:hidden}
  #loader.ingly-custom-loader .ingly-loader-stage{transition:opacity .3s}
  #loader.ingly-custom-loader.out{opacity:0!important;transition:opacity .3s}
 }
+
+
+/* Sprint 21 premium preview: overlay is still opt-in only (?loaderPreview).
+   Subtle smoked-glass surfaces, no infinite animations or costly backdrop filter. */
+#loader.ingly-custom-loader .ingly-loader-half{
+ background:linear-gradient(165deg,color-mix(in srgb,var(--il-bg) 93%,#fff 7%),var(--il-bg) 66%,color-mix(in srgb,var(--il-bg) 96%,#000 4%));
+}
+#loader.ingly-custom-loader .ingly-loader-badge::before{
+ background:radial-gradient(circle,rgba(243,193,94,.095) 0%,rgba(226,166,70,.07) 36%,transparent 72%);
+ filter:blur(12px);
+}
+#loader.ingly-custom-loader .ingly-loader-beam{
+ width:2px;background:linear-gradient(180deg,transparent 0%,rgba(235,174,77,.25) 24%,#fff1c4 50%,rgba(235,174,77,.35) 77%,transparent 100%);
+ box-shadow:0 0 6px 1px rgba(255,224,154,.42),0 0 18px 3px rgba(221,153,57,.17);
+}
+#loader.ingly-custom-loader .ingly-loader-track{
+ height:3px;overflow:visible;background:rgba(220,202,172,.13);border:1px solid rgba(220,202,172,.13);
+ box-shadow:inset 0 1px 3px rgba(0,0,0,.16);
+}
+#loader.ingly-custom-loader .ingly-loader-track i{
+ height:3px;background:linear-gradient(90deg,#956023,#dfaa51,#fff0b7,#ecc078);
+ box-shadow:0 0 6px rgba(239,188,101,.35),0 0 14px rgba(239,188,101,.16);
+}
+#loader.ingly-custom-loader .ingly-loader-stage{filter:none}
+@media(prefers-reduced-motion:reduce){
+ #loader.ingly-custom-loader .ingly-loader-half,#loader.ingly-custom-loader .ingly-loader-stage{transition:none!important}
+ #loader.ingly-custom-loader .ingly-loader-beam,#loader.ingly-custom-loader .ingly-loader-sparks{display:none!important}
+}

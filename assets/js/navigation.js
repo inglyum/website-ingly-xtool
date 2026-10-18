@@ -17,14 +17,14 @@ export const PAGES = PAGES_ID;
 /* ===== PERCORSO BASE =====
    In produzione il sito sta nella radice del dominio ("/"), ma su GitHub Pages
    un repository di sviluppo viene servito in una sottocartella
-   ("/Il-sito-AI/"). Senza questo, "/Il-sito-AI/shop" veniva letto come pagina
-   "Il-sito-AI" — sconosciuta — e mostrava sempre la home: il sito risultava
+   ("/website-ingly-xtool/"). Senza questo, "/website-ingly-xtool/shop" veniva letto come pagina
+   "website-ingly-xtool" — sconosciuta — e mostrava sempre la home: il sito risultava
    non navigabile ovunque non fosse la radice.
    La base si ricava da dove è stato caricato QUESTO modulo
    (…/assets/js/navigation.js), quindi funziona ovunque senza configurazione. */
 export const BASE = (() => {
   try{
-    const u = new URL('../../', import.meta.url).pathname;   // → "/" oppure "/Il-sito-AI/"
+    const u = new URL('../../', import.meta.url).pathname;   // → "/" oppure "/website-ingly-xtool/"
     return u.endsWith('/') ? u : u + '/';
   }catch(e){
     /* Nel bundle IIFE import.meta.url non esiste. Recuperiamo la base
@@ -37,6 +37,14 @@ export const BASE = (() => {
         const base=new URL('../../',script).pathname;
         return base.endsWith('/')?base:base+'/';
       }
+    }catch(ignore){}
+    /* Ultima risorsa: <base href> di OGNI pagina punta alla radice del sito
+       («./» in index.html, «../../» in /product/N/…), quindi baseURI è la base
+       giusta. Prima qui si assumeva «/»: con lo script iniettato senza src
+       ogni link interno sembrava esterno e il clic ricaricava la pagina. */
+    try{
+      const b=new URL(document.baseURI).pathname;
+      return b.endsWith('/')?b:b.replace(/[^/]*$/,'');
     }catch(ignore){}
     return '/';
   }
@@ -130,7 +138,7 @@ export function show(page){
 
 export function go(page,search){
   /* gli indirizzi nascono sempre sotto la base: in produzione "/shop",
-     in un'anteprima su GitHub Pages "/Il-sito-AI/shop" */
+     in un'anteprima su GitHub Pages "/website-ingly-xtool/shop" */
   const mId=page==='product'&&/^id=(\d+)$/.exec(search||'');
   const url=mId ? BASE+'product/'+mId[1]+'/' : BASE+(page==='home'?'':page)+(search?'?'+search:'');
   if(relPath().split('?')[0]===page&&!search){show(page);return;}

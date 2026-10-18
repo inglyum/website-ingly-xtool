@@ -46,7 +46,7 @@ pubblicato dall'Admin: è la differenza fra un ripristino e una cancellazione.
 - Il sito torna online nella versione ripristinata in 1–2 minuti.
 - **Il file `CNAME` deve restare.** Se il ramo di salvataggio non ce l'ha,
   ricrealo con dentro `inglydesign.it`, altrimenti il sito risponde solo su
-  `inglyum.github.io/Il-sito-AI/`.
+  `inglyum.github.io/website-ingly-xtool/`.
 - Chi ha già visitato il sito potrebbe vedere ancora la versione precedente per
   qualche minuto: CSS e JavaScript sono serviti «prima dalla rete», quindi si
   aggiornano da soli al ricaricamento.

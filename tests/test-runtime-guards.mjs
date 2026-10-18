@@ -35,7 +35,8 @@ assert.match(css,/--brand-navy-950:#0a1935/,'brand palette has a single deep nav
 const products=read('assets/js/products.js');
 assert.match(products,/const palette = \['#0D2043','#4778BD','#C8AD77'\]/,'seasonal themes cannot override the core brand palette');
 assert.match(products,/window\.INGLY_ART\.css\(th\.bg,\['#0D2043','#4778BD','#C8AD77'\]/,'generated category artwork also uses the INGLY brand palette');
-assert.match(fallback,/window\.INGLY_ART\.css\(n\.bg,\[\s*["']#0D2043["'],\s*["']#4778BD["'],\s*["']#C8AD77["']\s*\]/,'fallback category artwork uses the same brand palette');
+/* nel bundle minificato il nome della variabile cambia a ogni ricompilazione (n, a…) */
+assert.match(fallback,/window\.INGLY_ART\.css\([A-Za-z_$][\w$]*\.bg,\[\s*["']#0D2043["'],\s*["']#4778BD["'],\s*["']#C8AD77["']\s*\]/,'fallback category artwork uses the same brand palette');
 const content=JSON.parse(readFileSync(new URL('../data/content.json',import.meta.url),'utf8'));
 assert.deepEqual(content.THEMES.temi.find(x=>x.id==='default').palette,['#0D2043','#4778BD','#C8AD77'],'the default Admin theme uses the INGLY navy/blue/gold palette');
 assert.match(css,/--brand-gold:#c8ad77/,'brand palette uses a consistent champagne-gold accent');

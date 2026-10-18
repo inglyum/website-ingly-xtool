@@ -2,7 +2,6 @@
    Preventivo e newsletter: invio REALE via Formspree quando configurato
    nell'admin (Contatti → Moduli). Senza ID configurato mostrano un avviso. */
 import { $, T, toast, L } from './utils.js';
-import { fromRef, myRef } from './referral.js';
 import { quoteFallback } from './quote-lead-fallback.js';
 const { D, CONFIG } = window.INGLY;
 
@@ -39,21 +38,12 @@ async function send(form, key, okMsg, oggetto, options={}){
   if(btn){ btn.disabled=false; btn.textContent=label }
 }
 
-async function sendBrevo(email, segment=''){
-  const b=CONFIG.brevo||{};
-  if(!b.apiKey||!b.listId) return false;
-  try{
-    const payload={email,listIds:[+b.listId],updateEnabled:true};
-    /* segmento opzionale via Brevo attributes */
-    if(segment) payload.attributes={SEGMENT:segment};
-    /* referral tracking */
-    const ref=fromRef(); if(ref) payload.attributes={...payload.attributes||{},REF_BY:ref,REF_SELF:myRef()};
-    const r=await fetch('https://api.brevo.com/v3/contacts',{method:'POST',
-      headers:{'Content-Type':'application/json','api-key':b.apiKey},
-      body:JSON.stringify(payload)});
-    return r.ok||r.status===204;
-  }catch(e){return false}
-}
+/* BREVO: tolto dal sito pubblico. Usava CONFIG.brevo.apiKey, cioè una chiave
+   letta da data/config.json, un file che chiunque può scaricare: una chiave
+   Brevo dà accesso completo all'account. Nessuna chiave è mai stata
+   pubblicata (verificato su tutta la storia), ma bastava compilare il campo
+   nell'Admin e premere «Pubblica». Per collegare Brevo senza chiavi: un suo
+   modulo d'iscrizione pubblico, oppure Formspree → Brevo. */
 
 /* ===== PREVENTIVO: privato o azienda =====
    Un ristorante che chiede 200 menu QR e un privato che vuole una targa non
@@ -111,14 +101,6 @@ export function initForms(){
     const email=(f.querySelector('[type=email]')||{}).value||'';
     /* legge segmento dal data attribute del form (es. data-segment="b2b") */
     const segment=f.dataset.segment||'prospect';
-    if(email&&CONFIG.brevo&&CONFIG.brevo.apiKey){
-      const ok=await sendBrevo(email, segment);
-      if(ok){
-        /* double opt-in UX: mostra messaggio specifico */
-        toast(L==='it'?'✉ Controlla la tua email per confermare!':'✉ Check your email to confirm!');
-        f.reset(); return;
-      }
-    }
     send(f,'formspreeNewsletter',T('nlOk'));
   }));
   const q=document.querySelector('form.quote-form');

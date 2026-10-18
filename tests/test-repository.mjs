@@ -82,5 +82,24 @@ check('il remote è il repository giusto',
 check('il remote non è uno dei vecchi',
   !SBAGLIATI.some(s => remote.includes(s.split('/')[1])), remote);
 
+console.log('\n=== ANCHE NELLE FORME SPEZZATE ===');
+/* Il controllo sopra cerca «owner/repo» tutto attaccato. L'Admin però
+   tiene i due pezzi in campi separati — {owner:'inglyum',repo:'Il-sito-AI'}
+   — e i documenti scrivono indirizzi come inglyum.github.io/Il-sito-AI/.
+   In quelle forme il nome sbagliato è sopravvissuto dal primo commit:
+   l'Admin, aperto fuori da github.io (in locale, o sul dominio
+   inglydesign.it quando ci si sposterà), avrebbe letto e PUBBLICATO
+   sull'altro repository. Su github.io no, perché lì ricava il nome
+   dall'indirizzo: per questo nessuno se n'era accorto. */
+const NOMI_NUDI = SBAGLIATI.map(x => x.split('/')[1]);
+for (const nome of NOMI_NUDI) {
+  const forme = new RegExp(`repo\\s*:\\s*['"]${nome}['"]|"repo"\\s*:\\s*"${nome}"|github\\.io/${nome}\\b|/${nome}/`, 'i');
+  const colpevoli = tutti.filter(f => !f.endsWith('test-repository.mjs') && forme.test(readFileSync(f, 'utf8')));
+  check(`«${nome}» non compare come repository, indirizzo o percorso`, colpevoli.length === 0, colpevoli.slice(0, 5).join(', '));
+}
+const adm = readFileSync('admin.html', 'utf8');
+check('l\'Admin, se non ha altre indicazioni, pubblica su website-ingly-xtool',
+  /const SET=Object\.assign\(\{owner:'inglyum',repo:'website-ingly-xtool'/.test(adm));
+
 console.log(`\n=========== REPOSITORY: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

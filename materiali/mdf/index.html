@@ -93,7 +93,7 @@ html.ingly-boot-pending main,html.ingly-boot-pending footer{visibility:hidden!im
 <!-- GitHub Pages SPA: decodifica /?p=/shop → history '/shop' prima del caricamento -->
 <script>(function(){try{var s=new URLSearchParams(location.search);var p=s.get('p');if(p){s.delete('p');var rest=s.toString();
 /* la base è la cartella in cui vive questa pagina: "/" in produzione,
-   "/Il-sito-AI/" in un'anteprima su GitHub Pages. Va anteposta al percorso
+   "/website-ingly-xtool/" in un'anteprima su GitHub Pages. Va anteposta al percorso
    decodificato, altrimenti l'indirizzo ricostruito esce dalla sottocartella. */
 var base=location.pathname.replace(/[^/]*$/,'');
 /* PRIMA di cambiare l'indirizzo: fissa la base a QUESTA cartella.
@@ -683,8 +683,8 @@ setTimeout(function(){
   <div class="sec pt-20">
     <div class="wrap">
       <div class="news reveal">
-        <h2 data-i18n="nlH2">−10% sulla tua prima <span style="color:var(--laser)">incisione.</span></h2>
-        <p data-i18n="nlSub">Iscriviti per accedere in anteprima a drop limitati e collezioni stagionali.</p>
+        <h2 data-i18n="nlH2">Novità dal <span class="hl">laboratorio.</span></h2>
+        <p data-i18n="nlSub">Nuove collezioni e lavori recenti, quando ci sono. Niente spam, ti cancelli quando vuoi.</p>
         <form class="nform">
           <input type="email" name="email" required placeholder="tua@email.it" aria-label="Email">
           <button class="btn btn-blue magnetic" type="submit" data-i18n="nlBtn">Iscriviti</button>

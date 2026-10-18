@@ -79,7 +79,16 @@ function applyConfig(){
      offerta include nome del prodotto, sconto e codice). Sovrascriverlo con il
      numero nudo cancellava proprio la parte utile. */
   document.querySelectorAll('a[href^="https://wa.me"]:not([data-wa-keep])').forEach(a=>a.href=CONFIG.whatsapp);
-  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{a.href='mailto:'+CONFIG.email;a.textContent=CONFIG.email});
+  /* Solo i link che MOSTRANO l'indirizzo prendono l'email come testo.
+     Prima ogni link mailto: veniva riscritto, compreso il bottone «Richiedi
+     via email» della scheda prodotto, che perdeva il suo <span>: al
+     prodotto successivo la scheda si fermava con un errore e dalla Home,
+     cliccando un prodotto, la scheda non si apriva. */
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
+    if(a.matches('.btn,[data-mail-keep]')||a.getAttribute('href').includes('?')||a.children.length) return;
+    a.href='mailto:'+CONFIG.email;
+    if(!a.textContent.trim()||a.textContent.includes('@')) a.textContent=CONFIG.email;
+  });
   $('ftCopy').textContent=CONFIG.copyright;
   $('ftLegal').textContent=CONFIG.legale;
   const st=CONFIG.statistiche, hb=document.querySelectorAll('.hero-meta .hm b');

@@ -51,68 +51,111 @@
   }
   function mount(target,data,language='it'){
     if(!target)return null;
-    const L=language==='en'?'en':'it';
-    const ms=models(data),doc=target.ownerDocument;
+    const L=language==='en'?'en':'it',ms=models(data),doc=target.ownerDocument;
     if(!ms.length)return null;
-    target.replaceChildren();
-    target.classList.add('ingly-material-finder');
-    const h=doc.createElement('h4');h.textContent=t(L,'Trova la lavorazione giusta','Find the right process');
-    const lead=doc.createElement('p');lead.textContent=t(L,
-      'Come in un catalogo materiali: scegli macchina, materiale e lavorazione. Risposta immediata, senza parametri inventati.',
-      'Choose a machine, material and operation for an instant guidance result. No fabricated power or speed settings.');
-    target.append(h,lead);
-    const controls=doc.createElement('div');controls.className='ingly-finder-controls';
-    const makeSelect=(labelText,values,selected)=>{const field=doc.createElement('label');
-      const label=doc.createElement('span');label.textContent=labelText;const select=doc.createElement('select');
-      values.forEach(v=>{const option=doc.createElement('option');option.value=v.id;
-        option.textContent=v.label;select.append(option)});
-      if(selected)select.value=selected;field.append(label,select);controls.append(field);return select};
-    const machine=makeSelect(t(L,'1 · Macchina / modulo','1 · Machine / module'),
-      ms.map(m=>({id:m.selectorId,label:(m.n?.[L]||m.n?.it||m.id)+(m.informativa?t(L,' · informativa',' · information only'):'')})),
-      ms[0].selectorId);
-    const material=makeSelect(t(L,'2 · Materiale','2 · Material'),
+    target.replaceChildren();target.classList.add('ingly-material-finder','ingly-finder-v2');
+    const title=doc.createElement('h4');
+    title.textContent=t(L,'Scegli cosa lavorare.','Scopri cosa puoi realizzare.');
+    if(L==='en')title.textContent='Find your material in seconds.';
+    const lead=doc.createElement('p');
+    lead.textContent=t(L,
+      'Un solo controllo: scegli la macchina, indica la lavorazione e tocca il materiale. Risultato immediato.',
+      'Choose your machine, operation and material. See the result immediately.');
+    target.append(title,lead);
+    const controls=doc.createElement('div');controls.className='ingly-finder-controls ingly-finder-controls--simple';
+    const machineField=doc.createElement('label');
+    const machineLabel=doc.createElement('span');machineLabel.textContent=t(L,'01 / Macchina e modulo','01 / Machine & module');
+    const machine=doc.createElement('select');machine.setAttribute('aria-label',machineLabel.textContent);
+    ms.forEach(m=>{const option=doc.createElement('option');option.value=m.selectorId;
+      option.textContent=(m.n?.[L]||m.n?.it||m.id)+(m.informativa?t(L,' · informativa',' · information only'):'');
+      machine.append(option)});
+    machine.value=ms[0].selectorId;machineField.append(machineLabel,machine);controls.append(machineField);
+    // Keep selects for programmatic users / regression tests; visual interaction
+    // is through labelled native buttons, not a cluttered multi-select form.
+    const hideSelect=(id,values,value)=>{
+      const el=doc.createElement('select');el.id=id;el.className='ingly-finder-native-state';
+      el.setAttribute('aria-hidden','true');el.tabIndex=-1;
+      values.forEach(({id,label})=>{const op=doc.createElement('option');op.value=id;op.textContent=label;el.append(op)});
+      el.value=value;controls.append(el);return el;
+    };
+    const material=hideSelect('ingly-finder-material-value',
       materials.map(m=>({id:m.id,label:m[L]})),'wood');
-    const process=makeSelect(t(L,'3 · Lavorazione','3 · Process'),[
-      {id:'cut',label:t(L,'Taglio','Cut')},
-      {id:'engrave',label:t(L,'Incisione / marcatura','Engrave / mark')},
-      {id:'print',label:t(L,'Stampa','Print')},
-      {id:'transfer',label:t(L,'Termotrasferimento','Heat transfer')}
-    ],'cut');
-    const result=doc.createElement('div');result.className='ingly-finder-result';result.setAttribute('role','status');result.setAttribute('aria-live','polite');
+    const names={cut:t(L,'Taglio','Cut'),engrave:t(L,'Incisione','Engrave'),
+      print:t(L,'Stampa','Print'),transfer:t(L,'Termopressa','Heat press')};
+    const process=hideSelect('ingly-finder-operation-value',
+      operations.map(id=>({id,label:names[id]})),'cut');
+    target.append(controls);
+    const pHeading=doc.createElement('h5');pHeading.className='ingly-finder-label';
+    pHeading.textContent=t(L,'02 / Cosa vuoi fare?','02 / What would you like to do?');
+    const processButtons=doc.createElement('div');processButtons.className='ingly-finder-operation-buttons';
+    const pBtns=new Map();
+    operations.forEach(id=>{
+      const button=doc.createElement('button');button.type='button';button.className='ingly-finder-operation';
+      button.dataset.operation=id;button.textContent=names[id];button.setAttribute('aria-pressed',String(id===process.value));
+      button.addEventListener('click',()=>{process.value=id;update()});
+      processButtons.append(button);pBtns.set(id,button);
+    });
+    target.append(pHeading,processButtons);
+    const mHeading=doc.createElement('h5');mHeading.className='ingly-finder-label';
+    mHeading.textContent=t(L,'03 / Seleziona il materiale','03 / Select your material');
+    const tiles=doc.createElement('div');tiles.className='ingly-finder-tiles';
+    const mBtns=new Map();
+    materials.forEach(m=>{
+      const btn=doc.createElement('button');btn.type='button';btn.className='ingly-finder-tile';
+      btn.dataset.material=m.id;btn.setAttribute('aria-pressed',String(m.id===material.value));
+      const name=doc.createElement('strong');name.textContent=m[L];
+      const state=doc.createElement('small');state.className='ingly-finder-tile__state';
+      btn.append(name,state);
+      btn.addEventListener('click',()=>{material.value=m.id;update()});
+      mBtns.set(m.id,{button:btn,state});tiles.append(btn);
+    });
+    target.append(mHeading,tiles);
+    const result=doc.createElement('div');result.className='ingly-finder-result ingly-finder-result--simple';
+    result.setAttribute('role','status');result.setAttribute('aria-live','polite');
     const more=doc.createElement('a');more.className='ingly-finder-more';
     more.href='https://support.xtool.com/article/1306';more.target='_blank';more.rel='noopener noreferrer';
-    more.textContent=t(L,'Impostazioni materiali ufficiali xTool ↗','Official xTool material settings ↗');
-    const help=doc.createElement('p');help.className='ingly-finder-note';
-    help.textContent=t(L,'Guida indicativa: per la produzione verificare sempre composizione, sicurezza, modulo, spessore e test su campione. «Non documentato» non è una promessa di compatibilità.',
-      'Guidance only: check composition, safety, module, thickness and a sample test. “Not documented” is not a claim of compatibility.');
-    target.append(controls,result,more,help);
+    more.textContent=t(L,'Consulta materiali e impostazioni ufficiali ↗','Official materials and settings ↗');
+    const disclaimer=doc.createElement('p');disclaimer.className='ingly-finder-note';
+    disclaimer.textContent=t(L,
+      'Questa guida non imposta la macchina. Materiali, spessori, fumi e parametri devono essere verificati prima della produzione. La M2 è informativa, non presente in officina.',
+      'Not a machine preset. Check material, thickness, fumes and settings before production. M2 is informational only, not on-site.');
+    target.append(result,more,disclaimer);
     const update=()=>{
       const m=ms.find(x=>x.selectorId===machine.value)||ms[0];
+      for(const [id,btn] of pBtns)btn.setAttribute('aria-pressed',String(id===process.value));
+      for(const [id,{button,state}] of mBtns){
+        const s=status(m,id,process.value).state;
+        button.setAttribute('aria-pressed',String(id===material.value));
+        button.dataset.status=s;
+        state.textContent=s==='yes'?t(L,'Disponibile','Available'):
+          s==='test'?t(L,'Da verificare','Check required'):'—';
+      }
       const ans=status(m,material.value,process.value);
-      const badge=doc.createElement('strong');badge.className='ingly-finder-state ingly-finder-state--'+ans.state;
-      badge.textContent=ans.state==='yes'?t(L,'Operazione documentata','Documented operation'):
-        ans.state==='test'?t(L,'Verifica materiale necessaria','Material check required'):
-          t(L,'Non documentata','Not documented');
-      const explanation=doc.createElement('p');explanation.textContent=ans.state==='yes'?
-        t(L,'Il catalogo indica questa lavorazione. Prima dell’uso verifica i parametri sul materiale reale.',
-          'This operation is listed in the catalog. Verify parameters on actual material before use.'):
-        ans.state==='test'?t(L,'Compatibilità condizionata a tipologia e spessore: esegui prove e controlla le fonti ufficiali.',
-          'Compatibility depends on material and thickness: test first and check official sources.'):
-        t(L,'Non risultano dati affidabili per questa combinazione. Non avviare la lavorazione senza verifica.',
-          'No verified information for this combination. Do not proceed without checking.');
-      const name=doc.createElement('small');name.className='ingly-finder-machine';
-      name.textContent=(m.n?.[L]||m.n?.it||m.id)+(m.informativa?t(L,
-        ' · solo scheda informativa, non presente in officina',' · information only, not on-site'):'');
-      const mod=doc.createElement('p');mod.className='ingly-finder-module';
-      mod.textContent=m.modulo?t(L,'Modulo: ','Module: ')+m.modulo:'';
-      const notes=[...new Set(ans.matches.map(x=>x.note).filter(Boolean))];
-      const note=doc.createElement('p');note.className='ingly-finder-note';note.textContent=notes.join(' · ');
-      result.replaceChildren(name,badge,explanation,mod,note);
-      result.dataset.result=ans.state;
-      result.dataset.module=m.modulo||'';
+      const tag=doc.createElement('strong');tag.className='ingly-finder-state ingly-finder-state--'+ans.state;
+      tag.textContent=ans.state==='yes'?t(L,'Lavorazione documentata','Documented operation'):
+        ans.state==='test'?t(L,'Serve una verifica','Check needed'):
+        t(L,'Non documentata','Not documented');
+      const machineName=doc.createElement('small');machineName.className='ingly-finder-machine';
+      machineName.textContent=(m.n?.[L]||m.n?.it||m.id)+
+        (m.informativa?t(L,' · non presente in officina',' · not on-site'):'');
+      const description=doc.createElement('p');
+      description.textContent=ans.state==='yes'?t(L,
+        'La macchina supporta questa lavorazione secondo i dati disponibili. Prima di produrre effettua un test reale.',
+        'Listed as supported in available data. Run a real test before production.'):
+        ans.state==='test'?t(L,
+        'La compatibilità dipende da tipo, colore o spessore. Verifica la scheda del materiale.',
+        'Compatibility depends on type, color or thickness. Verify the material.'):
+        t(L,'Non abbiamo dati sufficienti per confermare questa lavorazione.',
+          'There is not enough reliable data to confirm this operation.');
+      const module=doc.createElement('p');module.className='ingly-finder-module';
+      module.textContent=m.modulo?t(L,'Modulo: ','Module: ')+m.modulo:'';
+      const note=doc.createElement('p');note.className='ingly-finder-note';
+      note.textContent=[...new Set(ans.matches.map(x=>x.note).filter(Boolean))].join(' · ');
+      result.replaceChildren(machineName,tag,description,module,note);
+      result.dataset.result=ans.state;result.dataset.module=m.modulo||'';
     };
-    [machine,material,process].forEach(x=>x.addEventListener('change',update));update();
-    return {machine,material,process,result,update};
+    [machine,material,process].forEach(el=>el.addEventListener('change',update));update();
+    return {machine,material,process,result,update,materialButtons:mBtns,operationButtons:pBtns};
   }
   root.INGLY_MATERIAL_FINDER=Object.freeze({materials,models,status,mount});
 })(window);

@@ -986,3 +986,114 @@
 :root[data-mode] form.quote-form .ingly-quote-fallback:focus-within{
  outline:2px solid var(--brand-gold);outline-offset:3px;
 }
+
+
+/* Sprint 15 / INGLY editorial hero. Text-first by user request, no photo or 3D.
+   Keep copy/CTAs above fold at 1366x768 and 390x844; one canvas, no bands. */
+:root[data-mode] #page-home .hero.signature-hero{
+ min-height:min(685px,calc(100svh - 85px))!important;
+ background:#090f19!important;color:#f9f6ef!important;
+ isolation:isolate;overflow:hidden;
+}
+:root[data-mode="light"] #page-home .hero.signature-hero{
+ background:#faf8f3!important;color:#182131!important;
+}
+:root[data-mode] #page-home .hero.signature-hero::before{
+ content:"";display:block!important;position:absolute;inset:0;pointer-events:none;
+ background:
+  radial-gradient(ellipse 42% 63% at 73% 46%,rgba(203,146,69,.12),transparent 88%),
+  radial-gradient(ellipse 65% 60% at 12% 12%,rgba(61,94,138,.16),transparent 92%)!important;
+ opacity:1!important;
+}
+:root[data-mode="light"] #page-home .hero.signature-hero::before{
+ background:
+  radial-gradient(ellipse 50% 66% at 76% 44%,rgba(184,133,65,.10),transparent 87%),
+  radial-gradient(ellipse 75% 70% at 11% 5%,rgba(123,153,183,.08),transparent 91%)!important;
+}
+:root[data-mode] #page-home .hero.signature-hero::after{
+ content:"";display:block!important;position:absolute;inset:0;
+ pointer-events:none!important;opacity:.38!important;
+ background:linear-gradient(110deg,transparent 24%,rgba(224,176,101,.052) 24.07%,transparent 24.14%,transparent 79%,rgba(224,176,101,.045) 79.07%,transparent 79.14%)!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-grid{
+ max-width:1360px!important;min-height:0!important;
+ grid-template-columns:minmax(0,1.25fr) minmax(245px,.65fr)!important;
+ gap:clamp(24px,6vw,96px)!important;
+ padding:clamp(34px,5vh,65px) clamp(22px,5vw,78px) clamp(35px,5vh,62px)!important;
+ align-items:center!important;
+}
+:root[data-mode] #page-home .signature-hero-copy{
+ width:100%!important;max-width:790px!important;padding:0!important;
+}
+:root[data-mode] #page-home .signature-hero #heroH1{
+ font-size:clamp(3.25rem,5.05vw,5.8rem)!important;
+ line-height:1.065!important;letter-spacing:-.043em!important;
+ max-width:15ch!important;
+ margin:clamp(18px,2.4vw,30px) 0 clamp(14px,2.1vw,23px)!important;
+ padding:0 0 .12em!important;
+ text-wrap:balance;
+}
+:root[data-mode] #page-home .signature-hero .hero-tag{
+ padding:9px 15px!important;font-size:10px!important;
+ letter-spacing:.13em!important;
+}
+:root[data-mode] #page-home .signature-hero .sub{
+ font-size:clamp(.98rem,1.08vw,1.13rem)!important;
+ line-height:1.55!important;
+ max-width:49ch!important;
+ margin-bottom:clamp(17px,2vw,26px)!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-ctas{gap:12px!important}
+:root[data-mode] #page-home .signature-hero .hero-ctas .btn{
+ min-height:50px!important;padding:12px 20px!important;
+ border-radius:10px!important;
+}
+:root[data-mode] #page-home .signature-hero-assurance{margin-top:18px!important}
+:root[data-mode] #page-home .ingly-hero-steps{
+ display:flex;flex-direction:column;gap:24px;
+ min-width:0;padding:28px 0 28px clamp(22px,3vw,50px);
+ border-left:1px solid rgba(217,167,93,.32);
+ color:#dfd4c7;font-family:var(--brand-text);
+}
+:root[data-mode="light"] #page-home .ingly-hero-steps{color:#3a3b3d;border-left-color:rgba(124,93,56,.32)}
+:root[data-mode] #page-home .ingly-hero-steps__overline,
+:root[data-mode] #page-home .ingly-hero-steps__signature{
+ color:#d7ac75;font:700 11px/1.3 var(--brand-text);letter-spacing:.18em;
+}
+:root[data-mode="light"] #page-home .ingly-hero-steps__overline,
+:root[data-mode="light"] #page-home .ingly-hero-steps__signature{color:#865d2c}
+:root[data-mode] #page-home .ingly-hero-steps ol{
+ list-style:none;display:grid;gap:19px;margin:0;padding:0;
+}
+:root[data-mode] #page-home .ingly-hero-steps li{
+ display:flex;align-items:baseline;gap:16px;
+ border-bottom:1px solid rgba(196,178,150,.13);padding:0 0 15px;
+}
+:root[data-mode] #page-home .ingly-hero-steps li span{
+ font:600 12px/1.4 var(--brand-text);color:#caa16a;
+}
+:root[data-mode] #page-home .ingly-hero-steps li strong{
+ font:500 clamp(17px,1.4vw,23px)/1.3 var(--brand-text);
+ letter-spacing:-.02em;color:inherit;
+}
+:root[data-mode="light"] #page-home .signature-hero #heroH1{color:#202d3e!important}
+:root[data-mode="light"] #page-home .signature-hero .sub{color:#475365!important}
+:root[data-mode="light"] #page-home .signature-hero #heroH1 .engrave{color:#a37638!important;-webkit-text-fill-color:#a37638!important}
+:root[data-mode="light"] #page-home .signature-hero .hero-tag{background:#fff!important;color:#94672c!important;border-color:rgba(155,111,60,.4)!important}
+:root[data-mode="light"] #page-home .signature-hero .signature-hero-assurance{color:#506174!important}
+@media(max-width:980px){
+ :root[data-mode] #page-home .signature-hero .hero-grid{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+ :root[data-mode] #page-home .ingly-hero-steps{display:none!important}
+ :root[data-mode] #page-home .hero.signature-hero{min-height:0!important}
+}
+@media(max-width:650px){
+ :root[data-mode] #page-home .hero.signature-hero{min-height:0!important}
+ :root[data-mode] #page-home .signature-hero .hero-grid{padding:45px 20px 50px!important}
+ :root[data-mode] #page-home .signature-hero #heroH1{
+  font-size:clamp(2.8rem,11vw,4rem)!important;line-height:1.08!important;
+  max-width:15ch!important;margin:20px 0 16px!important;
+ }
+ :root[data-mode] #page-home .signature-hero .hero-tag{font-size:9px!important;white-space:normal}
+ :root[data-mode] #page-home .signature-hero .sub{font-size:1rem!important;line-height:1.55!important}
+ :root[data-mode] #page-home .signature-hero .hero-ctas .btn{min-height:48px!important;flex:1 1 150px}
+}

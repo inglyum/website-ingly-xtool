@@ -2,7 +2,7 @@
    Bootstrap: configurazione, lingua, render, delega eventi, avvio router. */
 const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } = window.INGLY;
 import { $, T, L, setL, toast } from './utils.js';
-import { initRicerca } from './ricerca.js';
+import { initRicerca, cerca, miniatura } from './ricerca.js';
 import { initPercorso } from './percorso.js';
 import * as u from './utils.js';
 import { initNav, show, go, goShop, toggleMenu, currentPage, currentSearch, currentVerticale, currentScheda, BASE } from './navigation.js';
@@ -358,33 +358,64 @@ function renderReviews(){
 /* eventi della lightbox (zoom foto prodotto) */
 /* 2.2 — suggerimenti di ricerca con tastiera */
 function bindSuggest(){
+  /* SUGGERIMENTI DELLA RICERCA DELLO SHOP (lancio)
+     La griglia sotto si filtra già mentre si scrive: la tendina non deve
+     ripeterla. Mostra poche scorciatoie con foto e prezzo (stesso motore
+     della ricerca istantanea), categorie e materiali, e «Vedi tutti» per
+     chiuderla e guardare i risultati. Prima elencava fino a 7 nomi lunghi
+     senza foto e restava sopra i filtri: un clic su un filtro coperto
+     apriva per sbaglio un prodotto. Ora si chiude toccando fuori, con Esc,
+     scorrendo la pagina o perdendo il fuoco. */
   const q=document.getElementById('q'), box=document.getElementById('sugg');
   if(!q||!box) return;
   let items=[], cur=-1;
+  const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const lingua=v=>(v&&typeof v==='object')?(v[L]||v.it||''):String(v||'');
   const close=()=>{box.hidden=true;q.setAttribute('aria-expanded','false');cur=-1};
+  const build=testo=>{
+    const r=cerca(testo,window.INGLY||{},{l:L,max:4});
+    const out=[];
+    r.prodotti.forEach(p=>out.push({tipo:'p',arg:p.id,label:lingua(p.n),sotto:(p.price!=null&&+p.price>0)?u.eur(+p.price):'',img:miniatura(p),ic:p.icon}));
+    r.categorie.slice(0,2).forEach(c=>out.push({tipo:'c',arg:c.id,label:lingua(c.n),sotto:L==='it'?'Categoria':'Category',ic:c.ic}));
+    r.materiali.slice(0,2).forEach(m=>out.push({tipo:'m',arg:m.id,label:lingua(m.n),sotto:L==='it'?'Materiale':'Material',ic:'◆'}));
+    return out;
+  };
   const paint=()=>{
-    if(!items.length) return close();
-    box.innerHTML='<b>'+(u.T('suggT')||'Suggerimenti')+'</b>'+items.map((s,i)=>
-      `<button role="option" data-i="${i}" class="${i===cur?'on':''}"><span>${s.label}</span><span class="k">${s.kind}</span></button>`).join('');
+    const testo=q.value.trim();
+    if(!items.length||testo.length<2) return close();
+    const n=+(document.getElementById('resN')||{}).textContent||0;
+    box.innerHTML=items.map((s,i)=>`<button type="button" role="option" data-i="${i}" class="sg${i===cur?' on':''}" aria-selected="${i===cur}">
+        ${s.img?`<img src="${esc(s.img)}" alt="" width="40" height="40" loading="lazy">`:`<span class="sg-ic" aria-hidden="true">${esc(s.ic||'•')}</span>`}
+        <span class="sg-t"><span class="sg-n">${esc(s.label)}</span><span class="k">${esc(s.sotto)}</span></span></button>`).join('')+
+      `<button type="button" class="sg-tutti" data-tutti="1">${L==='it'?'Vedi tutti i '+n+' risultati':'See all '+n+' results'} ↓</button>`;
     box.hidden=false;q.setAttribute('aria-expanded','true');
-    box.querySelectorAll('button').forEach(b=>b.addEventListener('mousedown',e=>{e.preventDefault();choose(+b.dataset.i)}));
   };
   const choose=i=>{
     const s=items[i]; if(!s) return;
     close();
-    if(s.action==='open-product'){ go('product','id='+s.arg); }
-    else if(s.action==='go-shop'){ q.value=''; prod.togCat(s.arg); go('shop'); }
-    else if(s.action==='sugg-mat'){ q.value=''; prod.togMat(s.arg); go('shop'); }
+    if(s.tipo==='p'){ go('product','id='+s.arg); }
+    else if(s.tipo==='c'){ q.value=''; prod.soloCat(s.arg); }
+    else if(s.tipo==='m'){ q.value=''; prod.togMat(s.arg); }
   };
-  q.addEventListener('input',()=>{ items=prod.searchSuggest(q.value); cur=-1; paint() });
+  box.addEventListener('mousedown',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    e.preventDefault();
+    if(b.dataset.tutti){ close(); q.blur(); document.getElementById('shopGrid')?.scrollIntoView({behavior:'smooth',block:'start'}); return; }
+    choose(+b.dataset.i);
+  });
+  q.addEventListener('input',()=>{ items=build(q.value); cur=-1; paint() });
+  q.addEventListener('focus',()=>{ if(q.value.trim().length>=2){ items=build(q.value); paint() } });
   q.addEventListener('keydown',e=>{
     if(box.hidden) return;
     if(e.key==='ArrowDown'){e.preventDefault();cur=Math.min(cur+1,items.length-1);paint()}
     else if(e.key==='ArrowUp'){e.preventDefault();cur=Math.max(cur-1,-1);paint()}
-    else if(e.key==='Enter'&&cur>=0){e.preventDefault();choose(cur)}
+    else if(e.key==='Enter'){e.preventDefault(); if(cur>=0) choose(cur); else { close(); q.blur(); }}
     else if(e.key==='Escape'){close()}
   });
   q.addEventListener('blur',()=>setTimeout(close,120));
+  /* un tocco fuori dalla barra la chiude PRIMA che il clic arrivi a ciò che c'è sotto */
+  document.addEventListener('pointerdown',e=>{ if(!box.hidden&&!e.target.closest('.shop-cerca')) close(); },true);
+  addEventListener('scroll',()=>{ if(!box.hidden&&document.activeElement!==q) close(); },{passive:true});
 }
 /* ===== Modalità chiara / scura ===== */
 function bindMode(){
@@ -769,6 +800,8 @@ const actions={
   'menu-close':()=>toggleMenu(false),
   'lang':el=>setLang(el.dataset.l),
   'tog-cat':el=>prod.togCat(el.dataset.v),
+  'cat-sola':el=>prod.soloCat(el.dataset.v),
+  'rm-filtro':el=>prod.togliFiltro(el.dataset.k,el.dataset.v),
   'tog-mat':el=>prod.togMat(el.dataset.v),
   'tog-sub':el=>prod.togSub(el.dataset.v),
   'reset-filters':()=>prod.resetFilters(),

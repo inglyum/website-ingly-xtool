@@ -149,7 +149,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.css?v=73e330ecfd">
+<link rel="stylesheet" href="assets/css/ingly.css?v=04e5d13ea1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -666,20 +666,62 @@ setTimeout(function(){
 
 <!-- SHOP -->
 <section class="page" id="page-shop">
-  <div class="wrap phero">
-    <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-shop"></use></svg> Shop</span>
-    <h1 class="h2" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h1>
-    <p class="sub" data-i18n="shopSub">Cerca per categoria, materiale o prezzo — oppure parti da una collezione.</p>
+  <!-- SHOP ricostruito (lancio): prima, prima del primo prodotto c'erano 9
+       grandi riquadri categoria, una seconda riga di «collezioni» che li
+       ripeteva, un blocco promozionale e solo dopo il catalogo, con la
+       ricerca nascosta nella colonna laterale (primo prodotto a 1.820 px su
+       computer, 2.925 su telefono). Ora: titolo, ricerca, categorie,
+       prodotti. Stessi id e stessa logica dei filtri di prima. -->
+  <div class="wrap shop-testa">
+    <h1 class="shop-titolo" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h1>
+    <p class="sub shop-sotto" data-i18n="shopSub">Cerca per categoria, materiale o prezzo — oppure parti da una collezione.</p>
   </div>
 
-  <!-- COSA STAI CERCANDO — l'ingresso visivo al catalogo.
-       Prima lo shop apriva direttamente su 63 prodotti in griglia: chi non
-       sa già cosa vuole non ha un punto di partenza. Le categorie e le
-       collezioni arrivano dai dati, non da un elenco scritto a mano. -->
+  <div class="wrap shop-barra">
+    <div class="searchbar shop-cerca"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="q" type="search" data-ph="searchPh" placeholder="Cerca prodotti, materiali, idee regalo…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sugg"><div class="sugg" id="sugg" role="listbox" hidden></div></div>
+    <button class="btn btn-ghost fbar-btn" data-action="filtri-apri" aria-expanded="false" aria-controls="shopFiltri">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+      <span data-i18n="fOpen">Filtri</span><i class="fbar-n" id="fbarN" hidden></i>
+    </button>
+    <select class="sortsel" id="sortSel" aria-label="Ordina"></select>
+    <select class="sortsel" id="sortSelM" aria-label="Ordina" hidden></select>
+  </div>
+
   <div class="wrap shop-intro" id="shopIntro">
-    <h2 class="shop-intro-h" data-i18n="shopIntroH">Cosa stai cercando?</h2>
-    <div class="shop-cats" id="shopCats"></div>
-    <div class="shop-colls" id="shopColls"></div>
+    <h2 class="shop-intro-h sr-only" data-i18n="shopIntroH">Cosa stai cercando?</h2>
+    <nav class="shop-cats" id="shopCats" aria-label="Categorie"></nav>
+  </div>
+
+  <div class="wrap">
+    <div class="shop-layout">
+      <aside class="filters" id="shopFiltri" aria-label="Filtri del catalogo">
+        <div class="filters-testa">
+          <b data-i18n="fTitle">Filtri</b>
+          <button class="filters-x" data-action="filtri-chiudi" aria-label="Chiudi i filtri">✕</button>
+        </div>
+        <div class="fgroup fgroup--cat" hidden><h4 data-i18n="fCatH">Categoria</h4><div id="fCat"></div></div>
+        <div class="fgroup"><h4 data-i18n="fMatH">Materiale</h4><div id="fMat"></div></div>
+        <div class="fgroup"><h4><span data-i18n="fPrH">Prezzo max</span> <span class="range-val" id="pv">€120</span></h4><input type="range" class="range" id="pRange" min="5" max="120" value="120"></div>
+        <button class="btn btn-ghost" style="justify-content:center" data-action="reset-filters" data-i18n="fReset">Azzera filtri</button>
+        <!-- Nel pannello del telefono: quanti risultati dà questa scelta.
+             Un pannello di filtri che non dice quanti prodotti restano
+             obbliga a chiuderlo per scoprirlo. -->
+        <button class="btn btn-primary filters-vedi" data-action="filtri-chiudi">
+          <span data-i18n="fSee">Vedi</span> <b id="fVediN">0</b> <span data-i18n="fSeeTail">risultati</span>
+        </button>
+      </aside>
+
+      <div>
+        <!-- Intestazione della collezione attiva: compare solo quando una
+             collezione filtra il catalogo, e offre la via d'uscita. -->
+        <div class="shop-coll" id="shopCollBanner" hidden></div>
+        <div class="shop-colls" id="shopColls"></div>
+        <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><div class="shop-attivi" id="shopAttivi"></div></div>
+        <div class="subwrap" id="subWrap"><h5 data-i18n="subH">Sottocategorie</h5><div id="fSub"></div></div>
+        <div class="rv-wrap" id="rvWrap"><h5 data-i18n="rvH">Visti di recente</h5><div class="rv-strip" id="rvStrip"></div></div>
+        <div class="pgrid" id="shopGrid"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Due percorsi reali: prodotti già presenti nelle categorie B2B e Accessori.
@@ -717,50 +759,6 @@ setTimeout(function(){
       </button>
     </div>
   </section>
-
-  <div class="wrap">
-    <div class="shop-layout">
-      <!-- Barra filtri del telefono: sotto gli 820px la colonna laterale
-           era `display:none` e NESSUNO metteva la classe che la riapriva,
-           quindi su telefono non si poteva né cercare né filtrare un
-           catalogo da 63 pezzi. Questo pulsante apre la stessa colonna
-           come pannello: un solo insieme di filtri, non due. -->
-      <div class="fbar">
-        <button class="btn btn-ghost fbar-btn" data-action="filtri-apri" aria-expanded="false" aria-controls="shopFiltri">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
-          <span data-i18n="fOpen">Filtri</span><i class="fbar-n" id="fbarN" hidden></i>
-        </button>
-        <select class="sortsel" id="sortSelM" aria-label="Ordina"></select>
-      </div>
-      <aside class="filters" id="shopFiltri" aria-label="Filtri del catalogo">
-        <div class="filters-testa">
-          <b data-i18n="fTitle">Filtri</b>
-          <button class="filters-x" data-action="filtri-chiudi" aria-label="Chiudi i filtri">✕</button>
-        </div>
-        <div class="searchbar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="q" type="search" data-ph="searchPh" placeholder="Ricerca live…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sugg"><div class="sugg" id="sugg" role="listbox" hidden></div></div>
-        <div class="fgroup"><h4 data-i18n="fCatH">Categoria</h4><div id="fCat"></div></div>
-        <div class="fgroup"><h4 data-i18n="fMatH">Materiale</h4><div id="fMat"></div></div>
-        <div class="fgroup"><h4><span data-i18n="fPrH">Prezzo max</span> <span class="range-val" id="pv">€120</span></h4><input type="range" class="range" id="pRange" min="5" max="120" value="120"></div>
-        <button class="btn btn-ghost" style="justify-content:center" data-action="reset-filters" data-i18n="fReset">Azzera filtri</button>
-        <!-- Nel pannello del telefono: quanti risultati dà questa scelta.
-             Un pannello di filtri che non dice quanti prodotti restano
-             obbliga a chiuderlo per scoprirlo. -->
-        <button class="btn btn-primary filters-vedi" data-action="filtri-chiudi">
-          <span data-i18n="fSee">Vedi</span> <b id="fVediN">0</b> <span data-i18n="fSeeTail">risultati</span>
-        </button>
-      </aside>
-
-      <div>
-        <!-- Intestazione della collezione attiva: compare solo quando una
-             collezione filtra il catalogo, e offre la via d'uscita. -->
-        <div class="shop-coll" id="shopCollBanner" hidden></div>
-        <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><select class="sortsel" id="sortSel" aria-label="Ordina"></select></div>
-        <div class="subwrap" id="subWrap"><h5 data-i18n="subH">Sottocategorie</h5><div id="fSub"></div></div>
-        <div class="rv-wrap" id="rvWrap"><h5 data-i18n="rvH">Visti di recente</h5><div class="rv-strip" id="rvStrip"></div></div>
-        <div class="pgrid" id="shopGrid"></div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- PRODUCT -->

@@ -43,7 +43,7 @@ const src = readFileSync('assets/js/ricerca.js', 'utf8');
 const main = readFileSync('assets/js/main.js', 'utf8');
 const html = readFileSync('index.html', 'utf8');
 const css = readFileSync('assets/css/brand-system-2026.css', 'utf8');
-check('main.js avvia la ricerca', /import \{ initRicerca \} from '\.\/ricerca\.js'/.test(main) && /initRicerca\(\)/.test(main));
+check('main.js avvia la ricerca', /import \{ initRicerca[^}]*\} from '\.\/ricerca\.js'/.test(main) && /initRicerca\(\)/.test(main));
 check('la lente nell\'HTML è un link vero allo Shop (funziona anche senza JS)', /class="icon-btn atelier-search-link" href="shop"/.test(html) || new JSDOM(html).window.document.querySelector('a.atelier-search-link[href="shop"]'));
 check('il clic sulla lente è preso prima del router (window, cattura)', /window\.addEventListener\('click'[\s\S]{0,400}stopImmediatePropagation\(\)[\s\S]{0,40}\}, true\)/.test(src));
 check('miniature solo da foto esistenti (niente 404)', /fotoDisponibili\(p\)\[0\]/.test(src));

@@ -84,7 +84,7 @@ const esc = t => String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&a
 /* La miniatura: solo una foto che esiste davvero (fotoDisponibili, la stessa
    regola delle card dello Shop — 43 prodotti non hanno ancora foto e
    mostrano la loro icona), e la variante da 400 px solo se esiste (regola 2). */
-const miniatura = p => {
+export const miniatura = p => {
   const src = fotoDisponibili(p)[0];
   if (!src) return '';
   const v = variantsOf(src).includes(400) ? src.replace(/\.webp$/, '-400.webp') : src;

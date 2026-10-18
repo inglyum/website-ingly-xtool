@@ -91,6 +91,25 @@ export function currentSearch(){
 }
 
 let _leaveTimer=null;
+
+/* POSIZIONE DI SCORRIMENTO NELLA CRONOLOGIA
+   Prima ogni cambio pagina tornava in cima, anche con «indietro»: chi
+   scorreva lo Shop, apriva un prodotto e tornava indietro ricominciava la
+   lista dall'inizio. Ora la posizione si salva nella voce di cronologia che
+   si lascia e si ripristina tornandoci; una pagina nuova parte dall'alto. */
+let _ripristinaY=null;
+function ricordaScroll(){
+  try{ history.replaceState({...(history.state||{}),y:Math.round(scrollY)},''); }catch(e){}
+}
+function ripristinaScroll(y){
+  /* la pagina può crescere mentre si disegna: si riprova finché ci sta */
+  let tentativi=0;
+  const prova=()=>{
+    window.scrollTo({top:y,behavior:'instant'});
+    if(Math.abs(scrollY-y)>2&&tentativi++<10) setTimeout(prova,60);
+  };
+  requestAnimationFrame(prova);
+}
 const reduceMotion=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function show(page){
@@ -119,7 +138,8 @@ export function show(page){
       if(!heading.hasAttribute('tabindex'))heading.setAttribute('tabindex','-1');
       heading.focus({preventScroll:true});
     }
-    window.scrollTo({top:0,behavior:'instant'});
+    if(_ripristinaY!=null){ ripristinaScroll(_ripristinaY); _ripristinaY=null; }
+    else window.scrollTo({top:0,behavior:'instant'});
     if(page==='shop')renderRV();
     updateSeo(page,L,T,page==='product'?currentProduct():null);
     /* Avviso, non chiamata diretta: main.js importa questo modulo, quindi
@@ -142,6 +162,7 @@ export function go(page,search){
   const mId=page==='product'&&/^id=(\d+)$/.exec(search||'');
   const url=mId ? BASE+'product/'+mId[1]+'/' : BASE+(page==='home'?'':page)+(search?'?'+search:'');
   if(relPath().split('?')[0]===page&&!search){show(page);return;}
+  ricordaScroll();
   history.pushState({page,search:search||null},'',(url));
   show(page);
 }
@@ -167,7 +188,14 @@ export function toggleMenu(open,{restoreFocus=true}={}){
 
 export function initNav(){
   /* Cronologia, inclusa la navigazione su schede profonde. */
-  addEventListener('popstate',()=>show(currentPage()));
+  /* il browser non deve rimettere a posto da solo: lo fa show() quando la
+     pagina giusta è visibile, non prima */
+  try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+  addEventListener('popstate',e=>{
+    const y=e.state&&typeof e.state.y==='number'?e.state.y:null;
+    _ripristinaY=y;
+    show(currentPage());
+  });
 
   document.addEventListener('click',e=>{
     const a=e.target.closest('a[href]');
@@ -194,7 +222,7 @@ export function initNav(){
       e.preventDefault();
       const dest=target.path+(target.query?'?'+target.query:'');
       if(location.pathname+location.search!==dest)
-        history.pushState({page},'',dest);
+        { ricordaScroll(); history.pushState({page},'',dest); }
       show(page);
       return;
     }

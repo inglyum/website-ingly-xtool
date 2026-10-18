@@ -1277,7 +1277,7 @@ export function syncFiltersToURL(){
        Pages (…/website-ingly-xtool/), era un indirizzo che non esiste —
        ricaricato o condiviso, ogni filtro dello Shop dava 404 */
     const next=BASE+'shop'+(q.length?'?'+q.join('&'):'');
-    if(location.pathname+location.search!==next) history.replaceState(null,'',next);
+    if(location.pathname+location.search!==next) history.replaceState(history.state,'',next);
   }catch(e){}
 }
 export function readFiltersFromURL(){

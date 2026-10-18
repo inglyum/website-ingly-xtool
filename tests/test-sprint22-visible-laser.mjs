@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const css=readFileSync('assets/css/brand-system-2026.css','utf8');
+const html=readFileSync('index.html','utf8');
+assert.match(css,/#heroH1 \.w:has\(> \.engrave\)/);
+assert.match(css,/#heroH1 \.w > \.engrave\{[\s\S]*?display:inline-block!important/);
+assert.match(css,/#heroH1 \.w > \.engrave::after\{/);
+assert.match(css,/prefers-reduced-motion:reduce/);
+assert.match(html,/brand-system-2026\.css\?v=20261018laser2/);
+console.log('✔ Engraved hero words have visible, finite laser width and versioned CSS');

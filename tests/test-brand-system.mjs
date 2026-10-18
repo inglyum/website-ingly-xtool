@@ -7,7 +7,7 @@ const site=read('assets/css/brand-system-2026.css'),panel=read('assets/css/admin
 const js=read('assets/js/admin/brand-theme-switch.js'),circle=read('assets/images/ingly-logo.svg');
 const dark=read('assets/images/ingly-wordmark-dark.svg'),light=read('assets/images/ingly-wordmark-light.svg');
 for(const f of ['assets/images/ingly-wordmark-dark.svg','assets/images/ingly-wordmark-light.svg'])assert.ok(existsSync(f));
-const anchor=html.indexOf('href="assets/css/brand-system-2026.css"');
+const anchor=html.indexOf('href="assets/css/brand-system-2026.css?v=20261018laser2"');
 assert.ok(anchor>html.indexOf('ingly-responsive-theme.css'),'One final CSS layer must win over legacy skins');
 assert.ok(admin.indexOf('href="assets/css/admin-brand-system.css"')>admin.indexOf('href="assets/css/admin-maison.css"'));
 assert.match(circle,/<circle cx="251" cy="252" r="225" fill="#fffdfa"\/>/,'Emblema tecnico con bianco interno');

@@ -1365,3 +1365,31 @@
  :root[data-mode] #page-home #heroH1 :is(.laserword,.engrave)::after,
  :root[data-mode] :is(.hero,.phero) .hl::after{animation:none!important}
 }
+
+
+/* Sprint 22: fix the actual visual cause — inline engrave spans have no reliable
+   containing width for a positioned pseudo-element. Keep words readable. */
+:root[data-mode] #page-home #heroH1 .w:has(> .engrave){
+ display:inline-block!important;vertical-align:baseline!important;white-space:nowrap!important;
+}
+:root[data-mode] #page-home #heroH1 .w > .engrave{
+ position:relative!important;display:inline-block!important;isolation:isolate!important;
+ white-space:nowrap!important;
+}
+:root[data-mode] #page-home #heroH1 .w > .engrave::after{
+ content:""!important;display:block!important;
+ position:absolute!important;left:1%!important;right:1%!important;
+ bottom:-.105em!important;height:clamp(3px,.075em,6px)!important;
+ border-radius:999px!important;pointer-events:none!important;
+ background:linear-gradient(90deg,transparent,#bb7d24 9%,#f4c26d 28%,#fff6d3 52%,#df9b37 79%,transparent)!important;
+ box-shadow:0 0 6px 1px rgba(255,217,133,.58),0 0 21px 3px rgba(234,158,47,.34)!important;
+ transform-origin:left!important;transform:scaleX(1);
+}
+@media(prefers-reduced-motion:no-preference){
+ :root[data-mode] #page-home.page.active #heroH1 .w > .engrave::after{
+  animation:ingly-gold-trace 850ms cubic-bezier(.22,1,.36,1) both!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] #page-home #heroH1 .w > .engrave::after{animation:none!important}
+}

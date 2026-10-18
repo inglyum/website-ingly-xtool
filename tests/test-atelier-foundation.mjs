@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 
 const read = path => readFileSync(new URL('../' + path, import.meta.url),'utf8');
 const css = read('assets/css/atelier-foundation.css');
@@ -26,8 +27,8 @@ for(const [mode,block] of [['dark',dark],['light',light]]){
   assert.ok(contrast(token(block,'--at-muted'),token(block,'--at-bg'))>=4.5,'Muted copy contrast failed '+mode);
   assert.ok(contrast(token(block,'--at-on-amber'),token(block,'--at-amber'))>=4.5,'CTA contrast failed '+mode);
 }
-assert.ok(html.includes('href="assets/css/atelier-foundation.css"'),'Shared CSS not loaded');
-assert.ok(html.indexOf('href="assets/css/atelier-foundation.css"')>html.indexOf('href="assets/css/premium-2026.css"'),'Atelier stylesheet must be last');
+assert.ok(caricato('atelier-foundation.css'),'Shared CSS not loaded');
+assert.ok(posizione('atelier-foundation.css')>posizione('premium-2026.css'),'Atelier stylesheet must be last');
 assert.ok(html.includes('var m="dark"'),'Dark should be default without stored preference');
 assert.ok(html.includes('saved==="light"||saved==="dark"'),'Respect existing saved theme');
 assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'),'Reduced motion styles missing');

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const html=read('index.html'),adm=read('admin.html');
 const css=read('assets/css/maison-reference.css'),acss=read('assets/css/admin-maison.css');
@@ -35,8 +36,8 @@ assert(css.includes('.xtool-lab-feature')&&css.includes('.xtool-lab-copy h2'),'L
 assert(css.includes('.signature-hero-media__shade'),'Theme aware hero overlay missing');
 assert(css.includes('@media(max-width:540px)'),'Missing responsive catalog cards');
 assert(css.includes('prefers-reduced-motion:reduce'),'Motion accessibility missing');
-assert(html.includes('assets/css/maison-reference.css')&&html.includes('assets/js/maison-reference.js'),'New storefront files not loaded');
-assert(html.indexOf('assets/css/maison-reference.css')>html.indexOf('assets/css/signature-showcase.css'),'Ma(i)son CSS must be last');
+assert(caricato('maison-reference.css')&&html.includes('assets/js/maison-reference.js'),'New storefront files not loaded');
+assert(posizione('maison-reference.css')>posizione('signature-showcase.css'),'Ma(i)son CSS must be last');
 assert(adm.includes('assets/css/admin-maison.css'),'Admin stylesheet not loaded');
 assert(adm.includes('id="maisonAdminDashboard"')&&adm.includes('function renderMaisonAdminDashboard()'),'Admin live dashboard missing');
 assert(adm.includes('renderMaisonAdminDashboard();'),'Admin live dashboard not invoked');

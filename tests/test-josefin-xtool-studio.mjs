@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const html=read('index.html');
 const admin=read('admin.html');
@@ -13,7 +14,7 @@ const machines=JSON.parse(read('data/macchine.json')).macchine;
 assert(html.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
 assert(admin.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
 assert(generatorHtml.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
-assert(html.includes('assets/css/ingly-josefin-studio.css'));
+assert(caricato('ingly-josefin-studio.css'));
 assert(generatorHtml.includes('assets/css/ingly-generator-theme.css'));
 assert(css.includes('#exitPopup #exitPopInner'), 'Premium popup treatment missing');
 assert(css.includes('#exitPopup #exitWaBtn')&&css.includes('linear-gradient(115deg'), 'Gold CTA missing');

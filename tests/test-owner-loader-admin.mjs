@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const get=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const cfg=JSON.parse(get('data/config.json'));
 const page=get('index.html'),admin=get('admin.html');
@@ -15,7 +16,7 @@ for(const id of ['inglyLoaderBadge','inglyLoaderLive','inglyLoaderSparks','ingly
  'atelierLoaderFill','atelierLoaderPercent','atelierLoaderSkip','inglyLoaderHeadline']){
  assert(page.includes('id="'+id+'"'),id+' missing on storefront');
 }
-assert(page.includes('assets/css/ingly-user-loader.css'),'owner CSS not loaded');
+assert(caricato('ingly-user-loader.css'),'owner CSS not loaded');
 assert(page.includes('assets/js/notte-oro-loader.js'),'owner script not loaded');
 for(const key of ['enabled','theme','oncePerSession','minMs','maxMs','headline.it','headline.en',
  'messages.it','messages.en']){

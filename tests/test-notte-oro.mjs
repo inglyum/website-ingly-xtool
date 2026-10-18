@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const rd=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const css=rd('assets/css/notte-oro.css'),html=rd('index.html');
 const dark=css.split(':root,:root[data-mode="dark"]{')[1].split('\n}')[0];
@@ -12,8 +13,8 @@ for(const [name,s] of [['notte',dark],['giorno',light]]){
   assert(ratio(get(s,a),get(s,b))>=4.5,name+' '+label+' WCAG AA insufficient');
  }
 }
-assert(html.includes('assets/css/notte-oro.css'));
-assert(html.indexOf('assets/css/notte-oro.css')>html.indexOf('assets/css/atelier-foundation.css'),'last CSS must win');
+assert(caricato('notte-oro.css'));
+assert(posizione('notte-oro.css')>posizione('atelier-foundation.css'),'last CSS must win');
 assert(dark.includes('--no-gold:#e0b06a'),'gold brand token');
 assert(dark.includes('--no-laser:#ff8a3d'),'laser only accent');
 assert(css.includes('prefers-reduced-motion:reduce'));

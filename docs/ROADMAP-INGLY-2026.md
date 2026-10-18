@@ -333,3 +333,10 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 5. P1 Device fisici — iOS/Android, speed/a11y e stabilità PWA sotto rete mobile.
 
 *Nota media xTool:* il riferimento al consenso Squad è ricavato dalla precedente registrazione nel manifest; la conformità contrattuale delle immagini promozionali e la possibilità di riutilizzarle commercialmente devono essere confermate dal titolare.
+
+## Sprint 14 — 18/10/2026: Above-the-fold Home e verifica interazione Lab
+
+- Rimodulato l'hero testuale senza foto/3D: titolo più compatto e bilanciato, blocco testo/CTA sopra la piega, sfondo continuo statico Giorno/Notte, metodo INGLY a destra solo su desktop ampi. Proteggere font/logo master geometrico.
+- Il Lab al commit precedente conteneva già Material Finder v2: UI macchina → lavorazione → tessere materiale; e la M2 foto ufficiale da CDN xTool registrata in `data/immagini-macchine.json`. Nessun falso duplicato o immagine AI spacciata per foto.
+- Nuovo test `tests/test-home-finder-interactions.mjs` che clicca davvero le tessere e cambia modulo, anziché limitarsi ai testi statici; esempi critici: diodo M2 non taglia metallo, IR 3W incide, acrilico richiede prova.
+- Gate: QA completo e audit Chromium, poi deploy Pages e verifica main. L'Admin reale, le 43 foto locali mancanti, il flusso ordini end-to-end, i file laser fisici e test dispositivi restano aperti.

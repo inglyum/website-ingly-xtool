@@ -1264,3 +1264,74 @@
  }
  :root[data-mode] #page-macchine .ingly-m2-duo__photo{min-height:145px}
 }
+
+
+/* Sprint 14 · actual first-screen conversion layout.  No 3D or hero photo. */
+:root[data-mode] #page-home .hero.signature-hero{
+ min-height:0!important; height:auto!important;
+ background:linear-gradient(115deg,#080d15 0%,#101923 58%,#11151e 100%)!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-grid{
+ display:grid!important;grid-template-columns:minmax(0,1.65fr) minmax(220px,.75fr)!important;
+ align-items:center!important;gap:clamp(24px,3vw,64px)!important;
+ min-height:0!important;
+ padding:clamp(35px,4vw,65px) clamp(24px,4vw,62px) clamp(38px,4vw,70px)!important;
+}
+:root[data-mode] #page-home .signature-hero-copy{
+ min-width:0;width:100%!important;max-width:940px!important;
+ padding:0!important;
+}
+:root[data-mode] #page-home .signature-hero #heroH1{
+ display:block!important;width:100%!important;max-width:100%!important;
+ font:500 clamp(2.8rem,4.7vw,5.1rem)/1.075 var(--ss-sans,var(--brand-text))!important;
+ letter-spacing:-.043em!important;text-wrap:balance!important;
+ margin:18px 0 22px!important;padding:0!important;
+}
+:root[data-mode] #page-home .signature-hero #heroH1 :is(.w,.w>span){
+ display:inline!important;line-height:inherit!important;vertical-align:baseline!important;
+ white-space:normal!important;
+}
+:root[data-mode] #page-home .signature-hero #heroH1 .engrave,
+:root[data-mode] #page-home .signature-hero #heroH1 .laserword{
+ font-family:var(--ss-serif,Georgia,serif)!important;
+ font-style:italic!important;
+ color:#f2d5a4!important;-webkit-text-fill-color:#f2d5a4!important;
+}
+:root[data-mode] #page-home .signature-hero .sub{
+ width:100%!important;max-width:62ch!important;
+ font:450 clamp(.99rem,1.2vw,1.2rem)/1.55 var(--ss-sans,var(--brand-text))!important;
+ margin:0 0 22px!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-tag{
+ font-size:clamp(10px,.85vw,12px)!important;
+ max-width:100%!important;
+}
+:root[data-mode] #page-home .signature-hero .hero-ctas{
+ display:flex!important;flex-wrap:wrap!important;gap:12px!important;
+}
+:root[data-mode] #page-home .ingly-hero-steps{
+ width:100%!important;min-width:0!important;padding:20px 0 20px clamp(20px,2.6vw,42px)!important;
+ gap:16px!important;
+}
+:root[data-mode] #page-home .ingly-hero-steps ol{gap:10px!important}
+:root[data-mode] #page-home .ingly-hero-steps li{padding-bottom:10px!important}
+:root[data-mode="light"] #page-home .hero.signature-hero{
+ background:linear-gradient(120deg,#fffdf9,#f3f1ed 65%,#f7f5f0)!important;
+}
+@media(max-width:950px){
+ :root[data-mode] #page-home .signature-hero .hero-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+  padding:42px clamp(20px,4vw,36px) 45px!important;gap:0!important;
+ }
+ :root[data-mode] #page-home .ingly-hero-steps{display:none!important}
+}
+@media(max-width:590px){
+ :root[data-mode] #page-home .signature-hero #heroH1{
+  font-size:clamp(2.55rem,10vw,4.05rem)!important;line-height:1.09!important;
+  margin:22px 0 18px!important;
+ }
+ :root[data-mode] #page-home .signature-hero .hero-ctas .btn{
+  min-height:48px!important;flex:1 1 155px!important;
+ }
+ :root[data-mode] #page-home .signature-hero .sub{line-height:1.52!important}
+}

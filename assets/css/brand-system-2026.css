@@ -1534,3 +1534,16 @@ html.rc-aperta{overflow:hidden}
 @media(max-width:620px){
  :root[data-mode] #nav.nav .nav-acts .atelier-search-link{display:grid!important;min-width:44px!important;min-height:44px!important;place-items:center!important}
 }
+
+/* ============================================================
+   INGLY — PERCORSO «Home › Sezione › Pagina» (Fase 2)
+   ============================================================ */
+.percorso-auto{padding-top:18px!important;padding-bottom:0!important}
+.crumb--auto ol{display:flex;flex-wrap:wrap;align-items:center;gap:4px 0;margin:0;padding:0;list-style:none;font-size:13px;line-height:1.4}
+.crumb--auto li{display:inline-flex;align-items:center}
+.crumb--auto a{display:inline-flex;align-items:center;min-height:32px;padding:0 2px;color:var(--brand-muted,#5F636B);text-decoration:none}
+.crumb--auto a:hover,.crumb--auto a:focus-visible{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.crumb--auto .crumb-sep{margin:0 8px;opacity:.5}
+.crumb--auto [aria-current]{font-weight:600}
+:root[data-mode="dark"] .crumb--auto a{color:#A3A7AE}
+

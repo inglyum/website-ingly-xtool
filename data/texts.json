@@ -182,7 +182,13 @@
     "rcProdotti": "Prodotti",
     "rcCategorie": "Categorie",
     "rcMateriali": "Materiali",
-    "rcTutti": "Vedi tutti i risultati nello Shop"
+    "rcTutti": "Vedi tutti i risultati nello Shop",
+    "pcEtichetta": "Percorso",
+    "pcShop": "Shop",
+    "pcMateriali": "Materiali",
+    "pcTecnologie": "Tecnologie",
+    "pcMacchine": "Macchine",
+    "pcBusiness": "Business"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -367,7 +373,13 @@
     "rcProdotti": "Products",
     "rcCategorie": "Categories",
     "rcMateriali": "Materials",
-    "rcTutti": "See all results in the Shop"
+    "rcTutti": "See all results in the Shop",
+    "pcEtichetta": "Breadcrumb",
+    "pcShop": "Shop",
+    "pcMateriali": "Materials",
+    "pcTecnologie": "Technologies",
+    "pcMacchine": "Machines",
+    "pcBusiness": "Business"
   },
   "wOpen": {
     "it": "Apri Wishlist",

@@ -25,7 +25,7 @@ const prezzo  = v => PR.testoPrezzo(v, CONFIG, { L, eur });
 const suRichiesta = () => PR.etichetta(CONFIG, L);
 /* materiale sempre risolvibile: MAT_ART[mat] mancante faceva crollare l'intero sito */
 const matArt = m => MAT_ART[m] || MAT_ART[Object.keys(MAT_ART)[0]] || { bg:'#3a2f26,#6b543e' };
-import { go } from './navigation.js';
+import { go, BASE } from './navigation.js';
 
 /* ---- stato ---- */
 export const F={cat:new Set(),mat:new Set(),sub:new Set(),coll:''};
@@ -1273,7 +1273,10 @@ export function syncFiltersToURL(){
     if(F.coll) q.push('coll='+encodeURIComponent(CL.rifDi(CL.trova(F.coll,window.INGLY))||F.coll));
     const pr=$('pRange'); if(pr && +pr.value<120) q.push('max='+pr.value);
     if(SORT&&SORT!=='rel') q.push('sort='+SORT);
-    const next='/shop'+(q.length?'?'+q.join('&'):'');
+    /* sotto la base del sito: «/shop» dalla radice del dominio, su GitHub
+       Pages (…/website-ingly-xtool/), era un indirizzo che non esiste —
+       ricaricato o condiviso, ogni filtro dello Shop dava 404 */
+    const next=BASE+'shop'+(q.length?'?'+q.join('&'):'');
     if(location.pathname+location.search!==next) history.replaceState(null,'',next);
   }catch(e){}
 }

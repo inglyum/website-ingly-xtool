@@ -1293,7 +1293,6 @@
 }
 :root[data-mode] #page-home .signature-hero #heroH1 .engrave,
 :root[data-mode] #page-home .signature-hero #heroH1 .laserword{
- font:italic 500 inherit!important;
  font-family:var(--ss-serif,Georgia,serif)!important;
  font-style:italic!important;
  color:#f2d5a4!important;-webkit-text-fill-color:#f2d5a4!important;

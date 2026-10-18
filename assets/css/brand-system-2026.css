@@ -1459,3 +1459,37 @@
     min-width:44px!important;min-height:44px!important;
   }
 }
+
+/* ============================================================
+   INGLY — HEADER ADESIVO (Fase 1)
+   L'header resta in alto mentre si scorre, come in ogni negozio online;
+   la barra degli avvisi sopra scorre via. Nessuno spostamento calcolato
+   dal JavaScript: prima un «top» pensato per un header fixed veniva
+   applicato a un header nel flusso, lasciando una fascia vuota e, su
+   mobile, coprendo l'inizio della Hero.
+   ============================================================ */
+:root[data-mode] #nav.nav{position:sticky!important;top:0!important}
+
+/* ============================================================
+   INGLY — BOTTONI DELLA HERO SU MOBILE (Fase 1)
+   Una regola metteva i bottoni in colonna, un'altra dava loro
+   flex-basis:155px: in colonna la «base» è l'ALTEZZA, e ogni bottone
+   diventava alto 155 px. Qui: uno sotto l'altro, a tutta larghezza,
+   altezza naturale (48 px, area di tocco WCAG rispettata).
+   ============================================================ */
+@media(max-width:590px){
+ :root[data-mode] #page-home .signature-hero .hero-ctas{flex-direction:column!important;align-items:stretch!important;gap:12px!important}
+ :root[data-mode] #page-home .signature-hero .hero-ctas .btn{flex:0 0 auto!important;width:100%!important;min-height:48px!important;justify-content:center!important}
+}
+
+/* ============================================================
+   INGLY — BARRA IN BASSO SU MOBILE (Fase 1)
+   Le azioni sono cinque (Tema, Shop, Personalizza, WhatsApp, Carrello)
+   ma la griglia aveva quattro colonne: «Carrello» andava a capo, la barra
+   arrivava a 124 px e copriva i contenuti. Una colonna per azione.
+   ============================================================ */
+:root[data-mode] .atelier-mobile-dock{grid-template-columns:repeat(5,minmax(0,1fr))!important;grid-auto-rows:auto!important}
+/* «Tema» ereditava lo stile di un'altra etichetta (16 px, oro): stesse
+   dimensioni e colore delle altre quattro voci. */
+:root[data-mode] .atelier-mobile-dock>* span{font-size:11px!important;font-weight:500!important;line-height:1.2!important;color:inherit!important}
+:root[data-mode] .atelier-mobile-dock>#mobileModeBtn{color:inherit}

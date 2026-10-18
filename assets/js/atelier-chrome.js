@@ -29,8 +29,13 @@
       message.textContent = captions[language()][position];
       close.setAttribute('aria-label', language() === 'en' ? 'Dismiss announcements' : 'Chiudi gli avvisi');
     }
+    /* Lo spostamento serve solo a un header «fixed», che non occupa spazio
+       nella pagina. Da quando header e barra annunci stanno nel flusso
+       (relative/sticky) lo spostamento si sommava alla loro posizione: una
+       fascia vuota sopra l'header e, su mobile, l'header sopra il titolo. */
     function alignHeader() {
-      nav.style.top = (bar.hidden ? 0 : bar.getBoundingClientRect().height) + 'px';
+      const fisso = getComputedStyle(nav).position === 'fixed';
+      nav.style.top = fisso ? (bar.hidden ? 0 : bar.getBoundingClientRect().height) + 'px' : '';
     }
     try {
       if (sessionStorage.getItem('ingly_atelier_announcement_hidden') === '1') bar.hidden = true;

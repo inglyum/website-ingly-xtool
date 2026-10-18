@@ -4,6 +4,8 @@ import { build } from 'esbuild';
 import { execFileSync } from 'child_process';
 /* prima di tutto: i 22 fogli di stile uniti in assets/css/ingly.css */
 execFileSync(process.execPath, ['scripts/css-bundle.mjs'], { stdio: 'inherit' });
+/* poi le pagine legali, che usano la versione del bundle */
+execFileSync(process.execPath, ['scripts/legal-pages.mjs'], { stdio: 'inherit' });
 import { cpSync, mkdirSync, rmSync, readdirSync, existsSync, readFileSync, writeFileSync } from 'fs';
 
 const J = f => JSON.parse(readFileSync('data/'+f+'.json','utf8'));

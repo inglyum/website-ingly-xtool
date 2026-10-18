@@ -1104,13 +1104,39 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 
   <!-- ============ CONTATTI & SOCIAL ============ -->
   <section class="view" id="v-contacts">
+    <div class="card" id="cardDatiLegali"><h3>🏛 Dati aziendali — obbligatori per legge</h3>
+      <p class="hint">Compaiono nel piè di pagina e nelle pagine Condizioni di vendita, Privacy, Spedizioni e Dati aziendali. Un campo vuoto si legge sul sito «in corso di attribuzione»: va completato prima del lancio (controllo in <b>Pronto al lancio</b>). I testi legali vanno fatti rivedere dal commercialista o da un legale.</p>
+      <div class="row c2">
+        <div><label>Nome commerciale</label><input type="text" data-b="CONFIG.datiLegali.nomeCommerciale" placeholder="INGLY DESIGN"></div>
+        <div><label>Ragione sociale</label><input type="text" data-b="CONFIG.datiLegali.ragioneSociale" placeholder="es. Mario Rossi (ditta individuale)"></div>
+        <div><label>Forma giuridica</label><input type="text" data-b="CONFIG.datiLegali.formaGiuridica" placeholder="es. ditta individuale, SRL"></div>
+        <div><label>Partita IVA</label><input type="text" data-b="CONFIG.datiLegali.piva" placeholder="11 cifre" inputmode="numeric"></div>
+        <div><label>Codice fiscale</label><input type="text" data-b="CONFIG.datiLegali.codiceFiscale"></div>
+        <div><label>Numero REA (se presente)</label><input type="text" data-b="CONFIG.datiLegali.rea" placeholder="es. PA-123456"></div>
+        <div><label>Sede (città)</label><input type="text" data-b="CONFIG.datiLegali.sede" placeholder="Palermo, Italia"></div>
+        <div><label>Indirizzo della sede</label><input type="text" data-b="CONFIG.datiLegali.indirizzo" placeholder="via, numero, CAP"></div>
+        <div><label>Email</label><input type="text" data-b="CONFIG.datiLegali.email"></div>
+        <div><label>PEC</label><input type="text" data-b="CONFIG.datiLegali.pec" placeholder="nome@pec.it"></div>
+        <div><label>Telefono / WhatsApp</label><input type="text" data-b="CONFIG.datiLegali.telefono"></div>
+        <div><label>Data ultimo aggiornamento testi legali</label><input type="text" data-b="CONFIG.datiLegali.aggiornato" placeholder="AAAA-MM-GG"></div>
+      </div>
+    </div>
+    <div class="card" id="cardSpedizione"><h3>📦 Spedizioni</h3>
+      <p class="hint">Usati dal carrello (soglia di spedizione gratuita) e dalla pagina Spedizioni e resi. Scrivi solo tempi e costi che puoi garantire.</p>
+      <div class="row c3">
+        <div><label>Spedizione gratuita da (€)</label><input type="number" step="0.01" data-b="CONFIG.spedizione.sogliaGratis"></div>
+        <div><label>Costo spedizione Italia (€)</label><input type="number" step="0.01" data-b="CONFIG.spedizione.costoItalia"></div>
+        <div><label>Corriere</label><input type="text" data-b="CONFIG.spedizione.corriere" placeholder="es. BRT, GLS, Poste"></div>
+        <div><label>Tempi di produzione</label><input type="text" data-b="CONFIG.spedizione.tempiProduzione" placeholder="es. 3–5 giorni lavorativi"></div>
+        <div><label>Tempi di consegna</label><input type="text" data-b="CONFIG.spedizione.tempiConsegna" placeholder="es. 24–72 ore in Italia"></div>
+      </div>
+    </div>
     <div class="card"><h3>📞 Contatti</h3>
       <div class="row c2">
         <div><label>Email</label><input type="text" data-b="CONFIG.email"></div>
         <div><label>WhatsApp (link)</label><input type="url" data-b="CONFIG.whatsapp"></div>
       </div>
       <label>Copyright</label><input type="text" data-b="CONFIG.copyright">
-      <label>Riga legale</label><input type="text" data-b="CONFIG.legale">
       <div class="row c2" style="margin-top:4px">
         <div><label>Formspree preventivi — privati</label><input type="text" data-b="CONFIG.moduli.formspreePreventivo"></div>
         <div><label>Formspree preventivi — aziende</label><input type="text" data-b="CONFIG.moduli.formspreePreventivoB2B" placeholder="lascia vuoto per usare la casella dei privati">
@@ -1233,6 +1259,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   </section>
 
   <!-- ============ HEALTH ============ -->
+  <section class="view" id="v-lancio">
+    <div class="card"><h3>✅ Pronto al lancio</h3>
+      <p class="hint">Cosa manca per aprire il negozio al pubblico. Ogni riga dice dove si sistema: clicca per andarci. I controlli leggono la bozza attuale; diventano realtà sul sito dopo «Pubblica tutto».</p>
+      <div id="lancioRiepilogo" style="margin:10px 0 14px;font-weight:700"></div>
+      <div id="lancioLista"></div>
+    </div>
+  </section>
   <section class="view" id="v-health">
     <div class="card"><h3>🩺 Health Center <button class="btn pri sm sp" id="hRun">▶ Esegui tutti i controlli</button></h3>
       <div class="hint">Agenti di controllo: Sync · Dati · Media · Deploy · SEO. Segnalano i problemi prima che diventino errori visibili sul sito.</div>
@@ -1975,7 +2008,7 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
  for(const k in map){const url=S.CONFIG.social&&S.CONFIG.social[k];const row=S.SOCIALS.find(r=>r[0]===map[k]);if(row&&url)row[1]=url}}
 
 /* ---------- navigazione ---------- */
-const NAV=[['Panoramica',[['dash','📊','Dashboard']]],
+const NAV=[['Panoramica',[['dash','📊','Dashboard'],['lancio','✅','Pronto al lancio']]],
  ['Catalogo',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['dig','💾','Digitali'],['prezzi','🏷','Prezzi in vetrina']]],
  ['Creative Tools',[['generators','✳','Generatori INGLY']]],
  ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
@@ -2074,7 +2107,7 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
@@ -4372,6 +4405,43 @@ function validaBozza(){
   warn.push('Stripe è acceso ma nessun prodotto ha un Payment Link: sul sito non cambia nulla.');
  try{FILES.forEach(f=>JSON.parse(jstr(S[KEY[f]])))}catch(e){err.push('Dati non serializzabili: '+e.message)}
  return {err,warn};
+}
+
+/* ================== PRONTO AL LANCIO ==================
+   Una lista sola, letta dalla bozza: verde = fatto, rosso = blocca il lancio,
+   arancio = consigliato. Funzione pura (controlliLancio) + disegno. */
+function controlliLancio(st){
+ const C=st.CONFIG||{},D=C.datiLegali||{},Sp=C.spedizione||{},M=C.moduli||{};
+ const pieno=v=>v!==null&&v!==undefined&&String(v).trim()!=='';
+ const vis=(st.P||[]).filter(p=>!p.hidden);
+ const conFoto=vis.filter(p=>pieno(p.img)||(Array.isArray(p.gallery)&&p.gallery.length)).length;
+ const fs=v=>/^(https:\/\/formspree\.io\/f\/)?[A-Za-z0-9]{6,}$/.test(String(v||'').trim());
+ const st_=(C.checkout&&C.checkout.stripe)||{},linkStripe=Object.keys(C.stripeLinks||{}).length;
+ const R=(gruppo,voce,ok,dove,blocca=true,nota='')=>({gruppo,voce,ok,dove,livello:ok?'ok':(blocca?'rosso':'arancio'),nota});
+ return [
+  R('Dati aziendali','Ragione sociale',pieno(D.ragioneSociale),'contacts'),
+  R('Dati aziendali','Partita IVA (11 cifre)',/^\d{11}$/.test(String(D.piva||'').replace(/\s/g,'')),'contacts',true,'Obbligatoria sul sito (art. 35 DPR 633/72).'),
+  R('Dati aziendali','Sede e indirizzo',pieno(D.sede)&&pieno(D.indirizzo),'contacts'),
+  R('Dati aziendali','Email',/@/.test(String(D.email||'')),'contacts'),
+  R('Dati aziendali','PEC',/@/.test(String(D.pec||'')),'contacts',false,'Consigliata nelle pagine legali.'),
+  R('Richieste dei clienti','Modulo preventivo (Formspree privati)',fs(M.formspreePreventivo),'contacts',true,'Senza, le richieste dal modulo non arrivano a nessuno.'),
+  R('Richieste dei clienti','Modulo newsletter (Formspree)',fs(M.formspreeNewsletter),'contacts',false),
+  R('Richieste dei clienti','WhatsApp',/wa\.me\/\d{8,}/.test(String(C.whatsapp||'')),'contacts'),
+  R('Spedizioni','Costo spedizione Italia',pieno(Sp.costoItalia),'contacts'),
+  R('Spedizioni','Tempi di produzione e consegna',pieno(Sp.tempiProduzione)&&pieno(Sp.tempiConsegna),'contacts'),
+  R('Pagamento','Pagamento con carta (Stripe) acceso con almeno un link',st_.attivo===true&&linkStripe>0,'contacts',false,linkStripe+' prodotti con link. Senza, si vende a preventivo WhatsApp/email.'),
+  R('Catalogo','Prodotti visibili con foto impostata',vis.length>0&&conFoto===vis.length,'prod',false,conFoto+' su '+vis.length+'.'),
+  R('Catalogo','Recensioni collegate ai prodotti tutte verificate',((st.C&&st.C.REVIEWS)||[]).every(r=>!r||!r.pid||r.vf===true),'faq',true,'Sul sito compaiono stelle solo per recensioni verificate collegate a un prodotto.'),
+  R('Sito','Statistiche di visita (Cloudflare, senza cookie)',pieno(C.analytics&&C.analytics.cloudflare),'set',false),
+ ];
+}
+function renderLancio(){
+ const L=controlliLancio(S),rossi=L.filter(x=>x.livello==='rosso').length,aranci=L.filter(x=>x.livello==='arancio').length;
+ $('lancioRiepilogo').innerHTML=rossi?`<span style="color:#b42318">🔴 ${rossi} punti bloccano il lancio</span>${aranci?` · <span style="color:#b54708">🟠 ${aranci} consigliati</span>`:''}`:`<span style="color:#067647">🟢 Pronto per il lancio</span>${aranci?` · <span style="color:#b54708">🟠 ${aranci} consigliati</span>`:''}`;
+ let g='';
+ $('lancioLista').innerHTML=L.map(x=>{const t=x.gruppo!==g?`<p class="hint" style="margin:14px 0 4px;font-weight:700;text-transform:uppercase;letter-spacing:.08em">${esc(x.gruppo)}</p>`:'';g=x.gruppo;
+  const ic=x.livello==='ok'?'🟢':x.livello==='rosso'?'🔴':'🟠';
+  return t+`<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)"><span aria-hidden="true">${ic}</span><div style="flex:1"><b>${esc(x.voce)}</b>${x.nota?`<div class="hint">${esc(x.nota)}</div>`:''}</div>${x.livello==='ok'?'':`<button class="btn sm" data-go="${x.dove}">Sistema →</button>`}</div>`}).join('');
 }
 
 /* ================== SPONSOR & PARTNER ================== */

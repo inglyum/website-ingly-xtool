@@ -648,7 +648,7 @@ function renderVideoEmbed(url,poster){
   const ytMatch=url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
   if(ytMatch){
     const id=ytMatch[1];
-    return `<div style="position:relative;padding-bottom:56.25%;border-radius:var(--radius);overflow:hidden;background:#000"><iframe src="https://www.youtube.com/embed/${id}?rel=0&modestbranding=1" title="Video prodotto" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe></div>`;
+    return `<div style="position:relative;padding-bottom:56.25%;border-radius:var(--radius);overflow:hidden;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1" title="Video prodotto" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe></div>`;
   }
   // TikTok: tiktok.com/@user/video/ID
   const ttMatch=url.match(/tiktok\.com\/@[\w.]+\/video\/(\d+)/);
@@ -934,7 +934,8 @@ export function addDigital(id){
 }
 
 /* ---- carrello ---- */
-const FREE_SHIP=79; /* soglia spedizione gratuita */
+/* soglia spedizione gratuita: dall'Admin (config.spedizione.sogliaGratis), 79 se assente */
+const FREE_SHIP=(CONFIG.spedizione&&Number.isFinite(+CONFIG.spedizione.sogliaGratis)&&CONFIG.spedizione.sogliaGratis!==null)?+CONFIG.spedizione.sogliaGratis:79;
 const COUPONS={'INGLY10':{pct:.10,label:'−10%'},'INGLY15':{pct:.15,label:'−15%'},'LASER20':{pct:.20,label:'−20% Laser'}};
 let activeCoupon=null;
 

@@ -1608,3 +1608,6 @@ html.rc-aperta{overflow:hidden}
 /* Bottone disabilitato: prima sembrava identico a uno attivo (trovato con
    design-system.html). Si vede che non risponde e non invita al clic. */
 :root[data-mode] .btn:is(:disabled,[aria-disabled="true"]){opacity:.45!important;cursor:not-allowed!important;box-shadow:none!important;transform:none!important;filter:grayscale(.35)}
+/* piè di pagina: dati aziendali e link alle pagine legali, leggibili e toccabili */
+:root[data-mode] footer #ftLegal{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+:root[data-mode] footer .ft-legale a{color:inherit;text-decoration:underline;text-underline-offset:3px;display:inline-block;padding:6px 0}

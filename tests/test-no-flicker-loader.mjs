@@ -5,6 +5,8 @@ const html=readFileSync('index.html','utf8');
 const js=readFileSync('assets/js/notte-oro-loader.js','utf8');
 const doc=new JSDOM(html).window.document;
 assert.ok(doc.querySelector('#loader.ingly-custom-loader[hidden]'), 'Splash hidden from initial HTML paint');
+assert.equal((html.match(/localStorage\.getItem\("ingly_mode"\)/g)||[]).length,1,'only one initial theme decision');
+assert.doesNotMatch(html,/var m="dark";try\{var saved=localStorage\.getItem/,'do not override system light with dark');
 assert.match(js,/if\(!forcePreview\(\)\)\s*\{[\s\S]*?overlay\.hidden=true/,'ordinary visits skip splash');
 assert.match(js,/overlay\.classList\.add\('gone','off','ingly-loader-finished'\)/);
 assert.match(js,/document\.documentElement\.classList\.remove\('ingly-loader-lock'\)/);

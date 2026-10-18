@@ -1097,3 +1097,130 @@
  :root[data-mode] #page-home .signature-hero .sub{font-size:1rem!important;line-height:1.55!important}
  :root[data-mode] #page-home .signature-hero .hero-ctas .btn{min-height:48px!important;flex:1 1 150px}
 }
+
+
+/* Sprint 15 / clean Material Finder: no giant table, seven tappable material
+   choices, visible operation chips, a single machine dropdown and one answer. */
+:root[data-mode] #page-macchine .ingly-compat-modern{
+ width:100%!important;max-width:1320px!important;
+ padding:clamp(18px,3vw,42px)!important;
+ background:var(--brand-surface)!important;
+}
+:root[data-mode] #page-macchine .ingly-compat-modern>h3{
+ margin:0!important;font:750 clamp(25px,3vw,38px)/1.15 var(--brand-text)!important;
+ letter-spacing:-.035em!important;
+}
+:root[data-mode] #page-macchine .ingly-compat-intro{
+ margin:12px 0 20px!important;max-width:72ch;
+}
+:root[data-mode] #page-macchine .ingly-finder-v2{
+ padding:0!important;border:0!important;background:transparent!important;margin:0!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-v2>h4{
+ font:650 clamp(17px,1.6vw,21px)/1.3 var(--brand-text)!important;
+ letter-spacing:-.02em!important;margin:0 0 6px!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-v2>p:first-of-type{margin:0 0 20px!important}
+:root[data-mode] #page-macchine .ingly-finder-native-state{
+ position:absolute!important;width:1px!important;height:1px!important;
+ overflow:hidden!important;clip-path:inset(50%)!important;
+ border:0!important;padding:0!important;opacity:0!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-controls--simple{
+ display:block!important;max-width:620px;margin:18px 0 24px!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-controls--simple label{font-size:13px!important}
+:root[data-mode] #page-macchine .ingly-finder-controls--simple select:not(.ingly-finder-native-state){
+ min-height:56px!important;border-radius:12px!important;
+ font-size:15px!important;border:1px solid var(--brand-border-strong)!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-label{
+ color:var(--brand-ink)!important;
+ font:700 13px/1.3 var(--brand-text)!important;
+ letter-spacing:.035em;margin:0 0 13px;
+}
+:root[data-mode] #page-macchine .ingly-finder-operation-buttons{
+ display:flex;flex-wrap:wrap;gap:9px;margin:0 0 26px;
+}
+:root[data-mode] #page-macchine .ingly-finder-operation{
+ appearance:none!important;cursor:pointer!important;min-height:44px;
+ border-radius:10px;border:1px solid var(--brand-border-strong)!important;
+ padding:10px 17px!important;background:var(--brand-glass)!important;
+ color:var(--brand-ink)!important;
+ font:650 13px/1.3 var(--brand-text)!important;
+ transition:border-color .18s ease,background .18s ease,transform .18s ease;
+}
+:root[data-mode] #page-macchine .ingly-finder-operation[aria-pressed="true"]{
+ border-color:var(--brand-gold)!important;
+ box-shadow:0 0 0 1px var(--brand-gold)!important;
+ background:var(--brand-surface)!important;color:var(--brand-ink)!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-tiles{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:10px;margin-bottom:26px;
+}
+:root[data-mode] #page-macchine .ingly-finder-tile{
+ appearance:none!important;cursor:pointer!important;min-width:0;
+ min-height:90px;border:1px solid var(--brand-border-strong)!important;
+ border-radius:12px;background:var(--brand-glass)!important;
+ color:var(--brand-ink)!important;padding:14px!important;
+ display:flex;flex-direction:column;justify-content:space-between;
+ gap:10px;text-align:left!important;position:relative;overflow:hidden;
+}
+:root[data-mode] #page-macchine .ingly-finder-tile strong{
+ color:var(--brand-ink)!important;font:700 13px/1.4 var(--brand-text)!important;
+ white-space:normal!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-tile small{
+ color:var(--brand-muted)!important;font:600 11px/1.3 var(--brand-text)!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-tile[data-status="yes"] small{
+ color:#368361!important;
+}
+:root[data-mode="dark"] #page-macchine .ingly-finder-tile[data-status="yes"] small{color:#8de8b7!important}
+:root[data-mode] #page-macchine .ingly-finder-tile[data-status="test"] small{
+ color:#9b722a!important;
+}
+:root[data-mode="dark"] #page-macchine .ingly-finder-tile[data-status="test"] small{color:#f1cb83!important}
+:root[data-mode] #page-macchine .ingly-finder-tile[aria-pressed="true"]{
+ border:2px solid var(--brand-gold)!important;
+ box-shadow:0 0 0 1px rgba(225,177,102,.18)!important;
+ background:var(--brand-surface)!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-operation:focus-visible,
+:root[data-mode] #page-macchine .ingly-finder-tile:focus-visible{
+ outline:3px solid var(--brand-gold)!important;outline-offset:3px!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-v2 .ingly-finder-result--simple{
+ padding:clamp(17px,2.8vw,30px)!important;
+ min-height:0!important;border-radius:13px!important;
+ border:1px solid var(--brand-border-strong)!important;
+ background:var(--brand-glass)!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-result--simple .ingly-finder-state{
+ margin:4px 0 10px!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-result--simple>p{
+ max-width:75ch;margin:7px 0 0!important;line-height:1.55!important;
+}
+:root[data-mode] #page-macchine .ingly-finder-v2>.ingly-finder-more{
+ margin:17px 0 6px!important;color:var(--brand-gold)!important;
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ :root[data-mode] #page-macchine .ingly-finder-tile:hover,
+ :root[data-mode] #page-macchine .ingly-finder-operation:hover{
+  border-color:var(--brand-gold)!important;transform:translateY(-2px)!important;
+ }
+}
+@media(max-width:850px){
+ :root[data-mode] #page-macchine .ingly-finder-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:590px){
+ :root[data-mode] #page-macchine .ingly-finder-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+ :root[data-mode] #page-macchine .ingly-finder-tile{min-height:82px;padding:12px!important}
+ :root[data-mode] #page-macchine .ingly-finder-operation{flex:1 1 120px}
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mode] #page-macchine .ingly-finder-operation,
+ :root[data-mode] #page-macchine .ingly-finder-tile{transition:none!important;transform:none!important}
+}

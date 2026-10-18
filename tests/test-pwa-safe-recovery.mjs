@@ -9,7 +9,7 @@ assert.ok(script,'Recovery must be inline in index.html, not delayed via JS cach
 async function run({names,registrations=[],alreadyRecovered=false}){
   const deleted=[],unregistered=[];
   let reloads=0;
-  const states=new Map(alreadyRecovered?[['ingly_cachefix_v17','1']]:[]);
+  const states=new Map(alreadyRecovered?[['ingly_cachefix_v18','1']]:[]);
   const origin='https://inglyum.github.io';
   const scope=origin+'/website-ingly-xtool/';
   const context={
@@ -38,7 +38,7 @@ async function run({names,registrations=[],alreadyRecovered=false}){
 const site='https://inglyum.github.io/website-ingly-xtool/';
 const unrelated='https://inglyum.github.io/other-pwa/';
 const result=await run({
- names:['unrelated-app-cache','ingly-v14-assets','ingly-v15-img','ingly-v14-data','ingly-v17-img','ingly-v17-unknown'],
+ names:['unrelated-app-cache','ingly-v14-assets','ingly-v15-img','ingly-v14-data','ingly-v18-img','ingly-v18-unknown'],
  registrations:[unrelated,site]
 });
 assert.deepEqual(result.deleted,['ingly-v14-assets','ingly-v15-img','ingly-v14-data'],
@@ -46,8 +46,8 @@ assert.deepEqual(result.deleted,['ingly-v14-assets','ingly-v15-img','ingly-v14-d
 assert.deepEqual(result.unregistered,[site],
   'Do not unregister other PWA service workers under the same origin');
 assert.equal(result.reloads,1);
-assert.equal(result.states.get('ingly_cachefix_v17'),'1');
-const clean=await run({names:['unrelated-app-cache','ingly-v17-assets'],registrations:[site]});
+assert.equal(result.states.get('ingly_cachefix_v18'),'1');
+const clean=await run({names:['unrelated-app-cache','ingly-v18-assets'],registrations:[site]});
 assert.equal(clean.deleted.length,0);
 assert.equal(clean.unregistered.length,0);
 assert.equal(clean.reloads,0);

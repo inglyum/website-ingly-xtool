@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const read=p=>readFileSync(p,'utf8');
 const storefront=read('index.html'),admin=read('admin.html');
 const foundation=read('assets/css/foundation-components.css');
@@ -9,10 +10,12 @@ const nav=read('assets/js/nav-mega.js'),products=read('assets/js/products.js');
 const tests=read('tests/sprint-01-journeys.mjs');
 const before=read('tests/sprint-01-compare.mjs');
 assert.ok(existsSync('scripts/audit-foundation-css.mjs'),'CSS inventory scanner');
-for(const [name,html,last] of [['storefront',storefront,'brand-system-2026.css'],['admin',admin,'admin-brand-system.css']]){
- const shared=html.indexOf('assets/css/foundation-components.css');
- const final=html.indexOf('assets/css/'+last);
- assert.ok(shared>0&&final>shared,'Component layer before final theme layer: '+name);
+/* vetrina: ordine reale dei sorgenti dentro assets/css/ingly.css */
+assert.ok(caricato('foundation-components.css')&&posizione('brand-system-2026.css')>posizione('foundation-components.css'),'Component layer before final theme layer: storefront');
+{
+ const shared=admin.indexOf('assets/css/foundation-components.css');
+ const final=admin.indexOf('assets/css/admin-brand-system.css');
+ assert.ok(shared>0&&final>shared,'Component layer before final theme layer: admin');
 }
 for(const component of ['site-header','primary-cta','site-footer','site-dialog']){
  assert.ok(storefront.includes('data-component="'+component+'"'),'Missing semantic component '+component);

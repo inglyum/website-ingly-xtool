@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const html=readFileSync('index.html','utf8');
 const css=readFileSync('assets/css/ingly-responsive-theme.css','utf8');
 const main=readFileSync('assets/js/main.js','utf8');
@@ -9,8 +10,8 @@ assert.ok(main.includes("mobile?.addEventListener('click',toggle)"),'Toggle mobi
 assert.ok(main.includes("if(!stored())set(e.matches?'light':'dark')"),'Tema di sistema non seguito');
 assert.ok(main.includes("if(persist){try{localStorage.setItem('ingly_mode',v)}"),'Preferenza salvata solo dopo scelta');
 assert.ok(main.includes("localStorage.setItem('ingly_mode',v)"),'Tema non persistito');
-assert.ok(html.includes('href="assets/css/ingly-responsive-theme.css"'),'CSS responsive mancante');
-assert.ok(html.indexOf('ingly-responsive-theme.css')>html.indexOf('ingly-josefin-studio.css'),'Il tema finale deve prevalere');
+assert.ok(caricato('ingly-responsive-theme.css'),'CSS responsive mancante');
+assert.ok(posizione('ingly-responsive-theme.css')>posizione('ingly-josefin-studio.css'),'Il tema finale deve prevalere');
 assert.ok(css.includes(':root[data-mode="light"]') && css.includes(':root[data-mode="dark"]'),'Token per entrambi i temi');
 for(const token of ['--ux-text','--ux-bg','--ux-border','--ux-grad','--ux-card']) assert.ok(css.includes(token),'Token mancante '+token);
 for(const width of ['820px','560px'])assert.ok(css.includes('max-width:'+width),'Breakpoint mancante '+width);

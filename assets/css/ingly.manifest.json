@@ -1,0 +1,27 @@
+{
+  "ordine": [
+    "assets/css/reset.css",
+    "assets/css/variables.css",
+    "assets/css/animations.css",
+    "assets/css/layout.css",
+    "assets/css/components.css",
+    "assets/css/nav-ia.css",
+    "assets/css/pages.css",
+    "assets/css/responsive.css",
+    "assets/css/premium-2026.css",
+    "assets/css/atelier-foundation.css",
+    "assets/css/notte-oro.css",
+    "assets/css/ingly-user-loader.css",
+    "assets/css/signature-showcase.css",
+    "assets/css/maison-reference.css",
+    "assets/css/ingly-studio-refinement.css",
+    "assets/css/ingly-josefin-studio.css",
+    "assets/css/ingly-responsive-theme.css",
+    "assets/css/foundation-components.css",
+    "assets/css/real-photography.css",
+    "assets/css/ingly-immersive-2026.css",
+    "assets/css/ux-fluidity-sprint16.css",
+    "assets/css/brand-system-2026.css"
+  ],
+  "v": "263198fb51"
+}

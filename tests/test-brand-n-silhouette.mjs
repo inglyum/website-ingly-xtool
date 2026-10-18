@@ -57,5 +57,5 @@ for(const [name,source] of [['site',html],['admin',admin]]){
 assert.match(read('assets/css/brand-system-2026.css'),/aspect-ratio:1597\/602!important/);
 assert.match(read('assets/css/admin-brand-system.css'),/aspect-ratio:1597\/602!important/);
 assert.ok(!/1660\/490/.test(read('assets/css/brand-system-2026.css')+read('assets/css/admin-brand-system.css')),'nessuna proporzione del vecchio logo');
-assert.match(read('sw.js'),/CACHE_VER\s*=\s*'ingly-v17'/,'PWA cache invalidated');
+assert.match(read('sw.js'),/CACHE_VER\s*=\s*'ingly-v18'/,'PWA cache invalidated');
 console.log('✔ INGLY logo originale: N con diagonale lunga, I separata, tre varianti identiche, cache aggiornata');

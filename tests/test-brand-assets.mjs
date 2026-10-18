@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const html=readFileSync('index.html','utf8');
 const css=readFileSync('assets/css/pages.css','utf8');
 const logo='assets/images/ingly-logo.svg';
@@ -17,5 +18,6 @@ console.log('✔ Brand: header, loader, footer e xTool Lab usano asset già nel 
 /* la versione dopo ?v= cambia a ogni rilascio del foglio (serve a far
    scaricare la copia nuova): si verifica che il foglio sia caricato, non il
    numero */
-assert.ok(/href="assets\/css\/brand-system-2026\.css\?v=[\w.-]+"/.test(html),'Design system unificato non caricato');
+/* dal bundle unico assets/css/ingly.css (versione nel manifest) */
+assert.ok(caricato('brand-system-2026.css'),'Design system unificato non caricato');
 assert.ok(html.includes('class="brand-lockup"'),'Wordmark e sottotitolo in header');

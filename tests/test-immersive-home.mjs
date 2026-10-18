@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const html=readFileSync('index.html','utf8');
 const css=readFileSync('assets/css/ingly-immersive-2026.css','utf8');
 const brand=readFileSync('assets/css/brand-system-2026.css','utf8');
@@ -14,7 +15,7 @@ assert.equal(doc.querySelector('script[src="assets/js/ingly-hero-scroll.js"]'),n
 assert.ok(hero.querySelector('#heroH1'),'Brand headline remains visible');
 assert.ok(hero.querySelector('a[href="personalizza"]'),'Primary CTA works');
 assert.ok(hero.querySelector('a[href="shop"]'),'Shop CTA remains');
-assert.ok(doc.querySelector('link[href="assets/css/ingly-immersive-2026.css"]'));
+assert.ok(caricato('ingly-immersive-2026.css'),'CSS immersivo nel bundle');
 assert.ok(!css.includes('.ingly-hero-sculpture__stage'),'Unused 3D styling removed');
 assert.ok(brand.includes('intentionally empty of visuals'),'Brand CSS protects text-only layout');
 assert.ok(css.includes('--ingly-continuous'),'Continuous surface retained');

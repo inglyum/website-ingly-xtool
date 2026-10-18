@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {JSDOM} from 'jsdom';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const rd=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const html=rd('index.html'),css=rd('assets/css/signature-showcase.css'),js=rd('assets/js/signature-showcase.js');
 const config=JSON.parse(rd('data/config.json'));
@@ -47,7 +48,7 @@ for(const phrase of ['function renderShowcaseStrip()','markDirty();renderShowcas
  assert(admin.includes(phrase),'CMS publishing and rerender linkage missing: '+phrase);
 }
 assert(fallback.includes('showcaseBenefits'),'Legacy data fallback out of sync');
-assert(html.includes('assets/css/signature-showcase.css')&&html.includes('assets/js/signature-showcase.js'));
+assert(caricato('signature-showcase.css')&&html.includes('assets/js/signature-showcase.js'));
 assert(css.includes('@media(max-width:450px)')&&css.includes('prefers-reduced-motion:reduce'));
 assert(html.includes('Hero deliberately text-only'),'Static branded hero must be explicit');
 assert(css.includes('--ss-night:#080e19')&&css.includes('--ss-gold:#e3ad62'),'Ink/gold identity missing');

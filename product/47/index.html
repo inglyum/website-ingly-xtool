@@ -114,7 +114,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
      rimuove il service worker e ricarica una volta sola. Aggiornare CACHE_WANT
      insieme a CACHE_VER in sw.js. -->
 <script>(function(){
-  var CACHE_WANT='ingly-v17', FLAG='ingly_cachefix_v17';
+  var CACHE_WANT='ingly-v18', FLAG='ingly_cachefix_v18';
   try{
     if(!window.caches||!('serviceWorker' in navigator))return;
     if(sessionStorage.getItem(FLAG))return;              /* una sola volta per sessione */
@@ -148,34 +148,14 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/reset.css">
-<link rel="stylesheet" href="assets/css/variables.css">
-<link rel="stylesheet" href="assets/css/animations.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/nav-ia.css">
-<link rel="stylesheet" href="assets/css/pages.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-<link rel="stylesheet" href="assets/css/premium-2026.css">
-<link rel="stylesheet" href="assets/css/atelier-foundation.css">
-<link rel="stylesheet" href="assets/css/notte-oro.css">
-<link rel="stylesheet" href="assets/css/ingly-user-loader.css">
+<!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
+<link rel="stylesheet" href="assets/css/ingly.css?v=263198fb51">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/signature-showcase.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/maison-reference.css">
-<link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
-<link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
-<link rel="stylesheet" href="assets/css/ingly-responsive-theme.css">
-<link rel="stylesheet" href="assets/css/foundation-components.css">
-<link rel="stylesheet" href="assets/css/real-photography.css">
-<link rel="stylesheet" href="assets/css/ingly-immersive-2026.css">
-<link rel="stylesheet" href="assets/css/ux-fluidity-sprint16.css">
-<link rel="stylesheet" href="assets/css/brand-system-2026.css?v=20261018laser2">
 
 <!-- Dati: caricati dal data-loader (JSON con versioning; fallback data/*.js su file://) -->
 <script defer src="assets/js/notte-oro-loader.js"></script>

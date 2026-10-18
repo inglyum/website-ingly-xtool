@@ -1,0 +1,3257 @@
+{
+  "summary": {
+    "stylesheets": 25,
+    "rulesApprox": 3971,
+    "repeated": 583,
+    "withDivergentProperties": 464,
+    "importantDeclarations": 2440
+  },
+  "loads": {
+    "index.html": [
+      "assets/css/reset.css",
+      "assets/css/variables.css",
+      "assets/css/animations.css",
+      "assets/css/layout.css",
+      "assets/css/components.css",
+      "assets/css/nav-ia.css",
+      "assets/css/pages.css",
+      "assets/css/responsive.css",
+      "assets/css/premium-2026.css",
+      "assets/css/atelier-foundation.css",
+      "assets/css/notte-oro.css",
+      "assets/css/ingly-user-loader.css",
+      "assets/css/signature-showcase.css",
+      "assets/css/maison-reference.css",
+      "assets/css/ingly-studio-refinement.css",
+      "assets/css/ingly-josefin-studio.css",
+      "assets/css/ingly-responsive-theme.css",
+      "assets/css/foundation-components.css",
+      "assets/css/real-photography.css",
+      "assets/css/ingly-immersive-2026.css",
+      "assets/css/ux-fluidity-sprint16.css",
+      "assets/css/brand-system-2026.css"
+    ],
+    "admin.html": [
+      "assets/css/admin-notte-oro.css",
+      "assets/css/admin-maison.css",
+      "assets/css/foundation-components.css",
+      "assets/css/admin-brand-system.css"
+    ]
+  },
+  "families": {
+    "header": [
+      {
+        "selector": ":root[data-mode] .ia-pannello",
+        "count": 5,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css"
+        ],
+        "conflicts": [
+          "background",
+          "color",
+          "box-shadow",
+          "border-radius",
+          "border"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav .brand>span",
+        "count": 4,
+        "files": [
+          "assets/css/notte-oro.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css",
+          "assets/css/ingly-josefin-studio.css"
+        ],
+        "conflicts": [
+          "font-family",
+          "font-weight",
+          "letter-spacing",
+          "font",
+          "color"
+        ]
+      },
+      {
+        "selector": ".ia-freccia",
+        "count": 3,
+        "files": [
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "width",
+          "height",
+          "color",
+          "border-radius",
+          "transition"
+        ]
+      },
+      {
+        "selector": ".brand img",
+        "count": 7,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/nav-ia.css",
+          "assets/css/pages.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "width",
+          "height",
+          "transition",
+          "filter"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav,\n:root[data-mode] .nav.scrolled",
+        "count": 2,
+        "files": [
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css"
+        ],
+        "conflicts": [
+          "background",
+          "box-shadow",
+          "backdrop-filter",
+          "-webkit-backdrop-filter"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] #nav.nav a.brand--identity > img.brand-symbol",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "width",
+          "height",
+          "min-width",
+          "max-width"
+        ]
+      },
+      {
+        "selector": ".ia-pannello",
+        "count": 6,
+        "files": [
+          "assets/css/nav-ia.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-top",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".ia-lista a",
+        "count": 5,
+        "files": [
+          "assets/css/nav-ia.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "border-radius",
+          "transition",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav",
+        "count": 5,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css"
+        ],
+        "conflicts": [
+          "box-shadow",
+          "padding-block",
+          "transition"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav .brand small",
+        "count": 4,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css",
+          "assets/css/ingly-josefin-studio.css"
+        ],
+        "conflicts": [
+          "letter-spacing",
+          "font",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark",
+        "count": 4,
+        "files": [
+          "assets/css/admin-brand-system.css"
+        ],
+        "conflicts": [
+          "width",
+          "max-height",
+          "aspect-ratio"
+        ]
+      },
+      {
+        "selector": ".ia-voce",
+        "count": 3,
+        "files": [
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "font-size",
+          "letter-spacing",
+          "padding"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .nav,:root[data-mode=\"light\"] .nav.scrolled",
+        "count": 3,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "box-shadow",
+          "border-bottom-color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .ia-pannello",
+        "count": 3,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color",
+          "border-top-color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav .brand img",
+        "count": 3,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css"
+        ],
+        "conflicts": [
+          "width",
+          "height",
+          "filter"
+        ]
+      },
+      {
+        "selector": ".ia-voce::after",
+        "count": 2,
+        "files": [
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "left",
+          "right",
+          "background"
+        ]
+      },
+      {
+        "selector": ".nav,.nav.scrolled",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-bottom",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".ia-velo",
+        "count": 5,
+        "files": [
+          "assets/css/nav-ia.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "backdrop-filter"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav .nav-in",
+        "count": 4,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "max-width",
+          "gap"
+        ]
+      },
+      {
+        "selector": ".nav",
+        "count": 3,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/components.css",
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "top",
+          "transition"
+        ]
+      },
+      {
+        "selector": ".brand",
+        "count": 3,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/pages.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "font-family",
+          "letter-spacing"
+        ]
+      },
+      {
+        "selector": ".mobile-menu",
+        "count": 3,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/nav-ia.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "justify-content",
+          "padding"
+        ]
+      },
+      {
+        "selector": ".ia-barra",
+        "count": 3,
+        "files": [
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "display",
+          "gap"
+        ]
+      },
+      {
+        "selector": ".ia-lista a:hover,.ia-lista a:focus-visible",
+        "count": 3,
+        "files": [
+          "assets/css/nav-ia.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ".nav-links a",
+        "count": 2,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/components.css"
+        ],
+        "conflicts": [
+          "font-size",
+          "padding"
+        ]
+      },
+      {
+        "selector": ".mobile-menu a",
+        "count": 2,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/components.css"
+        ],
+        "conflicts": [
+          "font-size",
+          "padding"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .ia-lista a:hover",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .ia-voce",
+        "count": 2,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css"
+        ],
+        "conflicts": [
+          "font",
+          "letter-spacing"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] #nav.nav .nav-in",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "min-height",
+          "max-height"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] #nav.nav a.brand--identity",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "gap",
+          "max-width"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] #nav.nav a.brand--identity > .brand-lockup",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "width",
+          "max-width"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .brand--admin>img",
+        "count": 2,
+        "files": [
+          "assets/css/admin-brand-system.css"
+        ],
+        "conflicts": [
+          "width",
+          "height"
+        ]
+      },
+      {
+        "selector": ".nav-links",
+        "count": 4,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/components.css",
+          "assets/css/responsive.css"
+        ],
+        "conflicts": [
+          "display"
+        ]
+      },
+      {
+        "selector": ".nav-in",
+        "count": 3,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "gap"
+        ]
+      },
+      {
+        "selector": ".ia-pannello-in",
+        "count": 3,
+        "files": [
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "gap"
+        ]
+      },
+      {
+        "selector": ".brand span",
+        "count": 3,
+        "files": [
+          "assets/css/responsive.css",
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .nav.atelier-nav-hidden",
+        "count": 3,
+        "files": [
+          "assets/css/atelier-foundation.css"
+        ],
+        "conflicts": [
+          "transform"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .brand-lockup .brand-wordmark",
+        "count": 3,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "width"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] #nav.nav .brand--identity .brand-lockup img.brand-wordmark",
+        "count": 3,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "max-height"
+        ]
+      },
+      {
+        "selector": ".brand:hover img",
+        "count": 2,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "transform"
+        ]
+      }
+    ],
+    "cta": [
+      {
+        "selector": ".btn",
+        "count": 6,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/components.css",
+          "assets/css/pages.css",
+          "assets/css/responsive.css",
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "font-family",
+          "font-size",
+          "padding",
+          "border-radius",
+          "transition",
+          "will-change",
+          "min-height",
+          "background",
+          "border",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] #page-home .signature-hero .hero-ctas .btn",
+        "count": 8,
+        "files": [
+          "assets/css/signature-showcase.css",
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "min-height",
+          "justify-content",
+          "padding",
+          "border-radius",
+          "flex"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta)",
+        "count": 5,
+        "files": [
+          "assets/css/notte-oro.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css",
+          "assets/css/ingly-responsive-theme.css",
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "background",
+          "color",
+          "border",
+          "box-shadow",
+          "border-radius"
+        ]
+      },
+      {
+        "selector": ".btn-blue",
+        "count": 4,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color",
+          "box-shadow",
+          "border-color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .btn-ghost",
+        "count": 4,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css"
+        ],
+        "conflicts": [
+          "background",
+          "border",
+          "color",
+          "backdrop-filter"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .btn",
+        "count": 3,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css"
+        ],
+        "conflicts": [
+          "border-radius",
+          "min-height",
+          "padding",
+          "font-weight"
+        ]
+      },
+      {
+        "selector": ".btn-primary,.btn.pri",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "color",
+          "background",
+          "border",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .btn-ghost",
+        "count": 5,
+        "files": [
+          "assets/css/variables.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "border-color",
+          "color",
+          "background"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .btn-ghost:hover",
+        "count": 5,
+        "files": [
+          "assets/css/variables.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "border-color",
+          "color",
+          "background"
+        ]
+      },
+      {
+        "selector": ".btn-ghost",
+        "count": 5,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "border-color",
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ".btn-ghost:hover",
+        "count": 5,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "border-color",
+          "color",
+          "background"
+        ]
+      },
+      {
+        "selector": ".btn-primary",
+        "count": 3,
+        "files": [
+          "assets/css/layout.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] :is(.btn-primary,.btn-blue)",
+        "count": 3,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/ingly-responsive-theme.css"
+        ],
+        "conflicts": [
+          "color",
+          "background",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".btn-primary:hover,.btn.pri:hover",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "color",
+          "background",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".btn.pri",
+        "count": 2,
+        "files": [
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "background",
+          "color",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta):hover",
+        "count": 4,
+        "files": [
+          "assets/css/notte-oro.css",
+          "assets/css/signature-showcase.css",
+          "assets/css/maison-reference.css",
+          "assets/css/ingly-responsive-theme.css"
+        ],
+        "conflicts": [
+          "filter",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".qadd",
+        "count": 3,
+        "files": [
+          "assets/css/components.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ".btn-primary:hover",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".news,.cta-band",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": "footer,.news,.cta-band",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] footer,:root[data-mode=\"light\"] .news,:root[data-mode=\"light\"] .cta-band",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] :is(.btn-ghost,.btn-secondary)",
+        "count": 2,
+        "files": [
+          "assets/css/ingly-responsive-theme.css",
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ".hero-ctas .btn",
+        "count": 3,
+        "files": [
+          "assets/css/pages.css",
+          "assets/css/premium-2026.css"
+        ],
+        "conflicts": [
+          "min-height"
+        ]
+      },
+      {
+        "selector": ".btn:hover",
+        "count": 3,
+        "files": [
+          "assets/css/pages.css",
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "border-color"
+        ]
+      },
+      {
+        "selector": ".pcard:hover .qadd",
+        "count": 2,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": [
+          "transform"
+        ]
+      },
+      {
+        "selector": ":root[data-theme] .btn-primary,\n:root[data-theme] .btn.pri",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "border-color"
+        ]
+      },
+      {
+        "selector": ".btn.pri:hover",
+        "count": 2,
+        "files": [
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "filter"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .top .btn",
+        "count": 2,
+        "files": [
+          "assets/css/admin-brand-system.css"
+        ],
+        "conflicts": [
+          "min-height"
+        ]
+      },
+      {
+        "selector": ".photo-queue-actions .btn",
+        "count": 2,
+        "files": [
+          "assets/css/admin-brand-system.css"
+        ],
+        "conflicts": [
+          "white-space"
+        ]
+      },
+      {
+        "selector": ".shop-coll .btn",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": []
+      },
+      {
+        "selector": ":root[data-mode] :is(.hero-ctas,.lab-ctas) .btn",
+        "count": 2,
+        "files": [
+          "assets/css/ingly-responsive-theme.css"
+        ],
+        "conflicts": []
+      },
+      {
+        "selector": ":root[data-mode] .ingly-parametric__buttons .btn",
+        "count": 2,
+        "files": [
+          "assets/css/ingly-responsive-theme.css"
+        ],
+        "conflicts": []
+      }
+    ],
+    "card": [
+      {
+        "selector": ":root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.pcard,.p-card,.bcard,.dcard,.ingly-material-tile,.ingly-biz-service):hover",
+        "count": 3,
+        "files": [
+          "assets/css/atelier-foundation.css"
+        ],
+        "conflicts": [
+          "border-color",
+          "box-shadow",
+          "transform"
+        ]
+      },
+      {
+        "selector": ".pcard,.dcard,.rcard,.matcard,.bcard:not(.bcard--photo):not(.bcard--gen)",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-color",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".card,.panel,.box,.modal,.drawer,.editor",
+        "count": 2,
+        "files": [
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "background",
+          "border",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".pcard:hover,.dcard:hover",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "box-shadow",
+          "border-color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.pcard,.p-card,.bcard,.dcard,.ingly-material-tile,.ingly-biz-service)",
+        "count": 2,
+        "files": [
+          "assets/css/atelier-foundation.css"
+        ],
+        "conflicts": [
+          "backdrop-filter",
+          "-webkit-backdrop-filter"
+        ]
+      },
+      {
+        "selector": ".dcard,.admin-launch",
+        "count": 2,
+        "files": [
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-color"
+        ]
+      },
+      {
+        "selector": ".pcard",
+        "count": 3,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": [
+          "transition"
+        ]
+      },
+      {
+        "selector": ".pcard:hover",
+        "count": 3,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": [
+          "transform"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .pcard",
+        "count": 2,
+        "files": [
+          "assets/css/variables.css"
+        ],
+        "conflicts": [
+          "background"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] .pcard:hover",
+        "count": 2,
+        "files": [
+          "assets/css/variables.css"
+        ],
+        "conflicts": [
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".pcard:hover .qadd",
+        "count": 2,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": [
+          "transform"
+        ]
+      },
+      {
+        "selector": ".dcard .dig-cop",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "height"
+        ]
+      },
+      {
+        "selector": ".card h3",
+        "count": 2,
+        "files": [
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "color"
+        ]
+      },
+      {
+        "selector": ".pcard .pimg",
+        "count": 2,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": []
+      },
+      {
+        "selector": ".pcard .pimg .art",
+        "count": 2,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": []
+      },
+      {
+        "selector": ".pcard:hover .pimg .art",
+        "count": 2,
+        "files": [
+          "assets/css/components.css"
+        ],
+        "conflicts": []
+      },
+      {
+        "selector": ".dcard",
+        "count": 2,
+        "files": [
+          "assets/css/components.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": []
+      }
+    ],
+    "modal": [
+      {
+        "selector": ".card,.panel,.box,.modal,.drawer,.editor",
+        "count": 2,
+        "files": [
+          "assets/css/admin-notte-oro.css",
+          "assets/css/admin-maison.css"
+        ],
+        "conflicts": [
+          "background",
+          "border",
+          "box-shadow"
+        ]
+      },
+      {
+        "selector": ".drawer",
+        "count": 2,
+        "files": [
+          "assets/css/components.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "box-shadow"
+        ]
+      }
+    ],
+    "footer": [
+      {
+        "selector": ":root[data-mode] .ft-cols",
+        "count": 8,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css"
+        ],
+        "conflicts": [
+          "grid-template-columns",
+          "gap"
+        ]
+      },
+      {
+        "selector": "footer",
+        "count": 5,
+        "files": [
+          "assets/css/components.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] footer",
+        "count": 4,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/maison-reference.css",
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] footer",
+        "count": 3,
+        "files": [
+          "assets/css/variables.css",
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-top-color"
+        ]
+      },
+      {
+        "selector": ".ft-cols",
+        "count": 3,
+        "files": [
+          "assets/css/nav-ia.css"
+        ],
+        "conflicts": [
+          "grid-template-columns",
+          "gap"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] footer .ft-cols",
+        "count": 3,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "gap",
+          "grid-template-columns"
+        ]
+      },
+      {
+        "selector": "footer,.news,.cta-band",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "border-color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] footer,:root[data-mode=\"light\"] .news,:root[data-mode=\"light\"] .cta-band",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "background",
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .ft-col--brand",
+        "count": 4,
+        "files": [
+          "assets/css/atelier-foundation.css",
+          "assets/css/notte-oro.css"
+        ],
+        "conflicts": [
+          "margin-bottom"
+        ]
+      },
+      {
+        "selector": "footer a:hover",
+        "count": 3,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] footer .ingly-footer-signature",
+        "count": 3,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "overflow"
+        ]
+      },
+      {
+        "selector": "footer a",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] footer a",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "color"
+        ]
+      },
+      {
+        "selector": ".ingly-footer-signature",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "gap"
+        ]
+      },
+      {
+        "selector": ".ingly-footer-signature img",
+        "count": 2,
+        "files": [
+          "assets/css/pages.css"
+        ],
+        "conflicts": [
+          "width"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .ft-closing",
+        "count": 2,
+        "files": [
+          "assets/css/atelier-foundation.css"
+        ],
+        "conflicts": [
+          "margin-bottom"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] footer a:hover",
+        "count": 2,
+        "files": [
+          "assets/css/notte-oro.css",
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "color"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] footer .ingly-footer-signature img",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "width"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] footer .ingly-footer-signature img.brand-wordmark",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "width"
+        ]
+      },
+      {
+        "selector": ":root[data-mode=\"light\"] footer .ingly-footer-signature img.brand-wordmark",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": [
+          "opacity"
+        ]
+      },
+      {
+        "selector": ":root[data-mode] .ft-col a",
+        "count": 2,
+        "files": [
+          "assets/css/atelier-foundation.css"
+        ],
+        "conflicts": []
+      },
+      {
+        "selector": ":root[data-mode] footer .ft-col--brand .brand--identity",
+        "count": 2,
+        "files": [
+          "assets/css/brand-system-2026.css"
+        ],
+        "conflicts": []
+      }
+    ]
+  },
+  "repeated": [
+    {
+      "selector": ":root[data-mode=\"light\"]",
+      "count": 22,
+      "files": [
+        "assets/css/variables.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css",
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/ingly-responsive-theme.css",
+        "assets/css/ingly-immersive-2026.css",
+        "assets/css/brand-system-2026.css",
+        "assets/css/admin-brand-system.css"
+      ],
+      "conflicts": [
+        "--ticker-bg",
+        "--ticker-card",
+        "--ticker-card-hover",
+        "--ticker-bordo",
+        "--ticker-nome",
+        "--ticker-sub",
+        "--ticker-badge-bg",
+        "--ticker-badge-testo",
+        "--ticker-badge-bordo",
+        "--paper",
+        "--white",
+        "--graphite",
+        "--gray",
+        "--ink",
+        "--ink-soft",
+        "--line",
+        "--blue",
+        "--blue-hi",
+        "--laser",
+        "--spark",
+        "--shadow-soft",
+        "--shadow-lift",
+        "--glass-dark",
+        "--bg-deep",
+        "--card-glass",
+        "--card-solid",
+        "--premium-gold",
+        "--premium-edge",
+        "--ingly-surface",
+        "--bg-card",
+        "--ingly-contrast",
+        "--ingly-metal",
+        "--at-bg",
+        "--at-bg-deep",
+        "--at-surface",
+        "--at-surface-raised",
+        "--at-frost",
+        "--at-text",
+        "--at-muted",
+        "--at-edge",
+        "--at-amber",
+        "--at-amber-text",
+        "--at-tech",
+        "--at-glow",
+        "--no-ink",
+        "--no-surface",
+        "--no-surface-2",
+        "--no-border",
+        "--no-paper",
+        "--no-muted",
+        "--no-gold",
+        "--no-gold-low",
+        "--no-gold-high",
+        "--no-on-gold",
+        "--no-glass",
+        "--no-title",
+        "--no-copy",
+        "--at-display",
+        "--at-body",
+        "--ma-bg",
+        "--ma-deep",
+        "--ma-panel",
+        "--ma-raised",
+        "--ma-text",
+        "--ma-muted",
+        "--ma-line",
+        "--ma-gold",
+        "--ma-gold-hi",
+        "--ma-glass",
+        "--ma-accent-shadow",
+        "--ux-bg",
+        "--ux-bg2",
+        "--ux-card",
+        "--ux-text",
+        "--ux-muted",
+        "--ux-border",
+        "--ux-primary",
+        "--ux-gold",
+        "--ux-glow1",
+        "--ux-glow2",
+        "--ux-elevation"
+      ]
+    },
+    {
+      "selector": ":root",
+      "count": 21,
+      "files": [
+        "assets/css/variables.css",
+        "assets/css/components.css",
+        "assets/css/nav-ia.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css",
+        "assets/css/atelier-foundation.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/ux-fluidity-sprint16.css",
+        "assets/css/admin-notte-oro.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "--ticker-bg",
+        "--ticker-card",
+        "--ticker-card-hover",
+        "--ticker-bordo",
+        "--ticker-nome",
+        "--ticker-sub",
+        "--ticker-badge-bg",
+        "--ticker-badge-testo",
+        "--ticker-badge-bordo",
+        "--radius",
+        "--radius-lg",
+        "--paper",
+        "--white",
+        "--ink",
+        "--graphite",
+        "--ink-soft",
+        "--gray",
+        "--line",
+        "--blue",
+        "--blue-hi",
+        "--laser",
+        "--spark",
+        "--shadow-soft",
+        "--shadow-lift",
+        "--elev-1",
+        "--elev-3",
+        "--fs-xs",
+        "--fs-sm",
+        "--fs-md",
+        "--fs-lg",
+        "--fs-xl",
+        "--fs-2xl",
+        "--fs-3xl",
+        "--dur-micro",
+        "--dur-ui",
+        "--dur-edit",
+        "--ingly-surface",
+        "--ingly-surface-raised",
+        "--ingly-gold",
+        "--premium-gold",
+        "--premium-edge",
+        "--ingly-gold-hi",
+        "--bg",
+        "--panel",
+        "--card",
+        "--card2",
+        "--soft",
+        "--mut",
+        "--accent",
+        "--ma-serif",
+        "--ma-body"
+      ]
+    },
+    {
+      "selector": ":root,:root[data-mode=\"dark\"]",
+      "count": 4,
+      "files": [
+        "assets/css/notte-oro.css",
+        "assets/css/ingly-responsive-theme.css",
+        "assets/css/brand-system-2026.css",
+        "assets/css/admin-brand-system.css"
+      ],
+      "conflicts": [
+        "--no-ink",
+        "--no-surface",
+        "--no-surface-2",
+        "--no-paper",
+        "--no-muted",
+        "--no-gold",
+        "--no-gold-high",
+        "--at-bg",
+        "--at-bg-deep",
+        "--at-surface",
+        "--at-surface-raised",
+        "--at-frost",
+        "--at-text",
+        "--at-muted",
+        "--at-edge",
+        "--at-tech",
+        "--paper",
+        "--ink",
+        "--ink-soft",
+        "--line",
+        "--blue",
+        "--laser",
+        "--bg-card",
+        "--card-solid",
+        "--ux-bg",
+        "--ux-bg2",
+        "--ux-card",
+        "--ux-text",
+        "--ux-muted",
+        "--ux-border",
+        "--ux-primary",
+        "--ux-gold",
+        "--ux-glow1",
+        "--ux-glow2",
+        "--ux-elevation",
+        "--ma-panel",
+        "--ma-raised",
+        "--ma-text",
+        "--ma-muted",
+        "--ma-line",
+        "--ma-gold",
+        "--ma-gold-hi"
+      ]
+    },
+    {
+      "selector": ":root[data-mode=\"dark\"]",
+      "count": 8,
+      "files": [
+        "assets/css/variables.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/ingly-immersive-2026.css"
+      ],
+      "conflicts": [
+        "--glass-dark",
+        "--bg-deep",
+        "--card-glass",
+        "--card-solid",
+        "--paper",
+        "--white",
+        "--graphite",
+        "--gray",
+        "--ink",
+        "--ink-soft",
+        "--line",
+        "--blue",
+        "--blue-hi",
+        "--laser",
+        "--spark"
+      ]
+    },
+    {
+      "selector": ":root,\n:root[data-mode=\"dark\"]",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css",
+        "assets/css/atelier-foundation.css"
+      ],
+      "conflicts": [
+        "--paper",
+        "--white",
+        "--graphite",
+        "--gray",
+        "--ink",
+        "--ink-soft",
+        "--line",
+        "--blue",
+        "--blue-hi",
+        "--laser",
+        "--spark",
+        "--glass-dark",
+        "--bg-deep",
+        "--card-glass",
+        "--card-solid"
+      ]
+    },
+    {
+      "selector": ".btn",
+      "count": 6,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/responsive.css",
+        "assets/css/admin-notte-oro.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "font-family",
+        "font-size",
+        "padding",
+        "border-radius",
+        "transition",
+        "will-change",
+        "min-height",
+        "background",
+        "border",
+        "color"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero #heroH1",
+      "count": 13,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/ingly-studio-refinement.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "color",
+        "font",
+        "letter-spacing",
+        "max-width",
+        "text-wrap",
+        "margin",
+        "padding",
+        "font-size",
+        "line-height"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero .hero-tag",
+      "count": 7,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "max-width",
+        "padding",
+        "background",
+        "color",
+        "font",
+        "letter-spacing",
+        "font-size",
+        "border-color"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero .hero-grid",
+      "count": 14,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "display",
+        "grid-template-columns",
+        "max-width",
+        "min-height",
+        "padding",
+        "align-items",
+        "gap"
+      ]
+    },
+    {
+      "selector": ".xtool-lab-feature",
+      "count": 4,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "grid-template-columns",
+        "margin",
+        "padding",
+        "border",
+        "border-radius",
+        "background",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".bcard .cnt",
+      "count": 3,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "top",
+        "right",
+        "font-size",
+        "background",
+        "padding",
+        "border-radius",
+        "color"
+      ]
+    },
+    {
+      "selector": ".pwa-install-bar",
+      "count": 3,
+      "files": [
+        "assets/css/components.css"
+      ],
+      "conflicts": [
+        "bottom",
+        "right",
+        "left",
+        "width",
+        "gap",
+        "padding",
+        "animation"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero .sub",
+      "count": 7,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "max-width",
+        "font",
+        "color",
+        "margin",
+        "font-size",
+        "line-height"
+      ]
+    },
+    {
+      "selector": "body::before",
+      "count": 5,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "z-index",
+        "background-image",
+        "background-size",
+        "mask-image",
+        "-webkit-mask-image",
+        "opacity"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero .hero-ctas .btn",
+      "count": 8,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "min-height",
+        "justify-content",
+        "padding",
+        "border-radius",
+        "flex"
+      ]
+    },
+    {
+      "selector": ".hero-tag",
+      "count": 5,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "background",
+        "backdrop-filter",
+        "border",
+        "letter-spacing",
+        "border-color"
+      ]
+    },
+    {
+      "selector": ".bcard",
+      "count": 5,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-radius",
+        "padding",
+        "border",
+        "transition",
+        "will-change"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .ia-pannello",
+      "count": 5,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "box-shadow",
+        "border-radius",
+        "border"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] :is(.btn-primary,.btn-blue,.atelier-nav-cta)",
+      "count": 5,
+      "files": [
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/ingly-responsive-theme.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "border",
+        "box-shadow",
+        "border-radius"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .hero.signature-hero .signature-hero-media",
+      "count": 5,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "left",
+        "bottom",
+        "width",
+        "height",
+        "background"
+      ]
+    },
+    {
+      "selector": ".searchbar",
+      "count": 4,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/ux-fluidity-sprint16.css"
+      ],
+      "conflicts": [
+        "background",
+        "border",
+        "border-radius",
+        "transition",
+        "min-height"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .nav .brand>span",
+      "count": 4,
+      "files": [
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/ingly-josefin-studio.css"
+      ],
+      "conflicts": [
+        "font-family",
+        "font-weight",
+        "letter-spacing",
+        "font",
+        "color"
+      ]
+    },
+    {
+      "selector": ".ia-freccia",
+      "count": 3,
+      "files": [
+        "assets/css/nav-ia.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "color",
+        "border-radius",
+        "transition"
+      ]
+    },
+    {
+      "selector": "0%",
+      "count": 15,
+      "files": [
+        "assets/css/animations.css",
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "left",
+        "opacity",
+        "transform",
+        "background-position"
+      ]
+    },
+    {
+      "selector": "100%",
+      "count": 15,
+      "files": [
+        "assets/css/animations.css",
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "left",
+        "opacity",
+        "transform",
+        "background-position"
+      ]
+    },
+    {
+      "selector": "body",
+      "count": 11,
+      "files": [
+        "assets/css/reset.css",
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css",
+        "assets/css/ux-fluidity-sprint16.css",
+        "assets/css/admin-notte-oro.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "font-family",
+        "background",
+        "color",
+        "line-height"
+      ]
+    },
+    {
+      "selector": ".bento",
+      "count": 9,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/responsive.css"
+      ],
+      "conflicts": [
+        "grid-template-columns",
+        "grid-auto-rows",
+        "gap",
+        "margin-top"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] body",
+      "count": 9,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/ingly-responsive-theme.css",
+        "assets/css/brand-system-2026.css",
+        "assets/css/admin-brand-system.css"
+      ],
+      "conflicts": [
+        "font-family",
+        "color",
+        "background",
+        "background-attachment"
+      ]
+    },
+    {
+      "selector": "#heroH1",
+      "count": 8,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "max-width",
+        "font-size",
+        "line-height",
+        "letter-spacing"
+      ]
+    },
+    {
+      "selector": ".brand img",
+      "count": 7,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/nav-ia.css",
+        "assets/css/pages.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "transition",
+        "filter"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-benefit",
+      "count": 6,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "gap",
+        "padding",
+        "color",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".mcard",
+      "count": 5,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-radius",
+        "background",
+        "border-color",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .topbar",
+      "count": 5,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-bottom",
+        "min-height",
+        "color"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .atelier-mobile-dock",
+      "count": 5,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/ingly-responsive-theme.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "grid-template-columns",
+        "background",
+        "box-shadow",
+        "padding-bottom"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero .hero-ctas",
+      "count": 5,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "display",
+        "gap",
+        "flex-wrap",
+        "align-items"
+      ]
+    },
+    {
+      "selector": ".btn-blue",
+      "count": 4,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "box-shadow",
+        "border-color"
+      ]
+    },
+    {
+      "selector": ".bcard .ic",
+      "count": 4,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "top",
+        "left",
+        "font-size",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".xtool-lab-art img",
+      "count": 4,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "width",
+        "max-height",
+        "object-fit",
+        "min-height"
+      ]
+    },
+    {
+      "selector": ".hero-image-note",
+      "count": 4,
+      "files": [
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "right",
+        "bottom",
+        "font-size",
+        "line-height"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .btn-ghost",
+      "count": 4,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "background",
+        "border",
+        "color",
+        "backdrop-filter"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .hero.signature-hero::after",
+      "count": 4,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "background",
+        "opacity",
+        "pointer-events",
+        "display"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .ingly-hero-steps",
+      "count": 4,
+      "files": [
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "display",
+        "gap",
+        "min-width",
+        "padding"
+      ]
+    },
+    {
+      "selector": ".step:hover .n",
+      "count": 3,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "border-color",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".mac-foto img",
+      "count": 3,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "aspect-ratio",
+        "object-fit",
+        "background",
+        "min-height"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .btn",
+      "count": 3,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "border-radius",
+        "min-height",
+        "padding",
+        "font-weight"
+      ]
+    },
+    {
+      "selector": ".reveal-blur",
+      "count": 2,
+      "files": [
+        "assets/css/animations.css"
+      ],
+      "conflicts": [
+        "opacity",
+        "filter",
+        "transform",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".searchbar svg",
+      "count": 2,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/ux-fluidity-sprint16.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "stroke",
+        "stroke-width"
+      ]
+    },
+    {
+      "selector": ".dr-freccia",
+      "count": 2,
+      "files": [
+        "assets/css/nav-ia.css"
+      ],
+      "conflicts": [
+        "flex",
+        "border-radius",
+        "color",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".tabs .tab.active,.tab.active,.filter-chip.active,.cfg-chip.on",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-color",
+        "color",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".btn-primary,.btn.pri",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "color",
+        "background",
+        "border",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": "#loader.ingly-custom-loader .ingly-loader-slogan span",
+      "count": 2,
+      "files": [
+        "assets/css/ingly-user-loader.css"
+      ],
+      "conflicts": [
+        "opacity",
+        "filter",
+        "transform",
+        "transition"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .nav,\n:root[data-mode] .nav.scrolled",
+      "count": 2,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "background",
+        "box-shadow",
+        "backdrop-filter",
+        "-webkit-backdrop-filter"
+      ]
+    },
+    {
+      "selector": "#exitPopup #exitPopProdImg",
+      "count": 2,
+      "files": [
+        "assets/css/ingly-josefin-studio.css"
+      ],
+      "conflicts": [
+        "width",
+        "max-height",
+        "min-height",
+        "height"
+      ]
+    },
+    {
+      "selector": ".ingly-machine-photo__source",
+      "count": 2,
+      "files": [
+        "assets/css/real-photography.css"
+      ],
+      "conflicts": [
+        "left",
+        "top",
+        "font-size",
+        "padding"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #nav.nav a.brand--identity > img.brand-symbol",
+      "count": 2,
+      "files": [
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "min-width",
+        "max-width"
+      ]
+    },
+    {
+      "selector": "to",
+      "count": 28,
+      "files": [
+        "assets/css/animations.css",
+        "assets/css/components.css",
+        "assets/css/notte-oro.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "opacity",
+        "transform",
+        "filter"
+      ]
+    },
+    {
+      "selector": "from",
+      "count": 18,
+      "files": [
+        "assets/css/animations.css",
+        "assets/css/components.css",
+        "assets/css/notte-oro.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "opacity",
+        "transform",
+        "filter"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .hero.signature-hero",
+      "count": 10,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "min-height",
+        "background",
+        "color"
+      ]
+    },
+    {
+      "selector": ".hero-visual",
+      "count": 9,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css",
+        "assets/css/responsive.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "height",
+        "margin-top",
+        "border-radius"
+      ]
+    },
+    {
+      "selector": ".hero",
+      "count": 8,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "min-height",
+        "padding-top",
+        "overflow"
+      ]
+    },
+    {
+      "selector": ".hero-ctas",
+      "count": 8,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css",
+        "assets/css/responsive.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "display",
+        "gap",
+        "grid-template-columns"
+      ]
+    },
+    {
+      "selector": ".hero-bg .blob",
+      "count": 7,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "transition",
+        "filter",
+        "opacity"
+      ]
+    },
+    {
+      "selector": ".ia-pannello",
+      "count": 6,
+      "files": [
+        "assets/css/nav-ia.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-top",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .atelier-nav-cta",
+      "count": 6,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "display",
+        "border-radius",
+        "font-size"
+      ]
+    },
+    {
+      "selector": ":root[data-mode=\"light\"] .btn-ghost",
+      "count": 5,
+      "files": [
+        "assets/css/variables.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-color",
+        "color",
+        "background"
+      ]
+    },
+    {
+      "selector": ":root[data-mode=\"light\"] .btn-ghost:hover",
+      "count": 5,
+      "files": [
+        "assets/css/variables.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-color",
+        "color",
+        "background"
+      ]
+    },
+    {
+      "selector": ".btn-ghost",
+      "count": 5,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-color",
+        "background",
+        "color"
+      ]
+    },
+    {
+      "selector": ".topbar",
+      "count": 5,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "border-bottom"
+      ]
+    },
+    {
+      "selector": ".ia-lista a",
+      "count": 5,
+      "files": [
+        "assets/css/nav-ia.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-radius",
+        "transition",
+        "color"
+      ]
+    },
+    {
+      "selector": ".btn-ghost:hover",
+      "count": 5,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-color",
+        "color",
+        "background"
+      ]
+    },
+    {
+      "selector": ".hero .sub",
+      "count": 5,
+      "files": [
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "max-width",
+        "line-height",
+        "font-size"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .nav",
+      "count": 5,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "box-shadow",
+        "padding-block",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".reveal",
+      "count": 4,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/components.css",
+        "assets/css/responsive.css"
+      ],
+      "conflicts": [
+        "opacity",
+        "transform",
+        "transition-delay"
+      ]
+    },
+    {
+      "selector": ".filters",
+      "count": 4,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/responsive.css"
+      ],
+      "conflicts": [
+        "position",
+        "display",
+        "gap"
+      ]
+    },
+    {
+      "selector": ".ingly-material-heading h2",
+      "count": 4,
+      "files": [
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "max-width",
+        "margin",
+        "font-size"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .hero-visual .coin::after",
+      "count": 4,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "background",
+        "transition",
+        "display"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .nav .brand small",
+      "count": 4,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/ingly-josefin-studio.css"
+      ],
+      "conflicts": [
+        "letter-spacing",
+        "font",
+        "color"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-benefit__icon",
+      "count": 4,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "color"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .brand--admin .brand-admin-lockup img.brand-wordmark",
+      "count": 4,
+      "files": [
+        "assets/css/admin-brand-system.css"
+      ],
+      "conflicts": [
+        "width",
+        "max-height",
+        "aspect-ratio"
+      ]
+    },
+    {
+      "selector": ".btn-primary",
+      "count": 3,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".hero-tag .dot",
+      "count": 3,
+      "files": [
+        "assets/css/layout.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "box-shadow",
+        "animation"
+      ]
+    },
+    {
+      "selector": ".mcard .spec i",
+      "count": 3,
+      "files": [
+        "assets/css/components.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "color",
+        "border-color",
+        "background"
+      ]
+    },
+    {
+      "selector": ".wa-fab",
+      "count": 3,
+      "files": [
+        "assets/css/components.css"
+      ],
+      "conflicts": [
+        "right",
+        "bottom",
+        "padding"
+      ]
+    },
+    {
+      "selector": ".promo",
+      "count": 3,
+      "files": [
+        "assets/css/components.css"
+      ],
+      "conflicts": [
+        "gap",
+        "padding",
+        "font-size"
+      ]
+    },
+    {
+      "selector": ".ia-voce",
+      "count": 3,
+      "files": [
+        "assets/css/nav-ia.css"
+      ],
+      "conflicts": [
+        "font-size",
+        "letter-spacing",
+        "padding"
+      ]
+    },
+    {
+      "selector": ".hero-visual .coin img",
+      "count": 3,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "filter"
+      ]
+    },
+    {
+      "selector": ":root[data-mode=\"light\"] .nav,:root[data-mode=\"light\"] .nav.scrolled",
+      "count": 3,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "box-shadow",
+        "border-bottom-color"
+      ]
+    },
+    {
+      "selector": ":root[data-mode=\"light\"] .ia-pannello",
+      "count": 3,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "border-top-color"
+      ]
+    },
+    {
+      "selector": ".hero h1,#heroH1",
+      "count": 3,
+      "files": [
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "line-height",
+        "letter-spacing",
+        "font-size"
+      ]
+    },
+    {
+      "selector": ".signature-b2b-visual",
+      "count": 3,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "grid-column",
+        "grid-row",
+        "min-height"
+      ]
+    },
+    {
+      "selector": ".ingly-service-centre",
+      "count": 3,
+      "files": [
+        "assets/css/premium-2026.css"
+      ],
+      "conflicts": [
+        "grid-template-columns",
+        "gap",
+        "padding"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] :is(.btn-primary,.btn-blue)",
+      "count": 3,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/ingly-responsive-theme.css"
+      ],
+      "conflicts": [
+        "color",
+        "background",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] :is(.rcard,.vert-card,.journey-card,.lab-card,.mcard,.pcard,.p-card,.bcard,.dcard,.ingly-material-tile,.ingly-biz-service):hover",
+      "count": 3,
+      "files": [
+        "assets/css/atelier-foundation.css"
+      ],
+      "conflicts": [
+        "border-color",
+        "box-shadow",
+        "transform"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .tech-ticker .ttcard",
+      "count": 3,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "min-height",
+        "padding",
+        "border"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] .nav .brand img",
+      "count": 3,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css"
+      ],
+      "conflicts": [
+        "width",
+        "height",
+        "filter"
+      ]
+    },
+    {
+      "selector": ".atelier-configurator__sample",
+      "count": 3,
+      "files": [
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "width",
+        "transform",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".ingly-machine-photo--lead",
+      "count": 3,
+      "files": [
+        "assets/css/real-photography.css"
+      ],
+      "conflicts": [
+        "grid-column",
+        "grid-row",
+        "flex-direction"
+      ]
+    },
+    {
+      "selector": ".ingly-machine-photo--lead .ingly-machine-photo__media",
+      "count": 3,
+      "files": [
+        "assets/css/real-photography.css"
+      ],
+      "conflicts": [
+        "aspect-ratio",
+        "min-height",
+        "flex"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #techTicker .ttcard",
+      "count": 3,
+      "files": [
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "min-width",
+        "height",
+        "padding"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-macchine .ingly-m2-duo__intro",
+      "count": 3,
+      "files": [
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "display",
+        "align-items",
+        "grid-template-columns"
+      ]
+    },
+    {
+      "selector": ".maison-admin-theme-option",
+      "count": 3,
+      "files": [
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "min-height",
+        "padding",
+        "transition"
+      ]
+    },
+    {
+      "selector": ".photo-queue-row",
+      "count": 3,
+      "files": [
+        "assets/css/admin-brand-system.css"
+      ],
+      "conflicts": [
+        "grid-template-columns",
+        "gap",
+        "padding"
+      ]
+    },
+    {
+      "selector": ".ia-voce::after",
+      "count": 2,
+      "files": [
+        "assets/css/nav-ia.css"
+      ],
+      "conflicts": [
+        "left",
+        "right",
+        "background"
+      ]
+    },
+    {
+      "selector": ".mac-foto",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "border-radius",
+        "border",
+        "background"
+      ]
+    },
+    {
+      "selector": ".nav,.nav.scrolled",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-bottom",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".sec.dark,.tech-ticker",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-top",
+        "border-bottom"
+      ]
+    },
+    {
+      "selector": ".pcard,.dcard,.rcard,.matcard,.bcard:not(.bcard--photo):not(.bcard--gen)",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-color",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".tabs .tab,.tab,.filter-chip,.cfg-chip",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "background",
+        "border-color",
+        "color"
+      ]
+    },
+    {
+      "selector": ".btn-primary:hover,.btn.pri:hover",
+      "count": 2,
+      "files": [
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "color",
+        "background",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .hero-visual",
+      "count": 2,
+      "files": [
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css"
+      ],
+      "conflicts": [
+        "border-radius",
+        "border",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": "#loader.ingly-custom-loader .ingly-loader-track",
+      "count": 2,
+      "files": [
+        "assets/css/ingly-user-loader.css"
+      ],
+      "conflicts": [
+        "height",
+        "background",
+        "border"
+      ]
+    },
+    {
+      "selector": "#loader.ingly-custom-loader .ingly-loader-track i",
+      "count": 2,
+      "files": [
+        "assets/css/ingly-user-loader.css"
+      ],
+      "conflicts": [
+        "height",
+        "background",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero #heroH1 .engrave,\n:root[data-mode] #page-home .signature-hero #heroH1 .laserword",
+      "count": 2,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "color",
+        "-webkit-text-fill-color",
+        "font-family"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] :is(input:not([type=checkbox]):not([type=radio]),textarea,select)",
+      "count": 2,
+      "files": [
+        "assets/css/brand-system-2026.css",
+        "assets/css/admin-brand-system.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "border-color"
+      ]
+    },
+    {
+      "selector": ".card,.panel,.box,.modal,.drawer,.editor",
+      "count": 2,
+      "files": [
+        "assets/css/admin-notte-oro.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "background",
+        "border",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ".btn.pri",
+      "count": 2,
+      "files": [
+        "assets/css/admin-notte-oro.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "background",
+        "color",
+        "box-shadow"
+      ]
+    },
+    {
+      "selector": ":root[data-mode] #page-home .signature-hero-copy",
+      "count": 11,
+      "files": [
+        "assets/css/signature-showcase.css",
+        "assets/css/maison-reference.css",
+        "assets/css/brand-system-2026.css"
+      ],
+      "conflicts": [
+        "width",
+        "max-width"
+      ]
+    },
+    {
+      "selector": "html",
+      "count": 10,
+      "files": [
+        "assets/css/reset.css",
+        "assets/css/components.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css",
+        "assets/css/atelier-foundation.css",
+        "assets/css/notte-oro.css",
+        "assets/css/ux-fluidity-sprint16.css",
+        "assets/css/admin-notte-oro.css",
+        "assets/css/admin-maison.css"
+      ],
+      "conflicts": [
+        "scroll-behavior",
+        "scroll-padding-top"
+      ]
+    },
+    {
+      "selector": ":root[data-mode=\"light\"] body",
+      "count": 9,
+      "files": [
+        "assets/css/variables.css",
+        "assets/css/pages.css",
+        "assets/css/premium-2026.css",
+        "assets/css/ingly-responsive-theme.css"
+      ],
+      "conflicts": [
+        "background",
+        "color"
+      ]
+    },
+    {
+      "selector": "50%",
+      "count": 8,
+      "files": [
+        "assets/css/animations.css",
+        "assets/css/pages.css"
+      ],
+      "conflicts": [
+        "margin-top",
+        "background-position"
+      ]
+    }
+  ],
+  "limitations": "Approximate parser: nested media, :is and specificity require computed-style verification"
+}

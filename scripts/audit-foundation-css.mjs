@@ -1,6 +1,8 @@
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 const files=['index.html','admin.html'];const loads={};const sheet=new Set();
-for(const file of files){const html=readFileSync(file,'utf8');loads[file]=[...html.matchAll(/href="(assets\/css\/[^"]+\.css)"/g)].map(m=>m[1]);for(const p of loads[file])sheet.add(p)}
+/* la vetrina carica un solo bundle (assets/css/ingly.css): i sorgenti, in ordine, stanno nel manifest */
+const manifestoCss=JSON.parse(readFileSync('assets/css/ingly.manifest.json','utf8')).ordine;
+for(const file of files){const html=readFileSync(file,'utf8');loads[file]=[...html.matchAll(/href="(assets\/css\/[^"?]+\.css)(?:\?[^"]*)?"/g)].map(m=>m[1]).flatMap(p=>p==='assets/css/ingly.css'?manifestoCss:[p]);for(const p of loads[file])sheet.add(p)}
 const groups=new Map();let total=0,important=0;
 for(const path of sheet){
  let css=readFileSync(path,'utf8').replace(/\/\*[\s\S]*?\*\//g,'');let re=/([^{}]+)\{([^{}]*)\}/g,m;

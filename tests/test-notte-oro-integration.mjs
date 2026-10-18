@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 const rd=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 const css=rd('assets/css/notte-oro.css'),html=rd('index.html'),config=JSON.parse(rd('data/config.json'));
 const loader=rd('assets/js/notte-oro-loader.js'),ui=rd('assets/js/notte-oro-ui.js');
@@ -10,7 +11,7 @@ for(const id of ['loader','atelierLoaderSkip','atelierLoaderFill','atelierLoader
  assert(html.includes('id="'+id+'"'),'Missing DOM anchor '+id);
 }
 for(const file of ['notte-oro.css','notte-oro-loader.js','notte-oro-ui.js']){
- assert(html.includes('assets/'+(file.endsWith('.css')?'css/':'js/')+file),'Missing source '+file);
+ assert(file.endsWith('.css')?caricato(file):html.includes('assets/js/'+file),'Missing source '+file);
 }
 assert(css.indexOf('PHASE 8')>0 && css.indexOf('PHASE 7')>0 && css.indexOf('PHASE 6')>0,'Phased components missing');
 assert(loader.includes('sessionStorage.getItem') && loader.includes('sessionStorage.setItem'),'Only first session may show loader');

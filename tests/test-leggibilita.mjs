@@ -3,13 +3,14 @@
    ultimo. Se qualcuno lo sposta o lo toglie, i testi tornano invisibili
    (1,00:1 sulle card con foto, 1,08:1 sul bottone xTOOL). */
 import { readFileSync } from 'fs';
+import { FOGLI, caricato, posizione, ultimo, bundleCaricato } from './_fogli-css.mjs';
 let pass = 0, fail = 0;
 const check = (n, c, x = '') => { if (c) { pass++; console.log('  ✔ ' + n) } else { fail++; console.log('  ✖ ' + n + (x ? ' → ' + x : '')) } };
 const idx = readFileSync('index.html', 'utf8');
 /* le correzioni stanno nella sezione finale del foglio del marchio, che per
    regola del progetto è l'ultimo caricato */
 const css = readFileSync('assets/css/brand-system-2026.css', 'utf8');
-const fogli = [...idx.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"?]+)/g)].map(m => m[1]).filter(u => !/^https?:/.test(u));
+const fogli = bundleCaricato ? FOGLI : []; /* ordine reale dentro assets/css/ingly.css */
 check('il foglio del marchio (con le correzioni) è l\'ultimo caricato', fogli[fogli.length - 1] === 'assets/css/brand-system-2026.css', fogli.slice(-2).join(' , '));
 check('contiene la sezione leggibilità', /INGLY — LEGGIBILITÀ \(WCAG 2\.2 AA\)/.test(css));
 check('le card con foto hanno un fondo scuro sotto il testo bianco', /\.bcard\.bcard--photo/.test(css) && /\.scat\.scat--photo/.test(css) && /#111318!important/.test(css));

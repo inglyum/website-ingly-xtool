@@ -295,6 +295,8 @@ export function renderMacchine(L) {
       alt:foto.alt||{it:LAB.lingua(m.n,'it'),en:LAB.lingua(m.n,'en')}};
   });
   const m2=LAB.catalogo(d).find(x=>x.id==='m2'&&Array.isArray(x.variantiLaser));
+  const m2Photo=photoIndex.get('m2');
+  const m2Src=m2Photo&&/^https:\/\/cdn\.shopify\.com\//.test(m2Photo.origine||'')?m2Photo.origine:'';
   const famiglie=[...new Set(informative.flatMap(m=>m.famiglie||[]))].sort();
   const techOptions=famiglie.map(t=>'<option value="'+esc(t)+'">'+esc(t.toUpperCase())+'</option>').join('');
   const elencoMachine=(titolo,v)=>{const items=LAB.listaLingua(v,L);return items.length?
@@ -312,6 +314,11 @@ export function renderMacchine(L) {
             <h3 id="inglyM2ChoicesHeading">${t2('Due varianti laser, una scelta chiara.','Two laser modules, one clear choice.',L)}</h3>
             <p>${t2('Confronta i moduli diodo della M2. Scheda tecnica informativa: macchina non dichiarata presente in officina o disponibile per demo.','Compare M2 diode modules. Informational technical reference: not claimed to be owned or available for demo.',L)}</p>
           </div>
+          ${m2Src ? `<figure class="ingly-m2-duo__photo">
+            <img src="${esc(m2Src)}" width="620" height="350" loading="lazy" decoding="async"
+              alt="${esc(LAB.lingua(m2Photo.alt,L))}">
+            <figcaption>${t2('Foto del produttore xTool · M2','xTool manufacturer photo · M2',L)}</figcaption>
+          </figure>` : ''}
           <a class="ingly-m2-duo__link" href="${esc(via('/macchine/m2'))}">${t2('Scheda M2 completa','Full M2 guide',L)} ↗</a>
         </div>
         <div class="ingly-m2-duo__grid">

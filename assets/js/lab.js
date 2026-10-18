@@ -563,6 +563,14 @@ export function corpoMacchina(D, m, opt = {}) {
   r.push('<p>' + esc(m.inOfficina
     ? (L === 'it' ? 'Questa macchina è in officina da noi e lavora tutti i giorni.' : 'This machine is in our workshop and runs every day.')
     : (L === 'it' ? 'Su questo modello diamo assistenza, riparazione e ricambi come centro ufficiale xTool.' : 'We provide service, repair and parts for this model as an official xTool centre.')) + '</p>');
+  const machinePhoto=fotoMacchina(D,m.id);
+  if(machinePhoto.foto && /^https:\/\/cdn\.shopify\.com\//.test(machinePhoto.foto)){
+    r.push('<figure class="ingly-machine-official-photo"><img src="'+esc(machinePhoto.foto)+
+      '" alt="'+esc(lingua(machinePhoto.alt,L)||lingua(m.n,L))+
+      '" width="620" height="350" loading="lazy"><figcaption>'+
+      esc(L==='it'?'Immagine del produttore xTool':'Image courtesy of manufacturer xTool')+
+      '</figcaption></figure>');
+  }
   if (m.specs && m.specs.sorgente) {
     r.push('<h2>' + esc(L === 'it' ? 'Specifiche' : 'Specifications') + '</h2><ul><li>' + esc(m.specs.sorgente) + '</li>' +
       (m.specs.piano ? '<li>' + esc(m.specs.piano.x + ' × ' + m.specs.piano.y + ' ' + (m.specs.piano.unita || 'mm')) + '</li>' : '') + '</ul>');

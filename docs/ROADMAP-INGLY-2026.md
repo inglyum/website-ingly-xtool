@@ -315,3 +315,21 @@ Protocollo ripetibile manuale: [ACCESSIBILITY-MANUAL-QA.md](ACCESSIBILITY-MANUAL
 
 ### Gate
 - Suite `npm test`, QA Chromium, audit layout WCAG, build e deploy GitHub Pages necessari per pubblicare.
+
+## Sprint 15 — 18 ottobre 2026 · Hero premium e materiali facili da capire
+
+- **Hero INGLY:** tolto il ritorno a capo forzato tra headline e «Con precisione». Titolo ora breve con «idee.» dorato, supporto testo in entrambe le lingue, altezza più contenuta e pulsanti conversione raggiungibili nel primo viewport. Aggiunto un percorso editoriale in 3 punti (Immaginiamo → Progettiamo → Realizziamo); nessuna foto o animazione 3D nella Hero. Tema chiaro/scuro con background continuo e bagliori statici minimali.
+- **Macchina × materiale:** eliminata la vecchia tabella gigante (anche dalla vista avanzata). Il solo modulo centrale diventa intuitivo: scegli macchina, clicchi tipo di lavorazione, selezioni una tessera materiale, ricevi un unico esito testuale con fonte e avvertenze di sicurezza. Sette materiali, quattro operazioni, supporto mouse/tocco/tastiera e mobile. Specifiche di incisione/taglio non dedotte arbitrariamente.
+- **xTool M2 10W/20W:** immagine reale del modello visualizzata nelle schede del Lab, caricata dalla CDN Shopify del produttore, con provenienza registrata nel manifest e attribuzione. Il telaio mostrato è il medesimo per entrambi i moduli; non è presentata come macchina fisicamente disponibile in officina.
+- **Test aggiunti/aggiornati:** regressione Hero e CTA, nuovo materiale finder, M2 fotografia ed etichette, assenza di tabelle non leggibili.
+- **Gate pubblicazione:** test completo, build, Chromium desktop/mobile luce/buio e deploy GitHub Pages, poi verifica su SHA pubblicato.
+
+### Da non dichiarare completato senza prove
+
+1. P0 Admin — accesso autorizzato, upload/modifica, commit atomico e rollback fotografico con file binari davvero cambiati.
+2. P0 Foto — 43 prodotti pubblicati senza cover locale; restano scatti autentici, diritti e associazione SKU.
+3. P1 Lead/ordini — test con recapiti effettivi e gestione follow-up e preventivi; checkout e incasso reale non presenti.
+4. P1 File produzione laser — font in tracciati, kerf, sicurezza materiale, incastri e prove su macchina reale.
+5. P1 Device fisici — iOS/Android, speed/a11y e stabilità PWA sotto rete mobile.
+
+*Nota media xTool:* il riferimento al consenso Squad è ricavato dalla precedente registrazione nel manifest; la conformità contrattuale delle immagini promozionali e la possibilità di riutilizzarle commercialmente devono essere confermate dal titolare.

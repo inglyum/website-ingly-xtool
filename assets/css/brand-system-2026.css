@@ -1224,3 +1224,43 @@
  :root[data-mode] #page-macchine .ingly-finder-operation,
  :root[data-mode] #page-macchine .ingly-finder-tile{transition:none!important;transform:none!important}
 }
+
+
+/* Genuine manufacturer image for M2, without turning INGLY into an xTool landing page. */
+:root[data-mode] #page-macchine .ingly-m2-duo__intro{
+ display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(230px,.75fr);
+ column-gap:clamp(20px,4vw,56px);row-gap:13px;align-items:center!important;
+}
+:root[data-mode] #page-macchine .ingly-m2-duo__intro>div:first-child{
+ grid-column:1;grid-row:1;
+}
+:root[data-mode] #page-macchine .ingly-m2-duo__intro>.ingly-m2-duo__link{
+ grid-column:1;grid-row:2;justify-self:start;
+}
+:root[data-mode] #page-macchine .ingly-m2-duo__photo{
+ grid-column:2;grid-row:1/span 2;
+ display:flex;flex-direction:column;align-items:center;
+ margin:0!important;padding:12px!important;
+ border:1px solid var(--brand-border);border-radius:15px;
+ background:linear-gradient(143deg,rgba(255,255,255,.94),#eef2f4);
+ min-height:192px;overflow:hidden;
+}
+:root[data-mode] #page-macchine .ingly-m2-duo__photo img{
+ width:100%;height:auto;max-height:210px;object-fit:contain;
+ display:block;filter:drop-shadow(0 16px 14px rgba(13,25,39,.12));
+}
+:root[data-mode] #page-macchine .ingly-m2-duo__photo figcaption{
+ text-align:center;color:#56616e;font:500 11px/1.5 var(--brand-text);
+ padding:5px 0 0;
+}
+@media(max-width:780px){
+ :root[data-mode] #page-macchine .ingly-m2-duo__intro{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ :root[data-mode] #page-macchine .ingly-m2-duo__intro>div:first-child,
+ :root[data-mode] #page-macchine .ingly-m2-duo__photo,
+ :root[data-mode] #page-macchine .ingly-m2-duo__intro>.ingly-m2-duo__link{
+  grid-column:1!important;grid-row:auto!important;
+ }
+ :root[data-mode] #page-macchine .ingly-m2-duo__photo{min-height:145px}
+}

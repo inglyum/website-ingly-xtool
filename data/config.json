@@ -165,7 +165,11 @@
   },
   "checkout": {
     "modo": "WHATSAPP",
-    "url": ""
+    "url": "",
+    "stripe": {
+      "attivo": false,
+      "_nota": "Pagamento con carta tramite Stripe Payment Links: predisposto ma SPENTO. Si accende dall'Admin (Contatti & Social → Pagamento con carta) solo dopo aver creato i link in Stripe. Guida: docs/STRIPE-ATTIVAZIONE.md"
+    }
   },
   "conversione": {
     "attiva": true,
@@ -271,5 +275,6 @@
       "url": "shop",
       "icon": "gift"
     }
-  ]
+  ],
+  "stripeLinks": {}
 }

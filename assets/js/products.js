@@ -615,6 +615,21 @@ function renderProductContactLinks(){
   wa.classList.toggle('btn-ghost',primary==='email');
   em.classList.toggle('btn-primary',primary==='email');
   em.classList.toggle('btn-ghost',primary!=='email');
+  /* Pagamento con carta (Stripe): spento finché checkout.stripe.attivo non è
+     true e il prodotto non ha il suo Payment Link. Quando compare diventa il
+     bottone principale; WhatsApp ed email restano per le personalizzazioni. */
+  const st=$('productContactStripe');
+  if(st){
+    const link=CM.stripeProdotto(CONFIG,cur);
+    st.hidden=!link;
+    if(link){
+      st.href=link;st.target='_blank';
+      const stText=st.querySelector('span')||st.appendChild(document.createElement('span'));
+      stText.textContent=(c.etichettaStripe&&c.etichettaStripe[L])||(L==='it'?'Paga con carta':'Pay by card');
+      wa.classList.remove('btn-primary');wa.classList.add('btn-ghost');
+      em.classList.remove('btn-primary');em.classList.add('btn-ghost');
+    }
+  }
   const note=$('productContactNote');if(note)note.textContent=L==='it'?'Ti aiutiamo a scegliere materiale, finitura e personalizzazione prima di confermare il preventivo.':'We will help you choose material, finish and personalisation before confirming the quote.';
 }
 function renderVideoEmbed(url,poster){

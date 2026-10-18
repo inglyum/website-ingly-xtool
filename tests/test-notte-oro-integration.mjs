@@ -14,7 +14,7 @@ for(const file of ['notte-oro.css','notte-oro-loader.js','notte-oro-ui.js']){
 }
 assert(css.indexOf('PHASE 8')>0 && css.indexOf('PHASE 7')>0 && css.indexOf('PHASE 6')>0,'Phased components missing');
 assert(loader.includes('sessionStorage.getItem') && loader.includes('sessionStorage.setItem'),'Only first session may show loader');
-assert(loader.includes('maxMs=clamp(options.maxMs,minMs,5500)'),'Loader maximum must be bounded and Admin-editable');
+assert(loader.includes('maxMs=clamp(options.maxMs,minMs,1800)'),'Loader maximum must be bounded and Admin-editable');
 assert(loader.includes('waitImage')&&loader.includes('document.fonts?.ready'),'Loader measures critical assets and font readiness');
 assert(loader.includes("atelierLoaderSkip"),'Skip button must work');
 assert(ui.includes('preview.textContent'),'Never inject untrusted names as innerHTML');

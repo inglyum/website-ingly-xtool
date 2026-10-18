@@ -36,5 +36,13 @@ const colonne = (css.match(/\.atelier-mobile-dock\{grid-template-columns:repeat\
 check('una colonna per ogni azione della barra', Number(colonne) === azioni, `${colonne} colonne per ${azioni} azioni`);
 check('tutte le etichette della barra hanno lo stesso stile', /\.atelier-mobile-dock>\* span\{font-size:11px!important/.test(css));
 
+console.log('\n=== FONT: SOLO QUELLI CHE SI VEDONO ===');
+/* Misurato in Chromium su 18 pagine, giorno e notte: queste famiglie erano
+   scaricate ma nessun testo le usava (regole successive le sovrascrivono). */
+const richieste = [...html.matchAll(/fonts\.googleapis\.com\/css2\?([^"]+)"/g)].flatMap(m => [...m[1].matchAll(/family=([^:&]+)/g)].map(x => x[1].replace(/\+/g, ' ')));
+const inutili = ['Caveat', 'Exo 2', 'Fraunces', 'Geist Mono', 'Sora', 'Space Grotesk'].filter(f => richieste.includes(f));
+check('nessuna famiglia scaricata senza essere usata', inutili.length === 0, inutili.join(', '));
+check('nessuna famiglia richiesta due volte', new Set(richieste).size === richieste.length, richieste.join(', '));
+
 console.log(`\n=========== FASE 1 LAYOUT: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

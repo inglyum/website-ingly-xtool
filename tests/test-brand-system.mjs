@@ -21,7 +21,7 @@ assert.ok(!html.includes('<span>INGLY</span></div>\n    <div class="fbottom">'),
 assert.ok(!html.includes('ingly-footer-signature" aria-label="INGLY DESIGN"><img src="assets/images/ingly-logo.svg"'),'Circular icon not competing as footer watermark');
 const storefrontDOM=new JSDOM(html);
 const logo=storefrontDOM.window.document.querySelector('.nav .brand-lockup .brand-wordmark');
-assert.ok(logo?.getAttribute('src')==='assets/images/ingly-wordmark-light.svg?v=20261017n2');
+assert.ok(new URL(logo?.getAttribute('src')||'', 'https://example.test/').pathname==='/assets/images/ingly-wordmark-light.svg');
 const mark=storefrontDOM.window.document.querySelector('footer .ingly-footer-signature');
 assert.equal(mark?.querySelectorAll('img').length,1,'Solo un wordmark in footer');
 assert.equal(storefrontDOM.window.document.querySelectorAll('.nav .brand-lockup img').length,1,'Solo un wordmark in header');

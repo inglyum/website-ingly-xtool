@@ -375,10 +375,10 @@
 :root[data-mode] footer .ingly-footer-signature img.brand-wordmark{
  width:min(100%,1200px)!important;height:auto!important;max-height:none!important;
  aspect-ratio:1660/490!important;border-radius:0!important;
- margin:0 auto!important;filter:none!important;display:block!important;opacity:.07!important
+ margin:0 auto!important;filter:none!important;object-fit:contain!important;display:block!important;opacity:.16!important
 }
 :root[data-mode="light"] footer .ingly-footer-signature img.brand-wordmark{
- filter:brightness(0)!important;opacity:.085!important
+ filter:brightness(0)!important;opacity:.13!important
 }
 /* MACHINE LAB: bound the hero to the content width; don't let font skins
    force a line wider than the mobile viewport. */

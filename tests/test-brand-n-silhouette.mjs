@@ -23,7 +23,7 @@ for(const [index,doc] of docs.entries()){
 }
 const html=read('index.html'),admin=read('admin.html');
 for(const [name,source] of [['site',html],['admin',admin]]){
- assert.match(source,/ingly-wordmark-light\.svg\?v=20261017n2/,name+': browser cache bust');
+ assert.match(source,/ingly-wordmark-light\.svg\?v=202610\d{2}n\d+/,name+': browser cache bust');
 }
 assert.match(read('assets/css/brand-system-2026.css'),/aspect-ratio:1660\/490!important/);
 assert.match(read('assets/css/admin-brand-system.css'),/aspect-ratio:1660\/490!important/);

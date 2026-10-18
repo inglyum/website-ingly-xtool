@@ -9592,3 +9592,65 @@ html.rc-aperta{overflow:hidden}
 .crumb--auto .crumb-sep{margin:0 8px;opacity:.5}
 .crumb--auto [aria-current]{font-weight:600}
 :root[data-mode="dark"] .crumb--auto a{color:#A3A7AE}
+
+
+/* ============================================================
+   INGLY — DESIGN SYSTEM 2026: UNA SOLA SCALA (Fase 1.2)
+   Misurato su 12 pagine prima di questa sezione:
+   · titoli H1 in 3 famiglie (Josefin, Manrope, Inter), 41–79 px;
+   · titoli H2 in 3 famiglie (Josefin, Playfair, Inter), 28–79 px —
+     alcuni H2 erano grandi quanto l'H1, la gerarchia non si leggeva;
+   · schede con 4 raggi diversi (16 / 18 / 18,72 / 20 px);
+   · bottoni con 3 raggi e 2 famiglie.
+   Qui un solo set di misure, in variabili: si cambia una riga e cambia
+   tutto il sito. ECCEZIONE VOLUTA: la sezione xTool/Lab tiene il suo
+   carattere tecnico (Inter), come da indicazione del marchio.
+   ============================================================ */
+:root{
+ --ds-font-titoli:'Josefin Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+ --ds-h1:clamp(2.5rem,1.45rem + 3.6vw,4.5rem);      /* 40 → 72 px */
+ --ds-h2:clamp(2rem,1.25rem + 2.4vw,3.25rem);       /* 32 → 52 px */
+ --ds-h1-prodotto:clamp(1.9rem,1.25rem + 1.8vw,2.9rem);
+ --ds-titoli-spazio:-.022em;
+ --ds-titoli-riga:1.08;
+ --ds-raggio-scheda:16px;
+ --ds-raggio-bottone:12px;
+ --ds-bottone-h:48px;
+}
+/* dove NON si applica: il mondo xTool/Lab ha il suo carattere tecnico */
+:root[data-mode] .page:not(#page-macchine) :is(h1,h2):not(:is(.ingly-photographic-lab,.xtool-lab-feature,.ingly-service-centre,.ingly-lab-facts,[class*="xtool"]) *){
+ font-family:var(--ds-font-titoli)!important;
+ font-weight:600!important;
+ letter-spacing:var(--ds-titoli-spazio)!important;
+ line-height:var(--ds-titoli-riga)!important;
+}
+/* scala: H1 di pagina > H2 di sezione. Restano fuori i titoletti d'interfaccia
+   (shop-intro-h) e i titoli dentro schede, pannelli e cassetti. */
+:root[data-mode] .page:not(#page-product):not(#page-macchine) h1{font-size:var(--ds-h1)!important}
+:root[data-mode] .page:not(#page-macchine) h2:not(.shop-intro-h):not(:is(.pcard,.bcard,.rcard,.vert-card,.lab-card,aside,.drawer,.modal,[role="dialog"],.ingly-photographic-lab,.xtool-lab-feature,.ingly-service-centre,.ingly-lab-facts) h2){font-size:var(--ds-h2)!important}
+:root[data-mode] #page-product h1.pp-title{font-size:var(--ds-h1-prodotto)!important}
+:root[data-mode] #page-product .sec h2.h2{font-size:var(--ds-h2)!important}
+/* schede: un raggio solo */
+:root[data-mode] :is(.pcard,.bcard,.scat,.vert-card,.lab-card,.rcard,.dig-vuoto){border-radius:var(--ds-raggio-scheda)!important}
+/* bottoni: un raggio, un carattere, un'altezza minima */
+:root[data-mode] .btn{border-radius:var(--ds-raggio-bottone)!important;font-family:var(--ds-font-titoli)!important;font-weight:700!important;min-height:var(--ds-bottone-h)}
+/* tre punti con regole più specifiche più in alto: allineati alla stessa scala */
+:root[data-mode] #page-home .signature-hero #heroH1{font-family:var(--ds-font-titoli)!important;font-weight:600!important;letter-spacing:var(--ds-titoli-spazio)!important}
+:root[data-mode] #page-home .signature-hero .hero-ctas .btn{font-family:var(--ds-font-titoli)!important;font-weight:700!important;border-radius:var(--ds-raggio-bottone)!important}
+:root[data-mode] #page-shop .shop-cats .scat{border-radius:var(--ds-raggio-scheda)!important}
+/* Scheda prodotto su telefono stretto (340 px): la colonna della griglia si
+   allargava al contenuto più largo (362 px in 312) e titolo e bottoni
+   uscivano dallo schermo, tagliati. Già così prima di questa sezione. */
+@media(max-width:640px){
+ :root[data-mode] #page-product .pp-grid{grid-template-columns:minmax(0,1fr)!important}
+ :root[data-mode] #page-product :is(.pp-info,.pp-gallery,.pp-media){min-width:0!important;max-width:100%!important}
+ :root[data-mode] #page-product h1.pp-title{overflow-wrap:anywhere}
+ :root[data-mode] #page-product .pp-info :is(.btn,a.btn){max-width:100%!important;white-space:normal!important;text-align:center}
+ /* le schede Descrizione/Misure/Recensioni scorrono di lato invece di uscire */
+ :root[data-mode] #page-product .pp-tabs{overflow-x:auto!important;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ :root[data-mode] #page-product .pp-tabs::-webkit-scrollbar{display:none}
+ :root[data-mode] #page-product .pp-tab{flex:0 0 auto}
+}
+/* Bottone disabilitato: prima sembrava identico a uno attivo (trovato con
+   design-system.html). Si vede che non risponde e non invita al clic. */
+:root[data-mode] .btn:is(:disabled,[aria-disabled="true"]){opacity:.45!important;cursor:not-allowed!important;box-shadow:none!important;transform:none!important;filter:grayscale(.35)}

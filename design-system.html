@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it" data-mode="light">
+<head>
+<base href="./">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INGLY DESIGN — Design system (pagina interna)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Playfair+Display:ital@1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Lo stesso foglio del sito: quello che si vede qui è quello che vede il cliente. -->
+<link rel="stylesheet" href="assets/css/ingly.css?v=ff46286f5b">
+<style>
+ /* solo l'impaginazione di questa pagina; nessuno stile di componente */
+ html,body{background:var(--brand-bg);color:var(--brand-ink);font-family:var(--brand-text)}
+ .ds-wrap{max-width:1180px;margin:0 auto;padding:32px 16px 96px}
+ .ds-barra{position:sticky;top:0;z-index:5;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--brand-glass);border-bottom:1px solid var(--brand-border)}
+ .ds-sez{margin-top:56px}
+ .ds-etichetta{font:600 11px/1 system-ui;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-muted);margin-bottom:14px}
+ .ds-riga{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+ .ds-griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+ .ds-colore{border:1px solid var(--brand-border);border-radius:var(--ds-raggio-scheda);overflow:hidden}
+ .ds-colore i{display:block;height:84px}
+ .ds-colore p{margin:0;padding:10px 12px;font-size:13px}
+ .ds-colore code{display:block;opacity:.7;font-size:12px}
+ .ds-scheda{border:1px solid var(--brand-border);border-radius:var(--ds-raggio-scheda);background:var(--brand-surface);padding:20px}
+ .ds-nota{font-size:14px;color:var(--brand-muted);max-width:70ch}
+</style>
+</head>
+<body>
+<div class="ds-barra">
+  <strong>INGLY · Design system</strong>
+  <button type="button" class="btn btn-ghost" id="dsModo" aria-pressed="false">Passa a notte</button>
+</div>
+<main class="ds-wrap">
+ <section class="page active" id="page-ds">
+  <p class="ds-nota">Pagina interna, esclusa dai motori di ricerca. Mostra i componenti con lo <b>stesso foglio di stile del sito</b> (<code>assets/css/ingly.css</code>): se qui un bottone cambia, cambia ovunque. Le misure stanno nelle variabili <code>--ds-*</code> in fondo a <code>brand-system-2026.css</code>.</p>
+
+  <div class="ds-sez">
+   <p class="ds-etichetta">Palette</p>
+   <div class="ds-griglia">
+    <div class="ds-colore"><i style="background:#111318"></i><p>Titanium<code>#111318</code></p></div>
+    <div class="ds-colore"><i style="background:#272B31"></i><p>Graphite<code>#272B31</code></p></div>
+    <div class="ds-colore"><i style="background:#F8F7F4"></i><p>Warm White<code>#F8F7F4</code></p></div>
+    <div class="ds-colore"><i style="background:#C5A46D"></i><p>Champagne<code>#C5A46D</code></p></div>
+    <div class="ds-colore"><i style="background:#777B83"></i><p>Muted<code>#777B83</code></p></div>
+    <div class="ds-colore"><i style="background:#DDDCD8"></i><p>Hairline<code>#DDDCD8</code></p></div>
+   </div>
+  </div>
+
+  <div class="ds-sez">
+   <p class="ds-etichetta">Titoli — una scala, un carattere (Josefin Sans)</p>
+   <h1>Titolo di pagina (H1)</h1>
+   <h2>Titolo di sezione (H2) con <em>accento</em></h2>
+   <p class="ds-nota">H1 da 40 a 72 px, H2 da 32 a 52 px, secondo la larghezza dello schermo. Il nome nella scheda prodotto usa una misura dedicata (fino a 46 px) perché è lungo. La sezione xTool/Lab tiene il suo carattere tecnico (Inter).</p>
+  </div>
+
+  <div class="ds-sez">
+   <p class="ds-etichetta">Bottoni — raggio 12 px, altezza minima 48 px</p>
+   <div class="ds-riga">
+    <a class="btn btn-primary" href="#">Crea il tuo pezzo <span aria-hidden="true">→</span></a>
+    <a class="btn btn-ghost" href="#">Scopri lo Shop</a>
+    <button type="button" class="btn btn-primary" disabled>Non disponibile</button>
+   </div>
+  </div>
+
+  <div class="ds-sez">
+   <p class="ds-etichetta">Schede — raggio 16 px</p>
+   <div class="ds-griglia">
+    <div class="ds-scheda"><strong>Scheda contenuto</strong><p class="ds-nota">Superficie, bordo sottile, raggio unico.</p></div>
+    <div class="ds-scheda"><strong>Seconda scheda</strong><p class="ds-nota">Stesse misure in giorno e notte.</p></div>
+   </div>
+  </div>
+
+  <div class="ds-sez">
+   <p class="ds-etichetta">Testo</p>
+   <p>Testo corrente: oggetti personalizzati, incisione laser e design. Dall'idea al pezzo finito, con materiali selezionati e cura artigianale in Italia.</p>
+   <p class="ds-nota">Testo secondario: note, didascalie, indicazioni.</p>
+  </div>
+ </section>
+</main>
+<script>
+(function(){
+  var b=document.getElementById('dsModo'),h=document.documentElement;
+  b.addEventListener('click',function(){
+    var notte=h.dataset.mode!=='dark';
+    h.dataset.mode=notte?'dark':'light';
+    b.textContent=notte?'Passa a giorno':'Passa a notte';
+    b.setAttribute('aria-pressed',String(notte));
+  });
+})();
+</script>
+</body>
+</html>

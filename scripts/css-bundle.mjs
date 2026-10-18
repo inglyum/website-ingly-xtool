@@ -26,6 +26,9 @@ export const ORDINE = [
   'brand-system-2026.css'
 ];
 
+/* le pagine che caricano il bundle (la vetrina e la pagina del design system) */
+export const PAGINE = ['index.html', 'design-system.html'];
+
 export function componi(leggi = f => readFileSync('assets/css/' + f, 'utf8')) {
   const parti = ORDINE.map(f => `/* ==== ${f} ==== */\n` + leggi(f).replace(/\s+$/, '') + '\n');
   return '/* GENERATO da scripts/css-bundle.mjs — non modificare: si modificano i file sorgente. */\n' + parti.join('\n');
@@ -39,8 +42,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   writeFileSync('assets/css/ingly.css', css);
   writeFileSync('assets/css/ingly.manifest.json', JSON.stringify({ ordine: ORDINE.map(f => 'assets/css/' + f), v }, null, 2) + '\n');
   /* index.html punta sempre all'ultima versione: ?v= cambia quando cambia il CSS */
-  const html = readFileSync('index.html', 'utf8');
-  const nuovo = html.replace(/<link rel="stylesheet" href="assets\/css\/ingly\.css(?:\?v=[a-f0-9]+)?">/, `<link rel="stylesheet" href="assets/css/ingly.css?v=${v}">`);
-  if (nuovo !== html) writeFileSync('index.html', nuovo);
+  for (const pagina of PAGINE) {
+    const html = readFileSync(pagina, 'utf8');
+    const nuovo = html.replace(/<link rel="stylesheet" href="assets\/css\/ingly\.css(?:\?v=[a-f0-9]+)?">/, `<link rel="stylesheet" href="assets/css/ingly.css?v=${v}">`);
+    if (nuovo !== html) writeFileSync(pagina, nuovo);
+  }
   console.log(`✔ assets/css/ingly.css: ${ORDINE.length} fogli in ordine, ${Math.round(css.length / 1024)} kB, v=${v}`);
 }

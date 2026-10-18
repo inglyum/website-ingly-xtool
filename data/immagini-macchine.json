@@ -243,6 +243,34 @@
       "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-a-reyaji_us_pc_wonderpress_9476-24404_78b96c46-66bf-4d63-bedd-f7993e22cbe2.webp?v=1782372892",
       "altIT": "xTool WonderPress, pressa a caldo",
       "altEN": "xTool WonderPress, heat press"
+    },
+    {
+      "id": "m2",
+      "modello": "xTool M2",
+      "tipoAsset": "official-machine",
+      "sostituibile": true,
+      "file": "",
+      "destinazione": "assets/images/machines/xtool-m2.webp",
+      "origine": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_m2_4705-12571_211a9021-7040-4bb9-8d74-8cb272566ea5.webp?v=1779866690",
+      "paginaUfficiale": "https://www.xtool.eu/it-it/products/xtool-m2-color-craft-laser-cutter-engraver",
+      "presaIl": "",
+      "licenza": {
+        "stato": "consentito",
+        "titolare": "xTool",
+        "prova": "INGLY DESIGN è membro xTool Squad. Autorizzazione del titolare (Giuseppe Inglima) registrata il 2026-10-12 in questa sessione di lavoro. Pagina host del programma Demo Room: https://support.xtool.com/demo-room/host-instruction?id=2528 · M2 viene mostrata come immagine remota ufficiale; la presente registrazione riusa l'autorizzazione Squad già dichiarata nel manifest, senza inventare una verifica contrattuale indipendente per il modello."
+      },
+      "alt": {
+        "it": "xTool M2, apparecchiatura desktop con coperchio arancione, riferimento visuale per i moduli laser 10 W e 20 W",
+        "en": "xTool M2 desktop machine with orange enclosure, reference image for 10W and 20W laser modules"
+      },
+      "immagineRemotaVerificata": true,
+      "verificatoIl": "2026-10-18",
+      "isDemo": false,
+      "replaceable": true,
+      "assetKind": "official-machine",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_m2_4705-12571_211a9021-7040-4bb9-8d74-8cb272566ea5.webp?v=1779866690",
+      "altIT": "xTool M2, laser desktop a diodo, moduli 10 W e 20 W",
+      "altEN": "xTool M2 desktop diode laser, 10W and 20W modules"
     }
   ],
   "_senzaImmagine": "M1, M1 Ultra, M2, F1 e P2 sono in catalogo ma non hanno un indirizzo ufficiale in questo manifest. Finché non ce l'hanno, le loro schede mostrano il segnaposto: meglio di una foto presa a caso che potrebbe ritrarre un altro modello.",

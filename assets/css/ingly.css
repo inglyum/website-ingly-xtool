@@ -9657,3 +9657,81 @@ html.rc-aperta{overflow:hidden}
 /* piè di pagina: dati aziendali e link alle pagine legali, leggibili e toccabili */
 :root[data-mode] footer #ftLegal{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
 :root[data-mode] footer .ft-legale a{color:inherit;text-decoration:underline;text-underline-offset:3px;display:inline-block;padding:6px 0}
+
+/* ============================================================
+   INGLY — SHOP RICOSTRUITO (lancio)
+   Ordine: titolo → barra (ricerca, Filtri, ordina) → categorie →
+   [filtri | filtri attivi, collezioni, prodotti] → percorsi promozionali.
+   ============================================================ */
+:root[data-mode] #page-shop .shop-testa{padding-top:28px!important;padding-bottom:6px!important}
+:root[data-mode] #page-shop .shop-titolo{margin:0 0 6px!important;font-size:clamp(2.1rem,1.4rem + 2.4vw,3.4rem)!important}
+:root[data-mode] #page-shop .shop-sotto{margin:0!important;max-width:60ch;color:var(--brand-muted)}
+/* barra: ricerca grande + Filtri (solo telefono) + ordina */
+:root[data-mode] #page-shop .shop-barra{display:flex!important;gap:10px;align-items:stretch;padding-top:18px!important;padding-bottom:6px!important}
+:root[data-mode] #page-shop .shop-barra .shop-cerca{flex:1;min-width:0;position:relative;margin:0!important;display:flex;align-items:center;gap:10px;min-height:52px;padding:0 16px!important;border:1px solid var(--brand-border)!important;border-radius:var(--ds-raggio-bottone)!important;background:var(--brand-surface)!important}
+:root[data-mode] #page-shop .shop-barra .shop-cerca:focus-within{border-color:var(--brand-gold)!important;box-shadow:0 0 0 3px rgba(197,164,109,.22)!important}
+:root[data-mode] #page-shop .shop-barra .shop-cerca svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:2;opacity:.65}
+:root[data-mode] #page-shop .shop-barra .shop-cerca input{flex:1;min-width:0;border:0!important;outline:0!important;background:transparent!important;box-shadow:none!important;font-size:16px!important;min-height:48px;padding:0!important;color:inherit}
+:root[data-mode] #page-shop .shop-barra .sortsel{min-height:52px;border-radius:var(--ds-raggio-bottone)!important;padding:0 14px!important;border:1px solid var(--brand-border)!important;background:var(--brand-surface)!important;color:inherit;font:600 14px/1 var(--ds-font-titoli)}
+:root[data-mode] #page-shop .shop-barra .fbar-btn{display:none!important;min-height:52px}
+:root[data-mode] #page-shop .shop-barra #sortSelM{display:none!important}
+/* categorie: una riga di pastiglie */
+:root[data-mode] #page-shop .shop-intro{padding-top:10px!important;padding-bottom:4px!important;margin:0 auto!important}
+:root[data-mode] #page-shop .shop-cats{display:flex!important;flex-wrap:wrap;gap:8px;grid-template-columns:none!important}
+:root[data-mode] #page-shop .scp{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:4px 14px 4px 4px;border:1px solid var(--brand-border);border-radius:999px;background:var(--brand-surface);color:inherit;font:600 14px/1.1 var(--ds-font-titoli);cursor:pointer;transition:border-color .15s,background .15s}
+:root[data-mode] #page-shop .scp:hover{border-color:var(--brand-border-strong)}
+:root[data-mode] #page-shop .scp.on{background:var(--brand-ink);color:var(--brand-bg);border-color:var(--brand-ink)}
+:root[data-mode] #page-shop .scp-img,:root[data-mode] #page-shop .scp-ic{width:40px;height:40px;flex:none;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:var(--brand-elevated);font-size:18px}
+:root[data-mode] #page-shop .scp-ic svg{width:20px;height:20px}
+:root[data-mode] #page-shop .scp-c{font-size:12px;font-weight:500;opacity:.65}
+/* filtri attivi + collezioni sopra i prodotti */
+:root[data-mode] #page-shop .shop-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:10px}
+:root[data-mode] #page-shop .shop-attivi{display:flex;flex-wrap:wrap;gap:6px}
+:root[data-mode] #page-shop .sat{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--brand-border-strong);background:rgba(197,164,109,.12);color:inherit;font:600 13px/1 var(--ds-font-titoli);cursor:pointer}
+:root[data-mode] #page-shop .sat-azzera{min-height:36px;padding:0 6px;border:0;background:none;color:inherit;text-decoration:underline;text-underline-offset:3px;font:600 13px/1 var(--ds-font-titoli);cursor:pointer}
+:root[data-mode] #page-shop .shop-colls{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px}
+:root[data-mode] #page-shop .scoll-et{font:600 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-right:4px}
+:root[data-mode] #page-shop .scoll{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--brand-border);background:transparent;color:inherit;font:500 13px/1 var(--ds-font-titoli);cursor:pointer}
+:root[data-mode] #page-shop .scoll.on{border-color:var(--brand-ink);font-weight:700}
+:root[data-mode] #page-shop .scoll i{font-style:normal;opacity:.6;font-size:12px}
+/* promo dopo i prodotti */
+:root[data-mode] #page-shop .ingly-commerce-spots{margin-top:56px}
+/* telefono: categorie scorrevoli su una riga, Filtri nella barra */
+@media(max-width:820px){
+ :root[data-mode] #page-shop .shop-barra{flex-wrap:wrap}
+ :root[data-mode] #page-shop .shop-barra .shop-cerca{flex:1 1 100%}
+ :root[data-mode] #page-shop .shop-barra .fbar-btn{display:inline-flex!important;flex:1;justify-content:center}
+ :root[data-mode] #page-shop .shop-barra #sortSel{flex:1}
+ :root[data-mode] #page-shop .shop-cats{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:2px 16px 6px}
+ :root[data-mode] #page-shop .shop-cats::-webkit-scrollbar{display:none}
+ :root[data-mode] #page-shop .scp{flex:0 0 auto}
+ :root[data-mode] #page-shop .shop-colls{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px 12px;padding:0 16px}
+ :root[data-mode] #page-shop .scoll{flex:0 0 auto}
+ :root[data-mode] #page-shop .fbar{display:none!important}
+}
+/* testo solo per i lettori di schermo (non esisteva nel sito) */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+/* «Vedi N risultati» chiude il pannello del telefono: su computer non serve */
+@media(min-width:821px){:root[data-mode] #page-shop .filters .filters-vedi,:root[data-mode] #page-shop .filters .filters-testa{display:none!important}}
+/* tendina dei suggerimenti dello Shop: compatta, con foto e prezzo */
+:root[data-mode] #page-shop .shop-cerca .sugg{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;display:flex;flex-direction:column;padding:6px;max-height:min(70vh,460px);overflow:auto;border:1px solid var(--brand-border);border-radius:var(--ds-raggio-bottone);background:var(--brand-surface);box-shadow:0 18px 50px rgba(0,0,0,.16)}
+:root[data-mode] #page-shop .shop-cerca .sugg[hidden]{display:none!important}
+:root[data-mode] #page-shop .sugg .sg{display:flex;align-items:center;gap:12px;min-height:52px;padding:6px 10px;border:0;border-radius:10px;background:none;color:inherit;text-align:left;cursor:pointer;font:inherit}
+:root[data-mode] #page-shop .sugg .sg:hover,:root[data-mode] #page-shop .sugg .sg.on{background:rgba(197,164,109,.16)}
+:root[data-mode] #page-shop .sugg .sg img,:root[data-mode] #page-shop .sugg .sg-ic{width:40px;height:40px;flex:none;border-radius:8px;object-fit:cover;display:grid;place-items:center;background:var(--brand-elevated)}
+:root[data-mode] #page-shop .sugg .sg-t{display:flex;flex-direction:column;min-width:0}
+:root[data-mode] #page-shop .sugg .sg-n{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:root[data-mode] #page-shop .sugg .k{font-size:12px;opacity:.7}
+:root[data-mode] #page-shop .sugg .sg-tutti{margin-top:4px;min-height:44px;border:0;border-top:1px solid var(--brand-border);background:none;color:inherit;font:700 13px/1 var(--ds-font-titoli);cursor:pointer;text-align:left;padding:0 10px}
+:root[data-mode] #page-shop .sugg .sg-t .k{margin:0!important;text-align:left!important;letter-spacing:0!important;text-transform:none!important}
+:root[data-mode] #page-shop .sugg .sg-n{display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%}
+:root[data-mode] #page-shop .sugg .sg-t{flex:1;align-items:flex-start}
+/* sottocategorie: una riga compatta di pastiglie, senza le voci vuote */
+:root[data-mode] #page-shop .subwrap{margin:0 0 12px!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+:root[data-mode] #page-shop .subwrap h5{font:600 11px/1 system-ui!important;letter-spacing:.12em!important;text-transform:uppercase!important;opacity:.65;margin:0 0 6px!important}
+:root[data-mode] #page-shop .subwrap #fSub{display:flex;flex-wrap:wrap;gap:6px}
+:root[data-mode] #page-shop .subwrap .chip.chip--zero{display:none!important}
+@media(max-width:820px){
+ :root[data-mode] #page-shop .subwrap #fSub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px}
+ :root[data-mode] #page-shop .subwrap #fSub .chip{flex:0 0 auto}
+}

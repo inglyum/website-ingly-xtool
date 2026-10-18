@@ -1,7 +1,7 @@
 /* ============ PRODUCTS (modulo) ============
    Catalogo, shop (filtri/ricerca/ordinamento), pagina prodotto con
    configuratore e prezzo live, digitale, carrello, wishlist. */
-import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, fotoDisponibili, icon, toast, L, esiste as esisteFoto } from './utils.js';
+import { $, T, eur, imgTag, imgV, srcsetFor, focalOf, fotoDisponibili, icon, toast, L, esiste as esisteFoto, variantsOf } from './utils.js';
 import {openFocusLayer,closeFocusLayer} from './accessibility.js';
 
 /* I titoli del portfolio li scrive una persona nell'Admin: entrano in un
@@ -386,36 +386,61 @@ function filterProducts(){
    Categorie e collezioni arrivano dai dati: una categoria svuotata non
    lascia una tessera che porta a zero risultati. */
 export function renderShopIntro(){
-  const cats=$('shopCats'), colls=$('shopColls'), intro=$('shopIntro');
-  if(!cats||!colls) return;
-
-  /* Solo le categorie che hanno prodotti: una tessera che apre il vuoto è
-     un vicolo cieco con una bella foto. */
+  const cats=$('shopCats'), colls=$('shopColls');
+  if(!cats) return;
+  /* UNA riga di categorie (lancio): pastiglie con miniatura e conteggio,
+     «Tutte» per prima, quella attiva evidenziata. Prima erano 9 grandi
+     riquadri con sfondi diversi, che spingevano i prodotti a 1.820 px.
+     Solo categorie con prodotti: una pastiglia che apre il vuoto è un vicolo
+     cieco. La riga resta visibile anche con un filtro attivo: è da qui che
+     si cambia categoria. */
   const vive=CATS.filter(c=>c&&c.id&&!c.go&&catCount(c.id)>0);
-  cats.innerHTML=vive.map(c=>{
-    const n=catCount(c.id);
-    const light=isLightBg(c.bg);
-    const art=c.img;
-    const ph=art?`<img class="bimg" src="${imgV(art)}"${srcsetFor(art)}${focalOf(art)} alt="" loading="lazy">`:'';
-    return `<button class="scat${light&&!art?' scat--light':''}${art?' scat--photo':''}" data-action="go-shop" data-arg="${c.id}"
-      style="${c.bg?'background:'+c.bg+';':''}">
-      ${ph}<span class="scat-ic">${icon(c.icon,c.ic)}</span>
-      <span class="scat-n">${c.n[L]}</span><span class="scat-c">${n}</span></button>`;
-  }).join('');
+  const attiva=F.cat.size===1?[...F.cat][0]:'';
+  const mini=c=>{const src=c.img&&esisteFoto(c.img)?c.img:'';
+    if(!src) return `<span class="scp-ic" aria-hidden="true">${icon(c.icon,c.ic)}</span>`;
+    const v=variantsOf(src).includes(400)?src.replace(/\.webp$/,'-400.webp'):src;
+    return `<img class="scp-img" src="${imgV(v)}" alt="" width="40" height="40" loading="lazy" decoding="async">`};
+  const tutte=VIS().length;
+  cats.innerHTML=`<button type="button" class="scp${!F.cat.size?' on':''}" data-action="cat-sola" data-v="" aria-pressed="${!F.cat.size}"><span class="scp-ic" aria-hidden="true">✦</span><span class="scp-n">${L==='it'?'Tutte':'All'}</span><span class="scp-c">${tutte}</span></button>`+
+    vive.map(c=>`<button type="button" class="scp${attiva===c.id?' on':''}" data-action="cat-sola" data-v="${esc(c.id)}" aria-pressed="${attiva===c.id}">${mini(c)}<span class="scp-n">${esc(c.n[L])}</span><span class="scp-c">${catCount(c.id)}</span></button>`).join('');
 
-  /* Le collezioni in evidenza: sono criteri sul catalogo, quindi non
-     possono essere vuote (lo garantisce collezioni.js). */
-  const vetrine=CL.inEvidenza(window.INGLY,7);
-  colls.innerHTML=vetrine.length?`<h3 class="shop-intro-h2">${L==='it'?'Oppure parti da qui':'Or start here'}</h3>
-    <div class="scoll-row">${vetrine.map(c=>
-      `<button class="scoll" data-action="open-coll" data-coll="${CL.rifDi(c)}">
-        <span class="scoll-n">${CL.lingua(c.n,L)}</span><span class="scoll-c">${CL.conta(c,window.INGLY)}</span></button>`
-    ).join('')}</div>`:'';
+  /* Le collezioni: una riga piccola sopra i prodotti, non un secondo
+     ingresso grande che ripete le categorie. */
+  if(colls){
+    const vetrine=CL.inEvidenza(window.INGLY,7);
+    colls.innerHTML=vetrine.length?`<span class="scoll-et">${L==='it'?'Collezioni':'Collections'}</span>`+vetrine.map(c=>
+      `<button type="button" class="scoll${F.coll===c.id?' on':''}" data-action="open-coll" data-coll="${CL.rifDi(c)}">${esc(CL.lingua(c.n,L))} <i>${CL.conta(c,window.INGLY)}</i></button>`).join(''):'';
+  }
+  renderAttivi();
+}
 
-  /* L'intestazione sparisce quando un filtro è attivo: a quel punto la
-     domanda «cosa stai cercando?» ha già una risposta, e tenerla sopra ai
-     risultati li spinge sotto la piega. */
-  if(intro) intro.hidden=filtriAttivi()>0;
+/* I FILTRI ATTIVI, sempre in vista sopra i prodotti: ognuno si toglie con
+   la sua ✕, «Azzera tutto» li toglie insieme. Un filtro che non si vede è
+   il modo più rapido di far credere a qualcuno che il catalogo sia vuoto. */
+export function renderAttivi(){
+  const box=$('shopAttivi'); if(!box) return;
+  const q=($('q')&&$('q').value||'').trim(), pr=$('pRange'), max=pr?+pr.value:120, pieno=pr?+pr.max:120;
+  const p=(k,v,testo)=>`<button type="button" class="sat" data-action="rm-filtro" data-k="${k}" data-v="${esc(v)}" aria-label="${L==='it'?'Togli il filtro':'Remove filter'} ${esc(testo)}">${esc(testo)} <span aria-hidden="true">✕</span></button>`;
+  const out=[];
+  if(q) out.push(p('q','','«'+q+'»'));
+  F.cat.forEach(id=>{const c=CATS.find(x=>x.id===id); if(c) out.push(p('cat',id,c.n[L]))});
+  F.sub.forEach(i=>{const c=CATS.find(x=>x.id===[...F.cat][0]); const s=c&&c.sub[i]; if(s) out.push(p('sub',i,s[L]))});
+  F.mat.forEach(m=>out.push(p('mat',m,(MATN[m]&&MATN[m][L])||m)));
+  if(max<pieno) out.push(p('max','',(L==='it'?'fino a ':'up to ')+'€'+max));
+  if(F.coll){const c=CL.trova(F.coll,window.INGLY); if(c) out.push(p('coll','',CL.lingua(c.n,L)))}
+  box.innerHTML=out.length?out.join('')+`<button type="button" class="sat-azzera" data-action="reset-filters">${L==='it'?'Azzera tutto':'Clear all'}</button>`:'';
+}
+/* una sola categoria alla volta, dalla riga in alto (senza cambiare pagina) */
+export function soloCat(id){F.cat.clear();F.sub.clear();if(id)F.cat.add(id);renderChips();renderShop()}
+export function togliFiltro(k,v){
+  if(k==='q'&&$('q')) $('q').value='';
+  else if(k==='cat') F.cat.delete(v);
+  else if(k==='sub') F.sub.delete(+v);
+  else if(k==='mat') F.mat.delete(v);
+  else if(k==='max'&&$('pRange')){ $('pRange').value=$('pRange').max; if($('pv')) $('pv').textContent='€'+$('pRange').max; }
+  else if(k==='coll') F.coll='';
+  if(k==='cat') F.sub.clear();
+  renderChips(); renderShop();
 }
 
 /* La vetrina: fotografie di pezzi usciti davvero dall'officina, prese dal

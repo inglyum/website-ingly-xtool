@@ -236,9 +236,12 @@ check('le categorie dell\'ingresso arrivano dai dati', /id="shopCats"/.test(idx2
 check('le collezioni dell\'ingresso arrivano dal motore', /CL\.inEvidenza\(window\.INGLY/.test(prod2));
 /* una tessera che apre il vuoto è un vicolo cieco con una bella foto */
 check('solo le categorie che hanno prodotti', /catCount\(c\.id\) ?> ?0/.test(prod2));
-/* con un filtro attivo la domanda «cosa stai cercando?» ha già risposta e
-   tenerla sopra spinge i risultati sotto la piega */
-check('l\'ingresso si ritira quando un filtro è attivo', /intro\.hidden ?= ?filtriAttivi\(\) ?> ?0/.test(prod2));
+/* Shop ricostruito (lancio): l'ingresso non è più un blocco grande da
+   ritirare, ma una riga di categorie compatta che resta in vista (è da lì
+   che si cambia categoria); i filtri attivi compaiono come pastiglie
+   togliibili sopra i prodotti, con «Azzera tutto». */
+check('la riga delle categorie resta in vista e segna quella attiva', !/intro\.hidden ?= ?filtriAttivi/.test(prod2) && /class="scp\$\{attiva===c\.id\?' on':''\}"/.test(prod2));
+check('i filtri attivi sono in vista e si tolgono uno per uno', /export function renderAttivi\(\)/.test(prod2) && /data-action="rm-filtro"/.test(prod2) && /data-action="reset-filters"/.test(prod2));
 
 /* IL DIFETTO: sotto gli 820px `.filters` era display:none e NESSUNO
    metteva la classe `open`. Su telefono un catalogo da 63 prodotti non si

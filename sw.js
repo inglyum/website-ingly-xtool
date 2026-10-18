@@ -30,7 +30,7 @@
 const BASE = new URL('./', self.location).pathname;
 const via  = p => BASE + String(p).replace(/^\/+/, '');
 
-const CACHE_VER   = 'ingly-v16';
+const CACHE_VER   = 'ingly-v17';
 const CACHE_ASSETS= CACHE_VER + '-assets';
 const CACHE_DATA  = CACHE_VER + '-data';
 const CACHE_IMG   = CACHE_VER + '-img';

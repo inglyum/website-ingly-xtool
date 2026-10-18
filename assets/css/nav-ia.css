@@ -122,7 +122,11 @@
 .ia-barra:empty{display:none}
 html.ia-attiva .nav-links{display:none!important}
 html.ia-attiva .dr-rete{display:none}
-html:not(.ia-attiva) .ia-barra{display:none}
+html:not(.ia-attiva) .ia-barra:not([data-statica]){display:none}
+/* La barra a cinque voci è già scritta nell'HTML (data-statica): la vecchia
+   a dodici non deve mai comparire, nemmeno nei primi istanti. Le voci sono
+   link veri, quindi il sito resta navigabile anche se il JavaScript non parte. */
+.nav:has(.ia-barra[data-statica]) .nav-links{display:none!important}
 
 /* ---- header: due stati ---- */
 .nav{transition:padding var(--dur-ui) var(--ease-out),background var(--dur-ui),

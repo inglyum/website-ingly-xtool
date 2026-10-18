@@ -1493,3 +1493,44 @@
    dimensioni e colore delle altre quattro voci. */
 :root[data-mode] .atelier-mobile-dock>* span{font-size:11px!important;font-weight:500!important;line-height:1.2!important;color:inherit!important}
 :root[data-mode] .atelier-mobile-dock>#mobileModeBtn{color:inherit}
+
+/* ============================================================
+   INGLY — RICERCA ISTANTANEA (Fase 2)
+   Pannello in alto, risultati mentre si scrive: prodotti con foto e
+   prezzo, categorie, materiali. Colori dai token del tema.
+   ============================================================ */
+.rc-pannello{position:fixed;inset:0;z-index:1200}
+.rc-pannello[hidden]{display:none}
+.rc-velo{position:absolute;inset:0;background:rgba(10,12,16,.55);backdrop-filter:blur(4px)}
+.rc-box{position:relative;margin:clamp(12px,8vh,96px) auto 0;width:min(680px,calc(100% - 24px));max-height:calc(100dvh - 48px);display:flex;flex-direction:column;
+ background:var(--brand-surface,#fff);color:var(--brand-ink,#111318);border:1px solid var(--brand-hairline,#DDDCD8);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.28);overflow:hidden}
+:root[data-mode="dark"] .rc-box{background:#1a1d23;color:#F8F7F4;border-color:rgba(255,255,255,.12)}
+.rc-riga{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--brand-hairline,#DDDCD8)}
+:root[data-mode="dark"] .rc-riga{border-color:rgba(255,255,255,.12)}
+.rc-lente{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:2;opacity:.7}
+.rc-campo{flex:1;min-width:0;min-height:44px;border:0;outline:0;background:transparent;color:inherit;font:500 17px/1.3 'Josefin Sans',system-ui,sans-serif}
+.rc-campo::-webkit-search-cancel-button{display:none}
+.rc-chiudi{min-width:44px;min-height:44px;border:1px solid currentColor;border-radius:8px;background:transparent;color:inherit;font:600 12px/1 system-ui;opacity:.6;cursor:pointer}
+.rc-chiudi:hover,.rc-chiudi:focus-visible{opacity:1}
+.rc-risultati{overflow:auto;padding:6px 6px 12px}
+.rc-gruppo{margin:12px 10px 4px;font:600 11px/1 system-ui;letter-spacing:.12em;text-transform:uppercase;opacity:.65}
+.rc-lista{list-style:none;margin:0;padding:0}
+.rc-voce{display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 10px;border-radius:10px;color:inherit;text-decoration:none}
+.rc-voce:hover,.rc-voce:focus-visible{background:rgba(197,164,109,.16);outline:0}
+.rc-voce img,.rc-icona{width:48px;height:48px;flex:none;border-radius:8px;object-fit:cover;background:rgba(127,127,127,.12)}
+.rc-icona{display:grid;place-items:center;font-size:22px}
+.rc-testo{display:flex;flex-direction:column;min-width:0}
+.rc-testo strong{font:600 15px/1.3 'Josefin Sans',system-ui,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc-testo small{font-size:13px;opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc-aiuto,.rc-vuoto{margin:14px 12px;font-size:14px;opacity:.8}
+.rc-tutto{display:block;margin:10px 10px 0;padding:12px 10px;border-radius:10px;font-weight:600;color:#836538;text-decoration:none}
+:root[data-mode="dark"] .rc-tutto{color:#C5A46D}
+.rc-tutto:hover,.rc-tutto:focus-visible{background:rgba(197,164,109,.16);outline:0}
+html.rc-aperta{overflow:hidden}
+@media(prefers-reduced-motion:no-preference){.rc-box{animation:rc-entra .18s ease-out}@keyframes rc-entra{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}}
+
+/* Su telefono la lente era nascosta perché portava solo allo Shop, già
+   nella barra in basso. Ora apre la ricerca istantanea: torna visibile. */
+@media(max-width:620px){
+ :root[data-mode] #nav.nav .nav-acts .atelier-search-link{display:grid!important;min-width:44px!important;min-height:44px!important;place-items:center!important}
+}

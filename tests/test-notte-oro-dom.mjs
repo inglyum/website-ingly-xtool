@@ -41,8 +41,8 @@ assert.ok(grid.querySelector('.ingly-material-finder'),'Simplified material guid
 assert.equal(grid.querySelectorAll('.ingly-finder-tile').length,7,'Seven material choices required');
 assert.ok(!grid.querySelector('.atelier-compat-table'),'Old oversized comparison should not reappear');
 const loader=d.getElementById('loader');
-d.getElementById('atelierLoaderSkip').click();
-assert.ok(loader.classList.contains('ingly-loader-finished'),'Skip must initiate curtain exit');
-assert.equal(w.sessionStorage.getItem('ingly_loader_seen_v3'),'1');
+assert.equal(loader.hidden,true,'Normal visits must not show the animated loader');
+assert.ok(loader.classList.contains('ingly-loader-finished'),'Loader must be finished without waiting');
+assert.equal(d.documentElement.classList.contains('ingly-loader-lock'),false,'No scroll lock for visitors');
 w.close();
-console.log('Notte & Oro DOM smoke PASS: safe personalization, material selector, loader skip');
+console.log('Notte & Oro DOM smoke PASS: safe personalization, material selector, loader disabled by default');

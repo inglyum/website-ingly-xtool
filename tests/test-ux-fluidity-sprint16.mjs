@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {JSDOM} from 'jsdom';
+const index=readFileSync('index.html','utf8');
+const css=readFileSync('assets/css/ux-fluidity-sprint16.css','utf8');
+const dom=new JSDOM(index);const d=dom.window.document;
+assert.ok(d.querySelector('link[href="assets/css/ux-fluidity-sprint16.css"]'));
+assert.ok(index.indexOf('ux-fluidity-sprint16.css') < index.indexOf('brand-system-2026.css'));
+assert.ok(d.querySelector('input#q[type="search"][aria-controls="sugg"]'));
+assert.ok(d.querySelector('#sugg[role="listbox"]'));
+assert.match(css,/\.searchbar:focus-within/);
+assert.match(css,/prefers-reduced-motion:reduce/);
+assert.match(css,/font-size:16px/);
+assert.match(css,/\.searchbar \.sugg\[hidden\]\{display:none!important\}/);
+assert.match(css,/\.ingly-finder-selection/);
+console.log('✔ Sprint 16: search semantics, keyboard focus, motion and mobile polish');

@@ -1,0 +1,22 @@
+/* Sprint 16 — restrained premium UX. Works with existing dark/light tokens. */
+:root{--ingly-fluid-ease:cubic-bezier(.22,1,.36,1)}
+html{scroll-behavior:smooth;scroll-padding-top:clamp(80px,10vh,120px);text-rendering:optimizeLegibility}
+body{font-kerning:normal;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit}
+button,a,input,select{ -webkit-tap-highlight-color:transparent }
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--accent,#c3a46b);outline-offset:3px}
+.searchbar{position:relative;display:flex;align-items:center;min-height:52px;max-width:100%;border:1px solid color-mix(in srgb,var(--ink,#eee) 16%,transparent);border-radius:16px;background:color-mix(in srgb,var(--bg,#151923) 93%,transparent);transition:border-color .22s ease,box-shadow .22s ease,background .22s ease}
+.searchbar:focus-within{border-color:var(--accent,#c3a46b);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent,#c3a46b) 18%,transparent)}
+.searchbar input[type="search"]{width:100%;min-width:0;min-height:48px;border:0;background:transparent;color:var(--ink,#eee);font-size:clamp(15px,1vw,17px);line-height:1.45;outline:none;box-shadow:none;padding-block:10px}
+.searchbar input[type="search"]::placeholder{color:var(--muted,#999);opacity:1}
+.searchbar svg{flex:none;width:20px;height:20px;margin-inline:15px 8px;stroke:currentColor;stroke-width:1.75;fill:none}
+.searchbar .sugg:not([hidden]){position:absolute;z-index:80;top:calc(100% + 8px);left:0;right:0;max-height:min(56vh,420px);overflow:auto;overscroll-behavior:contain;border:1px solid color-mix(in srgb,var(--ink,#eee) 16%,transparent);border-radius:14px;background:var(--bg,#151923);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.searchbar .sugg[hidden]{display:none!important}
+.searchbar :where(a,button,[role="option"]){touch-action:manipulation}
+.ingly-finder-result{transition:border-color .22s ease,background-color .22s ease}
+.ingly-finder-selection{font-family:'Josefin Sans',sans-serif;font-weight:600;font-size:clamp(1rem,1.5vw,1.2rem);letter-spacing:-.015em;line-height:1.4;margin:0 0 .5rem}
+.ingly-finder-legend{line-height:1.65}
+:where(.ingly-finder-tile,.ingly-finder-operation){transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .2s var(--ingly-fluid-ease)}
+@media(hover:hover) and (pointer:fine){:where(.ingly-finder-tile,.ingly-finder-operation):hover{transform:translateY(-2px)}}
+@media(max-width:700px){.searchbar{min-height:48px;border-radius:12px}.searchbar input[type="search"]{font-size:16px}.searchbar .sugg:not([hidden]){max-height:45vh}.ingly-finder-tiles{min-width:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.searchbar,.ingly-finder-result,.ingly-finder-tile,.ingly-finder-operation{transition:none!important;animation:none!important}.ingly-finder-tile:hover,.ingly-finder-operation:hover{transform:none!important}}

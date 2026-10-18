@@ -34,6 +34,16 @@ jobs:
         run: node tests/test-ecommerce-quality.mjs
       - name: Report di qualità ecommerce (non blocca la pubblicazione)
         run: node scripts/ecommerce-audit.mjs
+      - name: Report asset CSS e JS caricati da HTML
+        run: node scripts/performance-baseline.mjs
+      - name: Salva baseline prestazionale
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-performance-baseline
+          path: artifacts/performance/static-assets.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Report fotografico da inventario reale (non bloccante sui mancanti)
         run: node scripts/photo-readiness-report.mjs
       - name: Archivia coda SKU foto e CSV

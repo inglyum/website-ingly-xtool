@@ -948,6 +948,8 @@ document.addEventListener('ingly:pagina',e=>{
    ora l'applicazione disegna la pagina vera e quel duplicato va tolto. */
 document.getElementById('prerender')?.remove();
 safeRun('mostra pagina iniziale',()=>show(currentPage()));
+/* Reveal the fully-rendered site atomically: no old static homepage frame. */
+document.documentElement.classList.remove('ingly-boot-pending');
 requestAnimationFrame(markScrollableCompatibility);
 
 /* Bandierina di avvenuto avvio: la usa la rete di sicurezza in index.html per

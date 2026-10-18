@@ -17,6 +17,9 @@ const d=JSON.parse(read('data/macchine.json'));
 const v=w.INGLY_MATERIAL_FINDER.mount(w.document.getElementById('test'),d,'it');
 assert.ok(v,'material finder mounts without runtime exceptions');
 assert.equal(v.result.dataset.result,'yes','P3 + wood + cut');
+assert.match(v.result.textContent,/Taglio · Legno \/ MDF/,'result identifies the selected operation and material');
+assert.match(w.document.getElementById('test').textContent,/Supportato = documentato nei dati/,'explanatory legend is visible');
+assert.equal(v.materialButtons.get('wood').button.querySelector('small').textContent,'Supportato');
 v.machine.value='m2-20w';v.machine.dispatchEvent(new w.Event('change'));
 const metal=v.materialButtons.get('metal').button;metal.click();
 assert.equal(v.result.dataset.result,'none','metal cannot be cut using M2 diode');
@@ -32,5 +35,6 @@ assert.equal(v.result.dataset.result,'test','acrylic cutting requires material v
 assert.equal(acrylic.getAttribute('aria-pressed'),'true');
 assert.equal(v.operationButtons.get('cut').getAttribute('aria-pressed'),'true');
 assert.ok(v.result.textContent.includes('10 W'));
+assert.match(v.result.textContent,/non presente in officina/,'M2 is expressly not advertised as on-site');
 dom.window.close();
 console.log('✔ Home headline geometry rules + actual Material Finder click interactions verified');

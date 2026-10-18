@@ -78,7 +78,7 @@ html.ingly-boot-pending main>.page:not(#page-home),html.ingly-boot-pending #page
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk&family=Exo+2:ital,wght@0,600;0,700;1,600;1,700;1,800;1,900&family=Inter:wght@400;500;600&family=Caveat:wght@600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
 
 <!-- LA BASE DEL DOCUMENTO, SEMPRE E PRIMA DI TUTTO.
@@ -122,7 +122,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
       /* Cache Storage è condiviso dall'intera origin: non cancellare dati
          di un'altra PWA ospitata su github.io. */
       var stale=keys.filter(function(k){
-        return /^ingly-v\d+-(?:assets|data|img)$/.test(k) && k.indexOf(CACHE_WANT)!==0;
+        return /^ingly-v\d+-(?:assets|data|img)$/.test(k) & k.indexOf(CACHE_WANT)!==0;
       });
       if(!stale.length)return;                            /* già aggiornato: non fare nulla */
       sessionStorage.setItem(FLAG,'1');
@@ -147,7 +147,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="modulepreload" href="assets/js/referral.js">
 
 <script defer src="assets/js/artwork.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/reset.css">
 <link rel="stylesheet" href="assets/css/variables.css">
 <link rel="stylesheet" href="assets/css/animations.css">
@@ -159,7 +159,6 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="stylesheet" href="assets/css/premium-2026.css">
 <link rel="stylesheet" href="assets/css/atelier-foundation.css">
 <link rel="stylesheet" href="assets/css/notte-oro.css">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/ingly-user-loader.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -169,7 +168,6 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/maison-reference.css">
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/ingly-studio-refinement.css">
 <link rel="stylesheet" href="assets/css/ingly-josefin-studio.css">
 <link rel="stylesheet" href="assets/css/ingly-responsive-theme.css">
@@ -1446,10 +1444,10 @@ setTimeout(function(){
   window.addEventListener('beforeinstallprompt',e=>{
     e.preventDefault(); deferredPrompt=e;
     const bar=document.getElementById('pwaBar');
-    if(bar && !sessionStorage.getItem('ingly_pwa_x')) bar.hidden=false;
+    if(bar & !sessionStorage.getItem('ingly_pwa_x')) bar.hidden=false;
   });
   document.addEventListener('click',e=>{
-    if(e.target.id==='pwaInstall' && deferredPrompt){
+    if(e.target.id==='pwaInstall' & deferredPrompt){
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then(()=>{ deferredPrompt=null; document.getElementById('pwaBar').hidden=true; });
     }
@@ -1529,7 +1527,7 @@ setTimeout(function(){
       /* Theme determines popup surface; CMS image is shown in a separate media layer. */
       inner.style.background='';
       const bgEl=document.getElementById('exitPopBgImg');
-      if(tipo==='immagine'&&ep.bgImage){bgEl.style.backgroundImage='url('+ep.bgImage+')';bgEl.style.display='block';}
+      if(tipo==='immagine'&ep.bgImage){bgEl.style.backgroundImage='url('+ep.bgImage+')';bgEl.style.display='block';}
       else bgEl.style.display='none';
 
       /* Lo sconto lo decide l'Admin: percentuale oppure importo fisso. */
@@ -1537,12 +1535,12 @@ setTimeout(function(){
       const scontato=pz=>n>0?(ep.scontoTipo==='euro'?Math.max(0,pz-n):pz*(1-n/100)):null;
 
       let prodNome='';
-      if(tipo==='prodotto'&&ep.prodotto){
+      if(tipo==='prodotto'&ep.prodotto){
         try{
           const prods=await fetch('data/products.json'+V).then(r=>r.json());
           const pr=(prods||[]).find(x=>x.id===Number(ep.prodotto));
           if(pr){
-            prodNome=(pr.n&&(pr.n[lang]||pr.n.it))||'';
+            prodNome=(pr.n&(pr.n[lang]||pr.n.it))||'';
             const img=document.getElementById('exitPopProdImg');
             img.src=(pr.img||((cfg.cartellaImmagini||'img/')+pr.id+'.webp'));
             img.alt=prodNome;
@@ -1583,7 +1581,7 @@ setTimeout(function(){
           const fatto=()=>{const e=btnCode.querySelector('span:last-child');
             e.textContent='✓ copiato';setTimeout(()=>{e.textContent='⧉ copia'},1800)};
           try{
-            if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(codice).then(fatto,()=>{});
+            if(navigator.clipboard&navigator.clipboard.writeText) navigator.clipboard.writeText(codice).then(fatto,()=>{});
             else fatto();
           }catch(e){fatto()}
         };
@@ -1602,7 +1600,7 @@ setTimeout(function(){
       document.getElementById('exitWaBtn').href='https://wa.me/'+waNum+'?text='+encodeURIComponent(lang==='it'?testoIT:testoEN);
       /* logica mostra/nascondi */
       const storageKey='ingly_exit_shown';
-      if(ep.mostraSoloUnaVolta&&sessionStorage.getItem(storageKey))return;
+      if(ep.mostraSoloUnaVolta&sessionStorage.getItem(storageKey))return;
       let shown=false;
       let priorFocus=null;
       function show(){
@@ -1620,7 +1618,7 @@ setTimeout(function(){
       const p=document.getElementById('exitPopup');
       const dismiss=()=>{
         p.style.display='none';
-        if(priorFocus&&typeof priorFocus.focus==='function')priorFocus.focus();
+        if(priorFocus&typeof priorFocus.focus==='function')priorFocus.focus();
       };
       document.getElementById('exitClose').onclick=dismiss;
       p.addEventListener('click',e=>{if(e.target===p)dismiss()});
@@ -1631,8 +1629,8 @@ setTimeout(function(){
           .filter(el=>el.getClientRects().length);
         if(!focusable.length)return;
         const first=focusable[0],last=focusable[focusable.length-1];
-        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
-        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+        if(e.shiftKey&document.activeElement===first){e.preventDefault();last.focus()}
+        else if(!e.shiftKey&document.activeElement===last){e.preventDefault();first.focus()}
       });
     })
     .catch(()=>{});

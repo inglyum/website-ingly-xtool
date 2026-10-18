@@ -29,6 +29,14 @@
   const onReady=()=>{
     const overlay=document.getElementById('loader');
     if(!overlay||!overlay.classList.contains('ingly-custom-loader'))return;
+    // P0 stability: normal visits render content directly. Keep the branded
+    // animation available only through explicit ?loaderPreview for editors.
+    if(!forcePreview()){
+      overlay.hidden=true;
+      overlay.classList.add('gone','off','ingly-loader-finished');
+      document.documentElement.classList.remove('ingly-loader-lock');
+      return;
+    }
     const root=document.documentElement;
     const badge=document.getElementById('inglyLoaderBadge');
     const beam=document.getElementById('inglyLoaderBeam');

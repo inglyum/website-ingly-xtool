@@ -33,7 +33,7 @@ assert(css.includes('prefers-reduced-motion:reduce'),'Accessible motion fallback
 assert(js.includes("e?.detail?.CONFIG"),'Loader not connected to Admin-published CONFIG');
 assert(js.includes("window.__INGLY_PRONTO"),'Loader must observe app ready');
 assert(js.includes('appReady ? .32 : 0'),'App ready included in progress');
-assert(js.includes('setTimeout(()=>finish(),5600)'),'Loader hard timeout missing');
+assert(js.includes('setTimeout(()=>finish(),1900)'),'Loader hard timeout missing');
 assert(js.includes("sessionStorage.setItem"),'First session not persisted');
 const siteDOM=new JSDOM(page);
 assert.equal(siteDOM.window.document.querySelectorAll('#loader').length,1,'Never duplicate loaders');

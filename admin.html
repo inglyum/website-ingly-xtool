@@ -1626,6 +1626,34 @@ async function remoteDrift(files,ref){
   }
   return drift;
 }
+/* unione a tre vie: base = ciò che l'Admin aveva letto (SNAP), mio = bozza,
+   loro = file attuale su GitHub. Oggetti: campo per campo; il resto in blocco. */
+function _piatto(v){return v&&typeof v==='object'&&!Array.isArray(v)}
+function unisci3(base,mio,loro,via,conf){
+ const J=x=>JSON.stringify(x);
+ if(J(mio)===J(base))return loro;
+ if(J(loro)===J(base)||J(loro)===J(mio))return mio;
+ if(_piatto(base)&&_piatto(mio)&&_piatto(loro)){
+  const out={};const chiavi=new Set([...Object.keys(mio),...Object.keys(loro),...Object.keys(base)]);
+  for(const k of chiavi){const v=unisci3(base[k],mio[k],loro[k],via?via+'.'+k:k,conf);if(v!==undefined)out[k]=v}
+  return out}
+ conf.push(via||'(intero file)');return mio}
+async function unisciRemoto(files,ref){
+ const uniti=[],conflitti=[];
+ for(const f of files){
+  if(SNAP[f]===undefined||SNAP[f]==='"__MANCANTE__"')continue;
+  let remoto;
+  try{const r=await gh('/contents/data/'+f+'.json?ref='+encodeURIComponent(ref));if(!r||!r.content)continue;remoto=JSON.parse(ghDecode(r.content))}
+  catch(e){continue}
+  const testoRemoto=jstr(remoto);
+  if(testoRemoto===SNAP[f])continue;                 /* nessuno ha toccato il file */
+  const c=[];
+  const unito=unisci3(JSON.parse(SNAP[f]),S[KEY[f]],remoto,'',c);
+  S[KEY[f]]=unito;SNAP[f]=testoRemoto;               /* da ora la base è GitHub */
+  uniti.push(f);c.forEach(x=>conflitti.push(f+': '+x));
+ }
+ if(uniti.length&&typeof saveDraft==='function')try{saveDraft()}catch(e){}
+ return {uniti,conflitti}}
 function ghErrHint(e){const m=String(e.message||e);
  if(m.includes('RATELIMIT'))return 'Limite API di GitHub superato (60 richieste/ora senza token). Inserisci il token in Impostazioni: il limite sale a 5000/ora.';
  if(m.includes(' 401 '))return 'Token non valido o scaduto: creane uno nuovo (Developer settings → Fine-grained tokens).';
@@ -1936,7 +1964,7 @@ async function generaPagineStatiche(dominio){
       const pr=(S.P||[]).find(x=>x.id===v.id); if(!pr) continue;
       const canonico=P.indirizzo('product',{base,id:pr.id});
       const desc=String((pr.desc&&pr.desc[L])||SEO.descrizione||'').replace(/<[^>]+>/g,'').slice(0,300);
-      out[v.file]={text:P.componi(guscio,{
+      out[v.file]={text:P.componi(guscio,{pagina:"product",
         titolo:((pr.n&&pr.n[L])||'')+' — '+azienda, descrizione:desc, canonico,
         contenuto:P.corpoProdotto(pr,{L,azienda,categoria:nomeCat(pr.cat),materiale:nomeMat(pr.mat)}),
         jsonld:SCH.grafo([...entita,SCH.compatta({'@type':'Product',
@@ -1952,7 +1980,7 @@ async function generaPagineStatiche(dominio){
       const canonico=P.indirizzo(v.pagina,{base});
       const extra=v.pagina==='shop'
         ? [SCH.paginaCollezione(visibili,{base,L,titolo:azienda+' — Catalogo',url:canonico})] : [];
-      out[v.file]={text:P.componi(guscio,{
+      out[v.file]={text:P.componi(guscio,{pagina:v.pagina,
         titolo:(TIT[v.pagina]||v.pagina)+' — '+azienda, descrizione:SEO.descrizione||'', canonico,
         contenuto:P.corpoPagina(v.pagina,{L,base,titolo:TIT[v.pagina]||v.pagina,
           descrizione:SEO.descrizione||'',
@@ -3517,6 +3545,8 @@ $('mDoAssign').onclick=async()=>{
    const path=MEDIA_DEST.percorso('hero',{ext:s.proc.ext});await stageWithVariants(path,s.proc);
    S.CONFIG.heroImage=path;S.CONFIG.heroImageAlt='Fotografia principale INGLY DESIGN';
    S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageDemo=false;S.CONFIG.heroImageReplaceable=true;
+   /* una foto caricata per l'hero va mostrata: si accende lo sfondo */
+   S.CONFIG.heroSfondo=Object.assign({velo:'0.6'},S.CONFIG.heroSfondo,{attivo:true});
   }else if(dest==='about'){const path='img/about.'+s.proc.ext;await stageFile(path,s.proc);
    S.CONFIG.aboutMedia=S.CONFIG.aboutMedia||{};S.CONFIG.aboutMedia.tipo='immagine';S.CONFIG.aboutMedia.src=path;
   }else{
@@ -4254,11 +4284,11 @@ function renderHero(){bindAll();renderAbout();sloganPreview();renderHeroImage();
  const pick=$('heroImageUpload'),fromLibrary=$('heroImageLibrary'),sample=$('heroImageSample');
  if(pick)pick.onclick=()=>pickImage('img/hero-home',path=>{
   S.CONFIG.heroImage=path;S.CONFIG.heroImageKind='ingly-original';S.CONFIG.heroImageDemo=false;
-  markDirty();renderHeroImage();const field=$('heroImagePath');if(field)field.value=path;
+  S.CONFIG.heroSfondo=Object.assign({velo:'0.6'},S.CONFIG.heroSfondo,{attivo:true});markDirty();bindAll();renderHeroImage();const field=$('heroImagePath');if(field)field.value=path;
  },'about');
  if(fromLibrary)fromLibrary.onclick=()=>{
   pickFromLibrary(files=>{if(!files.length)return;S.CONFIG.heroImage=files[0];
-   S.CONFIG.heroImageKind='illustrative-example';S.CONFIG.heroImageDemo=true;markDirty();
+   S.CONFIG.heroImageKind='illustrative-example';S.CONFIG.heroImageDemo=true;S.CONFIG.heroSfondo=Object.assign({velo:'0.6'},S.CONFIG.heroSfondo,{attivo:true});markDirty();bindAll();
    const field=$('heroImagePath');if(field)field.value=files[0];renderHeroImage();
   });
  };
@@ -5434,6 +5464,24 @@ $('pubGo').onclick=async()=>{
   step('prep','run');
   try{const r=await gh('');if(!(r.permissions&&r.permissions.push))return fail('prep','Il token legge '+r.full_name+' ma NON può scrivere: serve Contents → Read and write per questo repository.')}
   catch(pe){return fail('prep',ghErrHint(pe))}
+  /* UNIONE AUTOMATICA (niente più «OK = sovrascrivi»).
+     Se un file è cambiato su GitHub dopo che l'Admin l'ha letto (un'altra
+     scheda, un aggiornamento del sito), prima si poteva solo sovrascriverlo:
+     così il 19/10 è sparita l'impostazione dello sfondo della Home. Ora si
+     uniscono le due versioni campo per campo: le tue modifiche + le novità
+     arrivate da GitHub. Si chiede solo se lo STESSO campo è cambiato da
+     entrambe le parti. */
+  {const pre=changedFiles();
+   if(pre.length){
+    const refU=await gh(`/git/ref/heads/${SET.branch}`);
+    const unione=await unisciRemoto(pre,refU.object.sha);
+    if(unione.conflitti.length&&!confirm('Questi campi sono stati cambiati sia da te sia su GitHub:\n\n'+
+      unione.conflitti.slice(0,12).map(c=>'· '+c).join('\n')+(unione.conflitti.length>12?'\n· …':'')+
+      '\n\nOK = tieni la TUA versione per questi campi (il resto è già unito)\nAnnulla = fermati e ricarica l\'Admin')){
+     return fail('prep','Pubblicazione annullata: ricarica l\'Admin per ripartire dai dati aggiornati.');
+    }
+    if(unione.uniti.length)step('prep','run','unite novità da GitHub: '+unione.uniti.join(', '));
+   }}
   const ch=changedFiles();const files={};
   ch.forEach(f=>files['data/'+f+'.json']={text:JSON.stringify(S[KEY[f]],null,1)});
   const v=Date.now();files['data/version.json']={text:JSON.stringify({v,updated:new Date().toISOString()})};
@@ -5527,15 +5575,35 @@ $('pubGo').onclick=async()=>{
    $('psx_blob').textContent=' — '+(i+1)+'/'+paths.length}
   dels.forEach(p=>entries.push({path:p,mode:'100644',type:'blob',sha:null}));
   step('blob','done',paths.length+' blob'+(dels.length?' · '+dels.length+' rimozioni':''));
-  step('tree','run');
-  const tree=await gh('/git/trees',{method:'POST',body:JSON.stringify({base_tree:headC.tree.sha,tree:entries})});
-  step('tree','done');
-  step('commit','run');
+  /* Albero → commit → ramo, con nuovo tentativo automatico.
+     Se mentre pubblichi qualcun altro scrive sul ramo, GitHub rifiuta
+     l'aggiornamento (422). Prima toccava ripetere tutto a mano; ora si
+     rilegge il ramo e si ricompone il commit sopra l'ultima versione —
+     ma solo se l'altro commit NON ha toccato i dati che stai pubblicando. */
   const msg=($('pubMsg').value.trim()||'Aggiornamento contenuti')+' [admin 2.0]';
-  const commit=await gh('/git/commits',{method:'POST',body:JSON.stringify({message:msg,tree:tree.sha,parents:[head]})});
-  step('commit','done',commit.sha.slice(0,7));
-  step('ref','run');
-  await gh(`/git/refs/heads/${SET.branch}`,{method:'PATCH',body:JSON.stringify({sha:commit.sha,force:false})});
+  const nostri=new Set([...paths.filter(p=>p.startsWith('data/')&&p!=='data/version.json'),...dels]);
+  let base=head,baseTree=headC.tree.sha,commit=null;
+  for(let tentativo=1;tentativo<=4;tentativo++){
+   step('tree','run');
+   const tree=await gh('/git/trees',{method:'POST',body:JSON.stringify({base_tree:baseTree,tree:entries})});
+   step('tree','done');
+   step('commit','run');
+   commit=await gh('/git/commits',{method:'POST',body:JSON.stringify({message:msg,tree:tree.sha,parents:[base]})});
+   step('commit','done',commit.sha.slice(0,7));
+   step('ref','run');
+   try{
+    await gh(`/git/refs/heads/${SET.branch}`,{method:'PATCH',body:JSON.stringify({sha:commit.sha,force:false})});
+    break;
+   }catch(er){
+    if(!/ 422 /.test(String(er.message))||tentativo===4)throw er;
+    const nuovo=(await gh(`/git/ref/heads/${SET.branch}`)).object.sha;
+    const cmp=await gh(`/compare/${base}...${nuovo}`);
+    const toccati=(cmp.files||[]).map(x=>x.filename).filter(f=>nostri.has(f));
+    if(toccati.length)return fail('ref','Mentre pubblicavi qualcuno ha cambiato '+toccati.join(', ')+'. Ricarica l\'Admin: i tuoi dati restano in bozza.');
+    step('ref','run','il ramo è avanzato, ricompongo ('+(tentativo+1)+'/4)');
+    base=nuovo;baseTree=(await gh(`/git/commits/${nuovo}`)).tree.sha;
+   }
+  }
   step('ref','done');
   /* stato pulito */
   MISSING=[];

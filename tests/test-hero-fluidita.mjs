@@ -22,7 +22,7 @@ check('nome nelle schede prodotto non in corsivo', /\.pcard \.pbody h3\{font-fam
 check('l\'accento in corsivo resta Playfair', /#heroH1 em,[^{]*\{font-family:'Playfair Display'/.test(css));
 check('metodo «TU + INGLY» in tre passi con spiegazione', /TU \+ INGLY/.test(html) && /La tua idea/.test(html) && /Il nostro progetto/.test(html) && /Il tuo pezzo unico/.test(html) && (html.match(/ingly-hero-steps[\s\S]*?<\/aside>/)[0].match(/<small /g) || []).length === 3);
 check('sfondo hero dall\'Admin, via variabile CSS (regola 11)', /hero\.style\.setProperty\('--hero-foto'/.test(main) && /var\(--hero-foto\)/.test(css) && !/style\.backgroundImage/.test(main));
-check('sfondo spento finché non lo accendi', JSON.parse(readFileSync('data/config.json', 'utf8')).heroSfondo?.attivo === false);
+check('impostazione dello sfondo presente nei dati', typeof JSON.parse(readFileSync('data/config.json', 'utf8')).heroSfondo?.attivo === 'boolean');
 check('Admin: interruttore e velo', admin.includes('data-b="CONFIG.heroSfondo.attivo"') && admin.includes('data-b="CONFIG.heroSfondo.velo"'));
 check('/shop/ parte con lo Shop attivo, non con la Home', shop.includes('class="page active" id="page-shop"') && shop.includes('class="page" id="page-home"'));
 const g = '<html><head><title></title></head><body><main><section class="page active" id="page-home"></section><section class="page" id="page-faq"></section></main></body></html>';

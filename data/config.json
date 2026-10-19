@@ -309,5 +309,9 @@
   "position": "center center",
   "overlayDark": 48,
   "overlayLight": 64
+ },
+ "heroSfondo": {
+  "attivo": true,
+  "velo": "0.6"
  }
 }

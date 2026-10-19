@@ -826,6 +826,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div id="heroImagePreview" aria-live="polite"></div>
       <p class="hint">Percorso: Carica/Scegli → Anteprima → Valida → Pubblica. Le immagini sample non vengono mai presentate come lavori reali del portfolio.</p>
     </div>
+    <div class="card"><h3>🧭 Riquadro del metodo nella Home («TU + INGLY»)</h3>
+      <p class="hint">Il riquadro a destra del titolo, su computer. Un campo vuoto lascia il testo attuale.</p>
+      <div class="row c2"><div><label>Titolo IT</label><input type="text" data-b="CONFIG.heroMetodo.titolo.it" placeholder="TU + INGLY"></div><div><label>Title EN</label><input type="text" data-b="CONFIG.heroMetodo.titolo.en" placeholder="YOU + INGLY"></div></div>
+      <div class="row c2"><div><label>Passo 1 — titolo IT</label><input type="text" data-b="CONFIG.heroMetodo.passi.0.titolo.it"></div><div><label>Step 1 — title EN</label><input type="text" data-b="CONFIG.heroMetodo.passi.0.titolo.en"></div></div>
+      <div class="row c2"><div><label>Passo 1 — spiegazione IT</label><input type="text" data-b="CONFIG.heroMetodo.passi.0.testo.it"></div><div><label>Step 1 — text EN</label><input type="text" data-b="CONFIG.heroMetodo.passi.0.testo.en"></div></div>
+      <div class="row c2"><div><label>Passo 2 — titolo IT</label><input type="text" data-b="CONFIG.heroMetodo.passi.1.titolo.it"></div><div><label>Step 2 — title EN</label><input type="text" data-b="CONFIG.heroMetodo.passi.1.titolo.en"></div></div>
+      <div class="row c2"><div><label>Passo 2 — spiegazione IT</label><input type="text" data-b="CONFIG.heroMetodo.passi.1.testo.it"></div><div><label>Step 2 — text EN</label><input type="text" data-b="CONFIG.heroMetodo.passi.1.testo.en"></div></div>
+      <div class="row c2"><div><label>Passo 3 — titolo IT</label><input type="text" data-b="CONFIG.heroMetodo.passi.2.titolo.it"></div><div><label>Step 3 — title EN</label><input type="text" data-b="CONFIG.heroMetodo.passi.2.titolo.en"></div></div>
+      <div class="row c2"><div><label>Passo 3 — spiegazione IT</label><input type="text" data-b="CONFIG.heroMetodo.passi.2.testo.it"></div><div><label>Step 3 — text EN</label><input type="text" data-b="CONFIG.heroMetodo.passi.2.testo.en"></div></div>
+      <div class="row c2"><div><label>Firma in basso IT</label><input type="text" data-b="CONFIG.heroMetodo.firma.it" placeholder="FATTO PER TE · ITALIA"></div><div><label>Signature EN</label><input type="text" data-b="CONFIG.heroMetodo.firma.en" placeholder="MADE FOR YOU · ITALY"></div></div>
+    </div>
     <div class="card"><h3>🎯 Prodotti in evidenza nella Hero</h3>
       <div class="hint">Le 3 card della Home leggono nome, prezzo, materiale e foto direttamente dal catalogo: qui scegli <b>quali</b> prodotti mostrare.</div>
       <div class="row c3" id="heroPick" style="margin-top:8px"></div>
@@ -1019,9 +1030,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <button class="btn sm pri" data-labtab="mat">🧱 Materiali</button>
       <button class="btn sm" data-labtab="tec">⚡ Tecnologie</button>
       <button class="btn sm" data-labtab="mac">🛠 Macchine</button>
-      <button class="btn sm" data-labtab="matpro">🧱 Negozio materiali PRO</button>
-      <button class="btn sm" data-labtab="macpro">⚙️ Catalogo macchine PRO</button>
+      <button class="btn sm" data-labtab="matpro">📸 Materiali: foto, aggiungi, rimuovi</button>
+      <button class="btn sm" data-labtab="macpro">📸 Macchine xTool: foto, aggiungi, rimuovi</button>
       <button class="btn sm" data-labtab="cor">🎓 Corsi</button>
+      <button class="btn sm" data-labtab="aree">🖼 Aree Academy (foto e testi)</button>
       <button class="btn sm" data-labtab="demo">📅 Demo gratuita</button>
     </div>
     <div id="labBody"></div>
@@ -4930,6 +4942,7 @@ function renderLab(){
  if(LABTAB==='macpro')return labEditorMacchine(B);
  if(LABTAB==='cor')return labCorsi(B);
  if(LABTAB==='demo')return labDemo(B);
+ if(LABTAB==='aree')return labAree(B);
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-labtab]');if(!b)return;LABTAB=b.dataset.labtab;renderLab()});
 
@@ -5014,7 +5027,7 @@ function labTecnologie(B){
 /* ---- macchine: la distinzione fra quelle che abbiamo e quelle che ripariamo ---- */
 function labMacchine(B){
  const L=(S.MAC.catalogo=S.MAC.catalogo||[]);
- B.innerHTML='<div class="card hint">«In officina» significa che la macchina è qui e si può provare: solo queste compaiono nella pagina della demo. «Assistenza» vale su tutta la gamma, perché siamo centro ufficiale.</div>'
+ B.innerHTML='<div class="card hint">📸 Per <b>cambiare la foto</b>, <b>aggiungere</b> o <b>togliere</b> una macchina usa la scheda «Macchine xTool: foto, aggiungi, rimuovi» qui sopra. «Archivia» la toglie dal sito, «Ripristina» la rimette.</div><div class="card hint">«In officina» significa che la macchina è qui e si può provare: solo queste compaiono nella pagina della demo. «Assistenza» vale su tutta la gamma, perché siamo centro ufficiale.</div>'
  +L.map((m,i)=>`<div class="card"><h3>${esc(labL(m.n,'it')||m.id)} <span class="chip">serie ${esc(m.serie||'')}</span>
    ${m.inOfficina?'<span class="chip laser">in officina</span>':''}${m.daCompletare?'<span class="chip">specifiche da verificare</span>':''}
    <span class="sp"></span><button class="btn sm" data-lcm="${i},-1">↑</button><button class="btn sm" data-lcm="${i},1">↓</button></h3>
@@ -5118,6 +5131,24 @@ function labEditorMacchine(B) {
    utilePer:{it:[],en:[]},nonUtilePer:{it:[],en:[]},materialiOk:[],materialiNo:[],
    galleria:[],fonte:{url:'',verificatoIl:''},inOfficina:false,demoDisponibile:false,
    assistenza:false,daCompletare:true,stato:'bozza'})});
+}
+
+/* ---- aree Academy: le sei schede con foto che il sito mostra finché non
+   ci sono corsi a calendario. Prima erano scritte nel codice. ---- */
+function labAree(B){
+ const E=window.INGLY_COLLECTION_EDITOR;
+ if(!E){B.textContent='Editor avanzato non caricato';return}
+ S.COR.aree=Array.isArray(S.COR.aree)?S.COR.aree:[];
+ E.mount({root:B,items:S.COR.aree,title:'Aree Academy',
+  schema:[
+   {key:'n',label:'Titolo',type:'testo-it-en',required:true},
+   {key:'d',label:'Descrizione breve',type:'area-it-en'},
+   {key:'img',label:'Immagine (percorso, es. img/academy-1.webp)',type:'testo',help:'Oppure carica una foto nella galleria qui sotto: si usa la prima.'},
+   {key:'galleria',label:'Foto (carica qui)',type:'galleria'}
+  ],
+  file:'data/corsi.json',percorso:'aree',area:'academy',
+  onChange:markDirty,upload:caricaImmagineCollezione,
+  create:()=>({id:'area-'+Date.now().toString(36),n:{it:'Nuova area',en:'New topic'},d:{it:'',en:''},img:'',galleria:[],stato:'pubblicato'})});
 }
 
 /* ---- corsi: si creano qui, e nascono in bozza ---- */

@@ -313,5 +313,47 @@
  "heroSfondo": {
   "attivo": true,
   "velo": "0.6"
+ },
+ "heroMetodo": {
+  "titolo": {
+   "it": "TU + INGLY",
+   "en": "YOU + INGLY"
+  },
+  "passi": [
+   {
+    "titolo": {
+     "it": "La tua idea",
+     "en": "Your idea"
+    },
+    "testo": {
+     "it": "Raccontacela, anche con uno schizzo o una foto.",
+     "en": "Tell us, even with a sketch or a photo."
+    }
+   },
+   {
+    "titolo": {
+     "it": "Il nostro progetto",
+     "en": "Our design"
+    },
+    "testo": {
+     "it": "La disegniamo e ti mandiamo la bozza da approvare.",
+     "en": "We design it and send you a proof to approve."
+    }
+   },
+   {
+    "titolo": {
+     "it": "Il tuo pezzo unico",
+     "en": "Your one-of-a-kind piece"
+    },
+    "testo": {
+     "it": "Lo realizziamo a mano nel nostro laboratorio.",
+     "en": "We craft it by hand in our workshop."
+    }
+   }
+  ],
+  "firma": {
+   "it": "FATTO PER TE · ITALIA",
+   "en": "MADE FOR YOU · ITALY"
+  }
  }
 }

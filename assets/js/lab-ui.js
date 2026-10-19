@@ -59,9 +59,10 @@ function faqHtml(faq, L) {
 /* Media prodotti/materiali: esempi distinti, gestiti da data/materiali.json.
    Le immagini illustrative non vanno attribuite al portfolio reale. */
 function fotoMateriale(m, L, grande = false) {
-  const file = String(m.img || '').trim();
+  const g = LAB.fotoGalleria(m);
+  const file = String(m.img || (g && g.src) || '').trim();
   if(!/^(?:img|assets\/images)\/[\w/.-]+\.(?:webp|jpg|jpeg|png|svg)$/i.test(file)) return '';
-  const alt = L === 'en' ? m.altEN : m.altIT;
+  const alt = (L === 'en' ? m.altEN : m.altIT) || (g && g.alt && (g.alt[L] || g.alt.it));
   return `<figure class="lab-material-cover${grande ? ' lab-material-cover--large' : ''}">
     <img src="${esc(via('/' + file))}" alt="${esc(alt || LAB.lingua(m.n, L))}"
          loading="lazy" decoding="async" width="760" height="520">
@@ -243,13 +244,13 @@ function fotoMac(m, L, grande) {
   const f = LAB.fotoMacchina(D(), m.id === 'uv' ? 'o1-uv' : m.id);
   if (f.foto) {
     const alt = (f.alt && (f.alt[L] || f.alt.it)) || LAB.lingua(m.n, L);
-    const photoSrc = /^https:\/\/cdn\.shopify\.com\//.test(f.foto) ? f.foto : via('/' + f.foto);
+    const photoSrc = /^https:\/\//.test(f.foto) ? f.foto : via('/' + f.foto);
     const fallback = via('/assets/images/xtool-lab-default.svg');
     return `<figure class="mac-foto${grande ? ' mac-foto--grande' : ''}">
       <img src="${esc(photoSrc)}" alt="${esc(alt)}" width="760" height="510"
         ${grande ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"
         onerror="this.onerror=null;this.src='${esc(fallback)}'">
-      <figcaption class="mac-credito">${t2('Foto ufficiale', 'Official photograph', L)}: xTool · ${t2('Fonte produttore', 'Manufacturer source', L)}</figcaption>
+      ${f.tipoAsset === 'admin' ? '' : `<figcaption class="mac-credito">${t2('Foto ufficiale', 'Official photograph', L)}: xTool · ${t2('Fonte produttore', 'Manufacturer source', L)}</figcaption>`}
     </figure>`;
   }
   if (!grande) return '';
@@ -275,19 +276,30 @@ function fotoMac(m, L, grande) {
     ${f.ufficiale ? ` <a href="${esc(f.ufficiale)}" target="_blank" rel="noopener">${t2('Vedila sul sito xTool', 'See it on the xTool site', L)} →</a>` : ''}</p>`;
 }
 
+/* Il riquadro fisso «La macchina giusta» nell'intestazione: una macchina
+   archiviata dall'Admin sparisce anche da lì. */
+function nascondiArchiviate(d){
+  const arch=new Set(((d.MACCHINE&&d.MACCHINE.catalogo)||[]).filter(m=>m&&m.stato==='archiviato').map(m=>LAB.lingua(m.n,'it').trim().toLowerCase()));
+  document.querySelectorAll('#inglyLabFacts .ingly-lab-fact').forEach(a=>{
+    const n=(a.querySelector('h3')||{}).textContent||'';
+    a.hidden=arch.has(n.trim().toLowerCase());
+  });
+}
 export function renderMacchine(L) {
   const box = $('labMacGrid');
   if (!box) return;
   const d = D();
   const lista = LAB.macchine(d);
   const combi = (d.MACCHINE && d.MACCHINE.combinazioni) || [];
+  nascondiArchiviate(d);
   const vietati = (d.MACCHINE && d.MACCHINE.maiLavorare && d.MACCHINE.maiLavorare.materiali) || [];
 
   const photoIndex = new Map(((d.IMMAGINI_MACCHINE && d.IMMAGINI_MACCHINE.macchine) || [])
     .filter(p => p && p.immagineRemotaVerificata === true && (p.licenza||{}).stato === 'consentito')
     .map(p => [p.id, p]));
   const informative = LAB.catalogo(d).filter(m => !m.inOfficina).map(m => {
-    const foto=photoIndex.get(m.id)||{};
+    const propria=LAB.fotoGalleria(m);
+    const foto=propria?{origine:/^https:\/\//.test(propria.src)?propria.src:via('/'+propria.src),alt:propria.alt&&propria.alt.it?propria.alt:null}:(photoIndex.get(m.id)||{});
     return {...m, modello:LAB.lingua(m.n,L),
       origine: foto.origine || via('/assets/images/xtool-lab-default.svg'),
        fotoVerificata:Boolean(foto.origine),
@@ -622,7 +634,13 @@ export function renderCorsi(L) {
   /* Nessun corso a calendario: offriamo aree formative su richiesta, non
      schede fittizie con date, durate o prezzi che non sono stati approvati. */
   if (!lista.length) {
-    const aree = [
+    /* Le aree si cambiano dall'Admin (Lab → Aree Academy, data/corsi.json → aree).
+       Senza dati restano quelle di sempre. */
+    const areeDati = (d && d.CORSI && Array.isArray(d.CORSI.aree)) ? d.CORSI.aree.filter(a => a && a.stato !== 'archiviato' && a.stato !== 'bozza') : [];
+    const aree = areeDati.length ? areeDati.map((a, i) => {
+      const g = LAB.fotoGalleria(a);
+      return { n: LAB.lingua(a.n, L), d: LAB.lingua(a.d, L), ic: String(i + 1).padStart(2, '0'), img: String(a.img || (g && g.src) || 'img/cat-tecnologie.webp') };
+    }) : [
       { n: t2('Macchine xTool e primi settaggi', 'xTool machines and first setup', L), d: t2('Impostazioni iniziali, messa a punto e flusso di lavoro.', 'Initial setup, calibration and workflow.', L), ic: '01', img: 'img/cat-tecnologie.webp' },
       { n: t2('Materiali, test e parametri', 'Materials, tests and settings', L), d: t2('Come scegliere il materiale e impostare prove consapevoli.', 'Choosing materials and planning reliable tests.', L), ic: '02', img: 'img/cat-materiali.webp' },
       { n: t2('File, software e progettazione', 'Files, software and design', L), d: t2('Preparare un progetto e portarlo correttamente alla macchina.', 'Prepare a design and send it to the machine correctly.', L), ic: '03', img: 'img/cat-digitale.webp' },

@@ -42,7 +42,7 @@ const idValido = x => x && /^[a-z0-9-]+$/.test(String(x.id || ''));
 
 export const materiali = (D = {}) => ((D.MATERIALI && D.MATERIALI.materiali) || []).filter(m => idValido(m) && m.stato !== 'archiviato' && m.stato !== 'bozza' && m.stato !== 'archiviato');
 export const tecnologie = (D = {}) => ((D.TECNOLOGIE && D.TECNOLOGIE.tecnologie) || []).filter(idValido);
-export const macchine = (D = {}) => ((D.MACCHINE && D.MACCHINE.macchine) || []).filter(idValido);
+export const macchine = (D = {}) => ((D.MACCHINE && D.MACCHINE.macchine) || []).filter(m => idValido(m) && m.stato !== 'archiviato');
 
 export const materiale = (D, id) => materiali(D).find(m => m.id === id) || null;
 export const tecnologia = (D, id) => tecnologie(D).find(t => t.id === id) || null;
@@ -489,7 +489,26 @@ export function briciole(sezione, entita, opt = {}) {
 
    Restituisce sempre qualcosa di utile: o la foto, o l'indirizzo della
    pagina ufficiale, che linkare è sempre lecito. */
+/* La prima foto della galleria messa dall'Admin (percorso locale o https). */
+export function fotoGalleria(x) {
+  const g = (x && Array.isArray(x.galleria)) ? x.galleria : [];
+  for (const im of g) {
+    const src = String((im && im.src) || '').trim();
+    if (/^(?:img|assets\/images)\/[\w/.-]+\.(?:webp|jpe?g|png|avif|svg)$/i.test(src) || /^https:\/\/[^\s"'<>()]+$/i.test(src))
+      return { src, alt: (im && im.alt && typeof im.alt === 'object') ? im.alt : {} };
+  }
+  return null;
+}
+
 export function fotoMacchina(D, id) {
+  /* Prima la foto caricata dall'Admin sulla scheda della macchina: è il
+     titolare a deciderla. Prima veniva ignorata e contava solo il manifest. */
+  const scheda = [...((D && D.MACCHINE && D.MACCHINE.catalogo) || []), ...((D && D.MACCHINE && D.MACCHINE.macchine) || [])]
+    .find(x => x && x.id === String(id) && fotoGalleria(x));
+  if (scheda) {
+    const g = fotoGalleria(scheda);
+    return { foto: g.src, alt: g.alt, tipoAsset: 'admin', credito: '', ufficiale: (scheda.fonte && scheda.fonte.url) || '', sostituibile: true, motivo: '' };
+  }
   const man = (D && D.IMMAGINI_MACCHINE) || {};
   const r = (man.macchine || []).find(x => x && x.id === String(id));
   if (!r) return { foto: null, ufficiale: '', motivo: 'non-in-manifest' };
@@ -756,7 +775,7 @@ function testo(D, m) {
 /* ---------- Academy ---------- */
 
 export const corsi = (D = {}) => ((D.CORSI && D.CORSI.corsi) || [])
-  .filter(c => c && /^[a-z0-9-]+$/.test(String(c.id || '')) && c.stato !== 'bozza');
+  .filter(c => c && /^[a-z0-9-]+$/.test(String(c.id || '')) && c.stato !== 'bozza' && c.stato !== 'archiviato');
 
 export const corso = (D, id) => corsi(D).find(c => c.id === id) || null;
 export const corsiDiMacchina = (D, id) => corsi(D).filter(c => c.macchina === id);
@@ -766,7 +785,8 @@ export const academyAttiva = (D = {}) => !!(D.CORSI && D.CORSI.attiva);
 /* ---------- catalogo macchine ---------- */
 
 export const catalogo = (D = {}) => ((D.MACCHINE && D.MACCHINE.catalogo) || [])
-  .filter(m => m && /^[a-z0-9-]+$/.test(String(m.id || '')) && m.stato !== 'bozza');
+  /* «archiviato» dall'Admin = tolto dal sito (si ripristina quando vuoi) */
+  .filter(m => m && /^[a-z0-9-]+$/.test(String(m.id || '')) && m.stato !== 'bozza' && m.stato !== 'archiviato');
 
 export const modello = (D, id) => catalogo(D).find(m => m.id === id) || null;
 export const inOfficina = (D) => catalogo(D).filter(m => m.inOfficina);

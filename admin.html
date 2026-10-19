@@ -2762,7 +2762,7 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
    <div><label>Poster del video (percorso immagine)</label><input type="text" id="ep_poster" value="${esc(p.poster||'')}" placeholder="img/${p.id}.webp"></div>
   </div>
   <div class="row c2"><div><label>Codice SKU (facoltativo)</label><input type="text" id="ep_sku" value="${esc(p.sku||'')}" placeholder="INGLY-${p.id}"></div>
-   <div><label>Valutazione media (1–5, per le stelle su Google)</label><input type="number" id="ep_rating" min="1" max="5" step="0.1" value="${esc(p.rating||'')}" placeholder="4.9"></div></div>
+   <div></div></div>
   <div class="row c2"><div><label>📦 Disponibilità (stock) — lascia vuoto = non tracciata / su richiesta</label><input type="number" id="ep_stock" min="0" value="${p.stock!==undefined&&p.stock!==null?p.stock:''}" placeholder="es. 5 → badge «Ultimi 5»; 0 → Esaurito"></div>
    <div><label>💳 Stripe Payment Link (compare solo con «Pagamento con carta» acceso)</label><input type="url" id="ep_stripe" value="${esc((S.CONFIG.stripeLinks||{})[p.id]||'')}" placeholder="https://buy.stripe.com/…"></div></div>
   <label>📐 Tabella misure — una riga per voce, formato <span class="mono">Etichetta | Valore</span></label>
@@ -2795,6 +2795,14 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
   <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-bottom:4px">
    <input type="checkbox" id="ep_person" style="width:18px;height:18px;accent-color:var(--ok)" ${p.personalizzabile?'checked':''}>
    <span><b>Si personalizza</b> — il cliente può metterci un nome, una data, un logo</span>
+  </label>
+  <div class="row c2" style="margin:0 0 8px 30px">
+   <div><label>Etichetta del campo (es. «Nome da incidere»)</label><input type="text" id="ep_persEt" value="${esc((p.persEtichetta&&p.persEtichetta.it)||'')}" placeholder="Testo da incidere"></div>
+   <div><label>Lunghezza massima del testo</label><input type="number" id="ep_persMax" min="1" max="120" value="${esc(p.persMax||'')}" placeholder="30"></div>
+  </div>
+  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin:0 0 8px 30px">
+   <input type="checkbox" id="ep_persObb" style="width:18px;height:18px" ${p.persObbligatorio?'checked':''}>
+   <span>Testo obbligatorio — non si aggiunge al carrello senza</span>
   </label>
   <div class="hint" style="margin:0 0 12px 30px">Spuntandolo questo prodotto entra nella sezione <b>Personalizza</b> e nella
    collezione «Personalizzabili». Se nessun prodotto è spuntato, quella sezione <b>non compare affatto</b> nel sito: una voce di
@@ -2845,10 +2853,14 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
      sarebbe rumore in 97 righe di dati corretti */
   const per=$('ep_person');
   if(per){ if(per.checked) fresh.personalizzabile=true; else delete fresh.personalizzabile; }
+  /* campo di personalizzazione nella scheda: etichetta, lunghezza, obbligo */
+  {const et=$('ep_persEt'),mx=$('ep_persMax'),ob=$('ep_persObb');
+   if(et){const v=et.value.trim();if(v){fresh.persEtichetta=Object.assign({},fresh.persEtichetta,{it:v});}else delete fresh.persEtichetta;}
+   if(mx){const n=parseInt(mx.value,10);(n>=1&&n<=120)?fresh.persMax=n:delete fresh.persMax;}
+   if(ob){ob.checked?fresh.persObbligatorio=true:delete fresh.persObbligatorio;}}
   const dit=$('ep_dit').value.trim(),den=$('ep_den').value.trim();
   if(dit||den)fresh.desc={it:dit,en:den||dit};else delete fresh.desc;
   const sku=$('ep_sku').value.trim();sku?fresh.sku=sku:delete fresh.sku;
-  const rat=parseFloat($('ep_rating').value);(rat>=1&&rat<=5)?fresh.rating=rat:delete fresh.rating;
   const stk=$('ep_stock').value.trim();stk!==''?(fresh.stock=+stk):delete fresh.stock;
   const strp=$('ep_stripe').value.trim();if(strp){S.CONFIG.stripeLinks=S.CONFIG.stripeLinks||{};S.CONFIG.stripeLinks[fresh.id]=strp}else if(S.CONFIG.stripeLinks)delete S.CONFIG.stripeLinks[fresh.id];
   const vid=$('ep_video').value.trim();vid?fresh.video=vid:delete fresh.video;

@@ -1689,3 +1689,19 @@ html.rc-aperta{overflow:hidden}
  :root[data-mode] #page-shop .subwrap #fSub{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px}
  :root[data-mode] #page-shop .subwrap #fSub .chip{flex:0 0 auto}
 }
+
+/* ===== SCHEDA PRODOTTO — PERSONALIZZAZIONE =====
+   Campo «testo da incidere» (solo prodotti personalizzabili) e anteprima
+   indicativa sopra la foto. Niente animazioni sulle immagini (regola 1). */
+.pp-pers{margin:0 0 18px;display:grid;gap:8px}
+.pp-pers label{font-size:13px;font-weight:600;color:var(--ink-soft)}
+.pp-pers input{width:100%;min-height:48px;padding:0 14px;border:1px solid var(--line);border-radius:var(--ds-raggio-bottone,12px);background:var(--bg-card);color:var(--ink);font:inherit;font-size:16px}
+.pp-pers input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pp-pers input.err{border-color:#c0392b;box-shadow:0 0 0 3px rgba(192,57,43,.18)}
+.pp-pers-info{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--ink-soft)}
+.pp-pers-info #ppPersCnt{white-space:nowrap;font-variant-numeric:tabular-nums}
+.pp-main{position:relative}
+.pp-pers-anteprima{position:absolute;left:50%;bottom:18%;transform:translateX(-50%);z-index:2;max-width:86%;padding:8px 16px;border-radius:10px;background:rgba(17,19,24,.62);color:#F8F7F4;font-family:var(--brand-display,'Josefin Sans',sans-serif);font-size:clamp(18px,3.4vw,30px);letter-spacing:.04em;text-align:center;overflow-wrap:anywhere;pointer-events:none;backdrop-filter:blur(2px)}
+.pp-pers-anteprima[hidden]{display:none}
+/* l'icona «Condividi» veniva schiacciata a larghezza 0 */
+#ppShare svg{width:18px;height:18px;flex:none;min-width:18px}

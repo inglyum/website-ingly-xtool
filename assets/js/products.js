@@ -580,7 +580,7 @@ export function selectProduct(id){
   const p=P.find(x=>x.id===id);
   if(!p) return false;
   RV=[id,...RV.filter(x=>x!==id)].slice(0,8);
-  cur=p; sel={qty:1}; galIdx=0;
+  cur=p; sel={qty:1,pers:''}; galIdx=0;
   renderPP();
   return true;
 }
@@ -632,12 +632,14 @@ function renderProductContactLinks(){
   const url=window.location.href;
   const qty=String(sel.qty||1);
   let template=String(c.messaggioProdotto||'Ciao INGLY DESIGN! Vorrei informazioni su: {prodotto}. Materiale: {materiale}. Quantità: {quantita}. Link: {url}');
-  const message=template.replaceAll('{prodotto}',cur.n[L]||cur.n.it||'Prodotto').replaceAll('{materiale}',material).replaceAll('{quantita}',qty).replaceAll('{url}',url)+'\nCategoria: '+catName;
+  const persTxt=cur.personalizzabile===true?String(sel.pers||'').trim():'';
+  const persRiga=persTxt?'\n'+T('persMsg')+': «'+persTxt+'»':'';
+  const message=template.replaceAll('{prodotto}',cur.n[L]||cur.n.it||'Prodotto').replaceAll('{materiale}',material).replaceAll('{quantita}',qty).replaceAll('{url}',url)+'\nCategoria: '+catName+persRiga;
   const raw=String((CONFIG.whatsappFab&&CONFIG.whatsappFab.numero)||CONFIG.whatsapp||'').replace(/\D/g,'');
   const waUrl=raw?'https://wa.me/'+raw+'?text='+encodeURIComponent(message):'';
   const email=String(CONFIG.email||'').trim();
   const subject=(L==='it'?'Richiesta informazioni — ':'Product enquiry — ')+(cur.n[L]||cur.n.it||'INGLY DESIGN');
-  const body=(L==='it'?'Buongiorno INGLY DESIGN, vorrei informazioni su questo prodotto.':'Hello INGLY DESIGN, I would like information about this product.')+'\n\n'+(L==='it'?'Prodotto: ':'Product: ')+(cur.n[L]||cur.n.it||'')+'\n'+(L==='it'?'Categoria: ':'Category: ')+catName+'\n'+(L==='it'?'Materiale: ':'Material: ')+material+'\n'+(L==='it'?'Quantità indicativa: ':'Estimated quantity: ')+qty+'\n'+(L==='it'?'Link: ':'Link: ')+url+'\n\n'+(L==='it'?'Potete consigliarmi materiale, finitura, tempi e prezzo?':'Could you advise on material, finish, lead time and price?');
+  const body=(L==='it'?'Buongiorno INGLY DESIGN, vorrei informazioni su questo prodotto.':'Hello INGLY DESIGN, I would like information about this product.')+'\n\n'+(L==='it'?'Prodotto: ':'Product: ')+(cur.n[L]||cur.n.it||'')+'\n'+(L==='it'?'Categoria: ':'Category: ')+catName+'\n'+(L==='it'?'Materiale: ':'Material: ')+material+'\n'+(L==='it'?'Quantità indicativa: ':'Estimated quantity: ')+qty+'\n'+(L==='it'?'Link: ':'Link: ')+url+persRiga+'\n\n'+(L==='it'?'Potete consigliarmi materiale, finitura, tempi e prezzo?':'Could you advise on material, finish, lead time and price?');
   wa.href=waUrl||'#';wa.hidden=!waUrl;
   wa.target='_blank';wa.rel='noopener noreferrer';
   const waText=wa.querySelector('span')||wa.appendChild(document.createElement('span'));
@@ -766,6 +768,8 @@ export function renderPP(){
 
   price();
   renderConfigurator();
+  renderPers();
+  renderSpedizione();
   ppTabShow('desc');
 
   /* correlati: prima manuale, poi auto, fino a 6 */
@@ -893,6 +897,41 @@ function renderConfigurator(){
   } else { sizeSel.innerHTML='';sel.sizeIdx=undefined;sel.sizeMul=undefined; }
 }
 
+/* ===== PERSONALIZZAZIONE =====
+   Solo sui prodotti spuntati «Si personalizza» nell'Admin. Dall'Admin si
+   scelgono anche l'etichetta (persEtichetta), la lunghezza massima (persMax,
+   predefinita 30) e se il testo è obbligatorio (persObbligatorio).
+   L'anteprima sopra la foto è indicativa: la bozza vera si approva prima
+   della produzione. Il testo va nel carrello e nel messaggio WhatsApp/email. */
+const persMax=()=>{const n=+cur.persMax;return n>=1&&n<=120?Math.round(n):30};
+function renderPers(){
+  const box=$('ppPers'),inp=$('ppPersTxt');if(!box||!inp)return;
+  const on=cur.personalizzabile===true;
+  box.hidden=!on;
+  if(!on){sel.pers='';paintPers();return}
+  const lab=$('ppPersLab'),et=cur.persEtichetta;
+  if(lab) lab.textContent=(et&&(et[L]||et.it))||T('persLabel');
+  inp.maxLength=persMax();
+  inp.placeholder=T('persPh');
+  inp.required=cur.persObbligatorio===true;
+  inp.value=sel.pers||'';
+  if(!inp._pers){inp._pers=true;
+    inp.addEventListener('input',()=>{sel.pers=inp.value.slice(0,persMax());inp.classList.remove('err');paintPers();renderProductContactLinks()});}
+  paintPers();
+}
+function paintPers(){
+  const t=String(sel.pers||'').trim(),pv=$('ppPersPrev'),cnt=$('ppPersCnt');
+  if(pv){pv.textContent=t;pv.hidden=!t}
+  if(cnt) cnt.textContent=cur.personalizzabile===true?(String(sel.pers||'').length+' / '+persMax()):'';
+}
+/* tempi di consegna dall'Admin (config.spedizione.tempiConsegna), se scritti */
+function renderSpedizione(){
+  const el=$('ppShip');if(!el)return;
+  const sp=CONFIG.spedizione||{},v=sp.tempiConsegna;
+  const txt=v&&typeof v==='object'?(v[L]||v.it):v;
+  el.textContent=String(txt||'').trim()||T('ppShipV');
+}
+
 const unit=()=>cur.price*(sel.sizeMul||1);
 /* Prezzo lineare: prezzo unitario × quantità.
    Lo sconto a scaglioni è stato tolto insieme alla tabella che lo spiegava:
@@ -929,9 +968,15 @@ export function addFromPP(){
     }else if(typeof go==='function'){go('quote')}
     return;
   }
-  const matLabel=(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||'';
-  const note=(sel.sizeIdx!==undefined&&cur.misure)?(cur.misure[sel.sizeIdx]?.[1]||''):'';
-  addToCart(cur.id,sel.qty,matLabel,note,unit());
+  const size=(sel.sizeIdx!==undefined&&cur.misure)?(cur.misure[sel.sizeIdx]?.[1]||''):'';
+  const matLabel=[(MATN[cur.mat]&&MATN[cur.mat][L])||cur.mat||'',size].filter(Boolean).join(' · ');
+  const pers=cur.personalizzabile===true?String(sel.pers||'').trim():'';
+  if(cur.personalizzabile===true&&cur.persObbligatorio===true&&!pers){
+    const inp=$('ppPersTxt');
+    if(inp){inp.classList.add('err');inp.scrollIntoView({block:'center',behavior:'smooth'});inp.focus({preventScroll:true})}
+    toast(T('persReq'));return;
+  }
+  addToCart(cur.id,sel.qty,matLabel,pers,unit());
 }
 
 /* ---- digitale ----

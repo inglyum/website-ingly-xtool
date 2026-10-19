@@ -188,7 +188,12 @@
     "pcMateriali": "Materiali",
     "pcTecnologie": "Tecnologie",
     "pcMacchine": "Macchine",
-    "pcBusiness": "Business"
+    "pcBusiness": "Business",
+    "persLabel": "Testo da incidere",
+    "persPh": "Es. un nome, una data",
+    "persNote": "Anteprima indicativa: prima della produzione ti mandiamo la bozza da approvare.",
+    "persReq": "Scrivi il testo da incidere prima di aggiungere.",
+    "persMsg": "Personalizzazione"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -379,7 +384,12 @@
     "pcMateriali": "Materials",
     "pcTecnologie": "Technologies",
     "pcMacchine": "Machines",
-    "pcBusiness": "Business"
+    "pcBusiness": "Business",
+    "persLabel": "Text to engrave",
+    "persPh": "E.g. a name, a date",
+    "persNote": "Indicative preview: before production we send you a proof to approve.",
+    "persReq": "Enter the text to engrave before adding.",
+    "persMsg": "Personalisation"
   },
   "wOpen": {
     "it": "Apri Wishlist",

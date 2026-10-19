@@ -99,8 +99,17 @@ export function corpoPagina(pagina, opt = {}){
    modifica futura a index.html (script, stili, struttura) resta valida senza
    dover aggiornare anche questo generatore. */
 export function componi(guscio, opt = {}){
-  const { titolo = '', descrizione = '', canonico = '', contenuto = '', jsonld = null, base = '/' } = opt;
+  const { titolo = '', descrizione = '', canonico = '', contenuto = '', jsonld = null, base = '/', pagina = '' } = opt;
   let out = String(guscio || '');
+
+  /* La sezione giusta deve partire già attiva. Prima ogni pagina statica
+     (/shop/, /product/7/…) nasceva con la Home attiva: su un telefono lento
+     si vedeva l'hero della Home per un paio di secondi, poi la pagina
+     saltava alla sezione vera (spostamento misurato: 0,8 su 1). */
+  if(pagina && pagina !== 'home' && out.includes('class="page" id="page-' + pagina + '"')){
+    out = out.replace('class="page active" id="page-home"', 'class="page" id="page-home"')
+             .replace('class="page" id="page-' + pagina + '"', 'class="page active" id="page-' + pagina + '"');
+  }
 
   /* Una pagina in /product/7/ è due livelli sotto la radice: senza correzione
      tutti i percorsi relativi puntano nel posto sbagliato.

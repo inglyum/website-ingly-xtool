@@ -8,7 +8,11 @@ const doc=new JSDOM(html).window.document;
 assert.match(html,/document\.documentElement\.classList\.add\('ingly-boot-pending'\)/);
 /* Fase 0: la Hero e il menu sono già giusti nell'HTML, quindi la Hero NON si
    nasconde più; restano nascoste solo le sezioni che dipendono dai dati. */
-assert.match(html,/html\.ingly-boot-pending main>\.page:not\(#page-home\),html\.ingly-boot-pending #page-home>:not\(\.hero\),html\.ingly-boot-pending footer\{visibility:hidden!important\}/);
+/* durante l'avvio si vede solo la sezione attiva (la Home sulla Home, lo
+   Shop su /shop/…) e il testo per Google resta fuori vista: prima /shop/
+   mostrava l'hero della Home e l'elenco grezzo, poi saltava */
+assert.match(html,/html\.ingly-boot-pending #prerender\{position:absolute!important;[^}]*\}/);
+assert.match(html,/html\.ingly-boot-pending main>\.page:not\(\.active\),html\.ingly-boot-pending #page-home>:not\(\.hero\),html\.ingly-boot-pending footer\{visibility:hidden!important\}/);
 assert.doesNotMatch(html,/html\.ingly-boot-pending main,/,'La Hero non deve restare nascosta in attesa del JavaScript');
 assert.match(main,/document\.documentElement\.classList\.remove\('ingly-boot-pending'\)/);
 assert.ok(main.indexOf("show(currentPage())")<main.indexOf("classList.remove('ingly-boot-pending')"),'Reveal must follow first render');

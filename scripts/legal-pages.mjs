@@ -136,7 +136,7 @@ const pagina = p => `<!DOCTYPE html>
 <title>${esc(p.titolo)} — INGLY DESIGN</title>
 <meta name="description" content="${esc(p.titolo)} di INGLY DESIGN, creazioni personalizzate e incisione laser.">
 <link rel="canonical" href="https://www.inglydesign.it/legale/${p.slug}/">
-<link rel="icon" href="favicon/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <script>(function(){try{var m=localStorage.getItem("ingly_mode");if(m==="dark"||m==="light")document.documentElement.dataset.mode=m}catch(e){}})();</script>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/ingly.css?v=${man.v}">

@@ -7,7 +7,7 @@
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
-html.ingly-boot-pending main>.page:not(#page-home),html.ingly-boot-pending #page-home>:not(.hero),html.ingly-boot-pending footer{visibility:hidden!important}
+html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}html.ingly-boot-pending main>.page:not(.active),html.ingly-boot-pending #page-home>:not(.hero),html.ingly-boot-pending footer{visibility:hidden!important}
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -149,7 +149,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.css?v=2a2d5ebefd">
+<link rel="stylesheet" href="assets/css/ingly.css?v=69749de9dd">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -330,7 +330,7 @@ setTimeout(function(){
 <ul><li><a href="https://www.inglydesign.it/materiali/legno">Legno</a> — Rovere, noce, faggio, betulla. Il materiale che invecchia meglio di come nasce.</li><li><a href="https://www.inglydesign.it/materiali/plexiglass">Plexiglass</a> — Colato, colorato, specchiato. Il bordo tagliato a laser esce lucido come fosse levigato.</li><li><a href="https://www.inglydesign.it/materiali/metallo">Metallo</a> — Acciaio, alluminio, ottone, titanio. Si marca in modo permanente, non si taglia.</li><li><a href="https://www.inglydesign.it/materiali/pelle">Pelle</a> — Conciata al vegetale e similpelle. Si scurisce dove il laser passa.</li><li><a href="https://www.inglydesign.it/materiali/vetro">Vetro</a> — Bicchieri, bottiglie, lastre. L&#39;incisione lo rende satinato, non lo buca.</li><li><a href="https://www.inglydesign.it/materiali/bamboo">Bambù</a> — Duro, stabile, chiaro. Incide con un contrasto che il legno non raggiunge.</li><li><a href="https://www.inglydesign.it/materiali/mdf">MDF e compensato</a> — Stabili, economici, perfetti per prototipi e grandi quantità.</li><li><a href="https://www.inglydesign.it/materiali/pla">PLA e PETG</a> — Le plastiche della stampa 3D: il pezzo che non esiste in commercio.</li><li><a href="https://www.inglydesign.it/materiali/tessuto">Tessuto</a> — Cotone, poliestere, felpa. Colore pieno senza minimi d&#39;ordine.</li></ul></div>
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
-<section class="page active" id="page-home">
+<section class="page" id="page-home">
   <div class="hero signature-hero">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
     <!-- Hero deliberately text-only: no 3D scene or placeholder image. -->
@@ -345,14 +345,14 @@ setTimeout(function(){
         </div>
         <p class="signature-hero-assurance"><span class="signature-hero-assurance__line" aria-hidden="true"></span><span data-sig-it="Il tuo progetto, realizzato con cura in Italia." data-sig-en="Your project, crafted with care in Italy.">Il tuo progetto, realizzato con cura in Italia.</span></p>
       </div>
-      <aside class="ingly-hero-steps" aria-label="Il metodo INGLY">
-        <span class="ingly-hero-steps__overline" data-sig-it="IL METODO INGLY" data-sig-en="THE INGLY PROCESS">IL METODO INGLY</span>
+      <aside class="ingly-hero-steps" aria-label="Il metodo INGLY: la tua idea, il nostro lavoro">
+        <span class="ingly-hero-steps__overline" data-sig-it="TU + INGLY" data-sig-en="YOU + INGLY">TU + INGLY</span>
         <ol>
-          <li><span>01</span><strong data-sig-it="Immaginiamo" data-sig-en="Imagine">Immaginiamo</strong></li>
-          <li><span>02</span><strong data-sig-it="Progettiamo" data-sig-en="Design">Progettiamo</strong></li>
-          <li><span>03</span><strong data-sig-it="Realizziamo" data-sig-en="Craft">Realizziamo</strong></li>
+          <li><span>01</span><strong data-sig-it="La tua idea" data-sig-en="Your idea">La tua idea</strong><small data-sig-it="Raccontacela, anche con uno schizzo o una foto." data-sig-en="Tell us, even with a sketch or a photo.">Raccontacela, anche con uno schizzo o una foto.</small></li>
+          <li><span>02</span><strong data-sig-it="Il nostro progetto" data-sig-en="Our design">Il nostro progetto</strong><small data-sig-it="La disegniamo e ti mandiamo la bozza da approvare." data-sig-en="We design it and send you a proof to approve.">La disegniamo e ti mandiamo la bozza da approvare.</small></li>
+          <li><span>03</span><strong data-sig-it="Il tuo pezzo unico" data-sig-en="Your one-of-a-kind piece">Il tuo pezzo unico</strong><small data-sig-it="Lo realizziamo a mano nel nostro laboratorio." data-sig-en="We craft it by hand in our workshop.">Lo realizziamo a mano nel nostro laboratorio.</small></li>
         </ol>
-        <span class="ingly-hero-steps__signature" data-sig-it="DESIGN · ITALIA" data-sig-en="DESIGN · ITALY">DESIGN · ITALIA</span>
+        <span class="ingly-hero-steps__signature" data-sig-it="FATTO PER TE · ITALIA" data-sig-en="MADE FOR YOU · ITALY">FATTO PER TE · ITALIA</span>
       </aside>
     </div>
     <div class="signature-benefits" aria-label="I nostri servizi">
@@ -1024,7 +1024,7 @@ setTimeout(function(){
 </section>
 
 <!-- MATERIAL LAB -->
-<section class="page" id="page-materiali">
+<section class="page active" id="page-materiali">
   <div class="wrap phero">
     <span class="eyebrow">Material Lab</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Ogni materiale<br>si comporta <span class="hl on">a modo suo.</span></h1>

@@ -65,15 +65,18 @@ function applyConfig(){
   const md=document.querySelector('meta[name="description"]'); if(md) md.content=CONFIG.descrizione;
   /* Hero image from the existing Admin and media upload flow. Keep the
      local, documented sample as the fallback until INGLY adds original photos. */
-  const heroImg=document.querySelector('#heroVisual .coin img');
-  const candidate=String(CONFIG.heroImage||'').trim();
-  if(heroImg&&/^(?:img\/|assets\/images\/|https:\/\/)/i.test(candidate)){
-    heroImg.src=candidate;
-    heroImg.removeAttribute('srcset');
-    const alt=CONFIG.heroImageAlt;
-    heroImg.alt=typeof alt==='object'?(alt[L]||alt.it||'Immagine esemplificativa INGLY DESIGN')
-      : (alt||'Immagine esemplificativa INGLY DESIGN');
-  }
+  /* Foto di sfondo dell'hero: Admin → Home → «Immagine principale» con
+     «Usala come sfondo» acceso. Il velo (0,3–0,85) tiene leggibile il testo. */
+  {const hero=document.querySelector('#page-home .signature-hero');
+   const hs=CONFIG.heroSfondo||{};
+   const src=String(CONFIG.heroImage||'').trim();
+   const ok=hero&&(hs.attivo===true||hs.attivo==='true')&&/^(?:img\/|assets\/images\/|https:\/\/)/i.test(src)&&!/["'()\\\s<>]/.test(src);
+   if(hero) hero.classList.toggle('hero--foto',!!ok);
+   if(ok){
+     const v=Math.min(.85,Math.max(.3,parseFloat(hs.velo)||.6));
+     hero.style.setProperty('--hero-foto',"url('"+new URL(src,document.baseURI).href+"')");
+     hero.style.setProperty('--hero-velo',String(v));
+   }}
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];
   map.forEach((u,i)=>{ if(u&&SOCIALS[i]) SOCIALS[i][1]=u });
   document.querySelectorAll('a[href^="https://instagram.com"]').forEach(a=>a.href=s.instagram);

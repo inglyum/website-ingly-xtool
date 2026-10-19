@@ -300,5 +300,9 @@
     "tempiConsegna": "",
     "corriere": "",
     "esteroAttivo": false
+  },
+  "heroSfondo": {
+    "attivo": false,
+    "velo": "0.6"
   }
 }

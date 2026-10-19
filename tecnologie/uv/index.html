@@ -149,7 +149,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.css?v=04e5d13ea1">
+<link rel="stylesheet" href="assets/css/ingly.css?v=2a2d5ebefd">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -782,6 +782,7 @@ setTimeout(function(){
       <div class="pp-gallery">
         <div class="pp-main" id="ppMain">
           <div class="art" id="ppArt"></div>
+          <span class="pp-pers-anteprima" id="ppPersPrev" aria-hidden="true" hidden></span>
           <button class="gal-arrow gal-prev" data-action="pp-gal-prev" aria-label="Immagine precedente">‹</button>
           <button class="gal-arrow gal-next" data-action="pp-gal-next" aria-label="Immagine successiva">›</button>
         </div>
@@ -800,7 +801,7 @@ setTimeout(function(){
         <div class="pp-price"><span id="ppPrice"></span> <small id="ppUnit"></small></div>
         <div class="meta-strip">
           <div>⚡ <span data-i18n="ppProdL">Produzione:</span> <b id="ppProd"></b></div>
-          <div>📦 <span data-i18n="ppShipL">Spedizione:</span> <b data-i18n="ppShipV">2–5 gg</b></div>
+          <div>📦 <span data-i18n="ppShipL">Spedizione:</span> <b id="ppShip" data-i18n="ppShipV">2–5 gg</b></div>
           <div>🇮🇹 <b>Made in Italy</b></div>
           <div>🧱 <span data-i18n="ppMatL">Materiale</span>: <b id="ppMat"></b></div>
         </div>
@@ -809,6 +810,13 @@ setTimeout(function(){
              ed è già mostrato sopra in «Materiale». -->
         <div id="ppConfigurator" style="display:none;margin-bottom:18px">
           <div id="ppSizeSel"></div>
+        </div>
+        <!-- Personalizzazione: compare solo sui prodotti spuntati «Si personalizza»
+             nell'Admin. Il testo arriva nel carrello e nel messaggio WhatsApp/email. -->
+        <div class="pp-pers" id="ppPers" hidden>
+          <label for="ppPersTxt" id="ppPersLab" data-i18n="persLabel">Testo da incidere</label>
+          <input id="ppPersTxt" type="text" maxlength="30" autocomplete="off" data-ph="persPh" placeholder="Es. un nome, una data">
+          <div class="pp-pers-info"><span id="ppPersNote" data-i18n="persNote">Anteprima indicativa: prima della produzione ti mandiamo la bozza da approvare.</span><span id="ppPersCnt" aria-live="polite"></span></div>
         </div>
         <div class="qtyrow">
           <div class="qty"><button data-action="pp-qty" data-d="-1" aria-label="−">−</button><b id="ppQty">1</b><button data-action="pp-qty" data-d="1" aria-label="+">+</button></div>

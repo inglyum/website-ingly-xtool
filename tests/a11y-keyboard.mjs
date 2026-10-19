@@ -114,6 +114,9 @@ try{
    await p.goto(url+'/',{waitUntil:'domcontentloaded'});
    await p.addStyleTag({content:'#exitPopup{display:none!important;pointer-events:none!important}'});
    await p.waitForSelector('.ia-freccia[data-apri]:visible',{timeout:14000});
+   /* il menu è già scritto nell'HTML (data-statica) prima che nav-ia.js lo
+      colleghi: cliccarlo prima faceva fallire il test una volta su due */
+   await p.waitForFunction(()=>document.documentElement.classList.contains('ia-attiva'),null,{timeout:14000});
    await run(mode+' mega-menu quick reopen remains visible',async()=>{
     const button=p.locator('.ia-freccia[data-apri]').first();
     const family=await button.getAttribute('data-apri');

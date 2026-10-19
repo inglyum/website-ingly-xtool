@@ -28,7 +28,8 @@ new Function(rd('assets/js/ingly-generator-presets.js'));
 const facts=d.querySelectorAll('#page-macchine .ingly-lab-fact');
 assert.equal(facts.length,4);
 const full=[...facts].map(x=>x.textContent).join(' ');
-for(const expected of ['914 × 457 mm','115 × 115 mm','330 × 420 mm','380 × 380 mm','non laser','[DA CONFERMARE]']){
+/* prima c'era «[DA CONFERMARE]», una nota interna visibile ai clienti: ora si dice che la versione si conferma prima del lavoro, senza dichiarare nulla di non verificato */
+for(const expected of ['914 × 457 mm','115 × 115 mm','330 × 420 mm','380 × 380 mm','non laser','te la confermiamo prima del lavoro']){
  assert(full.includes(expected),'Source-backed specifications missing: '+expected);
 }
 for(const c of facts){

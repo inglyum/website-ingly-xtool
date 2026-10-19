@@ -77,6 +77,16 @@ function applyConfig(){
      hero.style.setProperty('--hero-foto',"url('"+new URL(src,document.baseURI).href+"')");
      hero.style.setProperty('--hero-velo',String(v));
    }}
+  /* Metodo nell'hero («TU + INGLY»): testi dall'Admin → Home & Hero. */
+  {const hm=CONFIG.heroMetodo, box=document.querySelector('#page-home .ingly-hero-steps');
+   if(hm&&box){
+    const metti=(el,v)=>{if(!el||!v)return;const it=typeof v==='object'?(v.it||''):String(v),en=typeof v==='object'?(v.en||it):it;
+      if(!it)return;el.dataset.sigIt=it;el.dataset.sigEn=en;el.textContent=document.documentElement.lang==='en'?en:it};
+    metti(box.querySelector('.ingly-hero-steps__overline'),hm.titolo);
+    metti(box.querySelector('.ingly-hero-steps__signature'),hm.firma);
+    const li=[...box.querySelectorAll('ol>li')];
+    (Array.isArray(hm.passi)?hm.passi:(hm.passi&&typeof hm.passi==='object'?[0,1,2].map(i=>hm.passi[i]):[])).slice(0,li.length).forEach((p,i)=>{if(!p)return;metti(li[i].querySelector('strong'),p.titolo);metti(li[i].querySelector('small'),p.testo)});
+   }}
   const s=CONFIG.social, map=[s.instagram,s.facebook,s.tiktok,s.pinterest,s.whatsapp,s.etsy];
   map.forEach((u,i)=>{ if(u&&SOCIALS[i]) SOCIALS[i][1]=u });
   document.querySelectorAll('a[href^="https://instagram.com"]').forEach(a=>a.href=s.instagram);

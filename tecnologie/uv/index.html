@@ -7,7 +7,7 @@
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
-html.ingly-boot-pending main>.page:not(#page-home),html.ingly-boot-pending #page-home>:not(.hero),html.ingly-boot-pending footer{visibility:hidden!important}
+html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}html.ingly-boot-pending main>.page:not(.active),html.ingly-boot-pending #page-home>:not(.hero),html.ingly-boot-pending footer{visibility:hidden!important}
 </style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -149,7 +149,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.css?v=2a2d5ebefd">
+<link rel="stylesheet" href="assets/css/ingly.css?v=69749de9dd">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -335,7 +335,7 @@ setTimeout(function(){
 <h2>Domande frequenti</h2><h3>Si può stampare su un oggetto che ho già?</h3><p>Se sta nel piano di stampa e la superficie è compatibile, sì. Si fa sempre una prova su un pezzo di scorta prima di toccare il tuo.</p></div>
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
-<section class="page active" id="page-home">
+<section class="page" id="page-home">
   <div class="hero signature-hero">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
     <!-- Hero deliberately text-only: no 3D scene or placeholder image. -->
@@ -350,14 +350,14 @@ setTimeout(function(){
         </div>
         <p class="signature-hero-assurance"><span class="signature-hero-assurance__line" aria-hidden="true"></span><span data-sig-it="Il tuo progetto, realizzato con cura in Italia." data-sig-en="Your project, crafted with care in Italy.">Il tuo progetto, realizzato con cura in Italia.</span></p>
       </div>
-      <aside class="ingly-hero-steps" aria-label="Il metodo INGLY">
-        <span class="ingly-hero-steps__overline" data-sig-it="IL METODO INGLY" data-sig-en="THE INGLY PROCESS">IL METODO INGLY</span>
+      <aside class="ingly-hero-steps" aria-label="Il metodo INGLY: la tua idea, il nostro lavoro">
+        <span class="ingly-hero-steps__overline" data-sig-it="TU + INGLY" data-sig-en="YOU + INGLY">TU + INGLY</span>
         <ol>
-          <li><span>01</span><strong data-sig-it="Immaginiamo" data-sig-en="Imagine">Immaginiamo</strong></li>
-          <li><span>02</span><strong data-sig-it="Progettiamo" data-sig-en="Design">Progettiamo</strong></li>
-          <li><span>03</span><strong data-sig-it="Realizziamo" data-sig-en="Craft">Realizziamo</strong></li>
+          <li><span>01</span><strong data-sig-it="La tua idea" data-sig-en="Your idea">La tua idea</strong><small data-sig-it="Raccontacela, anche con uno schizzo o una foto." data-sig-en="Tell us, even with a sketch or a photo.">Raccontacela, anche con uno schizzo o una foto.</small></li>
+          <li><span>02</span><strong data-sig-it="Il nostro progetto" data-sig-en="Our design">Il nostro progetto</strong><small data-sig-it="La disegniamo e ti mandiamo la bozza da approvare." data-sig-en="We design it and send you a proof to approve.">La disegniamo e ti mandiamo la bozza da approvare.</small></li>
+          <li><span>03</span><strong data-sig-it="Il tuo pezzo unico" data-sig-en="Your one-of-a-kind piece">Il tuo pezzo unico</strong><small data-sig-it="Lo realizziamo a mano nel nostro laboratorio." data-sig-en="We craft it by hand in our workshop.">Lo realizziamo a mano nel nostro laboratorio.</small></li>
         </ol>
-        <span class="ingly-hero-steps__signature" data-sig-it="DESIGN · ITALIA" data-sig-en="DESIGN · ITALY">DESIGN · ITALIA</span>
+        <span class="ingly-hero-steps__signature" data-sig-it="FATTO PER TE · ITALIA" data-sig-en="MADE FOR YOU · ITALY">FATTO PER TE · ITALIA</span>
       </aside>
     </div>
     <div class="signature-benefits" aria-label="I nostri servizi">
@@ -1043,7 +1043,7 @@ setTimeout(function(){
 </section>
 
 <!-- TECHNOLOGY HUB -->
-<section class="page" id="page-tecnologie">
+<section class="page active" id="page-tecnologie">
   <div class="wrap phero">
     <span class="eyebrow">Technology Hub</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Sei tecnologie,<br>un solo <span class="hl on">laboratorio.</span></h1>

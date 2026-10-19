@@ -89,7 +89,7 @@ function paginaProdotto(p){
       offers:PR.offertaSchema(p, cfg, { url:canonico, venditore:{ '@id': base + SCH.ID.org } }),
     }),
   ]);
-  return P.componi(guscio, { titolo, descrizione:desc, canonico, contenuto, jsonld });
+  return P.componi(guscio, { pagina: 'product', titolo, descrizione:desc, canonico, contenuto, jsonld });
 }
 
 function paginaSito(pg){
@@ -104,7 +104,7 @@ function paginaSito(pg){
   const extra = pg === 'shop'
     ? [SCH.paginaCollezione(prodotti.filter(x => !x.hidden), { base, L, titolo: azienda + ' — Catalogo', url: canonico })]
     : [];
-  return P.componi(guscio, { titolo, descrizione:desc, canonico, contenuto, jsonld: SCH.grafo([...entitaBase, ...extra]) });
+  return P.componi(guscio, { pagina: pg, titolo, descrizione:desc, canonico, contenuto, jsonld: SCH.grafo([...entitaBase, ...extra]) });
 }
 
 /* Pagina di settore: /business/ristoranti e simili.
@@ -120,7 +120,7 @@ function paginaVerticale(v){
     ...VERT.schema(v, { L, base, azienda, idAzienda: SCH.ID.org }),
     VERT.briciole(v, { L, base }),
   ]);
-  return P.componi(guscio, { titolo, descrizione, canonico, contenuto, jsonld });
+  return P.componi(guscio, { pagina: 'business', titolo, descrizione, canonico, contenuto, jsonld });
 }
 
 /* ===== LAB: materiali, tecnologie, macchine =====
@@ -143,7 +143,7 @@ function paginaLabSezione(sezione){
     ? LAB.corpoDemo(DLAB, { L, base })
     : LAB.corpoSezione(DLAB, sezione, { L, base, titolo: info.t, descrizione: info.d });
   const jsonld = SCH.grafo([...entitaBase, LAB.briciole(sezione, null, { L, base })]);
-  return P.componi(guscio, { titolo, descrizione: info.d, canonico, contenuto, jsonld });
+  return P.componi(guscio, { pagina: sezione, titolo, descrizione: info.d, canonico, contenuto, jsonld });
 }
 
 function paginaLabScheda(sezione, id){
@@ -168,7 +168,7 @@ function paginaLabScheda(sezione, id){
     : sezione === 'macchine' ? LAB.schemaMacchina(DLAB, e, { L, base, idAzienda: SCH.ID.org })
     : LAB.schemaCorso(DLAB, e, { L, base, azienda, idAzienda: SCH.ID.org });
   const jsonld = SCH.grafo([...entitaBase, ...schema, LAB.briciole(sezione, e, { L, base })]);
-  return P.componi(guscio, { titolo: meta.titolo, descrizione: meta.descrizione, canonico, contenuto, jsonld });
+  return P.componi(guscio, { pagina: sezione, titolo: meta.titolo, descrizione: meta.descrizione, canonico, contenuto, jsonld });
 }
 
 const verticali = contenuti.VERTICALI || [];

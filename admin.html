@@ -817,6 +817,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
         <button type="button" class="btn" id="heroImageLibrary">Scegli dalla libreria</button>
         <button type="button" class="btn" id="heroImageSample">Ripristina immagine sample</button>
       </div>
+      <div class="row c2" style="margin:4px 0 12px">
+        <div><label style="display:flex;gap:10px;align-items:center;cursor:pointer"><input type="checkbox" style="width:auto" data-b="CONFIG.heroSfondo.attivo"> <b>Usala come sfondo della Home</b></label>
+          <p class="hint">Spento: la Home resta con lo sfondo a tinta unita.</p></div>
+        <div><label for="heroVelo">Velo sopra la foto (leggibilità del testo)</label><select id="heroVelo" data-b="CONFIG.heroSfondo.velo">
+          <option value="0.4">Leggero</option><option value="0.6">Medio (consigliato)</option><option value="0.75">Forte</option></select></div>
+      </div>
       <div id="heroImagePreview" aria-live="polite"></div>
       <p class="hint">Percorso: Carica/Scegli → Anteprima → Valida → Pubblica. Le immagini sample non vengono mai presentate come lavori reali del portfolio.</p>
     </div>

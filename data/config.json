@@ -311,8 +311,8 @@
   "overlayLight": 64
  },
  "heroSfondo": {
-  "attivo": true,
-  "velo": "0.6"
+  "velo": "0.6",
+  "attivo": true
  },
  "heroMetodo": {
   "titolo": {

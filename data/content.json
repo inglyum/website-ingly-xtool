@@ -3580,6 +3580,46 @@
    400,
    800
   ],
+  "img/100.webp": [
+   400,
+   800
+  ],
+  "img/101.webp": [
+   400,
+   800
+  ],
+  "img/102.webp": [
+   400,
+   800
+  ],
+  "img/103-g1.webp": [
+   400,
+   800
+  ],
+  "img/103-g2.webp": [
+   400,
+   800
+  ],
+  "img/103.webp": [
+   400,
+   800
+  ],
+  "img/105.webp": [
+   400,
+   800
+  ],
+  "img/107-g1.webp": [
+   400,
+   800
+  ],
+  "img/107-g2.webp": [
+   400,
+   800
+  ],
+  "img/107.webp": [
+   400,
+   800
+  ],
   "img/14.webp": [
    400,
    800
@@ -3660,6 +3700,18 @@
    400,
    800
   ],
+  "img/6-g1.webp": [
+   400,
+   800
+  ],
+  "img/6-g2.webp": [
+   400,
+   800
+  ],
+  "img/6.webp": [
+   400,
+   800
+  ],
   "img/7.webp": [
    400,
    800
@@ -3673,6 +3725,34 @@
    800
   ],
   "img/93.webp": [
+   400,
+   800
+  ],
+  "img/95-g1.webp": [
+   400,
+   800
+  ],
+  "img/95-g2.webp": [
+   400,
+   800
+  ],
+  "img/95.webp": [
+   400,
+   800
+  ],
+  "img/97-g1.webp": [
+   400,
+   800
+  ],
+  "img/97.webp": [
+   400,
+   800
+  ],
+  "img/98.webp": [
+   400,
+   800
+  ],
+  "img/99.webp": [
    400,
    800
   ],
@@ -3728,6 +3808,46 @@
    400,
    800
   ],
+  "img/hero-home.webp": [
+   400,
+   800
+  ],
+  "img/material-bamboo.webp": [
+   400,
+   800
+  ],
+  "img/material-legno.webp": [
+   400,
+   800
+  ],
+  "img/material-mdf.webp": [
+   400,
+   800
+  ],
+  "img/material-metallo.webp": [
+   400,
+   800
+  ],
+  "img/material-pelle.webp": [
+   400,
+   800
+  ],
+  "img/material-pla.webp": [
+   400,
+   800
+  ],
+  "img/material-plexiglass.webp": [
+   400,
+   800
+  ],
+  "img/material-tessuto.webp": [
+   400,
+   800
+  ],
+  "img/material-vetro.webp": [
+   400,
+   800
+  ],
   "img/port-1.webp": [
    400,
    800
@@ -3767,7 +3887,23 @@
    400,
    800
   ],
+  "img/port-19.webp": [
+   400,
+   800
+  ],
   "img/port-2.webp": [
+   400,
+   800
+  ],
+  "img/port-20.webp": [
+   400,
+   800
+  ],
+  "img/port-21.webp": [
+   400,
+   800
+  ],
+  "img/port-22.webp": [
    400,
    800
   ],
@@ -3817,110 +3953,6 @@
   ],
   "img/sponsor-3.webp": [
    400
-  ],
-  "img/6.webp": [
-   400,
-   800
-  ],
-  "img/6-g1.webp": [
-   400,
-   800
-  ],
-  "img/6-g2.webp": [
-   400,
-   800
-  ],
-  "img/95.webp": [
-   400,
-   800
-  ],
-  "img/95-g1.webp": [
-   400,
-   800
-  ],
-  "img/95-g2.webp": [
-   400,
-   800
-  ],
-  "img/97.webp": [
-   400,
-   800
-  ],
-  "img/97-g1.webp": [
-   400,
-   800
-  ],
-  "img/98.webp": [
-   400,
-   800
-  ],
-  "img/99.webp": [
-   400,
-   800
-  ],
-  "img/100.webp": [
-   400,
-   800
-  ],
-  "img/101.webp": [
-   400,
-   800
-  ],
-  "img/102.webp": [
-   400,
-   800
-  ],
-  "img/103.webp": [
-   400,
-   800
-  ],
-  "img/103-g1.webp": [
-   400,
-   800
-  ],
-  "img/103-g2.webp": [
-   400,
-   800
-  ],
-  "img/104.webp": [
-   400,
-   800
-  ],
-  "img/105.webp": [
-   400,
-   800
-  ],
-  "img/107.webp": [
-   400,
-   800
-  ],
-  "img/107-g1.webp": [
-   400,
-   800
-  ],
-  "img/107-g2.webp": [
-   400,
-   800
-  ],
-  "img/port-19.webp": [
-   400,
-   800
-  ],
-  "img/port-20.webp": [
-   400,
-   800
-  ],
-  "img/port-21.webp": [
-   400,
-   800
-  ],
-  "img/port-22.webp": [
-   400,
-   800
-  ],
-  "img/hero-home.webp": [
-   400,
-   800
   ]
  },
  "FOCAL": {

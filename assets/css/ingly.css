@@ -9919,3 +9919,40 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 @media(max-width:640px){#macPage .lancio-video{grid-template-columns:1fr}#macPage .lancio-hero{padding:18px;border-radius:18px}}
 #macPage .lancio-video img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;display:block}
 [data-mode="light"] .ingly-novita__badge{color:#fff}
+
+/* ===== Catalogo in aggiornamento (Admin → Catalogo) ===== */
+html.catalogo-agg #page-shop>:not(#catAgg){display:none!important}
+.cat-agg{padding:clamp(18px,3vw,40px) 0 clamp(40px,6vw,80px)}
+.cat-agg__card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(22px,4vw,52px);border-radius:24px;
+ background:radial-gradient(ellipse 70% 80% at 20% 40%,rgba(214,168,92,.16),transparent 70%),linear-gradient(160deg,#0b1220,#05080f);color:#f8f9fc;overflow:hidden;box-shadow:0 24px 60px -30px rgba(0,0,0,.6)}
+.cat-agg__scena{position:relative;aspect-ratio:4/3;border-radius:18px;background:linear-gradient(180deg,#141b2b,#0a0f1a);overflow:hidden}
+.cat-agg__piastra{position:absolute;inset:22% 14% 18%;border-radius:10px;background:linear-gradient(135deg,#a77b4c,#7a5532 60%,#5e3f24);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 18px 30px -12px rgba(0,0,0,.7)}
+.cat-agg__scia{position:absolute;left:22%;top:52%;height:3px;width:0;border-radius:2px;background:#2a1a0d;box-shadow:0 0 6px rgba(255,170,80,.35);animation:catAggScia 4.8s cubic-bezier(.16,1,.3,1) infinite}
+.cat-agg__raggio{position:absolute;left:22%;top:0;height:52%;width:2px;background:linear-gradient(180deg,transparent,rgba(120,200,255,.9));filter:drop-shadow(0 0 6px rgba(120,200,255,.9));animation:catAggRaggio 4.8s cubic-bezier(.16,1,.3,1) infinite}
+.cat-agg__raggio::after{content:"";position:absolute;bottom:-5px;left:-5px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,#fff,rgba(255,190,90,.9) 40%,transparent 70%)}
+@keyframes catAggScia{0%{width:0;opacity:1}70%{width:56%;opacity:1}100%{width:56%;opacity:0}}
+.cat-agg__scena{container-type:inline-size}
+@keyframes catAggRaggio{0%{transform:translateX(0);opacity:1}70%{transform:translateX(56cqw);opacity:1}85%{opacity:0}100%{transform:translateX(0);opacity:0}}
+.cat-agg__stato{display:inline-flex;align-items:center;gap:8px;margin:0;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:#e9d3ad;font:600 13px/1 var(--brand-text);letter-spacing:.04em}
+.cat-agg__punto{width:8px;height:8px;border-radius:50%;background:#f0b860;box-shadow:0 0 0 0 rgba(240,184,96,.6);animation:catAggPunto 2s ease-out infinite}
+@keyframes catAggPunto{to{box-shadow:0 0 0 10px rgba(240,184,96,0)}}
+.cat-agg h1{margin:16px 0 12px;font:700 clamp(2.2rem,1.4rem + 3.2vw,4.2rem)/1.02 var(--brand-display)!important;letter-spacing:-.02em;color:#fff;text-wrap:balance}
+.cat-agg__msg{margin:0;max-width:52ch;font-size:clamp(16px,1vw + 12px,19px);line-height:1.55;color:#c9d2df}
+.cat-agg__rientro{margin:14px 0 0;color:#c9d2df}.cat-agg__rientro b{color:#fff}
+.cat-agg__azioni{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.cat-agg__azioni .btn{min-height:48px}
+.cat-agg__azioni .btn-ghost{color:#fff;border-color:rgba(255,255,255,.35)}
+.cat-agg__azioni svg{width:18px;height:18px}
+.cat-agg__aperto{display:flex;flex-wrap:wrap;gap:8px 18px;margin:26px 0 0;padding:18px 0 0;border-top:1px solid rgba(255,255,255,.12);list-style:none}
+.cat-agg__aperto button{min-height:44px;padding:0;background:none;border:0;color:#e9d3ad;font:600 15px/1.2 var(--brand-text);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.cat-agg__aperto button:hover{color:#fff}
+@media(max-width:820px){.cat-agg__card{grid-template-columns:1fr}.cat-agg__scena{aspect-ratio:16/9}}
+@media(max-width:480px){.cat-agg__card{padding:20px;border-radius:18px}.cat-agg__azioni .btn{flex:1 1 100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.cat-agg__scia{animation:none;width:56%}.cat-agg__raggio,.cat-agg__punto{animation:none}}
+/* il pannello è sempre scuro: i colori non devono seguire il tema chiaro */
+#page-shop #catAgg h1{color:#fff}
+#page-shop #catAgg .cat-agg__msg,#page-shop #catAgg .cat-agg__rientro{color:#c9d2df}
+#page-shop #catAgg .cat-agg__stato{color:#e9d3ad;background:rgba(255,255,255,.08)}
+#page-shop #catAgg .cat-agg__azioni .btn-ghost{color:#fff;background:transparent;border:1px solid rgba(255,255,255,.35)}
+#page-shop #catAgg .cat-agg__aperto button{color:#e9d3ad}
+#page-home .sec:has(> .wrap > #collGrid:empty){display:none}

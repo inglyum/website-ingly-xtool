@@ -609,6 +609,36 @@
               "en": "A colour mosaic, from engraving to finished frame"
             }
           }
+        ],
+        "numeri": [
+          {
+            "valore": "5",
+            "etichetta": {
+              "it": "sorgenti laser su una piattaforma",
+              "en": "laser sources, one platform"
+            }
+          },
+          {
+            "valore": "615 × 320 mm",
+            "etichetta": {
+              "it": "area di lavoro",
+              "en": "working area"
+            }
+          },
+          {
+            "valore": "6.000 mm/s",
+            "etichetta": {
+              "it": "velocità massima",
+              "en": "max speed"
+            }
+          },
+          {
+            "valore": "299 cm",
+            "etichetta": {
+              "it": "pezzi lunghi con AutoPassthrough",
+              "en": "long pieces with AutoPassthrough"
+            }
+          }
         ]
       },
       "specificheUfficiali": {
@@ -720,6 +750,36 @@
             "titolo": {
               "it": "Stampa e taglio di un adesivo a colori",
               "en": "Printing and cutting a colour sticker"
+            }
+          }
+        ],
+        "numeri": [
+          {
+            "valore": "3 in 1",
+            "etichetta": {
+              "it": "scansiona, stampa e taglia",
+              "en": "scan, print and cut"
+            }
+          },
+          {
+            "valore": "509 mm/s",
+            "etichetta": {
+              "it": "velocità di taglio",
+              "en": "cutting speed"
+            }
+          },
+          {
+            "valore": "CMYK",
+            "etichetta": {
+              "it": "stampa a colori",
+              "en": "colour printing"
+            }
+          },
+          {
+            "valore": "3,6 m",
+            "etichetta": {
+              "it": "lunghezza in rotolo",
+              "en": "roll length"
             }
           }
         ]

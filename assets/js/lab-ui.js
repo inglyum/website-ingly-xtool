@@ -825,6 +825,75 @@ export function renderCorso(id, L) {
 
 /* ---------- scheda macchina ---------- */
 
+/* ---------- PAGINA DI LANCIO (macchine in pre-ordine) ----------
+   Apertura scura con foto grande e numeri chiave, configurazioni e prezzi
+   in schede, video, specifiche ufficiali a griglia, chiusura con la
+   prenotazione. Tutto dai dati (Admin → Lab → Macchine). */
+function paginaLancio(m, L) {
+  const nv = m.novita || {};
+  const g = LAB.fotoGalleria(m);
+  const altre = (m.galleria || []).slice(1).filter(x => x && /^(?:img|assets\/images)\//.test(String(x.src || '')));
+  const conf = Array.isArray(nv.configurazioni) ? nv.configurazioni : [];
+  const numeri = Array.isArray(nv.numeri) ? nv.numeri : [];
+  const spec = (m.specificheUfficiali && m.specificheUfficiali.values) || [];
+  const wa = waPreordine(m, L);
+  const uff = (m.fonte && m.fonte.url) || '';
+  const nome = LAB.lingua(m.n, L);
+  const minimo = conf.filter(c => c.prezzo != null).map(c => c.prezzo).sort((a, b) => a - b)[0];
+  return `
+  <nav class="vert-back"><a href="${via('/macchine')}" data-nav="macchine">← ${t2('Tutte le macchine', 'All machines', L)}</a></nav>
+  <section class="lancio-hero">
+    <div class="lancio-hero__testo">
+      <span class="ingly-novita__badge">${esc(LAB.lingua(nv.etichetta, L) || t2('Novità', 'New', L))}</span>
+      <h1>${esc(nome)}</h1>
+      <p class="lancio-hero__ruolo">${esc(LAB.lingua(m.ruolo, L))}</p>
+      ${minimo != null ? `<p class="lancio-hero__prezzo">${t2('da', 'from', L)} <b>${esc(euro(minimo))}</b> <small>${t2('prezzo di lancio xTool', 'xTool launch price', L)}</small></p>` : ''}
+      <div class="lancio-hero__azioni">
+        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)} <span class="arr">→</span></a>` : ''}
+        ${conf.length ? `<a class="btn btn-ghost" href="#lancio-prezzi">${t2('Configurazioni e prezzi', 'Configurations and prices', L)}</a>` : ''}
+      </div>
+    </div>
+    ${g ? `<figure class="lancio-hero__foto"><img src="${esc(/^https:\/\//.test(g.src) ? g.src : via('/' + g.src))}" alt="${esc(LAB.lingua(g.alt, L) || nome)}" fetchpriority="high" decoding="async"></figure>` : ''}
+  </section>
+  ${numeri.length ? `<ul class="lancio-numeri">${numeri.map(n => `<li><b>${esc(n.valore)}</b><span>${esc(LAB.lingua(n.etichetta, L))}</span></li>`).join('')}</ul>` : ''}
+  ${nv.testo ? `<p class="lancio-intro">${esc(LAB.lingua(nv.testo, L))}</p>` : ''}
+
+  ${conf.length ? `<section class="lancio-sez" id="lancio-prezzi">
+    <h2>${t2('Configurazioni e prezzi', 'Configurations and prices', L)}</h2>
+    <div class="lancio-conf">${conf.map(c => `<article>
+      <h3>${esc(c.nome)}</h3>
+      <p>${esc(c.sorgenti || '')}</p>
+      <div class="lancio-conf__prezzo">${c.prezzo != null ? `<b>${esc(euro(c.prezzo))}</b>` : ''}${c.listino ? `<s>${esc(euro(c.listino))}</s>` : ''}</div>
+      ${wa ? `<a class="btn btn-ghost" href="${esc(wa.replace(encodeURIComponent(nome), encodeURIComponent(c.nome)))}" target="_blank" rel="noopener noreferrer">${t2('Prenota questa', 'Reserve this one', L)}</a>` : ''}
+    </article>`).join('')}</div>
+    ${nv.notaPrezzi ? `<p class="lancio-nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
+  </section>` : (nv.notaPrezzi ? `<section class="lancio-sez"><h2>${t2('Prezzo', 'Price', L)}</h2><p class="lancio-nota lancio-nota--grande">${esc(LAB.lingua(nv.notaPrezzi, L))}</p></section>` : '')}
+
+  ${(nv.video || []).length || altre.length ? `<section class="lancio-sez">
+    <h2>${t2('Guardala lavorare', 'See it at work', L)}</h2>
+    ${(videoNovita(nv, L) || '<div class="ingly-novita__video"></div>').replace('ingly-novita__video', 'ingly-novita__video lancio-video')
+      .replace(/<\/div>$/, altre.map(x => `<figure><img src="${esc(via('/' + x.src))}" alt="${esc(LAB.lingua(x.alt, L))}" loading="lazy" decoding="async"><figcaption>${esc(LAB.lingua(x.alt, L))}</figcaption></figure>`).join('') + '</div>')}
+  </section>` : ''}
+
+  ${spec.length ? `<section class="lancio-sez">
+    <h2>${t2('Specifiche ufficiali', 'Official specifications', L)}</h2>
+    <dl class="lancio-spec">${spec.map(v => `<div><dt>${esc(t2(v.it, v.en, L))}</dt><dd>${esc(v.value)}</dd></div>`).join('')}</dl>
+    ${m.specificheUfficiali.note ? `<p class="lancio-nota">${esc(LAB.lingua(m.specificheUfficiali.note, L))}</p>` : ''}
+  </section>` : ''}
+
+  <section class="lancio-chiusura">
+    <div>
+      <h2>${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)}</h2>
+      <p>${t2('Siamo il centro assistenza xTool a Palermo: la prenotiamo per te, la configuriamo e la seguiamo nel tempo, in tutta la Sicilia e il Sud Italia.', 'We are the xTool service centre in Palermo: we reserve it for you, set it up and support it over time, across Sicily and Southern Italy.', L)}</p>
+    </div>
+    <div class="lancio-hero__azioni">
+      ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Scrivici su WhatsApp', 'Message us on WhatsApp', L)} <span class="arr">→</span></a>` : ''}
+      <a class="btn btn-ghost" href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool Palermo', 'xTool service in Palermo', L)}</a>
+      ${uff ? `<a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
+    </div>
+  </section>`;
+}
+
 export function renderMacchina(id, L, cardProdotto) {
   const pagina = $('macPage'), hero = document.querySelector('#page-macchine .phero');
   if (!pagina) return;
@@ -834,6 +903,8 @@ export function renderMacchina(id, L, cardProdotto) {
 
   if (hero) hero.hidden = true;
   pagina.hidden = false;
+  /* Macchina in pre-ordine: pagina di lancio, non la scheda generica */
+  if (m.novita && m.novita.stato) { pagina.innerHTML = paginaLancio(m, L); observeAll(); avviaVideo(pagina); return; }
   const tecs = LAB.tecnologieDiModello(d, m);
   const mats = LAB.materialiDiModello(d, m);
   const corsi = LAB.corsiDiMacchina(d, m.id);
@@ -862,8 +933,8 @@ export function renderMacchina(id, L, cardProdotto) {
         m.specs.velocitaMax || ''].filter(Boolean))}` : ''}
     ${m.specificheUfficiali ? `<section class="ingly-official-specs" aria-label="${t2('Dati ufficiali della macchina','Official machine specifications',L)}">
        <div class="ingly-official-specs__head">
-         <strong>${t2('xTool M2 · Specifiche verificate da documentazione','xTool M2 · Manufacturer specifications',L)}</strong>
-         <span>${t2('Fonte: xTool Support','Source: xTool Support',L)}</span>
+         <strong>${esc(LAB.lingua(m.n,L))} · ${t2('specifiche ufficiali','official specifications',L)}</strong>
+         <span>${t2('Fonte','Source',L)}: ${esc((m.fonte&&m.fonte.nome)||'xTool')}</span>
        </div>
        <dl class="ingly-official-specs__list">
          ${(m.specificheUfficiali.values||[]).map(v=>`<div><dt>${esc(t2(v.it,v.en,L))}</dt><dd>${esc(v.value)}</dd></div>`).join('')}

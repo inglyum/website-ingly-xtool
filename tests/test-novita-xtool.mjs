@@ -22,5 +22,8 @@ check('Admin: novità, configurazioni e prezzi modificabili', /key:'novita\.conf
 const vid = [...x1.novita.video, ...c1.novita.video];
 check('video ufficiali: 4 della X1, 1 della C1, file e copertina presenti', x1.novita.video.length === 4 && c1.novita.video.length === 1 && vid.every(v => existsSync(v.src) && existsSync(v.poster)));
 check('video leggeri (< 2 MB ciascuno) e caricati solo quando visibili', vid.every(v => readFileSync(v.src).length < 2e6) && /preload="none" data-auto-video/.test(ui) && /prefers-reduced-motion: reduce/.test(ui));
+check('pagina di lancio dedicata alle macchine in pre-ordine', /function paginaLancio\(m, L\)/.test(ui) && /if \(m\.novita && m\.novita\.stato\) \{ pagina\.innerHTML = paginaLancio\(m, L\)/.test(ui));
+check('numeri chiave per X1 e C1', x1.novita.numeri.length === 4 && c1.novita.numeri.length === 4);
+check('specifiche: niente più «xTool M2» scritto fisso su ogni macchina', !/xTool M2 · Specifiche verificate/.test(ui));
 console.log(`\n=========== NOVITÀ xTOOL: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

@@ -9918,3 +9918,4 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 @media(max-width:980px){#macPage .lancio-hero{grid-template-columns:1fr}#macPage .lancio-hero__foto{order:-1}#macPage .lancio-hero__foto img{max-height:420px}#macPage .lancio-numeri{grid-template-columns:repeat(2,minmax(0,1fr))}#macPage .lancio-chiusura{grid-template-columns:1fr}}
 @media(max-width:640px){#macPage .lancio-video{grid-template-columns:1fr}#macPage .lancio-hero{padding:18px;border-radius:18px}}
 #macPage .lancio-video img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;display:block}
+[data-mode="light"] .ingly-novita__badge{color:#fff}

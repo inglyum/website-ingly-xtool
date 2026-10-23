@@ -149,7 +149,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.css?v=4699b94e1f">
+<link rel="stylesheet" href="assets/css/ingly.css?v=c427d60b01">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -802,10 +802,10 @@ setTimeout(function(){
         </div>
         <div class="pp-price"><span id="ppPrice"></span> <small id="ppUnit"></small></div>
         <div class="meta-strip">
-          <div>⚡ <span data-i18n="ppProdL">Produzione:</span> <b id="ppProd"></b></div>
-          <div>📦 <span data-i18n="ppShipL">Spedizione:</span> <b id="ppShip" data-i18n="ppShipV">2–5 gg</b></div>
-          <div>🇮🇹 <b>Made in Italy</b></div>
-          <div>🧱 <span data-i18n="ppMatL">Materiale</span>: <b id="ppMat"></b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-laser"></use></svg> <span data-i18n="ppProdL">Produzione:</span> <b id="ppProd"></b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-truck"></use></svg> <span data-i18n="ppShipL">Spedizione:</span> <b id="ppShip" data-i18n="ppShipV">2–5 gg</b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-check"></use></svg> <b>Made in Italy</b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-materiali"></use></svg> <span data-i18n="ppMatL">Materiale</span>: <b id="ppMat"></b></div>
         </div>
         <!-- Configuratore: solo la taglia, e solo se il prodotto ne dichiara più d'una.
              Il materiale NON si sceglie qui: è quello impostato dall'Admin sul prodotto

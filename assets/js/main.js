@@ -1,7 +1,7 @@
 /* ============ APP (entry module) ============
    Bootstrap: configurazione, lingua, render, delega eventi, avvio router. */
 const { CONFIG, D, SOCIALS, TECH, MATERIALS, STEPS, REVIEWS, BIZ, FAQS, PORT } = window.INGLY;
-import { $, T, L, setL, toast } from './utils.js';
+import { $, T, L, setL, toast, icon } from './utils.js';
 import { initRicerca, cerca, miniatura } from './ricerca.js';
 import { initPercorso } from './percorso.js';
 import * as u from './utils.js';
@@ -336,6 +336,10 @@ function renderSocialHub(){
   hub.style.display='';
   const cards=(SH.cards||[]).filter(c=>c.attivo!==false);
   if(!cards.length){ hub.innerHTML=''; return }
+  /* icone disegnate al posto delle emoji: dal tipo di link */
+  const shIcona=c=>{const u=String(c.url||'')+' '+String((c.titolo&&c.titolo.it)||'');
+    const n=/instagram/i.test(u)?'instagram':/wa\.me|whatsapp/i.test(u)?'whatsapp':/shop|etsy|negozio/i.test(u)?'shop':/portfolio|lavori/i.test(u)?'portfolio':'contact';
+    return icon(n,'','sh-ic')};
   hub.innerHTML=cards.map((c,i)=>{
     const [ca,cb]=(c.colore||'#3b7de0,#1a4fc4').split(',');
     const cta=c.url?`<span class="shcard-cta">Visita <span class="arr">→</span></span>`:'';
@@ -343,7 +347,7 @@ function renderSocialHub(){
     const attrs=c.url?`href="${c.url}" target="_blank" rel="noopener"`:'';
     return `<${tag} class="shcard reveal-blur stagger-${(i%6)+1}" ${attrs} style="--sh-a:${ca}22;--sh-b:${cb}11">
       <div class="shcard-top">
-        <div class="shcard-icon" style="background:linear-gradient(140deg,${ca}33,${cb}22)">${c.emoji||'🔗'}</div>
+        <div class="shcard-icon" style="background:linear-gradient(140deg,${ca}33,${cb}22)">${shIcona(c)}</div>
         <div><div class="shcard-name">${c.titolo[L]||c.titolo.it}</div><div class="shcard-badge">${c.badge||''}</div></div>
       </div>
       <p class="shcard-desc">${c.desc[L]||c.desc.it}</p>

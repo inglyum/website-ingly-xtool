@@ -9817,3 +9817,26 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 :root[data-mode] .qmode-b.on{background:var(--brand-ink)!important;color:var(--brand-bg)!important}
 /* superfici del browser nei colori del marchio */
 :root[data-mode]{caret-color:var(--brand-gold);accent-color:var(--brand-gold);scrollbar-color:var(--brand-border-strong) transparent}
+
+/* ===== ICONE DISEGNATE AL POSTO DELLE EMOJI (Impeccable: craft floor) =====
+   Schede senza foto, galleria, recenti, Social Hub, riga dei dati prodotto. */
+.pimg .art .art-ic,.pp-main .art .art-ic,.ph .art-ic{width:clamp(40px,22%,72px);height:auto;aspect-ratio:1;color:rgba(255,255,255,.78);stroke-width:1.4}
+.rv-it .ri .art-ic{width:22px;height:22px;color:rgba(255,255,255,.85)}
+.shcard-icon .sh-ic{width:26px;height:26px;color:var(--brand-ink)}
+#page-product .meta-strip .ic-svg{width:16px;height:16px;vertical-align:-3px;color:var(--brand-gold);margin-right:2px}
+.pp-zoomhint .ic-svg{width:14px;height:14px;vertical-align:-2px}
+/* Etichette sopra i titoli nella Home: ripetevano il titolo sotto (Impeccable
+   le esclude). Resta solo @ingly.design, che è un'informazione: il profilo. */
+:root[data-mode] #page-home .eyebrow:not(#shEyebrow){display:none!important}
+/* Spazio vuoto in cima alle pagine interne: 150–175 px pensati per
+   l'intestazione «sospesa» di prima. Ora l'intestazione occupa il suo posto
+   (sticky), quindi lo spazio si sommava. */
+:root[data-mode] .pp{padding-top:28px!important}
+:root[data-mode] .phero{padding-top:56px!important}
+@media(max-width:820px){:root[data-mode] .pp{padding-top:16px!important}:root[data-mode] .phero{padding-top:32px!important}}
+/* nomi prodotto molto lunghi: titolo più contenuto (la classe la mette products.js) */
+:root[data-mode] #page-product .pp-title.pp-title--lungo{font-size:clamp(26px,2.6vw,38px)!important;line-height:1.18!important}
+/* aree di tocco ≥ 44 px (audit: cuore 38, frecce menu 27×35, filtri 39) */
+:root[data-mode] .pcard .wish{width:44px!important;height:44px!important}
+:root[data-mode] .ia-freccia{min-width:36px;min-height:44px}
+:root[data-mode] #page-shop :is(.chip,.scoll,.scp){min-height:44px}

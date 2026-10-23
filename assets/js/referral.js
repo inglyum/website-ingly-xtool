@@ -87,14 +87,16 @@ export function initReferral(){
 /* piccolo widget share-link iniettato nel footer */
 function renderRefWidget(){
   if(RCFG().attivo===false) return;          /* disattivato dall'Admin */
-  const ft=document.querySelector('footer .ft-inner, footer, #page-about');
+  /* Solo nel piè di pagina. Con «footer .ft-inner, footer, #page-about»
+     querySelector prendeva il primo nel documento, cioè #page-about: il
+     riquadro finiva sopra FAQ, Chi siamo e Preventivo (86 px in cima). */
+  const ft=document.querySelector('footer .ft-inner')||document.querySelector('footer');
   if(!ft || document.getElementById('ref-widget')) return;
   const div=document.createElement('div');
   div.id='ref-widget';
   div.className='ref-widget reveal in';
   div.innerHTML=`
     <div class="ref-inner">
-      <span class="ref-icon">🎁</span>
       <div class="ref-body">
         <b>${(RCFG().titolo||{})[L]||(L==='it'?'Invita un amico':'Refer a friend')}</b>
         <span>${(RCFG().sottotitolo||{})[L]||''}</span>
@@ -113,7 +115,7 @@ export function shareRef(){
   try{
     if(navigator.share){ navigator.share({title:'INGLY DESIGN',text:L==='it'?'Scopri INGLY!':'Discover INGLY!',url}); return }
     navigator.clipboard.writeText(url);
-    toast(L==='it'?'Link referral copiato! 🎁':'Referral link copied! 🎁');
+    toast(L==='it'?'Link copiato.':'Link copied.');
   }catch(e){ toast(url) }
   bumpStat('clicks');
 }

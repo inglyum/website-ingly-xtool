@@ -155,6 +155,9 @@ function stockBadge(x){
    fotografie, e inventarle sarebbe mostrare al cliente un pezzo che non
    riceverà. */
 
+/* Al posto dell'emoji del prodotto: l'icona disegnata della sua categoria
+   (set SVG del sito). Si vede solo quando manca la foto. */
+function artIcona(x){const c=CATS.find(k=>k.id===x.cat);return icon(c&&c.icon,'','art-ic')}
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
   return `<article class="pcard reveal in" data-component="product-card" data-action="open-product" data-id="${x.id}">
@@ -162,7 +165,7 @@ export function card(x){const a=matArt(x.mat);
     <div class="pimg" style="background:${a.bg}">
       ${x.tag?`<span class="ptag ${x.tag==='Limited'?'y':x.tag==='B2B'?'b':''}">${x.tag}</span>`:''}
       <button class="wish ${lsWish().has(x.id)?'on':''}" aria-label="Wishlist" data-action="wish" data-id="${x.id}"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg></button>
-      <div class="art">${x.icon}</div>${foto}${stockBadge(x)}
+      <div class="art">${artIcona(x)}</div>${foto}${stockBadge(x)}
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
     <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
@@ -261,7 +264,7 @@ export function renderHero(){
     const sub=MATN[x.mat][L]+(c&&c.sub[x.sub]?' · '+c.sub[x.sub][L]:'');
     el.dataset.action='open-product'; el.dataset.id=x.id;
     el.innerHTML=`<div class="ph" style="background:${a.bg}">
-      <div style="position:absolute;inset:0;display:grid;place-items:center;font-size:46px">${x.icon}</div>${imgTag(x)}</div>
+      <div style="position:absolute;inset:0;display:grid;place-items:center">${artIcona(x)}</div>${imgTag(x)}</div>
       <h4>${x.n[L]}</h4><p>${sub}</p><div class="pr">${prezziVisibili()?T('from')+' '+eur(x.price):suRichiesta()}</div>`;
   });
 }
@@ -568,7 +571,7 @@ function riempiSort(s){if(!s)return;
 export function renderRV(){const w=$('rvWrap');if(!w)return;
   const items=RV.map(id=>P.find(x=>x.id===id)).filter(Boolean);
   w.classList.toggle('show',items.length>0);
-  $('rvStrip').innerHTML=items.map(x=>`<div class="rv-it" data-action="open-product" data-id="${x.id}"><div class="ri" style="background:${matArt(x.mat).bg}">${x.icon}</div><div><b>${x.n[L]}</b><span>${prezzo(x.price)}</span></div></div>`).join('')}
+  $('rvStrip').innerHTML=items.map(x=>`<div class="rv-it" data-action="open-product" data-id="${x.id}"><div class="ri" style="background:${matArt(x.mat).bg}">${artIcona(x)}</div><div><b>${x.n[L]}</b><span>${prezzo(x.price)}</span></div></div>`).join('')}
 
 /* ---- pagina prodotto / configuratore ---- */
 let galIdx=0, galShots=[];
@@ -695,7 +698,7 @@ export function renderPP(){
   const sub=c&&c.sub&&c.sub[cur.sub-1];
   const catLink=$('crumbCatLink'), sep=$('crumbSubSep');
   if(c&&catLink){
-    catLink.textContent=c.ic+' '+c.n[L];
+    catLink.textContent=c.n[L];
     catLink.setAttribute('data-action','go-shop');
     catLink.setAttribute('data-arg',c.id);
     catLink.style.display='';
@@ -711,8 +714,9 @@ export function renderPP(){
   else if(cur.stock>0&&cur.stock<=3) badges.push('<span class="pp-badge pp-badge-low">'+(L==='it'?'Ultimi '+cur.stock+' pezzi':'Only '+cur.stock+' left')+'</span>');
   $('ppBadges').innerHTML=badges.join('');
 
-  $('ppCat').textContent=c.ic+' '+c.n[L]+(sub?' · '+sub[L]:'');
+  $('ppCat').textContent=c.n[L]+(sub?' · '+sub[L]:'');
   $('ppName').textContent=cur.n[L];
+  $('ppName').classList.toggle('pp-title--lungo',String(cur.n[L]||'').length>48);
 
   /* rating row */
   {const rv=recensioniDi(cur),riga=$('ppStars')&&$('ppStars').parentElement;
@@ -795,9 +799,9 @@ function renderGalFrame(){
   /* Nessuna foto disponibile: lascia visibile l'icona/gradiente del materiale,
      senza <img src=""> o zoom che si apre sul nulla. */
   const caption = L==='it' ? 'Foto del prodotto non disponibile' : 'Product photo unavailable';
-  art.innerHTML = cur.icon + (src
+  art.innerHTML = artIcona(cur) + (src
     ? `<img class="pimgph" src="${src}" alt="${esc(cur.n[L]||cur.n.it)}" loading="eager" onerror="this.remove()">`+
-      `<span class="pp-zoomhint">🔍 ${T('zoomHint')||'Clicca per ingrandire'}</span>`
+      `<span class="pp-zoomhint">${icon('search')} ${T('zoomHint')||'Clicca per ingrandire'}</span>`
     : `<span class="pp-photo-label">${caption}</span>`);
   /* sincronizza thumbnail */
   document.querySelectorAll('#ppThumbs .thumb').forEach((el,i)=>{el.classList.toggle('on',i===galIdx);el.setAttribute('aria-pressed',String(i===galIdx));});

@@ -310,6 +310,7 @@ function bloccoNovita(m, L, grande) {
     ${grande && conf.length ? `<ul class="ingly-novita__conf">${conf.map(c => `<li><span><b>${esc(c.nome)}</b><small>${esc(c.sorgenti || '')}</small></span>
       <span class="ingly-novita__prezzo">${c.prezzo != null ? esc(euro(c.prezzo)) : ''}${c.listino ? ` <s>${esc(euro(c.listino))}</s>` : ''}</span></li>`).join('')}</ul>` : ''}
     ${grande && nv.notaPrezzi ? `<p class="ingly-novita__nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
+    ${grande ? videoNovita(nv, L) : ''}
     <div class="ingly-novita__azioni">
       ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)} <span class="arr">→</span></a>` : ''}
       ${!grande ? `<a class="btn btn-ghost" href="${esc(via('/macchine/' + m.id))}" data-nav="macchine">${t2('Scheda e prezzi', 'Details and prices', L)}</a>` : ''}
@@ -317,6 +318,29 @@ function bloccoNovita(m, L, grande) {
     </div>
   </div>`;
 }
+/* video ufficiali: muti, in loop, partono solo quando sono visibili
+   (preload none: niente download finché non servono) */
+function videoNovita(nv, L) {
+  const v = (Array.isArray(nv.video) ? nv.video : []).filter(x => x && /^assets\/videos\/[\w-]+\.mp4$/.test(String(x.src || '')));
+  if (!v.length) return '';
+  return `<div class="ingly-novita__video">${v.map(x => `<figure>
+      <video src="${esc(via('/' + x.src))}" ${x.poster ? `poster="${esc(via('/' + x.poster))}"` : ''} muted loop playsinline preload="none" data-auto-video aria-label="${esc(LAB.lingua(x.titolo, L))}"></video>
+      <figcaption>${esc(LAB.lingua(x.titolo, L))} · ${t2('video ufficiale xTool', 'official xTool video', L)}</figcaption>
+    </figure>`).join('')}</div>`;
+}
+function avviaVideo(root) {
+  const vids = [...(root || document).querySelectorAll('video[data-auto-video]')];
+  if (!vids.length) return;
+  const ridotto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (ridotto || !('IntersectionObserver' in window)) { vids.forEach(v => { v.controls = true; }); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => { v.controls = true; }); }
+    else v.pause();
+  }), { threshold: 0.35 });
+  vids.forEach(v => io.observe(v));
+}
+
 function sezioneNovita(d, L) {
   const nuove = LAB.catalogo(d).filter(m => m.novita && m.novita.stato);
   if (!nuove.length) return '';
@@ -876,6 +900,7 @@ export function renderMacchina(id, L, cardProdotto) {
     </div>`;
 
   observeAll();
+  avviaVideo(pagina);
 }
 
 /* ---------- demo ---------- */

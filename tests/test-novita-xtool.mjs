@@ -19,5 +19,8 @@ check('pagine statiche generate', existsSync('macchine/x1/index.html') && exists
 const ui = readFileSync('assets/js/lab-ui.js', 'utf8');
 check('sezione «Novità xTool» e riquadro prezzi', /function sezioneNovita\(d, L\)/.test(ui) && /\$\{bloccoNovita\(m, L, true\)\}/.test(ui));
 check('Admin: novità, configurazioni e prezzi modificabili', /key:'novita\.configurazioni'/.test(readFileSync('admin.html', 'utf8')));
+const vid = [...x1.novita.video, ...c1.novita.video];
+check('video ufficiali: 4 della X1, 1 della C1, file e copertina presenti', x1.novita.video.length === 4 && c1.novita.video.length === 1 && vid.every(v => existsSync(v.src) && existsSync(v.poster)));
+check('video leggeri (< 2 MB ciascuno) e caricati solo quando visibili', vid.every(v => readFileSync(v.src).length < 2e6) && /preload="none" data-auto-video/.test(ui) && /prefers-reduced-motion: reduce/.test(ui));
 console.log(`\n=========== NOVITÀ xTOOL: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

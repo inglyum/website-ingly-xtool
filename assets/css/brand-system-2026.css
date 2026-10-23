@@ -1816,3 +1816,7 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 .ingly-novita__prezzo{white-space:nowrap;font:700 18px/1 var(--brand-text);color:var(--brand-ink);font-variant-numeric:tabular-nums}
 .ingly-novita__prezzo s{margin-left:6px;font-weight:400;font-size:14px;color:var(--brand-muted)}
 .ingly-novita__azioni{display:flex;flex-wrap:wrap;gap:10px}
+.ingly-novita__video{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin-top:6px}
+.ingly-novita__video figure{margin:0;display:grid;gap:6px}
+.ingly-novita__video video{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--brand-deep);display:block}
+.ingly-novita__video figcaption{font-size:12.5px;color:var(--brand-muted)}

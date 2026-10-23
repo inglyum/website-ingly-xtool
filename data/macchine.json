@@ -525,8 +525,8 @@
         {
           "src": "img/xtool-x1.webp",
           "alt": {
-            "it": "xTool X1, immagine ufficiale xTool",
-            "en": "xTool X1, official xTool image"
+            "it": "xTool X1, il laser all-in-one di nuova generazione: immagine ufficiale xTool",
+            "en": "xTool X1, the next-gen all-in-one laser: official xTool image"
           }
         }
       ],
@@ -575,7 +575,41 @@
         "notaPrezzi": {
           "it": "Prezzi di lancio pubblicati da xTool per l'Europa; barrato il prezzo di listino. Possono cambiare: li confermiamo al momento dell'ordine.",
           "en": "Launch prices published by xTool for Europe; list price struck through. They may change; we confirm them when you order."
-        }
+        },
+        "video": [
+          {
+            "src": "assets/videos/x1-hybrid-motion.mp4",
+            "poster": "assets/videos/x1-hybrid-motion.webp",
+            "titolo": {
+              "it": "Laser Swap: MOPA, UV e fibra sulla stessa macchina",
+              "en": "Laser Swap: MOPA, UV and fibre on the same machine"
+            }
+          },
+          {
+            "src": "assets/videos/x1-dettaglio.mp4",
+            "poster": "assets/videos/x1-dettaglio.webp",
+            "titolo": {
+              "it": "Precisione galvo: dettagli più fini",
+              "en": "Galvo precision: finer details"
+            }
+          },
+          {
+            "src": "assets/videos/x1-cristallo.mp4",
+            "poster": "assets/videos/x1-cristallo.webp",
+            "titolo": {
+              "it": "Incisione 3D in serie dentro il cristallo",
+              "en": "Batch 3D engraving inside crystal"
+            }
+          },
+          {
+            "src": "assets/videos/x1-vetrata.mp4",
+            "poster": "assets/videos/x1-vetrata.webp",
+            "titolo": {
+              "it": "Un mosaico a colori, dall'incisione al quadro finito",
+              "en": "A colour mosaic, from engraving to finished frame"
+            }
+          }
+        ]
       },
       "specificheUfficiali": {
         "source": "https://www.xtool.com/pages/xtool-x1-coming-soon",
@@ -678,7 +712,17 @@
         "notaPrezzi": {
           "it": "xTool ha pubblicato il prezzo per gli Stati Uniti (da 469 US$); quello europeo non è ancora annunciato. Te lo confermiamo quando esce.",
           "en": "xTool has published the US price (from US$469); the European price is not announced yet. We will confirm it when it is."
-        }
+        },
+        "video": [
+          {
+            "src": "assets/videos/c1-adesivi.mp4",
+            "poster": "assets/videos/c1-adesivi.webp",
+            "titolo": {
+              "it": "Stampa e taglio di un adesivo a colori",
+              "en": "Printing and cutting a colour sticker"
+            }
+          }
+        ]
       },
       "specificheUfficiali": {
         "source": "https://www.xtool.com/pages/xtool-c1-color-cutter-upcoming",

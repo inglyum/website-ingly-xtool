@@ -384,6 +384,10 @@ export function renderMacchine(L) {
   const elencoMachine=(titolo,v)=>{const items=LAB.listaLingua(v,L);return items.length?
     '<p class="lab-n"><b>'+esc(titolo)+'</b></p><ul class="lab-lista">'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';};
   box.innerHTML = `
+    <a class="ingly-assistenza-banner" href="${via('/assistenza-xtool-palermo/')}">
+      <span><b>${t2('Centro assistenza xTool a Palermo', 'xTool service centre in Palermo', L)}</b>
+      <small>${t2('Riparazioni, ricambi, messa a punto e demo per tutta la Sicilia e il Sud Italia.', 'Repairs, parts, tuning and demos for Sicily and Southern Italy.', L)}</small></span>
+      <span class="arr" aria-hidden="true">→</span></a>
     ${sezioneNovita(d, L)}
     <div class="machine-section-label">
       <span class="eyebrow">${t2('Laboratorio e soluzioni INGLY', 'INGLY workshop and solutions', L)}</span>

@@ -36,7 +36,7 @@ export function automatiche(p = {}, opt = {}){
   if(materiale){
     out.push([
       `Di che materiale è ${nome}?`,
-      `${nome} è realizzato in ${materiale}, lavorato e rifinito a mano nel laboratorio ${azienda} di Cesena.`,
+      `${nome} è realizzato in ${materiale}, lavorato e rifinito a mano nel laboratorio ${azienda} di Palermo.`,
     ]);
   }
   if(p.price != null && p.price > 0){

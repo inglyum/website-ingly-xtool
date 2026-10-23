@@ -9866,3 +9866,10 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 .ingly-novita__video figure{margin:0;display:grid;gap:6px}
 .ingly-novita__video video{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--brand-deep);display:block}
 .ingly-novita__video figcaption{font-size:12.5px;color:var(--brand-muted)}
+/* banner verso la pagina «Centro assistenza xTool a Palermo» */
+.ingly-assistenza-banner{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 36px;padding:18px 22px;border:1px solid var(--brand-border-strong);border-radius:var(--ds-raggio-scheda,16px);background:var(--brand-surface);color:var(--brand-ink);text-decoration:none}
+.ingly-assistenza-banner span:first-child{display:grid;gap:4px}
+.ingly-assistenza-banner b{font:600 19px/1.25 var(--brand-display)}
+.ingly-assistenza-banner small{color:var(--brand-muted);font-size:14.5px}
+.ingly-assistenza-banner .arr{font-size:22px;color:var(--brand-gold)}
+.ingly-assistenza-banner:hover{border-color:var(--brand-gold)}

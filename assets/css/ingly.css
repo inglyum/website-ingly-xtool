@@ -9843,3 +9843,22 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 /* descrizione prodotto: gli a capo scritti nell'Admin diventano paragrafi
    (prima tutto finiva in un blocco unico) */
 :root[data-mode] #ppDesc{white-space:pre-line;max-width:68ch}
+
+/* ===== NOVITÀ xTOOL IN PRE-ORDINE (pagina Macchine e scheda macchina) ===== */
+.ingly-novita-sez{margin:0 0 56px}
+.ingly-novita-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px;margin-top:18px}
+.ingly-novita-card{border:1px solid var(--brand-border-strong);border-radius:var(--ds-raggio-scheda,16px);background:var(--brand-surface);padding:18px;display:flex;flex-direction:column;gap:10px}
+.ingly-novita-card h4{margin:6px 0 0;font:600 22px/1.2 var(--brand-display);color:var(--brand-ink)}
+.ingly-novita-card .mac-foto img{width:100%;height:280px;object-fit:contain;background:var(--brand-deep);border-radius:12px}
+.ingly-novita{display:flex;flex-direction:column;gap:12px;margin-top:auto}
+.ingly-novita--grande{margin:22px 0 30px;padding:20px;border:1px solid var(--brand-border-strong);border-radius:var(--ds-raggio-scheda,16px);background:var(--brand-surface)}
+.ingly-novita__badge{align-self:flex-start;padding:6px 12px;border-radius:999px;background:var(--brand-gold);color:var(--brand-action-ink);font:700 12px/1 var(--brand-text);letter-spacing:.08em;text-transform:uppercase}
+.ingly-novita__testo,.ingly-novita__nota{margin:0;color:var(--brand-muted);font-size:15px;line-height:1.55;max-width:68ch}
+.ingly-novita__nota{font-size:13px}
+.ingly-novita__conf{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ingly-novita__conf li{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--brand-border)}
+.ingly-novita__conf li span:first-child{display:grid;gap:3px}
+.ingly-novita__conf small{color:var(--brand-muted);font-size:13px}
+.ingly-novita__prezzo{white-space:nowrap;font:700 18px/1 var(--brand-text);color:var(--brand-ink);font-variant-numeric:tabular-nums}
+.ingly-novita__prezzo s{margin-left:6px;font-weight:400;font-size:14px;color:var(--brand-muted)}
+.ingly-novita__azioni{display:flex;flex-wrap:wrap;gap:10px}

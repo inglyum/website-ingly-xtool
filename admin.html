@@ -5121,7 +5121,14 @@ function labEditorMacchine(B) {
   {key:'inOfficina',label:'In officina',type:'booleano'},
   {key:'demoDisponibile',label:'Demo disponibile',type:'booleano'},
   {key:'assistenza',label:'Assistenza',type:'booleano'},
-  {key:'galleria',label:'Fotografie e alt IT/EN',type:'galleria'}
+  {key:'galleria',label:'Fotografie e alt IT/EN',type:'galleria'},
+  {key:'novita.stato',label:'Novità / pre-ordine (scrivi «preordine» per mostrarla in «Novità xTool»; vuoto = no)',type:'testo'},
+  {key:'novita.etichetta',label:'Etichetta novità (es. Novità · in pre-ordine)',type:'testo-it-en'},
+  {key:'novita.testo',label:'Testo novità',type:'area-it-en'},
+  {key:'novita.configurazioni',label:'Configurazioni e prezzi',type:'ripetitore',schema:[
+   {key:'nome',label:'Nome',type:'testo'},{key:'sorgenti',label:'Sorgenti / contenuto',type:'testo'},
+   {key:'prezzo',label:'Prezzo (€)',type:'prezzo|null'},{key:'listino',label:'Prezzo di listino barrato (€)',type:'prezzo|null'}]},
+  {key:'novita.notaPrezzi',label:'Nota sui prezzi',type:'area-it-en'}
  ];
  E.mount({root:B,items:S.MAC.catalogo,schema,title:'Catalogo macchine xTool',
   file:'data/macchine.json',percorso:'catalogo',area:'macchine',

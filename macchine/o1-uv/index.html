@@ -149,7 +149,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/artwork.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.css?v=69749de9dd">
+<link rel="stylesheet" href="assets/css/ingly.css?v=c427d60b01">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -531,7 +531,7 @@ setTimeout(function(){
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="catEye">Il catalogo</span>
       <h2 class="h2" data-i18n="catH2">12 mondi di <span class="hl">personalizzazione.</span></h2>
-      <p class="sub" data-i18n="catSub">Dalla casa agli eventi, dal B2B ai file digitali — ogni categoria è un punto di partenza.</p></div>
+      <p class="sub" data-i18n="catSub">Dalla casa agli eventi, dal B2B ai file digitali: scegli da dove partire.</p></div>
       <div class="bento" id="catBento"></div>
     </div>
   </div>
@@ -638,7 +638,7 @@ setTimeout(function(){
   <div class="sec" hidden data-content-status="verification-required" style="background:var(--white);border-top:1px solid var(--line)">
     <div class="wrap">
       <div class="reveal"><span class="eyebrow" data-i18n="revEye">Recensioni</span>
-      <h2 class="h2">Esperienze dei clienti — pubblicazione dopo verifica.</h2></div>
+      <h2 class="h2">Esperienze dei clienti, pubblicate dopo verifica.</h2></div>
       <div class="rev-grid" id="revGrid"></div>
     </div>
   </div>
@@ -677,7 +677,7 @@ setTimeout(function(){
        prodotti. Stessi id e stessa logica dei filtri di prima. -->
   <div class="wrap shop-testa">
     <h1 class="shop-titolo" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h1>
-    <p class="sub shop-sotto" data-i18n="shopSub">Cerca per categoria, materiale o prezzo — oppure parti da una collezione.</p>
+    <p class="sub shop-sotto" data-i18n="shopSub">Cerca per categoria, materiale o prezzo, oppure parti da una collezione.</p>
   </div>
 
   <div class="wrap shop-barra">
@@ -798,10 +798,10 @@ setTimeout(function(){
         </div>
         <div class="pp-price"><span id="ppPrice"></span> <small id="ppUnit"></small></div>
         <div class="meta-strip">
-          <div>⚡ <span data-i18n="ppProdL">Produzione:</span> <b id="ppProd"></b></div>
-          <div>📦 <span data-i18n="ppShipL">Spedizione:</span> <b id="ppShip" data-i18n="ppShipV">2–5 gg</b></div>
-          <div>🇮🇹 <b>Made in Italy</b></div>
-          <div>🧱 <span data-i18n="ppMatL">Materiale</span>: <b id="ppMat"></b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-laser"></use></svg> <span data-i18n="ppProdL">Produzione:</span> <b id="ppProd"></b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-truck"></use></svg> <span data-i18n="ppShipL">Spedizione:</span> <b id="ppShip" data-i18n="ppShipV">2–5 gg</b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-check"></use></svg> <b>Made in Italy</b></div>
+          <div><svg class="ic-svg" aria-hidden="true" focusable="false"><use href="assets/icons/ingly-icons.svg#ic-materiali"></use></svg> <span data-i18n="ppMatL">Materiale</span>: <b id="ppMat"></b></div>
         </div>
         <!-- Configuratore: solo la taglia, e solo se il prodotto ne dichiara più d'una.
              Il materiale NON si sceglie qui: è quello impostato dall'Admin sul prodotto
@@ -1057,7 +1057,7 @@ setTimeout(function(){
   <div class="wrap phero">
     <span class="eyebrow">Machine Lab</span>
     <h1 class="h2" style="font-size:clamp(2.6rem,6vw,4.4rem)">Il parco macchine,<br>senza <span class="hl on">giri di parole.</span></h1>
-    <p class="sub">Cosa c&#39;è in officina, cosa fa ciascuna, cosa si sblocca mettendole insieme — e l&#39;elenco onesto di quello che non lavoriamo e perché.</p>
+    <p class="sub">Cosa c&#39;è in officina, cosa fa ciascuna, cosa si sblocca mettendole insieme, e l&#39;elenco onesto di quello che non lavoriamo e perché.</p>
     <section class="xtool-lab-feature" aria-labelledby="xtoolFeatureTitle">
       <div class="xtool-lab-copy">
         <span class="eyebrow">INGLY DESIGN · xTOOL LAB</span>
@@ -1180,7 +1180,7 @@ setTimeout(function(){
     <div>
       <span class="eyebrow"><svg class="ic-svg" aria-hidden="true"><use href="assets/icons/ingly-icons.svg#ic-about"></use></svg> <span data-i18n="nAbout">Chi Siamo</span></span>
       <h1 class="h2" data-i18n="abH2">Artigianato,<br>guidato dai <span class="hl on">laser.</span></h1>
-      <p class="sub" style="margin-bottom:34px" data-i18n="abSub">INGLY DESIGN è uno studio di personalizzazione dove l'istinto del design italiano incontra la precisione industriale. Ogni pezzo — uno o mille — passa per le stesse mani, gli stessi raggi, la stessa ossessione per il dettaglio.</p>
+      <p class="sub" style="margin-bottom:34px" data-i18n="abSub">INGLY DESIGN è uno studio di personalizzazione: il gusto del design italiano e la precisione delle macchine industriali. Che sia un pezzo o mille, ognuno passa dalle stesse mani, con la stessa cura per il dettaglio.</p>
       <!-- I numeri arrivano dai dati, non da qui: «Materiali 8» con nove
            materiali in catalogo è il genere di bugia che nessuno nota.
            Riempito da renderContatori() in main.js. -->
@@ -1278,7 +1278,7 @@ setTimeout(function(){
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
         <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
-        <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate premium. Incisione e taglio laser, stampa UV &amp; DTF, stampa 3D — made in Italy.</p>
+        <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate: incisione e taglio laser, stampa UV e DTF, stampa 3D. Fatte in Italia.</p>
         <div class="socials" id="soc3"></div>
       </div>
       <div class="ft-col"><h4>Shop</h4>

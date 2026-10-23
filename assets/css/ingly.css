@@ -9840,3 +9840,6 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 :root[data-mode] .pcard .wish{width:44px!important;height:44px!important}
 :root[data-mode] .ia-freccia{min-width:36px;min-height:44px}
 :root[data-mode] #page-shop :is(.chip,.scoll,.scp){min-height:44px}
+/* descrizione prodotto: gli a capo scritti nell'Admin diventano paragrafi
+   (prima tutto finiva in un blocco unico) */
+:root[data-mode] #ppDesc{white-space:pre-line;max-width:68ch}

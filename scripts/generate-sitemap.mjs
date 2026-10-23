@@ -44,6 +44,7 @@ const BASE = ((config.seo && config.seo.dominio) || 'https://www.inglydesign.it'
    sprechi passaggi sulle pagine ferme. */
 const REGOLE = {
   home:      ['weekly',  '1.0'],
+  assistenza: ['monthly', '0.9'],
   verticale: ['monthly', '0.8'],
   shop:      ['weekly',  '0.9'],
   digital:   ['weekly',  '0.8'],
@@ -88,7 +89,9 @@ const pagine = [
   /* Strumento autonomo: il Generator Studio è una pagina HTML indipendente,
      non una rotta SPA, quindi entra nella sitemap con il suo file reale. */
   { file: 'generatori.html', pagina: 'tool', id: 'generatori' },
-  { file: 'print-cut.html', pagina: 'tool', id: 'print-cut' }
+  { file: 'print-cut.html', pagina: 'tool', id: 'print-cut' },
+  /* pagina locale per chi cerca assistenza xTool a Palermo / in Sicilia */
+  { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' }
 ];
 const mancanti = [];
 const righe = [];

@@ -64,7 +64,7 @@ export function updateSeo(page, L, T, product){
     academy:'INGLY Academy',
     demo:(L==='en'?'Free demo':'Demo gratuita'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),
-    macchine:(L==='en'?'Machines':'Macchine')
+    macchine:(L==='en'?'xTool laser machines in Palermo: sales, demos and service':'Macchine laser xTool a Palermo: vendita, demo e assistenza')
   };
   const isProd = page==='product' && product;
   /* Pagina di settore aperta? Si legge dall'indirizzo invece di importare il
@@ -117,8 +117,8 @@ export function updateSeo(page, L, T, product){
         ? (L==='en' ? `${nome} — what it does and what it makes | ${azienda}`
                     : `${nome} — cosa fa e cosa realizza | ${azienda}`)
       : sez==='macchine'
-        ? (L==='en' ? `${nome} — service, repair and parts | ${azienda}`
-                    : `${nome} — assistenza, riparazione e ricambi | ${azienda}`)
+        ? (L==='en' ? `${nome} — service, repair and parts in Palermo, Sicily | ${azienda}`
+                    : `${nome} — assistenza, riparazione e ricambi a Palermo | ${azienda}`)
         : `${nome} | ${azienda}`;
     desc = somm || LAB.lingua(scheda.e.ruolo, L);
   } else if(vert){

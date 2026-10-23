@@ -285,6 +285,76 @@ function nascondiArchiviate(d){
     a.hidden=arch.has(n.trim().toLowerCase());
   });
 }
+/* ---------- NOVITÀ xTool IN PRE-ORDINE ----------
+   Una macchina con `novita` nel catalogo (Admin → Lab → Macchine): etichetta,
+   testo, configurazioni con prezzo e prezzo di listino, nota sui prezzi.
+   Il pulsante apre WhatsApp con il messaggio già scritto. */
+const euro = n => Number(n).toLocaleString('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+function waPreordine(m, L) {
+  const cfg = (D().CONFIG) || {};
+  const base = String(cfg.whatsapp || '').split('?')[0];
+  if (!/^https:\/\/wa\.me\//.test(base)) return '';
+  const nome = LAB.lingua(m.n, L);
+  return base + '?text=' + encodeURIComponent(L === 'en'
+    ? `Hi INGLY DESIGN, I'm interested in pre-ordering the ${nome}. Could you tell me more?`
+    : `Ciao INGLY DESIGN, mi interessa il pre-ordine della ${nome}. Mi date informazioni?`);
+}
+function bloccoNovita(m, L, grande) {
+  const nv = m && m.novita; if (!nv || !nv.stato) return '';
+  const conf = Array.isArray(nv.configurazioni) ? nv.configurazioni : [];
+  const wa = waPreordine(m, L);
+  const ufficiale = (m.fonte && m.fonte.url) || '';
+  return `<div class="ingly-novita${grande ? ' ingly-novita--grande' : ''}">
+    <span class="ingly-novita__badge">${esc(LAB.lingua(nv.etichetta, L) || t2('Novità', 'New', L))}</span>
+    ${nv.testo ? `<p class="ingly-novita__testo">${esc(LAB.lingua(nv.testo, L))}</p>` : ''}
+    ${grande && conf.length ? `<ul class="ingly-novita__conf">${conf.map(c => `<li><span><b>${esc(c.nome)}</b><small>${esc(c.sorgenti || '')}</small></span>
+      <span class="ingly-novita__prezzo">${c.prezzo != null ? esc(euro(c.prezzo)) : ''}${c.listino ? ` <s>${esc(euro(c.listino))}</s>` : ''}</span></li>`).join('')}</ul>` : ''}
+    ${grande && nv.notaPrezzi ? `<p class="ingly-novita__nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
+    ${grande ? videoNovita(nv, L) : ''}
+    <div class="ingly-novita__azioni">
+      ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)} <span class="arr">→</span></a>` : ''}
+      ${!grande ? `<a class="btn btn-ghost" href="${esc(via('/macchine/' + m.id))}" data-nav="macchine">${t2('Scheda e prezzi', 'Details and prices', L)}</a>` : ''}
+      ${grande && ufficiale ? `<a class="btn btn-ghost" href="${esc(ufficiale)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
+    </div>
+  </div>`;
+}
+/* video ufficiali: muti, in loop, partono solo quando sono visibili
+   (preload none: niente download finché non servono) */
+function videoNovita(nv, L) {
+  const v = (Array.isArray(nv.video) ? nv.video : []).filter(x => x && /^assets\/videos\/[\w-]+\.mp4$/.test(String(x.src || '')));
+  if (!v.length) return '';
+  return `<div class="ingly-novita__video">${v.map(x => `<figure>
+      <video src="${esc(via('/' + x.src))}" ${x.poster ? `poster="${esc(via('/' + x.poster))}"` : ''} muted loop playsinline preload="none" data-auto-video aria-label="${esc(LAB.lingua(x.titolo, L))}"></video>
+      <figcaption>${esc(LAB.lingua(x.titolo, L))} · ${t2('video ufficiale xTool', 'official xTool video', L)}</figcaption>
+    </figure>`).join('')}</div>`;
+}
+function avviaVideo(root) {
+  const vids = [...(root || document).querySelectorAll('video[data-auto-video]')];
+  if (!vids.length) return;
+  const ridotto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (ridotto || !('IntersectionObserver' in window)) { vids.forEach(v => { v.controls = true; }); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => { v.controls = true; }); }
+    else v.pause();
+  }), { threshold: 0.35 });
+  vids.forEach(v => io.observe(v));
+}
+
+function sezioneNovita(d, L) {
+  const nuove = LAB.catalogo(d).filter(m => m.novita && m.novita.stato);
+  if (!nuove.length) return '';
+  return `<section class="ingly-novita-sez" aria-labelledby="inglyNovitaTit">
+    <h3 class="vert-tit" id="inglyNovitaTit">${t2('Novità xTool, in pre-ordine', 'New from xTool, on pre-order', L)}</h3>
+    <div class="ingly-novita-grid">${nuove.map(m => `<article class="ingly-novita-card">
+      ${fotoMac(m, L, false)}
+      <h4>${esc(LAB.lingua(m.n, L))}</h4>
+      <p class="lab-p">${esc(LAB.lingua(m.ruolo, L))}</p>
+      ${bloccoNovita(m, L, false)}
+    </article>`).join('')}</div>
+  </section>`;
+}
+
 export function renderMacchine(L) {
   const box = $('labMacGrid');
   if (!box) return;
@@ -314,6 +384,11 @@ export function renderMacchine(L) {
   const elencoMachine=(titolo,v)=>{const items=LAB.listaLingua(v,L);return items.length?
     '<p class="lab-n"><b>'+esc(titolo)+'</b></p><ul class="lab-lista">'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';};
   box.innerHTML = `
+    <a class="ingly-assistenza-banner" href="${via('/assistenza-xtool-palermo/')}">
+      <span><b>${t2('Centro assistenza xTool a Palermo', 'xTool service centre in Palermo', L)}</b>
+      <small>${t2('Riparazioni, ricambi, messa a punto e demo per tutta la Sicilia e il Sud Italia.', 'Repairs, parts, tuning and demos for Sicily and Southern Italy.', L)}</small></span>
+      <span class="arr" aria-hidden="true">→</span></a>
+    ${sezioneNovita(d, L)}
     <div class="machine-section-label">
       <span class="eyebrow">${t2('Laboratorio e soluzioni INGLY', 'INGLY workshop and solutions', L)}</span>
       <p class="lab-p">${t2('Le macchine indicate qui descrivono capacità e applicazioni; la possibilità di provarle va sempre confermata nella Demo Room.', 'Machines here illustrate capabilities and applications; demo availability must be confirmed via the Demo Room.', L)}</p>
@@ -771,6 +846,7 @@ export function renderMacchina(id, L, cardProdotto) {
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${esc(LAB.lingua(m.n, L))}</h1>
     <p class="sub">${esc(LAB.lingua(m.ruolo, L))}</p>
     ${fotoMac(m, L, true)}
+    ${bloccoNovita(m, L, true)}
     ${chips([
       m.inOfficina ? t2('In officina da noi', 'In our workshop', L) : t2('Assistenza e riparazione', 'Service and repair', L),
       m.assistenza ? t2('Centro ufficiale xTool', 'Official xTool centre', L) : ''
@@ -828,6 +904,7 @@ export function renderMacchina(id, L, cardProdotto) {
     </div>`;
 
   observeAll();
+  avviaVideo(pagina);
 }
 
 /* ---------- demo ---------- */

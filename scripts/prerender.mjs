@@ -130,8 +130,8 @@ function paginaVerticale(v){
 const TITOLI_LAB = {
   materiali: { t: 'Materiali', d: 'Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati.' },
   tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
-  macchine: { t: 'Macchine', d: 'Il parco macchine, cosa si sblocca mettendole insieme, e cosa non lavoriamo.' },
-  academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Cesena o collegati.' },
+  macchine: { t: 'Macchine laser xTool a Palermo: vendita, demo e assistenza', d: 'Le macchine xTool che usiamo e assistiamo a Palermo: vendita, pre-ordine delle novità, demo, riparazioni e ricambi per la Sicilia e il Sud Italia.' },
+  academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Palermo o collegati.' },
   demo: { t: 'Demo gratuita', d: 'Un\'ora in officina con la macchina accesa: la provi davvero prima di sceglierla.' }
 };
 
@@ -156,7 +156,7 @@ function paginaLabScheda(sezione, id){
   const meta = sezione === 'materiali' ? LAB.metaMateriale(e, { L, azienda })
     : sezione === 'tecnologie' ? LAB.metaTecnologia(e, { L, azienda })
     : sezione === 'macchine'
-      ? { titolo: `${nome} — ${e.inOfficina ? 'in officina, assistenza e demo' : 'assistenza, riparazione e ricambi'} | ${azienda}`,
+      ? { titolo: `${nome} — ${e.inOfficina ? 'demo e assistenza a Palermo' : 'assistenza, riparazione e ricambi a Palermo'} | ${azienda}`,
           descrizione: LAB.lingua(e.ruolo, L) }
       : { titolo: `${nome} | ${azienda}`, descrizione: LAB.lingua(e.sommario, L) };
   const contenuto = sezione === 'materiali' ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: P.prezzo })

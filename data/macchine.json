@@ -496,6 +496,285 @@
   },
   "catalogo": [
     {
+      "id": "x1",
+      "n": {
+        "it": "xTool X1",
+        "en": "xTool X1"
+      },
+      "serie": "X",
+      "famiglie": [
+        "co2",
+        "diodo",
+        "fiber",
+        "mopa",
+        "uv",
+        "multifunzione"
+      ],
+      "ruolo": {
+        "it": "Una piattaforma, cinque laser: CO₂ 55 W di serie, poi diodo, fibra, MOPA o UV a seconda della configurazione.",
+        "en": "One platform, five lasers: 55 W CO₂ as standard, then diode, fibre, MOPA or UV depending on the configuration."
+      },
+      "inOfficina": false,
+      "assistenza": true,
+      "demoDisponibile": false,
+      "corso": null,
+      "specs": {},
+      "daCompletare": true,
+      "stato": "pubblicato",
+      "galleria": [
+        {
+          "src": "img/xtool-x1.webp",
+          "alt": {
+            "it": "xTool X1, il laser all-in-one di nuova generazione: immagine ufficiale xTool",
+            "en": "xTool X1, the next-gen all-in-one laser: official xTool image"
+          }
+        }
+      ],
+      "novita": {
+        "stato": "preordine",
+        "etichetta": {
+          "it": "Novità · in pre-ordine",
+          "en": "New · pre-order"
+        },
+        "testo": {
+          "it": "La nuova laser tutto-in-uno di xTool, aperta al pre-ordine. I tempi di consegna li decide xTool: te li confermiamo quando prenoti. Possiamo prenotarla per te e seguirla in assistenza.",
+          "en": "xTool's new all-in-one laser, open for pre-order. Delivery times are set by xTool; we confirm them when you reserve. We can reserve it for you and support it afterwards."
+        },
+        "configurazioni": [
+          {
+            "nome": "X1 Single CO₂",
+            "sorgenti": "CO₂ 55 W",
+            "prezzo": 3399,
+            "listino": 3699
+          },
+          {
+            "nome": "X1 CO₂ + Diode Galvo",
+            "sorgenti": "CO₂ 55 W · diodo galvo 20 W",
+            "prezzo": 3999,
+            "listino": 4299
+          },
+          {
+            "nome": "X1 CO₂ + Diode Galvo + Fiber",
+            "sorgenti": "CO₂ 55 W · diodo 20 W · fibra 30 W",
+            "prezzo": 5799,
+            "listino": 6099
+          },
+          {
+            "nome": "X1 CO₂ + Diode Galvo + UV",
+            "sorgenti": "CO₂ 55 W · diodo 20 W · UV 5 W",
+            "prezzo": 6499,
+            "listino": 6999
+          },
+          {
+            "nome": "X1 CO₂ + Diode Galvo + MOPA",
+            "sorgenti": "CO₂ 55 W · diodo 20 W · MOPA 60 W",
+            "prezzo": 6679,
+            "listino": 7179
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi di lancio pubblicati da xTool per l'Europa; barrato il prezzo di listino. Possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Launch prices published by xTool for Europe; list price struck through. They may change; we confirm them when you order."
+        },
+        "video": [
+          {
+            "src": "assets/videos/x1-hybrid-motion.mp4",
+            "poster": "assets/videos/x1-hybrid-motion.webp",
+            "titolo": {
+              "it": "Laser Swap: MOPA, UV e fibra sulla stessa macchina",
+              "en": "Laser Swap: MOPA, UV and fibre on the same machine"
+            }
+          },
+          {
+            "src": "assets/videos/x1-dettaglio.mp4",
+            "poster": "assets/videos/x1-dettaglio.webp",
+            "titolo": {
+              "it": "Precisione galvo: dettagli più fini",
+              "en": "Galvo precision: finer details"
+            }
+          },
+          {
+            "src": "assets/videos/x1-cristallo.mp4",
+            "poster": "assets/videos/x1-cristallo.webp",
+            "titolo": {
+              "it": "Incisione 3D in serie dentro il cristallo",
+              "en": "Batch 3D engraving inside crystal"
+            }
+          },
+          {
+            "src": "assets/videos/x1-vetrata.mp4",
+            "poster": "assets/videos/x1-vetrata.webp",
+            "titolo": {
+              "it": "Un mosaico a colori, dall'incisione al quadro finito",
+              "en": "A colour mosaic, from engraving to finished frame"
+            }
+          }
+        ]
+      },
+      "specificheUfficiali": {
+        "source": "https://www.xtool.com/pages/xtool-x1-coming-soon",
+        "values": [
+          {
+            "it": "Sorgenti laser",
+            "en": "Laser sources",
+            "value": "CO₂ 55 W · diodo 20 W · UV 5 W · MOPA 60 W · fibra 30 W"
+          },
+          {
+            "it": "Area di lavoro massima",
+            "en": "Max working area",
+            "value": "615 × 320 mm"
+          },
+          {
+            "it": "Velocità massima",
+            "en": "Max speed",
+            "value": "6.000 mm/s (Hybrid Motion)"
+          },
+          {
+            "it": "Pezzi lunghi",
+            "en": "Long pieces",
+            "value": "fino a 299 cm con AutoPassthrough"
+          },
+          {
+            "it": "Telecamere",
+            "en": "Cameras",
+            "value": "3: riconoscimento materiale, allineamento, misura altezza"
+          },
+          {
+            "it": "Piano",
+            "en": "Bed",
+            "value": "AutoLift, regolazione automatica"
+          },
+          {
+            "it": "Sicurezza",
+            "en": "Safety",
+            "value": "Laser di Classe 1"
+          }
+        ],
+        "note": {
+          "it": "Specifiche ufficiali xTool di una macchina appena annunciata, non prove del laboratorio INGLY. Non è ancora in officina né disponibile per demo.",
+          "en": "Official xTool specifications of a newly announced machine, not tests by the INGLY workshop. Not yet on-site or available for demos."
+        }
+      },
+      "fonte": {
+        "nome": "xTool",
+        "url": "https://www.xtool.com/pages/xtool-x1-coming-soon",
+        "verificatoIl": "2026-10-23"
+      }
+    },
+    {
+      "id": "c1",
+      "n": {
+        "it": "xTool C1 Color Cutter",
+        "en": "xTool C1 Color Cutter"
+      },
+      "serie": "C",
+      "famiglie": [
+        "stampa"
+      ],
+      "ruolo": {
+        "it": "Plotter da taglio che scansiona, stampa a colori e taglia in un solo passaggio: adesivi, etichette, biglietti.",
+        "en": "A cutting plotter that scans, prints in colour and cuts in one pass: stickers, labels, cards."
+      },
+      "inOfficina": false,
+      "assistenza": true,
+      "demoDisponibile": false,
+      "corso": null,
+      "specs": {},
+      "daCompletare": true,
+      "stato": "pubblicato",
+      "galleria": [
+        {
+          "src": "img/xtool-c1.webp",
+          "alt": {
+            "it": "xTool C1 Color Cutter, immagine ufficiale xTool",
+            "en": "xTool C1 Color Cutter, official xTool image"
+          }
+        },
+        {
+          "src": "img/xtool-c1-uso.webp",
+          "alt": {
+            "it": "xTool C1 in uso: stampa e taglio di adesivi, immagine ufficiale xTool",
+            "en": "xTool C1 in use, printing and cutting stickers, official xTool image"
+          }
+        }
+      ],
+      "novita": {
+        "stato": "preordine",
+        "etichetta": {
+          "it": "Novità · in pre-ordine",
+          "en": "New · pre-order"
+        },
+        "testo": {
+          "it": "Appena presentata da xTool. Prenotazione aperta; xTool indica l'avvio delle consegne dal 5 novembre 2026. Possiamo prenotarla per te.",
+          "en": "Just announced by xTool. Reservations are open; xTool states shipping starts from 5 November 2026. We can reserve it for you."
+        },
+        "configurazioni": [],
+        "notaPrezzi": {
+          "it": "xTool ha pubblicato il prezzo per gli Stati Uniti (da 469 US$); quello europeo non è ancora annunciato. Te lo confermiamo quando esce.",
+          "en": "xTool has published the US price (from US$469); the European price is not announced yet. We will confirm it when it is."
+        },
+        "video": [
+          {
+            "src": "assets/videos/c1-adesivi.mp4",
+            "poster": "assets/videos/c1-adesivi.webp",
+            "titolo": {
+              "it": "Stampa e taglio di un adesivo a colori",
+              "en": "Printing and cutting a colour sticker"
+            }
+          }
+        ]
+      },
+      "specificheUfficiali": {
+        "source": "https://www.xtool.com/pages/xtool-c1-color-cutter-upcoming",
+        "values": [
+          {
+            "it": "Funzioni",
+            "en": "Functions",
+            "value": "scansione · stampa a colori · taglio"
+          },
+          {
+            "it": "Stampa",
+            "en": "Printing",
+            "value": "getto d'inchiostro termico CMYK, inchiostro a base d'acqua"
+          },
+          {
+            "it": "Velocità di taglio",
+            "en": "Cutting speed",
+            "value": "fino a 509 mm/s (linee dritte)"
+          },
+          {
+            "it": "Velocità di stampa",
+            "en": "Printing speed",
+            "value": "352 mm/s per passata"
+          },
+          {
+            "it": "Cartucce",
+            "en": "Cartridges",
+            "value": "40 ml totali (10 ml per colore)"
+          },
+          {
+            "it": "Lame",
+            "en": "Blades",
+            "value": "punta fine, punta profonda, rotativa, lama 3 mm"
+          },
+          {
+            "it": "Lunghezza in rotolo",
+            "en": "Roll length",
+            "value": "fino a 3,6 m con il supporto rotolo opzionale"
+          }
+        ],
+        "note": {
+          "it": "Specifiche ufficiali xTool di una macchina appena annunciata, non prove del laboratorio INGLY. La C1 non è un laser: taglia con la lama.",
+          "en": "Official xTool specifications of a newly announced machine, not tests by the INGLY workshop. The C1 is not a laser: it cuts with a blade."
+        }
+      },
+      "fonte": {
+        "nome": "xTool",
+        "url": "https://www.xtool.com/pages/xtool-c1-color-cutter-upcoming",
+        "verificatoIl": "2026-10-23"
+      }
+    },
+    {
       "id": "m1",
       "n": {
         "it": "xTool M1",

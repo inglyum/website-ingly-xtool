@@ -15,7 +15,10 @@ const cfg=JSON.parse(read('data/config.json'));
 assert.equal(cfg.sfondi.chiaro,'default','white day mode must start on clean paper');
 assert.equal(cfg.sfondi.scuro,'default','night mode must start on stable deep tone');
 assert.equal(cfg.siteBg,'default','no legacy sunset background');
-assert.ok(!cfg.seo.citta && !cfg.seo.regione,'no unverified business locality');
+/* La città nei dati SEO deve essere quella della sede dichiarata dal
+   titolare (Admin → Dati aziendali), mai una località non verificata
+   (in passato il sito diceva «Cesena» per errore). */
+assert.ok(!cfg.seo.citta || String(cfg.datiLegali&&cfg.datiLegali.sede||'').includes(cfg.seo.citta),'SEO locality must match the declared business seat');
 assert.equal(cfg.statistiche.rating,null,'do not advertise unverified ratings');
 const staticJsonMatch=html.match(/<script type="application\/ld\+json" id="ld-statico">([\s\S]*?)<\/script>/);
 assert.ok(staticJsonMatch,'static organization JSON-LD present');

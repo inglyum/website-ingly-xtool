@@ -1761,3 +1761,13 @@ html.ingly-boot-pending #page-shop #shopGrid{min-height:100vh}
 /* nomi lunghi: massimo 3 righe, etichetta materiale su una riga */
 :root[data-mode] .pcard .pbody h3{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
 :root[data-mode] .pcard .pbody .mat{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ===== REVISIONE IMPECCABLE (audit) =====
+   Contrasto misurato sotto 4,5:1: scheda attiva della scheda prodotto (3,98
+   di notte) e «Sono un privato» nel preventivo (1,87 di notte). Erano blu
+   del vecchio tema; ora inchiostro e oro del marchio. */
+:root[data-mode] #page-product .pp-tab.active{color:var(--brand-ink)!important;box-shadow:inset 0 -2px 0 var(--brand-gold)}
+:root[data-mode] .qmode-b{color:var(--brand-ink)!important}
+:root[data-mode] .qmode-b.on{background:var(--brand-ink)!important;color:var(--brand-bg)!important}
+/* superfici del browser nei colori del marchio */
+:root[data-mode]{caret-color:var(--brand-gold);accent-color:var(--brand-gold);scrollbar-color:var(--brand-border-strong) transparent}

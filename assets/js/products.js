@@ -326,7 +326,7 @@ function countFor(dim, value){
 }
 
 export function renderChips(){
-  $('fCat').innerHTML=CATS.filter(c=>!c.go).map(c=>chip(F.cat.has(c.id),'tog-cat',c.id,c.ic+' '+c.n[L],countFor('cat',c.id))).join('');
+  $('fCat').innerHTML=CATS.filter(c=>!c.go).map(c=>chip(F.cat.has(c.id),'tog-cat',c.id,c.n[L],countFor('cat',c.id))).join('');
   $('fMat').innerHTML=MATKEYS.map(m=>chip(F.mat.has(m),'tog-mat',m,MATN[m][L],countFor('mat',m))).join('');
   const sw=$('subWrap');
   if(F.cat.size===1){const c=CATS.find(x=>x.id===[...F.cat][0]);

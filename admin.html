@@ -255,6 +255,13 @@ input:focus,select:focus,textarea:focus{border-color:var(--laser)!important;box-
 .admin-launch:hover{border-color:var(--laser)!important}
 :focus-visible{outline-color:var(--laser)!important}
 
+.pub-stato{margin-top:16px;padding:16px 18px;border-radius:14px;border:1px solid var(--line);font-size:15px;line-height:1.5}
+.pub-stato b{font-size:17px;display:block;margin-bottom:2px}
+.pub-stato[data-s="invio"],.pub-stato[data-s="attesa"]{border-color:var(--warn)}
+.pub-stato[data-s="online"]{border-color:var(--ok)}.pub-stato[data-s="errore"]{border-color:var(--err)}
+.pub-passi{display:flex;gap:6px;margin-top:10px}.pub-passi i{flex:1;height:6px;border-radius:9px;background:var(--line)}.pub-passi i.on{background:var(--ok)}.pub-passi i.run{background:var(--warn);animation:pubPulse 1.2s ease-in-out infinite}
+@keyframes pubPulse{50%{opacity:.4}}
+@media(prefers-reduced-motion:reduce){.pub-passi i.run{animation:none}}
 </style>
 
 <style>
@@ -357,7 +364,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 <div class="main">
   <div class="top" data-component="admin-topbar">
     <h1 id="vtitle">Dashboard</h1>
-    <div class="sync"><span class="dot" id="syncDot"></span><span id="syncTxt">caricamento…</span></div>
+    <div class="sync" data-go="pub" role="button" tabindex="0" title="Vai a Pubblica" style="cursor:pointer"><span class="dot" id="syncDot"></span><span id="syncTxt">caricamento…</span></div>
     <button type="button" class="btn admin-theme-switch" id="adminThemeSwitch" aria-label="Attiva modalità chiara" aria-pressed="false">☀ Chiaro</button>
     <button class="btn" id="goPrev" title="Apri il sito con i dati in bozza">👁 Anteprima</button>
   <button class="btn pri" data-ui="cta" id="goPub">🚀 Pubblica <span id="pubN" class="pill" style="background:rgba(0,0,0,.18);border:none"></span></button>
@@ -1247,18 +1254,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
     <div class="card"><h3>📦 Modifiche in attesa <span class="chip laser sp" id="pubChip"></span></h3>
       <div id="pubList" class="hint">Nessuna modifica.</div>
       <hr class="hr">
-      <label>Messaggio del commit</label><input type="text" id="pubMsg" placeholder="Aggiornamento contenuti">
-      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-        <button class="btn pri" id="pubGo">🚀 Pubblica tutto (commit unico)</button>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center">
+        <button class="btn pri" id="pubGo" style="font-size:16px;padding:14px 26px">🚀 Pubblica</button>
+        <button class="btn" id="pubPrev">👁 Anteprima (non pubblica)</button>
         <button class="btn" id="pubReload">↺ Scarta e ricarica da GitHub</button>
       </div>
+      <div id="pubStato" class="pub-stato" hidden></div>
+      <details style="margin-top:12px"><summary class="hint" style="cursor:pointer">Nota per la cronologia (facoltativa)</summary>
+        <input type="text" id="pubMsg" placeholder="Se vuoto la scrivo io, es. «Aggiornamento prodotti, 2 immagini»" style="margin-top:8px">
+      </details>
     </div>
-    <div class="card"><h3>🛰 Pipeline di pubblicazione</h3>
-      <div class="pipe"><div class="beam" id="beam"></div><div id="pipeSteps"></div></div>
+    <details class="card" id="pubTec"><summary style="cursor:pointer;font-weight:700">🛰 Dettagli tecnici della pubblicazione</summary>
+      <div class="pipe" style="margin-top:12px"><div class="beam" id="beam"></div><div id="pipeSteps"></div></div>
       <div class="hint" id="pubOut"></div>
       <div style="margin-top:12px"><button class="btn" id="pubVerify">🔍 Verifica ora il sito online</button>
       <button class="btn" id="pubDiag">🩺 Diagnosi GitHub Pages</button></div>
-    </div>
+    </details>
     <div class="card"><h3>⏰ Pubblicazione Programmata</h3>
       <p class="hint" style="margin-bottom:14px">Programma una pubblicazione automatica. Funziona solo se questa pagina Admin rimane aperta nel browser fino all'orario scelto.</p>
       <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap">
@@ -1989,58 +2000,16 @@ function loadLegacyScripts(){window.INGLY={};return new Promise((res,rej)=>{cons
    Stessa logica di scripts/prerender.mjs, ma eseguita qui perché l'Admin è
    l'unico che pubblica: così le pagine nascono nello stesso commit dei dati e
    non possono restare indietro. I moduli sono ES: si caricano al volo. */
-async function generaPagineStatiche(dominio){
-  const [P,SCH]=await Promise.all([
-    import('./assets/js/prerender-engine.js'),
-    import('./assets/js/schema-engine.js'),
-  ]);
+async function generaPagineStatiche(){
+  /* Stesso generatore del build (assets/js/prerender-sito.js): l'Admin e
+     `node scripts/prerender.mjs` producono pagine identiche. */
+  const {generaSito}=await import('./assets/js/prerender-sito.js');
   const guscio=await fetch('index.html?t='+Date.now(),{cache:'no-store'}).then(r=>{
     if(!r.ok)throw new Error('index.html non leggibile');return r.text()});
-  const base=String(dominio||'').replace(/\/+$/,'');
-  const SEO=S.CONFIG.seo||{}, azienda=SEO.azienda||'INGLY DESIGN', L='it';
-  const MATN=(S.C&&S.C.MATN)||{};
-  const nomeMat=m=>(MATN[m]&&MATN[m][L])||m||'';
-  const nomeCat=id=>{const c=(S.CATS||[]).find(x=>x.id===id);return (c&&c.n&&c.n[L])||''};
-  const entita=[
-    SCH.organizzazione(S.CONFIG,{base,social:Object.values(S.CONFIG.social||{})}),
-    SCH.sitoWeb(S.CONFIG,{base}),
-    SCH.servizi((S.C&&S.C.TECH)||[],{base,azienda}),
-  ];
-  const TIT={shop:'Catalogo',digital:'Prodotti digitali',business:'B2B · Aziende',
-    portfolio:'Portfolio',about:'Chi siamo',faq:'Domande frequenti',quote:'Richiedi un preventivo'};
-  const visibili=(S.P||[]).filter(x=>!x.hidden);
-  const out={};
-  for(const v of P.elenco({prodotti:S.P||[]})){
-    if(v.file==='index.html') continue;              /* la home resta il guscio */
-    if(v.pagina==='product'){
-      const pr=(S.P||[]).find(x=>x.id===v.id); if(!pr) continue;
-      const canonico=P.indirizzo('product',{base,id:pr.id});
-      const desc=String((pr.desc&&pr.desc[L])||SEO.descrizione||'').replace(/<[^>]+>/g,'').slice(0,300);
-      out[v.file]={text:P.componi(guscio,{pagina:"product",
-        titolo:((pr.n&&pr.n[L])||'')+' — '+azienda, descrizione:desc, canonico,
-        contenuto:P.corpoProdotto(pr,{L,azienda,categoria:nomeCat(pr.cat),materiale:nomeMat(pr.mat)}),
-        jsonld:SCH.grafo([...entita,SCH.compatta({'@type':'Product',
-          name:(pr.n&&pr.n[L])||'', sku:pr.sku||('INGLY-'+pr.id), description:desc,
-          image:SCH.immagini(pr,{base,cartella:S.CONFIG.cartellaImmagini||'img/',L}),
-          category:nomeCat(pr.cat)||undefined, material:pr.mat||undefined,
-          brand:{'@type':'Brand',name:azienda},
-          offers:{'@type':'Offer',price:pr.price,priceCurrency:'EUR',
-            availability:'https://schema.org/InStock',url:canonico,
-            seller:{'@id':base+SCH.ID.org}}})]),
-      })};
-    }else{
-      const canonico=P.indirizzo(v.pagina,{base});
-      const extra=v.pagina==='shop'
-        ? [SCH.paginaCollezione(visibili,{base,L,titolo:azienda+' — Catalogo',url:canonico})] : [];
-      out[v.file]={text:P.componi(guscio,{pagina:v.pagina,
-        titolo:(TIT[v.pagina]||v.pagina)+' — '+azienda, descrizione:SEO.descrizione||'', canonico,
-        contenuto:P.corpoPagina(v.pagina,{L,base,titolo:TIT[v.pagina]||v.pagina,
-          descrizione:SEO.descrizione||'',
-          prodotti:v.pagina==='shop'?visibili:[], categorie:v.pagina==='shop'?(S.CATS||[]):[]}),
-        jsonld:SCH.grafo([...entita,...extra]),
-      })};
-    }
-  }
+  const r=generaSito({cfg:S.CONFIG,prodotti:S.P||[],categorie:S.CATS||[],contenuti:S.C||{},testi:S.D||{},
+    materiali:S.MAT||{},tecnologie:S.TEC||{},macchine:S.MAC||{},corsi:S.COR||{}},guscio);
+  if(r.problemi.length)throw new Error(r.problemi.slice(0,3).join('; '));
+  const out={};for(const p in r.pagine)out[p]={text:r.pagine[p]};
   return out;
 }
 
@@ -5520,6 +5489,17 @@ function renderPub(){
  if(!$('pipeSteps').innerHTML)renderPipe();refreshSync()}
 $('pubReload').onclick=async()=>{if(pending()&&!confirm('Scartare TUTTE le modifiche in bozza e ricaricare dal repository?'))return;
  MEDIA=[];BOOTED=false;refreshSync();await loadAll();renderPub();go(VIEW);toast('Dati ricaricati da '+LOADED_FROM)};
+/* Stato semplice della pubblicazione: 3 passi comprensibili. I dettagli
+   tecnici restano disponibili sotto, chiusi. */
+function statoPub(fase,x){const el=$('pubStato');if(!el)return;el.hidden=false;el.dataset.s=fase;
+ const passi=n=>'<div class="pub-passi">'+[1,2,3].map(i=>'<i class="'+(i<n?'on':i===n?'run':'')+'"></i>').join('')+'</div>';
+ if(fase==='invio')el.innerHTML='<b>1/3 · Invio a GitHub…</b>Carico solo i file cambiati.'+passi(1);
+ else if(fase==='attesa')el.innerHTML='<b>2/3 · Salvato. GitHub sta mettendo online'+(x?' ('+x+' s)':'')+'…</b>Di solito serve circa un minuto. Puoi continuare a lavorare: il lavoro è già al sicuro.'+passi(2);
+ else if(fase==='online')el.innerHTML='<b style="color:var(--ok)">3/3 · ✔ Online</b>Le modifiche sono sul sito. <a href="'+LIVE()+'?v='+Date.now()+'" target="_blank" rel="noopener">Apri il sito ↗</a> (se vedi la versione vecchia: Ctrl+F5).'+passi(4);
+ else if(fase==='lento')el.innerHTML='<b style="color:var(--warn)">Salvato ✔ — GitHub è più lento del solito</b>Il lavoro è al sicuro. Premi «Verifica ora il sito online» nei dettagli tra un paio di minuti.'+passi(2);
+ else if(fase==='errore')el.innerHTML='<b style="color:var(--err)">✖ Non pubblicato</b>'+esc(x||'')+'<br><span class="hint">Il sito non è stato toccato. Puoi usare «✅ Controlla ora» qui sopra per capire cosa sistemare.</span>';
+}
+$('pubPrev').onclick=()=>openAdminPreview(false);
 $('pubGo').onclick=async()=>{
  /* prima la validità dei dati: ha senso saperlo anche prima di configurare il token */
  const v=validaBozza();
@@ -5536,7 +5516,7 @@ $('pubGo').onclick=async()=>{
    (v.warn.length>6?'\n· …e altri '+(v.warn.length-6):'')+'\n\nPubblicare comunque?'))return;
  if(!token())return toast('Configura prima il token in Impostazioni');
  const btn=$('pubGo');btn.disabled=true;const state={};const step=(id,st,x)=>{state[id]=st;renderPipe(state);if(x)setTimeout(()=>{const e=$('psx_'+id);if(e)e.textContent=' — '+x},0)};
- const fail=(id,msg)=>{step(id,'fail');$('pubOut').innerHTML='<span style="color:var(--err)">✖ '+esc(msg)+'</span><br>Il sito online NON è stato toccato: nessun commit parziale è possibile con questo motore.';btn.disabled=false};
+ const fail=(id,msg)=>{step(id,'fail');statoPub('errore',msg);$('pubOut').innerHTML='<span style="color:var(--err)">✖ '+esc(msg)+'</span><br>Il sito online NON è stato toccato: nessun commit parziale è possibile con questo motore.';btn.disabled=false};
  try{
   /* preflight: verifica token e permessi PRIMA di toccare qualsiasi cosa */
   step('prep','run');
@@ -5560,7 +5540,7 @@ $('pubGo').onclick=async()=>{
     }
     if(unione.uniti.length)step('prep','run','unite novità da GitHub: '+unione.uniti.join(', '));
    }}
-  const ch=changedFiles();const files={};
+  const ch=changedFiles();const files={};let PAGINE_GENERATE=false;
   ch.forEach(f=>files['data/'+f+'.json']={text:JSON.stringify(S[KEY[f]],null,1)});
   const v=Date.now();files['data/version.json']={text:JSON.stringify({v,updated:new Date().toISOString()})};
   if(ch.length){const leg=genLegacy();for(const p in leg)files[p]={text:leg[p]}}
@@ -5582,13 +5562,15 @@ $('pubGo').onclick=async()=>{
      ...PRE_SITEMAP.elenco({prodotti:S.P||[],verticali:(S.C&&S.C.VERTICALI)||[]}),
      ...LAB_SITEMAP.elencoPagine({MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR,CONFIG:S.CONFIG,PRODUCTS:S.P||[]})
        .map(v=>({file:v.file,pagina:'lab',id:v.id})),
-     {file:'generatori.html',pagina:'tool',id:'generatori'}
+     {file:'generatori.html',pagina:'tool',id:'generatori'},
+     {file:'print-cut.html',pagina:'tool',id:'print-cut'},
+     {file:'assistenza-xtool-palermo/index.html',pagina:'assistenza',id:'assistenza-xtool'}
    ];
    const sitemapRules={
      home:['weekly','1.0'],shop:['weekly','0.9'],digital:['weekly','0.8'],
      business:['monthly','0.8'],portfolio:['monthly','0.7'],faq:['monthly','0.7'],
      quote:['monthly','0.6'],about:['yearly','0.5'],product:['monthly','0.6'],
-     verticale:['monthly','0.8'],tool:['monthly','0.7']
+     verticale:['monthly','0.8'],tool:['monthly','0.7'],assistenza:['monthly','0.9']
    };
    const urls=sitemapPages.map(v=>{
      const file=String(v.file||'');
@@ -5611,17 +5593,17 @@ $('pubGo').onclick=async()=>{
       l'indirizzo del sito da cui si sta pubblicando. */
    if(ch.length){
     try{
-     const dominio=((S.CONFIG.seo&&S.CONFIG.seo.dominio)||location.origin).replace(/\/+$/,'');
-     const gen=await generaPagineStatiche(dominio);
+     const gen=await generaPagineStatiche();PAGINE_GENERATE=true;
      for(const f in gen) files[f]=gen[f];
      step('prep','run',Object.keys(gen).length+' pagine statiche');
     }catch(e){ console.warn('[INGLY] pagine statiche non generate:',e);
      toast('Attenzione: pagine statiche non generate — il sito funziona, ma i motori AI vedranno meno contenuto'); }
    }
   MEDIA.forEach(m=>files[m.path]={b64:m.b64});
-  const dels=DELETES.slice();
+  let dels=DELETES.slice();
   step('prep','done',Object.keys(files).length+' file'+(dels.length?' + '+dels.length+' eliminazioni':''));
   /* refs */
+  statoPub('invio');
   step('blob','run');
   const ref=await gh(`/git/ref/heads/${SET.branch}`);const head=ref.object.sha;
   /* qualcuno ha toccato questi file dopo che l'Admin li ha letti? */
@@ -5646,19 +5628,46 @@ $('pubGo').onclick=async()=>{
     driftMedia.map(m=>m.path).slice(0,8).join(', ')+'. Ricarica i dati e ripeti il ripristino.');
   }
   const headC=await gh(`/git/commits/${head}`);
-  const entries=[];const paths=Object.keys(files);
-  for(let i=0;i<paths.length;i++){const p=paths[i];const f=files[p];
-   const blob=await gh('/git/blobs',{method:'POST',body:JSON.stringify(f.text!==undefined?{content:f.text,encoding:'utf-8'}:{content:f.b64,encoding:'base64'})});
-   entries.push({path:p,mode:'100644',type:'blob',sha:blob.sha});
-   $('psx_blob').textContent=' — '+(i+1)+'/'+paths.length}
+  /* VELOCE: si carica solo ciò che è cambiato davvero.
+     1) si legge UNA volta l'elenco dei file su GitHub (con la loro impronta);
+     2) si calcola qui l'impronta di ogni file preparato (stesso algoritmo di git);
+     3) i file identici si saltano; i testi cambiati viaggiano DENTRO la
+        richiesta dell'albero (nessun invio separato); solo le immagini
+        vengono inviate a parte, 4 alla volta. */
+  const remoti=new Map();
+  try{const t=await gh(`/git/trees/${headC.tree.sha}?recursive=1`);
+   if(t&&!t.truncated)(t.tree||[]).forEach(x=>{if(x.type==='blob')remoti.set(x.path,x.sha)})}catch(_){}
+  const enc=new TextEncoder();
+  const b64bytes=b=>{const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u};
+  const gitSha=async bytes=>{const h=enc.encode('blob '+bytes.length+'\0');const all=new Uint8Array(h.length+bytes.length);all.set(h);all.set(bytes,h.length);
+   const d=await crypto.subtle.digest('SHA-1',all);return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('')};
+  const entries=[];const tutti=Object.keys(files);let saltati=0;const daInviare=[];
+  for(const p of tutti){const f=files[p];
+   let sha=null;try{sha=await gitSha(f.text!==undefined?enc.encode(f.text):b64bytes(f.b64))}catch(_){}
+   if(sha&&remoti.get(p)===sha){saltati++;continue}
+   if(f.text!==undefined)entries.push({path:p,mode:'100644',type:'blob',content:f.text});
+   else daInviare.push(p)}
+  /* pagine non più generate (prodotto eliminato o nascosto, scheda tolta):
+     si rimuovono, così non restano online e indicizzate */
+  if(PAGINE_GENERATE&&remoti.size){const {CARTELLE_GENERATE}=await import('./assets/js/prerender-sito.js');
+   for(const [p] of remoti){if(/\/index\.html$/.test(p)&&CARTELLE_GENERATE.some(c=>p.startsWith(c))&&!(p in files)&&!dels.includes(p))dels.push(p)}}
+  let fatti=0;const coda=daInviare.slice();
+  const lavora=async()=>{while(coda.length){const p=coda.shift();
+   const blob=await gh('/git/blobs',{method:'POST',body:JSON.stringify({content:files[p].b64,encoding:'base64'})});
+   entries.push({path:p,mode:'100644',type:'blob',sha:blob.sha});fatti++;
+   $('psx_blob').textContent=' — immagini '+fatti+'/'+daInviare.length}};
+  await Promise.all(Array.from({length:Math.min(4,daInviare.length)},lavora));
+  const paths=entries.map(e=>e.path);
   dels.forEach(p=>entries.push({path:p,mode:'100644',type:'blob',sha:null}));
-  step('blob','done',paths.length+' blob'+(dels.length?' · '+dels.length+' rimozioni':''));
+  step('blob','done',paths.length+' cambiati'+(saltati?' · '+saltati+' identici saltati':'')+(dels.length?' · '+dels.length+' rimozioni':''));
   /* Albero → commit → ramo, con nuovo tentativo automatico.
      Se mentre pubblichi qualcun altro scrive sul ramo, GitHub rifiuta
      l'aggiornamento (422). Prima toccava ripetere tutto a mano; ora si
      rilegge il ramo e si ricompone il commit sopra l'ultima versione —
      ma solo se l'altro commit NON ha toccato i dati che stai pubblicando. */
-  const msg=($('pubMsg').value.trim()||'Aggiornamento contenuti')+' [admin 2.0]';
+  const NOMI={config:'impostazioni',products:'prodotti',categories:'categorie',content:'contenuti',texts:'testi',social:'social',macchine:'macchine xTool',materiali:'materiali',tecnologie:'tecnologie',corsi:'corsi',collezioni:'collezioni',digitale:'file digitali'};
+  const auto='Aggiornamento '+[...ch.map(f=>NOMI[f]||f),...(MEDIA.length?[MEDIA.length+' immagini']:[]),...(dels.length?[dels.length+' eliminazioni']:[])].join(', ');
+  const msg=($('pubMsg').value.trim()||auto)+' [admin 2.0]';
   const nostri=new Set([...paths.filter(p=>p.startsWith('data/')&&p!=='data/version.json'),...dels]);
   let base=head,baseTree=headC.tree.sha,commit=null;
   for(let tentativo=1;tentativo<=4;tentativo++){
@@ -5695,21 +5704,21 @@ $('pubGo').onclick=async()=>{
   LAST_V=v;
   const okLine='<span style="color:var(--ok)">✔ Pubblicato su GitHub.</span> Commit <span class="mono">'+commit.sha.slice(0,7)+'</span> · versione <span class="mono">'+v+'</span> · <a href="'+LIVE()+'?v='+v+'" target="_blank" rel="noopener">apri il sito ↗</a>';
   $('pubOut').innerHTML=okLine+'<br>Ora controllo la messa online (puoi anche chiudere: il commit è già salvo).';
-  toast('Pubblicato ✔ — controllo la messa online');
+  toast('Salvato su GitHub ✔ — tra poco online');statoPub('attesa',0);
   step('pages','run');
   const diag=await pagesDiag();
-  if(diag.err){step('pages','fail');$('pubOut').innerHTML=okLine+'<br><span style="color:var(--err)">✖ La build di GitHub Pages è fallita: '+esc(diag.err.msg)+'</span>';btn.disabled=false;return}
+  if(diag.err){step('pages','fail');statoPub('errore','La build di GitHub Pages è fallita: '+diag.err.msg);$('pubOut').innerHTML=okLine+'<br><span style="color:var(--err)">✖ La build di GitHub Pages è fallita: '+esc(diag.err.msg)+'</span>';btn.disabled=false;return}
   step('pages','done',diag.note);
   step('live','run');
   LAST_SHA=commit.sha;
-  const res=await verifyDeploy(commit.sha,v,i=>{$('psx_live').textContent=' — tentativo '+i});
+  const res=await verifyDeploy(commit.sha,v,sec=>{$('psx_live').textContent=' — GitHub sta pubblicando ('+sec+' s)';statoPub('attesa',sec)});
   if(res.ok){step('live','done',res.how==='build'?'confermato da GitHub Pages':'sito aggiornato');step('done','done');
    $('pubOut').innerHTML=okLine+'<br><span style="color:var(--ok)">✔ Deploy confermato: '+(res.how==='build'?'GitHub Pages ha pubblicato esattamente questo commit.':'il sito online mostra la nuova versione.')+'</span>'
     +(res.how==='build'?'<br><span class="hint">Se nel browser vedi ancora la pagina vecchia è solo la tua cache: apri il sito e premi Ctrl+F5 una volta.</span>':'');
-   toast('Pubblicato e verificato ✔')}
-  else if(res.err){step('live','fail');
+   statoPub('online');toast('Online ✔')}
+  else if(res.err){step('live','fail');statoPub('errore','GitHub Pages ha rifiutato la build: '+res.err);
    $('pubOut').innerHTML=okLine+'<br><span style="color:var(--err)">✖ GitHub Pages ha rifiutato la build: '+esc(res.err)+'</span>'}
-  else{step('live','done','non ancora confermato');step('done','done');
+  else{step('live','done','non ancora confermato');step('done','done');statoPub('lento');
    $('pubOut').innerHTML=okLine+'<br><span style="color:var(--warn)">⚠ Deploy non ancora confermato.</span> Il commit <b>è salvo</b>: Pages a volte impiega qualche minuto.'
     +(diag.warn?'<br><span style="color:var(--warn)">Possibile causa: '+esc(diag.warn)+'</span>':'')
     +'<br>Premi «Verifica ora il sito online» tra un paio di minuti.';
@@ -5724,7 +5733,8 @@ let LAST_V=0,LAST_SHA='';
    (b) live: il sito espone la nuova versione (può arrivare dopo per cache CDN) */
 async function verifyDeploy(sha,v,onTick){
  let liveSeen=false,buildSeen=false;
- for(let i=1;i<=22;i++){
+ const t0=Date.now();
+ for(let i=1;i<=45;i++){
   try{const b=await gh('/pages/builds/latest');
    if(b&&b.commit===sha){
     if(b.status==='errored')return{ok:false,err:(b.error&&b.error.message)||'build fallita'};
@@ -5734,8 +5744,8 @@ async function verifyDeploy(sha,v,onTick){
    if(r.ok){const j=await r.json();if(j&&j.v>=v)liveSeen=true}}catch(e){}
   if(liveSeen)return{ok:true,how:'live'};
   if(buildSeen)return{ok:true,how:'build'};
-  if(onTick)onTick(i);
-  await sleep(i<6?5000:9000);
+  if(onTick)onTick(Math.round((Date.now()-t0)/1000));
+  await sleep(4000);
  }
  return{ok:false}}
 async function pagesDiag(){const out={note:'',warn:'',err:null};
@@ -5757,7 +5767,7 @@ $('pubVerify').onclick=async()=>{const b=$('pubVerify');b.disabled=true;const lb
   if(LAST_SHA&&token()){try{const bl=await gh('/pages/builds/latest');
    if(bl&&bl.commit===LAST_SHA&&bl.status==='built'){
     $('pubOut').innerHTML='<span style="color:var(--ok)">✔ GitHub Pages conferma: il tuo ultimo commit ('+LAST_SHA.slice(0,7)+') è pubblicato.</span><br><span class="hint">Se vedi la pagina vecchia nel browser, premi Ctrl+F5 una volta.</span> <a href="'+LIVE()+'?v='+Date.now()+'" target="_blank" rel="noopener">apri il sito ↗</a>';
-    const st={};PIPE.forEach(([id])=>st[id]='done');renderPipe(st);toast('Deploy confermato da GitHub Pages ✔');b.disabled=false;b.textContent=lbl;return}}catch(e){}}
+    const st={};PIPE.forEach(([id])=>st[id]='done');renderPipe(st);statoPub('online');toast('Deploy confermato da GitHub Pages ✔');b.disabled=false;b.textContent=lbl;return}}catch(e){}}
   const r=await fetch(LIVE()+'data/version.json?cb='+Date.now(),{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   const j=await r.json();const ok=LAST_V?j.v>=LAST_V:true;
@@ -5765,6 +5775,7 @@ $('pubVerify').onclick=async()=>{const b=$('pubVerify');b.disabled=true;const lb
    +' Versione online: <span class="mono">'+j.v+'</span> ('+new Date(j.v).toLocaleString('it-IT')+')'+(LAST_V?' · attesa: <span class="mono">'+LAST_V+'</span>':'')
    +' · <a href="'+LIVE()+'?v='+j.v+'" target="_blank" rel="noopener">apri il sito ↗</a>';
   if(ok){const st={};PIPE.forEach(([id])=>st[id]='done');renderPipe(st)}
+  if(ok)statoPub('online');
   toast(ok?'Sito online aggiornato ✔':'Non ancora aggiornato — riprova tra un minuto')}
  catch(e){$('pubOut').innerHTML='<span style="color:var(--err)">✖ Non riesco a leggere '+esc(LIVE())+'data/version.json — '+esc(e.message||e)+'</span>';toast('Sito non raggiungibile')}
  b.disabled=false;b.textContent=lbl};
@@ -6057,7 +6068,7 @@ function renderSet(){
     const n=S.P.filter(p=>p.cat===c.id&&!p.hidden).length;
     return `<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0"><input type="checkbox" data-cat="${esc(c.id)}" ${nasc.has(String(c.id))?'':'checked'} style="width:18px;height:18px"> ${esc((c.n&&c.n.it)||c.id)} <span class="hint">(${n})</span></label>`;
   }).join('');
-  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').style.opacity=agg&&agg.value==='aggiornamento'?'1':'.55'};
+  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').hidden=!(agg&&agg.value==='aggiornamento')};
   campi();document.querySelectorAll('input[name=catStato]').forEach(r=>r.onchange=campi);
   $('catStatoSave').onclick=async()=>{
    const out=$('catStatoOut');

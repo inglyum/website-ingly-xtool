@@ -27,7 +27,7 @@ check('l\'unione avviene prima di preparare i file', admin.indexOf('const unione
 check('il ramo avanzato non fa fallire: nuovo tentativo automatico', /for\(let tentativo=1;tentativo<=4;tentativo\+\+\)/.test(admin) && /\/compare\/\$\{base\}\.\.\.\$\{nuovo\}/.test(admin));
 check('…ma si ferma se l\'altro commit ha toccato i tuoi stessi dati', /if\(toccati\.length\)return fail\('ref'/.test(admin));
 check('nessun workflow che fa commit da solo su main (regola 5)', !existsSync('.github/workflows/sync-prerender.yml'));
-check('le pagine generate dall\'Admin partono dalla sezione giusta', /P\.componi\(guscio,\{pagina:"product",/.test(admin) && /P\.componi\(guscio,\{pagina:v\.pagina,/.test(admin));
+check('le pagine generate dall\'Admin partono dalla sezione giusta', admin.includes("import('./assets/js/prerender-sito.js')") && /pagina: 'product'/.test(readFileSync('assets/js/prerender-sito.js','utf8')));
 check('caricare la foto dell\'hero accende lo sfondo', (admin.match(/S\.CONFIG\.heroSfondo=Object\.assign\(\{velo:'0\.6'\},S\.CONFIG\.heroSfondo,\{attivo:true\}\);/g) || []).length === 3);
 console.log(`\n=========== PUBBLICAZIONE ADMIN: ${pass} passati, ${fail} falliti ===========`);
 process.exit(fail ? 1 : 0);

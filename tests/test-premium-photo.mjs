@@ -12,8 +12,12 @@ const mac=JSON.parse(read('data/immagini-macchine.json')).macchine;
 const digital=JSON.parse(read('data/digitale.json')).bundle;
 const sw=read('sw.js');
 const cfg=JSON.parse(read('data/config.json'));
-assert.equal(cfg.sfondi.chiaro,'default','white day mode must start on clean paper');
-assert.equal(cfg.sfondi.scuro,'default','night mode must start on stable deep tone');
+/* Lo sfondo di giorno e di notte si sceglie dall'Admin: il test controlla
+   che sia uno di quelli che esistono, non quale (era fissato su «default»
+   e falliva appena il titolare ne sceglieva un altro). */
+const SFONDI=new Set([...read('assets/js/sfondi.js').matchAll(/id: '([a-z0-9-]+)'/g)].map(m=>m[1]));
+assert.ok(SFONDI.has(cfg.sfondi.chiaro),'day background must exist: '+cfg.sfondi.chiaro);
+assert.ok(SFONDI.has(cfg.sfondi.scuro),'night background must exist: '+cfg.sfondi.scuro);
 assert.equal(cfg.siteBg,'default','no legacy sunset background');
 /* La città nei dati SEO deve essere quella della sede dichiarata dal
    titolare (Admin → Dati aziendali), mai una località non verificata

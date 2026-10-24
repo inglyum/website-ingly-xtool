@@ -8,5 +8,7 @@ t('passo 2: permesso di scrittura', /permissions\.push/.test(s) && /Read and wri
 t('passo 3: sito online', /3\. Sito online raggiungibile/.test(s));
 t('link per creare il token', s.includes('github.com/settings/personal-access-tokens/new'));
 t('Pages: se il sito risponde non segnala «non attivo»', /attivo \(il sito risponde\)/.test(s) && !s.includes("GitHub Pages non risulta attivo su questo repository"));
+t('dominio personalizzato spiegato (CNAME)', s.includes("/contents/CNAME") && s.includes('185.199.108.153'));
+t('LIVE usa la cartella dell Admin se aperto dal sito', s.includes("new URL('./',location.href)"));
 console.log(`\n=========== ADMIN COLLEGAMENTO: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

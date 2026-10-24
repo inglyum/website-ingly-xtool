@@ -1641,7 +1641,11 @@ function saveSet(){localStorage.setItem('ingly2_set',JSON.stringify({owner:SET.o
 function token(){return (SET.remember?localStorage.getItem('ingly2_tok'):sessionStorage.getItem('ingly2_tok'))||''}
 function setToken(t){if(SET.remember)localStorage.setItem('ingly2_tok',t);else sessionStorage.setItem('ingly2_tok',t)}
 const API=()=>`https://api.github.com/repos/${SET.owner}/${SET.repo}`;
-const LIVE=()=>`https://${SET.owner.toLowerCase()}.github.io/${SET.repo}/`;
+/* Indirizzo del sito: se l'Admin è aperto dal sito stesso si usa la SUA cartella
+   (stessa origine: niente blocchi del browser, funziona anche con un dominio
+   personalizzato); altrimenti l'indirizzo github.io. */
+const LIVE=()=>{try{if(/^https?:$/.test(location.protocol)&&/admin\.html$/.test(location.pathname)&&!/^(localhost|127\.)/.test(location.hostname))return new URL('./',location.href).href}catch(_){}
+ return `https://${SET.owner.toLowerCase()}.github.io/${SET.repo}/`};
 function ghH(extra){const h=Object.assign({Accept:'application/vnd.github+json'},extra||{});const t=token();if(t)h.Authorization='Bearer '+t;return h}
 async function gh(path,opt){const r=await fetch(API()+path,Object.assign({},opt||{},{headers:ghH((opt||{}).headers)}));
  if(!r.ok){const b=await r.text().catch(()=>'');
@@ -5793,7 +5797,9 @@ $('ckGo').onclick=async()=>{
   // 3. sito online
   let v=null;try{const r=await fetch(LIVE()+'data/version.json?cb='+Date.now(),{cache:'no-store'});if(r.ok)v=(await r.json()).v}catch(_){}
   if(v)riga(true,'3. Sito online raggiungibile','Ultima versione: '+new Date(v).toLocaleString('it-IT')+' · <a href="'+LIVE()+'" target="_blank" rel="noopener">apri ↗</a>');
-  else riga(false,'3. Il sito non risponde',' GitHub → Settings → Pages → Source = <b>Deploy from a branch</b> → <b>'+esc(SET.branch)+'</b> / <b>(root)</b> → Save. Poi riprova tra 2 minuti.');
+  else{let dom='';try{const c=await gh('/contents/CNAME?ref='+encodeURIComponent(SET.branch),{headers:{Accept:'application/vnd.github.raw+json'}});dom=String(c||'').trim()}catch(_){}
+   if(dom)riga(false,'3. Il sito non risponde: è impostato il dominio «'+esc(dom)+'»','GitHub manda i visitatori su <b>'+esc(dom)+'</b>, ma il dominio non è ancora collegato. Scegli UNA strada:<br><b>A) Subito online (consigliato ora):</b> GitHub → Settings → Pages → Custom domain → <b>Remove</b>. Il sito torna su github.io in 1–2 minuti.<br><b>B) Usare il dominio:</b> nel pannello del registrar del dominio aggiungi 4 record <b>A</b> per <span class="mono">@</span> → 185.199.108.153 · 185.199.109.153 · 185.199.110.153 · 185.199.111.153 e un record <b>CNAME</b> <span class="mono">www</span> → <span class="mono">'+esc(SET.owner.toLowerCase())+'.github.io</span>. Poi in Settings → Pages scrivi <span class="mono">www.inglydesign.it</span>, aspetta il ✔ «DNS check successful» e attiva <b>Enforce HTTPS</b> (può servire fino a 24 ore).');
+   else riga(false,'3. Il sito non risponde',' GitHub → Settings → Pages → Source = <b>Deploy from a branch</b> → <b>'+esc(SET.branch)+'</b> / <b>(root)</b> → Save. Poi riprova tra 2 minuti.')}
   if(v)ul.insertAdjacentHTML('beforeend','<li style="list-style:none;margin-top:6px"><b style="color:var(--ok)">Tutto pronto.</b> Per pubblicare: premi «🚀 Pubblica tutto» qui sotto e aspetta il ✔ verde (1–2 minuti).</li>');
  }finally{b.disabled=false}
 };

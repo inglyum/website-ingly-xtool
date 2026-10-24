@@ -12,6 +12,10 @@
    Nessuno dei due era visibile ai test esistenti, che non guardano i file
    pubblicati. */
 import { readFileSync, existsSync } from 'fs';
+/* Con il catalogo «in aggiornamento» (scelta dell'Admin) le schede prodotto
+   non esistono: il test lo verifica invece di pretenderle. */
+const CFG = JSON.parse(readFileSync('data/config.json', 'utf8'));
+const APERTO = !(CFG.catalogo && CFG.catalogo.stato === 'aggiornamento');
 
 let pass = 0, fail = 0;
 const check = (n, c, x = '') => { if (c) { pass++; console.log('  ✔ ' + n) } else { fail++; console.log('  ✖ ' + n + (x ? ' → ' + x : '')) } };
@@ -33,8 +37,9 @@ const conta = html => {
 };
 
 console.log('\n=== PAGINE STATICHE — una entità, una volta sola ===');
-const pagine = ['index.html', 'shop/index.html', 'faq/index.html', 'product/7/index.html',
+const pagine = ['index.html', 'shop/index.html', 'faq/index.html', ...(APERTO ? ['product/7/index.html'] : []),
   'business/ristoranti/index.html'];
+if (!APERTO) check('catalogo in aggiornamento: nessuna scheda prodotto pubblicata', !existsSync('product/7/index.html'));
 for (const f of pagine) {
   if (!existsSync(f)) { check(f + ' generata', false, 'esegui node scripts/prerender.mjs'); continue }
   const html = readFileSync(f, 'utf8');
@@ -81,7 +86,7 @@ if (existsSync('business/ristoranti/index.html')) {
   check('contiene testo leggibile, non un guscio vuoto',
     corpo.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length > 150,
     corpo.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length + ' parole');
-  check('collega i prodotti del catalogo', /href="[^"]*\/product\/\d+\/"/.test(corpo));
+  if (APERTO) check('collega i prodotti del catalogo', /href="[^"]*\/product\/\d+\/"/.test(corpo));
 }
 
 console.log('\n=== SITEMAP ===');
@@ -93,7 +98,7 @@ else {
   /* il difetto originale: '#' rende l'indirizzo un frammento della home */
   const hash = loc.filter(u => u.includes('#'));
   check('nessun indirizzo con il cancelletto', hash.length === 0, hash.slice(0, 2).join(' '));
-  check('le schede prodotto sono dichiarate', loc.some(u => /\/product\/\d+\/$/.test(u)),
+  check(APERTO ? 'le schede prodotto sono dichiarate' : 'catalogo in aggiornamento: nessuna scheda in sitemap', loc.some(u => /\/product\/\d+\/$/.test(u)) === APERTO,
     loc.filter(u => u.includes('/product/')).length + ' schede');
   check('il catalogo è dichiarato', loc.some(u => /\/shop$/.test(u)));
   /* ogni indirizzo deve corrispondere a un file che esiste davvero */

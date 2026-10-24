@@ -5558,8 +5558,11 @@ $('pubGo').onclick=async()=>{
    const [PRE_SITEMAP,LAB_SITEMAP]=await Promise.all([
      import('./assets/js/prerender-engine.js'),import('./assets/js/lab.js')
    ]);
+   /* stesso filtro del sito: niente prodotti nascosti, di categorie spente o con il catalogo in aggiornamento */
+   const VISIBILI_SITEMAP=JSON.parse(JSON.stringify(S.P||[]));
+   (await import('./assets/js/catalogo-stato.js')).applicaCatalogo({CONFIG:JSON.parse(JSON.stringify(S.CONFIG)),CATS:JSON.parse(JSON.stringify(S.CATS||[])),P:VISIBILI_SITEMAP});
    const sitemapPages=[
-     ...PRE_SITEMAP.elenco({prodotti:S.P||[],verticali:(S.C&&S.C.VERTICALI)||[]}),
+     ...PRE_SITEMAP.elenco({prodotti:VISIBILI_SITEMAP,verticali:(S.C&&S.C.VERTICALI)||[]}),
      ...LAB_SITEMAP.elencoPagine({MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR,CONFIG:S.CONFIG,PRODUCTS:S.P||[]})
        .map(v=>({file:v.file,pagina:'lab',id:v.id})),
      {file:'generatori.html',pagina:'tool',id:'generatori'},

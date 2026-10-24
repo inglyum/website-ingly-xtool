@@ -27,6 +27,11 @@ const OGGI = new Date().toISOString().slice(0,10);
 
 const config   = JSON.parse(readFileSync(join(ROOT,'data/config.json'),'utf8'));
 const prodotti = JSON.parse(readFileSync(join(ROOT,'data/products.json'),'utf8'));
+/* stesso filtro del sito: categorie nascoste e catalogo in aggiornamento
+   non hanno pagine, quindi non vanno nella sitemap */
+(await import('../assets/js/catalogo-stato.js')).applicaCatalogo({
+  CONFIG: JSON.parse(JSON.stringify(config)),
+  CATS: JSON.parse(readFileSync(join(ROOT,'data/categories.json'),'utf8')), P: prodotti });
 const contenuti = JSON.parse(readFileSync(join(ROOT,'data/content.json'),'utf8'));
 const versioneDati = JSON.parse(readFileSync(join(ROOT,'data/version.json'),'utf8'));
 /* GitHub Actions estrae il repository in un filesystem nuovo: stat.mtime

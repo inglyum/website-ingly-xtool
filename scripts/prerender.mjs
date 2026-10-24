@@ -27,6 +27,8 @@ const leggi = async f => JSON.parse(await readFile(join(ROOT, f), 'utf8'));
 const cfg      = await leggi('data/config.json');
 const prodotti = await leggi('data/products.json');
 const categorie= await leggi('data/categories.json');
+/* categorie nascoste e catalogo in aggiornamento: niente pagine statiche per ciò che il sito non mostra */
+(await import('../assets/js/catalogo-stato.js')).applicaCatalogo({ CONFIG: cfg, CATS: categorie, P: prodotti });
 const contenuti= await leggi('data/content.json');
 const testi    = await leggi('data/texts.json');
 const materiali = await leggi('data/materiali.json');

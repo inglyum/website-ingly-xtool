@@ -14,6 +14,7 @@ import * as PR from './prezzi.js';
 import * as CM from './commerce.js';
 import {canAddUnits,reconcileStock,trackedStock,reservedUnits} from './stock-guards.js';
 import * as CL from './collezioni.js';
+import { statoCatalogo } from './catalogo-stato.js';
 const { MAT_ART, MATN, CATS, P, DIG, CONFIG } = window.INGLY;
 
 /* Con l'interruttore dei prezzi spento ogni cifra diventa «Prezzo su
@@ -539,7 +540,40 @@ function renderBarraFiltri(n){
   const v=$('fVediN'); if(v) v.textContent=n;
 }
 
+/* Catalogo in aggiornamento (Admin → Impostazioni → Catalogo): lo shop non
+   mostra una griglia vuota ma un pannello con le strade che restano aperte. */
+function renderCatalogoAgg(){
+  const pg=$('page-shop'); if(!pg) return false;
+  const on=!!(window.INGLY.CATALOGO&&window.INGLY.CATALOGO.aggiornamento);
+  document.documentElement.classList.toggle('catalogo-agg',on);
+  let box=$('catAgg');
+  if(!on){ if(box) box.remove(); return false; }
+  const s=statoCatalogo(CONFIG,L);
+  const wa=String(CONFIG.whatsapp||'https://wa.me/393296904627');
+  const msg=encodeURIComponent(T('catAggWaMsg'));
+  if(!box){ box=document.createElement('section'); box.id='catAgg'; box.className='cat-agg'; box.setAttribute('aria-labelledby','catAggH'); pg.prepend(box); }
+  box.innerHTML=`<div class="wrap"><div class="cat-agg__card">
+    <div class="cat-agg__scena" aria-hidden="true"><span class="cat-agg__piastra"></span><span class="cat-agg__raggio"></span><span class="cat-agg__scia"></span></div>
+    <div class="cat-agg__testo">
+      <p class="cat-agg__stato"><span class="cat-agg__punto" aria-hidden="true"></span>${T('catAggStato')}</p>
+      <h1 id="catAggH">${escapeMarkup(s.titolo)}</h1>
+      <p class="cat-agg__msg">${escapeMarkup(s.messaggio)}</p>
+      ${s.rientro?`<p class="cat-agg__rientro">${T('catAggRientro')} <b>${escapeMarkup(s.rientro)}</b></p>`:''}
+      <div class="cat-agg__azioni">
+        <a class="btn btn-primary" href="${escapeMarkup(wa)}${wa.includes('?')?'&':'?'}text=${msg}" target="_blank" rel="noopener">${icon('whatsapp')} ${T('catAggWa')}</a>
+        <button type="button" class="btn btn-ghost" data-action="go" data-arg="quote">${T('catAggQuote')}</button>
+      </div>
+      <ul class="cat-agg__aperto">
+        <li><button type="button" data-action="go" data-arg="personalizza">${T('catAggPers')}</button></li>
+        <li><button type="button" data-action="go" data-arg="business">${T('catAggBiz')}</button></li>
+        <li><button type="button" data-action="go" data-arg="macchine">${T('catAggLab')}</button></li>
+      </ul>
+    </div>
+  </div></div>`;
+  return true;
+}
 export function renderShop(){
+  if(renderCatalogoAgg()) return;
   const res=filterProducts();
   if(SORT==='pa')res.sort((a,b)=>a.price-b.price);
   if(SORT==='pd')res.sort((a,b)=>b.price-a.price);
@@ -581,7 +615,7 @@ let galIdx=0, galShots=[];
    prodotto 5, e non va aggiunta una voce di cronologia per il primo caricamento. */
 export function selectProduct(id){
   const p=P.find(x=>x.id===id);
-  if(!p) return false;
+  if(!p||p.hidden) return false;   /* nascosto (categoria spenta o catalogo in aggiornamento) → shop */
   RV=[id,...RV.filter(x=>x!==id)].slice(0,8);
   cur=p; sel={qty:1,pers:''}; galIdx=0;
   renderPP();

@@ -193,7 +193,15 @@
     "persPh": "Es. un nome, una data",
     "persNote": "Anteprima indicativa: prima della produzione ti mandiamo la bozza da approvare.",
     "persReq": "Scrivi il testo da incidere prima di aggiungere.",
-    "persMsg": "Personalizzazione"
+    "persMsg": "Personalizzazione",
+    "catAggStato": "Lavori in corso",
+    "catAggRientro": "Riapertura prevista:",
+    "catAggWa": "Scrivici su WhatsApp",
+    "catAggQuote": "Chiedi un preventivo",
+    "catAggPers": "Pezzi su misura",
+    "catAggBiz": "Gadget aziendali",
+    "catAggLab": "Lab xTool",
+    "catAggWaMsg": "Ciao INGLY, ho visto che il catalogo è in aggiornamento: vorrei informazioni su "
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -389,7 +397,15 @@
     "persPh": "E.g. a name, a date",
     "persNote": "Indicative preview: before production we send you a proof to approve.",
     "persReq": "Enter the text to engrave before adding.",
-    "persMsg": "Personalisation"
+    "persMsg": "Personalisation",
+    "catAggStato": "Work in progress",
+    "catAggRientro": "Expected back:",
+    "catAggWa": "Message us on WhatsApp",
+    "catAggQuote": "Ask for a quote",
+    "catAggPers": "Custom pieces",
+    "catAggBiz": "Corporate gifts",
+    "catAggLab": "xTool Lab",
+    "catAggWaMsg": "Hi INGLY, I saw the catalogue is being updated: I'd like information about "
   },
   "wOpen": {
     "it": "Apri Wishlist",

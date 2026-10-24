@@ -1399,6 +1399,37 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       </div>
     </div>
 
+    <div class="card" id="catStatoCard" style="border:2px solid var(--accent)">
+      <h3>🛍️ Catalogo online</h3>
+      <p class="hint" style="margin-bottom:14px">Scegli cosa si vede nello shop. Il resto del sito (Lab xTool, preventivi, pezzi su misura) resta sempre attivo.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px" role="radiogroup" aria-label="Stato del catalogo">
+        <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="online" style="width:auto"> ✅ Catalogo online</label>
+        <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="aggiornamento" style="width:auto"> 🛠️ Catalogo in aggiornamento</label>
+      </div>
+      <div id="catAggCampi">
+        <p class="hint" style="margin:0 0 10px">In aggiornamento: nessun prodotto è in vendita e lo shop mostra una schermata dedicata con WhatsApp e preventivo. Le pagine prodotto rimandano lì.</p>
+        <div class="row c2">
+          <div><label>Titolo (IT)</label><input type="text" id="catAggTitIT" placeholder="Catalogo in aggiornamento"></div>
+          <div><label>Titolo (EN)</label><input type="text" id="catAggTitEN" placeholder="Our catalogue is being updated"></div>
+        </div>
+        <div class="row c2" style="margin-top:8px">
+          <div><label>Messaggio (IT)</label><textarea id="catAggMsgIT" rows="2" placeholder="Stiamo fotografando e prezzando i nuovi pezzi…"></textarea></div>
+          <div><label>Messaggio (EN)</label><textarea id="catAggMsgEN" rows="2" placeholder="We are photographing and pricing the new pieces…"></textarea></div>
+        </div>
+        <div class="row c2" style="margin-top:8px">
+          <div><label>Riapertura prevista (IT, facoltativo)</label><input type="text" id="catAggRiIT" placeholder="es. lunedì 3 novembre"></div>
+          <div><label>Riapertura prevista (EN, facoltativo)</label><input type="text" id="catAggRiEN" placeholder="e.g. Monday 3 November"></div>
+        </div>
+      </div>
+      <h4 style="margin:18px 0 6px">Categorie visibili</h4>
+      <p class="hint" style="margin:0 0 10px">Togli la spunta per nascondere una categoria: spariscono dal sito lei e i suoi prodotti (non vengono cancellati). Almeno una deve restare visibile; per spegnere tutto usa «Catalogo in aggiornamento».</p>
+      <div id="catVisList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 14px"></div>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="catStatoSave">💾 Salva e pubblica</button>
+        <span class="hint" id="catStatoOut"></span>
+      </div>
+    </div>
+
     <div class="card" style="border:2px solid var(--accent)">
       <h3>🔧 Modalità Manutenzione</h3>
       <p class="hint" style="margin-bottom:14px">Quando attiva, i visitatori vedono la schermata "Sito in manutenzione" con il pulsante WhatsApp. Tu e l'Admin siete sempre accessibili.</p>
@@ -5969,6 +6000,36 @@ function renderSet(){
    out.innerHTML='<span style="color:var(--ok)">✔ Pubblicato!</span>';
   }catch(e){out.innerHTML='<span style="color:var(--err)">✖ '+esc(e.message)+'</span>'}
  };
+ /* --- Catalogo: online / in aggiornamento + categorie visibili (config.catalogo) --- */
+ (function(){
+  const cat=S.CONFIG.catalogo||{};
+  const loc=(v,k)=>(v&&v[k])||'';
+  document.querySelectorAll('input[name=catStato]').forEach(r=>{r.checked=r.value===(cat.stato==='aggiornamento'?'aggiornamento':'online')});
+  $('catAggTitIT').value=loc(cat.titolo,'it');$('catAggTitEN').value=loc(cat.titolo,'en');
+  $('catAggMsgIT').value=loc(cat.messaggio,'it');$('catAggMsgEN').value=loc(cat.messaggio,'en');
+  $('catAggRiIT').value=loc(cat.rientro,'it');$('catAggRiEN').value=loc(cat.rientro,'en');
+  const nasc=new Set((cat.categorieNascoste||[]).map(String));
+  $('catVisList').innerHTML=S.CATS.map(c=>{
+    const n=S.P.filter(p=>p.cat===c.id&&!p.hidden).length;
+    return `<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0"><input type="checkbox" data-cat="${esc(c.id)}" ${nasc.has(String(c.id))?'':'checked'} style="width:18px;height:18px"> ${esc((c.n&&c.n.it)||c.id)} <span class="hint">(${n})</span></label>`;
+  }).join('');
+  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').style.opacity=agg&&agg.value==='aggiornamento'?'1':'.55'};
+  campi();document.querySelectorAll('input[name=catStato]').forEach(r=>r.onchange=campi);
+  $('catStatoSave').onclick=async()=>{
+   const out=$('catStatoOut');
+   const nascoste=[...$('catVisList').querySelectorAll('input[data-cat]')].filter(x=>!x.checked).map(x=>x.dataset.cat);
+   if(nascoste.length&&nascoste.length>=S.CATS.length){out.innerHTML='<span style="color:var(--err)">✖ Lascia almeno una categoria visibile, oppure scegli «Catalogo in aggiornamento».</span>';return}
+   const agg=(document.querySelector('input[name=catStato]:checked')||{}).value==='aggiornamento';
+   const bi=(a,b)=>{const it=$(a).value.trim(),en=$(b).value.trim();return (it||en)?{it,en:en||it}:undefined};
+   S.CONFIG.catalogo={stato:agg?'aggiornamento':'online',categorieNascoste:nascoste,
+     titolo:bi('catAggTitIT','catAggTitEN'),messaggio:bi('catAggMsgIT','catAggMsgEN'),rientro:bi('catAggRiIT','catAggRiEN')};
+   markDirty();out.textContent='Salvataggio…';
+   try{
+    await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'🛍️ Catalogo: '+(agg?'in aggiornamento':'online')+(nascoste.length?' · nascoste: '+nascoste.join(', '):''));
+    out.innerHTML='<span style="color:var(--ok)">✔ Pubblicato! Online tra 1–2 minuti.</span>';
+   }catch(e){out.innerHTML='<span style="color:var(--err)">✖ '+esc(e.message)+'</span>'}
+  };
+ })();
  /* --- Repository / token --- */
  $('sOwner').value=SET.owner;$('sRepo').value=SET.repo;$('sBranch').value=SET.branch;$('sRemember').checked=SET.remember;$('sTok').value=token();
  $('loadDiag').innerHTML=loadDiagHtml()||'Nessun caricamento eseguito.';

@@ -13,6 +13,7 @@ const FILES=['config','texts','social','products','categories','content','materi
 const KEY={config:'CONFIG',texts:'D',social:'SOCIALS',products:'P',categories:'CATS',
   materiali:'MATERIALI',tecnologie:'TECNOLOGIE',macchine:'MACCHINE',corsi:'CORSI',collezioni:'COLLEZIONI',immagini:'IMMAGINI','immagini-macchine':'IMMAGINI_MACCHINE',digitale:'DIGITALE'};
 
+import { applicaCatalogo } from './catalogo-stato.js';
 export const dataStatus={mode:'',version:null,missing:[],warnings:[]};
 
 /* Auto-guarigione dei dati: il sito NON deve mai crollare per un valore imperfetto
@@ -61,14 +62,14 @@ function healData(e){
   return e;
 }
 export async function loadData(){
-  if(window.INGLY && window.INGLY.CATS) return healData(window.INGLY);
+  if(window.INGLY && window.INGLY.CATS) return applicaCatalogo(healData(window.INGLY));
   /* ANTEPRIMA: se l'Admin ha messo una bozza in sessionStorage, il sito la usa (solo in questa scheda) */
   try{
     if(location.search.includes('__preview=1')){
       const raw=sessionStorage.getItem('__INGLY_PREVIEW__');
       if(raw){ const d=JSON.parse(raw); const I={};
         for(const k of Object.keys(d)) I[k]=d[k];
-        healData(I);
+        healData(I); applicaCatalogo(I);
         I.__v=Date.now(); I.__preview=true; window.INGLY=I;
         document.documentElement.classList.add('is-preview');
         return I; }
@@ -105,6 +106,7 @@ export async function loadData(){
   }
   if(!I.CATS || !I.P) throw new Error('Dati del sito non trovati (né JSON né riserva).');
   healData(I);
+  applicaCatalogo(I);
   I.__v=v; I.__status=dataStatus;
   window.INGLY=I;
   if(dataStatus.warnings.length) console.warn('[INGLY]', dataStatus.warnings.join(' | '));

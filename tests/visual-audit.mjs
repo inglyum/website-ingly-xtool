@@ -8,6 +8,11 @@
 import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { readFileSync } from 'node:fs';
+/* con il catalogo «in aggiornamento» (scelta dall'Admin) le schede prodotto
+   non esistono: si controlla lo shop, che mostra il pannello dedicato */
+const CFG = JSON.parse(readFileSync('data/config.json', 'utf8'));
+const CATALOGO_APERTO = !(CFG.catalogo && CFG.catalogo.stato === 'aggiornamento');
 
 const root = process.env.INGLY_TEST_URL || 'http://127.0.0.1:8080';
 const out = process.env.INGLY_VISUAL_OUTPUT || 'artifacts/visual-audit';
@@ -18,8 +23,10 @@ const routes = [
   { name: 'macchine', path: '/macchine/' },
   { name: 'admin', path: '/admin.html' },
   { name: 'admin-media', path: '/admin.html' },
-  { name: 'product-with-photo', path: '/product/1/' },
-  { name: 'product-without-photo', path: '/product/9/' },
+  ...(CATALOGO_APERTO ? [
+    { name: 'product-with-photo', path: '/product/1/' },
+    { name: 'product-without-photo', path: '/product/9/' },
+  ] : []),
 ];
 const widths = [320, 390, 768, 1440];
 const modes = ['dark', 'light'];

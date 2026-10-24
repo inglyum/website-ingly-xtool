@@ -26,6 +26,8 @@ cats.slice(1).forEach(c => { delete c.img });
 const content = JSON.parse(readFileSync(ROOT + '/data/content.json', 'utf8'));
 content.PORT[0][3] = 'img/port-1.webp';
 const config = JSON.parse(readFileSync(ROOT + '/data/config.json', 'utf8'));
+/* il test controlla il catalogo aperto: lo stato «in aggiornamento» scelto dall'Admin ha il suo test (test-catalogo-stato) */
+delete config.catalogo;
 config.aboutMedia = { tipo: 'immagine', src: 'img/about.webp' };
 /* Titolo della hero: il testo lo decide il test, non i dati pubblicati.
    Così questi controlli verificano il MECCANISMO (marcatori ** ** e a capo)

@@ -80,7 +80,7 @@ check('senza prezzi non si accumulano punti su un totale che non c\'è',
   /pts = prezziVisibili\(\)\?Math\.floor\(total\):0/.test(prodotti));
 const seo = readFileSync('assets/js/seo.js', 'utf8');
 check('i dati strutturati del sito seguono l\'interruttore', /PR\.mostraPrezzi\(CONFIG\)/.test(seo));
-const pre = readFileSync('scripts/prerender.mjs', 'utf8');
+const pre = readFileSync('assets/js/prerender-sito.js', 'utf8');
 check('le pagine prerenderizzate seguono l\'interruttore', /PR\.offertaSchema\(/.test(pre));
 const wl = readFileSync('assets/js/wishlist.js', 'utf8');
 check('la wishlist segue l\'interruttore', /PR\.testoPrezzo\(/.test(wl));

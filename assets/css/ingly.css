@@ -9956,3 +9956,16 @@ html.catalogo-agg #page-shop>:not(#catAgg){display:none!important}
 #page-shop #catAgg .cat-agg__azioni .btn-ghost{color:#fff;background:transparent;border:1px solid rgba(255,255,255,.35)}
 #page-shop #catAgg .cat-agg__aperto button{color:#e9d3ad}
 #page-home .sec:has(> .wrap > #collGrid:empty){display:none}
+/* bollino «Gratis» della Demo: leggibile in entrambi i temi */
+html .lab-gratis{background:#142034!important;color:#fff!important}
+html[data-mode="dark"] .lab-gratis,html:not([data-mode="light"]) .lab-gratis{background:#deb878!important;color:#142034!important}
+html[data-mode="light"] .lab-gratis{background:#142034!important;color:#fff!important}
+/* Categorie con foto: la sfumatura scura sotto il testo deve esserci sempre
+   (prima aveva opacity:0 e su foto chiare il bianco spariva) */
+html .bcard.bcard--photo::after{opacity:1!important;z-index:1;background:linear-gradient(180deg,rgba(8,9,12,0) 28%,rgba(8,9,12,.5) 58%,rgba(8,9,12,.9) 100%)!important}
+html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.35)!important}
+/* titolo home in tema chiaro: oro scuro leggibile su fondo chiaro */
+:root[data-mode="light"] #page-home .signature-hero #heroH1 :is(.engrave,.laserword){color:#8a5a1c!important;-webkit-text-fill-color:#8a5a1c!important}
+/* testi del riquadro scuro X1/C1: sempre chiari, anche in tema chiaro */
+#macPage .lancio-hero small,#macPage .lancio-hero__prezzo small{color:#aab4c3!important;opacity:1!important}
+#macPage .lancio-hero p,#macPage .lancio-hero li{color:#c9d2df}

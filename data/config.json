@@ -355,5 +355,17 @@
    "it": "FATTO PER TE · ITALIA",
    "en": "MADE FOR YOU · ITALY"
   }
+ },
+ "catalogo": {
+  "stato": "aggiornamento",
+  "categorieNascoste": [],
+  "titolo": {
+   "it": "Catalogo in Aggiornamento",
+   "en": "Our Catalog is being updated. stay tuned."
+  },
+  "messaggio": {
+   "it": "In aggiornamento con nuovi prodotti",
+   "en": "We are preparing new products"
+  }
  }
 }

@@ -1239,6 +1239,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <!-- ============ PUBBLICA ============ -->
   <section class="view" id="v-pub">
     <div id="pubCheck"></div>
+    <div class="card" id="ckCard"><h3>✅ Controllo collegamento (3 passi)</h3>
+      <p class="hint" style="margin-bottom:10px">Premi il pulsante: controllo token, permessi e sito online. Se qualcosa è rosso, sotto trovi cosa fare.</p>
+      <button class="btn pri" id="ckGo">▶ Controlla ora</button>
+      <ol id="ckList" style="margin:14px 0 0;padding-left:20px;line-height:1.7"></ol>
+    </div>
     <div class="card"><h3>📦 Modifiche in attesa <span class="chip laser sp" id="pubChip"></span></h3>
       <div id="pubList" class="hint">Nessuna modifica.</div>
       <hr class="hr">
@@ -1636,7 +1641,11 @@ function saveSet(){localStorage.setItem('ingly2_set',JSON.stringify({owner:SET.o
 function token(){return (SET.remember?localStorage.getItem('ingly2_tok'):sessionStorage.getItem('ingly2_tok'))||''}
 function setToken(t){if(SET.remember)localStorage.setItem('ingly2_tok',t);else sessionStorage.setItem('ingly2_tok',t)}
 const API=()=>`https://api.github.com/repos/${SET.owner}/${SET.repo}`;
-const LIVE=()=>`https://${SET.owner.toLowerCase()}.github.io/${SET.repo}/`;
+/* Indirizzo del sito: se l'Admin è aperto dal sito stesso si usa la SUA cartella
+   (stessa origine: niente blocchi del browser, funziona anche con un dominio
+   personalizzato); altrimenti l'indirizzo github.io. */
+const LIVE=()=>{try{if(/^https?:$/.test(location.protocol)&&/admin\.html$/.test(location.pathname)&&!/^(localhost|127\.)/.test(location.hostname))return new URL('./',location.href).href}catch(_){}
+ return `https://${SET.owner.toLowerCase()}.github.io/${SET.repo}/`};
 function ghH(extra){const h=Object.assign({Accept:'application/vnd.github+json'},extra||{});const t=token();if(t)h.Authorization='Bearer '+t;return h}
 async function gh(path,opt){const r=await fetch(API()+path,Object.assign({},opt||{},{headers:ghH((opt||{}).headers)}));
  if(!r.ok){const b=await r.text().catch(()=>'');
@@ -5738,7 +5747,9 @@ async function pagesDiag(){const out={note:'',warn:'',err:null};
   else if(srcP&&srcP!=='/')out.warn='Pages pubblica la cartella «'+srcP+'» invece della radice: imposta Settings → Pages → folder = / (root).';
   try{const b=await gh('/pages/builds/latest');if(b&&b.status==='errored')out.err={msg:(b.error&&b.error.message)||'errore sconosciuto'};if(b)out.note+=' · build '+b.status}catch(e){}
  }catch(e){out.note='stato non leggibile';
-  if(String(e).includes(' 404 '))out.warn='GitHub Pages non risulta attivo su questo repository: attivalo in Settings → Pages → Source = Deploy from a branch → '+SET.branch+' / (root).';
+  let vivo=false;try{const r=await fetch(LIVE()+'data/version.json?cb='+Date.now(),{cache:'no-store'});vivo=r.ok}catch(_){}
+  if(vivo){out.note='attivo (il sito risponde)';out.warn=''}
+  else if(String(e).includes(' 404 '))out.warn='Il sito non risponde e lo stato di Pages non è leggibile. Controlla Settings → Pages → Source = Deploy from a branch → '+SET.branch+' / (root). Se è già così, il token non ha il permesso Pages → Read (facoltativo).';
   else out.warn='per leggere lo stato di Pages aggiungi al token il permesso Pages → Read (facoltativo).'}
  return out}
 $('pubVerify').onclick=async()=>{const b=$('pubVerify');b.disabled=true;const lbl=b.textContent;b.textContent='verifica in corso…';
@@ -5759,6 +5770,39 @@ $('pubVerify').onclick=async()=>{const b=$('pubVerify');b.disabled=true;const lb
  b.disabled=false;b.textContent=lbl};
 $('pubDiag').onclick=async()=>{$('pubOut').innerHTML='Diagnosi in corso…';const d=await pagesDiag();
  $('pubOut').innerHTML='<b>GitHub Pages</b>: '+esc(d.note)+(d.warn?'<br><span style="color:var(--warn)">⚠ '+esc(d.warn)+'</span>':'<br><span style="color:var(--ok)">✔ Configurazione corretta.</span>')};
+
+/* ---------- Controllo collegamento in 3 passi ----------
+   Un solo pulsante che dice cosa non va e come si sistema, invece di un
+   errore tecnico a metà pubblicazione. */
+$('ckGo').onclick=async()=>{
+ const ul=$('ckList'),b=$('ckGo');b.disabled=true;ul.innerHTML='';
+ const NUOVO='https://github.com/settings/personal-access-tokens/new';
+ const riga=(ok,tit,txt)=>{ul.insertAdjacentHTML('beforeend','<li style="margin-bottom:8px"><b style="color:var(--'+(ok===true?'ok':ok===false?'err':'warn')+')">'+(ok===true?'✔':ok===false?'✖':'⚠')+' '+tit+'</b>'+(txt?'<br><span class="hint">'+txt+'</span>':'')+'</li>')};
+ const guida='<b>Come creare il token giusto (2 minuti):</b> apri <a href="'+NUOVO+'" target="_blank" rel="noopener">GitHub → nuovo token ↗</a> · Repository access: <b>Only select repositories</b> → <span class="mono">'+esc(SET.owner+'/'+SET.repo)+'</span> · Permissions → Repository: <b>Contents = Read and write</b> (facoltativo: Pages = Read) · Generate token → copialo → incollalo in <b>Impostazioni → Token</b> → Salva.';
+ try{
+  // 1. token
+  if(!token()){riga(false,'1. Token mancante',guida);return}
+  let repo=null;
+  try{repo=await gh('')}catch(e){const m=String(e.message||e);
+   if(m.includes(' 401 '))riga(false,'1. Token non valido o scaduto',guida);
+   else if(m.includes(' 404 '))riga(false,'1. Il token non vede '+esc(SET.owner+'/'+SET.repo),'Controlla in Impostazioni che proprietario e repository siano giusti, poi '+guida);
+   else riga(false,'1. GitHub non risponde',esc(ghErrHint(e)));
+   return}
+  riga(true,'1. Token valido','Repository: <span class="mono">'+esc(repo.full_name)+'</span>');
+  // 2. scrittura
+  const push=!!(repo.permissions&&(repo.permissions.push||repo.permissions.admin));
+  if(!push){riga(false,'2. Il token può leggere ma NON pubblicare','Serve Contents = <b>Read and write</b>. '+guida);return}
+  try{await gh('/branches/'+encodeURIComponent(SET.branch))}catch(e){riga(false,'2. Branch «'+esc(SET.branch)+'» non trovato','In Impostazioni il branch deve essere <b>main</b>.');return}
+  riga(true,'2. Permesso di pubblicare: OK','Branch <span class="mono">'+esc(SET.branch)+'</span>');
+  // 3. sito online
+  let v=null;try{const r=await fetch(LIVE()+'data/version.json?cb='+Date.now(),{cache:'no-store'});if(r.ok)v=(await r.json()).v}catch(_){}
+  if(v)riga(true,'3. Sito online raggiungibile','Ultima versione: '+new Date(v).toLocaleString('it-IT')+' · <a href="'+LIVE()+'" target="_blank" rel="noopener">apri ↗</a>');
+  else{let dom='';try{const c=await gh('/contents/CNAME?ref='+encodeURIComponent(SET.branch),{headers:{Accept:'application/vnd.github.raw+json'}});dom=String(c||'').trim()}catch(_){}
+   if(dom)riga(false,'3. Il sito non risponde: è impostato il dominio «'+esc(dom)+'»','GitHub manda i visitatori su <b>'+esc(dom)+'</b>, ma il dominio non è ancora collegato. Scegli UNA strada:<br><b>A) Subito online (consigliato ora):</b> GitHub → Settings → Pages → Custom domain → <b>Remove</b>. Il sito torna su github.io in 1–2 minuti.<br><b>B) Usare il dominio:</b> nel pannello del registrar del dominio aggiungi 4 record <b>A</b> per <span class="mono">@</span> → 185.199.108.153 · 185.199.109.153 · 185.199.110.153 · 185.199.111.153 e un record <b>CNAME</b> <span class="mono">www</span> → <span class="mono">'+esc(SET.owner.toLowerCase())+'.github.io</span>. Poi in Settings → Pages scrivi <span class="mono">www.inglydesign.it</span>, aspetta il ✔ «DNS check successful» e attiva <b>Enforce HTTPS</b> (può servire fino a 24 ore).');
+   else riga(false,'3. Il sito non risponde',' GitHub → Settings → Pages → Source = <b>Deploy from a branch</b> → <b>'+esc(SET.branch)+'</b> / <b>(root)</b> → Save. Poi riprova tra 2 minuti.')}
+  if(v)ul.insertAdjacentHTML('beforeend','<li style="list-style:none;margin-top:6px"><b style="color:var(--ok)">Tutto pronto.</b> Per pubblicare: premi «🚀 Pubblica tutto» qui sotto e aspetta il ✔ verde (1–2 minuti).</li>');
+ }finally{b.disabled=false}
+};
 
 /* ================== CRONOLOGIA & ROLLBACK ================== */
 async function renderHist(){$('histList').textContent='Caricamento…';

@@ -2082,3 +2082,52 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 @media (max-width:820px){:root[data-mode] .page .wrap.phero{padding-left:20px!important;padding-right:20px!important}}
 /* etichetta della home: niente monospazio */
 :root[data-mode] .page .hero-tag,:root[data-mode] .page .hero-tag *{font-family:var(--f-testo)!important}
+
+/* ===================== PACCHETTO B — IMPAGINAZIONE =====================
+   Dall'analisi con taste-skill (inspect.mjs) e impeccable: gli elementi che
+   fanno sembrare il sito «fatto in serie». Si tolgono senza perdere
+   informazione: ciò che dicevano è già nel titolo o nel testo accanto. */
+
+/* 1. etichette sopra i titoli: via in tutto il sito.
+      Restano la categoria nella scheda prodotto (#ppCat) e @ingly.design. */
+:root[data-mode] .page :is(.eyebrow,[class*="__eyebrow"],.hero-tag,.ingly-hero-steps__overline,.ingly-hero-steps__signature):not(#ppCat):not(#shEyebrow){display:none!important}
+
+/* 2. numerazioni decorative (01 / 02 / 03): l'ordine si capisce dalla posizione */
+:root[data-mode] .page :is(.ingly-hero-steps li > span:first-child,.ingly-commerce-spot__number,.lab-n,.per-n,.ingly-lab-fact__index){display:none!important}
+
+/* 3. un solo corsivo serif di marca: il titolo della Home.
+      Negli altri titoli la parola evidenziata resta nel colore oro, stesso carattere. */
+:root[data-mode] .page:not(#page-home) :is(h1,h2,h3) :is(.hl,em),
+:root[data-mode] #page-home :is(h2,h3) :is(.hl,em){font-family:inherit!important;font-style:normal!important;letter-spacing:inherit!important}
+
+/* 4. cornici da 1px e ombre sulle schede a riposo: la superficie si distingue
+      per il tono, non per il bordo (le ombre restano su menu, carrello, barre fisse) */
+:root[data-mode] .page :is(.rcard,.mcard,.matcard,.dcard,.ttcard,.shcard,.ingly-lab-fact,.atelier-machine,.lancio-conf__card,.lancio-spec > div){border-color:transparent!important;box-shadow:none!important}
+:root[data-mode="light"] .page :is(.rcard,.mcard,.matcard,.dcard,.ttcard,.shcard,.ingly-lab-fact,.atelier-machine){background:#fff!important}
+
+/* 5. fila dei vantaggi sotto l'hero: niente separatori verticali e icone più discrete */
+:root[data-mode] .signature-benefit{border:0!important}
+:root[data-mode] .signature-benefit__icon{border:0!important;background:transparent!important;width:28px!important;height:28px!important}
+
+/* 6. sollevamento al passaggio del mouse: solo sulle schede prodotto (non su ogni scheda) */
+@media (hover:hover) and (pointer:fine){
+  .matcard:hover,.mcard:hover{transform:none}
+}
+
+/* 7. vantaggi sotto l'hero: il titolo comanda, la descrizione segue */
+:root[data-mode] .signature-benefit__words strong{font-size:15px!important;line-height:1.3!important;letter-spacing:0!important;text-transform:none!important}
+:root[data-mode] .signature-benefit__words small{font-size:13.5px!important;line-height:1.45!important;opacity:.85}
+
+/* 8. sottolineatura luminosa sotto la parola evidenziata: solo nel titolo della Home */
+:root[data-mode] .page:not(#page-home) :is(h1,h2) .hl::after,:root[data-mode] #page-home h2 .hl::after{display:none!important}
+:root[data-mode] .page:not(#page-home) :is(h1,h2) .hl,:root[data-mode] #page-home h2 .hl{text-decoration:none!important;background-image:none!important}
+
+/* 9. etichette tecniche finte nel configuratore («YOUR IDEA / ENGRAVING STUDY 001») */
+:root[data-mode] .atelier-configurator__prelabel,:root[data-mode] .atelier-configurator__preview-meta{display:none!important}
+
+/* materiali in «Chi siamo» con la foto vera */
+:root[data-mode] .matcard .sw2--foto{padding:0!important;overflow:hidden;background:#111!important;aspect-ratio:4/3;height:auto!important}
+:root[data-mode] .matcard .sw2--foto img{width:100%;height:100%;object-fit:cover;display:block}
+:root[data-mode] a.matcard{color:inherit;text-decoration:none}
+@media (max-width:640px){:root[data-mode] #page-about .matgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+ :root[data-mode] #page-about .matcard{padding:10px!important}}

@@ -741,7 +741,20 @@ function renderVerticale(id){
 function renderFaq(){$('faqList').innerHTML=FAQS.map(f=>`<details class="fitem reveal"><summary>${f[0][L]}<span class="pl" aria-hidden="true">+</span></summary><div class="fbody"><p>${f[1][L]}</p></div></details>`).join('')}
 const MAT_ICON={Legno:'legno',Bamboo:'legno',MDF:'legno',Metallo:'metallo',Alluminio:'metallo',
   Plexiglass:'materiali',Acrilico:'materiali',Vetro:'materiali',Pelle:'materiali',PLA:'3d',Carta:'materiali',Tessuto:'dtf'};
-function renderMat(){const g=$('matGrid');if(!g)return;g.innerHTML=MATERIALS.map(m=>`<div class="matcard reveal"><div class="sw2" style="background:linear-gradient(140deg,${m[2]})">${u.icon(MAT_ICON[m[0]]||'materiali','')}</div><b>${L==='it'?m[0]:m[1]}</b><span>${m[3][L]}</span></div>`).join('')}
+/* Materiali in «Chi siamo»: la foto vera del materiale (dal Lab) al posto del
+   rettangolo sfumato con l'icona; la scheda porta alla pagina del materiale. */
+const MAT_LAB_ID={legno:'legno',plexiglass:'plexiglass',metallo:'metallo',pelle:'pelle',vetro:'vetro',bamboo:'bamboo','bambù':'bamboo',mdf:'mdf','pla/petg':'pla',pla:'pla',tessuto:'tessuto'};
+function renderMat(){const g=$('matGrid');if(!g)return;
+  const lab=((window.INGLY&&window.INGLY.MATERIALI&&window.INGLY.MATERIALI.materiali)||[]);
+  g.innerHTML=MATERIALS.map(m=>{
+    const lm=lab.find(x=>x&&x.id===MAT_LAB_ID[String(m[0]).toLowerCase()]);
+    const foto=lm&&/^img\/[\w/.-]+\.(webp|jpg|jpeg|png)$/i.test(String(lm.img||''))?lm.img:'';
+    const nome=escHtml(L==='it'?m[0]:m[1]);
+    const media=foto?`<div class="sw2 sw2--foto"><img src="${escHtml(foto)}" alt="${nome}" loading="lazy" decoding="async" width="400" height="300"></div>`
+      :`<div class="sw2" style="background:linear-gradient(140deg,${m[2]})">${u.icon(MAT_ICON[m[0]]||'materiali','')}</div>`;
+    const corpo=`${media}<b>${nome}</b><span>${escHtml(m[3][L])}</span>`;
+    return lm?`<a class="matcard reveal" href="${BASE.replace(/\/+$/,'')}/materiali/${escHtml(lm.id)}">${corpo}</a>`:`<div class="matcard reveal">${corpo}</div>`;
+  }).join('')}
 /* Tessera portfolio: usa la FOTO se presente (g[3] = percorso immagine),
    altrimenti resta il segnaposto grafico. Gestibile dal pannello. */
 const tile=(g)=>{

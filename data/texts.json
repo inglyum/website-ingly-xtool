@@ -201,7 +201,9 @@
     "catAggPers": "Pezzi su misura",
     "catAggBiz": "Gadget aziendali",
     "catAggLab": "Lab xTool",
-    "catAggWaMsg": "Ciao INGLY, ho visto che il catalogo è in aggiornamento: vorrei informazioni su "
+    "catAggWaMsg": "Ciao INGLY, ho visto che il catalogo è in aggiornamento: vorrei informazioni su ",
+    "aboutGuardaVideo": "Guarda il video",
+    "aboutFotoAlt": "Ritratto inciso su legno nel laboratorio INGLY"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -405,7 +407,9 @@
     "catAggPers": "Custom pieces",
     "catAggBiz": "Corporate gifts",
     "catAggLab": "xTool Lab",
-    "catAggWaMsg": "Hi INGLY, I saw the catalogue is being updated: I'd like information about "
+    "catAggWaMsg": "Hi INGLY, I saw the catalogue is being updated: I'd like information about ",
+    "aboutGuardaVideo": "Watch the video",
+    "aboutFotoAlt": "Portrait engraved on wood in the INGLY workshop"
   },
   "wOpen": {
     "it": "Apri Wishlist",

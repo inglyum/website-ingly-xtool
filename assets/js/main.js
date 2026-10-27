@@ -590,8 +590,14 @@ function renderAboutArt(){
   const v=(window.INGLY&&window.INGLY.__v)||0;
   if(am.tipo==='immagine'&&am.src){
     box.innerHTML=`<div class="about-media"><img src="${am.src}${am.src.includes('?')?'':'?v='+v}" alt="INGLY" loading="lazy"></div>`;
+  }else if(am.tipo==='video'&&am.src&&/\.(mp4|webm|m4v|mov)(\?|#|$)/i.test(am.src)){
+    box.innerHTML=`<div class="about-media"><video src="${escHtml(am.src)}"${am.poster?` poster="${escHtml(am.poster)}"`:''} autoplay muted loop playsinline aria-hidden="true"></video></div>`;
   }else if(am.tipo==='video'&&am.src){
-    box.innerHTML=`<div class="about-media"><video src="${am.src}" autoplay muted loop playsinline aria-hidden="true"></video></div>`;
+    /* Un link a un post (Instagram, TikTok, YouTube) non è un file video: il
+       browser lasciava un riquadro vuoto a metà pagina. Si mostra una foto
+       vera del lavoro e il link al video. */
+    const foto=am.poster||'img/3.webp';
+    box.innerHTML=`<figure class="about-media about-media--link"><img src="${escHtml(foto)}${foto.includes('?')?'':'?v='+v}" alt="${escHtml(T('aboutFotoAlt'))}" loading="lazy" decoding="async"><a class="btn btn-primary about-media__link" href="${escHtml(am.src)}" target="_blank" rel="noopener">${escHtml(T('aboutGuardaVideo'))} ↗</a></figure>`;
   } /* tipo 'logo' o vuoto: resta il logo animato già nel markup */
 }
 const BIZ_ASSET_IDS=['targhe-professionali','gadget-aziendali','qr-menu-branding','produzione-conto-terzi','incisioni-industriali','prototipazione-laser'];

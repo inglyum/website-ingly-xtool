@@ -1923,3 +1923,152 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 /* testi del riquadro scuro X1/C1: sempre chiari, anche in tema chiaro */
 #macPage .lancio-hero small,#macPage .lancio-hero__prezzo small{color:#aab4c3!important;opacity:1!important}
 #macPage .lancio-hero p,#macPage .lancio-hero li{color:#c9d2df}
+
+/* ============ FONDAMENTA 2026: tipografia, spazio, movimento ============
+   Ultimo foglio della cascata. Non aggiunge decorazioni: mette in ordine.
+
+   Misurato prima di scriverlo (browser, home/shop/macchine/chi siamo):
+   - tre famiglie mescolate (Josefin Sans, Inter solo nelle pagine Macchine,
+     JetBrains Mono nelle etichette);
+   - paragrafi da 11,7 a 19 px nella stessa pagina, interlinee diverse;
+   - spazio verticale delle sezioni da 18 a 115 px senza una regola.
+
+   Regole (impeccable · taste-skill · Emil Kowalski):
+   - Due mondi, ognuno coerente: il sito INGLY in Josefin Sans (il marchio,
+     --ingly-type); il Lab xTool (Macchine, Materiali, Tecnologie) in Inter,
+     scelta tecnica già presente ma applicata a metà (elenchi e sottotitoli
+     restavano in Josefin). Via il monospazio dalle etichette.
+     Il corsivo serif degli accenti resta: è un gesto voluto.
+   - Una scala sola, fluida: 8 gradini. Nessun testo di lettura sotto 15 px,
+     nessuna didascalia sotto 13 px.
+   - Righe di lettura tra 60 e 72 caratteri.
+   - Più aria sopra un titolo che sotto.
+   - Movimento: tre durate, una curva ease-out, mai ease-in; ogni pulsante
+     risponde alla pressione; chi chiede meno movimento lo ottiene.
+
+   Le immagini prodotto/galleria/categoria NON vengono toccate (regola 1). */
+
+:root{
+  /* — caratteri — */
+  --f-titoli:var(--ingly-type,'Josefin Sans',system-ui,sans-serif);
+  --f-testo:var(--ingly-type,'Josefin Sans',system-ui,sans-serif);
+
+  /* — scala tipografica (rapporto ~1,25, fluida tra 390 e 1440 px) — */
+  --t-xs:13px;
+  --t-sm:14.5px;
+  --t-base:clamp(15.5px,.2vw + 14.8px,17px);
+  --t-lg:clamp(17px,.45vw + 15.3px,20px);
+  --t-h4:clamp(18px,.5vw + 16px,21px);
+  --t-h3:clamp(21px,.9vw + 17.5px,28px);
+  --t-h2:clamp(30px,2.3vw + 21px,52px);
+  --t-h1:clamp(36px,3.6vw + 22px,72px);
+
+  /* — spazio (scala da 4 px) — */
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;
+  --s-sezione:clamp(56px,6vw + 32px,112px);
+
+  /* — movimento — */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --d-rapida:160ms;   /* pressione, hover */
+  --d-media:240ms;    /* menu, pannelli */
+  --d-lenta:420ms;    /* comparse */
+}
+
+/* ===================== TIPOGRAFIA ===================== */
+/* INGLY: un solo carattere, anche nelle etichette (prima monospazio) */
+:root[data-mode] .page:not(#page-macchine):not(#page-materiali):not(#page-tecnologie) .eyebrow{font-family:var(--f-testo)!important}
+/* Lab xTool: Inter su TUTTO il testo della pagina, non solo su titoli e paragrafi */
+:root[data-mode] :is(#page-macchine,#page-materiali,#page-tecnologie) :is(h1,h2,h3,h4,h5,p,li,dd,dt,small,strong,b,td,th,figcaption,.eyebrow,.sub,span:not([class*="ic"])){font-family:'Inter',Arial,system-ui,sans-serif!important}
+
+/* titoli: una scala, interlinea stretta, a capo bilanciato */
+.page h1{font-size:var(--t-h1);line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+.page :is(h2.h2,.sec h2,section > .wrap h2,.wrap > h2){font-size:var(--t-h2);line-height:1.08;letter-spacing:-.018em;text-wrap:balance}
+.page :is(.sec,section) h3:not(.pcard h3):not(.bcard h3){font-size:var(--t-h3);line-height:1.18;letter-spacing:-.01em;text-wrap:balance}
+.page :is(.sec,section) h4{font-size:var(--t-h4);line-height:1.25}
+
+/* testo di lettura */
+.page p.sub,.page .sub{font-size:var(--t-lg);line-height:1.55;max-width:60ch;text-wrap:pretty}
+.page :is(.sec,section) p:not([class]),
+.page :is(.sec,section) li:not([class]){font-size:var(--t-base);line-height:1.65;text-wrap:pretty}
+.page :is(.sec,section) p:not([class]){max-width:70ch}
+/* nessuna didascalia sotto 13 px */
+.page :is(small,.hint,.mat,.note,.nota,figcaption){font-size:max(var(--t-xs),1em)}
+
+/* etichette sopra i titoli: stessa famiglia del testo, non monospazio */
+.page .eyebrow{font-size:var(--t-xs);letter-spacing:.08em}
+
+/* ritmo verticale: più aria sopra il titolo che sotto */
+.page .sec{padding-block:var(--s-sezione)}
+.page .sec.pt-0{padding-top:0}
+.page :is(.sec,section) :is(h2.h2,h2){margin-top:0;margin-bottom:var(--s-4)}
+.page :is(.sec,section) :is(h2.h2,h2) + :is(p.sub,.sub){margin-top:0;margin-bottom:var(--s-7)}
+
+/* numeri allineati dove si confrontano */
+.page :is(table,.price,.prezzo,.lancio-numeri,.cnt){font-variant-numeric:tabular-nums}
+
+/* superfici del browser coerenti con il marchio */
+::selection{background:rgba(222,184,120,.35);color:inherit}
+:where(a){text-underline-offset:.18em;text-decoration-thickness:from-font}
+
+/* ===================== MOVIMENTO ===================== */
+/* pulsanti, chip e schede: proprietà precise, curva ease-out, durata breve */
+:root[data-mode] :is(.btn,.chip,.scp,.sat,.fbar-btn,.mode-btn,.tab,.wish,.qty button,.icon-btn,#mobileModeBtn){
+  transition:
+    scale var(--d-rapida) var(--ease-out),
+    transform var(--d-rapida) var(--ease-out),
+    background-color var(--d-media) var(--ease-out),
+    border-color var(--d-media) var(--ease-out),
+    color var(--d-media) var(--ease-out),
+    box-shadow var(--d-media) var(--ease-out),
+    opacity var(--d-media) var(--ease-out)!important;
+}
+/* risposta alla pressione: un pulsante deve sentirsi premuto */
+/* `scale` (proprietà a sé) si somma alle trasformazioni già presenti invece di sostituirle */
+:root[data-mode] :is(.btn,.chip,.scp,.sat,.fbar-btn,.mode-btn,.tab,.wish,.qty button,.icon-btn,#mobileModeBtn):active:not(:disabled){
+  scale:.97;
+}
+/* schede: sollevamento solo con un mouse vero (sul telefono l'hover resta appiccicato) */
+@media (hover:hover) and (pointer:fine){
+  .pcard,.bcard,.matcard,.mcard{transition:transform var(--d-media) var(--ease-out),box-shadow var(--d-media) var(--ease-out),border-color var(--d-media) var(--ease-out)}
+  .pcard:hover,.matcard:hover,.mcard:hover{transform:translateY(-3px)}
+}
+/* il contatore del carrello non nasce dal nulla: parte da 0,5 */
+.badge{transform:scale(.5);opacity:0;transition:transform var(--d-media) var(--ease-out),opacity var(--d-rapida) var(--ease-out)}
+.badge.on{transform:scale(1);opacity:1}
+
+/* pannelli a comparsa (menu, carrello, filtri): ease-out, mai più lenti di 300 ms */
+:is(.drawer,.cart-drawer,.filters,.mega,.mmenu,.sugg){transition-timing-function:var(--ease-out)}
+
+/* fuoco da tastiera visibile e del colore del marchio */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid #deb878;outline-offset:3px}
+
+/* meno movimento per chi lo chiede: solo le transizioni, le animazioni
+   delle immagini restano governate dalle loro regole (regola 1) */
+@media (prefers-reduced-motion:reduce){
+  :is(.btn,.chip,.scp,.sat,.fbar-btn,.mode-btn,.tab,.wish,.pcard,.bcard,.matcard,.mcard,.badge){transition-duration:1ms!important}
+  :root[data-mode] :is(.btn,.chip,.scp,.sat,.fbar-btn,.mode-btn,.tab,.wish,.icon-btn,#mobileModeBtn):active{scale:none}
+  .pcard:hover,.matcard:hover,.mcard:hover{transform:none}
+}
+
+/* ===================== SOGLIE DI LEGGIBILITÀ =====================
+   Misurate sul telefono (390 px): testi descrittivi a 9–12 px ed etichette
+   a 8–10 px. Soglie: 13,5 px per ciò che si legge, 12 px per ciò che etichetta. */
+:root[data-mode] .page :is(
+  .tc-sub,.signature-benefit__words small,.maison-world__content small,.ingly-stock-disclaimer,
+  .atelier-configurator__fine,.mats-list span,.proj-hint,.shcard-desc,.xtool-lab-note,
+  .ingly-service-centre__squad,.ingly-service-centre__scope,.ingly-lab-fact__notice,
+  .ingly-m2-variant p,.lab-spec,.ingly-finder-note,.ingly-finder-selection,.ingly-finder-machine,
+  .ingly-finder-result p,.lancio-nota,.lancio-hero__prezzo small,.ingly-material-tile__body,
+  .ingly-material-tile__body small,.cat-agg__stato,.journey-link,.tc-name,.lab-n
+){font-size:max(13.5px,1em)!important;line-height:1.5}
+:root[data-mode] .page :is(
+  .eyebrow,.hero-tag span,.cnt,.mtype,.mcard-badge,.ingly-machine-photo__source,.machine-photo-label,
+  .atelier-configurator__prelabel,.atelier-configurator__preview-meta span,.ingly-lab-fact__index,
+  .ingly-photographic-lab__eyebrow,.ingly-finder-tile__state,.ingly-m2-variant__tag,.ingly-novita__badge,
+  .xtool-lab-art span,.signature-hero-assurance span,.shcard-cta,.lab-chip
+){font-size:max(12px,1em)!important}
+:root[data-mode] #techTicker :is(.tc-sub,.tc-name){font-size:12px!important}
+:root[data-mode] .page .ingly-finder-tile .ingly-finder-tile__state{font-size:12px!important}
+/* il testo subito sotto un titolo di sezione è un'introduzione: un gradino sopra il corpo */
+:root[data-mode] .page :is(section,.sec) :is(h2,.h2) + p:not(.sub){font-size:var(--t-lg);line-height:1.55;max-width:60ch;text-wrap:pretty}

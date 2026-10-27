@@ -306,3 +306,19 @@
  aspect-ratio:1597/602!important;object-fit:contain!important;
  object-position:left center!important;overflow:visible!important;
 }
+
+/* Admin in tema chiaro: voci del menu e pulsanti secondari leggibili
+   (prima testo crema su fondo chiaro, contrasto 1,1:1) */
+:root[data-mode="light"] .nit{color:#2a3446!important}
+:root[data-mode="light"] .nit.on{color:#111b2d!important;background:linear-gradient(90deg,rgba(184,134,50,.22),rgba(184,134,50,.06))!important}
+:root[data-mode="light"] .nit:hover{background:rgba(184,134,50,.10)!important}
+:root[data-mode="light"] .side :is(h4,h5,.nsec,.ngrp,small){color:#6b5a3e!important}
+:root[data-mode="light"] .btn:not(.pri):not(.err){background:#fff!important;color:#111b2d!important;border-color:rgba(17,27,45,.22)!important}
+:root[data-mode="light"] .btn:not(.pri):not(.err):hover{background:#f6f1e6!important}
+:root[data-mode="light"] .btn.pri{color:#1a1206!important}
+:root[data-mode="light"] .btn:disabled{opacity:.5}
+/* colori di stato leggibili su fondo chiaro */
+:root[data-mode="light"]{--ok:#17733d;--warn:#8a5600;--err:#b42318}
+:root[data-mode="light"] .chip.warn{background:#fff4dc!important;color:#7a4b00!important;border-color:#e2b866!important}
+:root[data-mode="light"] .chip.ok{background:#e7f6ec!important;color:#17733d!important}
+:root[data-mode="light"] .btn.err{background:#fff!important;color:#b42318!important;border-color:#e5a39b!important}

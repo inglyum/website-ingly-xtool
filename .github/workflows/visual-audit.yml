@@ -44,6 +44,10 @@ jobs:
           node-version: 20
       - name: Install local project dependencies
         run: npm install --no-audit --no-fund
+      - name: Test con il catalogo aperto (solo in questa copia, nessun commit)
+        # Lo stato «in aggiornamento» scelto dall'Admin nasconde tutti i prodotti:
+        # i controlli nel browser devono comunque verificare schede e catalogo.
+        run: node -e "const f='data/config.json',fs=require('fs');const c=JSON.parse(fs.readFileSync(f));delete c.catalogo;fs.writeFileSync(f,JSON.stringify(c,null,1))"
       - name: Build current source and prerendered routes before browser checks
         run: |
           npm run build

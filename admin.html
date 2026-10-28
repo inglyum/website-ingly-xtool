@@ -849,7 +849,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div class="row c3" id="heroPick" style="margin-top:8px"></div>
     </div>
     <div class="card"><h3>🎬 Video Hero (opzionale)</h3>
-      <label>URL video mp4 (vuoto = nessun video)</label><input type="url" id="heroVideo" data-b="CONFIG.heroVideo">
+      <label>Video mp4 (vuoto = nessun video)</label><div style="display:flex;gap:8px"><input type="text" id="heroVideo" data-b="CONFIG.heroVideo" placeholder="assets/videos/… oppure https://…/clip.mp4"><button class="btn" id="heroVideoUp" type="button">🎬 Carica video</button></div>
     </div>
     <div class="card"><h3>🏭 Visual della sezione «Chi siamo»</h3>
       <div class="hint">Il riquadro a destra di «Artigianato, guidato dai laser»: puoi lasciare il logo animato oppure mettere una tua foto o una clip video.</div>
@@ -860,7 +860,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
           <option value="video">Video / clip (mp4)</option></select></div>
         <div><label>&nbsp;</label><div style="display:flex;gap:8px"><button class="btn" id="abPick">📷 Carica immagine</button><button class="btn sm err" id="abClear">Rimuovi</button></div></div>
       </div>
-      <div id="abVideoRow" style="display:none"><label>URL del video mp4</label><input type="text" id="abVideo" placeholder="https://…/clip.mp4"></div>
+      <div id="abVideoRow" style="display:none"><label>Video mp4</label><div style="display:flex;gap:8px"><input type="text" id="abVideo" placeholder="assets/videos/… oppure https://…/clip.mp4"><button class="btn" id="abVideoUp" type="button">🎬 Carica video</button></div></div>
       <div id="abPrev" style="margin-top:10px"></div>
     </div>
     <div class="card"><h3>📊 Statistiche in Home</h3>
@@ -1875,6 +1875,25 @@ function restoreDraft(){
 
 /* ---------- utf8/base64 ---------- */
 function b64utf8(str){const b=new TextEncoder().encode(str);let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s)}
+/* Caricamento video (mp4/webm) direttamente dall'Admin: prima si poteva solo
+   incollare un indirizzo. Il file va in assets/videos/ e parte con la
+   prossima pubblicazione, insieme alle immagini in coda. */
+function caricaVideo(cb){const inp=document.createElement('input');inp.type='file';inp.accept='video/mp4,video/webm';
+ inp.onchange=async()=>{const f=inp.files&&inp.files[0];if(!f)return;
+  if(!/^video\/(mp4|webm)$/.test(f.type)){toast('Formato non supportato: usa MP4 o WEBM');return}
+  if(f.size>40*1024*1024){toast('Video troppo pesante ('+Math.round(f.size/1048576)+' MB): esportalo in 1080p, massimo 40 MB');return}
+  const ext=f.type==='video/webm'?'webm':'mp4';
+  const nome=(f.name.replace(/\.[^.]+$/,'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'video').slice(0,40);
+  const path='assets/videos/'+nome+'-'+Date.now().toString(36)+'.'+ext;
+  const buf=await f.arrayBuffer();
+  MEDIA.push({path,b64:b64buf(buf),url:URL.createObjectURL(f),size:buf.byteLength,w:0,h:0,hash:'',video:true});
+  markDirty();cb(path);toast('Video in coda ('+Math.round(f.size/1048576)+' MB): premi «Pubblica» per metterlo online')};
+ inp.click()}
+/* pulsanti «Carica video» di Home e scheda prodotto: il campo testo resta la
+   fonte (data-b / lettura al salvataggio), il pulsante lo riempie */
+document.addEventListener('click',e=>{const b=e.target.closest('#heroVideoUp,#ep_videoUp');if(!b)return;
+ const campo=$(b.id==='heroVideoUp'?'heroVideo':'ep_video');if(!campo)return;
+ caricaVideo(p=>{campo.value=p;campo.dispatchEvent(new Event('input',{bubbles:true}));campo.dispatchEvent(new Event('change',{bubbles:true}))})});
 function b64buf(buf){const b=new Uint8Array(buf);let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s)}
 async function sha1(buf){const h=await crypto.subtle.digest('SHA-1',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
@@ -2813,7 +2832,7 @@ function editProd(id){const p=S.P.find(x=>x.id===id);if(!p)return;
    <span class="hint" id="ep_aiStatus"></span>
   </div>
   <div class="row c2">
-   <div><label>🎬 Video del prodotto (URL mp4)</label><input type="url" id="ep_video" value="${esc(p.video||'')}" placeholder="https://…/prodotto.mp4"></div>
+   <div><label>🎬 Video del prodotto (mp4, YouTube o TikTok)</label><div style="display:flex;gap:8px"><input type="text" id="ep_video" value="${esc(p.video||'')}" placeholder="assets/videos/… oppure link"><button class="btn sm" id="ep_videoUp" type="button">🎬 Carica</button></div></div>
    <div><label>Poster del video (percorso immagine)</label><input type="text" id="ep_poster" value="${esc(p.poster||'')}" placeholder="img/${p.id}.webp"></div>
   </div>
   <div class="row c2"><div><label>Codice SKU (facoltativo)</label><input type="text" id="ep_sku" value="${esc(p.sku||'')}" placeholder="INGLY-${p.id}"></div>
@@ -4338,6 +4357,7 @@ function renderAbout(){const am=S.CONFIG.aboutMedia=S.CONFIG.aboutMedia||{tipo:'
   :(am.tipo==='video'&&am.src?`<div class="hint mono">${esc(am.src)}</div>`:'<div class="hint">Nessun media: resta il logo animato.</div>');
  $('abTipo').onchange=()=>{am.tipo=$('abTipo').value;if(am.tipo==='logo')am.src='';markDirty();renderAbout()};
  $('abVideo').oninput=()=>{am.src=$('abVideo').value;markDirty()};
+ $('abVideoUp').onclick=()=>caricaVideo(p=>{am.tipo='video';am.src=p;$('abVideo').value=p;renderAbout()});
  $('abPick').onclick=()=>pickImage('img/about',path=>{am.tipo='immagine';am.src=path;markDirty();renderAbout()},'about');
  $('abClear').onclick=()=>{MEDIA=MEDIA.filter(m=>m.path!==am.src);am.tipo='logo';am.src='';markDirty();renderAbout()}}
 

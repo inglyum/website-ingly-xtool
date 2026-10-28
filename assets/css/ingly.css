@@ -10226,3 +10226,4 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 #page-home .hero-video-bg video{width:100%;height:100%;object-fit:cover;display:block}
 #page-home .hero-video-velo{position:absolute;inset:0;background:rgba(8,12,22,.58)}
 :root[data-mode="light"] #page-home .hero-video-velo{background:rgba(248,247,244,.72)}
+:root[data-mode] :is(#techTicker .tc-sub,#techTicker .tc-badge,.atelier-configurator__register){font-family:var(--f-testo)!important}

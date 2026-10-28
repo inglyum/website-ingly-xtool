@@ -31,7 +31,7 @@ check('config.json ha i dati aziendali', !!cfg.datiLegali && !!cfg.spedizione);
 check('sede: Palermo', /Palermo/.test(d.sede || ''));
 check('P.IVA vuota → «in corso di attribuzione» (finché non c\'è)', d.piva ? true : /Partita IVA\s*in corso di attribuzione/.test(testo('dati-aziendali')));
 check('ogni dato è rinnovato all\'apertura da data/config.json (legale.js)', gen.every(g => g.html.includes('<script src="assets/js/legale.js" defer></script>')) && /data\/config\.json/.test(readFileSync('assets/js/legale.js', 'utf8')));
-check('le pagine usano il foglio del sito con la versione attuale', gen.every(g => g.html.includes(`assets/css/ingly.css?v=${JSON.parse(readFileSync('assets/css/ingly.manifest.json', 'utf8')).v}`)));
+check('le pagine usano il foglio del sito con la versione attuale', gen.every(g => g.html.includes(`assets/css/ingly.min.css?v=${JSON.parse(readFileSync('assets/css/ingly.manifest.json', 'utf8')).v}`)));
 
 console.log('\n=== PIÈ DI PAGINA ===');
 const doc = new JSDOM(html).window.document;

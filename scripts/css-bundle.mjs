@@ -40,12 +40,17 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const css = componi();
   const v = impronta(css);
   writeFileSync('assets/css/ingly.css', css);
+  /* Versione compressa servita ai visitatori (ingly.css resta leggibile: è
+     quella che i test e le persone leggono). Stesso contenuto, stessa
+     cascata: esbuild toglie solo commenti, spazi e doppioni identici. */
+  const min = (await import('esbuild')).transformSync(css, { loader: 'css', minify: true }).code;
+  writeFileSync('assets/css/ingly.min.css', min);
   writeFileSync('assets/css/ingly.manifest.json', JSON.stringify({ ordine: ORDINE.map(f => 'assets/css/' + f), v }, null, 2) + '\n');
   /* index.html punta sempre all'ultima versione: ?v= cambia quando cambia il CSS */
   for (const pagina of PAGINE) {
     const html = readFileSync(pagina, 'utf8');
-    const nuovo = html.replace(/<link rel="stylesheet" href="assets\/css\/ingly\.css(?:\?v=[a-f0-9]+)?">/, `<link rel="stylesheet" href="assets/css/ingly.css?v=${v}">`);
+    const nuovo = html.replace(/<link rel="stylesheet" href="assets\/css\/ingly(?:\.min)?\.css(?:\?v=[a-f0-9]+)?">/, `<link rel="stylesheet" href="assets/css/ingly.min.css?v=${v}">`);
     if (nuovo !== html) writeFileSync(pagina, nuovo);
   }
-  console.log(`✔ assets/css/ingly.css: ${ORDINE.length} fogli in ordine, ${Math.round(css.length / 1024)} kB, v=${v}`);
+  console.log(`✔ assets/css/ingly.css: ${ORDINE.length} fogli in ordine, ${Math.round(css.length / 1024)} kB → ingly.min.css ${Math.round(min.length / 1024)} kB, v=${v}`);
 }

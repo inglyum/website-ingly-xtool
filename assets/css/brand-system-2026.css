@@ -2131,3 +2131,32 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode] a.matcard{color:inherit;text-decoration:none}
 @media (max-width:640px){:root[data-mode] #page-about .matgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
  :root[data-mode] #page-about .matcard{padding:10px!important}}
+
+/* ===================== PACCHETTO C — EFFETTI =====================
+   Ombre, sfumature e vetro solo su ciò che galleggia davvero (menu, carrello,
+   barre fisse, finestre). Il resto si separa con il tono e lo spazio. */
+
+/* pulsante principale: oro pieno, nessun alone. Testo scuro (contrasto > 8:1) */
+:root[data-mode] .btn.btn-primary,:root[data-mode] .btn.pri,:root[data-mode] .nav-cta{
+  background:#d9b273!important;background-image:none!important;color:#1a1206!important;
+  border-color:transparent!important;box-shadow:none!important;
+}
+@media (hover:hover) and (pointer:fine){
+  :root[data-mode] .btn.btn-primary:hover,:root[data-mode] .btn.pri:hover,:root[data-mode] .nav-cta:hover{background:#e6c48c!important}
+}
+/* pulsanti secondari e di servizio: nessuna ombra a riposo */
+:root[data-mode] :is(.btn,.mode-btn,.scoll,.fbar-btn,.chip,.scp,.sat,.tab){box-shadow:none!important}
+
+/* vetro sfocato: via dagli elementi fermi della pagina */
+:root[data-mode] .page :is(.rcard,.mcard,.matcard,.dcard,.ttcard,.shcard,.pcard,.bcard,.scp,.chip,.sat,.scoll,.signature-benefits,.ingly-hero-steps,.vert-card,.lab-card,.lancio-conf__card){
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+/* il riquadro «Tu + INGLY» nell'hero: superficie piena, leggibile senza sfocatura */
+:root[data-mode="light"] #page-home .ingly-hero-steps{background:rgba(255,255,255,.94)!important;box-shadow:none!important;border-color:transparent!important}
+:root[data-mode="dark"] #page-home .ingly-hero-steps{background:rgba(9,14,26,.9)!important;box-shadow:none!important;border-color:transparent!important}
+
+/* immagini e contenitori di contenuto: niente ombra a riposo */
+:root[data-mode] .page :is(.about-media,.about-media--link,.atelier-configurator__preview,.ingly-machine-photo,.lancio-hero){box-shadow:none!important}
+
+/* ritmo continuo inutile: il puntino che pulsa sulle schede tecnologie */
+:root[data-mode] .mtype{animation:none!important}

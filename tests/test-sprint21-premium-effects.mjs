@@ -12,7 +12,7 @@ assert.match(loaderCss,/Sprint 21 premium preview/);
 assert.match(loaderCss,/\.ingly-loader-beam/);
 assert.match(js,/if\(!forcePreview\(\)\)/,'normal visits must bypass loader');
 assert.match(js,/maxMs:1250/);
-assert.match(js,/frameTimer=setTimeout\(\(\)=>finish\(\),1900\)/);
+assert.match(js,/frameTimer=setTimeout\(\(\)=>finish\(\),1500\)/);
 const d=new JSDOM(html).window.document;
 const imgs=[d.querySelector('#nav .brand-wordmark'),d.querySelector('footer .ft-col--brand .brand-wordmark'),d.querySelector('footer .ingly-footer-signature .brand-wordmark')];
 assert.ok(imgs.every(Boolean));

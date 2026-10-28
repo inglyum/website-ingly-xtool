@@ -1,6 +1,14 @@
 /* ============ FORMS (modulo) ============
-   Preventivo e newsletter: invio REALE via Formspree quando configurato
-   nell'admin (Contatti → Moduli). Senza ID configurato mostrano un avviso. */
+   Preventivo e newsletter: invio REALE all'email di INGLY.
+   - Formspree, se nell'Admin è configurato un ID (resta supportato);
+   - altrimenti FormSubmit (formsubmit.co): gratuito, senza account, accetta
+     allegati (~10 MB) e manda la richiesta all'email indicata in Admin →
+     Contatti → Moduli (di serie l'email del sito). La prima richiesta fa
+     arrivare a quell'email un messaggio di attivazione da confermare una volta.
+   L'invio FormSubmit è un normale invio di modulo (multipart, così viaggiano
+   anche i file); il servizio riporta il visitatore sul sito con ?inviato=1,
+   dove compare la conferma. Nessuna chiave segreta nel sito: l'indirizzo è
+   pubblico, e si può sostituire con il codice anonimo che FormSubmit fornisce. */
 import { $, T, toast, L } from './utils.js';
 import { quoteFallback } from './quote-lead-fallback.js';
 const { D, CONFIG } = window.INGLY;
@@ -15,9 +23,52 @@ const endpoint = k => {
   return id.startsWith('http') ? id : 'https://formspree.io/f/'+id;
 };
 
+/* destinatario FormSubmit: email o codice anonimo (stringa esadecimale) */
+const MAX_ALLEGATI = 10 * 1024 * 1024;
+export function destinatarioFormSubmit(cfg = CONFIG){
+  const m = (cfg && cfg.moduli) || {};
+  const d = String(m.email || (cfg && cfg.email) || '').trim();
+  if(/^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i.test(d) || /^[a-f0-9]{16,64}$/i.test(d)) return d;
+  return '';
+}
+function campoNascosto(form, nome, valore){
+  let el = form.querySelector('input[type="hidden"][name="'+nome+'"]');
+  if(!el){ el = document.createElement('input'); el.type = 'hidden'; el.name = nome; form.appendChild(el); }
+  el.value = valore;
+}
+function pesoAllegati(form){
+  let tot = 0;
+  form.querySelectorAll('input[type="file"]').forEach(i => [...(i.files || [])].forEach(f => { tot += f.size; }));
+  return tot;
+}
+
 async function send(form, key, okMsg, oggetto, options={}){
+  /* trappola anti-spam: un campo invisibile che solo i robot compilano */
+  const honey = form.querySelector('[name="_honey"]');
+  if(honey && honey.value){ toast(okMsg); form.reset(); return; }
+  if(pesoAllegati(form) > MAX_ALLEGATI){ toast(T('qfFileTroppo')); return; }
+
   const url=endpoint(key);
   if(!url){
+    const dest = destinatarioFormSubmit();
+    if(dest){
+      /* FormSubmit: invio classico, con ritorno sul sito e conferma */
+      const btn=form.querySelector('button[type="submit"],button:not([type])');
+      if(btn){ btn.disabled=true; btn.textContent=T('formsInvio'); }
+      const ritorno = new URL(location.href);
+      ritorno.searchParams.set(options.quote ? 'inviato' : 'iscritto', '1');
+      ritorno.hash = '';
+      campoNascosto(form, '_subject', oggetto || (options.quote ? 'INGLY — nuova richiesta di preventivo' : 'INGLY — nuova iscrizione alla newsletter'));
+      campoNascosto(form, '_template', 'table');
+      campoNascosto(form, '_captcha', 'false');
+      campoNascosto(form, '_next', ritorno.href);
+      campoNascosto(form, '_url', location.href);
+      form.method = 'POST';
+      form.enctype = 'multipart/form-data';
+      form.action = 'https://formsubmit.co/' + encodeURIComponent(dest);
+      HTMLFormElement.prototype.submit.call(form);
+      return;
+    }
     if(options.quote){quoteFallback(form,CONFIG,{business:!!options.business,language:L});return}
     toast(T('formsOff'));return;
   }
@@ -26,6 +77,7 @@ async function send(form, key, okMsg, oggetto, options={}){
   if(btn){ btn.disabled=true; btn.textContent='…' }
   try{
     const data=new FormData(form);
+    data.delete('_honey');
     data.append('_subject', oggetto || 'INGLY — nuova richiesta dal sito');
     const r=await fetch(url,{method:'POST',body:data,headers:{Accept:'application/json'}});
     if(!r.ok) throw 0;
@@ -36,6 +88,23 @@ async function send(form, key, okMsg, oggetto, options={}){
     else toast(T('formsErr'));
   }
   if(btn){ btn.disabled=false; btn.textContent=label }
+}
+
+/* Ritorno da FormSubmit: conferma visibile e indirizzo ripulito */
+function confermaRitorno(){
+  const q = new URLSearchParams(location.search);
+  const quale = q.get('inviato') === '1' ? 'qOkInviato' : (q.get('iscritto') === '1' ? 'nlOkInviato' : '');
+  if(!quale) return;
+  toast(T(quale));
+  const form = quale === 'qOkInviato' ? document.querySelector('form.quote-form') : null;
+  if(form && !form.parentElement.querySelector('.q-inviato')){
+    const p = document.createElement('p');
+    p.className = 'q-inviato'; p.setAttribute('role','status'); p.textContent = '✔ ' + T(quale);
+    form.parentElement.insertBefore(p, form);
+  }
+  q.delete('inviato'); q.delete('iscritto');
+  const pulito = location.pathname + (q.toString() ? '?' + q : '') + location.hash;
+  try{ history.replaceState(history.state, '', pulito); }catch(e){}
 }
 
 /* BREVO: tolto dal sito pubblico. Usava CONFIG.brevo.apiKey, cioè una chiave
@@ -96,6 +165,7 @@ export function initModoPreventivo(form){
 }
 
 export function initForms(){
+  confermaRitorno();
   document.querySelectorAll('form.nform').forEach(f=>f.addEventListener('submit',async e=>{
     e.preventDefault();
     const email=(f.querySelector('[type=email]')||{}).value||'';

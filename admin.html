@@ -1163,12 +1163,30 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
         <div><label>WhatsApp (link)</label><input type="url" data-b="CONFIG.whatsapp"></div>
       </div>
       <label>Copyright</label><input type="text" data-b="CONFIG.copyright">
+      <div class="card" id="fsCard" style="margin:14px 0;border:2px solid var(--accent)">
+        <h3 style="margin-top:0">📨 Preventivi e iscrizioni via email (FormSubmit)</h3>
+        <p class="hint">Gratis, senza account. Ogni preventivo (con gli allegati, fino a 10 MB) e ogni iscrizione alla newsletter arriva a questa email.</p>
+        <label>Email dove ricevere (o codice anonimo FormSubmit)</label>
+        <input type="text" id="fsEmail" data-b="CONFIG.moduli.email" placeholder="lascia vuoto per usare l'email qui sopra">
+        <ol class="hint" style="margin:10px 0 0 18px;line-height:1.7">
+          <li>Premi <b>«Invia richiesta di prova»</b>: si apre una scheda di FormSubmit.</li>
+          <li>Nella tua email arriva <b>«Action Required: Activate FormSubmit»</b> (guarda anche in Spam): premi <b>Activate Form</b>.</li>
+          <li>Rimanda una prova: ora la richiesta arriva nella casella. Poi metti la spunta qui sotto e pubblica.</li>
+          <li>Facoltativo: nella mail di attivazione FormSubmit ti dà un <b>codice anonimo</b>; incollalo sopra al posto dell'email, così l'indirizzo non compare nel codice del sito.</li>
+        </ol>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px">
+          <button type="button" class="btn pri" id="fsProva">✉️ Invia richiesta di prova</button>
+          <label style="display:flex;gap:8px;align-items:center;cursor:pointer"><input type="checkbox" id="fsAttivo" style="width:auto"> Ho confermato l'attivazione e la prova mi è arrivata</label>
+        </div>
+        <div class="hint" id="fsOut" style="margin-top:8px"></div>
+      </div>
+      <details><summary class="hint" style="cursor:pointer">Avanzate: usare Formspree al posto di FormSubmit</summary>
       <div class="row c2" style="margin-top:4px">
         <div><label>Formspree preventivi — privati</label><input type="text" data-b="CONFIG.moduli.formspreePreventivo"></div>
         <div><label>Formspree preventivi — aziende</label><input type="text" data-b="CONFIG.moduli.formspreePreventivoB2B" placeholder="lascia vuoto per usare la casella dei privati">
          <div class="hint" style="margin-top:4px">Le richieste aziendali (ragione sociale, P.IVA, quantità) hanno tempi e priorità diversi: una casella loro evita che finiscano in mezzo alle altre. Vuoto = arrivano insieme ai privati.</div></div>
         <div><label>Formspree newsletter (endpoint)</label><input type="text" data-b="CONFIG.moduli.formspreeNewsletter"></div>
-      </div>
+      </div></details>
     </div>
     <div class="card"><h3>💬 Pulsante WhatsApp del sito <span class="chip laser sp">visibile su tutte le pagine</span></h3>
       <div class="hint">Il pulsante verde flottante in basso a destra: porta direttamente alla tua chat WhatsApp.</div>
@@ -1895,6 +1913,17 @@ function caricaVideo(cb){const inp=document.createElement('input');inp.type='fil
 document.addEventListener('click',e=>{const b=e.target.closest('#heroVideoUp,#ep_videoUp');if(!b)return;
  const campo=$(b.id==='heroVideoUp'?'heroVideo':'ep_video');if(!campo)return;
  caricaVideo(p=>{campo.value=p;campo.dispatchEvent(new Event('input',{bubbles:true}));campo.dispatchEvent(new Event('change',{bubbles:true}))})});
+/* Contatti → Moduli: prova di invio FormSubmit e spunta di attivazione */
+document.addEventListener('click',e=>{const b=e.target.closest('#fsProva');if(!b)return;
+ const m=(S.CONFIG.moduli=S.CONFIG.moduli||{});const dest=String(m.email||S.CONFIG.email||'').trim();
+ if(!dest){$('fsOut').textContent='Scrivi prima un\'email (qui sopra o nel campo Email dei contatti).';return}
+ const f=document.createElement('form');f.method='POST';f.action='https://formsubmit.co/'+encodeURIComponent(dest);f.target='_blank';f.enctype='multipart/form-data';
+ const add=(k,v)=>{const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i)};
+ add('_subject','INGLY — richiesta di PROVA dal pannello Admin');add('_template','table');add('_captcha','false');
+ add('nome','Prova Admin');add('email',S.CONFIG.email||dest);add('descrizione','Questa è una richiesta di prova inviata dal pannello Admin per verificare che i preventivi arrivino.');
+ document.body.appendChild(f);f.submit();f.remove();
+ $('fsOut').innerHTML='Inviata a <b>'+esc(dest)+'</b>. Controlla la posta (anche Spam). La prima volta arriva la richiesta di attivazione: premi «Activate Form» e rimanda la prova.'});
+document.addEventListener('change',e=>{if(e.target.id!=='fsAttivo')return;(S.CONFIG.moduli=S.CONFIG.moduli||{}).attivato=e.target.checked;markDirty()});
 function b64buf(buf){const b=new Uint8Array(buf);let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s)}
 async function sha1(buf){const h=await crypto.subtle.digest('SHA-1',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
@@ -2191,7 +2220,7 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:bindAll,seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:()=>{bindAll();const c=$('fsAttivo');if(c)c.checked=!!(S.CONFIG.moduli&&S.CONFIG.moduli.attivato)},seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
@@ -2357,11 +2386,13 @@ function renderBloccanti(){
 
  /* 1. il modulo scollegato è il danno più grande: la richiesta del cliente
        non arriva a nessuno, e nessuno se ne accorge */
- if(!String(moduli.formspreePreventivo||'').trim())
-   v.push({g:'grave', t:'Il modulo preventivi non è collegato',
-     d:'Chi compila «Richiedi preventivo» riceve un avviso e la richiesta non arriva a nessuno.',
-     b:'Collega ora', go:'contacts'});
- if(!String(moduli.formspreeNewsletter||'').trim())
+ /* FormSubmit (email) collega preventivo e newsletter insieme; Formspree resta un'alternativa */
+ const fsDest=String(moduli.email||CFG.email||'').trim(), fsOk=!!fsDest&&moduli.attivato===true;
+ if(!String(moduli.formspreePreventivo||'').trim()&&!fsOk)
+   v.push({g:'grave', t:fsDest?'Il modulo preventivi via email aspetta la tua attivazione':'Il modulo preventivi non è collegato',
+     d:fsDest?'Le richieste partono verso '+fsDest+', ma FormSubmit le consegna solo dopo che hai premuto «Activate Form» nella email di attivazione.':'Chi compila «Richiedi preventivo» non raggiunge nessuno.',
+     b:'Attiva ora', go:'contacts'});
+ if(!String(moduli.formspreeNewsletter||'').trim()&&!fsOk&&!fsDest)
    v.push({g:'medio', t:'La newsletter non è collegata',
      d:'Le iscrizioni vengono scartate.', b:'Collega', go:'contacts'});
  /* le richieste aziendali valgono di più delle altre: se finiscono nella coda
@@ -4523,8 +4554,8 @@ function controlliLancio(st){
   R('Dati aziendali','Sede e indirizzo',pieno(D.sede)&&pieno(D.indirizzo),'contacts'),
   R('Dati aziendali','Email',/@/.test(String(D.email||'')),'contacts'),
   R('Dati aziendali','PEC',/@/.test(String(D.pec||'')),'contacts',false,'Consigliata nelle pagine legali.'),
-  R('Richieste dei clienti','Modulo preventivo (Formspree privati)',fs(M.formspreePreventivo),'contacts',true,'Senza, le richieste dal modulo non arrivano a nessuno.'),
-  R('Richieste dei clienti','Modulo newsletter (Formspree)',fs(M.formspreeNewsletter),'contacts',false),
+  R('Richieste dei clienti','Modulo preventivo (email FormSubmit o Formspree)',fs(M.formspreePreventivo)||M.attivato===true,'contacts',true,'Senza, le richieste dal modulo non arrivano a nessuno.'),
+  R('Richieste dei clienti','Modulo newsletter (email FormSubmit o Formspree)',fs(M.formspreeNewsletter)||M.attivato===true,'contacts',false),
   R('Richieste dei clienti','WhatsApp',/wa\.me\/\d{8,}/.test(String(C.whatsapp||'')),'contacts'),
   R('Spedizioni','Costo spedizione Italia',pieno(Sp.costoItalia),'contacts'),
   R('Spedizioni','Tempi di produzione e consegna',pieno(Sp.tempiProduzione)&&pieno(Sp.tempiConsegna),'contacts'),

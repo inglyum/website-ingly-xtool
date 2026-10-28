@@ -37,7 +37,7 @@ check('design-system.html esiste', existsSync('design-system.html'));
 const ds = existsSync('design-system.html') ? readFileSync('design-system.html', 'utf8') : '';
 const man = JSON.parse(readFileSync('assets/css/ingly.manifest.json', 'utf8'));
 check('è esclusa dai motori di ricerca', /<meta name="robots" content="noindex, nofollow">/.test(ds));
-check('usa lo stesso foglio del sito, versione attuale', ds.includes(`href="assets/css/ingly.css?v=${man.v}"`));
+check('usa lo stesso foglio del sito, versione attuale', ds.includes(`href="assets/css/ingly.min.css?v=${man.v}"`));
 check('non è nella sitemap', !readFileSync('sitemap.xml', 'utf8').includes('design-system'));
 
 console.log(`\n=========== DESIGN SYSTEM: ${pass} passati, ${fail} falliti ===========`);

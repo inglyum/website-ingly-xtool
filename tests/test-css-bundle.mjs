@@ -22,9 +22,10 @@ check('brand-system-2026.css resta l\'ultimo (autorità del marchio)', ORDINE[OR
 console.log('\n=== INDEX.HTML CARICA SOLO IL BUNDLE ===');
 const locali = [...new JSDOM(html).window.document.querySelectorAll('link[rel="stylesheet"]')].map(l => l.getAttribute('href')).filter(h => !/^https?:/.test(h));
 check('un solo foglio locale', locali.length === 1, locali.join(', '));
-check('…ed è ingly.css con la versione attuale (la cache del browser si rinnova)', locali[0] === `assets/css/ingly.css?v=${man.v}`, locali[0]);
+check('…ed è ingly.min.css con la versione attuale (la cache del browser si rinnova)', locali[0] === `assets/css/ingly.min.css?v=${man.v}`, locali[0]);
 check('i data-URI restano tra apici singoli (regola 14: nessuna minificazione)', !/url\("data:image\/svg\+xml/.test(bundle.replace(/\/\*[\s\S]*?\*\//g, '')) || bundle.split('url("data:').length === componi().split('url("data:').length);
-check('il service worker mette in cache il bundle', /via\('assets\/css\/ingly\.css'\)/.test(readFileSync('sw.js', 'utf8')));
+check('il service worker mette in cache il bundle compresso', /via\('assets\/css\/ingly\.min\.css'\)/.test(readFileSync('sw.js', 'utf8')));
+check('ingly.min.css esiste ed è più leggero di ingly.css', existsSync('assets/css/ingly.min.css') && readFileSync('assets/css/ingly.min.css','utf8').length < bundle.length * 0.95);
 check('npm run build rigenera il bundle', /scripts\/css-bundle\.mjs/.test(readFileSync('scripts/build.mjs', 'utf8')));
 
 console.log(`\n=========== CSS BUNDLE: ${pass} passati, ${fail} falliti ===========`);

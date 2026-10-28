@@ -86,7 +86,7 @@ export function genera() {
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <script>(function(){try{var m=localStorage.getItem("ingly_mode");if(m==="dark"||m==="light")document.documentElement.dataset.mode=m}catch(e){}})();</script>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/ingly.css?v=${man.v}">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=${man.v}">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 <style>
  html,body{background:var(--brand-bg);color:var(--brand-ink)}

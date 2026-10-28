@@ -9,7 +9,7 @@ const pieno = f => (String(f).startsWith('assets/') ? String(f) : 'assets/css/' 
 /** i fogli caricati dalla vetrina, nell'ordine in cui si applicano */
 export const FOGLI = man.ordine;
 /** il bundle è davvero caricato da index.html, con la versione attuale */
-export const bundleCaricato = html.includes(`href="assets/css/ingly.css?v=${man.v}"`);
+export const bundleCaricato = html.includes(`href="assets/css/ingly.min.css?v=${man.v}"`);
 export const caricato = f => bundleCaricato && FOGLI.includes(pieno(f));
 export const posizione = f => FOGLI.indexOf(pieno(f));
 export const ultimo = () => FOGLI[FOGLI.length - 1];

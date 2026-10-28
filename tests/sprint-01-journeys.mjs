@@ -100,6 +100,9 @@ try{
    await p.waitForFunction(()=>!!document.querySelector('#v-dash.on'),undefined,{timeout:15000});
    await p.locator('#maisonManageMedia').click();
    await p.waitForFunction(()=>!!document.querySelector('#v-media.on'),undefined,{timeout:10000});
+   /* sul telefono il menu dell'Admin si apre con «☰ Menu», come farebbe una persona */
+   const menuBtn=p.locator('#admMenuBtn');
+   if(await menuBtn.isVisible().catch(()=>false)) await menuBtn.click();
    await p.locator('#nav .nit[data-go="prod"]').click();
    await p.waitForFunction(()=>!!document.querySelector('#v-prod.on'),undefined,{timeout:10000});
   });

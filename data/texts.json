@@ -203,7 +203,13 @@
     "catAggLab": "Lab xTool",
     "catAggWaMsg": "Ciao INGLY, ho visto che il catalogo è in aggiornamento: vorrei informazioni su ",
     "aboutGuardaVideo": "Guarda il video",
-    "aboutFotoAlt": "Ritratto inciso su legno nel laboratorio INGLY"
+    "aboutFotoAlt": "Ritratto inciso su legno nel laboratorio INGLY",
+    "qfFile": "Oppure allega i file",
+    "qfFileNota": "Logo, foto o disegno: fino a 10 MB in tutto.",
+    "qfFileTroppo": "Gli allegati superano 10 MB: usa un link (Drive, WeTransfer) nel campo sopra.",
+    "qOkInviato": "Richiesta inviata! Ti rispondiamo entro un giorno lavorativo.",
+    "nlOkInviato": "Iscrizione ricevuta, grazie!",
+    "formsInvio": "Invio in corso…"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -409,7 +415,13 @@
     "catAggLab": "xTool Lab",
     "catAggWaMsg": "Hi INGLY, I saw the catalogue is being updated: I'd like information about ",
     "aboutGuardaVideo": "Watch the video",
-    "aboutFotoAlt": "Portrait engraved on wood in the INGLY workshop"
+    "aboutFotoAlt": "Portrait engraved on wood in the INGLY workshop",
+    "qfFile": "Or attach your files",
+    "qfFileNota": "Logo, photo or drawing: up to 10 MB in total.",
+    "qfFileTroppo": "Attachments exceed 10 MB: please use a link (Drive, WeTransfer) in the field above.",
+    "qOkInviato": "Request sent! We reply within one working day.",
+    "nlOkInviato": "Subscription received, thank you!",
+    "formsInvio": "Sending…"
   },
   "wOpen": {
     "it": "Apri Wishlist",

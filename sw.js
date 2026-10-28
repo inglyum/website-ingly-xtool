@@ -30,7 +30,7 @@
 const BASE = new URL('./', self.location).pathname;
 const via  = p => BASE + String(p).replace(/^\/+/, '');
 
-const CACHE_VER   = 'ingly-v18';
+const CACHE_VER   = 'ingly-v19';
 const CACHE_ASSETS= CACHE_VER + '-assets';
 const CACHE_DATA  = CACHE_VER + '-data';
 const CACHE_IMG   = CACHE_VER + '-img';
@@ -39,7 +39,7 @@ const CACHE_IMG   = CACHE_VER + '-img';
 const PRECACHE = [
   via(''),
   via('index.html'),
-  via('assets/css/ingly.css'),
+  via('assets/css/ingly.min.css'),
   via('assets/js/app.js'),
   via('assets/js/data-loader.js'),
   via('assets/js/main.js'),

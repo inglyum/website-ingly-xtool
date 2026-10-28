@@ -244,9 +244,11 @@ check('il permalink Instagram non viene trattato come file video',
   fallbackJs.includes('mp4|webm|ogv') && fallbackJs.includes('loadeddata')
   && fallbackJs.includes('prefers-reduced-motion: reduce'));
 const videoReady = fallbackJs.indexOf('loadeddata');
-const videoHide = fallbackJs.indexOf('style.display="none"', videoReady);
-check('il video nasconde il logo solo dopo aver caricato un frame',
-  videoReady >= 0 && videoHide > videoReady && videoHide - videoReady < 200);
+/* il video dell'hero si mostra (classe hero--video) solo dopo il primo fotogramma:
+   prima resta visibile la foto o lo sfondo, mai un riquadro vuoto */
+const videoShow = fallbackJs.indexOf('hero--video', videoReady);
+check('il video si mostra solo dopo aver caricato un frame',
+  videoReady >= 0 && videoShow > videoReady && videoShow - videoReady < 200);
 check('HTML e service worker usano la stessa versione cache',
   !!cacheWant && cacheWant === cacheVer, cacheWant + ' / ' + cacheVer);
 check('tessera Materiali porta alla sezione Materiali',

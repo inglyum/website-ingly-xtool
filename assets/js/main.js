@@ -26,26 +26,28 @@ import * as PREZZI from './prezzi.js';
 
 /* ---- config → DOM ---- */
 function initHeroVideo(){
+  /* Video di sfondo dell'hero: Admin → Home & Hero → «Video Hero».
+     Prima cercava un elemento (.coin-scene) che non esiste più nella home
+     attuale, e il video caricato non compariva mai. Ora va dietro l'hero,
+     sotto lo stesso velo della foto di sfondo, che tiene leggibile il testo.
+     Solo file video veri (mp4/webm): un link a un post social non è un video. */
   const url=(CONFIG.heroVideo||'').trim();
-  const scene=document.querySelector('.coin-scene');
-  if(!url || !scene) return;
-  /* Il pannello Admin può contenere un permalink Instagram o YouTube.
-     Una pagina HTML non è un media <video>: in quel caso manteniamo il logo. */
-  const diretto=/\.(?:mp4|webm|ogv)(?:[?#]|$)/i.test(url)
-    || /^(?:blob:|data:video\/)/i.test(url);
+  const hero=document.querySelector('#page-home .signature-hero');
+  if(!url || !hero || hero.querySelector('.hero-video-bg')) return;
+  const diretto=/\.(?:mp4|webm|ogv)(?:[?#]|$)/i.test(url) || /^(?:blob:|data:video\/)/i.test(url);
   if(!diretto) return;
   const reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
+  const risparmio=navigator.connection && navigator.connection.saveData;
+  if(reduce || risparmio) return;   /* resta la foto o lo sfondo statico */
+  const box=document.createElement('div'); box.className='hero-video-bg'; box.setAttribute('aria-hidden','true');
   const v=document.createElement('video');
-  v.className='hero-video'; v.muted=true; v.playsInline=true; v.loop=true; v.preload='metadata';
-  v.setAttribute('aria-hidden','true');
-  v.addEventListener('loadeddata',()=>{
-    scene.classList.add('hero-video-ready');
-    scene.style.display='none';
-  },{once:true});
-  v.addEventListener('error',()=>v.remove(),{once:true});
-  v.src=url;
-  scene.parentNode.insertBefore(v, scene);
+  v.muted=true; v.playsInline=true; v.loop=true; v.autoplay=true; v.preload='metadata';
+  v.setAttribute('muted',''); v.setAttribute('playsinline','');
+  v.addEventListener('loadeddata',()=>hero.classList.add('hero--video'),{once:true});
+  v.addEventListener('error',()=>box.remove(),{once:true});
+  v.src=new URL(url,document.baseURI).href;
+  box.appendChild(v); box.insertAdjacentHTML('beforeend','<span class="hero-video-velo"></span>');
+  hero.prepend(box);
   try{ const p=v.play&&v.play(); if(p&&p.catch) p.catch(()=>{}); }catch(e){}
 }
 

@@ -363,6 +363,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 <div class="footbar">Fonte di verità: <span class="mono">data/*.json</span> · commit atomici</div>
 <div class="main">
   <div class="top" data-component="admin-topbar">
+    <button type="button" class="btn adm-menu-btn" id="admMenuBtn" aria-controls="nav" aria-expanded="false">☰ Menu</button>
     <h1 id="vtitle">Dashboard</h1>
     <div class="sync" data-go="pub" role="button" tabindex="0" title="Vai a Pubblica" style="cursor:pointer"><span class="dot" id="syncDot"></span><span id="syncTxt">caricamento…</span></div>
     <button type="button" class="btn admin-theme-switch" id="adminThemeSwitch" aria-label="Attiva modalità chiara" aria-pressed="false">☀ Chiaro</button>
@@ -2082,13 +2083,22 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
  for(const k in map){const url=S.CONFIG.social&&S.CONFIG.social[k];const row=S.SOCIALS.find(r=>r[0]===map[k]);if(row&&url)row[1]=url}}
 
 /* ---------- navigazione ---------- */
-const NAV=[['Panoramica',[['dash','📊','Dashboard'],['lancio','✅','Pronto al lancio']]],
- ['Catalogo',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['dig','💾','Digitali'],['prezzi','🏷','Prezzi in vetrina']]],
- ['Creative Tools',[['generators','✳','Generatori INGLY']]],
- ['Contenuti',[['media','🖼','Media Library'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['tech','🔥','Tecnologie'],['lab','🧪','Lab: materiali, macchine, corsi'],['sochub','📱','Social Hub'],['hero','🎯','Home & Hero'],['texts','✍️','Testi IT/EN'],['faq','❓','FAQ & Recensioni'],['adv','🧩','Avanzate']]],
- ['Configurazione',[['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['bg','🎨','Sfondo Sito'],['set','⚙️','Impostazioni']]],
- ['Sistema',[['pub','🚀','Pubblica & Deploy'],['hist','🕘','Cronologia'],['health','🩺','Health Center'],['backup','💾','Backup']]]];
+/* Menu in 4 gruppi (prima 6 gruppi e 27 voci sparse). L'ordine segue il lavoro
+   di tutti i giorni: controllo e pubblico → negozio → pagine del sito → impostazioni. */
+const NAV=[['Inizio',[['dash','📊','Dashboard'],['pub','🚀','Pubblica & Deploy'],['lancio','✅','Pronto al lancio']]],
+ ['Negozio',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['prezzi','🏷','Prezzi in vetrina'],['dig','💾','Digitali'],['generators','✳','Generatori INGLY']]],
+ ['Pagine del sito',[['hero','🎯','Home & Hero'],['media','🖼','Media Library'],['lab','🧪','Lab: materiali, macchine, corsi'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['tech','🔥','Tecnologie'],['faq','❓','FAQ & Recensioni'],['texts','✍️','Testi IT/EN'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['bg','🖌','Sfondo Sito'],['sochub','📱','Social Hub']]],
+ ['Impostazioni',[['set','⚙️','Impostazioni'],['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['hist','🕘','Cronologia'],['backup','💾','Backup'],['health','🩺','Health Center'],['adv','🧩','Avanzate']]]];
 const TITLES={};let VIEW='dash';
+/* Telefono: il menu laterale diventa un pannello che si apre con «☰ Menu»,
+   con i nomi delle voci (prima solo 27 icone in una colonna stretta). */
+(function(){const btn=document.getElementById('admMenuBtn');if(!btn)return;
+ const chiudi=()=>{document.body.classList.remove('adm-menu-open');btn.setAttribute('aria-expanded','false')};
+ btn.addEventListener('click',()=>{const on=!document.body.classList.contains('adm-menu-open');document.body.classList.toggle('adm-menu-open',on);btn.setAttribute('aria-expanded',String(on))});
+ document.addEventListener('click',e=>{if(!document.body.classList.contains('adm-menu-open'))return;if(e.target.closest('.nit')||e.target.classList.contains('adm-menu-velo'))chiudi()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')chiudi()});
+ const velo=document.createElement('div');velo.className='adm-menu-velo';document.body.appendChild(velo);
+})();
 $('nav').innerHTML=NAV.map(([g,items])=>`<div class="navlabel">${g}</div>`+items.map(([id,ic,t])=>{TITLES[id]=t;return `<button class="nit" data-go="${id}"><span>${ic}</span><span class="t">${t}</span>${id==='pub'?'<span class="bdg" id="navPubN"></span>':''}</button>`}).join('')).join('');
 /* Read-only audit inspired by the supplied eCommerce-Skills pack.
    Native INGLY catalog checks; no data mutation, metrics guesswork or blocking.

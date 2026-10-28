@@ -322,3 +322,21 @@
 :root[data-mode="light"] .chip.warn{background:#fff4dc!important;color:#7a4b00!important;border-color:#e2b866!important}
 :root[data-mode="light"] .chip.ok{background:#e7f6ec!important;color:#17733d!important}
 :root[data-mode="light"] .btn.err{background:#fff!important;color:#b42318!important;border-color:#e5a39b!important}
+
+/* ===== Menu Admin sul telefono: pannello con i nomi delle voci ===== */
+.adm-menu-btn{display:none!important}
+.adm-menu-velo{display:none}
+@media (max-width:900px){
+  .adm-menu-btn{display:inline-flex!important;min-height:44px}
+  :root[data-mode] .shell .side{position:fixed!important;top:0;left:0;bottom:0;z-index:1200;width:min(320px,86vw)!important;flex-basis:auto!important;
+    transform:translateX(-102%);transition:transform 240ms cubic-bezier(.23,1,.32,1)!important;padding:16px 12px 40px!important}
+  :root[data-mode] body.adm-menu-open .shell .side{transform:none!important}
+  :root[data-mode] .shell .side :is(.navlabel,.nit span.t,.brand b,.brand span){display:revert!important}
+  :root[data-mode] .shell .side .nit{min-height:44px;width:100%;justify-content:flex-start;gap:10px}
+  .footbar,#sideToggle{display:none!important}
+  body.adm-menu-open .adm-menu-velo{display:block;position:fixed;inset:0;z-index:1100;background:rgba(5,8,16,.5)}
+  :root[data-mode] .main{margin-left:0!important;width:100%!important}
+  :root[data-mode] .top{flex-wrap:wrap;gap:8px}
+  :root[data-mode] .top h1{font-size:20px!important;flex:1 1 auto}
+}
+@media (max-width:900px) and (prefers-reduced-motion:reduce){:root[data-mode] .shell .side{transition:none!important}}

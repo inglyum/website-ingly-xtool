@@ -2160,3 +2160,15 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 
 /* ritmo continuo inutile: il puntino che pulsa sulle schede tecnologie */
 :root[data-mode] .mtype{animation:none!important}
+
+/* ===================== PACCHETTO D — TESTI DEL CATALOGO =====================
+   Shop e scheda prodotto: etichette a 10–11 px, spesso in maiuscoletto
+   spaziato. Ora testo normale a misura leggibile; il maiuscolo resta solo
+   nei badge brevi («Nuovo», «Best»). */
+:root[data-mode] .page .pbody .mat{font-size:13px!important;letter-spacing:0!important;text-transform:none!important;line-height:1.4}
+:root[data-mode] .page .pimg .ptag,:root[data-mode] .page .pp-badges .pp-badge{font-size:12px!important;letter-spacing:.04em!important}
+:root[data-mode] .page :is(.scp-c,.scoll-et){font-size:12.5px!important}
+:root[data-mode] #page-product :is(.pp-zoomhint,.pp-pers-info span,.pp-material-name,.pp-material-chips span){font-size:13px!important;letter-spacing:0!important;text-transform:none!important}
+:root[data-mode] #page-product :is(.product-contact-note,.pp-material-description,.pp-material-foot){font-size:13.5px!important;line-height:1.5}
+:root[data-mode] #page-product .pp-material-kicker{display:none!important}
+:root[data-mode] .page .scoll-et{text-transform:none!important;letter-spacing:0!important}

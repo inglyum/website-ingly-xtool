@@ -120,14 +120,14 @@
       stop();
       overlay.classList.add('ingly-loader-finished');
       root.classList.remove('ingly-loader-lock');
-      const delay=reduce?0:240;
+      const delay=reduce?0:120;
       setTimeout(()=>{
         overlay.classList.add('out');
         setTimeout(()=>{
           overlay.classList.add('gone','off');
           overlay.hidden=true;
           document.dispatchEvent(new Event('ingly:ready'));
-        },reduce?280:1000);
+        },reduce?200:400);   /* uscita rapida: chi arriva vuole il sito, non la schermata */
       },delay);
     };
     const onMaintenance=()=>immediate();
@@ -137,7 +137,7 @@
       options={...DEFAULT,...(config.loader||{})};
       try{sessionStorage.setItem('ingly_loader_config_v3',JSON.stringify(options))}catch(_){};
       minMs=clamp(options.minMs,500,1400);
-      maxMs=clamp(options.maxMs,minMs,1800);
+      maxMs=clamp(options.maxMs,minMs,1400);
       if(options.enabled===false&&!override){immediate();return}
       markTheme();displayMessages();buildHeading();
       if(!override&&options.oncePerSession!==false&&hasSeen()){immediate();return}
@@ -244,7 +244,7 @@
     skip.addEventListener('click',()=>finish(),{once:true});
     frameId=requestAnimationFrame(step);
     // Guaranteed exit even if the document never finishes loading.
-    frameTimer=setTimeout(()=>finish(),1900);
+    frameTimer=setTimeout(()=>finish(),1500);
   };
   if(document.readyState==='loading')
     document.addEventListener('DOMContentLoaded',onReady,{once:true});

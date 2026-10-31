@@ -1166,14 +1166,28 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div class="card" id="fsCard" style="margin:14px 0;border:2px solid var(--accent)">
         <h3 style="margin-top:0">📨 Preventivi e iscrizioni via email (FormSubmit)</h3>
         <p class="hint">Gratis, senza account. Ogni preventivo (con gli allegati, fino a 10 MB) e ogni iscrizione alla newsletter arriva a questa email.</p>
-        <label>Email dove ricevere (o codice anonimo FormSubmit)</label>
+        <label>Email dove ricevere</label>
         <input type="text" id="fsEmail" data-b="CONFIG.moduli.email" placeholder="lascia vuoto per usare l'email qui sopra">
         <ol class="hint" style="margin:10px 0 0 18px;line-height:1.7">
           <li>Premi <b>«Invia richiesta di prova»</b>: si apre una scheda di FormSubmit.</li>
           <li>Nella tua email arriva <b>«Action Required: Activate FormSubmit»</b> (guarda anche in Spam): premi <b>Activate Form</b>.</li>
           <li>Rimanda una prova: ora la richiesta arriva nella casella. Poi metti la spunta qui sotto e pubblica.</li>
-          <li>Facoltativo: nella mail di attivazione FormSubmit ti dà un <b>codice anonimo</b>; incollalo sopra al posto dell'email, così l'indirizzo non compare nel codice del sito.</li>
+          <li>Facoltativo: dopo l'attivazione FormSubmit ti dà un <b>codice segreto</b> (una lunga sequenza di lettere e numeri): incollalo nel campo qui sotto, così l'indirizzo non compare nel codice del sito.</li>
         </ol>
+        <label style="margin-top:12px">🔒 Codice segreto FormSubmit (facoltativo)</label>
+        <input type="text" id="fsCodice" data-b="CONFIG.moduli.codice" placeholder="es. 6f1c… (16–64 lettere e numeri)" autocomplete="off" spellcheck="false">
+        <div class="hint" id="fsDest" style="margin-top:4px"></div>
+        <fieldset style="margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px">
+          <legend style="padding:0 6px;font-weight:700">↩️ Risposta automatica al cliente</legend>
+          <label style="display:flex;gap:8px;align-items:center;cursor:pointer;margin:0"><input type="checkbox" id="fsAuto" style="width:auto"> Invia subito una email di conferma a chi scrive</label>
+          <div class="hint" style="margin:6px 0 10px">FormSubmit la manda solo se resta attiva la sua verifica «non sono un robot»: con la risposta accesa, dopo «Invia» il cliente vede un clic di verifica e poi torna sul sito. Campi vuoti = testo di serie.</div>
+          <div class="row c2">
+            <div><label>Preventivo — italiano</label><textarea rows="3" data-b="CONFIG.moduli.rispostaAuto.preventivo.it" placeholder="Ciao! Abbiamo ricevuto la tua richiesta di preventivo…"></textarea></div>
+            <div><label>Preventivo — inglese</label><textarea rows="3" data-b="CONFIG.moduli.rispostaAuto.preventivo.en" placeholder="Hi! We have received your quote request…"></textarea></div>
+            <div><label>Newsletter — italiano</label><textarea rows="3" data-b="CONFIG.moduli.rispostaAuto.newsletter.it" placeholder="Grazie per esserti iscritto alla newsletter…"></textarea></div>
+            <div><label>Newsletter — inglese</label><textarea rows="3" data-b="CONFIG.moduli.rispostaAuto.newsletter.en" placeholder="Thank you for subscribing…"></textarea></div>
+          </div>
+        </fieldset>
         <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px">
           <button type="button" class="btn pri" id="fsProva">✉️ Invia richiesta di prova</button>
           <label style="display:flex;gap:8px;align-items:center;cursor:pointer"><input type="checkbox" id="fsAttivo" style="width:auto"> Ho confermato l'attivazione e la prova mi è arrivata</label>
@@ -1914,15 +1928,27 @@ document.addEventListener('click',e=>{const b=e.target.closest('#heroVideoUp,#ep
  const campo=$(b.id==='heroVideoUp'?'heroVideo':'ep_video');if(!campo)return;
  caricaVideo(p=>{campo.value=p;campo.dispatchEvent(new Event('input',{bubbles:true}));campo.dispatchEvent(new Event('change',{bubbles:true}))})});
 /* Contatti → Moduli: prova di invio FormSubmit e spunta di attivazione */
+const FS_RE_EMAIL=/^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i,FS_RE_COD=/^[A-Za-z0-9]{16,64}$/;
+/* stessa scelta del sito (assets/js/forms.js → destinatarioFormSubmit) */
+function fsDestinatario(){const m=S.CONFIG.moduli||{},c=String(m.codice||'').trim();if(FS_RE_COD.test(c))return{d:c,tipo:'codice'};
+ const e=String(m.email||S.CONFIG.email||'').trim();return (FS_RE_EMAIL.test(e)||FS_RE_COD.test(e))?{d:e,tipo:FS_RE_COD.test(e)?'codice':'email'}:{d:'',tipo:''}}
+function fsAutoAttiva(){const r=(S.CONFIG.moduli||{}).rispostaAuto||{};return !(r.attiva===false||r.attiva==='false')}
+function fsStato(){const o=$('fsDest');if(!o)return;const c=String((S.CONFIG.moduli||{}).codice||'').trim(),x=fsDestinatario();
+ if(c&&!FS_RE_COD.test(c)){o.innerHTML='⚠️ Il codice non sembra giusto (servono 16–64 lettere e numeri, senza spazi). Finché non è corretto si usa <b>'+esc(x.d||'nessuna email')+'</b>.';return}
+ o.innerHTML=x.d?('Le richieste arrivano a: <b>'+(x.tipo==='codice'?'🔒 codice segreto (indirizzo nascosto)':esc(x.d))+'</b>'):'⚠️ Nessuna email valida: scrivila qui sopra.'}
+document.addEventListener('input',e=>{const t=e.target;if(t.id==='fsCodice'||t.id==='fsEmail'||(t.dataset&&t.dataset.b==='CONFIG.email'))setTimeout(fsStato,0)});
+document.addEventListener('change',e=>{if(e.target.id!=='fsAuto')return;const m=(S.CONFIG.moduli=S.CONFIG.moduli||{});(m.rispostaAuto=m.rispostaAuto||{}).attiva=e.target.checked;markDirty()});
 document.addEventListener('click',e=>{const b=e.target.closest('#fsProva');if(!b)return;
- const m=(S.CONFIG.moduli=S.CONFIG.moduli||{});const dest=String(m.email||S.CONFIG.email||'').trim();
+ const dest=fsDestinatario().d;
  if(!dest){$('fsOut').textContent='Scrivi prima un\'email (qui sopra o nel campo Email dei contatti).';return}
  const f=document.createElement('form');f.method='POST';f.action='https://formsubmit.co/'+encodeURIComponent(dest);f.target='_blank';f.enctype='multipart/form-data';
  const add=(k,v)=>{const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i)};
- add('_subject','INGLY — richiesta di PROVA dal pannello Admin');add('_template','table');add('_captcha','false');
- add('nome','Prova Admin');add('email',S.CONFIG.email||dest);add('descrizione','Questa è una richiesta di prova inviata dal pannello Admin per verificare che i preventivi arrivino.');
+ add('_subject','INGLY — richiesta di PROVA dal pannello Admin');add('_template','table');
+ const ra=(S.CONFIG.moduli&&S.CONFIG.moduli.rispostaAuto&&S.CONFIG.moduli.rispostaAuto.preventivo&&S.CONFIG.moduli.rispostaAuto.preventivo.it)||'Ciao! Abbiamo ricevuto la tua richiesta di preventivo: ti rispondiamo entro un giorno lavorativo. (Questa è la risposta automatica di PROVA.)';
+ if(fsAutoAttiva())add('_autoresponse',ra);else add('_captcha','false');
+ add('nome','Prova Admin');add('email',S.CONFIG.email||'');add('descrizione','Questa è una richiesta di prova inviata dal pannello Admin per verificare che i preventivi arrivino.');
  document.body.appendChild(f);f.submit();f.remove();
- $('fsOut').innerHTML='Inviata a <b>'+esc(dest)+'</b>. Controlla la posta (anche Spam). La prima volta arriva la richiesta di attivazione: premi «Activate Form» e rimanda la prova.'});
+ $('fsOut').innerHTML='Inviata'+(fsDestinatario().tipo==='codice'?' con il codice segreto':' a <b>'+esc(dest)+'</b>')+'. Controlla la posta (anche Spam). La prima volta arriva la richiesta di attivazione: premi «Activate Form» e rimanda la prova.'+(fsAutoAttiva()?' Con la risposta automatica accesa, nella scheda di FormSubmit premi la verifica «non sono un robot»: poi ti arrivano sia la richiesta sia la risposta automatica di prova.':'')});
 document.addEventListener('change',e=>{if(e.target.id!=='fsAttivo')return;(S.CONFIG.moduli=S.CONFIG.moduli||{}).attivato=e.target.checked;markDirty()});
 function b64buf(buf){const b=new Uint8Array(buf);let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s)}
 async function sha1(buf){const h=await crypto.subtle.digest('SHA-1',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
@@ -2220,7 +2246,7 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:()=>{bindAll();const c=$('fsAttivo');if(c)c.checked=!!(S.CONFIG.moduli&&S.CONFIG.moduli.attivato)},seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:()=>{bindAll();const c=$('fsAttivo');if(c)c.checked=!!(S.CONFIG.moduli&&S.CONFIG.moduli.attivato);const a=$('fsAuto');if(a)a.checked=fsAutoAttiva();fsStato()},seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');

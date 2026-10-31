@@ -209,7 +209,15 @@
     "qfFileTroppo": "Gli allegati superano 10 MB: usa un link (Drive, WeTransfer) nel campo sopra.",
     "qOkInviato": "Richiesta inviata! Ti rispondiamo entro un giorno lavorativo.",
     "nlOkInviato": "Iscrizione ricevuta, grazie!",
-    "formsInvio": "Invio in corso…"
+    "formsInvio": "Invio in corso…",
+    "qAutoRisposta": "Ciao! Abbiamo ricevuto la tua richiesta di preventivo: la leggiamo con attenzione e ti rispondiamo entro un giorno lavorativo. Se ti viene in mente un dettaglio o vuoi mandarci altre foto, scrivici su WhatsApp dal sito. Grazie, INGLY DESIGN",
+    "nlAutoRisposta": "Grazie per esserti iscritto alla newsletter di INGLY DESIGN! Ti scriveremo per novità e nuove collezioni, senza riempirti la casella. Puoi cancellarti quando vuoi rispondendo a una delle nostre email.",
+    "qWaBtn": "Scrivici anche su WhatsApp",
+    "qWaIntro": "Ciao INGLY! Ho appena inviato una richiesta di preventivo dal sito.",
+    "qWaNome": "Nome",
+    "qWaRichiesta": "Richiesta",
+    "qWaMateriale": "Materiale",
+    "qWaQuantita": "Quantità"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -421,7 +429,15 @@
     "qfFileTroppo": "Attachments exceed 10 MB: please use a link (Drive, WeTransfer) in the field above.",
     "qOkInviato": "Request sent! We reply within one working day.",
     "nlOkInviato": "Subscription received, thank you!",
-    "formsInvio": "Sending…"
+    "formsInvio": "Sending…",
+    "qAutoRisposta": "Hi! We have received your quote request: we will read it carefully and reply within one working day. If you think of a detail or want to send more photos, message us on WhatsApp from the website. Thank you, INGLY DESIGN",
+    "nlAutoRisposta": "Thank you for subscribing to the INGLY DESIGN newsletter! We will write about news and new collections, without flooding your inbox. You can unsubscribe anytime by replying to one of our emails.",
+    "qWaBtn": "Message us on WhatsApp too",
+    "qWaIntro": "Hi INGLY! I have just sent a quote request from the website.",
+    "qWaNome": "Name",
+    "qWaRichiesta": "Request",
+    "qWaMateriale": "Material",
+    "qWaQuantita": "Quantity"
   },
   "wOpen": {
     "it": "Apri Wishlist",

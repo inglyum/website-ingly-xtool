@@ -23,14 +23,77 @@ const endpoint = k => {
   return id.startsWith('http') ? id : 'https://formspree.io/f/'+id;
 };
 
-/* destinatario FormSubmit: email o codice anonimo (stringa esadecimale) */
+/* destinatario FormSubmit. Ordine: codice segreto (Admin → Contatti →
+   Moduli, lo dà FormSubmit dopo l'attivazione e nasconde l'indirizzo),
+   poi email dei moduli, poi email del sito. */
 const MAX_ALLEGATI = 10 * 1024 * 1024;
+const RE_EMAIL = /^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i;
+const RE_CODICE = /^[A-Za-z0-9]{16,64}$/;
 export function destinatarioFormSubmit(cfg = CONFIG){
   const m = (cfg && cfg.moduli) || {};
+  const codice = String(m.codice || '').trim();
+  if(RE_CODICE.test(codice)) return codice;
   const d = String(m.email || (cfg && cfg.email) || '').trim();
-  if(/^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i.test(d) || /^[a-f0-9]{16,64}$/i.test(d)) return d;
+  if(RE_EMAIL.test(d) || RE_CODICE.test(d)) return d;
   return '';
 }
+
+/* Risposta automatica al cliente (campo _autoresponse di FormSubmit).
+   FormSubmit la manda solo se la verifica «non sono un robot» resta attiva:
+   con la risposta accesa non si invia _captcha=false. Testo dall'Admin
+   (moduli.rispostaAuto), altrimenti quello di serie in texts.json. */
+export function rispostaAutomatica(cfg = CONFIG, tipo = 'preventivo', lingua = L, testoDiSerie = ''){
+  const r = ((cfg && cfg.moduli) || {}).rispostaAuto || {};
+  if(r.attiva === false || r.attiva === 'false') return '';
+  const t = r[tipo];
+  const scelto = (t && typeof t === 'object') ? (t[lingua] || t.it || '') : (t || '');
+  return String(scelto || testoDiSerie || '').trim().slice(0, 1500);
+}
+
+/* Dopo l'invio: un pulsante per mandare la stessa richiesta su WhatsApp.
+   Il riepilogo (solo testo, mai i file) resta 30 minuti in sessionStorage,
+   perché FormSubmit riporta il visitatore sul sito con una pagina nuova. */
+const CHIAVE_RIEPILOGO = 'ingly_ultima_richiesta';
+export function numeroWhatsApp(cfg = CONFIG){
+  return String((cfg && cfg.whatsappFab && cfg.whatsappFab.numero) || (cfg && cfg.whatsapp) || '').replace(/\D/g, '');
+}
+export function testoWhatsApp(r = {}, t = T){
+  const righe = [t('qWaIntro')];
+  const add = (k, v) => { const x = String(v || '').trim(); if(x) righe.push(t(k) + ': ' + x); };
+  add('qWaNome', r.nome); add('qWaRichiesta', String(r.descrizione || '').slice(0, 600));
+  add('qWaMateriale', r.materiale); add('qWaQuantita', r.quantita);
+  return righe.join('\n');
+}
+function salvaRiepilogo(form){
+  try{
+    const v = n => { const el = form.querySelector('[name="'+n+'"]'); return el && !el.disabled ? el.value : ''; };
+    sessionStorage.setItem(CHIAVE_RIEPILOGO, JSON.stringify({ nome:v('nome'), descrizione:v('descrizione'), materiale:v('materiale'), quantita:v('quantita'), t:Date.now() }));
+  }catch(e){}
+}
+function leggiRiepilogo(){
+  try{
+    const r = JSON.parse(sessionStorage.getItem(CHIAVE_RIEPILOGO) || 'null');
+    sessionStorage.removeItem(CHIAVE_RIEPILOGO);
+    return r && Date.now() - r.t < 30 * 60 * 1000 ? r : null;
+  }catch(e){ return null; }
+}
+function mostraConferma(form, quale, riepilogo){
+  if(!form || form.parentElement.querySelector('.q-inviato')) return;
+  const box = document.createElement('div');
+  box.className = 'q-inviato'; box.setAttribute('role','status');
+  const p = document.createElement('p'); p.textContent = '✔ ' + T(quale); box.appendChild(p);
+  const num = numeroWhatsApp();
+  if(riepilogo && num){
+    const a = document.createElement('a');
+    a.className = 'btn q-inviato__wa';
+    a.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(testoWhatsApp(riepilogo));
+    a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = T('qWaBtn');
+    box.appendChild(a);
+  }
+  form.parentElement.insertBefore(box, form);
+}
+
 function campoNascosto(form, nome, valore){
   let el = form.querySelector('input[type="hidden"][name="'+nome+'"]');
   if(!el){ el = document.createElement('input'); el.type = 'hidden'; el.name = nome; form.appendChild(el); }
@@ -60,7 +123,11 @@ async function send(form, key, okMsg, oggetto, options={}){
       ritorno.hash = '';
       campoNascosto(form, '_subject', oggetto || (options.quote ? 'INGLY — nuova richiesta di preventivo' : 'INGLY — nuova iscrizione alla newsletter'));
       campoNascosto(form, '_template', 'table');
-      campoNascosto(form, '_captcha', 'false');
+      const risposta = rispostaAutomatica(CONFIG, options.quote ? 'preventivo' : 'newsletter', L, T(options.quote ? 'qAutoRisposta' : 'nlAutoRisposta'));
+      form.querySelectorAll('input[type="hidden"][name="_captcha"],input[type="hidden"][name="_autoresponse"]').forEach(el => el.remove());
+      if(risposta) campoNascosto(form, '_autoresponse', risposta);
+      else campoNascosto(form, '_captcha', 'false');
+      if(options.quote) salvaRiepilogo(form);
       campoNascosto(form, '_next', ritorno.href);
       campoNascosto(form, '_url', location.href);
       form.method = 'POST';
@@ -82,7 +149,9 @@ async function send(form, key, okMsg, oggetto, options={}){
     const r=await fetch(url,{method:'POST',body:data,headers:{Accept:'application/json'}});
     if(!r.ok) throw 0;
     form.querySelector('[data-ingly-quote-fallback]')?.remove();
-    toast(okMsg); form.reset();
+    toast(okMsg);
+    if(options.quote){ salvaRiepilogo(form); mostraConferma(form, 'qOk', leggiRiepilogo()); }
+    form.reset();
   }catch(e){
     if(options.quote)quoteFallback(form,CONFIG,{business:!!options.business,language:L});
     else toast(T('formsErr'));
@@ -96,12 +165,7 @@ function confermaRitorno(){
   const quale = q.get('inviato') === '1' ? 'qOkInviato' : (q.get('iscritto') === '1' ? 'nlOkInviato' : '');
   if(!quale) return;
   toast(T(quale));
-  const form = quale === 'qOkInviato' ? document.querySelector('form.quote-form') : null;
-  if(form && !form.parentElement.querySelector('.q-inviato')){
-    const p = document.createElement('p');
-    p.className = 'q-inviato'; p.setAttribute('role','status'); p.textContent = '✔ ' + T(quale);
-    form.parentElement.insertBefore(p, form);
-  }
+  if(quale === 'qOkInviato') mostraConferma(document.querySelector('form.quote-form'), quale, leggiRiepilogo());
   q.delete('inviato'); q.delete('iscritto');
   const pulito = location.pathname + (q.toString() ? '?' + q : '') + location.hash;
   try{ history.replaceState(history.state, '', pulito); }catch(e){}

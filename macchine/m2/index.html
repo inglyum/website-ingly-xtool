@@ -148,7 +148,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=a3326a37e5">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=bd25c94c9f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -1250,7 +1250,7 @@ setTimeout(function(){
           accept="image/*,.pdf,.svg,.ai,.eps,.dxf,.dwg,.cdr,.zip">
         <small class="hint" data-i18n="qfFileNota">Logo, foto o disegno: fino a 10 MB in tutto.</small></div>
       <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="q-honey">
-      <div class="full"><label for="cd" data-i18n="qfD">Descrizione del progetto</label><textarea class="txtin" name="descrizione" id="cd" required name="descrizione" data-ph="qfDPh" placeholder="Cosa vuoi realizzare? Dimensioni, quantità, occasione…"></textarea></div>
+      <div class="full"><label for="cd" data-i18n="qfD">Descrizione del progetto</label><textarea class="txtin" name="descrizione" id="cd" required data-ph="qfDPh" placeholder="Cosa vuoi realizzare? Dimensioni, quantità, occasione…"></textarea></div>
       <div><label data-i18n="qfM">Materiale desiderato</label><select class="txtin" name="materiale" id="cm"><option>Legno</option><option>Plexiglass</option><option>Metallo</option><option>Pelle</option><option>Vetro</option><option>Bamboo</option><option>MDF</option><option>PLA/PETG (3D)</option><option data-i18n="qfM2">Consigliatemi voi</option></select></div>
       <div class="q-priv"><label data-i18n="qfB">Budget indicativo</label><select class="txtin" name="budget" id="cb"><option>&lt; €50</option><option>€50–150</option><option>€150–500</option><option>€500–2.000</option><option>€2.000+</option></select></div>
       <div class="full"><label data-i18n="qfU">Urgenza</label><div class="pillrow" id="urgRow"></div></div>

@@ -1,8 +1,14 @@
-/* PAGINA «CENTRO ASSISTENZA xTOOL A PALERMO»
+/* PAGINA «ASSISTENZA xTOOL A PALERMO» — INGLY DESIGN host xTool Squad
 
-   Chi cerca «assistenza xTool Palermo», «riparazione laser xTool Sicilia» o
-   «ricambi xTool» deve trovare una pagina fatta per quella domanda. Prima
-   non c'era: l'assistenza era una riga dentro le schede macchina.
+   Chi cerca «assistenza xTool Palermo» o «riparazione laser xTool Sicilia»
+   deve trovare una pagina fatta per quella domanda.
+
+   I servizi elencati sono SOLO quelli che xTool attribuisce agli host
+   xTool Squad (support.xtool.com/xtool-squad, xtool.eu/pages/xtool-squad-community,
+   letti il 2026-11-01): demo prima dell'acquisto, test sui materiali,
+   formazione, installazione e messa in servizio, manutenzione e riparazione,
+   eventi. Garanzia/xToolCare e ricambi sono di xTool: si rimanda ai canali
+   ufficiali, non si dice di venderli.
 
    - Telefono, email e sede arrivano da data/config.json (Admin).
    - L'elenco delle macchine arriva da data/macchine.json (Admin → Lab).
@@ -30,8 +36,13 @@ const nome = m => (m.n && (m.n.it || m.n.en)) || m.id;
 const SICILIA = ['Palermo e provincia', 'Trapani', 'Agrigento', 'Caltanissetta', 'Enna', 'Catania', 'Messina', 'Siracusa', 'Ragusa'];
 const SUD = ['Calabria', 'Campania', 'Puglia', 'Basilicata'];
 
+const SQUAD = 'https://support.xtool.com/xtool-squad';
+const SERVICE = 'https://support.xtool.com/all-services';
+const SHOP = 'https://www.xtool.eu/';
 const FAQ = [
-  ['Siete un centro assistenza xTool?', 'Sì: INGLY DESIGN segue le macchine xTool a Palermo e in Sicilia, dalla diagnosi alla riparazione, con i ricambi e la messa a punto. Lavoriamo ogni giorno con le stesse macchine nel nostro laboratorio.'],
+  ['Siete un centro ufficiale xTool?', 'Sì: INGLY DESIGN è host di xTool Squad, il programma ufficiale di xTool con cui host locali offrono demo, test sui materiali, formazione, installazione e assistenza prima e dopo l\'acquisto. Lavoriamo ogni giorno con le macchine xTool nel nostro laboratorio di Palermo.'],
+  ['Vendete i ricambi xTool?', 'No: i ricambi originali li vende xTool sul suo shop ufficiale (xtool.eu). Ti aiutiamo a capire quale serve e, durante la manutenzione o la riparazione, possiamo sostituirlo noi.'],
+  ['La garanzia la gestite voi?', 'La garanzia e i piani xToolCare sono di xTool: la richiesta si apre sul Service Center ufficiale (support.xtool.com). Possiamo aiutarti a preparare foto e descrizione del problema.'],
   ['Arrivo da fuori Palermo: come faccio?', 'Puoi portarci la macchina in laboratorio a Palermo oppure spedirla. Seguiamo clienti in tutta la Sicilia e nel Sud Italia: scrivici il modello e il problema e ti diciamo come procedere.'],
   ['Quali modelli seguite?', 'Tutta la gamma xTool: laser a diodo, CO₂, fibra, MOPA e UV, stampanti UV, presse e le novità come X1 e C1. L\'elenco completo è più sotto, con il link alla scheda di ogni macchina.'],
   ['Quanto costa una riparazione?', 'Dipende dal modello e dal guasto. Prima facciamo la diagnosi e ti mandiamo un preventivo: si procede solo se lo approvi.'],
@@ -44,7 +55,7 @@ const schema = {
     {
       '@type': ['LocalBusiness', 'ProfessionalService'],
       '@id': url + '#assistenza',
-      name: 'INGLY DESIGN — Centro assistenza xTool Palermo',
+      name: 'INGLY DESIGN — Assistenza xTool Palermo, host xTool Squad',
       url, telephone: tel.replace(/\s+/g, ''), email,
       image: dom + '/assets/images/xtool-authorized-service-centre-premium.svg',
       address: { '@type': 'PostalAddress', addressLocality: 'Palermo', addressRegion: 'Sicilia', addressCountry: 'IT' },
@@ -56,7 +67,7 @@ const schema = {
       ],
       brand: { '@type': 'Brand', name: 'xTool' },
       knowsAbout: ['xTool', 'incisione laser', 'taglio laser', 'laser CO2', 'laser a fibra', 'laser MOPA', 'stampa UV'],
-      makesOffer: ['Diagnosi e riparazione di macchine laser xTool', 'Ricambi e sostituzione componenti xTool', 'Calibrazione e messa a punto', 'Configurazione software e firmware', 'Demo e formazione', 'Vendita e pre-ordine macchine xTool']
+      makesOffer: ['Demo delle macchine xTool prima dell\'acquisto', 'Test sui materiali con le impostazioni consigliate', 'Formazione sull\'uso delle macchine xTool', 'Installazione e messa in servizio di macchine xTool', 'Manutenzione e riparazione di macchine xTool']
         .map(s => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s, areaServed: 'Sicilia' } })),
       sameAs: Object.values(cfg.social || {}).filter(u => /^https:\/\//.test(u) && !/wa\.me/.test(u))
     },
@@ -76,12 +87,12 @@ export function genera() {
 <base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centro assistenza xTool a Palermo e in Sicilia: riparazioni, ricambi, demo | INGLY DESIGN</title>
-<meta name="description" content="Assistenza xTool a Palermo per tutta la Sicilia e il Sud Italia: diagnosi, riparazione, ricambi, messa a punto, demo e vendita delle macchine laser xTool. Scrivici modello e problema.">
+<title>Assistenza xTool a Palermo e in Sicilia · host ufficiale xTool Squad | INGLY DESIGN</title>
+<meta name="description" content="INGLY DESIGN è host xTool Squad a Palermo: demo prima dell'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool in Sicilia e nel Sud Italia.">
 <link rel="canonical" href="${esc(url)}">
 <meta property="og:type" content="website"><meta property="og:url" content="${esc(url)}">
-<meta property="og:title" content="Centro assistenza xTool a Palermo e in Sicilia — INGLY DESIGN">
-<meta property="og:description" content="Riparazioni, ricambi, demo e vendita delle macchine xTool a Palermo, in Sicilia e nel Sud Italia.">
+<meta property="og:title" content="Assistenza xTool a Palermo · host xTool Squad — INGLY DESIGN">
+<meta property="og:description" content="Demo, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool a Palermo, in Sicilia e nel Sud Italia.">
 <meta property="og:image" content="${esc(dom)}/assets/images/og-image.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <script>(function(){try{var m=localStorage.getItem("ingly_mode");if(m==="dark"||m==="light")document.documentElement.dataset.mode=m}catch(e){}})();</script>
@@ -117,23 +128,27 @@ export function genera() {
 </header>
 <main class="ax-wrap page active">
  <nav aria-label="Percorso" style="font-size:14px;margin-bottom:18px"><a href="./">Home</a> / <a href="macchine">Macchine</a> / Assistenza xTool Palermo</nav>
- <h1>Centro assistenza xTool a Palermo e in Sicilia</h1>
- <p class="ax-lead">INGLY DESIGN è il laboratorio di Palermo che segue le macchine xTool: diagnosi, riparazione, ricambi, messa a punto, demo e vendita. Lavoriamo con clienti di tutta la Sicilia e del Sud Italia.</p>
+ <h1>Assistenza xTool a Palermo e in Sicilia</h1>
+ <p class="ax-lead">INGLY DESIGN è host di <a href="${SQUAD}" target="_blank" rel="noopener noreferrer">xTool Squad</a>, la rete ufficiale di xTool che porta le macchine vicino a chi le usa: le vedi lavorare dal vivo, ricevi consigli esperti e hai un supporto locale prima e dopo l'acquisto. Seguiamo clienti a Palermo, in tutta la Sicilia e nel Sud Italia.</p>
  <div class="ax-cta">
   <a class="btn btn-primary" href="${esc(waTesto)}" target="_blank" rel="noopener noreferrer">Chiedi assistenza su WhatsApp <span class="arr">→</span></a>
   <a class="btn btn-ghost" href="mailto:${esc(email)}?subject=${encodeURIComponent('Assistenza xTool')}">Scrivi una email</a>
   <a class="btn btn-ghost" href="tel:${esc(tel.replace(/\s+/g, ''))}">${esc(tel)}</a>
  </div>
 
- <h2>Cosa facciamo sulle macchine xTool</h2>
+ <h2>Cosa facciamo come host xTool Squad</h2>
  <ul>
-  <li>Diagnosi e riparazione dei guasti.</li>
-  <li>Ricambi e sostituzione dei componenti.</li>
-  <li>Calibrazione e messa a punto: allineamento, fuoco, telecamere, parametri dei materiali.</li>
-  <li>Configurazione di xTool Creative Space (XCS) e aggiornamenti firmware.</li>
-  <li>Demo e formazione, in laboratorio o collegati.</li>
-  <li>Vendita delle macchine xTool, compresa la nuova X1, e pre-ordine della C1.</li>
+  <li><b>Demo prima dell'acquisto:</b> vedi la macchina lavorare e capisci se fa per te.</li>
+  <li><b>Test sui materiali:</b> proviamo i tuoi materiali sulla macchina scelta e ti diamo le impostazioni adatte.</li>
+  <li><b>Formazione:</b> impari a usare bene la macchina, con le buone pratiche.</li>
+  <li><b>Installazione e messa in servizio</b> della macchina nuova, sia hardware sia software.</li>
+  <li><b>Manutenzione e riparazione:</b> per tenere la macchina al massimo delle prestazioni.</li>
+  <li><b>Eventi e incontri</b> con la community xTool.</li>
  </ul>
+ <p>Ti aiutiamo anche a scegliere e ordinare la macchina xTool giusta, compresa la nuova X1.</p>
+
+ <h2>Garanzia, xToolCare e ricambi</h2>
+ <p>La garanzia e i piani xToolCare sono gestiti da xTool: le richieste si aprono sul <a href="${SERVICE}" target="_blank" rel="noopener noreferrer">Service Center ufficiale xTool</a>. I ricambi originali si acquistano sullo <a href="${SHOP}" target="_blank" rel="noopener noreferrer">shop ufficiale xTool</a>: ti aiutiamo a trovare quello giusto e, se serve, lo sostituiamo durante la manutenzione o la riparazione.</p>
 
  <h2>Come funziona</h2>
  <ol class="ax-passi">

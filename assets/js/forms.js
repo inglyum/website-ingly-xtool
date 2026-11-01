@@ -159,6 +159,41 @@ async function send(form, key, okMsg, oggetto, options={}){
   if(btn){ btn.disabled=false; btn.textContent=label }
 }
 
+/* Arrivo da «Prova la tua foto incisa» (prova-incisione.html): foto originale
+   e anteprima passano in sessionStorage e qui diventano allegati del modulo,
+   con materiale e descrizione già scelti. Solo per 1 ora, una volta sola. */
+const CHIAVE_PROVA = 'ingly_prova_incisione';
+function fileDaDataUrl(dataUrl, nome){
+  const [testa, corpo] = String(dataUrl).split(',');
+  const tipo = (testa.match(/^data:([^;]+);base64$/) || [])[1];
+  if(!tipo || !/^image\/(jpeg|png)$/.test(tipo) || !corpo) return null;
+  const bin = atob(corpo), arr = new Uint8Array(bin.length);
+  for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new File([arr], String(nome || 'foto.jpg').replace(/[^\w.-]+/g, '-'), { type: tipo });
+}
+export function allegaProvaIncisione(form){
+  let dati = null;
+  try{ dati = JSON.parse(sessionStorage.getItem(CHIAVE_PROVA) || 'null'); sessionStorage.removeItem(CHIAVE_PROVA); }catch(e){ return false; }
+  if(!form || !dati || !(Date.now() - dati.t < 60 * 60 * 1000)) return false;
+  const input = form.querySelector('input[type="file"][name="attachment"]');
+  const files = (Array.isArray(dati.file) ? dati.file : []).map(f => f && fileDaDataUrl(f.dati, f.nome)).filter(Boolean);
+  let allegati = false;
+  if(input && files.length && typeof DataTransfer === 'function'){
+    try{ const dt = new DataTransfer(); files.forEach(f => dt.items.add(f)); input.files = dt.files; allegati = input.files.length === files.length; }catch(e){}
+  }
+  const mat = form.querySelector('select[name="materiale"]');
+  if(mat && dati.materiale && [...mat.options].some(o => o.value === dati.materiale || o.text === dati.materiale)) mat.value = dati.materiale;
+  const desc = form.querySelector('textarea[name="descrizione"]');
+  if(desc && !desc.value.trim() && dati.descrizione) desc.value = String(dati.descrizione).slice(0, 500);
+  if(input && !form.querySelector('.q-prova-allegati')){
+    const p = document.createElement('p');
+    p.className = 'q-prova-allegati'; p.setAttribute('role', 'status');
+    p.textContent = '✔ ' + T(allegati ? 'qProvaAllegate' : 'qProvaNonAllegate');
+    input.insertAdjacentElement('afterend', p);
+  }
+  return allegati;
+}
+
 /* Ritorno da FormSubmit: conferma visibile e indirizzo ripulito */
 function confermaRitorno(){
   const q = new URLSearchParams(location.search);
@@ -240,6 +275,7 @@ export function initForms(){
   const q=document.querySelector('form.quote-form');
   if(q){
     initModoPreventivo(q);
+    allegaProvaIncisione(q);
     q.addEventListener('submit',e=>{
       e.preventDefault();
       const urg=document.querySelector('#urgRow .pill.on');

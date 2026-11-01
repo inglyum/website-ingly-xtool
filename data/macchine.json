@@ -1065,6 +1065,48 @@
           "en": "20W is higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
         },
         "unavailable": "Modelli e moduli presentati a scopo informativo, non dichiarati nel laboratorio INGLY."
+      },
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-m2-color-craft-laser-cutter-engraver",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "10w",
+            "nome": "xTool M2 10 W",
+            "sorgenti": "laser 10 W",
+            "prezzo": 553.58,
+            "listino": 654.4,
+            "disponibile": true,
+            "nomeShop": "10W / Standalone",
+            "sku": "P0101000477"
+          },
+          {
+            "id": "20w",
+            "nome": "xTool M2 20 W",
+            "sorgenti": "laser 20 W",
+            "prezzo": 956.9,
+            "listino": 1057.75,
+            "disponibile": true,
+            "nomeShop": "20W / Standalone",
+            "sku": "P0101000476"
+          },
+          {
+            "id": "40w",
+            "nome": "xTool M2 40 W",
+            "sorgenti": "laser 40 W",
+            "prezzo": 1360.25,
+            "disponibile": true,
+            "nomeShop": "40W / Standalone",
+            "sku": "P0101000475"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
       }
     },
     {
@@ -1111,7 +1153,30 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-f1-ultra-20w-fiber-diode-dual-laser-engraver",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "autonomo",
+            "nome": "xTool F1 Ultra",
+            "sorgenti": "fibra 20 W · diodo",
+            "prezzo": 2540,
+            "listino": 4032.33,
+            "disponibile": true,
+            "nomeShop": "F1 ultra autonomo",
+            "sku": "P5010342"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "f2",
@@ -1143,7 +1208,30 @@
         "velocitaMax": "6.000 mm/s"
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-f2-5w-ir-15w-diode-portable-dual-laser-engraver",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "autonomo",
+            "nome": "xTool F2",
+            "sorgenti": "IR 5 W · diodo 15 W",
+            "prezzo": 1340.08,
+            "listino": 1511.5,
+            "disponibile": true,
+            "nomeShop": "Configurazione standard / F2 autonomo",
+            "sku": "P0101000601"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "f2-ultra",
@@ -1166,7 +1254,40 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-f2-ultra-60w-mopa-40w-diode-dual-laser-engraver",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "singolo",
+            "nome": "xTool F2 Ultra (singolo)",
+            "sorgenti": "MOPA 60 W",
+            "prezzo": 4788.58,
+            "listino": 5595.25,
+            "disponibile": true,
+            "nomeShop": "Laser singolo (solo MOPA da 60 W) / F2 Ultra (singolo) Indipendente",
+            "sku": "P1010160"
+          },
+          {
+            "id": "doppio",
+            "nome": "xTool F2 Ultra (doppio laser)",
+            "sorgenti": "MOPA 60 W · diodo 40 W",
+            "prezzo": 5867.5,
+            "listino": 7279.15,
+            "disponibile": true,
+            "nomeShop": "Doppio laser (60W MOPA &  Diodo da 40 W) / F2 Ultra autonomo",
+            "sku": "P0101000661"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "f2-ultra-uv",
@@ -1188,7 +1309,40 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-f2-ultra-uv-5w-uv-laser-engraver",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "autonomo",
+            "nome": "xTool F2 Ultra UV",
+            "sorgenti": "UV 5 W",
+            "prezzo": 4334.83,
+            "listino": 4637.33,
+            "disponibile": true,
+            "nomeShop": "F2 Ultra UV autonomo",
+            "sku": "P0101000396"
+          },
+          {
+            "id": "trasportatore",
+            "nome": "xTool F2 Ultra UV + trasportatore",
+            "sorgenti": "UV 5 W · trasportatore",
+            "prezzo": 4818.83,
+            "listino": 5121.33,
+            "disponibile": true,
+            "nomeShop": "F2 Ultra UV + trasportatore",
+            "sku": "P0101000396-P3010010"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "p2",
@@ -1242,7 +1396,30 @@
         "velocitaMax": "1.200 mm/s"
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-p3-the-flagship-80w-co2-laser-cutters",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "autonomo",
+            "nome": "xTool P3",
+            "sorgenti": "CO₂ 80 W",
+            "prezzo": 6654,
+            "listino": 7047.25,
+            "disponibile": true,
+            "nomeShop": "P3 autonomo",
+            "sku": "P0101000119"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "s1",
@@ -1264,7 +1441,40 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-s1-laser-cutter",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "20w",
+            "nome": "xTool S1 20 W",
+            "sorgenti": "diodo 20 W",
+            "prezzo": 1410.65,
+            "listino": 1612.33,
+            "disponibile": false,
+            "nomeShop": "20 W / Pacchetto base",
+            "sku": "P1030504"
+          },
+          {
+            "id": "40w",
+            "nome": "xTool S1 40 W",
+            "sorgenti": "diodo 40 W",
+            "prezzo": 1814,
+            "listino": 2136.65,
+            "disponibile": true,
+            "nomeShop": "40 W / Pacchetto base",
+            "sku": "P1030509"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "o1-uv",
@@ -1296,7 +1506,47 @@
         "velocitaMax": null
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/the-worlds-first-4-in-1-xtool-o1-omni-printer",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "single-uv",
+            "nome": "xTool O1 Single UV",
+            "sorgenti": "stampa UV",
+            "prezzo": 2419,
+            "disponibile": true,
+            "nomeShop": "Single UV / Standalone",
+            "sku": "P0101000532"
+          },
+          {
+            "id": "dual-uv",
+            "nome": "xTool O1 Dual UV",
+            "sorgenti": "stampa UV doppia",
+            "prezzo": 3225.65,
+            "disponibile": true,
+            "nomeShop": "Dual UV / Standalone",
+            "sku": "P0101000537"
+          },
+          {
+            "id": "dt-uv",
+            "nome": "xTool O1 DT + UV",
+            "sorgenti": "DT + UV",
+            "prezzo": 3326.5,
+            "disponibile": true,
+            "nomeShop": "DT+UV / Standalone",
+            "sku": "P0101000536-P0101000589"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     },
     {
       "id": "wonderpress",
@@ -1321,10 +1571,59 @@
         "velocitaMax": null
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-wonderpress-modular-auto-heat-press-for-2d-transfers-and-3d-creations",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
+      },
+      "vendita": {
+        "configurazioni": [
+          {
+            "id": "pressa",
+            "nome": "WonderPress",
+            "sorgenti": "pressa a caldo",
+            "prezzo": 402.33,
+            "disponibile": true,
+            "nomeShop": "Heat Press Standalone",
+            "sku": "P0101000652"
+          },
+          {
+            "id": "craft-oven",
+            "nome": "WonderPress + Craft Oven",
+            "sorgenti": "pressa + modulo forno",
+            "prezzo": 644.33,
+            "disponibile": true,
+            "nomeShop": "Heat Press + Craft Oven Module",
+            "sku": "P0101000652-P0102000270"
+          },
+          {
+            "id": "3d-form",
+            "nome": "WonderPress + 3D Form",
+            "sorgenti": "pressa + modulo 3D",
+            "prezzo": 654.4,
+            "disponibile": true,
+            "nomeShop": "Heat Press + 3D Form Module",
+            "sku": "P0101000652-P0102000271"
+          },
+          {
+            "id": "all-in-one",
+            "nome": "WonderPress All-in-One",
+            "sorgenti": "pressa + forno + modulo 3D",
+            "prezzo": 896.4,
+            "disponibile": true,
+            "nomeShop": "All-in-One Bundle",
+            "sku": "P0101000652-P0102000270-P0102000271"
+          }
+        ],
+        "notaPrezzi": {
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti con accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also lists bundles with accessories. Prices may change; we confirm them when you order."
+        }
+      }
     }
   ],
   "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
   "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori.",
-  "_prezziAggiornati": "2026-11-01: prezzi e disponibilità della xTool X1 letti dallo shop ufficiale xtool.eu (IVA inclusa, Italia)."
+  "_prezziAggiornati": "2026-11-01: prezzi e disponibilità di X1, M2, O1, WonderPress, F2, F2 Ultra, F2 Ultra UV, P3, F1 Ultra e S1 letti dallo shop ufficiale xtool.eu (IVA inclusa, Italia)."
 }

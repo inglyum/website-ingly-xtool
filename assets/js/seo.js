@@ -118,7 +118,7 @@ export function updateSeo(page, L, T, product){
                     : `${nome} — cosa fa e cosa realizza | ${azienda}`)
       : sez==='macchine'
         ? (L==='en' ? `${nome} — service, repair and parts in Palermo, Sicily | ${azienda}`
-                    : `${nome} — assistenza, riparazione e ricambi a Palermo | ${azienda}`)
+                    : `${nome} — assistenza e riparazione a Palermo | ${azienda}`)
         : `${nome} | ${azienda}`;
     desc = somm || LAB.lingua(scheda.e.ruolo, L);
   } else if(vert){

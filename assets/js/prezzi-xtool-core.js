@@ -38,12 +38,20 @@ export function confronta(confSito, varShop) {
 }
 
 
+/* Dove stanno le configurazioni con prezzo: nella pagina di lancio delle
+   novità (novita.configurazioni) oppure nella scheda normale (vendita). */
+export function configurazioniDi(m) {
+  const nv = m && m.novita;
+  if (nv && nv.stato && Array.isArray(nv.configurazioni) && nv.configurazioni.length) return nv.configurazioni;
+  const v = m.vendita || (m.vendita = {});
+  return Array.isArray(v.configurazioni) ? v.configurazioni : (v.configurazioni = []);
+}
+
 /* Applica allo shop le configurazioni di una macchina del catalogo.
    Ritorna { righe, cambi, errori, altre } per il resoconto. */
 export function aggiornaMacchina(m, prodotto, { scrivi = false, oggi = '' } = {}) {
   const vs = varianti(prodotto);
-  const nv = m.novita || (m.novita = {});
-  const conf = Array.isArray(nv.configurazioni) ? nv.configurazioni : (nv.configurazioni = []);
+  const conf = configurazioniDi(m);
   const { modifiche, nuove } = confronta(conf, vs);
   const vere = modifiche.filter(x => x.applica);
   const mancanti = modifiche.filter(x => !x.applica);

@@ -47,7 +47,7 @@ const studio=readFileSync('generatori.html','utf8');
 const catalogue=JSON.parse(readFileSync('data/content.json','utf8')).GENERATORI;
 assert.ok(page.includes('id="cutDownload"')&&page.includes('id="printDownload"'));
 assert.ok(ui.includes("import {alphaMask,padMask,dilate,traceOutlines,cutSvg}"));
-assert.ok(studio.includes("modulo==='link-interno'")&&studio.includes("location.assign('print-cut.html')"));
+assert.ok(studio.includes("modulo==='link-interno'")&&studio.includes("const PAGINE_INTERNE=['print-cut.html'")&&studio.includes('location.assign(item.url)'));
 assert.ok(catalogue.some(t=>t.id==='print-cut'&&t.url==='print-cut.html'));
 assert.ok(readFileSync('scripts/generate-sitemap.mjs','utf8').includes("file: 'print-cut.html'"));
 // UI regression: an invalid replacement upload must not resurrect the previous

@@ -502,6 +502,26 @@
     "it": "In tutta la UE in 2–5 giorni lavorativi con corriere tracciato. Extra-UE su richiesta per ordini business.",
     "en": "Across the EU in 2–5 working days, tracked. Worldwide on request for business orders."
    }
+  ],
+  [
+   {
+    "it": "Siete un centro ufficiale xTool?",
+    "en": "Are you an official xTool centre?"
+   },
+   {
+    "it": "Sì: INGLY DESIGN è host di xTool Squad, il programma ufficiale di xTool con cui host locali offrono demo prima dell'acquisto, test sui materiali, formazione, installazione e messa in servizio, manutenzione e riparazione. Trovi tutto nella pagina «Assistenza xTool Palermo».",
+    "en": "Yes: INGLY DESIGN is an xTool Squad host, xTool's official programme of local hosts offering pre-sale demos, material tests, training, installation and commissioning, maintenance and repair. Details are on the «xTool support in Palermo» page."
+   }
+  ],
+  [
+   {
+    "it": "Vendete i ricambi xTool? E la garanzia?",
+    "en": "Do you sell xTool spare parts? What about warranty?"
+   },
+   {
+    "it": "I ricambi originali li vende xTool sul suo shop ufficiale, e garanzia e xToolCare si gestiscono sul Service Center ufficiale xTool (support.xtool.com). Noi ti aiutiamo a capire cosa serve e, durante manutenzione o riparazione, possiamo sostituire il pezzo.",
+    "en": "Original spare parts are sold by xTool on its official shop, and warranty and xToolCare are handled on the official xTool Service Center (support.xtool.com). We help you work out what is needed and can fit the part during maintenance or repair."
+   }
   ]
  ],
  "PORT": [
@@ -4515,6 +4535,23 @@
  ],
  "_DIG": "I file digitali sono stati spostati in data/digitale.json, dove ogni bundle dichiara anche cosa contiene, su che macchina funziona, con che licenza e come arriva al cliente. Il sito ricava DIG da quel file: qui non va rimesso, o le due liste divergono.",
  "GENERATORI": [
+  {
+   "id": "prova-incisione",
+   "modulo": "link-interno",
+   "nome": {
+    "it": "Prova la tua foto incisa",
+    "en": "Try your engraved photo"
+   },
+   "descrizione": {
+    "it": "Carica una foto e vedila incisa su legno, metallo, vetro e altri materiali; poi chiedi il preventivo con la foto già allegata.",
+    "en": "Upload a photo and see it engraved on wood, metal, glass and more; then ask for a quote with the photo attached."
+   },
+   "categoria": "Foto e regali",
+   "icona": "◐",
+   "attivo": true,
+   "ordine": 0,
+   "url": "prova-incisione.html"
+  },
   {
    "id": "portachiavi",
    "modulo": "portachiavi",

@@ -27,6 +27,12 @@ const ad = readFileSync('admin.html', 'utf8');
 t('Admin: pulsante «Aggiorna prezzi da xTool» con le stesse regole dello script', ad.includes('id="pxGo"') && ad.includes("import('./assets/js/prezzi-xtool-core.js')") && ad.includes('core.urlShopItalia(m.shop.url)'));
 const M = JSON.parse(readFileSync('data/macchine.json', 'utf8'));
 const x1 = M.catalogo.find(m => m.id === 'x1');
+const collegate = M.catalogo.filter(m => m.shop && /^https:\/\/www\.xtool\.eu\/products\/[\w-]+$/.test(m.shop.url));
+t('10 macchine collegate allo shop ufficiale, ognuna con configurazioni abbinabili', collegate.length === 10 && collegate.every(m => {
+  const conf = (m.novita && m.novita.stato && m.novita.configurazioni && m.novita.configurazioni.length) ? m.novita.configurazioni : (m.vendita && m.vendita.configurazioni) || [];
+  return conf.length && conf.every(c => c.id && c.nomeShop && c.sku && c.prezzo > 0);
+}));
+t('scheda macchina: sezione «Prezzi ufficiali xTool»', /function bloccoPrezzi\(m, L\)/.test(readFileSync('assets/js/lab-ui.js', 'utf8')));
 t('X1 collegata allo shop xtool.eu con le 5 configurazioni', x1.shop.url.startsWith('https://www.xtool.eu/products/') && x1.novita.configurazioni.length === 5 && x1.novita.configurazioni.every(c => c.nomeShop));
 console.log(`\n=========== PREZZI xTOOL: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

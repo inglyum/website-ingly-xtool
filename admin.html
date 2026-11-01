@@ -5267,6 +5267,12 @@ function labEditorMacchine(B) {
    {key:'disponibile',label:'Disponibile (se tolta: «esaurita»)',type:'booleano'},
    {key:'nomeShop',label:'Nome della variante nello shop xtool.eu (per l\'aggiornamento automatico)',type:'testo'}]},
   {key:'shop.url',label:'Shop ufficiale xtool.eu (https://www.xtool.eu/products/…): i prezzi si aggiornano da qui',type:'url'},
+  {key:'vendita.configurazioni',label:'Prezzi ufficiali nella scheda (macchine che non sono «novità»)',type:'ripetitore',schema:[
+   {key:'nome',label:'Nome',type:'testo'},{key:'sorgenti',label:'Sorgenti / contenuto',type:'testo'},
+   {key:'prezzo',label:'Prezzo (€)',type:'prezzo|null'},{key:'listino',label:'Prezzo di listino barrato (€)',type:'prezzo|null'},
+   {key:'disponibile',label:'Disponibile (se tolta: «esaurita»)',type:'booleano'},
+   {key:'nomeShop',label:'Nome della variante nello shop xtool.eu',type:'testo'}]},
+  {key:'vendita.notaPrezzi',label:'Nota sui prezzi della scheda',type:'area-it-en'},
   {key:'shop.verificatoIl',label:'Prezzi verificati il (YYYY-MM-DD)',type:'testo'},
   {key:'novita.notaPrezzi',label:'Nota sui prezzi',type:'area-it-en'}
  ];

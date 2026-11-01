@@ -101,6 +101,10 @@ footer{border-top:1px solid var(--border);padding:22px 0 32px;color:var(--muted)
    <fieldset class="field" style="border:0;padding:0;margin:0 0 18px"><legend style="font-weight:700;margin:0 0 7px" data-i18n="material">2. Materiale</legend>
     <div class="mats" id="mats"></div>
    </fieldset>
+   <fieldset class="field" style="border:0;padding:0;margin:0 0 18px"><legend style="font-weight:700;margin:0 0 7px" data-i18n="laser">Laser</legend>
+    <div class="seg" id="lasers"></div>
+    <small class="hint" data-i18n="laserNote">Il CO₂ incide più in profondità, il diodo è più superficiale, l'IR (fibra) marca il metallo.</small>
+   </fieldset>
    <fieldset class="field" style="border:0;padding:0;margin:0 0 18px"><legend style="font-weight:700;margin:0 0 7px" data-i18n="shape">3. Forma</legend>
     <div class="seg" id="shapes"></div>
    </fieldset>
@@ -112,8 +116,9 @@ footer{border-top:1px solid var(--border);padding:22px 0 32px;color:var(--muted)
     <div class="field"><label for="bright"><span data-i18n="bright">Luminosità</span> · <output id="brightOut">0</output></label><input type="range" id="bright" min="-40" max="40" value="0"></div>
     <div class="field"><label for="contrast"><span data-i18n="contrast">Contrasto</span> · <output id="contrastOut">10</output></label><input type="range" id="contrast" min="-40" max="60" value="10"></div>
    </div>
-   <div class="field"><label class="check"><input type="checkbox" id="dither" checked> <span data-i18n="dither">Puntinatura laser</span></label>
-    <small data-i18n="ditherNote">Le foto si incidono a puntini, come una stampa a retino: è l'aspetto più vicino al pezzo vero.</small></div>
+   <div class="field"><label for="sharp"><span data-i18n="sharp">Nitidezza</span> · <output id="sharpOut">50</output></label><input type="range" id="sharp" min="0" max="100" value="50"></div>
+   <div class="field"><label class="check"><input type="checkbox" id="dither"> <span data-i18n="dither">Retino fine</span></label>
+    <small data-i18n="ditherNote">Facoltativo: simula il retino finissimo che si usa per alcune foto. Di solito si lascia spento.</small></div>
    <div class="toolbar">
     <button type="button" class="btn primary" id="toQuote" disabled data-i18n="toQuote">Chiedi il preventivo con questa foto</button>
     <button type="button" class="btn" id="download" disabled data-i18n="download">Scarica l'anteprima</button>

@@ -5190,46 +5190,6 @@ function labEditorMateriali(B) {
    sommario:{it:'',en:''},descrizione:{it:'',en:''},tech:[],macchine:[],
    vendita:{attivo:false,varianti:[]},stato:'bozza'})});
 }
-/* ---- Prezzi xTool dallo shop ufficiale xtool.eu ----
-   Le macchine con «Shop ufficiale» (shop.url) prendono prezzo, barrato e
-   disponibilità da lì: stesse regole dello script giornaliero
-   (assets/js/prezzi-xtool-core.js). Le modifiche restano in bozza finché
-   non premi Pubblica. */
-let PX_MSG='';
-function pxCard(){
- const n=(S.MAC.catalogo||[]).filter(m=>m&&m.shop&&m.shop.url).length;
- return `<div class="card" id="pxCard" style="border:2px solid var(--accent)">
-  <h3 style="margin-top:0">🔄 Prezzi dallo shop ufficiale xTool</h3>
-  <p class="hint">${n?`${n} macchin${n===1?'a collegata':'e collegate'} allo shop xtool.eu.`:'Nessuna macchina collegata: in «Shop ufficiale xtool.eu» incolla l\'indirizzo del prodotto.'} Il pulsante legge prezzi IVA inclusa e disponibilità e aggiorna le configurazioni. Ogni giorno GitHub fa lo stesso controllo e, se qualcosa cambia, ti avvisa per email.</p>
-  <button type="button" class="btn pri" id="pxGo"${n?'':' disabled'}>🔄 Aggiorna prezzi da xTool</button>
-  <div class="hint" id="pxOut" style="margin-top:10px" aria-live="polite">${PX_MSG}</div></div>`;
-}
-async function aggiornaPrezziXtool(){
- const out=$('pxOut'),btn=$('pxGo');if(!out)return;
- if(btn)btn.disabled=true;out.textContent='Leggo lo shop ufficiale xTool…';
- const fmt=v=>v===true?'disponibile':v===false?'esaurita':v==null?'—':Number(v).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
- const campo={prezzo:'prezzo',listino:'barrato',disponibile:'disponibilità'};
- const righe=[];let cambi=0;
- try{
-  const core=await import('./assets/js/prezzi-xtool-core.js');
-  const oggi=new Date().toISOString().slice(0,10);
-  for(const m of (S.MAC.catalogo||[]).filter(m=>m&&m.shop&&core.URL_SHOP.test(String(m.shop.url||'')))){
-   const nome=esc(labL(m.n,'it')||m.id);
-   try{
-    const r=await fetch(core.urlShopItalia(m.shop.url)+'.js',{credentials:'omit',cache:'no-store'});
-    if(!r.ok)throw new Error('lo shop risponde '+r.status);
-    const x=core.aggiornaMacchina(m,await r.json(),{scrivi:true,oggi});
-    cambi+=x.cambi.length;
-    righe.push(`<b>${nome}</b>: `+(x.cambi.length?x.cambi.map(c=>`${esc(c.nome)} · ${campo[c.campo]||c.campo} ${fmt(c.prima)} → <b>${fmt(c.dopo)}</b>`).join('<br>'):'prezzi già aggiornati ✓')
-     +(x.mancanti.length?`<br>⚠️ non trovate nello shop: ${x.mancanti.map(esc).join(', ')} (controlla «Nome della variante nello shop»)`:''));
-   }catch(e){righe.push(`<b>${nome}</b>: ⚠️ ${esc(e.message||'shop non raggiungibile')}`)}
-  }
-  markDirty();
-  PX_MSG=righe.join('<br>')+`<br><br>${cambi?`<b>${cambi} modifiche</b> in bozza.`:'Nessun prezzo cambiato; aggiornata la data di verifica.'} Premi <b>🚀 Pubblica</b> per metterle online.`;
- }catch(e){PX_MSG='⚠️ Non riesco a leggere lo shop xTool ('+esc(e.message||'errore')+'). Riprova tra poco.'}
- renderLab();
-}
-document.addEventListener('click',e=>{if(e.target.closest('#pxGo'))aggiornaPrezziXtool()});
 function labEditorMacchine(B) {
  const E=window.INGLY_COLLECTION_EDITOR;
  if(!E){B.textContent='Editor avanzato non caricato';return}
@@ -5258,26 +5218,11 @@ function labEditorMacchine(B) {
   {key:'demoDisponibile',label:'Demo disponibile',type:'booleano'},
   {key:'assistenza',label:'Assistenza',type:'booleano'},
   {key:'galleria',label:'Fotografie e alt IT/EN',type:'galleria'},
-  {key:'novita.stato',label:'Novità xTool (pagina di lancio con prezzi)',type:'scelta',options:[{value:'',label:'— no, scheda normale'},{value:'preordine',label:'Sì, in pre-ordine (si prenota)'},{value:'disponibile',label:'Sì, disponibile (si ordina)'}]},
-  {key:'novita.etichetta',label:'Etichetta novità (es. Novità · disponibile)',type:'testo-it-en'},
-  {key:'novita.testo',label:'Testo novità',type:'area-it-en'},
-  {key:'novita.configurazioni',label:'Configurazioni e prezzi',type:'ripetitore',schema:[
-   {key:'nome',label:'Nome',type:'testo'},{key:'sorgenti',label:'Sorgenti / contenuto',type:'testo'},
-   {key:'prezzo',label:'Prezzo (€)',type:'prezzo|null'},{key:'listino',label:'Prezzo di listino barrato (€)',type:'prezzo|null'},
-   {key:'disponibile',label:'Disponibile (se tolta: «esaurita»)',type:'booleano'},
-   {key:'nomeShop',label:'Nome della variante nello shop xtool.eu (per l\'aggiornamento automatico)',type:'testo'}]},
-  {key:'shop.url',label:'Shop ufficiale xtool.eu (https://www.xtool.eu/products/…): i prezzi si aggiornano da qui',type:'url'},
-  {key:'vendita.configurazioni',label:'Prezzi ufficiali nella scheda (macchine che non sono «novità»)',type:'ripetitore',schema:[
-   {key:'nome',label:'Nome',type:'testo'},{key:'sorgenti',label:'Sorgenti / contenuto',type:'testo'},
-   {key:'prezzo',label:'Prezzo (€)',type:'prezzo|null'},{key:'listino',label:'Prezzo di listino barrato (€)',type:'prezzo|null'},
-   {key:'disponibile',label:'Disponibile (se tolta: «esaurita»)',type:'booleano'},
-   {key:'nomeShop',label:'Nome della variante nello shop xtool.eu',type:'testo'}]},
-  {key:'vendita.notaPrezzi',label:'Nota sui prezzi della scheda',type:'area-it-en'},
-  {key:'shop.verificatoIl',label:'Prezzi verificati il (YYYY-MM-DD)',type:'testo'},
-  {key:'novita.notaPrezzi',label:'Nota sui prezzi',type:'area-it-en'}
+  {key:'novita.stato',label:'Novità xTool (pagina di lancio, senza prezzi: INGLY non vende macchine)',type:'scelta',options:[{value:'',label:'— no, scheda normale'},{value:'preordine',label:'Sì, in arrivo'},{value:'disponibile',label:'Sì, già disponibile da xTool'}]},
+  {key:'novita.etichetta',label:'Etichetta novità (es. Novità xTool)',type:'testo-it-en'},
+  {key:'novita.testo',label:'Testo novità',type:'area-it-en'}
  ];
- B.innerHTML=pxCard()+'<div id="macEditor"></div>';
- E.mount({root:$('macEditor'),items:S.MAC.catalogo,schema,title:'Catalogo macchine xTool',
+ E.mount({root:B,items:S.MAC.catalogo,schema,title:'Catalogo macchine xTool',
   file:'data/macchine.json',percorso:'catalogo',area:'macchine',
   onChange:markDirty,upload:caricaImmagineCollezione,
   create:()=>({id:'nuova-macchina',serie:'',n:{it:'Nuovo modello',en:'New model'},ruolo:{it:'',en:''},

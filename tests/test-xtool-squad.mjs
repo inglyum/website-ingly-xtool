@@ -14,5 +14,6 @@ t('nessun «Authorized Service Centre» nei testi del sito', !/Authorized Servic
 t('nessun «ricambi» offerto come servizio INGLY', !/riparazioni, ricambi|assistenza e ricambi|service and parts|Repairs, parts/i.test(testi));
 const C = JSON.parse(readFileSync('data/content.json', 'utf8'));
 t('FAQ del sito: centro ufficiale e ricambi/garanzia', C.FAQS.some(f => /centro ufficiale xTool/.test(f[0].it)) && C.FAQS.some(f => /ricambi/.test(f[0].it) && /support\.xtool\.com/.test(f[1].it)));
+t('macchine: nessun prezzo, nessuna vendita (INGLY è host, non rivenditore)', !/Prezzi ufficiali xTool|Ordina questa|Ordinala con INGLY|riparazione e vendita|vendita, demo e assistenza/.test(testi + readFileSync('assets/js/prerender-sito.js', 'utf8') + readFileSync('assets/js/seo.js', 'utf8')) && /Non vendiamo macchine/.test(pag));
 console.log(`\n=========== xTOOL SQUAD: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

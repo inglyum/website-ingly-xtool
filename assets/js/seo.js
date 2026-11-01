@@ -64,7 +64,7 @@ export function updateSeo(page, L, T, product){
     academy:'INGLY Academy',
     demo:(L==='en'?'Free demo':'Demo gratuita'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),
-    macchine:(L==='en'?'xTool laser machines in Palermo: sales, demos and service':'Macchine laser xTool a Palermo: vendita, demo e assistenza')
+    macchine:(L==='en'?'xTool laser machines in Palermo: demos, advice and service':'Macchine laser xTool a Palermo: demo, consigli e assistenza')
   };
   const isProd = page==='product' && product;
   /* Pagina di settore aperta? Si legge dall'indirizzo invece di importare il

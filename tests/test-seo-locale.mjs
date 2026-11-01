@@ -20,7 +20,7 @@ check('generata dalla build e aggiornata', /assistenza-xtool\.mjs/.test(readFile
 check('linkata dal piè di pagina e dalla pagina Macchine', /href="assistenza-xtool-palermo\/"/.test(readFileSync('index.html', 'utf8')) && /ingly-assistenza-banner/.test(readFileSync('assets/js/lab-ui.js', 'utf8')));
 const cfg = JSON.parse(readFileSync('data/config.json', 'utf8'));
 check('città e regione SEO compilate', cfg.seo.citta === 'Palermo' && cfg.seo.regione === 'Sicilia');
-check('titoli macchine locali', /a Palermo: vendita, demo e assistenza/.test(readFileSync('macchine/index.html', 'utf8')) && /assistenza e riparazione a Palermo/.test(readFileSync('macchine/p2/index.html', 'utf8')));
+check('titoli macchine locali', /a Palermo: demo, consigli e assistenza/.test(readFileSync('macchine/index.html', 'utf8')) && /assistenza e riparazione a Palermo/.test(readFileSync('macchine/p2/index.html', 'utf8')));
 const tutto = ['index.html', 'data/content.json', 'data/corsi.json', 'data/products.json', 'assets/js/faq-engine.js', 'scripts/prerender.mjs'].map(f => readFileSync(f, 'utf8')).join(' ');
 check('nessun «Cesena» rimasto: la sede è Palermo', !/Cesena/.test(tutto));
 console.log(`\n=========== SEO LOCALE: ${pass} passati, ${fail} falliti ===========`);

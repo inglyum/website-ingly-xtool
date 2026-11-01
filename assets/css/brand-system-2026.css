@@ -2195,3 +2195,7 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
    e tra 980 e 1340 px il titolo toccava il bordo dello schermo. Qui si
    ridanno i margini della .wrap; sul telefono resta la regola ≤820 px. */
 .wrap.phero{padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px)}
+/* configurazione esaurita nello shop ufficiale xTool */
+.lancio-conf__esaurita{display:inline-block;padding:2px 8px;border-radius:999px;background:var(--brand-muted,#777);color:#fff;font-size:12px;font-weight:700;letter-spacing:.02em}
+/* prezzi con i centesimi: il barrato va a capo invece di uscire dalla scheda */
+#macPage .lancio-conf__prezzo{flex-wrap:wrap;row-gap:2px}

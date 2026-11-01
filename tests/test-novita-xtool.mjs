@@ -8,8 +8,10 @@ const check = (n, c) => { if (c) { pass++; console.log('  ✔ ' + n) } else { fa
 const M = JSON.parse(readFileSync('data/macchine.json', 'utf8'));
 const D = { MACCHINE: M };
 const x1 = LAB.modello(D, 'x1'), c1 = LAB.modello(D, 'c1');
-check('X1 e C1 nel catalogo, in pre-ordine', x1?.novita?.stato === 'preordine' && c1?.novita?.stato === 'preordine');
-check('X1: 5 configurazioni con prezzo di lancio e di listino', x1.novita.configurazioni.length === 5 && x1.novita.configurazioni.every(c => c.prezzo < c.listino));
+check('X1 disponibile, C1 in pre-ordine', x1?.novita?.stato === 'disponibile' && c1?.novita?.stato === 'preordine');
+check('X1: 5 configurazioni con prezzo e prezzo di listino', x1.novita.configurazioni.length === 5 && x1.novita.configurazioni.every(c => c.prezzo < c.listino));
+check('X1: prezzi collegati allo shop ufficiale xtool.eu (aggiornamento automatico)', /^https:\/\/www\.xtool\.eu\/products\//.test(x1.shop?.url || '') && /^\d{4}-\d{2}-\d{2}$/.test(x1.shop?.verificatoIl || '') && x1.novita.configurazioni.every(c => c.nomeShop && c.sku));
+check('pagina: «Ordinala» se disponibile, «Prenotala» se in pre-ordine', /const inVendita = m =>/.test(readFileSync('assets/js/lab-ui.js', 'utf8')) && /Ordinala con INGLY/.test(readFileSync('assets/js/lab-ui.js', 'utf8')));
 check('X1: specifiche ufficiali (area 615×320, 6.000 mm/s, 299 cm)', JSON.stringify(x1.specificheUfficiali).includes('615 × 320 mm') && JSON.stringify(x1.specificheUfficiali).includes('6.000 mm/s') && JSON.stringify(x1.specificheUfficiali).includes('299 cm'));
 check('C1: nessun prezzo in euro inventato', c1.novita.configurazioni.length === 0 && /non è ancora annunciato/.test(c1.novita.notaPrezzi.it));
 check('C1: si dice che non è un laser', /non è un laser/.test(c1.specificheUfficiali.note.it));

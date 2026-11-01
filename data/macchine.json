@@ -531,50 +531,70 @@
         }
       ],
       "novita": {
-        "stato": "preordine",
+        "stato": "disponibile",
         "etichetta": {
-          "it": "Novità · in pre-ordine",
-          "en": "New · pre-order"
+          "it": "Novità · disponibile",
+          "en": "New · available"
         },
         "testo": {
-          "it": "La nuova laser tutto-in-uno di xTool, aperta al pre-ordine. I tempi di consegna li decide xTool: te li confermiamo quando prenoti. Possiamo prenotarla per te e seguirla in assistenza.",
-          "en": "xTool's new all-in-one laser, open for pre-order. Delivery times are set by xTool; we confirm them when you reserve. We can reserve it for you and support it afterwards."
+          "it": "La nuova laser tutto-in-uno di xTool è disponibile: CO₂ 55 W di serie e, secondo la configurazione, diodo galvo, fibra, UV o MOPA. Te la ordiniamo noi, la configuriamo e la seguiamo in assistenza.",
+          "en": "xTool's new all-in-one laser is available: 55 W CO₂ as standard and, depending on the configuration, diode galvo, fibre, UV or MOPA. We order it for you, set it up and support it afterwards."
         },
         "configurazioni": [
           {
+            "id": "single-co2",
             "nome": "X1 Single CO₂",
             "sorgenti": "CO₂ 55 W",
-            "prezzo": 3399,
-            "listino": 3699
+            "prezzo": 3427.33,
+            "listino": 3729.83,
+            "disponibile": true,
+            "nomeShop": "Single CO2 / Other laser sources not supported / Standalone",
+            "sku": "P0101000613"
           },
           {
+            "id": "co2-diodo",
             "nome": "X1 CO₂ + Diode Galvo",
             "sorgenti": "CO₂ 55 W · diodo galvo 20 W",
-            "prezzo": 3999,
-            "listino": 4299
+            "prezzo": 4032.33,
+            "listino": 4334.83,
+            "disponibile": true,
+            "nomeShop": "CO2 + Diode Galvo / No Add-On Laser / Standalone",
+            "sku": "P0101000619"
           },
           {
+            "id": "co2-diodo-fibra",
             "nome": "X1 CO₂ + Diode Galvo + Fiber",
             "sorgenti": "CO₂ 55 W · diodo 20 W · fibra 30 W",
-            "prezzo": 5799,
-            "listino": 6099
+            "prezzo": 5847.33,
+            "listino": 6149.83,
+            "disponibile": true,
+            "nomeShop": "CO2 + Diode Galvo / Add Fiber Laser / Standalone",
+            "sku": "P0101000619-P0102000297"
           },
           {
+            "id": "co2-diodo-uv",
             "nome": "X1 CO₂ + Diode Galvo + UV",
             "sorgenti": "CO₂ 55 W · diodo 20 W · UV 5 W",
-            "prezzo": 6499,
-            "listino": 6999
+            "prezzo": 6553.15,
+            "listino": 7057.33,
+            "disponibile": true,
+            "nomeShop": "CO2 + Diode Galvo / Add UV Laser / Standalone",
+            "sku": "P0101000619-P0102000300"
           },
           {
+            "id": "co2-diodo-mopa",
             "nome": "X1 CO₂ + Diode Galvo + MOPA",
             "sorgenti": "CO₂ 55 W · diodo 20 W · MOPA 60 W",
-            "prezzo": 6679,
-            "listino": 7179
+            "prezzo": 6734.65,
+            "listino": 7238.83,
+            "disponibile": true,
+            "nomeShop": "CO2 + Diode Galvo / Add MOPA Laser / Standalone",
+            "sku": "P0101000619-P0102000303"
           }
         ],
         "notaPrezzi": {
-          "it": "Prezzi di lancio pubblicati da xTool per l'Europa; barrato il prezzo di listino. Possono cambiare: li confermiamo al momento dell'ordine.",
-          "en": "Launch prices published by xTool for Europe; list price struck through. They may change; we confirm them when you order."
+          "it": "Prezzi dello shop ufficiale xTool per l'Italia, IVA inclusa; barrato il prezzo di listino. Sulla pagina ufficiale ci sono anche i pacchetti «Versatile» e «All-in-one» con gli accessori. I prezzi possono cambiare: li confermiamo al momento dell'ordine.",
+          "en": "Prices from the official xTool shop for Italy, VAT included; list price struck through. The official page also offers the «Versatile» and «All-in-one» bundles with accessories. Prices may change; we confirm them when you order."
         },
         "video": [
           {
@@ -681,14 +701,19 @@
           }
         ],
         "note": {
-          "it": "Specifiche ufficiali xTool di una macchina appena annunciata, non prove del laboratorio INGLY. Non è ancora in officina né disponibile per demo.",
-          "en": "Official xTool specifications of a newly announced machine, not tests by the INGLY workshop. Not yet on-site or available for demos."
+          "it": "Specifiche ufficiali xTool, non prove del laboratorio INGLY. Non è ancora in officina né disponibile per demo.",
+          "en": "Official xTool specifications, not tests by the INGLY workshop. Not yet on-site or available for demos."
         }
       },
       "fonte": {
-        "nome": "xTool",
-        "url": "https://www.xtool.com/pages/xtool-x1-coming-soon",
-        "verificatoIl": "2026-10-23"
+        "nome": "xTool Europe",
+        "url": "https://www.xtool.eu/products/xtool-x1-laser-cutter-and-engraver",
+        "verificatoIl": "2026-11-01"
+      },
+      "shop": {
+        "url": "https://www.xtool.eu/products/xtool-x1-laser-cutter-and-engraver",
+        "paese": "IT",
+        "verificatoIl": "2026-11-01"
       }
     },
     {
@@ -1300,5 +1325,6 @@
     }
   ],
   "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
-  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori."
+  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori.",
+  "_prezziAggiornati": "2026-11-01: prezzi e disponibilità della xTool X1 letti dallo shop ufficiale xtool.eu (IVA inclusa, Italia)."
 }

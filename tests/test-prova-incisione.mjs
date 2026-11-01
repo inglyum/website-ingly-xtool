@@ -2,7 +2,7 @@
    preventivo. La foto resta sul dispositivo finché il cliente non sceglie di
    chiedere il preventivo. */
 import { readFileSync, existsSync } from 'node:fs';
-import { MATERIALI, FORME, luminanza, incidi, puntina, dentro, misure } from '../assets/js/prova-incisione-motore.js';
+import { MATERIALI, FORME, LASER, laserDi, luminanza, incidi, puntina, dentro, misure, sfoca } from '../assets/js/prova-incisione-motore.js';
 let ok = 0, ko = 0; const t = (n, c) => { c ? ok++ : ko++; console.log((c ? '  ✔ ' : '  ✘ ') + n); };
 
 /* foto finta 40×20: metà sinistra nera, metà destra bianca */
@@ -27,6 +27,17 @@ const daCatalogo = { legno: 'legno', bambu: 'bamboo', mdf: 'mdf', pelle: 'pelle'
 t('solo materiali del catalogo INGLY', Object.keys(MATERIALI).every(k => cat.includes(daCatalogo[k])));
 const opzioni = (readFileSync('index.html', 'utf8').match(/<select[^>]*name="materiale"[\s\S]*?<\/select>/) || [''])[0];
 t('ogni materiale corrisponde a un\'opzione del modulo preventivo', Object.values(MATERIALI).every(m => opzioni.includes('>' + m.preventivo + '<')));
+t('laser per materiale: legno CO₂ o diodo, acciaio IR/fibra, vetro e plexiglass CO₂', laserDi('legno').join() === 'co2,diodo' && laserDi('metallo').join() === 'ir' && laserDi('vetro').join() === 'co2' && laserDi('plexiglass').join() === 'co2' && Object.keys(LASER).join() === 'co2,diodo,ir');
+/* toni continui: un grigio medio uniforme dà un colore pieno e uniforme, non puntini */
+const grigio = new Float32Array(30 * 30).fill(0.5);
+const liscio = incidi({ lum: grigio, w: 30, h: 30, materiale: 'metallo', laser: 'ir', nitidezza: 0 });
+const valori = new Set(); for (let y = 5; y < 25; y++) for (let x = 5; x < 25; x++) valori.add(Math.round(liscio[(y * 30 + x) * 4] / 8));
+t('di serie niente puntinato: il grigio medio resta un tono continuo', valori.size <= 3);
+const b2 = sfoca(Float32Array.from({ length: 100 }, (_, i) => i % 10 === 5 ? 1 : 0), 10, 10, 1, 1);
+t('sfocatura conserva la media (nitidezza corretta)', Math.abs(b2.reduce((a, c) => a + c, 0) - 10) < 1e-3);
+const bordo = incidi({ lum: new Float32Array(400).fill(1), w: 20, h: 20, materiale: 'legno', laser: 'co2' });
+t('bordo di taglio bruciato sul legno', bordo[0] < bordo[(10 * 20 + 10) * 4] - 40);
+t('pagina: retino fine spento di serie, scelta del laser e nitidezza', /<input type="checkbox" id="dither">/.test(readFileSync('prova-incisione.html', 'utf8')) && /id="lasers"/.test(readFileSync('prova-incisione.html', 'utf8')) && /id="sharp"/.test(readFileSync('prova-incisione.html', 'utf8')));
 t('forme: rettangolo, angoli arrotondati, cerchio', FORME.join() === 'rettangolo,arrotondato,cerchio');
 
 const page = readFileSync('prova-incisione.html', 'utf8'), ui = readFileSync('assets/js/prova-incisione.js', 'utf8');

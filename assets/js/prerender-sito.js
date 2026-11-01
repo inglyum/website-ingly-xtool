@@ -117,7 +117,7 @@ export function generaSito(dati, guscio){
   const TITOLI_LAB = {
     materiali: { t: 'Materiali', d: 'Nove materiali in lavorazione corrente, ognuno con le sue tecnologie, i suoi spessori e i suoi limiti dichiarati.' },
     tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
-    macchine: { t: 'Macchine laser xTool a Palermo: vendita, demo e assistenza', d: 'Le macchine xTool che usiamo e assistiamo a Palermo: vendita, prezzi ufficiali, demo, formazione, manutenzione e riparazione per la Sicilia e il Sud Italia.' },
+    macchine: { t: 'Macchine laser xTool a Palermo: demo, consigli e assistenza', d: 'Le macchine xTool che conosciamo come host xTool Squad a Palermo: demo, consigli sulla scelta, formazione, manutenzione e riparazione per la Sicilia e il Sud Italia.' },
     academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Palermo o collegati.' },
     demo: { t: 'Demo gratuita', d: 'Un\'ora in officina con la macchina accesa: la provi davvero prima di sceglierla.' }
   };

@@ -582,14 +582,6 @@ export function corpoMacchina(D, m, opt = {}) {
   r.push('<p>' + esc(m.inOfficina
     ? (L === 'it' ? 'Questa macchina è in officina da noi e lavora tutti i giorni.' : 'This machine is in our workshop and runs every day.')
     : (L === 'it' ? 'Su questo modello diamo assistenza come host ufficiale xTool Squad: installazione, formazione, manutenzione e riparazione.' : 'We support this model as an official xTool Squad host: commissioning, training, maintenance and repair.')) + '</p>');
-  /* prezzi ufficiali xTool anche nella pagina statica (motori di ricerca, senza JS) */
-  const confPrezzi = ((m.vendita && Array.isArray(m.vendita.configurazioni)) ? m.vendita.configurazioni : []).filter(c => c && c.prezzo != null);
-  if (confPrezzi.length) {
-    const eur = n => Number(n).toLocaleString('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
-    r.push('<h2>' + esc(L === 'it' ? 'Prezzi ufficiali xTool' : 'Official xTool prices') + '</h2><ul>' +
-      confPrezzi.map(c => '<li>' + esc(c.nome) + ': ' + esc(eur(c.prezzo)) + (c.disponibile === false ? ' (' + esc(L === 'it' ? 'esaurita' : 'sold out') + ')' : '') + '</li>').join('') + '</ul>' +
-      '<p>' + esc(L === 'it' ? 'Prezzi dello shop ufficiale xTool per l\'Italia, IVA inclusa.' : 'Prices from the official xTool shop for Italy, VAT included.') + '</p>');
-  }
   const machinePhoto=fotoMacchina(D,m.id);
   if(machinePhoto.foto && /^https:\/\/cdn\.shopify\.com\//.test(machinePhoto.foto)){
     r.push('<figure class="ingly-machine-official-photo"><img src="'+esc(machinePhoto.foto)+

@@ -285,69 +285,32 @@ function nascondiArchiviate(d){
     a.hidden=arch.has(n.trim().toLowerCase());
   });
 }
-/* ---------- NOVITÀ xTool (in pre-ordine o appena disponibili) ----------
+/* ---------- NOVITÀ xTool ----------
    Una macchina con `novita` nel catalogo (Admin → Lab → Macchine): etichetta,
-   testo, configurazioni con prezzo e prezzo di listino, nota sui prezzi.
-   novita.stato: «preordine» (si prenota) o «disponibile» (si ordina).
-   Con `shop.url` i prezzi arrivano dallo shop ufficiale xtool.eu
-   (scripts/prezzi-xtool.mjs). Il pulsante apre WhatsApp con il messaggio già scritto. */
-const euro = n => Number(n).toLocaleString('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
-const conPrezzi = m => !!(m && m.vendita && Array.isArray(m.vendita.configurazioni) && m.vendita.configurazioni.some(c => c && c.prezzo != null));
-/* si ordina: novità già disponibile, oppure macchina normale con i prezzi dello shop */
-const inVendita = m => !!(m && ((m.novita && m.novita.stato === 'disponibile') || (!(m.novita && m.novita.stato) && conPrezzi(m))));
-const dataIt = s => { const d = new Date(String(s || '') + 'T12:00:00'); return isNaN(d) ? '' : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }); };
-function waPreordine(m, L) {
+   testo e video. INGLY non vende macchine: è host xTool Squad. Niente prezzi,
+   niente ordini o prenotazioni: si chiede un consiglio o una demo, e per
+   l'acquisto si rimanda alla pagina ufficiale xTool. */
+function waConsiglio(m, L) {
   const cfg = (D().CONFIG) || {};
   const base = String(cfg.whatsapp || '').split('?')[0];
   if (!/^https:\/\/wa\.me\//.test(base)) return '';
   const nome = LAB.lingua(m.n, L);
-  if (inVendita(m)) return base + '?text=' + encodeURIComponent(L === 'en'
-    ? `Hi INGLY DESIGN, I'm interested in the ${nome}. Could you tell me about price and delivery?`
-    : `Ciao INGLY DESIGN, mi interessa la ${nome}. Mi date informazioni su prezzo e consegna?`);
   return base + '?text=' + encodeURIComponent(L === 'en'
-    ? `Hi INGLY DESIGN, I'm interested in pre-ordering the ${nome}. Could you tell me more?`
-    : `Ciao INGLY DESIGN, mi interessa il pre-ordine della ${nome}. Mi date informazioni?`);
+    ? `Hi INGLY DESIGN, I'd like some advice on the ${nome}: is it the right machine for my work?`
+    : `Ciao INGLY DESIGN, vorrei un consiglio sulla ${nome}: è la macchina giusta per il mio lavoro?`);
 }
-const tCta = (m, L) => inVendita(m) ? t2('Ordinala con INGLY', 'Order it with INGLY', L) : t2('Prenotala con INGLY', 'Reserve it with INGLY', L);
-function verificaPrezzi(m, L) {
-  const d = dataIt(m && m.shop && m.shop.verificatoIl);
-  return d ? `<p class="lancio-nota">${t2('Prezzi verificati sullo shop ufficiale xTool il', 'Prices checked on the official xTool shop on', L)} ${esc(d)}.</p>` : '';
-}
-/* Scheda normale: prezzi ufficiali xTool (data/macchine.json → vendita),
-   aggiornati da scripts/prezzi-xtool.mjs e dall'Admin. */
-function bloccoPrezzi(m, L) {
-  if (!conPrezzi(m)) return '';
-  const v = m.vendita, conf = v.configurazioni.filter(c => c && c.prezzo != null);
-  const wa = waPreordine(m, L), nome = LAB.lingua(m.n, L), uff = (m.shop && m.shop.url) || '';
-  return `<section class="lancio-sez" id="mac-prezzi" aria-labelledby="macPrezziTit">
-    <h3 class="vert-tit" id="macPrezziTit">${t2('Prezzi ufficiali xTool', 'Official xTool prices', L)}</h3>
-    <div class="lancio-conf">${conf.map(c => `<article>
-      <h3>${esc(c.nome)}</h3>
-      <p>${esc(c.sorgenti || '')}</p>
-      <div class="lancio-conf__prezzo"><b>${esc(euro(c.prezzo))}</b>${c.listino ? `<s>${esc(euro(c.listino))}</s>` : ''}${esaurita(c, L)}</div>
-      ${wa ? `<a class="btn btn-ghost" href="${esc(wa.replace(encodeURIComponent(nome), encodeURIComponent(c.nome)))}" target="_blank" rel="noopener noreferrer">${c.disponibile === false ? t2('Chiedi quando torna', 'Ask when it is back', L) : t2('Ordina questa', 'Order this one', L)}</a>` : ''}
-    </article>`).join('')}</div>
-    ${v.notaPrezzi ? `<p class="lancio-nota">${esc(LAB.lingua(v.notaPrezzi, L))}</p>` : ''}
-    ${verificaPrezzi(m, L)}
-    ${uff ? `<p><a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a></p>` : ''}
-  </section>`;
-}
-const esaurita = (c, L) => c && c.disponibile === false ? ` <small class="lancio-conf__esaurita">${t2('esaurita', 'sold out', L)}</small>` : '';
+const tCta = L => t2('Chiedi un consiglio a INGLY', 'Ask INGLY for advice', L);
 function bloccoNovita(m, L, grande) {
   const nv = m && m.novita; if (!nv || !nv.stato) return '';
-  const conf = Array.isArray(nv.configurazioni) ? nv.configurazioni : [];
-  const wa = waPreordine(m, L);
+  const wa = waConsiglio(m, L);
   const ufficiale = (m.fonte && m.fonte.url) || '';
   return `<div class="ingly-novita${grande ? ' ingly-novita--grande' : ''}">
     <span class="ingly-novita__badge">${esc(LAB.lingua(nv.etichetta, L) || t2('Novità', 'New', L))}</span>
     ${nv.testo ? `<p class="ingly-novita__testo">${esc(LAB.lingua(nv.testo, L))}</p>` : ''}
-    ${grande && conf.length ? `<ul class="ingly-novita__conf">${conf.map(c => `<li><span><b>${esc(c.nome)}</b><small>${esc(c.sorgenti || '')}</small></span>
-      <span class="ingly-novita__prezzo">${c.prezzo != null ? esc(euro(c.prezzo)) : ''}${c.listino ? ` <s>${esc(euro(c.listino))}</s>` : ''}${esaurita(c, L)}</span></li>`).join('')}</ul>` : ''}
-    ${grande && nv.notaPrezzi ? `<p class="ingly-novita__nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
     ${grande ? videoNovita(nv, L) : ''}
     <div class="ingly-novita__azioni">
-      ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(m, L)} <span class="arr">→</span></a>` : ''}
-      ${!grande ? `<a class="btn btn-ghost" href="${esc(via('/macchine/' + m.id))}" data-nav="macchine">${t2('Scheda e prezzi', 'Details and prices', L)}</a>` : ''}
+      ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(L)} <span class="arr">→</span></a>` : ''}
+      ${!grande ? `<a class="btn btn-ghost" href="${esc(via('/macchine/' + m.id))}" data-nav="macchine">${t2('La scheda', 'Details', L)}</a>` : ''}
       ${grande && ufficiale ? `<a class="btn btn-ghost" href="${esc(ufficiale)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
     </div>
   </div>`;
@@ -379,7 +342,7 @@ function sezioneNovita(d, L) {
   const nuove = LAB.catalogo(d).filter(m => m.novita && m.novita.stato);
   if (!nuove.length) return '';
   return `<section class="ingly-novita-sez" aria-labelledby="inglyNovitaTit">
-    <h3 class="vert-tit" id="inglyNovitaTit">${nuove.every(m => !inVendita(m)) ? t2('Novità xTool, in pre-ordine', 'New from xTool, on pre-order', L) : t2('Novità xTool', 'New from xTool', L)}</h3>
+    <h3 class="vert-tit" id="inglyNovitaTit">${t2('Novità xTool', 'New from xTool', L)}</h3>
     <div class="ingly-novita-grid">${nuove.map(m => `<article class="ingly-novita-card">
       ${fotoMac(m, L, false)}
       <h4>${esc(LAB.lingua(m.n, L))}</h4>
@@ -859,21 +822,20 @@ export function renderCorso(id, L) {
 
 /* ---------- scheda macchina ---------- */
 
-/* ---------- PAGINA DI LANCIO (novità: in pre-ordine o appena disponibili) ----------
-   Apertura scura con foto grande e numeri chiave, configurazioni e prezzi
-   in schede, video, specifiche ufficiali a griglia, chiusura con la
-   prenotazione. Tutto dai dati (Admin → Lab → Macchine). */
+/* ---------- PAGINA DI LANCIO (novità xTool) ----------
+   Apertura scura con foto grande e numeri chiave, video, specifiche
+   ufficiali a griglia, chiusura con il consiglio di INGLY (host xTool Squad).
+   Niente prezzi né ordini: INGLY non vende macchine. Tutto dai dati
+   (Admin → Lab → Macchine). */
 function paginaLancio(m, L) {
   const nv = m.novita || {};
   const g = LAB.fotoGalleria(m);
   const altre = (m.galleria || []).slice(1).filter(x => x && /^(?:img|assets\/images)\//.test(String(x.src || '')));
-  const conf = Array.isArray(nv.configurazioni) ? nv.configurazioni : [];
   const numeri = Array.isArray(nv.numeri) ? nv.numeri : [];
   const spec = (m.specificheUfficiali && m.specificheUfficiali.values) || [];
-  const wa = waPreordine(m, L);
+  const wa = waConsiglio(m, L);
   const uff = (m.fonte && m.fonte.url) || '';
   const nome = LAB.lingua(m.n, L);
-  const minimo = conf.filter(c => c.prezzo != null).map(c => c.prezzo).sort((a, b) => a - b)[0];
   return `
   <nav class="vert-back"><a href="${via('/macchine')}" data-nav="macchine">← ${t2('Tutte le macchine', 'All machines', L)}</a></nav>
   <section class="lancio-hero">
@@ -881,28 +843,15 @@ function paginaLancio(m, L) {
       <span class="ingly-novita__badge">${esc(LAB.lingua(nv.etichetta, L) || t2('Novità', 'New', L))}</span>
       <h1>${esc(nome)}</h1>
       <p class="lancio-hero__ruolo">${esc(LAB.lingua(m.ruolo, L))}</p>
-      ${minimo != null ? `<p class="lancio-hero__prezzo">${t2('da', 'from', L)} <b>${esc(euro(minimo))}</b> <small>${inVendita(m) ? t2('prezzo xTool, IVA inclusa', 'xTool price, VAT included', L) : t2('prezzo di lancio xTool', 'xTool launch price', L)}</small></p>` : ''}
       <div class="lancio-hero__azioni">
-        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(m, L)} <span class="arr">→</span></a>` : ''}
-        ${conf.length ? `<a class="btn btn-ghost" href="#lancio-prezzi">${t2('Configurazioni e prezzi', 'Configurations and prices', L)}</a>` : ''}
+        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(L)} <span class="arr">→</span></a>` : ''}
+        ${uff ? `<a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
       </div>
     </div>
     ${g ? `<figure class="lancio-hero__foto"><img src="${esc(/^https:\/\//.test(g.src) ? g.src : via('/' + g.src))}" alt="${esc(LAB.lingua(g.alt, L) || nome)}" fetchpriority="high" decoding="async"></figure>` : ''}
   </section>
   ${numeri.length ? `<ul class="lancio-numeri">${numeri.map(n => `<li><b>${esc(n.valore)}</b><span>${esc(LAB.lingua(n.etichetta, L))}</span></li>`).join('')}</ul>` : ''}
   ${nv.testo ? `<p class="lancio-intro">${esc(LAB.lingua(nv.testo, L))}</p>` : ''}
-
-  ${conf.length ? `<section class="lancio-sez" id="lancio-prezzi">
-    <h2>${t2('Configurazioni e prezzi', 'Configurations and prices', L)}</h2>
-    <div class="lancio-conf">${conf.map(c => `<article>
-      <h3>${esc(c.nome)}</h3>
-      <p>${esc(c.sorgenti || '')}</p>
-      <div class="lancio-conf__prezzo">${c.prezzo != null ? `<b>${esc(euro(c.prezzo))}</b>` : ''}${c.listino ? `<s>${esc(euro(c.listino))}</s>` : ''}${esaurita(c, L)}</div>
-      ${wa ? `<a class="btn btn-ghost" href="${esc(wa.replace(encodeURIComponent(nome), encodeURIComponent(c.nome)))}" target="_blank" rel="noopener noreferrer">${inVendita(m) ? t2('Ordina questa', 'Order this one', L) : t2('Prenota questa', 'Reserve this one', L)}</a>` : ''}
-    </article>`).join('')}</div>
-    ${nv.notaPrezzi ? `<p class="lancio-nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
-    ${verificaPrezzi(m, L)}
-  </section>` : (nv.notaPrezzi ? `<section class="lancio-sez"><h2>${t2('Prezzo', 'Price', L)}</h2><p class="lancio-nota lancio-nota--grande">${esc(LAB.lingua(nv.notaPrezzi, L))}</p></section>` : '')}
 
   ${(nv.video || []).length || altre.length ? `<section class="lancio-sez">
     <h2>${t2('Guardala lavorare', 'See it at work', L)}</h2>
@@ -918,13 +867,12 @@ function paginaLancio(m, L) {
 
   <section class="lancio-chiusura">
     <div>
-      <h2>${tCta(m, L)}</h2>
-      <p>${inVendita(m)
-        ? t2('Siamo il centro assistenza xTool a Palermo: la ordiniamo per te, la configuriamo e la seguiamo nel tempo, in tutta la Sicilia e il Sud Italia.', 'We are the xTool service centre in Palermo: we order it for you, set it up and support it over time, across Sicily and Southern Italy.', L)
-        : t2('Siamo il centro assistenza xTool a Palermo: la prenotiamo per te, la configuriamo e la seguiamo nel tempo, in tutta la Sicilia e il Sud Italia.', 'We are the xTool service centre in Palermo: we reserve it for you, set it up and support it over time, across Sicily and Southern Italy.', L)}</p>
+      <h2>${t2('È la macchina giusta per te?', 'Is it the right machine for you?', L)}</h2>
+      <p>${t2('Siamo host ufficiale xTool Squad a Palermo: ti aiutiamo a scegliere il prodotto giusto con consigli, test sui tuoi materiali e demo, e ti seguiamo dopo con formazione, installazione e assistenza. L\'acquisto si fa sullo shop ufficiale xTool.', 'We are an official xTool Squad host in Palermo: we help you choose the right product with advice, tests on your materials and demos, and support you afterwards with training, commissioning and service. You buy it on the official xTool shop.', L)}</p>
     </div>
     <div class="lancio-hero__azioni">
       ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Scrivici su WhatsApp', 'Message us on WhatsApp', L)} <span class="arr">→</span></a>` : ''}
+      <a class="btn btn-ghost" href="${via('/demo')}" data-nav="demo">${t2('Prenota una demo', 'Book a demo', L)}</a>
       <a class="btn btn-ghost" href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool Palermo', 'xTool service in Palermo', L)}</a>
       ${uff ? `<a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
     </div>
@@ -940,7 +888,7 @@ export function renderMacchina(id, L, cardProdotto) {
 
   if (hero) hero.hidden = true;
   pagina.hidden = false;
-  /* Novità (pre-ordine o appena disponibile): pagina di lancio, non la scheda generica */
+  /* Novità xTool: pagina di lancio, non la scheda generica */
   if (m.novita && m.novita.stato) { pagina.innerHTML = paginaLancio(m, L); observeAll(); avviaVideo(pagina); return; }
   const tecs = LAB.tecnologieDiModello(d, m);
   const mats = LAB.materialiDiModello(d, m);
@@ -959,7 +907,6 @@ export function renderMacchina(id, L, cardProdotto) {
       m.inOfficina ? t2('In officina da noi', 'In our workshop', L) : t2('Assistenza e riparazione', 'Service and repair', L),
       m.assistenza ? t2('Host ufficiale xTool Squad', 'Official xTool Squad host', L) : ''
     ].filter(Boolean))}
-    ${bloccoPrezzi(m, L)}
 
     ${m.daCompletare ? `<p class="lab-nulla">${t2(
       'Le specifiche di questo modello non sono ancora state verificate da noi: su questa macchina diamo assistenza, e preferiamo non riportare numeri che non abbiamo misurato. Per i dati esatti scrivici.',

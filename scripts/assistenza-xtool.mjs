@@ -145,7 +145,7 @@ export function genera() {
   <li><b>Manutenzione e riparazione:</b> per tenere la macchina al massimo delle prestazioni.</li>
   <li><b>Eventi e incontri</b> con la community xTool.</li>
  </ul>
- <p>Ti aiutiamo anche a scegliere e ordinare la macchina xTool giusta, compresa la nuova X1.</p>
+ <p>Non vendiamo macchine: ti aiutiamo a scegliere quella giusta per il tuo lavoro, con un consiglio, un test sui tuoi materiali o una demo. L'acquisto si fa sullo <a href="${SHOP}" target="_blank" rel="noopener noreferrer">shop ufficiale xTool</a>.</p>
 
  <h2>Garanzia, xToolCare e ricambi</h2>
  <p>La garanzia e i piani xToolCare sono gestiti da xTool: le richieste si aprono sul <a href="${SERVICE}" target="_blank" rel="noopener noreferrer">Service Center ufficiale xTool</a>. I ricambi originali si acquistano sullo <a href="${SHOP}" target="_blank" rel="noopener noreferrer">shop ufficiale xTool</a>: ti aiutiamo a trovare quello giusto e, se serve, lo sostituiamo durante la manutenzione o la riparazione.</p>

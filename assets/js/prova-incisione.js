@@ -3,10 +3,10 @@
    (prova-incisione-motore.js) disegna l'anteprima. «Chiedi il preventivo»
    salva foto e anteprima in sessionStorage e apre il modulo preventivo, che
    le allega da solo (assets/js/forms.js → allegaProvaIncisione). */
-import { MATERIALI, FORME, luminanza, incidi, misure } from './prova-incisione-motore.js';
+import { MATERIALI, FORME, LASER, laserDi, luminanza, incidi, misure } from './prova-incisione-motore.js';
 
 const $ = id => document.getElementById(id);
-const MAX_FILE = 25 * 1024 * 1024, LATO = 900, CHIAVE = 'ingly_prova_incisione';
+const MAX_FILE = 25 * 1024 * 1024, LATO = 1200, CHIAVE = 'ingly_prova_incisione';
 
 const translations = {
   it: {
@@ -15,8 +15,9 @@ const translations = {
     settings: 'La tua incisione', file: '1. La tua foto', fileNote: 'JPG, PNG o WebP · massimo 25 MB · meglio un soggetto ben illuminato.',
     material: '2. Materiale', shape: '3. Forma', size: '4. Misura indicativa',
     sizeNote: 'Lato più lungo. Serve per il preventivo: la misura esatta la decidiamo insieme.',
-    bright: 'Luminosità', contrast: 'Contrasto', dither: 'Puntinatura laser',
-    ditherNote: "Le foto si incidono a puntini, come una stampa a retino: è l'aspetto più vicino al pezzo vero.",
+    bright: 'Luminosità', contrast: 'Contrasto', sharp: 'Nitidezza', dither: 'Retino fine',
+    ditherNote: 'Facoltativo: simula il retino finissimo che si usa per alcune foto. Di solito si lascia spento.',
+    laser: 'Laser', laserNote: "Il CO₂ incide più in profondità, il diodo è più superficiale, l'IR (fibra) marca il metallo.",
     toQuote: 'Chiedi il preventivo con questa foto', download: "Scarica l'anteprima",
     notice: 'Anteprima indicativa: il risultato reale dipende dalla foto, dal materiale e dalla lavorazione. Prima di incidere ti confermiamo resa, misura e prezzo.',
     previewTitle: 'Anteprima', empty: "Carica una foto per vedere l'anteprima dell'incisione.",
@@ -27,7 +28,7 @@ const translations = {
     saved: 'Ti porto al preventivo con foto e anteprima allegate…',
     noSpace: "Il browser non ha spazio per passare la foto al preventivo: scarica l'anteprima e allegala tu nel modulo.",
     dims: (a, b) => `circa ${a} × ${b} cm`,
-    desc: (m, f, a, b) => `Prova incisione dal sito: foto su ${m}, forma ${f}, circa ${a} × ${b} cm.`,
+    desc: (m, l, f, a, b) => `Prova incisione dal sito: foto su ${m}, laser ${l}, forma ${f}, circa ${a} × ${b} cm.`,
   },
   en: {
     kicker: 'TRY YOUR ENGRAVED PHOTO', back: '← All generators', title: 'Your photo.<br><span>Engraved.</span>',
@@ -35,8 +36,9 @@ const translations = {
     settings: 'Your engraving', file: '1. Your photo', fileNote: 'JPG, PNG or WebP · up to 25 MB · a well-lit subject works best.',
     material: '2. Material', shape: '3. Shape', size: '4. Approximate size',
     sizeNote: 'Longest side. It is for the quote: we decide the exact size together.',
-    bright: 'Brightness', contrast: 'Contrast', dither: 'Laser dot pattern',
-    ditherNote: 'Photos are engraved as dots, like a halftone print: this is the look closest to the real piece.',
+    bright: 'Brightness', contrast: 'Contrast', sharp: 'Sharpness', dither: 'Fine halftone',
+    ditherNote: 'Optional: simulates the very fine halftone used for some photos. Usually left off.',
+    laser: 'Laser', laserNote: 'CO₂ engraves deeper, diode is shallower, IR (fibre) marks metal.',
     toQuote: 'Ask for a quote with this photo', download: 'Download the preview',
     notice: 'Indicative preview: the real result depends on the photo, the material and the process. Before engraving we confirm the look, size and price.',
     previewTitle: 'Preview', empty: 'Upload a photo to see the engraving preview.',
@@ -47,7 +49,7 @@ const translations = {
     saved: 'Taking you to the quote form with photo and preview attached…',
     noSpace: 'Your browser has no room to pass the photo to the quote form: download the preview and attach it yourself.',
     dims: (a, b) => `about ${a} × ${b} cm`,
-    desc: (m, f, a, b) => `Engraving preview from the website: photo on ${m}, ${f} shape, about ${a} × ${b} cm.`,
+    desc: (m, l, f, a, b) => `Engraving preview from the website: photo on ${m}, ${l} laser, ${f} shape, about ${a} × ${b} cm.`,
   },
 };
 
@@ -68,12 +70,19 @@ function testi() {
 }
 function stato(msg, errore = false) { const el = $('status'); el.textContent = msg; el.dataset.error = String(errore); }
 
+function disegnaLaser() {
+  const lasers = laserDi(scelta('mat') || 'legno'), attuale = scelta('laser');
+  const l = lasers.includes(attuale) ? attuale : lasers[0];
+  $('lasers').innerHTML = lasers.map(id =>
+    `<label><input type="radio" name="laser" value="${id}"${id === l ? ' checked' : ''}>${LASER[id][lingua]}</label>`).join('');
+}
 function disegnaScelte() {
   const m = scelta('mat') || 'legno', f = scelta('forma') || 'rettangolo';
   $('mats').innerHTML = Object.entries(MATERIALI).map(([id, x]) =>
     `<label class="mat"><input type="radio" name="mat" value="${id}"${id === m ? ' checked' : ''}><i style="background:rgb(${x.base.join(',')})"></i>${x[lingua]}</label>`).join('');
   $('shapes').innerHTML = FORME.map(id =>
     `<label><input type="radio" name="forma" value="${id}"${id === f ? ' checked' : ''}>${tx('forme')[id]}</label>`).join('');
+  disegnaLaser();
 }
 
 function caricaFoto(file) {
@@ -106,8 +115,8 @@ function preparaLuminanza() {
 
 function disegna() {
   if (!lum) return;
-  const px = incidi({ lum, w: W, h: H, materiale: scelta('mat'), forma: scelta('forma'),
-    luminosita: +$('bright').value, contrasto: +$('contrast').value, retino: $('dither').checked });
+  const px = incidi({ lum, w: W, h: H, materiale: scelta('mat'), laser: scelta('laser'), forma: scelta('forma'),
+    luminosita: +$('bright').value, contrasto: +$('contrast').value, nitidezza: +$('sharp').value, retino: $('dither').checked });
   if (!tela) { tela = document.createElement('canvas'); tela.setAttribute('role', 'img'); $('stage').replaceChildren(tela); }
   tela.width = W; tela.height = H;
   tela.getContext('2d').putImageData(new ImageData(px, W, H), 0, 0);
@@ -118,7 +127,7 @@ function disegna() {
 function aggiornaInfo() {
   const d = misure(W, H, +$('size').value), m = MATERIALI[scelta('mat')] || MATERIALI.legno;
   $('dims').textContent = tx('dims')(d.larghezza, d.altezza);
-  $('matName').textContent = m[lingua];
+  $('matName').textContent = `${m[lingua]} · ${(LASER[scelta('laser')] || LASER.co2)[lingua]}`;
   tela.setAttribute('aria-label', `${lingua === 'it' ? 'Anteprima della foto incisa su' : 'Preview of the photo engraved on'} ${m[lingua]}`);
 }
 function pianifica() { cancelAnimationFrame(attesa); attesa = requestAnimationFrame(disegna); }
@@ -151,7 +160,7 @@ function alPreventivo() {
   const forma = translations.it.forme[scelta('forma')] || '';
   const dati = {
     t: Date.now(), materiale: m.preventivo,
-    descrizione: translations[lingua].desc(m[lingua], (translations[lingua].forme[scelta('forma')] || forma).toLowerCase(), d.larghezza, d.altezza),
+    descrizione: translations[lingua].desc(m[lingua], (LASER[scelta('laser')] || LASER.co2)[lingua], (translations[lingua].forme[scelta('forma')] || forma).toLowerCase(), d.larghezza, d.altezza),
     file: [{ nome: `${nomeFoto}.jpg`, dati: fotoRidotta() }, { nome: `anteprima-${nomeFoto}-${scelta('mat')}.jpg`, dati: jpeg(tela) }],
   };
   try { sessionStorage.setItem(CHIAVE, JSON.stringify(dati)); }
@@ -169,9 +178,10 @@ function avvia() {
     r.dataset.mode = v; try { localStorage.setItem('ingly_mode', v); } catch (_) {}
   });
   $('photo').addEventListener('change', e => caricaFoto(e.target.files && e.target.files[0]));
-  $('mats').addEventListener('change', pianifica);
+  $('mats').addEventListener('change', () => { disegnaLaser(); pianifica(); });
+  $('lasers').addEventListener('change', pianifica);
   $('shapes').addEventListener('change', preparaLuminanza);
-  for (const id of ['bright', 'contrast']) $(id).addEventListener('input', () => { $(id + 'Out').textContent = $(id).value; pianifica(); });
+  for (const id of ['bright', 'contrast', 'sharp']) $(id).addEventListener('input', () => { $(id + 'Out').textContent = $(id).value; pianifica(); });
   $('dither').addEventListener('change', pianifica);
   $('size').addEventListener('change', () => tela && aggiornaInfo());
   $('download').addEventListener('click', scarica);

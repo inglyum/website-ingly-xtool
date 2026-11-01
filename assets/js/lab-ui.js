@@ -285,20 +285,33 @@ function nascondiArchiviate(d){
     a.hidden=arch.has(n.trim().toLowerCase());
   });
 }
-/* ---------- NOVITÀ xTool IN PRE-ORDINE ----------
+/* ---------- NOVITÀ xTool (in pre-ordine o appena disponibili) ----------
    Una macchina con `novita` nel catalogo (Admin → Lab → Macchine): etichetta,
    testo, configurazioni con prezzo e prezzo di listino, nota sui prezzi.
-   Il pulsante apre WhatsApp con il messaggio già scritto. */
-const euro = n => Number(n).toLocaleString('it-IT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+   novita.stato: «preordine» (si prenota) o «disponibile» (si ordina).
+   Con `shop.url` i prezzi arrivano dallo shop ufficiale xtool.eu
+   (scripts/prezzi-xtool.mjs). Il pulsante apre WhatsApp con il messaggio già scritto. */
+const euro = n => Number(n).toLocaleString('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
+const inVendita = m => !!(m && m.novita && m.novita.stato === 'disponibile');
+const dataIt = s => { const d = new Date(String(s || '') + 'T12:00:00'); return isNaN(d) ? '' : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }); };
 function waPreordine(m, L) {
   const cfg = (D().CONFIG) || {};
   const base = String(cfg.whatsapp || '').split('?')[0];
   if (!/^https:\/\/wa\.me\//.test(base)) return '';
   const nome = LAB.lingua(m.n, L);
+  if (inVendita(m)) return base + '?text=' + encodeURIComponent(L === 'en'
+    ? `Hi INGLY DESIGN, I'm interested in the ${nome}. Could you tell me about price and delivery?`
+    : `Ciao INGLY DESIGN, mi interessa la ${nome}. Mi date informazioni su prezzo e consegna?`);
   return base + '?text=' + encodeURIComponent(L === 'en'
     ? `Hi INGLY DESIGN, I'm interested in pre-ordering the ${nome}. Could you tell me more?`
     : `Ciao INGLY DESIGN, mi interessa il pre-ordine della ${nome}. Mi date informazioni?`);
 }
+const tCta = (m, L) => inVendita(m) ? t2('Ordinala con INGLY', 'Order it with INGLY', L) : t2('Prenotala con INGLY', 'Reserve it with INGLY', L);
+function verificaPrezzi(m, L) {
+  const d = dataIt(m && m.shop && m.shop.verificatoIl);
+  return d ? `<p class="lancio-nota">${t2('Prezzi verificati sullo shop ufficiale xTool il', 'Prices checked on the official xTool shop on', L)} ${esc(d)}.</p>` : '';
+}
+const esaurita = (c, L) => c && c.disponibile === false ? ` <small class="lancio-conf__esaurita">${t2('esaurita', 'sold out', L)}</small>` : '';
 function bloccoNovita(m, L, grande) {
   const nv = m && m.novita; if (!nv || !nv.stato) return '';
   const conf = Array.isArray(nv.configurazioni) ? nv.configurazioni : [];
@@ -308,11 +321,11 @@ function bloccoNovita(m, L, grande) {
     <span class="ingly-novita__badge">${esc(LAB.lingua(nv.etichetta, L) || t2('Novità', 'New', L))}</span>
     ${nv.testo ? `<p class="ingly-novita__testo">${esc(LAB.lingua(nv.testo, L))}</p>` : ''}
     ${grande && conf.length ? `<ul class="ingly-novita__conf">${conf.map(c => `<li><span><b>${esc(c.nome)}</b><small>${esc(c.sorgenti || '')}</small></span>
-      <span class="ingly-novita__prezzo">${c.prezzo != null ? esc(euro(c.prezzo)) : ''}${c.listino ? ` <s>${esc(euro(c.listino))}</s>` : ''}</span></li>`).join('')}</ul>` : ''}
+      <span class="ingly-novita__prezzo">${c.prezzo != null ? esc(euro(c.prezzo)) : ''}${c.listino ? ` <s>${esc(euro(c.listino))}</s>` : ''}${esaurita(c, L)}</span></li>`).join('')}</ul>` : ''}
     ${grande && nv.notaPrezzi ? `<p class="ingly-novita__nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
     ${grande ? videoNovita(nv, L) : ''}
     <div class="ingly-novita__azioni">
-      ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)} <span class="arr">→</span></a>` : ''}
+      ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(m, L)} <span class="arr">→</span></a>` : ''}
       ${!grande ? `<a class="btn btn-ghost" href="${esc(via('/macchine/' + m.id))}" data-nav="macchine">${t2('Scheda e prezzi', 'Details and prices', L)}</a>` : ''}
       ${grande && ufficiale ? `<a class="btn btn-ghost" href="${esc(ufficiale)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
     </div>
@@ -345,7 +358,7 @@ function sezioneNovita(d, L) {
   const nuove = LAB.catalogo(d).filter(m => m.novita && m.novita.stato);
   if (!nuove.length) return '';
   return `<section class="ingly-novita-sez" aria-labelledby="inglyNovitaTit">
-    <h3 class="vert-tit" id="inglyNovitaTit">${t2('Novità xTool, in pre-ordine', 'New from xTool, on pre-order', L)}</h3>
+    <h3 class="vert-tit" id="inglyNovitaTit">${nuove.every(m => !inVendita(m)) ? t2('Novità xTool, in pre-ordine', 'New from xTool, on pre-order', L) : t2('Novità xTool', 'New from xTool', L)}</h3>
     <div class="ingly-novita-grid">${nuove.map(m => `<article class="ingly-novita-card">
       ${fotoMac(m, L, false)}
       <h4>${esc(LAB.lingua(m.n, L))}</h4>
@@ -825,7 +838,7 @@ export function renderCorso(id, L) {
 
 /* ---------- scheda macchina ---------- */
 
-/* ---------- PAGINA DI LANCIO (macchine in pre-ordine) ----------
+/* ---------- PAGINA DI LANCIO (novità: in pre-ordine o appena disponibili) ----------
    Apertura scura con foto grande e numeri chiave, configurazioni e prezzi
    in schede, video, specifiche ufficiali a griglia, chiusura con la
    prenotazione. Tutto dai dati (Admin → Lab → Macchine). */
@@ -847,9 +860,9 @@ function paginaLancio(m, L) {
       <span class="ingly-novita__badge">${esc(LAB.lingua(nv.etichetta, L) || t2('Novità', 'New', L))}</span>
       <h1>${esc(nome)}</h1>
       <p class="lancio-hero__ruolo">${esc(LAB.lingua(m.ruolo, L))}</p>
-      ${minimo != null ? `<p class="lancio-hero__prezzo">${t2('da', 'from', L)} <b>${esc(euro(minimo))}</b> <small>${t2('prezzo di lancio xTool', 'xTool launch price', L)}</small></p>` : ''}
+      ${minimo != null ? `<p class="lancio-hero__prezzo">${t2('da', 'from', L)} <b>${esc(euro(minimo))}</b> <small>${inVendita(m) ? t2('prezzo xTool, IVA inclusa', 'xTool price, VAT included', L) : t2('prezzo di lancio xTool', 'xTool launch price', L)}</small></p>` : ''}
       <div class="lancio-hero__azioni">
-        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)} <span class="arr">→</span></a>` : ''}
+        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(m, L)} <span class="arr">→</span></a>` : ''}
         ${conf.length ? `<a class="btn btn-ghost" href="#lancio-prezzi">${t2('Configurazioni e prezzi', 'Configurations and prices', L)}</a>` : ''}
       </div>
     </div>
@@ -863,10 +876,11 @@ function paginaLancio(m, L) {
     <div class="lancio-conf">${conf.map(c => `<article>
       <h3>${esc(c.nome)}</h3>
       <p>${esc(c.sorgenti || '')}</p>
-      <div class="lancio-conf__prezzo">${c.prezzo != null ? `<b>${esc(euro(c.prezzo))}</b>` : ''}${c.listino ? `<s>${esc(euro(c.listino))}</s>` : ''}</div>
-      ${wa ? `<a class="btn btn-ghost" href="${esc(wa.replace(encodeURIComponent(nome), encodeURIComponent(c.nome)))}" target="_blank" rel="noopener noreferrer">${t2('Prenota questa', 'Reserve this one', L)}</a>` : ''}
+      <div class="lancio-conf__prezzo">${c.prezzo != null ? `<b>${esc(euro(c.prezzo))}</b>` : ''}${c.listino ? `<s>${esc(euro(c.listino))}</s>` : ''}${esaurita(c, L)}</div>
+      ${wa ? `<a class="btn btn-ghost" href="${esc(wa.replace(encodeURIComponent(nome), encodeURIComponent(c.nome)))}" target="_blank" rel="noopener noreferrer">${inVendita(m) ? t2('Ordina questa', 'Order this one', L) : t2('Prenota questa', 'Reserve this one', L)}</a>` : ''}
     </article>`).join('')}</div>
     ${nv.notaPrezzi ? `<p class="lancio-nota">${esc(LAB.lingua(nv.notaPrezzi, L))}</p>` : ''}
+    ${verificaPrezzi(m, L)}
   </section>` : (nv.notaPrezzi ? `<section class="lancio-sez"><h2>${t2('Prezzo', 'Price', L)}</h2><p class="lancio-nota lancio-nota--grande">${esc(LAB.lingua(nv.notaPrezzi, L))}</p></section>` : '')}
 
   ${(nv.video || []).length || altre.length ? `<section class="lancio-sez">
@@ -883,8 +897,10 @@ function paginaLancio(m, L) {
 
   <section class="lancio-chiusura">
     <div>
-      <h2>${t2('Prenotala con INGLY', 'Reserve it with INGLY', L)}</h2>
-      <p>${t2('Siamo il centro assistenza xTool a Palermo: la prenotiamo per te, la configuriamo e la seguiamo nel tempo, in tutta la Sicilia e il Sud Italia.', 'We are the xTool service centre in Palermo: we reserve it for you, set it up and support it over time, across Sicily and Southern Italy.', L)}</p>
+      <h2>${tCta(m, L)}</h2>
+      <p>${inVendita(m)
+        ? t2('Siamo il centro assistenza xTool a Palermo: la ordiniamo per te, la configuriamo e la seguiamo nel tempo, in tutta la Sicilia e il Sud Italia.', 'We are the xTool service centre in Palermo: we order it for you, set it up and support it over time, across Sicily and Southern Italy.', L)
+        : t2('Siamo il centro assistenza xTool a Palermo: la prenotiamo per te, la configuriamo e la seguiamo nel tempo, in tutta la Sicilia e il Sud Italia.', 'We are the xTool service centre in Palermo: we reserve it for you, set it up and support it over time, across Sicily and Southern Italy.', L)}</p>
     </div>
     <div class="lancio-hero__azioni">
       ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Scrivici su WhatsApp', 'Message us on WhatsApp', L)} <span class="arr">→</span></a>` : ''}
@@ -903,7 +919,7 @@ export function renderMacchina(id, L, cardProdotto) {
 
   if (hero) hero.hidden = true;
   pagina.hidden = false;
-  /* Macchina in pre-ordine: pagina di lancio, non la scheda generica */
+  /* Novità (pre-ordine o appena disponibile): pagina di lancio, non la scheda generica */
   if (m.novita && m.novita.stato) { pagina.innerHTML = paginaLancio(m, L); observeAll(); avviaVideo(pagina); return; }
   const tecs = LAB.tecnologieDiModello(d, m);
   const mats = LAB.materialiDiModello(d, m);

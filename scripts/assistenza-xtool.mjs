@@ -132,7 +132,7 @@ export function genera() {
   <li>Calibrazione e messa a punto: allineamento, fuoco, telecamere, parametri dei materiali.</li>
   <li>Configurazione di xTool Creative Space (XCS) e aggiornamenti firmware.</li>
   <li>Demo e formazione, in laboratorio o collegati.</li>
-  <li>Vendita e pre-ordine delle macchine xTool, comprese le novità X1 e C1.</li>
+  <li>Vendita delle macchine xTool, compresa la nuova X1, e pre-ordine della C1.</li>
  </ul>
 
  <h2>Come funziona</h2>

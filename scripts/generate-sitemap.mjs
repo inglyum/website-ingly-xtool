@@ -95,6 +95,7 @@ const pagine = [
      non una rotta SPA, quindi entra nella sitemap con il suo file reale. */
   { file: 'generatori.html', pagina: 'tool', id: 'generatori' },
   { file: 'print-cut.html', pagina: 'tool', id: 'print-cut' },
+  { file: 'prova-incisione.html', pagina: 'tool', id: 'prova-incisione' },
   /* pagina locale per chi cerca assistenza xTool a Palermo / in Sicilia */
   { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' }
 ];

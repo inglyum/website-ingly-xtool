@@ -128,18 +128,18 @@ const STATIC_UI_TRANSLATIONS={
   portfolio:{it:'Portfolio',en:'Portfolio'},
   theme:{it:'Tema',en:'Theme'},
   serviceIntro:{
-    it:'Un punto di riferimento per il mondo xTool: supporto, orientamento tecnico e assistenza sui percorsi di utilizzo delle macchine. Raccontaci il modello e di cosa hai bisogno.',
-    en:'A point of reference for the xTool world: support, technical guidance and assistance with machine workflows. Tell us which model you have and what you need.'
+    it:'INGLY DESIGN è host di xTool Squad, la rete ufficiale di xTool per il supporto locale prima e dopo l\'acquisto: demo delle macchine, test sui tuoi materiali, formazione, installazione e messa in servizio, manutenzione e riparazione. Raccontaci il modello e di cosa hai bisogno.',
+    en:'INGLY DESIGN is an xTool Squad host, xTool\'s official network for local support before and after purchase: machine demos, tests on your materials, training, installation and commissioning, maintenance and repair. Tell us which model you have and what you need.'
   },
   serviceScope:{
-    it:'Per richieste di assistenza o riparazione, la disponibilità e la tipologia di intervento vengono confermate caso per caso.',
-    en:'For service or repair requests, availability and the type of assistance are confirmed individually.'
+    it:'Per assistenza o riparazione, disponibilità e tipo di intervento vengono confermati caso per caso. Garanzia, xToolCare e ricambi originali sono gestiti da xTool sui suoi canali ufficiali.',
+    en:'For service or repair, availability and the type of work are confirmed case by case. Warranty, xToolCare and original spare parts are handled by xTool through its official channels.'
   },
   serviceBadgeCaption:{
-    it:'INGLY DESIGN · Supporto tecnico, informazioni e demo su richiesta',
-    en:'INGLY DESIGN · Technical support, information and demos on request'
+    it:'INGLY DESIGN · host xTool Squad a Palermo',
+    en:'INGLY DESIGN · xTool Squad host in Palermo'
   },
-  serviceContact:{it:'Contatta il Service Centre',en:'Contact the Service Centre'},
+  serviceContact:{it:'Chiedi assistenza xTool',en:'Ask for xTool support'},
   bookDemo:{it:'Prenota una demo xTool',en:'Book an xTool demo'},
   shopPathsEyebrow:{it:'SCOPRI IL MONDO INGLY',en:'EXPLORE INGLY'},
   shopPathsTitle:{it:'Gadget e accessori, fatti per distinguersi.',en:'Gadgets and accessories that stand out.'},

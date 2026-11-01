@@ -217,7 +217,10 @@
     "qWaNome": "Nome",
     "qWaRichiesta": "Richiesta",
     "qWaMateriale": "Materiale",
-    "qWaQuantita": "Quantità"
+    "qWaQuantita": "Quantità",
+    "qProvaAllegate": "Allegate la tua foto e l'anteprima dell'incisione: controlla i dati e invia.",
+    "qProvaNonAllegate": "Materiale e descrizione già compilati. Allega qui la foto che hai usato nell'anteprima.",
+    "qProvaLink": "Vuoi vedere prima come viene? Prova la tua foto incisa →"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -437,7 +440,10 @@
     "qWaNome": "Name",
     "qWaRichiesta": "Request",
     "qWaMateriale": "Material",
-    "qWaQuantita": "Quantity"
+    "qWaQuantita": "Quantity",
+    "qProvaAllegate": "Your photo and the engraving preview are attached: check the details and send.",
+    "qProvaNonAllegate": "Material and description are already filled in. Attach here the photo you used in the preview.",
+    "qProvaLink": "Want to see it first? Try your engraved photo →"
   },
   "wOpen": {
     "it": "Apri Wishlist",

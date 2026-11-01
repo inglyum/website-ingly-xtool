@@ -292,7 +292,9 @@ function nascondiArchiviate(d){
    Con `shop.url` i prezzi arrivano dallo shop ufficiale xtool.eu
    (scripts/prezzi-xtool.mjs). Il pulsante apre WhatsApp con il messaggio già scritto. */
 const euro = n => Number(n).toLocaleString('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
-const inVendita = m => !!(m && m.novita && m.novita.stato === 'disponibile');
+const conPrezzi = m => !!(m && m.vendita && Array.isArray(m.vendita.configurazioni) && m.vendita.configurazioni.some(c => c && c.prezzo != null));
+/* si ordina: novità già disponibile, oppure macchina normale con i prezzi dello shop */
+const inVendita = m => !!(m && ((m.novita && m.novita.stato === 'disponibile') || (!(m.novita && m.novita.stato) && conPrezzi(m))));
 const dataIt = s => { const d = new Date(String(s || '') + 'T12:00:00'); return isNaN(d) ? '' : d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' }); };
 function waPreordine(m, L) {
   const cfg = (D().CONFIG) || {};
@@ -310,6 +312,25 @@ const tCta = (m, L) => inVendita(m) ? t2('Ordinala con INGLY', 'Order it with IN
 function verificaPrezzi(m, L) {
   const d = dataIt(m && m.shop && m.shop.verificatoIl);
   return d ? `<p class="lancio-nota">${t2('Prezzi verificati sullo shop ufficiale xTool il', 'Prices checked on the official xTool shop on', L)} ${esc(d)}.</p>` : '';
+}
+/* Scheda normale: prezzi ufficiali xTool (data/macchine.json → vendita),
+   aggiornati da scripts/prezzi-xtool.mjs e dall'Admin. */
+function bloccoPrezzi(m, L) {
+  if (!conPrezzi(m)) return '';
+  const v = m.vendita, conf = v.configurazioni.filter(c => c && c.prezzo != null);
+  const wa = waPreordine(m, L), nome = LAB.lingua(m.n, L), uff = (m.shop && m.shop.url) || '';
+  return `<section class="lancio-sez" id="mac-prezzi" aria-labelledby="macPrezziTit">
+    <h3 class="vert-tit" id="macPrezziTit">${t2('Prezzi ufficiali xTool', 'Official xTool prices', L)}</h3>
+    <div class="lancio-conf">${conf.map(c => `<article>
+      <h3>${esc(c.nome)}</h3>
+      <p>${esc(c.sorgenti || '')}</p>
+      <div class="lancio-conf__prezzo"><b>${esc(euro(c.prezzo))}</b>${c.listino ? `<s>${esc(euro(c.listino))}</s>` : ''}${esaurita(c, L)}</div>
+      ${wa ? `<a class="btn btn-ghost" href="${esc(wa.replace(encodeURIComponent(nome), encodeURIComponent(c.nome)))}" target="_blank" rel="noopener noreferrer">${c.disponibile === false ? t2('Chiedi quando torna', 'Ask when it is back', L) : t2('Ordina questa', 'Order this one', L)}</a>` : ''}
+    </article>`).join('')}</div>
+    ${v.notaPrezzi ? `<p class="lancio-nota">${esc(LAB.lingua(v.notaPrezzi, L))}</p>` : ''}
+    ${verificaPrezzi(m, L)}
+    ${uff ? `<p><a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a></p>` : ''}
+  </section>`;
 }
 const esaurita = (c, L) => c && c.disponibile === false ? ` <small class="lancio-conf__esaurita">${t2('esaurita', 'sold out', L)}</small>` : '';
 function bloccoNovita(m, L, grande) {
@@ -398,8 +419,8 @@ export function renderMacchine(L) {
     '<p class="lab-n"><b>'+esc(titolo)+'</b></p><ul class="lab-lista">'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';};
   box.innerHTML = `
     <a class="ingly-assistenza-banner" href="${via('/assistenza-xtool-palermo/')}">
-      <span><b>${t2('Centro assistenza xTool a Palermo', 'xTool service centre in Palermo', L)}</b>
-      <small>${t2('Riparazioni, ricambi, messa a punto e demo per tutta la Sicilia e il Sud Italia.', 'Repairs, parts, tuning and demos for Sicily and Southern Italy.', L)}</small></span>
+      <span><b>${t2('Assistenza xTool a Palermo · host ufficiale xTool Squad', 'xTool support in Palermo · official xTool Squad host', L)}</b>
+      <small>${t2('Demo prima dell\'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione.', 'Pre-sale demos, material tests, training, commissioning, maintenance and repair.', L)}</small></span>
       <span class="arr" aria-hidden="true">→</span></a>
     ${sezioneNovita(d, L)}
     <div class="machine-section-label">
@@ -936,11 +957,12 @@ export function renderMacchina(id, L, cardProdotto) {
     ${bloccoNovita(m, L, true)}
     ${chips([
       m.inOfficina ? t2('In officina da noi', 'In our workshop', L) : t2('Assistenza e riparazione', 'Service and repair', L),
-      m.assistenza ? t2('Centro ufficiale xTool', 'Official xTool centre', L) : ''
+      m.assistenza ? t2('Host ufficiale xTool Squad', 'Official xTool Squad host', L) : ''
     ].filter(Boolean))}
+    ${bloccoPrezzi(m, L)}
 
     ${m.daCompletare ? `<p class="lab-nulla">${t2(
-      'Le specifiche di questo modello non sono ancora state verificate da noi: su questa macchina diamo assistenza e ricambi, e preferiamo non riportare numeri che non abbiamo misurato. Per i dati esatti scrivici.',
+      'Le specifiche di questo modello non sono ancora state verificate da noi: su questa macchina diamo assistenza, e preferiamo non riportare numeri che non abbiamo misurato. Per i dati esatti scrivici.',
       'We have not yet verified this model\'s specifications ourselves. We service and repair it, and prefer not to quote figures we have not measured.', L)}</p>` : ''}
 
     ${m.specs && m.specs.sorgente ? `<h3 class="vert-tit">${t2('Specifiche', 'Specifications', L)}</h3>
@@ -1059,8 +1081,8 @@ export function renderDemo(L) {
           <span class="vert-sub">${esc(LAB.lingua(m.ruolo, L))}</span>
           <span class="vert-go">${t2('La scheda', 'Details', L)} <i class="arr">→</i></span></a>`).join('')}</div>
       <p class="lab-p">${t2(
-        'Sono le macchine che abbiamo in officina. Sul resto della gamma xTool diamo assistenza e ricambi come centro ufficiale, ma provarle qui non si può.',
-        'These are the machines we have in the workshop. On the rest of the xTool range we provide service and parts as an official centre.', L)}</p>` : ''}
+        'Sono le macchine che abbiamo in officina. Sul resto della gamma xTool diamo assistenza come host ufficiale xTool Squad, ma provarle qui non si può.',
+        'These are the machines we have in the workshop. On the rest of the xTool range we provide support as an official xTool Squad host.', L)}</p>` : ''}
 
     ${tecs.length ? `<h3 class="vert-tit">${t2('Cosa puoi vedere lavorare', 'What you can see working', L)}</h3>
       ${chips(tecs.map(t => LAB.lingua(t.n, L)))}` : ''}

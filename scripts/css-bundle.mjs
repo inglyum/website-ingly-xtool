@@ -15,7 +15,8 @@ import { readFileSync, writeFileSync } from 'fs';
 import { createHash } from 'crypto';
 
 /* L'ordine conta: l'ultimo vince. brand-system-2026.css è l'autorità del
-   marchio e deve restare ultimo. */
+   marchio; restyle-2026.css (restyle «negozio moderno pulito», nov 2026) lo
+   segue e deve restare ultimo. */
 export const ORDINE = [
   'reset.css', 'variables.css', 'animations.css', 'layout.css', 'components.css',
   'nav-ia.css', 'pages.css', 'responsive.css', 'premium-2026.css',
@@ -23,7 +24,7 @@ export const ORDINE = [
   'signature-showcase.css', 'maison-reference.css', 'ingly-studio-refinement.css',
   'ingly-josefin-studio.css', 'ingly-responsive-theme.css', 'foundation-components.css',
   'real-photography.css', 'ingly-immersive-2026.css', 'ux-fluidity-sprint16.css',
-  'brand-system-2026.css'
+  'brand-system-2026.css', 'restyle-2026.css'
 ];
 
 /* le pagine che caricano il bundle (la vetrina e la pagina del design system) */

@@ -17,7 +17,7 @@ check('ogni sorgente esiste', ORDINE.every(f => existsSync('assets/css/' + f)));
 check('ingly.css è esattamente l\'unione attuale dei sorgenti (altrimenti: npm run build)', bundle === componi());
 check('il manifest elenca l\'ordine attuale', JSON.stringify(man.ordine) === JSON.stringify(ORDINE.map(f => 'assets/css/' + f)));
 check('la versione nel manifest è l\'impronta del bundle', man.v === impronta(bundle));
-check('brand-system-2026.css resta l\'ultimo (autorità del marchio)', ORDINE[ORDINE.length - 1] === 'brand-system-2026.css');
+check('restyle-2026.css è l\'ultimo, subito dopo brand-system-2026.css', ORDINE[ORDINE.length - 1] === 'restyle-2026.css' && ORDINE[ORDINE.length - 2] === 'brand-system-2026.css');
 
 console.log('\n=== INDEX.HTML CARICA SOLO IL BUNDLE ===');
 const locali = [...new JSDOM(html).window.document.querySelectorAll('link[rel="stylesheet"]')].map(l => l.getAttribute('href')).filter(h => !/^https?:/.test(h));

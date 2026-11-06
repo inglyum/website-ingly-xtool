@@ -220,7 +220,12 @@
     "qWaQuantita": "Quantità",
     "qProvaAllegate": "Allegate la tua foto e l'anteprima dell'incisione: controlla i dati e invia.",
     "qProvaNonAllegate": "Materiale e descrizione già compilati. Allega qui la foto che hai usato nell'anteprima.",
-    "qProvaLink": "Vuoi vedere prima come viene? Prova la tua foto incisa →"
+    "qProvaLink": "Vuoi vedere prima come viene? Prova la tua foto incisa →",
+    "heroQuoteLabel": "Cosa vuoi realizzare?",
+    "heroQuotePh": "Es. targa in legno con il nome di casa",
+    "heroQuoteBtn": "Chiedi un preventivo",
+    "heroLinkWa": "Scrivici su WhatsApp",
+    "heroImgAlt": "Mappa di Palermo incisa e tagliata al laser su legno, con il mare in blu: un lavoro INGLY DESIGN"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -443,7 +448,12 @@
     "qWaQuantita": "Quantity",
     "qProvaAllegate": "Your photo and the engraving preview are attached: check the details and send.",
     "qProvaNonAllegate": "Material and description are already filled in. Attach here the photo you used in the preview.",
-    "qProvaLink": "Want to see it first? Try your engraved photo →"
+    "qProvaLink": "Want to see it first? Try your engraved photo →",
+    "heroQuoteLabel": "What would you like to make?",
+    "heroQuotePh": "E.g. a wooden house sign with your family name",
+    "heroQuoteBtn": "Ask for a quote",
+    "heroLinkWa": "Message us on WhatsApp",
+    "heroImgAlt": "Map of Palermo laser engraved and cut in wood, with the sea in blue: an INGLY DESIGN piece"
   },
   "wOpen": {
     "it": "Apri Wishlist",

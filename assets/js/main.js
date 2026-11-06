@@ -204,6 +204,7 @@ function applyI18n(){
   document.documentElement.lang=L;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const v=D[L][el.dataset.i18n];if(v!==undefined)el.innerHTML=v});
   document.querySelectorAll('[data-ph]').forEach(el=>{const v=D[L][el.dataset.ph];if(v!==undefined)el.placeholder=v});
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>{const v=D[L][el.dataset.i18nAlt];if(v!==undefined)el.alt=v});
   renderTitoloHero();
   translateInline();
   $('langIT').classList.toggle('on',L==='it');

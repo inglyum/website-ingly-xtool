@@ -1,3 +1,3 @@
-https://github.com/pbakaus/impeccable @ 5cb95eea9c96479f57afe0732a45470d30183326
+https://github.com/pbakaus/impeccable @ c3bb418ee38ee49a6b999b7752c1368f3123a2bd (v4.8.0, 2026-11-05)
 
 Installati solo SKILL.md e reference/. La cartella scripts/ (launcher che scarica ed esegue un binario) NON è inclusa: si segue la procedura "Launcher unavailable" dello SKILL.md, leggendo il contesto del progetto direttamente.

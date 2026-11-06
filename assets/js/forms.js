@@ -171,6 +171,17 @@ function fileDaDataUrl(dataUrl, nome){
   for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
   return new File([arr], String(nome || 'foto.jpg').replace(/[^\w.-]+/g, '-'), { type: tipo });
 }
+/* Arrivo dalla barra «Cosa vuoi realizzare?» della home: ?idea=… precompila
+   la descrizione (solo se vuota, solo testo, massimo 500 caratteri). */
+export function precompilaIdea(form){
+  try{
+    const idea = new URLSearchParams(location.search).get('idea');
+    const desc = form && form.querySelector('textarea[name="descrizione"]');
+    if(!idea || !desc || desc.value.trim()) return false;
+    desc.value = String(idea).replace(/[\u0000-\u001f]+/g, ' ').trim().slice(0, 500);
+    return true;
+  }catch(e){ return false; }
+}
 export function allegaProvaIncisione(form){
   let dati = null;
   try{ dati = JSON.parse(sessionStorage.getItem(CHIAVE_PROVA) || 'null'); sessionStorage.removeItem(CHIAVE_PROVA); }catch(e){ return false; }
@@ -276,6 +287,7 @@ export function initForms(){
   if(q){
     initModoPreventivo(q);
     allegaProvaIncisione(q);
+    precompilaIdea(q);
     q.addEventListener('submit',e=>{
       e.preventDefault();
       const urg=document.querySelector('#urgRow .pill.on');

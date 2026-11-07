@@ -365,15 +365,7 @@
 }
 @keyframes rs-scan{0%{top:-4%;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:104%;opacity:0}}
 
-/* avanzamento della lettura: una riga d'oro sotto l'intestazione, guidata dallo scorrimento */
-@supports (animation-timeline:scroll()){
- @media (prefers-reduced-motion:no-preference){
-  :root[data-mode][data-mode] header#nav.nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
-   background:linear-gradient(90deg,var(--rs-gold),var(--rs-ember));transform-origin:0 50%;transform:scaleX(0);
-   animation:rs-avanza linear both;animation-timeline:scroll(root)}
- }
-}
-@keyframes rs-avanza{to{transform:scaleX(1)}}
+
 
 /* superfici del browser nei colori del sito */
 :root[data-mode][data-mode]{accent-color:var(--rs-gold);caret-color:var(--rs-gold)}
@@ -416,3 +408,48 @@
 :root[data-mode][data-mode] #page-shop.page.active{background-image:none!important}
 :root[data-mode][data-mode] :is(.about-art,.about-media,.ingly-biz-cover,.matcard,.ingly-service-centre__badge,.cat-agg__scena){background:var(--rs-bg-2)!important;border-color:var(--rs-line)!important}
 :root[data-mode][data-mode] .mcard::after{display:none!important}
+
+/* ---------- chiaro e scuro su computer, iPad e telefono ---------- */
+/* avanzamento della lettura: la barra esistente (guidata da JS, va anche su Safari vecchi) in oro e brace */
+:root[data-mode][data-mode] #progress.progress{height:2px!important;background:linear-gradient(90deg,var(--rs-gold),var(--rs-ember))!important;border-radius:0!important;box-shadow:none!important}
+/* il menu laterale chiuso non deve proiettare ombra sulla pagina */
+:root[data-mode][data-mode] .drawer:not(.open){box-shadow:none!important}
+/* la notifica nascosta non deve affiorare in fondo allo schermo (barre di Safari che si ritirano) */
+:root[data-mode][data-mode] #toast.toast:not(.on){visibility:hidden}
+/* tablet: la barra rapida del telefono qui doppia l'intestazione (e restava una fascia bianca) */
+@media (min-width:641px) and (max-width:1024px){:root[data-mode][data-mode] .atelier-mobile-dock{display:none!important}}
+/* telefono: barra rapida nei colori del tema */
+@media (max-width:640px){
+ :root[data-mode][data-mode] .atelier-mobile-dock{background:color-mix(in srgb,var(--rs-bg) 92%,transparent)!important;border:1px solid var(--rs-line)!important;border-radius:0!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.25)!important}
+ :root[data-mode][data-mode] .atelier-mobile-dock > :is(a,button){color:var(--rs-ink)!important;font-family:var(--rs-font)!important}
+ :root[data-mode][data-mode] .atelier-mobile-dock > :is(a,button) svg{stroke:currentColor}
+}
+/* testi rimasti coi colori del vecchio stile */
+:root[data-mode][data-mode] #nav .nav-links a[data-nav="quote"] :is(span,i){color:inherit!important}
+:root[data-mode][data-mode] #sponsorSec .sp-cta a{color:var(--rs-gold)!important}
+:root[data-mode][data-mode] #macPage :is(.mac-credito,.ingly-m2-duo__photo figcaption),
+:root[data-mode][data-mode] :is(.mac-credito,.ingly-m2-duo__photo figcaption){color:var(--rs-muted)!important}
+:root[data-mode="light"][data-mode] .page .ingly-finder-tile .ingly-finder-tile__state{color:#22603f!important}
+:root[data-mode][data-mode] .mcard :is(.spec i,.mats-list span,.mtype,.mcard-badge){color:var(--rs-muted)!important;background:transparent!important;border-color:var(--rs-line)!important}
+:root[data-mode][data-mode] .mcard .mcard-badge{color:var(--rs-gold)!important;border:1px solid var(--rs-gold)!important}
+:root[data-mode][data-mode] .tt-track .tc-sub{color:var(--rs-muted)!important}
+:root[data-mode][data-mode] footer[data-component="site-footer"] .btn-primary :is(span,svg){color:var(--rs-on-gold)!important;-webkit-text-fill-color:var(--rs-on-gold)!important}
+/* tema chiaro: il piano del laser diventa alluminio chiaro, come quello vero */
+:root[data-mode="light"][data-mode="light"] .rs3d-stage{background:radial-gradient(70% 70% at 50% 40%,#f4efe6 0%,#e2d9cb 64%,#cfc4b3 100%)!important;color:var(--rs-ink)!important;
+ box-shadow:inset 0 0 0 1px var(--rs-line)}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage::before{background:#6d5d4a!important;opacity:.22!important}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage::after{background:radial-gradient(90% 90% at 50% 45%,transparent 55%,rgba(90,70,45,.22) 100%)!important}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap,:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap span{color:var(--rs-muted)!important}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap button{background:rgba(247,242,234,.85)!important;color:var(--rs-ink)!important;border-color:var(--rs-line-strong)!important}
+@media (hover:hover){:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap button:hover{border-color:var(--rs-gold)!important}}
+/* modulo del preventivo: superficie della casa, angoli vivi come il resto */
+:root[data-mode][data-mode] #page-quote form.quote-form,:root[data-mode][data-mode] form.quote-form{background:var(--rs-bg-2)!important;border:1px solid var(--rs-line)!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important}
+:root[data-mode][data-mode] form.quote-form :is(input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select){background:var(--rs-bg)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line-strong)!important;border-radius:0!important}
+:root[data-mode][data-mode] form.quote-form :is(input,textarea)::placeholder{color:var(--rs-muted)!important;opacity:1}
+:root[data-mode][data-mode] form.quote-form :is(label,legend){color:var(--rs-ink)!important}
+/* pulsante «scegli file» del browser nei colori del sito */
+:root[data-mode][data-mode] input[type=file]{color:var(--rs-muted)!important;font:400 14px/1.3 var(--rs-font)!important}
+:root[data-mode][data-mode] input[type=file]::file-selector-button{margin-right:12px;padding:8px 14px;border:1px solid var(--rs-line-strong);border-radius:0;
+ background:var(--rs-bg-2);color:var(--rs-ink);font:600 13px/1 var(--rs-font);cursor:pointer;transition:border-color .2s}
+:root[data-mode][data-mode] input[type=file]::file-selector-button:hover{border-color:var(--rs-gold)}

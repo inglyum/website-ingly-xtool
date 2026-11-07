@@ -43,5 +43,14 @@ const chiavi = ['heroQuoteBtn', 'heroLinkWa', 'heroImgAlt', 'rs3dLabel', 'rs3dPh
 t('testi nuovi in italiano e inglese', ['it', 'en'].every(l => chiavi.every(k => String(tx[l][k] || '').trim())));
 t('la richiesta composta contiene materiale e testo', ['it', 'en'].every(l => /\{m\}/.test(tx[l].rs3dIdea) && /\{t\}/.test(tx[l].rs3dIdea)));
 
+console.log('\n=== CHIARO E SCURO SU OGNI SCHERMO ===');
+t('tablet: niente fascia della barra rapida del telefono sotto l\'intestazione', /@media \(min-width:641px\) and \(max-width:1024px\)\{[^}]*\.atelier-mobile-dock\{display:none!important\}/.test(css));
+t('il menu laterale chiuso non lascia ombra sul bordo della pagina', /\.drawer:not\(\.open\)\{box-shadow:none!important\}/.test(css));
+t('la notifica nascosta non affiora in fondo allo schermo', /#toast\.toast:not\(\.on\)\{visibility:hidden\}/.test(css));
+t('una sola barra di avanzamento, in oro e brace', /#progress\.progress\{[^}]*var\(--rs-gold\),var\(--rs-ember\)/.test(css) && !/animation-timeline:scroll\(root\)/.test(css));
+t('tema chiaro: il piano del laser diventa alluminio chiaro, didascalie leggibili', /:root\[data-mode="light"\]\[data-mode="light"\] \.rs3d-stage\{/.test(css) && /:root\[data-mode="light"\]\[data-mode="light"\] \.rs3d-stage__cap button\{/.test(css));
+t('modulo del preventivo nei colori della casa in entrambi i temi', /form\.quote-form\{background:var\(--rs-bg-2\)!important/.test(css));
+t('pulsante «scegli file» del browser nei colori del sito', /::file-selector-button\{/.test(css));
+
 console.log(`\n=========== RESTYLE 2026: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

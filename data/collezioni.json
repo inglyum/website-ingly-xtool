@@ -14,7 +14,10 @@
     "evidenza": "true per mostrarla in home e nel mega menu",
     "posizione": "ordine fra quelle in evidenza",
     "stato": "pubblicata | bozza | archiviata",
-    "seo": "{ titolo, descrizione } — se assenti si usano n e s"
+    "seo": "{ titolo, descrizione } — se assenti si usano n e s",
+    "parole": "(dentro query) parole cercate in nome e descrizione, in OR: la raccolta si riempie da sola",
+    "gruppo": "occasione | oggetto | per-chi | vetrina: dove compare nello shop («Scegli per occasione», «Per tipo di oggetto»)",
+    "intro": "{ it, en } — 2-3 frasi in cima alla pagina della raccolta"
   },
   "collezioni": [
     {
@@ -48,7 +51,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "vetrina"
     },
     {
       "id": "novita",
@@ -81,7 +85,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "vetrina"
     },
     {
       "id": "limited",
@@ -114,7 +119,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "vetrina"
     },
     {
       "id": "stagionale",
@@ -147,7 +153,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "vetrina"
     },
     {
       "id": "sotto-20",
@@ -178,7 +185,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "vetrina"
     },
     {
       "id": "wedding",
@@ -192,11 +200,16 @@
         "en": "Seating charts, place cards, favours: everything with your guests' names on it."
       },
       "query": {
-        "cat": [
-          "eventi"
-        ],
-        "sub": [
-          2
+        "parole": [
+          "matrimonio",
+          "matrimoni",
+          "nozze",
+          "sposi",
+          "wedding",
+          "bombonier",
+          "segnapost",
+          "guestbook",
+          "tableau"
         ]
       },
       "ordine": "rilevanza",
@@ -207,13 +220,18 @@
       "stato": "pubblicata",
       "seo": {
         "titolo": {
-          "it": "",
-          "en": ""
+          "it": "Matrimonio: segnaposto, bomboniere e cake topper incisi al laser",
+          "en": "Wedding: laser-engraved place cards, favours and cake toppers"
         },
         "descrizione": {
-          "it": "",
-          "en": ""
+          "it": "Segnaposto, tableau, bomboniere e cake topper personalizzati con i vostri nomi, incisi al laser a Palermo. Bozza da approvare, preventivo su richiesta.",
+          "en": "Personalised place cards, seating charts, favours and cake toppers, laser engraved in Palermo. Proof to approve, quote on request."
         }
+      },
+      "gruppo": "occasione",
+      "intro": {
+        "it": "Segnaposto, tableau, bomboniere e cake topper con i nomi degli sposi e degli invitati, incisi e tagliati al laser nel nostro laboratorio di Palermo. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Place cards, seating charts, favours and cake toppers with the couple's and guests' names, laser engraved and cut in our Palermo workshop. Before production we send you a proof to approve."
       }
     },
     {
@@ -247,7 +265,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "per-chi"
     },
     {
       "id": "b2b",
@@ -280,7 +299,8 @@
           "it": "",
           "en": ""
         }
-      }
+      },
+      "gruppo": "per-chi"
     },
     {
       "id": "personalizzabili",
@@ -312,7 +332,539 @@
           "en": ""
         }
       },
-      "_nota": "Si accende da sé: i prodotti marcati «si personalizza» nell'Admin. Se nessuno è marcato, la collezione resta vuota e NON viene pubblicata."
+      "_nota": "Si accende da sé: i prodotti marcati «si personalizza» nell'Admin. Se nessuno è marcato, la collezione resta vuota e NON viene pubblicata.",
+      "gruppo": "vetrina"
+    },
+    {
+      "id": "nascita",
+      "slug": "nascita-battesimo",
+      "n": {
+        "it": "Nascita e battesimo",
+        "en": "Birth and christening"
+      },
+      "s": {
+        "it": "Targhe nascita, regali per il neonato, bomboniere per battesimo e comunione.",
+        "en": "Birth signs, newborn gifts, christening and communion favours."
+      },
+      "intro": {
+        "it": "Targhe con nome, data e peso, set regalo per il neonato e bomboniere per battesimo, comunione e cresima, personalizzati in legno e plexiglass. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Signs with name, date and weight, newborn gift sets and favours for christenings, communions and confirmations, personalised in wood and acrylic. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "nascita",
+          "neonat",
+          "battesim",
+          "comunion",
+          "cresim",
+          "newborn",
+          "baby"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 11,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Regali nascita e battesimo personalizzati incisi al laser",
+          "en": "Personalised birth and christening gifts, laser engraved"
+        },
+        "descrizione": {
+          "it": "Targhe nascita, regali per il neonato e bomboniere per battesimo e comunione, incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "Birth signs, newborn gifts and christening favours, laser engraved in Palermo. Quote on request."
+        }
+      }
+    },
+    {
+      "id": "compleanno",
+      "slug": "compleanno",
+      "n": {
+        "it": "Compleanno",
+        "en": "Birthday"
+      },
+      "s": {
+        "it": "Cake topper, decorazioni e regali con il nome e l'età.",
+        "en": "Cake toppers, decorations and gifts with name and age."
+      },
+      "intro": {
+        "it": "Cake topper, decorazioni per la festa e regali con il nome e l'età di chi festeggia, dai 18 ai 100 anni. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Cake toppers, party decorations and gifts with the name and age of the birthday person. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "compleann",
+          "birthday",
+          "cake topper",
+          "topper"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 12,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Regali e cake topper di compleanno personalizzati",
+          "en": "Personalised birthday gifts and cake toppers"
+        },
+        "descrizione": {
+          "it": "Cake topper, decorazioni e regali di compleanno con nome ed età, tagliati e incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "Birthday cake toppers, decorations and gifts with name and age, laser cut and engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "festa-mamma",
+      "slug": "festa-della-mamma",
+      "n": {
+        "it": "Festa della mamma",
+        "en": "Mother's Day"
+      },
+      "s": {
+        "it": "Regali incisi con una frase, un nome, una foto.",
+        "en": "Gifts engraved with a phrase, a name, a photo."
+      },
+      "intro": {
+        "it": "Un pensiero che resta: frasi, nomi dei figli o una foto incisi su legno, plexiglass o metallo. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "A gift that lasts: phrases, children's names or a photo engraved on wood, acrylic or metal. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "mamma",
+          "madre",
+          "mother"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 13,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Regali per la festa della mamma incisi al laser",
+          "en": "Laser-engraved Mother's Day gifts"
+        },
+        "descrizione": {
+          "it": "Regali per la festa della mamma con frasi, nomi e foto incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "Mother's Day gifts with phrases, names and photos, laser engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "festa-papa",
+      "slug": "festa-del-papa",
+      "n": {
+        "it": "Festa del papà",
+        "en": "Father's Day"
+      },
+      "s": {
+        "it": "Oggetti di tutti i giorni con il suo nome inciso.",
+        "en": "Everyday objects with his name engraved."
+      },
+      "intro": {
+        "it": "Portachiavi, apribottiglie, accessori e oggetti di tutti i giorni con il suo nome o una dedica incisi al laser. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Keyrings, bottle openers, accessories and everyday objects with his name or a dedication laser engraved. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "papa",
+          "padre",
+          "father"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 14,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Regali per la festa del papà incisi al laser",
+          "en": "Laser-engraved Father's Day gifts"
+        },
+        "descrizione": {
+          "it": "Regali per la festa del papà con nome e dedica incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "Father's Day gifts with name and dedication, laser engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "laurea",
+      "slug": "laurea",
+      "n": {
+        "it": "Laurea",
+        "en": "Graduation"
+      },
+      "s": {
+        "it": "Ricordi e regali per il giorno della proclamazione.",
+        "en": "Keepsakes and gifts for graduation day."
+      },
+      "intro": {
+        "it": "Targhe, bomboniere e ricordi con nome, corso di laurea e data, da tenere sulla scrivania o regalare agli ospiti. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Plaques, favours and keepsakes with name, degree and date, for the desk or for the guests. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "laurea",
+          "laureat",
+          "graduation"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 15,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Regali e bomboniere di laurea personalizzati",
+          "en": "Personalised graduation gifts and favours"
+        },
+        "descrizione": {
+          "it": "Targhe, bomboniere e regali di laurea con nome e data, incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "Graduation plaques, favours and gifts with name and date, laser engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "natale",
+      "slug": "natale",
+      "n": {
+        "it": "Natale",
+        "en": "Christmas"
+      },
+      "s": {
+        "it": "Decorazioni e regali di Natale con il nome.",
+        "en": "Christmas decorations and gifts with a name."
+      },
+      "intro": {
+        "it": "Palline, decorazioni e regali di Natale con i nomi della famiglia, per casa e per i clienti dell'azienda. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Baubles, decorations and Christmas gifts with the family's names, for home and for business clients. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "natale",
+          "natalizi",
+          "christmas",
+          "presepe",
+          "pallin"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 16,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Decorazioni e regali di Natale personalizzati",
+          "en": "Personalised Christmas decorations and gifts"
+        },
+        "descrizione": {
+          "it": "Palline, decorazioni e regali di Natale con i nomi, incisi al laser a Palermo. Anche per aziende. Preventivo su richiesta.",
+          "en": "Christmas baubles, decorations and gifts with names, laser engraved in Palermo. Also for businesses."
+        }
+      }
+    },
+    {
+      "id": "amore",
+      "slug": "san-valentino-anniversari",
+      "n": {
+        "it": "San Valentino e anniversari",
+        "en": "Valentine's and anniversaries"
+      },
+      "s": {
+        "it": "Date, nomi e frasi da tenere per sempre.",
+        "en": "Dates, names and phrases to keep forever."
+      },
+      "intro": {
+        "it": "Targhe, quadri e oggetti con la vostra data, i vostri nomi o la frase che vi rappresenta. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Plaques, art and objects with your date, your names or the phrase that is yours. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "amore",
+          "love",
+          "coppia",
+          "valentin",
+          "anniversar",
+          "fidanzat"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 17,
+      "stato": "pubblicata",
+      "gruppo": "occasione",
+      "seo": {
+        "titolo": {
+          "it": "Regali di San Valentino e anniversario incisi al laser",
+          "en": "Laser-engraved Valentine's and anniversary gifts"
+        },
+        "descrizione": {
+          "it": "Regali per San Valentino e anniversari con date, nomi e frasi incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "Valentine's and anniversary gifts with dates, names and phrases, laser engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "targhe",
+      "slug": "targhe",
+      "n": {
+        "it": "Targhe",
+        "en": "Signs and plaques"
+      },
+      "s": {
+        "it": "Targhe per casa, studio e locale.",
+        "en": "Signs for home, office and venue."
+      },
+      "intro": {
+        "it": "Targhe con nome, numero civico o logo, per la porta di casa, lo studio o il locale, in legno, plexiglass o metallo. Prova la tua targa in 3D nella home. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Signs with name, house number or logo, for your door, office or venue, in wood, acrylic or metal. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "targa",
+          "targhe",
+          "insegna",
+          "plaque"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 21,
+      "stato": "pubblicata",
+      "gruppo": "oggetto",
+      "seo": {
+        "titolo": {
+          "it": "Targhe personalizzate incise al laser a Palermo",
+          "en": "Personalised laser-engraved signs in Palermo"
+        },
+        "descrizione": {
+          "it": "Targhe personalizzate in legno, plexiglass e metallo per casa, studio e locale, incise al laser a Palermo. Preventivo su richiesta.",
+          "en": "Personalised signs in wood, acrylic and metal for home, office and venue, laser engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "quadri",
+      "slug": "quadri-e-mappe",
+      "n": {
+        "it": "Quadri e mappe",
+        "en": "Art and maps"
+      },
+      "s": {
+        "it": "Ritratti incisi, mappe della tua città, quadri a strati.",
+        "en": "Engraved portraits, city maps, layered art."
+      },
+      "intro": {
+        "it": "Ritratti incisi da una tua foto, mappe della tua città a più strati e quadri da parete. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Portraits engraved from your photo, layered maps of your city and wall art. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "quadro",
+          "quadri",
+          "mappa",
+          "mappe",
+          "ritratt",
+          "portrait"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 22,
+      "stato": "pubblicata",
+      "gruppo": "oggetto",
+      "seo": {
+        "titolo": {
+          "it": "Quadri, ritratti e mappe incisi al laser",
+          "en": "Laser-engraved art, portraits and maps"
+        },
+        "descrizione": {
+          "it": "Ritratti incisi da foto, mappe della tua città e quadri da parete realizzati al laser a Palermo. Preventivo su richiesta.",
+          "en": "Portraits engraved from photos, city maps and wall art made with laser in Palermo."
+        }
+      }
+    },
+    {
+      "id": "orologi",
+      "slug": "orologi",
+      "n": {
+        "it": "Orologi",
+        "en": "Clocks"
+      },
+      "s": {
+        "it": "Orologi da parete tagliati al laser.",
+        "en": "Laser-cut wall clocks."
+      },
+      "intro": {
+        "it": "Orologi da parete in legno e plexiglass, con disegni, nomi o il logo della tua attività. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Wall clocks in wood and acrylic, with designs, names or your business logo. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "orolog",
+          "clock"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 23,
+      "stato": "pubblicata",
+      "gruppo": "oggetto",
+      "seo": {
+        "titolo": {
+          "it": "Orologi da parete personalizzati tagliati al laser",
+          "en": "Personalised laser-cut wall clocks"
+        },
+        "descrizione": {
+          "it": "Orologi da parete in legno e plexiglass personalizzati, tagliati al laser a Palermo. Preventivo su richiesta.",
+          "en": "Personalised wall clocks in wood and acrylic, laser cut in Palermo."
+        }
+      }
+    },
+    {
+      "id": "portachiavi",
+      "slug": "portachiavi",
+      "n": {
+        "it": "Portachiavi",
+        "en": "Keyrings"
+      },
+      "s": {
+        "it": "Portachiavi incisi con nome, data o logo.",
+        "en": "Keyrings engraved with name, date or logo."
+      },
+      "intro": {
+        "it": "Portachiavi in legno, pelle e metallo con nome, data o logo: anche in serie, come bomboniera o gadget aziendale. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Keyrings in wood, leather and metal with name, date or logo: also in batches, as favours or corporate gifts. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "portachiav",
+          "keyring",
+          "keychain"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 24,
+      "stato": "pubblicata",
+      "gruppo": "oggetto",
+      "seo": {
+        "titolo": {
+          "it": "Portachiavi personalizzati incisi al laser",
+          "en": "Personalised laser-engraved keyrings"
+        },
+        "descrizione": {
+          "it": "Portachiavi in legno, pelle e metallo incisi con nome, data o logo a Palermo. Anche in serie. Preventivo su richiesta.",
+          "en": "Keyrings in wood, leather and metal engraved with name, date or logo in Palermo. Also in batches."
+        }
+      }
+    },
+    {
+      "id": "lampade",
+      "slug": "lampade",
+      "n": {
+        "it": "Lampade",
+        "en": "Lamps"
+      },
+      "s": {
+        "it": "Lampade LED in plexiglass e legno con il tuo disegno.",
+        "en": "LED lamps in acrylic and wood with your design."
+      },
+      "intro": {
+        "it": "Lampade LED con incisione in plexiglass e base in legno: un nome, una foto o un disegno che si accende. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "LED lamps with engraved acrylic and wooden base: a name, a photo or a drawing that lights up. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "lampad",
+          "lamp"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 25,
+      "stato": "pubblicata",
+      "gruppo": "oggetto",
+      "seo": {
+        "titolo": {
+          "it": "Lampade LED personalizzate incise al laser",
+          "en": "Personalised laser-engraved LED lamps"
+        },
+        "descrizione": {
+          "it": "Lampade LED in plexiglass e legno con nome, foto o disegno incisi al laser a Palermo. Preventivo su richiesta.",
+          "en": "LED lamps in acrylic and wood with name, photo or drawing, laser engraved in Palermo."
+        }
+      }
+    },
+    {
+      "id": "cake-topper",
+      "slug": "cake-topper",
+      "n": {
+        "it": "Cake topper",
+        "en": "Cake toppers"
+      },
+      "s": {
+        "it": "Il nome sulla torta, tagliato al laser.",
+        "en": "The name on the cake, laser cut."
+      },
+      "intro": {
+        "it": "Cake topper in plexiglass, specchiato o legno con nomi, età e date: per matrimoni, compleanni, lauree e battesimi. Prima della produzione ti mandiamo la bozza da approvare.",
+        "en": "Cake toppers in acrylic, mirror or wood with names, ages and dates: for weddings, birthdays, graduations and christenings. Before production we send you a proof to approve."
+      },
+      "query": {
+        "parole": [
+          "cake topper",
+          "topper"
+        ]
+      },
+      "ordine": "rilevanza",
+      "cover": "",
+      "hero": "",
+      "evidenza": false,
+      "posizione": 26,
+      "stato": "pubblicata",
+      "gruppo": "oggetto",
+      "seo": {
+        "titolo": {
+          "it": "Cake topper personalizzati tagliati al laser",
+          "en": "Personalised laser-cut cake toppers"
+        },
+        "descrizione": {
+          "it": "Cake topper in plexiglass e legno con nomi, età e date, tagliati al laser a Palermo. Per matrimoni, compleanni e lauree. Preventivo su richiesta.",
+          "en": "Cake toppers in acrylic and wood with names, ages and dates, laser cut in Palermo."
+        }
+      }
     }
   ]
 }

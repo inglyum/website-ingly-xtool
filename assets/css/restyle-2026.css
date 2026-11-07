@@ -472,3 +472,81 @@
  :root[data-mode][data-mode] .pgrid .pcard :is(h3,h4,.pname){font-size:14px!important;line-height:1.3!important}
  :root[data-mode][data-mode] .pgrid .pcard .pbody{padding:10px!important}
 }
+
+/* ============================================================
+   CATALOGO — ingressi per occasione, raccolte, schede, prodotto
+   Un solo gesto ricorrente: la riga di luce del laser al passaggio,
+   la stessa dei «Lavori recenti». Il resto è struttura e ritmo.
+   ============================================================ */
+:root[data-mode][data-mode] .shop-occ{margin:0 0 clamp(28px,4vw,44px)}
+:root[data-mode][data-mode] .shop-occ :is(.occ,.ogg) > h2{font:600 clamp(1.25rem,1.05rem + .8vw,1.6rem)/1.2 var(--rs-font)!important;margin:0 0 14px!important;color:var(--rs-ink)!important}
+:root[data-mode][data-mode] .shop-occ .ogg{margin-top:clamp(20px,3vw,30px)}
+:root[data-mode][data-mode] .occ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+:root[data-mode][data-mode] .occ-tile{display:block;text-decoration:none!important;color:var(--rs-ink)!important;outline-offset:3px}
+:root[data-mode][data-mode] .occ-foto{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:var(--rs-bg-2);border:1px solid var(--rs-line)}
+:root[data-mode][data-mode] .occ-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0!important;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+/* nessuna foto ancora: la rosetta incisa, non un riquadro vuoto */
+:root[data-mode][data-mode] .occ-foto:empty::before{content:"";position:absolute;inset:-20%;background:var(--rs-gold);opacity:.28;
+ -webkit-mask:url('../patterns/guilloche.svg') center/contain no-repeat;mask:url('../patterns/guilloche.svg') center/contain no-repeat}
+:root[data-mode][data-mode] .occ-testo{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:10px 2px 0}
+:root[data-mode][data-mode] .occ-testo b{font:600 16px/1.25 var(--rs-font);color:var(--rs-ink)}
+:root[data-mode][data-mode] .occ-testo small{font:400 13px/1.2 var(--rs-font);color:var(--rs-muted);white-space:nowrap}
+@media (hover:hover){
+ :root[data-mode][data-mode] .occ-tile:hover .occ-foto img{transform:scale(1.04)}
+ :root[data-mode][data-mode] .occ-tile:hover .occ-testo b{text-decoration:underline;text-decoration-color:var(--rs-gold);text-underline-offset:.25em}
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ :root[data-mode][data-mode] :is(.occ-foto,#shopGrid .pimg)::after{content:"";position:absolute;left:0;right:0;top:-12%;height:2px;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--rs-gold) 18%,#fff6e6 50%,var(--rs-gold) 82%,transparent);box-shadow:0 0 14px 2px rgba(255,140,60,.4)}
+ :root[data-mode][data-mode] :is(.occ-tile:hover .occ-foto,#shopGrid .pcard:hover .pimg)::after{animation:rs-scan .9s cubic-bezier(.45,0,.2,1) both}
+}
+@media (prefers-reduced-motion:reduce){:root[data-mode][data-mode] .occ-foto img{transition:none}}
+:root[data-mode][data-mode] .ogg-righe{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+:root[data-mode][data-mode] .ogg-righe a{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 14px;border:1px solid var(--rs-line-strong);
+ color:var(--rs-ink)!important;text-decoration:none!important;font:400 15px/1 var(--rs-font);transition:border-color .2s,background-color .2s}
+:root[data-mode][data-mode] .ogg-righe a i{font-style:normal;color:var(--rs-muted);font-size:13px}
+@media (hover:hover){:root[data-mode][data-mode] .ogg-righe a:hover{border-color:var(--rs-gold);background:var(--rs-gold-soft)}}
+@media (max-width:640px){
+ /* sul telefono le occasioni scorrono di lato: due tessere e mezza, si capisce che c'è altro */
+ :root[data-mode][data-mode] .occ-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:40%;overflow-x:auto;scroll-snap-type:x mandatory;
+  margin-inline:calc(var(--rs-gutter) * -1);padding:0 var(--rs-gutter) 6px;scrollbar-width:none}
+ :root[data-mode][data-mode] .occ-grid::-webkit-scrollbar{display:none}
+ :root[data-mode][data-mode] .occ-tile{scroll-snap-align:start}
+}
+
+/* intestazione della raccolta: titolo, perché esiste, cosa fare, dove andare dopo */
+:root[data-mode][data-mode] .shop-coll:not([hidden]){position:relative;isolation:isolate;overflow:hidden;display:grid;gap:18px;margin:0 0 28px;
+ padding:clamp(22px,3.5vw,40px);background:var(--rs-bg-2)!important;border:1px solid var(--rs-line)!important;border-radius:0!important;box-shadow:none!important}
+:root[data-mode][data-mode] .shop-coll::before{content:"";position:absolute;z-index:-1;right:-12%;top:50%;width:min(560px,80%);aspect-ratio:1;transform:translateY(-50%);
+ background:var(--rs-pattern);-webkit-mask:url('../patterns/guilloche.svg') center/contain no-repeat;mask:url('../patterns/guilloche.svg') center/contain no-repeat;pointer-events:none}
+:root[data-mode][data-mode] .shop-coll--oggetto::before{width:100%;right:0;top:0;transform:none;height:100%;aspect-ratio:auto;opacity:.8;
+ -webkit-mask:url('../patterns/nido-ape.svg') center/840px auto repeat;mask:url('../patterns/nido-ape.svg') center/840px auto repeat;
+ -webkit-mask-image:url('../patterns/nido-ape.svg'),linear-gradient(90deg,transparent 35%,#000);mask-image:url('../patterns/nido-ape.svg'),linear-gradient(90deg,transparent 35%,#000);
+ -webkit-mask-composite:source-in;mask-composite:intersect}
+:root[data-mode][data-mode] .scb-briciole{display:flex;align-items:center;gap:8px;font:400 14px/1.3 var(--rs-font);color:var(--rs-muted)}
+:root[data-mode][data-mode] .scb-briciole button{background:none!important;border:0!important;padding:0!important;color:var(--rs-muted)!important;font:inherit!important;cursor:pointer;text-decoration:underline;text-underline-offset:.25em}
+:root[data-mode][data-mode] .scb-txt :is(h1,h2){font:700 clamp(2rem,1.4rem + 2.4vw,3.2rem)/1.05 var(--rs-font)!important;letter-spacing:-.015em!important;margin:0 0 12px!important;color:var(--rs-ink)!important;text-wrap:balance}
+:root[data-mode][data-mode] .scb-txt > p{max-width:62ch;margin:0;color:var(--rs-muted)!important;font-size:clamp(1rem,.95rem + .25vw,1.12rem);line-height:1.6}
+:root[data-mode][data-mode] .scb-txt .scb-azioni{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px!important}
+:root[data-mode][data-mode] .scb-sorelle h3{font:600 14px/1.3 var(--rs-font)!important;margin:0 0 8px!important;color:var(--rs-ink)!important;letter-spacing:.02em}
+:root[data-mode][data-mode] .scb-sorelle p{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0}
+:root[data-mode][data-mode] .scb-sorelle a{color:var(--rs-ink)!important;text-decoration:underline;text-decoration-color:var(--rs-gold);text-underline-offset:.3em;font-size:15px}
+@media (max-width:480px){:root[data-mode][data-mode] .scb-txt .scb-azioni .btn{flex:1 1 100%}}
+
+/* schede: la seconda foto vera al passaggio, in dissolvenza (niente animation sulle foto: regola 1) */
+:root[data-mode][data-mode] .pcard .pimg{position:relative;overflow:hidden}
+:root[data-mode][data-mode] .pcard .pimg-alt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:1;border-radius:0!important;transition:opacity .45s cubic-bezier(.16,1,.3,1);pointer-events:none}
+@media (hover:hover){:root[data-mode][data-mode] .pcard:hover .pimg-alt{opacity:1}}
+:root[data-mode][data-mode] .pcard .pimg :is(.ptag,.wish,.stock){z-index:2}
+
+/* pagina prodotto: per quali occasioni, e cosa garantiamo */
+:root[data-mode][data-mode] .pp-perfetto:not([hidden]){display:grid;gap:14px;margin:18px 0 6px;padding-top:16px;border-top:1px solid var(--rs-line)}
+:root[data-mode][data-mode] .ppf-occ{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0;font-size:15px;color:var(--rs-muted)}
+:root[data-mode][data-mode] .ppf-occ b{color:var(--rs-ink);font-weight:600;margin-right:4px}
+:root[data-mode][data-mode] .ppf-occ a{display:inline-flex;align-items:center;min-height:34px;padding:0 12px;border:1px solid var(--rs-line-strong);color:var(--rs-ink)!important;text-decoration:none!important}
+@media (hover:hover){:root[data-mode][data-mode] .ppf-occ a:hover{border-color:var(--rs-gold);background:var(--rs-gold-soft)}}
+:root[data-mode][data-mode] .ppf-garanzie{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+:root[data-mode][data-mode] .ppf-garanzie li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--rs-muted)}
+:root[data-mode][data-mode] .ppf-garanzie .ic-svg{width:18px;height:18px;flex:none;color:var(--rs-gold);stroke:currentColor}
+/* dentro una raccolta il titolo è il suo: «Il catalogo.» si toglie (un solo h1 per pagina) */
+:root[data-mode][data-mode] #page-shop.coll-attiva .shop-testa{display:none!important}

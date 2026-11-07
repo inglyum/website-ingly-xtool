@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=be4af3bb5b">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=ebf16e1245">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -723,6 +723,9 @@ setTimeout(function(){
       <div>
         <!-- Intestazione della collezione attiva: compare solo quando una
              collezione filtra il catalogo, e offre la via d'uscita. -->
+        <!-- Ingressi per occasione e per oggetto: compaiono sul catalogo intero,
+             spariscono appena si filtra. Link veri a /collezioni/<nome>. -->
+        <div class="shop-occ" id="shopOcc" hidden></div>
         <div class="shop-coll" id="shopCollBanner" hidden></div>
         <div class="shop-colls" id="shopColls"></div>
         <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><div class="shop-attivi" id="shopAttivi"></div></div>
@@ -835,6 +838,7 @@ setTimeout(function(){
           </a>
           <a class="btn btn-ghost product-contact-email" id="productContactEmail" href="mailto:inglydesign@gmail.com"><span>Richiedi via email</span></a>
           <p class="product-contact-note" id="productContactNote">Raccontaci cosa hai in mente: ti aiutiamo a scegliere materiali, finiture e personalizzazione.</p>
+          <div class="pp-perfetto" id="ppPerfetto" hidden></div>
         </div>
         <!-- Tabs -->
         <div class="pp-tabs" role="tablist">

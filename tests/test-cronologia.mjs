@@ -18,7 +18,7 @@ const prod = readFileSync('assets/js/products.js', 'utf8');
 
 console.log('\n=== IL ROUTER RICORDA LA POSIZIONE ===');
 check('il browser non ripristina da solo (lo fa il router a pagina pronta)', /history\.scrollRestoration='manual'/.test(nav));
-check('prima di ogni pushState salva la posizione della voce che si lascia', (nav.match(/ricordaScroll\(\);?\s*\{?\s*history\.pushState|ricordaScroll\(\);\s*history\.pushState/g) || []).length === 2,
+check('prima di ogni pushState salva la posizione della voce che si lascia', (nav.match(/ricordaScroll\(\);?\s*\{?\s*history\.pushState|ricordaScroll\(\);\s*history\.pushState/g) || []).length === 3, /* go(), schede di sezione, raccolte /collezioni/<nome> */
   'pushState senza ricordaScroll');
 check('ogni pushState del router è preceduto da ricordaScroll', (nav.match(/history\.pushState/g) || []).length === (nav.match(/ricordaScroll\(\);\s*(?:\{\s*)?history\.pushState|ricordaScroll\(\); history\.pushState/g) || []).length);
 check('popstate legge la posizione salvata', /addEventListener\('popstate',e=>\{[\s\S]{0,160}e\.state\.y[\s\S]{0,80}_ripristinaY=y/.test(nav));

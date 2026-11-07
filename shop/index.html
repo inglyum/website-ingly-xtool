@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=be4af3bb5b">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=ebf16e1245">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -310,7 +310,8 @@ setTimeout(function(){
 <div id="prerender" data-prerender="1"><h1>Catalogo</h1>
 <p>Laboratorio di incisione e taglio laser a Palermo: regali personalizzati, targhe e gadget aziendali. Host xTool Squad per Palermo, la Sicilia e il Sud Italia: demo, consigli sulla scelta, formazione, assistenza e riparazione.</p>
 <h2>Catalogo</h2><ul><li><a href="https://www.inglydesign.it/product/2/">Lampada Quadro Luna 3D in Stampa 3D PLA e Legno | Riproduzione Topografica Realistica con Luce LED Warm Light o Colori a Richiesta (30-50 cm e Custom)</a> — €79,99</li><li><a href="https://www.inglydesign.it/product/3/">Quadro Ritratto Inciso su Legno</a> — €59,00</li><li><a href="https://www.inglydesign.it/product/4/">Set Regalo Neonato Personalizzato in Legno - Body, Copertina e Accessori</a> — €49,99</li><li><a href="https://www.inglydesign.it/product/5/">Targa Nascita Personalizzata 1:1 Silhouette Neonato | Lampada LED in Plexiglass o Targa in Legno con Dati di Nascita | Regalo Battesimo e Cameretta</a> — €29,00</li><li><a href="https://www.inglydesign.it/product/6/">Orologio da Parete in Legno &quot;Albero della Vita&quot; - Design Elegante per Arredamento</a> — €59,99</li><li><a href="https://www.inglydesign.it/product/7/">Cake Topper Matrimonio Plexiglass</a> — €16,00</li><li><a href="https://www.inglydesign.it/product/8/">Segnaposto Nozze in Legno ×20</a> — €38,00</li><li><a href="https://www.inglydesign.it/product/14/">Targa Anniversario in Vetro</a> — €36,00</li><li><a href="https://www.inglydesign.it/product/17/">Medaglietta Cane/Gatto Personalizzata</a> — €13,00</li><li><a href="https://www.inglydesign.it/product/20/">Supereroi Ghibi</a> — €34,99</li><li><a href="https://www.inglydesign.it/product/21/">Portachiavi Albero della Vita in Legno a Doppio Strato Personalizzato | Bomboniera Ricordo per Battesimo, Comunione, Cresima, Matrimonio e Compleanno</a> — €9,99</li><li><a href="https://www.inglydesign.it/product/22/">Apribottiglie Inciso Personalizzato</a> — €3,99</li></ul>
-<h2>Categorie</h2><ul><li>Casa &amp; Arredamento</li><li>Eventi, Feste &amp; Ricorrenze</li><li>Animali</li><li>Accessori</li><li>Aziendale &amp; B2B</li><li>Bambini</li><li>Stagionale</li><li>Digitale</li><li>Custom su Richiesta</li><li>Materiali</li><li>Tecnologie</li><li>Edizioni Limitate</li></ul></div>
+<h2>Categorie</h2><ul><li>Casa &amp; Arredamento</li><li>Eventi, Feste &amp; Ricorrenze</li><li>Animali</li><li>Accessori</li><li>Aziendale &amp; B2B</li><li>Bambini</li><li>Stagionale</li><li>Digitale</li><li>Custom su Richiesta</li><li>Materiali</li><li>Tecnologie</li><li>Edizioni Limitate</li></ul>
+<h2>Scegli per occasione o per oggetto</h2><ul><li><a href="https://www.inglydesign.it/collezioni/matrimonio">Matrimonio</a></li><li><a href="https://www.inglydesign.it/collezioni/nascita-battesimo">Nascita e battesimo</a></li><li><a href="https://www.inglydesign.it/collezioni/compleanno">Compleanno</a></li><li><a href="https://www.inglydesign.it/collezioni/laurea">Laurea</a></li><li><a href="https://www.inglydesign.it/collezioni/san-valentino-anniversari">San Valentino e anniversari</a></li><li><a href="https://www.inglydesign.it/collezioni/targhe">Targhe</a></li><li><a href="https://www.inglydesign.it/collezioni/quadri-e-mappe">Quadri e mappe</a></li><li><a href="https://www.inglydesign.it/collezioni/orologi">Orologi</a></li><li><a href="https://www.inglydesign.it/collezioni/portachiavi">Portachiavi</a></li><li><a href="https://www.inglydesign.it/collezioni/lampade">Lampade</a></li><li><a href="https://www.inglydesign.it/collezioni/cake-topper">Cake topper</a></li></ul></div>
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
 <section class="page" id="page-home">
@@ -717,6 +718,9 @@ setTimeout(function(){
       <div>
         <!-- Intestazione della collezione attiva: compare solo quando una
              collezione filtra il catalogo, e offre la via d'uscita. -->
+        <!-- Ingressi per occasione e per oggetto: compaiono sul catalogo intero,
+             spariscono appena si filtra. Link veri a /collezioni/<nome>. -->
+        <div class="shop-occ" id="shopOcc" hidden></div>
         <div class="shop-coll" id="shopCollBanner" hidden></div>
         <div class="shop-colls" id="shopColls"></div>
         <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><div class="shop-attivi" id="shopAttivi"></div></div>
@@ -829,6 +833,7 @@ setTimeout(function(){
           </a>
           <a class="btn btn-ghost product-contact-email" id="productContactEmail" href="mailto:inglydesign@gmail.com"><span>Richiedi via email</span></a>
           <p class="product-contact-note" id="productContactNote">Raccontaci cosa hai in mente: ti aiutiamo a scegliere materiali, finiture e personalizzazione.</p>
+          <div class="pp-perfetto" id="ppPerfetto" hidden></div>
         </div>
         <!-- Tabs -->
         <div class="pp-tabs" role="tablist">

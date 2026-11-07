@@ -52,6 +52,7 @@ const REGOLE = {
   home:      ['weekly',  '1.0'],
   assistenza: ['monthly', '0.9'],
   verticale: ['monthly', '0.8'],
+  collezione: ['weekly', '0.8'],
   shop:      ['weekly',  '0.9'],
   digital:   ['weekly',  '0.8'],
   business:  ['monthly', '0.8'],
@@ -89,8 +90,13 @@ const DLAB = {
   CONFIG: config,
   PRODUCTS: prodotti
 };
+const CL = await import('../assets/js/collezioni.js');
+const DCOLL = { P: prodotti, COLLEZIONI: JSON.parse(readFileSync(join(ROOT,'data/collezioni.json'),'utf8')) };
 const pagine = [
   ...PRE.elenco({ prodotti, verticali: contenuti.VERTICALI || [] }),
+  /* raccolte per occasione e per oggetto: le pagine che rispondono a
+     «segnaposto matrimonio» o «targhe personalizzate» */
+  ...CL.pubblicate(DCOLL).map(c => ({ file: 'collezioni/' + CL.rifDi(c) + '/index.html', pagina: 'collezione', id: c.id })),
   ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', id: v.id })),
   /* Strumento autonomo: il Generator Studio è una pagina HTML indipendente,
      non una rotta SPA, quindi entra nella sitemap con il suo file reale. */

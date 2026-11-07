@@ -194,11 +194,12 @@ check('ed è pubblicata perché ha prodotti dentro',
 check('senza prodotti marcati tornerebbe fuori dalle pubblicate',
   !C.pubblicate({ ...VERI, P: VERI.P.map(p => ({ ...p, personalizzabile: false })) })
     .some(c => c.id === 'personalizzabili'));
-/* /collezioni/matrimonio è la sottocategoria Nozze di Eventi: nessuna
-   categoria «wedding» è stata inventata */
+/* /collezioni/matrimonio: dal 2026-11 è una raccolta «a parole» (matrimonio,
+   nozze, bomboniere…): prende i prodotti di qualunque categoria ne parlino.
+   Resta vero il principio di prima: nessuna categoria «wedding» inventata. */
 const wed = C.trova('wedding', VERI);
-check('matrimonio riusa eventi + sottocategoria, non una categoria nuova',
-  wed.query.cat[0] === 'eventi' && wed.query.sub[0] === 2);
+check('matrimonio cerca per parole, senza una categoria inventata',
+  (wed.query.parole || []).includes('nozze') && !VERI.CATS.some(k => k.id === 'wedding') && wed.slug === 'matrimonio');
 check('e contiene prodotti veri', C.conta(wed, VERI) > 0, String(C.conta(wed, VERI)));
 
 console.log('\n=== IL SITO CARICA LE COLLEZIONI ===');

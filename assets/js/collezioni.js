@@ -52,6 +52,24 @@ export const lingua = (v, L = 'it') =>
  * Un criterio vuoto prende tutto il catalogo visibile: è la collezione
  * «tutti i prodotti», che è legittima.
  */
+/* Il testo in cui cercare le parole di una raccolta: nome e descrizione in
+   tutte e due le lingue, minuscolo e senza accenti («papà» = «papa»). */
+const pulisci = t => str(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const testoDi = p => pulisci([p.n && p.n.it, p.n && p.n.en, p.desc && p.desc.it, p.desc && p.desc.en,
+  typeof p.n === 'string' ? p.n : '', typeof p.desc === 'string' ? p.desc : ''].filter(Boolean).join(' '));
+/* «nozze» trova «Nozze» e «nozze,» ma «anni» non trova «pannello»: la parola
+   deve cominciare lì, non stare a metà di un'altra. */
+export function haParole(p, parole) {
+  const elenco = arr(parole).map(pulisci).map(w => w.trim()).filter(w => w.length >= 3);
+  if (!elenco.length) return true;
+  const t = testoDi(p || {});
+  return elenco.some(w => {
+    let i = t.indexOf(w);
+    while (i >= 0) { if (i === 0 || !/[a-z0-9]/.test(t[i - 1])) return true; i = t.indexOf(w, i + 1); }
+    return false;
+  });
+}
+
 export function soddisfa(p, query = {}) {
   if (!p || p.hidden) return false;
   const q = query && typeof query === 'object' ? query : {};
@@ -71,6 +89,10 @@ export function soddisfa(p, query = {}) {
   if (q.prezzoMin != null && !(prezzo(p) >= Number(q.prezzoMin))) return false;
   if (q.personalizzabile === true && !(p.personalizzabile || p.creator)) return false;
   if (q.inStock === true && p.stock === 0) return false;
+  /* parole nel nome o nella descrizione, in OR fra loro: così una raccolta
+     per occasione («matrimonio») si riempie da sola con ogni prodotto nuovo
+     che ne parla, in qualunque categoria sia */
+  if (arr(q.parole).length && !haParole(p, q.parole)) return false;
   return true;
 }
 
@@ -258,7 +280,11 @@ export function problemi(D = {}) {
       if (!arr(D.P).some(p => p && p.id === id)) out.push(`${c.id}: il prodotto ${id} non esiste`);
     });
     if (c.ordine && !ORDINI.hasOwnProperty(c.ordine)) out.push(`${c.id}: ordinamento sconosciuto «${c.ordine}»`);
-    if (c.stato === 'pubblicata' && conta(c, D) === 0) {
+    /* Vuota è un problema quando nasce da un dato rotto (categoria rinominata,
+       id sparito). Una raccolta a parole (es. «Festa del papà») vuota è invece
+       un'attesa voluta: resta nascosta e si accende da sola col primo
+       prodotto che ne parla. */
+    if (c.stato === 'pubblicata' && conta(c, D) === 0 && !arr(c.query && c.query.parole).length) {
       out.push(`${c.id}: pubblicata ma non contiene nessun prodotto`);
     }
   });

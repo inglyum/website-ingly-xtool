@@ -14,6 +14,7 @@ import * as VERT from './verticali.js';
 import * as PR from './prezzi.js';
 import * as LAB from './lab.js';
 import { applicaCatalogo } from './catalogo-stato.js';
+import * as CL from './collezioni.js';
 
 const copia = x => JSON.parse(JSON.stringify(x == null ? null : x));
 
@@ -88,10 +89,15 @@ export function generaSito(dati, guscio){
       prodotti: pg === 'shop' ? prodotti.filter(x => !x.hidden) : [],
       categorie: pg === 'shop' ? categorie : [],
     });
+    /* il catalogo statico porta anche le raccolte: è da qui che un crawler
+       scopre le pagine per occasione e per oggetto */
+    const raccolte = pg === 'shop' ? CL.pubblicate(DCOLL).filter(c => c.gruppo === 'occasione' || c.gruppo === 'oggetto') : [];
+    const contenutoPiu = raccolte.length ? contenuto + '\n<h2>Scegli per occasione o per oggetto</h2><ul>' +
+      raccolte.map(c => `<li><a href="${base}/collezioni/${CL.rifDi(c)}">${esc(CL.lingua(c.n, L))}</a></li>`).join('') + '</ul>' : contenuto;
     const extra = pg === 'shop'
       ? [SCH.paginaCollezione(prodotti.filter(x => !x.hidden), { base, L, titolo: azienda + ' — Catalogo', url: canonico })]
       : [];
-    return P.componi(guscio, { pagina: pg, titolo, descrizione:desc, canonico, contenuto, jsonld: SCH.grafo([...entitaBase, ...extra]) });
+    return P.componi(guscio, { pagina: pg, titolo, descrizione:desc, canonico, contenuto: contenutoPiu, jsonld: SCH.grafo([...entitaBase, ...extra]) });
   }
 
   /* Pagina di settore: /business/ristoranti e simili.
@@ -108,6 +114,41 @@ export function generaSito(dati, guscio){
       VERT.briciole(v, { L, base }),
     ]);
     return P.componi(guscio, { pagina: 'business', titolo, descrizione, canonico, contenuto, jsonld });
+  }
+
+  /* Pagina di raccolta: /collezioni/matrimonio e simili.
+     È la pagina che intercetta «segnaposto matrimonio personalizzati» o
+     «targhe personalizzate Palermo»: una domanda per occasione o per oggetto,
+     che il catalogo intero non sa a chi rispondere. Solo le raccolte con
+     almeno un prodotto visibile: una pagina vuota è un vicolo cieco. */
+  const DCOLL = { P: prodotti, COLLEZIONI: dati.collezioni || { collezioni: [] } };
+  const esc = t => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const GRUPPI = { occasione: 'Per occasione', oggetto: 'Per tipo di oggetto', 'per-chi': 'Per la casa e per le aziende', vetrina: 'In evidenza' };
+  function paginaCollezione(c){
+    const slug = CL.rifDi(c);
+    const canonico = base + '/collezioni/' + slug;
+    const nome = CL.lingua(c.n, L);
+    const seoT = c.seo && CL.lingua(c.seo.titolo, L);
+    const seoD = c.seo && CL.lingua(c.seo.descrizione, L);
+    const titolo = (seoT || nome) + ' | ' + azienda;
+    const desc = seoD || CL.lingua(c.s, L) || S.descrizione || '';
+    const items = CL.prodottiDi(c, DCOLL);
+    const sorelle = CL.pubblicate(DCOLL).filter(x => x.id !== c.id && (x.gruppo || 'vetrina') === (c.gruppo || 'vetrina'));
+    const contenuto = [
+      `<nav aria-label="Percorso"><a href="${base}/">Home</a> › <a href="${base}/shop">Catalogo</a> › ${esc(nome)}</nav>`,
+      `<h1>${esc(nome)}</h1>`,
+      `<p>${esc(CL.lingua(c.intro, L) || CL.lingua(c.s, L))}</p>`,
+      `<h2>${items.length === 1 ? '1 creazione' : items.length + ' creazioni'}</h2>`,
+      '<ul>' + items.map(p => `<li><a href="${base}/product/${p.id}/">${esc(p.n && p.n[L])}</a>${nomeCategoria(p.cat) ? ' — ' + esc(nomeCategoria(p.cat)) : ''}</li>`).join('') + '</ul>',
+      `<p>Non trovi quello che cerchi? Lo realizziamo su misura: <a href="${base}/quote">chiedi un preventivo</a>.</p>`,
+      sorelle.length ? `<h2>${esc(GRUPPI[c.gruppo] || 'Altre raccolte')}</h2><ul>` + sorelle.map(x => `<li><a href="${base}/collezioni/${CL.rifDi(x)}">${esc(CL.lingua(x.n, L))}</a></li>`).join('') + '</ul>' : '',
+    ].join('\n');
+    const briciole = { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: base + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Catalogo', item: base + '/shop' },
+      { '@type': 'ListItem', position: 3, name: nome, item: canonico } ] };
+    const jsonld = SCH.grafo([...entitaBase, CL.schema(c, DCOLL, { L, base }), briciole].filter(Boolean));
+    return P.componi(guscio, { pagina: 'shop', titolo, descrizione: desc, canonico, contenuto, jsonld });
   }
 
   /* ===== LAB: materiali, tecnologie, macchine =====
@@ -160,6 +201,7 @@ export function generaSito(dati, guscio){
 
     const verticali = contenuti.VERTICALI || [];
     const lista = [...P.elenco({ prodotti, verticali }),
+    ...CL.pubblicate(DCOLL).filter(c => /^[a-z0-9-]+$/.test(CL.rifDi(c))).map(c => ({ file: 'collezioni/' + CL.rifDi(c) + '/index.html', pagina: 'collezione', rif: c.id })),
     ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', sezione: v.sezione, id: v.id }))];
 
   const pagine = {}, problemi = [];
@@ -168,6 +210,7 @@ export function generaSito(dati, guscio){
     const p = (voce.pagina !== 'lab' && voce.id != null) ? prodotti.find(x => x.id === voce.id) : null;
     const html = voce.pagina === 'product' ? paginaProdotto(p)
                : voce.pagina === 'verticale' ? paginaVerticale(VERT.perId(verticali, voce.id))
+               : voce.pagina === 'collezione' ? paginaCollezione(CL.trova(voce.rif, DCOLL))
                : voce.pagina === 'lab' ? (voce.id ? paginaLabScheda(voce.sezione, voce.id) : paginaLabSezione(voce.sezione))
                : paginaSito(voce.pagina);
     if(!/<h1>/.test(html)) problemi.push(voce.file + ': manca il titolo principale');
@@ -179,4 +222,4 @@ export function generaSito(dati, guscio){
 
 /* Cartelle interamente generate: una pagina che qui non viene più prodotta
    (prodotto eliminato o nascosto, materiale tolto) va rimossa. */
-export const CARTELLE_GENERATE = ['product/', 'materiali/', 'tecnologie/', 'macchine/', 'academy/', 'demo/', 'business/'];
+export const CARTELLE_GENERATE = ['product/', 'materiali/', 'tecnologie/', 'macchine/', 'academy/', 'demo/', 'business/', 'collezioni/'];

@@ -7,7 +7,10 @@ const main=readFileSync('assets/js/main.js','utf8');
 assert.ok(html.includes('id="modeBtn"'),'Controllo tema mancante');
 assert.ok(html.includes('id="mobileModeBtn"'),'Controllo tema mobile mancante');
 assert.ok(main.includes("mobile?.addEventListener('click',toggle)"),'Toggle mobile non indipendente');
-assert.ok(main.includes("if(!stored())set(e.matches?'light':'dark')"),'Tema di sistema non seguito');
+// Restyle 2026 «notte calda + oro»: il titolare ha scelto la notte come base per tutti;
+// il chiaro resta a un tocco (pulsante Tema) e la scelta viene ricordata.
+assert.ok(main.includes("set(stored() || 'dark')"),'Notte calda non è il tema di partenza');
+assert.ok(main.includes("localStorage.setItem('ingly_mode',v)"),'La scelta del tema non viene ricordata');
 assert.ok(main.includes("if(persist){try{localStorage.setItem('ingly_mode',v)}"),'Preferenza salvata solo dopo scelta');
 assert.ok(main.includes("localStorage.setItem('ingly_mode',v)"),'Tema non persistito');
 assert.ok(caricato('ingly-responsive-theme.css'),'CSS responsive mancante');

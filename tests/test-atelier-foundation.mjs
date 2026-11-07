@@ -29,7 +29,7 @@ for(const [mode,block] of [['dark',dark],['light',light]]){
 }
 assert.ok(caricato('atelier-foundation.css'),'Shared CSS not loaded');
 assert.ok(posizione('atelier-foundation.css')>posizione('premium-2026.css'),'Atelier stylesheet must be last');
-assert.ok(html.includes('var m="light"'),'Light (restyle 2026) should be default without stored preference');
+assert.ok(html.includes('var m="dark"'),'Dark warm night (restyle 2026, «notte calda + oro») should be default without stored preference');
 assert.ok(html.includes('saved==="light"||saved==="dark"'),'Respect existing saved theme');
 assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'),'Reduced motion styles missing');
 assert.ok(css.includes('--at-tech:#39d0ff') && css.includes('--at-amber:#ff7a2f'),'Atelier color palette must be available');

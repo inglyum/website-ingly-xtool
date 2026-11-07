@@ -3,7 +3,7 @@
 <head>
 <base href="../../">
 <base href="./">
-<script>(function(){var m="light";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;})();</script>
+<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
@@ -16,7 +16,7 @@ html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:
 <meta name="keywords" content="incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali, Italia, made in Italy, laser CO2, fibra MOPA, plexiglass personalizzato">
 <meta name="author" content="INGLY DESIGN">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#211f2e">
+<meta name="theme-color" content="#13100d">
 
 <!-- Canonical + hreflang IT/EN -->
 <link rel="canonical" href="https://www.inglydesign.it/business/hotel">
@@ -148,7 +148,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=ce1fe8ccfe">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=d76bc1181b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -166,6 +166,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script defer src="assets/js/ingly-generator-draft.js"></script>
+<script defer src="assets/js/incisione-3d.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
      Con «defer» veniva scaricato da tutti, anche da chi stava già usando i
@@ -332,10 +333,8 @@ setTimeout(function(){
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
 <section class="page" id="page-home">
-  <div class="hero signature-hero">
+  <div class="hero signature-hero rs3d" id="rs3d">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
-    <!-- Restyle 2026: foto vera di un lavoro INGLY come sfondo del banner. -->
-    <figure class="rs-hero-media"><img src="img/proj-1-1.webp" alt="Mappa di Palermo incisa e tagliata al laser su legno, con il mare in blu: un lavoro INGLY DESIGN" data-i18n-alt="heroImgAlt" width="1600" height="1200" fetchpriority="high" decoding="async"></figure>
     <div class="wrap hero-grid">
       <div class="signature-hero-copy">
         <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">INGLY DESIGN · CREAZIONI SU MISURA</span></span>
@@ -345,14 +344,29 @@ setTimeout(function(){
           <a class="btn btn-primary magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <span aria-hidden="true" class="arr">→</span></a>
           <a class="btn btn-ghost magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span></a>
         </div>
-        <form class="rs-quote" action="quote/" method="get" role="search" aria-label="Chiedi un preventivo">
-          <label for="rsIdea" data-i18n="heroQuoteLabel">Cosa vuoi realizzare?</label>
-          <input id="rsIdea" name="idea" type="text" maxlength="200" autocomplete="off" data-ph="heroQuotePh" placeholder="Es. targa in legno con il nome di casa">
-          <button class="btn btn-primary" type="submit"><span data-i18n="heroQuoteBtn">Chiedi un preventivo</span></button>
+        <form class="rs3d-form" id="rs3dForm" action="quote/" method="get" aria-label="Chiedi un preventivo">
+          <label class="rs3d-form__label" for="rs3dText" data-i18n="rs3dLabel">Scrivi cosa vuoi incidere</label>
+          <input id="rs3dText" type="text" maxlength="28" autocomplete="off" spellcheck="false" data-ph="rs3dPh" placeholder="Es. Casa Bianchi">
+          <fieldset class="rs3d-mats">
+            <legend data-i18n="rs3dMatLegend">Materiale</legend>
+            <label><input type="radio" name="rs3dMat" value="legno" checked><span data-i18n="rs3dMat0">Legno</span></label>
+            <label><input type="radio" name="rs3dMat" value="ardesia"><span data-i18n="rs3dMat1">Ardesia</span></label>
+            <label><input type="radio" name="rs3dMat" value="acrilico"><span data-i18n="rs3dMat2">Acrilico</span></label>
+            <label><input type="radio" name="rs3dMat" value="metallo"><span data-i18n="rs3dMat3">Metallo</span></label>
+          </fieldset>
+          <input type="hidden" name="idea" id="rs3dIdea" value="">
+          <div class="rs3d-form__azioni">
+            <button class="btn btn-primary" type="submit"><span data-i18n="heroQuoteBtn">Chiedi un preventivo</span></button>
+            <a class="rs3d-form__wa" id="rs3dWa" data-wa-keep href="https://wa.me/393296904627?text=Ciao%20INGLY%2C%20vorrei%20un%20preventivo" target="_blank" rel="noopener noreferrer" data-i18n="heroLinkWa">Scrivici su WhatsApp</a>
+          </div>
         </form>
-        <p class="rs-hero-links"><a href="https://wa.me/393296904627?text=Ciao%20INGLY%2C%20vorrei%20un%20preventivo" target="_blank" rel="noopener noreferrer" data-i18n="heroLinkWa">Scrivici su WhatsApp</a><a href="shop" data-nav="shop" data-i18n="ctaShop">Scopri lo Shop</a></p>
         <p class="signature-hero-assurance"><span class="signature-hero-assurance__line" aria-hidden="true"></span><span data-sig-it="Il tuo progetto, realizzato con cura in Italia." data-sig-en="Your project, crafted with care in Italy.">Il tuo progetto, realizzato con cura in Italia.</span></p>
       </div>
+      <figure class="rs3d-stage" id="rs3dStage">
+        <img class="rs3d-stage__foto" src="img/proj-1-1.webp" alt="Mappa di Palermo incisa e tagliata al laser su legno, con il mare in blu: un lavoro INGLY DESIGN" data-i18n-alt="heroImgAlt" width="1600" height="1200" decoding="async">
+        <canvas id="rs3dCanvas" role="img" aria-label="Anteprima 3D della targa che viene incisa dal laser. Trascina per ruotarla." data-i18n-aria="rs3dAria"></canvas>
+        <figcaption class="rs3d-stage__cap"><span data-i18n="rs3dNote">Anteprima indicativa · trascina per ruotare</span><button type="button" id="rs3dReplay" data-i18n="rs3dReplay">Incidi di nuovo</button></figcaption>
+      </figure>
       <aside class="ingly-hero-steps" aria-label="Il metodo INGLY: la tua idea, il nostro lavoro">
         <span class="ingly-hero-steps__overline" data-sig-it="TU + INGLY" data-sig-en="YOU + INGLY">TU + INGLY</span>
         <ol>

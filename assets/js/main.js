@@ -205,6 +205,7 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const v=D[L][el.dataset.i18n];if(v!==undefined)el.innerHTML=v});
   document.querySelectorAll('[data-ph]').forEach(el=>{const v=D[L][el.dataset.ph];if(v!==undefined)el.placeholder=v});
   document.querySelectorAll('[data-i18n-alt]').forEach(el=>{const v=D[L][el.dataset.i18nAlt];if(v!==undefined)el.alt=v});
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const v=D[L][el.dataset.i18nAria];if(v!==undefined)el.setAttribute('aria-label',v)});
   renderTitoloHero();
   translateInline();
   $('langIT').classList.toggle('on',L==='it');
@@ -443,7 +444,6 @@ function bindMode(){
   const mobile=document.getElementById('mobileModeBtn');
   if(!btn && !mobile) return;
   const root=document.documentElement;
-  const sys=window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
   const stored=()=>{try{const v=localStorage.getItem('ingly_mode');return v==='light'||v==='dark'?v:null}catch(e){return null}};
   const labels=v=>v==='light'
     ? {next:'Passa alla modalità scura',current:'Modalità chiara attiva'}
@@ -452,7 +452,7 @@ function bindMode(){
     const v=value==='light'?'light':'dark';
     root.setAttribute('data-mode',v);
     const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute('content',v==='light'?'#f4f8fc':'#0b1221');
+    if(meta)meta.setAttribute('content',v==='light'?'#f7f2ea':'#13100d');
     if(persist){try{localStorage.setItem('ingly_mode',v)}catch(e){}}
     for(const el of [btn,mobile]){
       if(!el)continue;
@@ -461,7 +461,8 @@ function bindMode(){
       el.title=labels(v).next;
     }
   };
-  set(stored() || (sys&&sys.matches?'light':'dark'));
+  /* restyle 2026: «notte calda + oro» è la base per tutti; il chiaro si sceglie col pulsante */
+  set(stored() || 'dark');
   const toggle=()=>{
     root.classList.add('theme-anim');
     set(root.getAttribute('data-mode')==='light'?'dark':'light',true);
@@ -469,7 +470,6 @@ function bindMode(){
   };
   btn?.addEventListener('click',toggle);
   mobile?.addEventListener('click',toggle);
-  try{sys?.addEventListener('change',e=>{if(!stored())set(e.matches?'light':'dark')})}catch(e){}
 }
 
 function bindLightbox(){

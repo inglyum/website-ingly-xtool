@@ -10249,12 +10249,14 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 
 /* ==== restyle-2026.css ==== */
 /* ============================================================
-   RESTYLE 2026 — «Negozio moderno pulito» (riferimento: Shopify Dawn)
-   Scelta del titolare: logo e oro restano, il resto si rifà.
-   - Fondo bianco, testo inchiostro, un solo carattere (Assistant).
-   - Oro solo per le azioni principali.
-   - Angoli vivi, niente ombre né aloni a riposo, spazio al posto delle cornici.
-   - Il tema scuro resta come variante (pulsante Tema).
+   RESTYLE 2026 — «Notte calda + oro», con l'incisione 3D dal vivo
+   Scelte del titolare: logo e oro restano; struttura da negozio moderno
+   (riferimento Shopify Dawn); effetto principale: targa 3D incisa dal laser.
+   - Fondo carbone caldo, testo avorio, un solo carattere (Assistant).
+   - Oro per marchio e azioni; arancio brace solo per la luce del laser.
+   - Angoli vivi; i pattern incisi (nido d'ape, guilloché, venature) sono
+     generati da scripts/genera-pattern.mjs e colorati dai token.
+   - Il tema chiaro (avorio) resta come variante (pulsante Tema).
    Caricato DOPO brand-system-2026.css: vince a parità di specificità.
    ============================================================ */
 
@@ -10272,26 +10274,28 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
  --fd:var(--rs-font);--no-title:var(--rs-font);
 }
 :root[data-mode="light"]{
- --rs-bg:#ffffff;--rs-bg-2:#f3f3f3;--rs-ink:#121212;--rs-muted:#545454;
- --rs-line:rgba(18,18,18,.12);--rs-line-strong:rgba(18,18,18,.55);
- --rs-gold:#8a5a1e;--rs-gold-hover:#74490f;--rs-on-gold:#ffffff;
- --rs-overlay:rgba(0,0,0,.38);--rs-focus:#8a5a1e;
+ --rs-bg:#f7f2ea;--rs-bg-2:#eee6d8;--rs-ink:#1a140e;--rs-muted:#5a4e42;
+ --rs-line:rgba(26,20,14,.13);--rs-line-strong:rgba(26,20,14,.5);
+ --rs-gold:#8a5a1e;--rs-gold-hover:#74490f;--rs-on-gold:#ffffff;--rs-gold-soft:rgba(138,90,30,.10);
+ --rs-ember:#d9531c;--rs-bar-bg:#1a140e;--rs-bar-ink:#f7f2ea;
+ --rs-overlay:rgba(0,0,0,.38);--rs-focus:#8a5a1e;--rs-pattern:rgba(138,90,30,.16);
  --brand-bg:var(--rs-bg);--brand-deep:var(--rs-bg-2);--brand-surface:var(--rs-bg);
  --brand-elevated:var(--rs-bg-2);--brand-ink:var(--rs-ink);--brand-muted:var(--rs-muted);
  --brand-border:var(--rs-line);--brand-border-strong:var(--rs-line-strong);
  --brand-gold:var(--rs-gold);--brand-gold-hi:var(--rs-gold-hover);
- --brand-glass:rgba(255,255,255,.98);--brand-shadow:none;--brand-halo:transparent;--brand-halo2:transparent;
+ --brand-glass:rgba(247,242,234,.98);--brand-shadow:none;--brand-halo:transparent;--brand-halo2:transparent;
 }
 :root[data-mode="dark"]{
- --rs-bg:#121212;--rs-bg-2:#1c1c1c;--rs-ink:#f5f5f5;--rs-muted:#b8b8b8;
- --rs-line:rgba(255,255,255,.14);--rs-line-strong:rgba(255,255,255,.6);
- --rs-gold:#d9b273;--rs-gold-hover:#e6c48c;--rs-on-gold:#1a1206;
- --rs-overlay:rgba(0,0,0,.5);--rs-focus:#d9b273;
+ --rs-bg:#13100d;--rs-bg-2:#1c1813;--rs-ink:#f3ece1;--rs-muted:#b7aa97;
+ --rs-line:rgba(243,236,225,.12);--rs-line-strong:rgba(243,236,225,.5);
+ --rs-gold:#d6ae6c;--rs-gold-hover:#e6c48c;--rs-on-gold:#17110a;--rs-gold-soft:rgba(214,174,108,.12);
+ --rs-ember:#ff6b2c;--rs-bar-bg:#0b0907;--rs-bar-ink:#e9dfcf;
+ --rs-overlay:rgba(0,0,0,.5);--rs-focus:#e6c48c;--rs-pattern:rgba(214,174,108,.13);
  --brand-bg:var(--rs-bg);--brand-deep:var(--rs-bg-2);--brand-surface:var(--rs-bg);
  --brand-elevated:var(--rs-bg-2);--brand-ink:var(--rs-ink);--brand-muted:var(--rs-muted);
  --brand-border:var(--rs-line);--brand-border-strong:var(--rs-line-strong);
  --brand-gold:var(--rs-gold);--brand-gold-hi:var(--rs-gold-hover);
- --brand-glass:rgba(18,18,18,.98);--brand-shadow:none;--brand-halo:transparent;--brand-halo2:transparent;
+ --brand-glass:rgba(19,16,13,.98);--brand-shadow:none;--brand-halo:transparent;--brand-halo2:transparent;
 }
 
 /* ---------- base ---------- */
@@ -10337,8 +10341,8 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode] :is(input,textarea,select):focus{border-color:var(--rs-ink)!important;box-shadow:0 0 0 1px var(--rs-ink)!important;outline:none!important}
 
 /* ---------- barra annunci + intestazione ---------- */
-:root[data-mode] :is(.topbar,.atelier-announcement){background:var(--rs-ink)!important;color:var(--rs-bg)!important;border:0!important}
-:root[data-mode] :is(.topbar,.atelier-announcement) :is(a,span,button,strong,small){color:var(--rs-bg)!important}
+:root[data-mode] :is(.topbar,.atelier-announcement){background:var(--rs-bar-bg)!important;color:var(--rs-bar-ink)!important;border:0!important}
+:root[data-mode] :is(.topbar,.atelier-announcement) :is(a,span,button,strong,small){color:var(--rs-bar-ink)!important}
 :root[data-mode] header#nav.nav{background:var(--rs-bg)!important;border-bottom:1px solid var(--rs-line)!important;
  box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 :root[data-mode] header#nav :is(.nav-links a,.nav-links button){color:var(--rs-ink)!important;font:400 15px/1.2 var(--rs-font)!important;letter-spacing:.04em!important}
@@ -10363,40 +10367,8 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode] #page-home.page.active{display:flex;flex-direction:column;background:var(--rs-bg)}
 :root[data-mode] #page-home > *{order:20}
 
-/* 1. banner con foto vera + preventivo */
-:root[data-mode] #page-home .hero.signature-hero{order:1;position:relative;min-height:auto!important;padding:0!important;
- background:#1a1a1a!important;overflow:hidden;display:block!important}
-:root[data-mode] #page-home .rs-hero-media{position:absolute;inset:0;margin:0}
-:root[data-mode] #page-home .rs-hero-media img{width:100%;height:100%;object-fit:cover;object-position:60% 50%;display:block;border-radius:0}
-:root[data-mode] #page-home .rs-hero-media::after{content:"";position:absolute;inset:0;
- background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.12) 75%,rgba(0,0,0,0) 100%)}
-:root[data-mode] #page-home .hero-grid{position:relative;z-index:1;display:block!important;max-width:var(--rs-max);margin:0 auto;
- padding:clamp(64px,10vw,140px) var(--rs-gutter) clamp(56px,8vw,110px)!important;min-height:min(78vh,720px);box-sizing:border-box}
-:root[data-mode] #page-home .signature-hero-copy{max-width:600px}
-:root[data-mode] #page-home .hero .hero-tag,
-:root[data-mode] #page-home .hero .signature-hero-assurance,
-:root[data-mode] #page-home .hero .ingly-hero-steps{display:none!important}
-:root[data-mode] #page-home .hero h1{color:#fff!important;font-size:clamp(2.5rem,1.6rem + 3.6vw,4.4rem)!important;margin:0 0 18px!important;max-width:14ch}
-:root[data-mode] #page-home .hero h1 *{color:#fff!important;-webkit-text-fill-color:#fff!important}
-:root[data-mode] #page-home .hero .sub{color:rgba(255,255,255,.88)!important;font-size:clamp(1.05rem,.95rem + .4vw,1.25rem)!important;max-width:46ch;margin:0 0 28px!important}
-:root[data-mode] #page-home .hero .hero-ctas{display:none!important}
-
-/* barra «cosa vuoi realizzare?» */
-:root[data-mode] .rs-quote{display:grid;grid-template-columns:1fr auto;gap:0;max-width:560px;background:#fff;border:1px solid #fff}
-:root[data-mode] .rs-quote label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-:root[data-mode] .rs-quote input{border:0!important;min-height:54px;padding:0 18px!important;font-size:16px!important;background:#fff!important;color:#121212!important}
-:root[data-mode] .rs-quote input::placeholder{color:#6b6b6b!important}
-:root[data-mode] .rs-quote input:focus{box-shadow:inset 0 0 0 2px #8a5a1e!important}
-:root[data-mode] .rs-quote .btn{min-height:54px;background:#8a5a1e!important;border-color:#8a5a1e!important;color:#fff!important}
-@media (hover:hover){:root[data-mode] .rs-quote .btn:hover{background:#74490f!important;border-color:#74490f!important}}
-:root[data-mode] .rs-hero-links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;font-size:15px}
-:root[data-mode] .rs-hero-links a{color:#fff!important;text-decoration:underline;text-underline-offset:.25em}
-@media (max-width:640px){
- :root[data-mode] .rs-quote{grid-template-columns:1fr}
- :root[data-mode] .rs-quote .btn{width:100%}
- :root[data-mode] #page-home .rs-hero-media::after{background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.7) 55%,rgba(0,0,0,.8) 100%)}
- :root[data-mode] #page-home .hero-grid{min-height:auto;padding-top:96px!important}
-}
+/* 1. apertura con incisione 3D: regole in fondo al file (sezione «INCISIONE 3D») */
+:root[data-mode] #page-home .hero.signature-hero{order:1}
 
 /* fascia dei vantaggi sotto il banner: riga semplice */
 :root[data-mode] #page-home .signature-benefits{position:relative;z-index:1;background:var(--rs-bg)!important;border:0!important;border-bottom:1px solid var(--rs-line)!important;
@@ -10452,29 +10424,19 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 /* un solo carattere ovunque (tranne l'anteprima del nome in corsivo e i generatori) */
 :root[data-mode][data-mode] body :is(h1,h2,h3,h4,h5,h6,p,a,span,li,button,input,textarea,select,label,small,strong,b,em,i,figcaption,dt,dd,td,th,blockquote,summary,legend,output,.ft-claim,#rs-specificita):not(.atelier-configurator__sample *):not(.atelier-configurator__sample){
  font-family:var(--rs-font)!important}
-/* titolo dell'apertura: tutto bianco, niente corsivo oro né lineetta incisa */
-:root[data-mode][data-mode] #page-home #heroH1,
-:root[data-mode][data-mode] #page-home #heroH1 :is(.w,.w > span,.engrave,.laserword){
- font-family:var(--rs-font)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-style:normal!important;font-weight:700!important;
- background:none!important;text-shadow:none!important;animation:none!important;clip-path:none!important;opacity:1!important;transform:none!important}
-:root[data-mode][data-mode] #page-home #heroH1 :is(.engrave,.laserword,.w > .engrave)::after,
-:root[data-mode][data-mode] #page-home #heroH1 :is(.engrave,.laserword,.w > .engrave)::before{display:none!important;content:none!important}
-:root[data-mode][data-mode] #page-home .hero .sub{color:rgba(255,255,255,.9)!important;-webkit-text-fill-color:rgba(255,255,255,.9)!important;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-:root[data-mode][data-mode] #page-home .hero .signature-hero-copy{text-align:left!important;margin:0!important}
-
 /* barra annunci a tutta larghezza, tema e lingua nella stessa riga */
-:root[data-mode][data-mode] .topbar{background:var(--rs-ink)!important;color:var(--rs-bg)!important;border:0!important}
+:root[data-mode][data-mode] .topbar{background:var(--rs-bar-bg)!important;color:var(--rs-bar-ink)!important;border:0!important}
 :root[data-mode][data-mode] .topbar > .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px;
  max-width:var(--rs-max);margin:0 auto;padding:0 var(--rs-gutter)!important;flex-wrap:nowrap!important}
 :root[data-mode][data-mode] .topbar .atelier-announcement{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;min-width:0;flex:1 1 auto}
 :root[data-mode][data-mode] .topbar .atelier-announcement__mark{display:none!important}
 :root[data-mode][data-mode] .topbar .atelier-announcement__text{font:400 13px/1.3 var(--rs-font)!important;letter-spacing:.06em!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-:root[data-mode][data-mode] .topbar :is(.mode-btn,.lang,.lang button){background:transparent!important;color:var(--rs-bg)!important;border-color:transparent!important;box-shadow:none!important;min-height:32px}
-:root[data-mode][data-mode] .topbar .lang{border:1px solid color-mix(in srgb,var(--rs-bg) 40%,transparent)!important;border-radius:0!important}
+:root[data-mode][data-mode] .topbar :is(.mode-btn,.lang,.lang button){background:transparent!important;color:var(--rs-bar-ink)!important;border-color:transparent!important;box-shadow:none!important;min-height:32px}
+:root[data-mode][data-mode] .topbar .lang{border:1px solid color-mix(in srgb,var(--rs-bar-ink) 40%,transparent)!important;border-radius:0!important}
 :root[data-mode][data-mode] .topbar .lang button{border-radius:0!important;font:600 12px/1 var(--rs-font)!important;padding:0 10px!important}
-:root[data-mode][data-mode] .topbar .lang button.on{background:var(--rs-bg)!important;color:var(--rs-ink)!important}
+:root[data-mode][data-mode] .topbar .lang button.on{background:var(--rs-bar-ink)!important;color:var(--rs-bar-bg)!important}
 :root[data-mode][data-mode] .topbar :is(.mode-btn svg,.atelier-announcement__close svg){stroke:currentColor}
-:root[data-mode][data-mode] .topbar .atelier-announcement__close{color:var(--rs-bg)!important;background:transparent!important;border:0!important}
+:root[data-mode][data-mode] .topbar .atelier-announcement__close{color:var(--rs-bar-ink)!important;background:transparent!important;border:0!important}
 
 /* il carattere vince anche sulle vecchie regole legate alle pagine (#id) */
 :root[data-mode][data-mode] :is(#nav,#sponsorSec,#toast,#page-home,#page-shop,#page-product,#page-personalizza,#page-digital,#page-business,#page-materiali,#page-tecnologie,#page-macchine,#page-academy,#page-demo,#page-portfolio,#page-about,#page-faq,#page-quote,#macPage) :is(h1,h2,h3,h4,h5,h6,p,a,span,li,button,input,textarea,select,label,small,strong,b,em,i,figcaption,dt,dd,td,th,blockquote,summary,legend,output):not(.atelier-configurator__sample *):not(.atelier-configurator__sample){
@@ -10537,4 +10499,170 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode][data-mode] #macPage .lancio-hero :is(p,.lancio-hero__ruolo,small){color:var(--rs-muted)!important;-webkit-text-fill-color:var(--rs-muted)!important}
 :root[data-mode][data-mode] #macPage .lancio-hero h1{color:var(--rs-ink)!important;-webkit-text-fill-color:var(--rs-ink)!important}
 :root[data-mode][data-mode] #macPage :is(.lancio-numeri li,.lancio-hero__foto,.ingly-novita__badge){border-radius:0!important;box-shadow:none!important}
-:root[data-mode][data-mode] .topbar .atelier-announcement__text{opacity:1!important;color:var(--rs-bg)!important;-webkit-text-fill-color:var(--rs-bg)!important;filter:none!important}
+:root[data-mode][data-mode] .topbar .atelier-announcement__text{opacity:1!important;color:var(--rs-bar-ink)!important;-webkit-text-fill-color:var(--rs-bar-ink)!important;filter:none!important}
+
+/* ============================================================
+   INCISIONE 3D — l'apertura della home
+   A sinistra titolo e modulo (cosa incidere + materiale + preventivo),
+   a destra la targa 3D su un piano a nido d'ape, come in laboratorio.
+   Sul telefono: titolo, targa, modulo. Senza WebGL resta la foto.
+   ============================================================ */
+:root[data-mode][data-mode] #page-home .hero.rs3d{position:relative;isolation:isolate;overflow:hidden;min-height:auto!important;padding:0!important;
+ background:radial-gradient(60% 75% at 74% 46%,var(--rs-gold-soft),transparent 70%),var(--rs-bg)!important;border-bottom:1px solid var(--rs-line)}
+:root[data-mode][data-mode] #page-home .rs3d .hero-grid{position:relative;z-index:1;display:grid!important;
+ grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;grid-template-rows:1fr auto auto auto 1fr!important;
+ grid-template-areas:". s" "t s" "p s" "f s" ". s"!important;column-gap:clamp(28px,4vw,64px)!important;row-gap:0!important;align-items:center!important;
+ max-width:var(--rs-max);margin:0 auto;padding:clamp(36px,5vw,72px) var(--rs-gutter) clamp(36px,4vw,60px)!important;min-height:0!important}
+:root[data-mode][data-mode] #page-home .rs3d .signature-hero-copy{display:contents!important}
+:root[data-mode][data-mode] #page-home .rs3d :is(.hero-tag,.hero-ctas,.signature-hero-assurance,.ingly-hero-steps){display:none!important}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1{grid-area:t;margin:0 0 18px!important;max-width:12ch!important;
+ font-size:clamp(2.6rem,1.5rem + 3.6vw,4.6rem)!important;line-height:1.02!important;letter-spacing:-.02em!important;font-weight:700!important;text-wrap:balance}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1,
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.w,.w > span){color:var(--rs-ink)!important;-webkit-text-fill-color:var(--rs-ink)!important;
+ font-family:var(--rs-font)!important;font-style:normal!important;font-weight:700!important;background:none!important;text-shadow:none!important;animation:none!important;clip-path:none!important;opacity:1!important;transform:none!important}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.engrave,.laserword,.w:last-of-type > span){color:var(--rs-gold)!important;-webkit-text-fill-color:var(--rs-gold)!important;
+ font-style:normal!important;background:none!important;text-shadow:none!important;animation:none!important;clip-path:none!important;opacity:1!important;transform:none!important}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.engrave,.laserword)::after,
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.engrave,.laserword)::before{display:none!important;content:none!important}
+:root[data-mode][data-mode] #page-home .rs3d .sub{grid-area:p;margin:0 0 26px!important;max-width:44ch!important;color:var(--rs-muted)!important;-webkit-text-fill-color:var(--rs-muted)!important;
+ font-size:clamp(1.05rem,.95rem + .35vw,1.22rem)!important;line-height:1.55!important;text-shadow:none!important}
+
+/* modulo: cosa incidere, materiale, preventivo */
+:root[data-mode][data-mode] .rs3d-form{grid-area:f;display:grid;gap:14px;max-width:520px}
+:root[data-mode][data-mode] .rs3d-form__label{font:600 14px/1.3 var(--rs-font)!important;color:var(--rs-ink)!important;letter-spacing:.02em}
+:root[data-mode][data-mode] .rs3d-form #rs3dText{min-height:58px;padding:0 18px!important;font:600 20px/1 var(--rs-font)!important;
+ background:var(--rs-bg-2)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line-strong)!important;border-radius:0!important;caret-color:var(--rs-gold)}
+:root[data-mode][data-mode] .rs3d-form #rs3dText::placeholder{color:var(--rs-muted)!important;opacity:1;font-weight:400}
+:root[data-mode][data-mode] .rs3d-form #rs3dText:focus{border-color:var(--rs-gold)!important;box-shadow:0 0 0 1px var(--rs-gold)!important}
+:root[data-mode][data-mode] .rs3d-mats{display:flex;flex-wrap:wrap;gap:8px;border:0;margin:0;padding:0;min-width:0}
+:root[data-mode][data-mode] .rs3d-mats legend{float:left;width:100%;margin:0 0 8px;padding:0;font:600 14px/1.3 var(--rs-font)!important;color:var(--rs-ink)!important;letter-spacing:.02em}
+:root[data-mode][data-mode] .rs3d-mats label{position:relative;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 16px 0 12px;cursor:pointer;
+ border:1px solid var(--rs-line-strong);color:var(--rs-ink)!important;font:400 15px/1 var(--rs-font)!important;transition:border-color .2s,background-color .2s}
+:root[data-mode][data-mode] .rs3d-mats input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+:root[data-mode][data-mode] .rs3d-mats label::before{content:"";width:16px;height:16px;flex:none;border-radius:50%;border:1px solid var(--rs-line-strong);background:var(--sw)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(1){--sw:linear-gradient(135deg,#d6b58c,#9c7448)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(2){--sw:linear-gradient(135deg,#4a4e52,#24272a)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(3){--sw:linear-gradient(135deg,#3a3a3e,#050506)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(4){--sw:linear-gradient(135deg,#9a9ca0,#3b3c3f)}
+:root[data-mode][data-mode] .rs3d-mats label:has(input:checked){border-color:var(--rs-gold);background:var(--rs-gold-soft)}
+:root[data-mode][data-mode] .rs3d-mats label:has(input:focus-visible){outline:2px solid var(--rs-focus);outline-offset:2px}
+@media (hover:hover){:root[data-mode][data-mode] .rs3d-mats label:hover{border-color:var(--rs-ink)}}
+:root[data-mode][data-mode] .rs3d-form__azioni{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:6px}
+:root[data-mode][data-mode] .rs3d-form__azioni .btn{min-height:54px;padding:0 30px!important;font:600 16px/1 var(--rs-font)!important}
+:root[data-mode][data-mode] .rs3d-form__wa{color:var(--rs-ink)!important;text-decoration:underline;text-underline-offset:.3em;text-decoration-color:var(--rs-gold);font-size:15px}
+
+/* la scena: piano a nido d'ape, luce calda, ombra della targa */
+:root[data-mode][data-mode] .rs3d-stage{grid-area:s;position:relative;margin:0;aspect-ratio:7/5.6;min-height:320px;width:100%;
+ background:radial-gradient(70% 70% at 50% 42%,#2b231b 0%,#15110d 62%,#0d0a08 100%);overflow:hidden;color:#e9dfcf}
+:root[data-mode][data-mode] .rs3d-stage::before{content:"";position:absolute;inset:0;background:#c9a46a;opacity:.16;
+ -webkit-mask:url('../patterns/nido-ape.svg') center/840px auto repeat;mask:url('../patterns/nido-ape.svg') center/840px auto repeat;pointer-events:none}
+:root[data-mode][data-mode] .rs3d-stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(85% 85% at 50% 45%,transparent 45%,rgba(8,6,4,.78) 100%)}
+:root[data-mode][data-mode] .rs3d-stage__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;border-radius:0!important;
+ transition:opacity .6s cubic-bezier(.16,1,.3,1)}
+:root[data-mode][data-mode] .rs3d-stage canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;
+ touch-action:pan-y;cursor:grab;transition:opacity .9s cubic-bezier(.16,1,.3,1)}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--presa canvas{cursor:grabbing}
+:root.gl[data-mode] .rs3d-stage:not(.rs3d--foto) .rs3d-stage__foto{opacity:0}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--vivo canvas{opacity:1}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--foto canvas{display:none}
+:root[data-mode][data-mode] .rs3d-stage__cap{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:12px;
+ padding:12px 16px;font:400 13px/1.3 var(--rs-font)!important;color:rgba(233,223,207,.82)!important;pointer-events:none}
+:root[data-mode][data-mode] .rs3d-stage__cap span{color:rgba(233,223,207,.82)!important}
+:root[data-mode][data-mode] .rs3d-stage__cap button{pointer-events:auto;min-height:36px;padding:0 14px;background:rgba(19,16,13,.6)!important;color:#f3ece1!important;
+ border:1px solid rgba(233,223,207,.35)!important;border-radius:0!important;font:600 13px/1 var(--rs-font)!important;cursor:pointer;transition:border-color .2s,background-color .2s}
+@media (hover:hover){:root[data-mode][data-mode] .rs3d-stage__cap button:hover{border-color:#d6ae6c!important;background:rgba(19,16,13,.85)!important}}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--foto .rs3d-stage__cap :is(span,button){display:none}
+
+@media (max-width:980px){
+ :root[data-mode][data-mode] #page-home .rs3d .hero-grid{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important;
+  grid-template-areas:"t" "p" "s" "f"!important;padding-top:28px!important}
+ :root[data-mode][data-mode] #page-home .rs3d #heroH1{max-width:16ch!important;margin-bottom:12px!important}
+ :root[data-mode][data-mode] #page-home .rs3d .sub{margin-bottom:20px!important}
+ :root[data-mode][data-mode] .rs3d-stage{aspect-ratio:7/5.4;min-height:0;margin:0 calc(var(--rs-gutter) * -1) 22px;width:auto}
+ :root[data-mode][data-mode] .rs3d-form{max-width:none}
+}
+@media (max-width:480px){
+ :root[data-mode][data-mode] .rs3d-form__azioni .btn{width:100%}
+ :root[data-mode][data-mode] .rs3d-stage{aspect-ratio:1/0.92}
+}
+
+/* pattern incisi come filigrana: guilloché dietro «come funziona» e newsletter,
+   venature del legno sopra il piè di pagina. Colore dai token, mai invadenti. */
+:root[data-mode][data-mode] #page-home > .sec:has(#stepsGrid),
+:root[data-mode][data-mode] #page-home > .sec:has(.nform){position:relative;isolation:isolate;overflow:hidden}
+:root[data-mode][data-mode] #page-home > .sec:has(#stepsGrid)::before,
+:root[data-mode][data-mode] #page-home > .sec:has(.nform)::before{content:"";position:absolute;z-index:-1;pointer-events:none;
+ width:min(900px,120vw);aspect-ratio:1;top:50%;background:var(--rs-pattern);
+ -webkit-mask:url('../patterns/guilloche.svg') center/contain no-repeat;mask:url('../patterns/guilloche.svg') center/contain no-repeat}
+:root[data-mode][data-mode] #page-home > .sec:has(#stepsGrid)::before{right:-22%;transform:translateY(-50%)}
+:root[data-mode][data-mode] #page-home > .sec:has(.nform)::before{left:50%;transform:translate(-50%,-50%)}
+:root[data-mode][data-mode] footer[data-component="site-footer"]{position:relative;isolation:isolate}
+:root[data-mode][data-mode] footer[data-component="site-footer"]::before{content:"";position:absolute;z-index:-1;inset:0 0 auto;height:min(340px,60%);pointer-events:none;
+ background:var(--rs-pattern);
+ -webkit-mask-image:url('../patterns/venature.svg'),linear-gradient(#000,transparent);mask-image:url('../patterns/venature.svg'),linear-gradient(#000,transparent);
+ -webkit-mask-size:1400px auto,100% 100%;mask-size:1400px auto,100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+ -webkit-mask-position:center top;mask-position:center top;-webkit-mask-composite:source-in;mask-composite:intersect}
+
+/* parole chiave dei titoli in oro: l'enfasi viene dal colore, non da effetti */
+:root[data-mode][data-mode] #page-home .sec :is(h2,.h2) .hl{color:var(--rs-gold)!important;-webkit-text-fill-color:var(--rs-gold)!important}
+
+/* lavori recenti: al passaggio una riga di luce attraversa la foto, come il laser */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ :root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile::after{content:"";position:absolute;left:0;right:0;top:-12%;height:2px;z-index:2;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--rs-gold) 18%,#fff6e6 50%,var(--rs-gold) 82%,transparent);box-shadow:0 0 14px 2px rgba(255,140,60,.45)}
+ :root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile:hover::after{animation:rs-scan .9s cubic-bezier(.45,0,.2,1) both}
+}
+@keyframes rs-scan{0%{top:-4%;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:104%;opacity:0}}
+
+/* avanzamento della lettura: una riga d'oro sotto l'intestazione, guidata dallo scorrimento */
+@supports (animation-timeline:scroll()){
+ @media (prefers-reduced-motion:no-preference){
+  :root[data-mode][data-mode] header#nav.nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;
+   background:linear-gradient(90deg,var(--rs-gold),var(--rs-ember));transform-origin:0 50%;transform:scaleX(0);
+   animation:rs-avanza linear both;animation-timeline:scroll(root)}
+ }
+}
+@keyframes rs-avanza{to{transform:scaleX(1)}}
+
+/* superfici del browser nei colori del sito */
+:root[data-mode][data-mode]{accent-color:var(--rs-gold);caret-color:var(--rs-gold)}
+:root[data-mode][data-mode] ::-webkit-scrollbar{width:11px;height:11px}
+:root[data-mode][data-mode] ::-webkit-scrollbar-track{background:var(--rs-bg)}
+:root[data-mode][data-mode] ::-webkit-scrollbar-thumb{background:var(--rs-line-strong);border:3px solid var(--rs-bg)}
+
+/* ---------- ritocchi dopo il primo sguardo all'incisione 3D ---------- */
+/* niente veli del vecchio banner sopra l'apertura */
+:root[data-mode][data-mode] #page-home .hero.rs3d::before,
+:root[data-mode][data-mode] #page-home .hero.rs3d::after{display:none!important;content:none!important}
+/* il configuratore del nome ora vive nell'apertura 3D: in home non si ripete */
+:root[data-mode][data-mode] #page-home .atelier-configurator{display:none!important}
+/* xTool: schede nei colori della casa, non verde petrolio */
+:root[data-mode][data-mode] #page-home .ingly-machine-photo{background:var(--rs-bg-2)!important;border:1px solid var(--rs-line)!important;color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #page-home .ingly-machine-photo :is(strong,b,h3,h4){color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #page-home .ingly-machine-photo :is(small,p){color:var(--rs-muted)!important}
+@media (hover:hover){:root[data-mode][data-mode] #page-home .ingly-machine-photo:hover{border-color:var(--rs-gold)!important}}
+/* telefono: tutto allineato a sinistra, materiali su due colonne */
+@media (max-width:980px){
+ :root[data-mode][data-mode] #page-home .rs3d :is(#heroH1,.sub,.rs3d-form,.rs3d-form__label,.rs3d-mats legend){text-align:left!important;margin-left:0!important;margin-right:0!important}
+}
+@media (max-width:640px){
+ :root[data-mode][data-mode] .rs3d-mats{display:grid;grid-template-columns:1fr 1fr}
+ :root[data-mode][data-mode] .rs3d-mats legend{grid-column:1/-1}
+}
+
+/* ---------- pagine interne nella notte calda ---------- */
+/* lo sfondo animato scelto dall'Admin («aurora», «nebbia») resta, ma nei colori
+   della casa: oro e brace al posto di blu e viola, e più discreto */
+:root[data-mode="dark"][data-sfondo-scuro="aurora"] body::after{
+ background-image:radial-gradient(ellipse 65% 42% at 22% 22%,rgba(214,174,108,.13),transparent 66%),
+  radial-gradient(ellipse 58% 38% at 80% 68%,rgba(255,107,44,.07),transparent 64%),
+  radial-gradient(ellipse 52% 34% at 52% 8%,rgba(230,196,140,.08),transparent 62%)!important}
+:root[data-mode="dark"][data-sfondo-scuro="nebbia"] body::after{
+ background-image:radial-gradient(ellipse 95% 48% at 50% 102%,rgba(214,174,108,.14),transparent 68%),
+  radial-gradient(ellipse 58% 32% at 84% 86%,rgba(255,107,44,.06),transparent 62%)!important}
+/* aperture delle pagine e pannelli: niente blu notte */
+:root[data-mode][data-mode] :is(.phero,#page-shop.page.active,#page-about,#page-business,#page-macchine,#page-quote,#page-faq,#page-materiali,#page-personalizza){background-color:transparent!important}
+:root[data-mode][data-mode] #page-shop.page.active{background-image:none!important}
+:root[data-mode][data-mode] :is(.about-art,.about-media,.ingly-biz-cover,.matcard,.ingly-service-centre__badge,.cat-agg__scena){background:var(--rs-bg-2)!important;border-color:var(--rs-line)!important}
+:root[data-mode][data-mode] .mcard::after{display:none!important}

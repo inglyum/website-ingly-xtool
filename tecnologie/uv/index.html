@@ -49,26 +49,8 @@ html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:
      il prerender lo sostituisce nelle pagine statiche, e appena parte
      l'applicazione seo.js lo rimuove prima di scrivere i propri.
      Tre LocalBusiness sulla stessa pagina = entità in conflitto per Google. -->
-<!-- GoatCounter Analytics — privacy-friendly, no cookie, gratuito
-     Alternativa a GA4. Registrati su goatcounter.com e sostituisci TUOCODICE.
-     Una volta configurato nell'Admin (Dashboard → Statistiche), questo script
-     si attiva automaticamente. -->
-<!--
-<script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
-<!-- Google Analytics 4 — sostituisci G-XXXXXXXXXX con il tuo Measurement ID -->
-<!-- Per attivare: vai su analytics.google.com → Crea proprietà → copia G-XXXXXXXXXX -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-XXXXXXXXXX',{page_path:location.pathname});
-  // Track page views on SPA navigation
-  addEventListener('popstate',()=>gtag('event','page_view',{page_path:location.pathname}));
-</script>
--->
+<!-- Statistiche: GoatCounter (senza cookie) si accende da assets/js/statistiche.js
+     quando nell'Admin c'è il codice del sito. Nessuno script finché è vuoto. -->
 <link rel="icon" type="image/svg+xml" href="assets/images/ingly-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
@@ -148,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=ff621bc36d">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=be4af3bb5b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -331,6 +313,7 @@ setTimeout(function(){
 <h2>Come si lavora</h2><ol><li><b>Livello del bianco</b> — Su fondo scuro o trasparente serve una base bianca sotto il colore, o i colori spariscono.</li><li><b>Primer dove serve</b> — Vetro e metallo lucido non trattengono l&#39;inchiostro: senza primer si stacca con l&#39;unghia.</li><li><b>Stampa e cura</b> — L&#39;oggetto esce asciutto e maneggiabile: non c&#39;è tempo di asciugatura da aspettare.</li></ol>
 <h2>Materiali che lavora</h2><ul><li><a href="https://www.inglydesign.it/materiali/plexiglass">Plexiglass</a></li><li><a href="https://www.inglydesign.it/materiali/legno">Legno</a></li><li><a href="https://www.inglydesign.it/materiali/metallo">Metallo</a></li><li><a href="https://www.inglydesign.it/materiali/vetro">Vetro</a></li><li><a href="https://www.inglydesign.it/materiali/bamboo">Bambù</a></li><li><a href="https://www.inglydesign.it/materiali/mdf">MDF e compensato</a></li></ul>
 <h2>Cosa possiamo creare</h2><ul><li>Insegne e pannelli a colori</li><li>Gadget aziendali personalizzati</li><li>Portamenù con logo a colori</li><li>Stampa su oggetti già finiti</li></ul>
+<h2>Creazioni realizzate così</h2><ul><li><a href="https://www.inglydesign.it/product/4/">Set Regalo Neonato Personalizzato in Legno - Body, Copertina e Accessori</a> — €49,99</li><li><a href="https://www.inglydesign.it/product/5/">Targa Nascita Personalizzata 1:1 Silhouette Neonato | Lampada LED in Plexiglass o Targa in Legno con Dati di Nascita | Regalo Battesimo e Cameretta</a> — €29,00</li><li><a href="https://www.inglydesign.it/product/7/">Cake Topper Matrimonio Plexiglass</a> — €16,00</li><li><a href="https://www.inglydesign.it/product/3/">Quadro Ritratto Inciso su Legno</a> — €59,00</li><li><a href="https://www.inglydesign.it/product/6/">Orologio da Parete in Legno &quot;Albero della Vita&quot; - Design Elegante per Arredamento</a> — €59,99</li><li><a href="https://www.inglydesign.it/product/8/">Segnaposto Nozze in Legno ×20</a> — €38,00</li><li><a href="https://www.inglydesign.it/product/20/">Supereroi Ghibi</a> — €34,99</li><li><a href="https://www.inglydesign.it/product/21/">Portachiavi Albero della Vita in Legno a Doppio Strato Personalizzato | Bomboniera Ricordo per Battesimo, Comunione, Cresima, Matrimonio e Compleanno</a> — €9,99</li><li><a href="https://www.inglydesign.it/product/22/">Apribottiglie Inciso Personalizzato</a> — €3,99</li><li><a href="https://www.inglydesign.it/product/17/">Medaglietta Cane/Gatto Personalizzata</a> — €13,00</li><li><a href="https://www.inglydesign.it/product/14/">Targa Anniversario in Vetro</a> — €36,00</li></ul>
 <h2>Domande frequenti</h2><h3>Si può stampare su un oggetto che ho già?</h3><p>Se sta nel piano di stampa e la superficie è compatibile, sì. Si fa sempre una prova su un pezzo di scorta prima di toccare il tuo.</p></div>
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->

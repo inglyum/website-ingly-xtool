@@ -237,7 +237,10 @@
     "rs3dDefault": "Il tuo nome",
     "rs3dIdea": "Targa in {m} con incisione «{t}»",
     "rs3dIdeaVuota": "Targa in {m} incisa al laser",
-    "rs3dWaMsg": "Ciao INGLY, vorrei un preventivo: "
+    "rs3dWaMsg": "Ciao INGLY, vorrei un preventivo: ",
+    "vetrinaEtichetta": "Come ordinare",
+    "vetrinaTitolo": "Catalogo in vetrina.",
+    "vetrinaTesto": "I prezzi sono su richiesta e non si ordina online: scegli i pezzi che ti piacciono e chiedici un preventivo."
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -477,7 +480,10 @@
     "rs3dDefault": "Your name",
     "rs3dIdea": "{m} plaque engraved with \"{t}\"",
     "rs3dIdeaVuota": "Laser-engraved {m} plaque",
-    "rs3dWaMsg": "Hi INGLY, I would like a quote: "
+    "rs3dWaMsg": "Hi INGLY, I would like a quote: ",
+    "vetrinaEtichetta": "How to order",
+    "vetrinaTitolo": "Showcase catalogue.",
+    "vetrinaTesto": "Prices are on request and there is no online ordering: pick the pieces you like and ask us for a quote."
   },
   "wOpen": {
     "it": "Apri Wishlist",

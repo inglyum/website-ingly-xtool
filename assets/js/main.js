@@ -23,6 +23,7 @@ import * as STATO from './stato-sito.js';
 import * as SFONDI from './sfondi.js';
 import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
+import * as STAT from './statistiche.js';
 
 /* ---- config → DOM ---- */
 function initHeroVideo(){
@@ -213,7 +214,7 @@ function applyI18n(){
   prod.fillSort();
   // The owner-supplied loader controls its own message cycle; translation must not overwrite it.
   const l=$('ldrTxt');if(l&&!document.querySelector('#loader.ingly-custom-loader'))l.textContent=T('ldr');
-  const sb=$('sbBtn');if(sb)sb.firstChild.textContent=T('ppAdd')+' ';
+  const sb=$('sbBtn');if(sb)sb.firstChild.textContent=(PREZZI.mostraPrezzi(CONFIG)?T('ppAdd'):PREZZI.etichettaAzione(CONFIG,L))+' ';
 }
 /* ===== TITOLO DELLA HERO =====
    Il titolo grande è la prima cosa che si legge del sito, e finora viveva
@@ -975,6 +976,7 @@ safeRun('lazy loading',initLazy);
 safeRun('moduli contatto',initForms);
 safeRun('filtri catalogo',()=>prod.initShopControls());
 safeRun('delega eventi',initDelegation);
+safeRun('statistiche',()=>STAT.avvia(CONFIG));
 safeRun('condivisione',initShare);
 safeRun('FOMO',initFomo);
 safeRun('feed Instagram',()=>renderInstagramFeed('igFeedSection'));

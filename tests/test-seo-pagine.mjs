@@ -86,7 +86,15 @@ if (existsSync('business/ristoranti/index.html')) {
   check('contiene testo leggibile, non un guscio vuoto',
     corpo.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length > 150,
     corpo.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length + ' parole');
-  if (APERTO) check('collega i prodotti del catalogo', /href="[^"]*\/product\/\d+\/"/.test(corpo));
+  /* in vetrina compaiono solo i prodotti con la foto: il collegamento si
+     pretende solo se almeno un prodotto del settore è davvero visibile */
+  const { applicaCatalogo } = await import('../assets/js/catalogo-stato.js');
+  const vis = JSON.parse(readFileSync('data/products.json', 'utf8'));
+  applicaCatalogo({ CONFIG: JSON.parse(JSON.stringify(CFG)), CATS: JSON.parse(readFileSync('data/categories.json', 'utf8')), P: vis,
+    MV: JSON.parse(readFileSync('data/content.json', 'utf8')).MV });
+  const settore = (JSON.parse(readFileSync('data/content.json', 'utf8')).VERTICALI || []).find(v => v.id === 'ristoranti') || {};
+  const visibiliSettore = (settore.prodotti || []).filter(id => vis.some(p => p.id === id && !p.hidden)).length;
+  if (APERTO && visibiliSettore) check('collega i prodotti del catalogo', /href="[^"]*\/product\/\d+\/"/.test(corpo));
 }
 
 console.log('\n=== SITEMAP ===');

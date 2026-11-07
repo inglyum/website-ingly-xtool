@@ -33,7 +33,9 @@ const AZIONE_PREDEFINITA = {
 export function impostazioni(config = {}){
   const p = (config && typeof config.prezzi === 'object' && config.prezzi) || {};
   return {
-    mostra: p.mostra !== false,                    /* solo un false esplicito li spegne */
+    /* solo un false esplicito li spegne; il catalogo in vetrina li spegne sempre:
+       senza ordini online una cifra esposta sarebbe una promessa a metà */
+    mostra: p.mostra !== false && !(config && config.catalogo && config.catalogo.stato === 'vetrina'),
     testo: { ...TESTO_PREDEFINITO, ...(p.testo && typeof p.testo === 'object' ? p.testo : {}) },
     azione: { ...AZIONE_PREDEFINITA, ...(p.azione && typeof p.azione === 'object' ? p.azione : {}) },
   };

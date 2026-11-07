@@ -453,3 +453,22 @@
 :root[data-mode][data-mode] input[type=file]::file-selector-button{margin-right:12px;padding:8px 14px;border:1px solid var(--rs-line-strong);border-radius:0;
  background:var(--rs-bg-2);color:var(--rs-ink);font:600 13px/1 var(--rs-font);cursor:pointer;transition:border-color .2s}
 :root[data-mode][data-mode] input[type=file]::file-selector-button:hover{border-color:var(--rs-gold)}
+/* catalogo in vetrina: una riga chiara in cima allo shop, niente pannelli */
+:root[data-mode][data-mode] .cat-vetrina{background:var(--rs-bg-2);border-bottom:1px solid var(--rs-line)}
+:root[data-mode][data-mode] .cat-vetrina__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;max-width:var(--rs-max);margin:0 auto;padding:14px var(--rs-gutter)!important}
+:root[data-mode][data-mode] .cat-vetrina__testo{margin:0;max-width:75ch;color:var(--rs-muted)!important;font:400 15px/1.5 var(--rs-font)!important}
+:root[data-mode][data-mode] .cat-vetrina__testo strong{color:var(--rs-ink)!important;font-weight:700}
+:root[data-mode][data-mode] .cat-vetrina__azioni{display:flex;gap:18px;margin:0;font-size:15px}
+:root[data-mode][data-mode] .cat-vetrina__azioni :is(a,button){color:var(--rs-ink)!important;background:none!important;border:0!important;padding:0!important;font:600 15px/1.4 var(--rs-font)!important;
+ text-decoration:underline;text-decoration-color:var(--rs-gold);text-underline-offset:.3em;cursor:pointer}
+/* schede prodotto: superficie della casa (niente verde petrolio), etichette sobrie */
+:root[data-mode][data-mode] .pcard{background:var(--rs-bg-2)!important;background-image:none!important;border:1px solid var(--rs-line)!important;border-radius:0!important;box-shadow:none!important}
+@media (hover:hover){:root[data-mode][data-mode] .pcard:hover{border-color:var(--rs-gold)!important}}
+:root[data-mode][data-mode] .pcard .ptag{background:var(--rs-bg)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line)!important;border-radius:0!important}
+:root[data-mode][data-mode] .pcard .pimg{border-radius:0!important}
+/* telefono: due colonne come in ogni negozio moderno, testi compatti */
+@media (max-width:480px){
+ :root[data-mode][data-mode] .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ :root[data-mode][data-mode] .pgrid .pcard :is(h3,h4,.pname){font-size:14px!important;line-height:1.3!important}
+ :root[data-mode][data-mode] .pgrid .pcard .pbody{padding:10px!important}
+}

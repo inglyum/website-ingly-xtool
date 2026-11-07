@@ -21,8 +21,8 @@ export function generaSito(dati, guscio){
   const cfg = copia(dati.cfg) || {};
   const prodotti = copia(dati.prodotti) || [];
   const categorie = copia(dati.categorie) || [];
-  applicaCatalogo({ CONFIG: cfg, CATS: categorie, P: prodotti });
   const contenuti = dati.contenuti || {};
+  applicaCatalogo({ CONFIG: cfg, CATS: categorie, P: prodotti, MV: contenuti.MV });
   const testi = dati.testi || {};
   const DLAB = { MATERIALI: dati.materiali || {}, TECNOLOGIE: dati.tecnologie || {}, MACCHINE: dati.macchine || {}, CORSI: dati.corsi || {}, CONFIG: cfg, PRODUCTS: prodotti };
 

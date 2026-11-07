@@ -13,7 +13,7 @@ const doc=new JSDOM(html).window.document;
 const hero=doc.querySelector('#page-home .hero.signature-hero');
 assert.ok(hero,'Hero in homepage');
 assert.ok(hero.querySelector('#heroH1'),'Headline anchor');
-assert.equal(hero.querySelector('#heroVisual, #inglyHeroSculpture'),null,'No photo or 3D hero');
+assert.equal(hero.querySelector('#heroVisual, #inglyHeroSculpture'),null,'Old photo/sculpture hero not reintroduced (restyle 2026 uses its own #rs3dStage)');
 assert.equal(hero.querySelectorAll('.ingly-hero-steps li').length,3,'Process panel has 3 accessible steps');
 assert.ok(hero.querySelector('a[href="personalizza"]'),'Primary conversion CTA');
 assert.ok(hero.querySelector('a[href="shop"]'),'Shop CTA');

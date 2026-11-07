@@ -10246,3 +10246,479 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 .q-prova-link{display:inline-block;margin-top:8px;font-weight:600;font-size:14px;color:var(--brand-gold-ink,var(--ink));text-decoration:underline;text-underline-offset:3px}
 .q-prova-allegati{margin:8px 0 0;padding:8px 12px;border-radius:10px;background:rgba(23,115,61,.12);color:var(--ink,#111);font-size:14px;font-weight:600}
 :root[data-mode="dark"] .q-prova-allegati{background:rgba(64,190,110,.16)}
+
+/* ==== restyle-2026.css ==== */
+/* ============================================================
+   RESTYLE 2026 — «Notte calda + oro», con l'incisione 3D dal vivo
+   Scelte del titolare: logo e oro restano; struttura da negozio moderno
+   (riferimento Shopify Dawn); effetto principale: targa 3D incisa dal laser.
+   - Fondo carbone caldo, testo avorio, un solo carattere (Assistant).
+   - Oro per marchio e azioni; arancio brace solo per la luce del laser.
+   - Angoli vivi; i pattern incisi (nido d'ape, guilloché, venature) sono
+     generati da scripts/genera-pattern.mjs e colorati dai token.
+   - Il tema chiaro (avorio) resta come variante (pulsante Tema).
+   Caricato DOPO brand-system-2026.css: vince a parità di specificità.
+   ============================================================ */
+
+@font-face{font-family:'Assistant';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/assistant/assistant-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/assistant/assistant-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/assistant/assistant-latin-700-normal.woff2') format('woff2')}
+
+/* ---------- token ---------- */
+:root[data-mode]{
+ --rs-font:'Assistant',system-ui,-apple-system,'Segoe UI',sans-serif;
+ --rs-max:1340px;--rs-gutter:clamp(20px,4vw,48px);
+ --rs-sec:clamp(44px,6vw,80px);
+ --rs-radius:0px;
+ --brand-display:var(--rs-font);--brand-text:var(--rs-font);
+ --fd:var(--rs-font);--no-title:var(--rs-font);
+}
+:root[data-mode="light"]{
+ --rs-bg:#f7f2ea;--rs-bg-2:#eee6d8;--rs-ink:#1a140e;--rs-muted:#5a4e42;
+ --rs-line:rgba(26,20,14,.13);--rs-line-strong:rgba(26,20,14,.5);
+ --rs-gold:#8a5a1e;--rs-gold-hover:#74490f;--rs-on-gold:#ffffff;--rs-gold-soft:rgba(138,90,30,.10);
+ --rs-ember:#d9531c;--rs-bar-bg:#1a140e;--rs-bar-ink:#f7f2ea;
+ --rs-overlay:rgba(0,0,0,.38);--rs-focus:#8a5a1e;--rs-pattern:rgba(138,90,30,.16);
+ --brand-bg:var(--rs-bg);--brand-deep:var(--rs-bg-2);--brand-surface:var(--rs-bg);
+ --brand-elevated:var(--rs-bg-2);--brand-ink:var(--rs-ink);--brand-muted:var(--rs-muted);
+ --brand-border:var(--rs-line);--brand-border-strong:var(--rs-line-strong);
+ --brand-gold:var(--rs-gold);--brand-gold-hi:var(--rs-gold-hover);
+ --brand-glass:rgba(247,242,234,.98);--brand-shadow:none;--brand-halo:transparent;--brand-halo2:transparent;
+}
+:root[data-mode="dark"]{
+ --rs-bg:#13100d;--rs-bg-2:#1c1813;--rs-ink:#f3ece1;--rs-muted:#b7aa97;
+ --rs-line:rgba(243,236,225,.12);--rs-line-strong:rgba(243,236,225,.5);
+ --rs-gold:#d6ae6c;--rs-gold-hover:#e6c48c;--rs-on-gold:#17110a;--rs-gold-soft:rgba(214,174,108,.12);
+ --rs-ember:#ff6b2c;--rs-bar-bg:#0b0907;--rs-bar-ink:#e9dfcf;
+ --rs-overlay:rgba(0,0,0,.5);--rs-focus:#e6c48c;--rs-pattern:rgba(214,174,108,.13);
+ --brand-bg:var(--rs-bg);--brand-deep:var(--rs-bg-2);--brand-surface:var(--rs-bg);
+ --brand-elevated:var(--rs-bg-2);--brand-ink:var(--rs-ink);--brand-muted:var(--rs-muted);
+ --brand-border:var(--rs-line);--brand-border-strong:var(--rs-line-strong);
+ --brand-gold:var(--rs-gold);--brand-gold-hi:var(--rs-gold-hover);
+ --brand-glass:rgba(19,16,13,.98);--brand-shadow:none;--brand-halo:transparent;--brand-halo2:transparent;
+}
+
+/* ---------- base ---------- */
+:root[data-mode] body{background:var(--rs-bg)!important;color:var(--rs-ink)!important;font-family:var(--rs-font)!important;
+ font-size:16px;line-height:1.6;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+:root[data-mode] body :is(h1,h2,h3,h4,.h2,.h3){font-family:var(--rs-font)!important;color:var(--rs-ink)!important;
+ letter-spacing:0!important;font-style:normal!important;text-transform:none}
+:root[data-mode] body .page :is(h1,.h1){font-weight:600!important;font-size:clamp(2.2rem,1.4rem + 3vw,3.6rem)!important;line-height:1.1!important}
+:root[data-mode] body .page :is(h2,.h2){font-weight:600!important;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.5rem)!important;line-height:1.15!important}
+:root[data-mode] body .page :is(h3,.h3){font-weight:600!important;line-height:1.25!important}
+:root[data-mode] body .page :is(h1,h2) :is(em,i,span){font-style:normal!important;color:inherit!important;
+ background:none!important;-webkit-text-fill-color:currentColor!important;text-shadow:none!important}
+:root[data-mode] body .page :is(p,.sub,.lead){color:var(--rs-muted)}
+:root[data-mode] ::selection{background:var(--rs-gold);color:var(--rs-on-gold)}
+:root[data-mode] :focus-visible{outline:2px solid var(--rs-focus)!important;outline-offset:3px!important}
+:root[data-mode] a{text-underline-offset:.2em}
+:root[data-mode]{scrollbar-color:var(--rs-line-strong) var(--rs-bg)}
+
+/* via le decorazioni del vecchio mondo: aloni, griglie luminose, bagliori */
+:root[data-mode] :is(.hero-bg,.blob,.grid-lines,.scroll-cue,.atelier-signature-rule,.engrave::after){display:none!important}
+:root[data-mode] .page :is(.sec,section){background-image:none!important}
+
+/* ---------- pulsanti ---------- */
+:root[data-mode] :is(.btn,.atelier-nav-cta,.nav-cta){
+ border-radius:var(--rs-radius)!important;min-height:46px;padding:0 28px!important;
+ font:600 15px/1 var(--rs-font)!important;letter-spacing:.06em!important;text-transform:none;
+ box-shadow:none!important;transform:none!important;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+ transition:background-color .2s ease,color .2s ease,border-color .2s ease!important}
+:root[data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta){
+ background:var(--rs-gold)!important;background-image:none!important;color:var(--rs-on-gold)!important;border:1px solid var(--rs-gold)!important}
+:root[data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost){
+ background:transparent!important;color:var(--rs-ink)!important;border:1px solid var(--rs-ink)!important}
+@media (hover:hover) and (pointer:fine){
+ :root[data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta):hover{background:var(--rs-gold-hover)!important;border-color:var(--rs-gold-hover)!important}
+ :root[data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost):hover{background:var(--rs-ink)!important;color:var(--rs-bg)!important}
+}
+:root[data-mode] .btn .arr{display:none}
+
+/* ---------- campi ---------- */
+:root[data-mode] :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select){
+ border-radius:var(--rs-radius)!important;border:1px solid var(--rs-line-strong)!important;background:var(--rs-bg)!important;
+ color:var(--rs-ink)!important;font-family:var(--rs-font)!important;box-shadow:none!important}
+:root[data-mode] :is(input,textarea,select):focus{border-color:var(--rs-ink)!important;box-shadow:0 0 0 1px var(--rs-ink)!important;outline:none!important}
+
+/* ---------- barra annunci + intestazione ---------- */
+:root[data-mode] :is(.topbar,.atelier-announcement){background:var(--rs-bar-bg)!important;color:var(--rs-bar-ink)!important;border:0!important}
+:root[data-mode] :is(.topbar,.atelier-announcement) :is(a,span,button,strong,small){color:var(--rs-bar-ink)!important}
+:root[data-mode] header#nav.nav{background:var(--rs-bg)!important;border-bottom:1px solid var(--rs-line)!important;
+ box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+:root[data-mode] header#nav :is(.nav-links a,.nav-links button){color:var(--rs-ink)!important;font:400 15px/1.2 var(--rs-font)!important;letter-spacing:.04em!important}
+@media (hover:hover){:root[data-mode] header#nav .nav-links :is(a,button):hover{text-decoration:underline;text-underline-offset:.3em}}
+:root[data-mode] header#nav :is(.navic,.nav-acts button){color:var(--rs-ink)!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+
+/* ---------- schede e superfici: niente cornici luminose, niente ombre ---------- */
+:root[data-mode] .page :is(.rcard,.mcard,.matcard,.dcard,.ttcard,.shcard,.pcard,.bcard,.vert-card,.lab-card,.p-card,.c-card,.fitem,.ingly-commerce-spot,.machine-explore-card){
+ border-radius:var(--rs-radius)!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+:root[data-mode] .page :is(img,video){border-radius:var(--rs-radius)}
+
+/* ---------- piè di pagina ---------- */
+:root[data-mode] footer[data-component="site-footer"]{background:var(--rs-bg-2)!important;color:var(--rs-ink)!important;border-top:1px solid var(--rs-line)!important}
+:root[data-mode] footer[data-component="site-footer"] :is(a,p,span,li,small,h4,h5,strong){color:var(--rs-ink)!important}
+:root[data-mode] footer[data-component="site-footer"] :is(p,small,li a){color:var(--rs-muted)!important}
+:root[data-mode] footer[data-component="site-footer"] .ingly-footer-signature{display:none!important}
+
+/* ============================================================
+   HOME
+   ============================================================ */
+/* solo quando la home è la pagina aperta: le altre pagine restano nascoste */
+:root[data-mode] #page-home.page.active{display:flex;flex-direction:column;background:var(--rs-bg)}
+:root[data-mode] #page-home > *{order:20}
+
+/* 1. apertura con incisione 3D: regole in fondo al file (sezione «INCISIONE 3D») */
+:root[data-mode] #page-home .hero.signature-hero{order:1}
+
+/* fascia dei vantaggi sotto il banner: riga semplice */
+:root[data-mode] #page-home .signature-benefits{position:relative;z-index:1;background:var(--rs-bg)!important;border:0!important;border-bottom:1px solid var(--rs-line)!important;
+ box-shadow:none!important;backdrop-filter:none!important}
+:root[data-mode] #page-home .signature-benefit{background:transparent!important;border:0!important;box-shadow:none!important}
+:root[data-mode] #page-home .signature-benefit :is(strong){color:var(--rs-ink)!important;font:600 15px/1.3 var(--rs-font)!important}
+:root[data-mode] #page-home .signature-benefit :is(small){color:var(--rs-muted)!important;font:400 14px/1.4 var(--rs-font)!important}
+:root[data-mode] #page-home .signature-benefit__icon{color:var(--rs-gold)!important;background:none!important;border:0!important;box-shadow:none!important}
+
+/* intestazioni di sezione in stile Dawn: titolo a sinistra, link «Vedi tutto» a destra */
+:root[data-mode] #page-home > :is(.sec,section){padding-block:var(--rs-sec)!important;background:var(--rs-bg)!important;border:0!important}
+:root[data-mode] #page-home > :is(.sec,section) :is(.eyebrow,.kicker,.overline,.sec-tag,.tag-line){display:none!important}
+
+/* 2. lavori recenti: griglia di foto vere, subito dopo il banner */
+:root[data-mode] #page-home > .sec:has(#gal1){order:2}
+:root[data-mode] #page-home #gal2{display:none!important}
+:root[data-mode] #page-home .gal-row#gal1{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+ animation:none!important;transform:none!important;width:auto!important;max-width:var(--rs-max);margin:0 auto;padding:0 var(--rs-gutter);box-sizing:border-box}
+:root[data-mode] #page-home .gal-row#gal1 > :nth-child(n+9){display:none!important}
+:root[data-mode] #page-home .gal-row#gal1 :is(.gtile,.gtile-w){width:auto!important;height:auto!important;aspect-ratio:1/1;margin:0!important;border-radius:0!important;box-shadow:none!important}
+:root[data-mode] #page-home .gal-row#gal1 .gtile img{width:100%;height:100%;object-fit:cover}
+:root[data-mode] #page-home .gal-row#gal1 .gtile .lbl{position:absolute;left:0;right:0;bottom:0;margin:0;padding:10px 12px;
+ background:linear-gradient(0deg,rgba(0,0,0,.65),rgba(0,0,0,0));color:#fff!important;font:600 14px/1.3 var(--rs-font)!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
+:root[data-mode] #page-home .gal-row#gal1 .gtile-go{display:none!important}
+:root[data-mode] #page-home .gal-wrap,:root[data-mode] #page-home .gal{mask-image:none!important;-webkit-mask-image:none!important;overflow:visible!important}
+@media (max-width:820px){:root[data-mode] #page-home .gal-row#gal1{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
+
+/* 3. mondi/materiali con foto: elenco collezioni */
+:root[data-mode] #page-home .maison-worlds{order:3;padding-block:var(--rs-sec)!important;background:var(--rs-bg)!important}
+:root[data-mode] #page-home .maison-worlds :is(.maison-world,.maison-worlds__card,a){border-radius:0!important;box-shadow:none!important}
+
+/* 4. personalizzazione (nome inciso) */
+:root[data-mode] #page-home .atelier-configurator{order:4;background:var(--rs-bg-2)!important}
+:root[data-mode] #page-home .atelier-configurator__preview{border-radius:0!important;border:0!important;box-shadow:none!important}
+
+/* 5. come funziona */
+:root[data-mode] #page-home > .sec:has(#stepsGrid){order:5}
+/* 6. INGLY × xTool Squad */
+:root[data-mode] #page-home .ingly-photographic-lab{order:6;background:var(--rs-bg-2)!important}
+:root[data-mode] #page-home .ingly-photographic-lab :is(article,figure,.ingly-photographic-lab__card){border-radius:0!important;box-shadow:none!important}
+/* 7. newsletter */
+:root[data-mode] #page-home > .sec:has(.nform){order:7}
+
+/* sezioni tolte dalla home: riquadri vuoti, doppioni, contatori a zero.
+   Le pagine dedicate (Materiali, Tecnologie, Shop, Social) restano. */
+:root[data-mode] #page-home :is(.ingly-material-studies,#techTicker,.journey-sec),
+:root[data-mode] #page-home > .sec:has(#catBento),
+:root[data-mode] #page-home > .sec:has(#collGrid),
+:root[data-mode] #page-home > .sec:has(#techGrid),
+:root[data-mode] #page-home > .sec:has(#socialHub){display:none!important}
+
+/* ---------- correzioni dopo il primo sguardo ---------- */
+/* un solo carattere ovunque (tranne l'anteprima del nome in corsivo e i generatori) */
+:root[data-mode][data-mode] body :is(h1,h2,h3,h4,h5,h6,p,a,span,li,button,input,textarea,select,label,small,strong,b,em,i,figcaption,dt,dd,td,th,blockquote,summary,legend,output,.ft-claim,#rs-specificita):not(.atelier-configurator__sample *):not(.atelier-configurator__sample){
+ font-family:var(--rs-font)!important}
+/* barra annunci a tutta larghezza, tema e lingua nella stessa riga */
+:root[data-mode][data-mode] .topbar{background:var(--rs-bar-bg)!important;color:var(--rs-bar-ink)!important;border:0!important}
+:root[data-mode][data-mode] .topbar > .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px;
+ max-width:var(--rs-max);margin:0 auto;padding:0 var(--rs-gutter)!important;flex-wrap:nowrap!important}
+:root[data-mode][data-mode] .topbar .atelier-announcement{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;min-width:0;flex:1 1 auto}
+:root[data-mode][data-mode] .topbar .atelier-announcement__mark{display:none!important}
+:root[data-mode][data-mode] .topbar .atelier-announcement__text{font:400 13px/1.3 var(--rs-font)!important;letter-spacing:.06em!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+:root[data-mode][data-mode] .topbar :is(.mode-btn,.lang,.lang button){background:transparent!important;color:var(--rs-bar-ink)!important;border-color:transparent!important;box-shadow:none!important;min-height:32px}
+:root[data-mode][data-mode] .topbar .lang{border:1px solid color-mix(in srgb,var(--rs-bar-ink) 40%,transparent)!important;border-radius:0!important}
+:root[data-mode][data-mode] .topbar .lang button{border-radius:0!important;font:600 12px/1 var(--rs-font)!important;padding:0 10px!important}
+:root[data-mode][data-mode] .topbar .lang button.on{background:var(--rs-bar-ink)!important;color:var(--rs-bar-bg)!important}
+:root[data-mode][data-mode] .topbar :is(.mode-btn svg,.atelier-announcement__close svg){stroke:currentColor}
+:root[data-mode][data-mode] .topbar .atelier-announcement__close{color:var(--rs-bar-ink)!important;background:transparent!important;border:0!important}
+
+/* il carattere vince anche sulle vecchie regole legate alle pagine (#id) */
+:root[data-mode][data-mode] :is(#nav,#sponsorSec,#toast,#page-home,#page-shop,#page-product,#page-personalizza,#page-digital,#page-business,#page-materiali,#page-tecnologie,#page-macchine,#page-academy,#page-demo,#page-portfolio,#page-about,#page-faq,#page-quote,#macPage) :is(h1,h2,h3,h4,h5,h6,p,a,span,li,button,input,textarea,select,label,small,strong,b,em,i,figcaption,dt,dd,td,th,blockquote,summary,legend,output):not(.atelier-configurator__sample *):not(.atelier-configurator__sample){
+ font-family:var(--rs-font)!important}
+:root[data-mode][data-mode] #page-home .hero .sub{font-family:var(--rs-font)!important}
+:root[data-mode][data-mode] #nav .nav-links :is(a,button){font-weight:400!important;font-size:15px!important}
+
+/* lavori recenti: il contenitore della vecchia striscia diventa un blocco */
+:root[data-mode][data-mode] #page-home .gal{display:block!important;height:auto!important;overflow:visible!important;padding:0!important;margin-top:24px}
+:root[data-mode][data-mode] #page-home .gal-row#gal1{width:100%!important}
+:root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile-w{position:relative;aspect-ratio:1/1;overflow:hidden}
+:root[data-mode][data-mode] #page-home .gal-row#gal1 :is(.gtile-w > .gtile){position:absolute!important;inset:0;width:100%!important;height:100%!important}
+:root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile{position:relative;overflow:hidden;background:var(--rs-bg-2)!important}
+:root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile img{position:absolute;inset:0;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){:root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile:hover img{transform:scale(1.03)}}
+:root[data-mode][data-mode] #page-home .gal-row#gal1 .proj-hint{display:none!important}
+
+/* sezione xTool Squad: angoli vivi, nessuna etichetta a pillola */
+:root[data-mode][data-mode] #page-home .ingly-photographic-lab :is(article,figure,a,div,img,span){border-radius:0!important;box-shadow:none!important}
+
+/* newsletter: niente scheda né alone, solo titolo, testo e campo */
+:root[data-mode][data-mode] #page-home .news{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;text-align:center}
+:root[data-mode][data-mode] #page-home .news::before,:root[data-mode][data-mode] #page-home .news::after{display:none!important;content:none!important}
+:root[data-mode][data-mode] #page-home .news .hl{color:inherit!important;background:none!important}
+:root[data-mode][data-mode] #page-home .nform{display:flex;max-width:460px;margin:20px auto 0;gap:0}
+:root[data-mode][data-mode] #page-home .nform input{flex:1;min-height:48px}
+:root[data-mode][data-mode] #page-home .nform .btn{min-height:48px}
+
+/* chiusura e piè di pagina */
+:root[data-mode][data-mode] .ft-eyebrow{display:none!important}
+:root[data-mode][data-mode] footer[data-component="site-footer"] :is(div,section,nav,ul,ol,aside){background:transparent!important;box-shadow:none!important}
+:root[data-mode][data-mode] footer[data-component="site-footer"] img{background:transparent!important}
+
+:root[data-mode][data-mode] body footer[data-component="site-footer"] :is(.ft-claim,h2,h3,h4,p,a,span,li,small,strong){font-family:var(--rs-font)!important}
+:root[data-mode][data-mode] body footer[data-component="site-footer"] .ft-claim{font-weight:600!important;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem)!important;line-height:1.1!important;letter-spacing:0!important}
+:root[data-mode][data-mode] #sponsorSec{background:var(--rs-bg)!important}
+:root[data-mode][data-mode] #sponsorSec :is(.sp-card,.spcard,article,a,div){border-radius:0!important;box-shadow:none!important}
+:root[data-mode][data-mode] #toast{background:var(--rs-ink)!important;color:var(--rs-bg)!important;border-radius:0!important;box-shadow:none!important;border:0!important;font:600 14px/1.4 var(--rs-font)!important}
+:root[data-mode][data-mode] #toast:empty{display:none!important}
+/* anteprima del nome: fondo neutro come le foto prodotto di uno shop */
+:root[data-mode="light"] #page-home .atelier-configurator__preview{background:#e8e8e8!important}
+/* intestazioni di sezione allineate a sinistra, come nello shop */
+:root[data-mode][data-mode] #page-home .maison-worlds__heading{text-align:left!important;max-width:var(--rs-max);margin-inline:auto;padding-inline:var(--rs-gutter);box-sizing:border-box}
+:root[data-mode][data-mode] #page-home .maison-worlds__grid{max-width:var(--rs-max);margin-inline:auto;padding-inline:var(--rs-gutter);box-sizing:border-box;gap:12px!important}
+
+/* «Catalogo in aggiornamento» (Shop): pannello chiaro come il resto dello shop */
+:root[data-mode][data-mode] .cat-agg__card{background:var(--rs-bg-2)!important;color:var(--rs-ink)!important;border-radius:0!important;box-shadow:none!important}
+:root[data-mode][data-mode] .cat-agg__card :is(h1,h2){color:var(--rs-ink)!important;-webkit-text-fill-color:var(--rs-ink)!important;font-weight:600!important;letter-spacing:0!important}
+:root[data-mode][data-mode] .cat-agg__card :is(.cat-agg__msg,.cat-agg__rientro){color:var(--rs-muted)!important}
+:root[data-mode][data-mode] .cat-agg__card .cat-agg__rientro b{color:var(--rs-ink)!important}
+:root[data-mode][data-mode] .cat-agg__card .cat-agg__stato{background:var(--rs-bg)!important;color:var(--rs-ink)!important;border-radius:0!important}
+:root[data-mode][data-mode] .cat-agg__card .cat-agg__azioni .btn-ghost{color:var(--rs-ink)!important;border-color:var(--rs-ink)!important}
+:root[data-mode][data-mode] .cat-agg__card .cat-agg__aperto{border-top-color:var(--rs-line)!important}
+:root[data-mode][data-mode] .cat-agg__card .cat-agg__aperto button{color:var(--rs-gold)!important}
+:root[data-mode][data-mode] .cat-agg__scena{border-radius:0!important}
+/* partner: schede piatte */
+:root[data-mode][data-mode] #sponsorSec .sp-it{border-radius:0!important;background:var(--rs-bg)!important;border:1px solid var(--rs-line)!important;box-shadow:none!important}
+/* pagina di lancio delle novità xTool: testi leggibili sul fondo chiaro */
+:root[data-mode][data-mode] #macPage .lancio-hero{background:var(--rs-bg)!important;color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #macPage .lancio-hero :is(p,.lancio-hero__ruolo,small){color:var(--rs-muted)!important;-webkit-text-fill-color:var(--rs-muted)!important}
+:root[data-mode][data-mode] #macPage .lancio-hero h1{color:var(--rs-ink)!important;-webkit-text-fill-color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #macPage :is(.lancio-numeri li,.lancio-hero__foto,.ingly-novita__badge){border-radius:0!important;box-shadow:none!important}
+:root[data-mode][data-mode] .topbar .atelier-announcement__text{opacity:1!important;color:var(--rs-bar-ink)!important;-webkit-text-fill-color:var(--rs-bar-ink)!important;filter:none!important}
+
+/* ============================================================
+   INCISIONE 3D — l'apertura della home
+   A sinistra titolo e modulo (cosa incidere + materiale + preventivo),
+   a destra la targa 3D su un piano a nido d'ape, come in laboratorio.
+   Sul telefono: titolo, targa, modulo. Senza WebGL resta la foto.
+   ============================================================ */
+:root[data-mode][data-mode] #page-home .hero.rs3d{position:relative;isolation:isolate;overflow:hidden;min-height:auto!important;padding:0!important;
+ background:radial-gradient(60% 75% at 74% 46%,var(--rs-gold-soft),transparent 70%),var(--rs-bg)!important;border-bottom:1px solid var(--rs-line)}
+:root[data-mode][data-mode] #page-home .rs3d .hero-grid{position:relative;z-index:1;display:grid!important;
+ grid-template-columns:minmax(0,5fr) minmax(0,7fr)!important;grid-template-rows:1fr auto auto auto 1fr!important;
+ grid-template-areas:". s" "t s" "p s" "f s" ". s"!important;column-gap:clamp(28px,4vw,64px)!important;row-gap:0!important;align-items:center!important;
+ max-width:var(--rs-max);margin:0 auto;padding:clamp(36px,5vw,72px) var(--rs-gutter) clamp(36px,4vw,60px)!important;min-height:0!important}
+:root[data-mode][data-mode] #page-home .rs3d .signature-hero-copy{display:contents!important}
+:root[data-mode][data-mode] #page-home .rs3d :is(.hero-tag,.hero-ctas,.signature-hero-assurance,.ingly-hero-steps){display:none!important}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1{grid-area:t;margin:0 0 18px!important;max-width:12ch!important;
+ font-size:clamp(2.6rem,1.5rem + 3.6vw,4.6rem)!important;line-height:1.02!important;letter-spacing:-.02em!important;font-weight:700!important;text-wrap:balance}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1,
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.w,.w > span){color:var(--rs-ink)!important;-webkit-text-fill-color:var(--rs-ink)!important;
+ font-family:var(--rs-font)!important;font-style:normal!important;font-weight:700!important;background:none!important;text-shadow:none!important;animation:none!important;clip-path:none!important;opacity:1!important;transform:none!important}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.engrave,.laserword,.w:last-of-type > span){color:var(--rs-gold)!important;-webkit-text-fill-color:var(--rs-gold)!important;
+ font-style:normal!important;background:none!important;text-shadow:none!important;animation:none!important;clip-path:none!important;opacity:1!important;transform:none!important}
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.engrave,.laserword)::after,
+:root[data-mode][data-mode] #page-home .rs3d #heroH1 :is(.engrave,.laserword)::before{display:none!important;content:none!important}
+:root[data-mode][data-mode] #page-home .rs3d .sub{grid-area:p;margin:0 0 26px!important;max-width:44ch!important;color:var(--rs-muted)!important;-webkit-text-fill-color:var(--rs-muted)!important;
+ font-size:clamp(1.05rem,.95rem + .35vw,1.22rem)!important;line-height:1.55!important;text-shadow:none!important}
+
+/* modulo: cosa incidere, materiale, preventivo */
+:root[data-mode][data-mode] .rs3d-form{grid-area:f;display:grid;gap:14px;max-width:520px}
+:root[data-mode][data-mode] .rs3d-form__label{font:600 14px/1.3 var(--rs-font)!important;color:var(--rs-ink)!important;letter-spacing:.02em}
+:root[data-mode][data-mode] .rs3d-form #rs3dText{min-height:58px;padding:0 18px!important;font:600 20px/1 var(--rs-font)!important;
+ background:var(--rs-bg-2)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line-strong)!important;border-radius:0!important;caret-color:var(--rs-gold)}
+:root[data-mode][data-mode] .rs3d-form #rs3dText::placeholder{color:var(--rs-muted)!important;opacity:1;font-weight:400}
+:root[data-mode][data-mode] .rs3d-form #rs3dText:focus{border-color:var(--rs-gold)!important;box-shadow:0 0 0 1px var(--rs-gold)!important}
+:root[data-mode][data-mode] .rs3d-mats{display:flex;flex-wrap:wrap;gap:8px;border:0;margin:0;padding:0;min-width:0}
+:root[data-mode][data-mode] .rs3d-mats legend{float:left;width:100%;margin:0 0 8px;padding:0;font:600 14px/1.3 var(--rs-font)!important;color:var(--rs-ink)!important;letter-spacing:.02em}
+:root[data-mode][data-mode] .rs3d-mats label{position:relative;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 16px 0 12px;cursor:pointer;
+ border:1px solid var(--rs-line-strong);color:var(--rs-ink)!important;font:400 15px/1 var(--rs-font)!important;transition:border-color .2s,background-color .2s}
+:root[data-mode][data-mode] .rs3d-mats input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+:root[data-mode][data-mode] .rs3d-mats label::before{content:"";width:16px;height:16px;flex:none;border-radius:50%;border:1px solid var(--rs-line-strong);background:var(--sw)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(1){--sw:linear-gradient(135deg,#d6b58c,#9c7448)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(2){--sw:linear-gradient(135deg,#4a4e52,#24272a)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(3){--sw:linear-gradient(135deg,#3a3a3e,#050506)}
+:root[data-mode][data-mode] .rs3d-mats label:nth-of-type(4){--sw:linear-gradient(135deg,#9a9ca0,#3b3c3f)}
+:root[data-mode][data-mode] .rs3d-mats label:has(input:checked){border-color:var(--rs-gold);background:var(--rs-gold-soft)}
+:root[data-mode][data-mode] .rs3d-mats label:has(input:focus-visible){outline:2px solid var(--rs-focus);outline-offset:2px}
+@media (hover:hover){:root[data-mode][data-mode] .rs3d-mats label:hover{border-color:var(--rs-ink)}}
+:root[data-mode][data-mode] .rs3d-form__azioni{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:6px}
+:root[data-mode][data-mode] .rs3d-form__azioni .btn{min-height:54px;padding:0 30px!important;font:600 16px/1 var(--rs-font)!important}
+:root[data-mode][data-mode] .rs3d-form__wa{color:var(--rs-ink)!important;text-decoration:underline;text-underline-offset:.3em;text-decoration-color:var(--rs-gold);font-size:15px}
+
+/* la scena: piano a nido d'ape, luce calda, ombra della targa */
+:root[data-mode][data-mode] .rs3d-stage{grid-area:s;position:relative;margin:0;aspect-ratio:7/5.6;min-height:320px;width:100%;
+ background:radial-gradient(70% 70% at 50% 42%,#2b231b 0%,#15110d 62%,#0d0a08 100%);overflow:hidden;color:#e9dfcf}
+:root[data-mode][data-mode] .rs3d-stage::before{content:"";position:absolute;inset:0;background:#c9a46a;opacity:.16;
+ -webkit-mask:url('../patterns/nido-ape.svg') center/840px auto repeat;mask:url('../patterns/nido-ape.svg') center/840px auto repeat;pointer-events:none}
+:root[data-mode][data-mode] .rs3d-stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(85% 85% at 50% 45%,transparent 45%,rgba(8,6,4,.78) 100%)}
+:root[data-mode][data-mode] .rs3d-stage__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;border-radius:0!important;
+ transition:opacity .6s cubic-bezier(.16,1,.3,1)}
+:root[data-mode][data-mode] .rs3d-stage canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:block;opacity:0;
+ touch-action:pan-y;cursor:grab;transition:opacity .9s cubic-bezier(.16,1,.3,1)}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--presa canvas{cursor:grabbing}
+:root.gl[data-mode] .rs3d-stage:not(.rs3d--foto) .rs3d-stage__foto{opacity:0}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--vivo canvas{opacity:1}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--foto canvas{display:none}
+:root[data-mode][data-mode] .rs3d-stage__cap{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:12px;
+ padding:12px 16px;font:400 13px/1.3 var(--rs-font)!important;color:rgba(233,223,207,.82)!important;pointer-events:none}
+:root[data-mode][data-mode] .rs3d-stage__cap span{color:rgba(233,223,207,.82)!important}
+:root[data-mode][data-mode] .rs3d-stage__cap button{pointer-events:auto;min-height:36px;padding:0 14px;background:rgba(19,16,13,.6)!important;color:#f3ece1!important;
+ border:1px solid rgba(233,223,207,.35)!important;border-radius:0!important;font:600 13px/1 var(--rs-font)!important;cursor:pointer;transition:border-color .2s,background-color .2s}
+@media (hover:hover){:root[data-mode][data-mode] .rs3d-stage__cap button:hover{border-color:#d6ae6c!important;background:rgba(19,16,13,.85)!important}}
+:root[data-mode][data-mode] .rs3d-stage.rs3d--foto .rs3d-stage__cap :is(span,button){display:none}
+
+@media (max-width:980px){
+ :root[data-mode][data-mode] #page-home .rs3d .hero-grid{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important;
+  grid-template-areas:"t" "p" "s" "f"!important;padding-top:28px!important}
+ :root[data-mode][data-mode] #page-home .rs3d #heroH1{max-width:16ch!important;margin-bottom:12px!important}
+ :root[data-mode][data-mode] #page-home .rs3d .sub{margin-bottom:20px!important}
+ :root[data-mode][data-mode] .rs3d-stage{aspect-ratio:7/5.4;min-height:0;margin:0 calc(var(--rs-gutter) * -1) 22px;width:auto}
+ :root[data-mode][data-mode] .rs3d-form{max-width:none}
+}
+@media (max-width:480px){
+ :root[data-mode][data-mode] .rs3d-form__azioni .btn{width:100%}
+ :root[data-mode][data-mode] .rs3d-stage{aspect-ratio:1/0.92}
+}
+
+/* pattern incisi come filigrana: guilloché dietro «come funziona» e newsletter,
+   venature del legno sopra il piè di pagina. Colore dai token, mai invadenti. */
+:root[data-mode][data-mode] #page-home > .sec:has(#stepsGrid),
+:root[data-mode][data-mode] #page-home > .sec:has(.nform){position:relative;isolation:isolate;overflow:hidden}
+:root[data-mode][data-mode] #page-home > .sec:has(#stepsGrid)::before,
+:root[data-mode][data-mode] #page-home > .sec:has(.nform)::before{content:"";position:absolute;z-index:-1;pointer-events:none;
+ width:min(900px,120vw);aspect-ratio:1;top:50%;background:var(--rs-pattern);
+ -webkit-mask:url('../patterns/guilloche.svg') center/contain no-repeat;mask:url('../patterns/guilloche.svg') center/contain no-repeat}
+:root[data-mode][data-mode] #page-home > .sec:has(#stepsGrid)::before{right:-22%;transform:translateY(-50%)}
+:root[data-mode][data-mode] #page-home > .sec:has(.nform)::before{left:50%;transform:translate(-50%,-50%)}
+:root[data-mode][data-mode] footer[data-component="site-footer"]{position:relative;isolation:isolate}
+:root[data-mode][data-mode] footer[data-component="site-footer"]::before{content:"";position:absolute;z-index:-1;inset:0 0 auto;height:min(340px,60%);pointer-events:none;
+ background:var(--rs-pattern);
+ -webkit-mask-image:url('../patterns/venature.svg'),linear-gradient(#000,transparent);mask-image:url('../patterns/venature.svg'),linear-gradient(#000,transparent);
+ -webkit-mask-size:1400px auto,100% 100%;mask-size:1400px auto,100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+ -webkit-mask-position:center top;mask-position:center top;-webkit-mask-composite:source-in;mask-composite:intersect}
+
+/* parole chiave dei titoli in oro: l'enfasi viene dal colore, non da effetti */
+:root[data-mode][data-mode] #page-home .sec :is(h2,.h2) .hl{color:var(--rs-gold)!important;-webkit-text-fill-color:var(--rs-gold)!important}
+
+/* lavori recenti: al passaggio una riga di luce attraversa la foto, come il laser */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ :root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile::after{content:"";position:absolute;left:0;right:0;top:-12%;height:2px;z-index:2;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--rs-gold) 18%,#fff6e6 50%,var(--rs-gold) 82%,transparent);box-shadow:0 0 14px 2px rgba(255,140,60,.45)}
+ :root[data-mode][data-mode] #page-home .gal-row#gal1 .gtile:hover::after{animation:rs-scan .9s cubic-bezier(.45,0,.2,1) both}
+}
+@keyframes rs-scan{0%{top:-4%;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:104%;opacity:0}}
+
+
+
+/* superfici del browser nei colori del sito */
+:root[data-mode][data-mode]{accent-color:var(--rs-gold);caret-color:var(--rs-gold)}
+:root[data-mode][data-mode] ::-webkit-scrollbar{width:11px;height:11px}
+:root[data-mode][data-mode] ::-webkit-scrollbar-track{background:var(--rs-bg)}
+:root[data-mode][data-mode] ::-webkit-scrollbar-thumb{background:var(--rs-line-strong);border:3px solid var(--rs-bg)}
+
+/* ---------- ritocchi dopo il primo sguardo all'incisione 3D ---------- */
+/* niente veli del vecchio banner sopra l'apertura */
+:root[data-mode][data-mode] #page-home .hero.rs3d::before,
+:root[data-mode][data-mode] #page-home .hero.rs3d::after{display:none!important;content:none!important}
+/* il configuratore del nome ora vive nell'apertura 3D: in home non si ripete */
+:root[data-mode][data-mode] #page-home .atelier-configurator{display:none!important}
+/* xTool: schede nei colori della casa, non verde petrolio */
+:root[data-mode][data-mode] #page-home .ingly-machine-photo{background:var(--rs-bg-2)!important;border:1px solid var(--rs-line)!important;color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #page-home .ingly-machine-photo :is(strong,b,h3,h4){color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #page-home .ingly-machine-photo :is(small,p){color:var(--rs-muted)!important}
+@media (hover:hover){:root[data-mode][data-mode] #page-home .ingly-machine-photo:hover{border-color:var(--rs-gold)!important}}
+/* telefono: tutto allineato a sinistra, materiali su due colonne */
+@media (max-width:980px){
+ :root[data-mode][data-mode] #page-home .rs3d :is(#heroH1,.sub,.rs3d-form,.rs3d-form__label,.rs3d-mats legend){text-align:left!important;margin-left:0!important;margin-right:0!important}
+}
+@media (max-width:640px){
+ :root[data-mode][data-mode] .rs3d-mats{display:grid;grid-template-columns:1fr 1fr}
+ :root[data-mode][data-mode] .rs3d-mats legend{grid-column:1/-1}
+}
+
+/* ---------- pagine interne nella notte calda ---------- */
+/* lo sfondo animato scelto dall'Admin («aurora», «nebbia») resta, ma nei colori
+   della casa: oro e brace al posto di blu e viola, e più discreto */
+:root[data-mode="dark"][data-sfondo-scuro="aurora"] body::after{
+ background-image:radial-gradient(ellipse 65% 42% at 22% 22%,rgba(214,174,108,.13),transparent 66%),
+  radial-gradient(ellipse 58% 38% at 80% 68%,rgba(255,107,44,.07),transparent 64%),
+  radial-gradient(ellipse 52% 34% at 52% 8%,rgba(230,196,140,.08),transparent 62%)!important}
+:root[data-mode="dark"][data-sfondo-scuro="nebbia"] body::after{
+ background-image:radial-gradient(ellipse 95% 48% at 50% 102%,rgba(214,174,108,.14),transparent 68%),
+  radial-gradient(ellipse 58% 32% at 84% 86%,rgba(255,107,44,.06),transparent 62%)!important}
+/* aperture delle pagine e pannelli: niente blu notte */
+:root[data-mode][data-mode] :is(.phero,#page-shop.page.active,#page-about,#page-business,#page-macchine,#page-quote,#page-faq,#page-materiali,#page-personalizza){background-color:transparent!important}
+:root[data-mode][data-mode] #page-shop.page.active{background-image:none!important}
+:root[data-mode][data-mode] :is(.about-art,.about-media,.ingly-biz-cover,.matcard,.ingly-service-centre__badge,.cat-agg__scena){background:var(--rs-bg-2)!important;border-color:var(--rs-line)!important}
+:root[data-mode][data-mode] .mcard::after{display:none!important}
+
+/* ---------- chiaro e scuro su computer, iPad e telefono ---------- */
+/* avanzamento della lettura: la barra esistente (guidata da JS, va anche su Safari vecchi) in oro e brace */
+:root[data-mode][data-mode] #progress.progress{height:2px!important;background:linear-gradient(90deg,var(--rs-gold),var(--rs-ember))!important;border-radius:0!important;box-shadow:none!important}
+/* il menu laterale chiuso non deve proiettare ombra sulla pagina */
+:root[data-mode][data-mode] .drawer:not(.open){box-shadow:none!important}
+/* la notifica nascosta non deve affiorare in fondo allo schermo (barre di Safari che si ritirano) */
+:root[data-mode][data-mode] #toast.toast:not(.on){visibility:hidden}
+/* tablet: la barra rapida del telefono qui doppia l'intestazione (e restava una fascia bianca) */
+@media (min-width:641px) and (max-width:1024px){:root[data-mode][data-mode] .atelier-mobile-dock{display:none!important}}
+/* telefono: barra rapida nei colori del tema */
+@media (max-width:640px){
+ :root[data-mode][data-mode] .atelier-mobile-dock{background:color-mix(in srgb,var(--rs-bg) 92%,transparent)!important;border:1px solid var(--rs-line)!important;border-radius:0!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.25)!important}
+ :root[data-mode][data-mode] .atelier-mobile-dock > :is(a,button){color:var(--rs-ink)!important;font-family:var(--rs-font)!important}
+ :root[data-mode][data-mode] .atelier-mobile-dock > :is(a,button) svg{stroke:currentColor}
+}
+/* testi rimasti coi colori del vecchio stile */
+:root[data-mode][data-mode] #nav .nav-links a[data-nav="quote"] :is(span,i){color:inherit!important}
+:root[data-mode][data-mode] #sponsorSec .sp-cta a{color:var(--rs-gold)!important}
+:root[data-mode][data-mode] #macPage :is(.mac-credito,.ingly-m2-duo__photo figcaption),
+:root[data-mode][data-mode] :is(.mac-credito,.ingly-m2-duo__photo figcaption){color:var(--rs-muted)!important}
+:root[data-mode="light"][data-mode] .page .ingly-finder-tile .ingly-finder-tile__state{color:#22603f!important}
+:root[data-mode][data-mode] .mcard :is(.spec i,.mats-list span,.mtype,.mcard-badge){color:var(--rs-muted)!important;background:transparent!important;border-color:var(--rs-line)!important}
+:root[data-mode][data-mode] .mcard .mcard-badge{color:var(--rs-gold)!important;border:1px solid var(--rs-gold)!important}
+:root[data-mode][data-mode] .tt-track .tc-sub{color:var(--rs-muted)!important}
+:root[data-mode][data-mode] footer[data-component="site-footer"] .btn-primary :is(span,svg){color:var(--rs-on-gold)!important;-webkit-text-fill-color:var(--rs-on-gold)!important}
+/* tema chiaro: il piano del laser diventa alluminio chiaro, come quello vero */
+:root[data-mode="light"][data-mode="light"] .rs3d-stage{background:radial-gradient(70% 70% at 50% 40%,#f4efe6 0%,#e2d9cb 64%,#cfc4b3 100%)!important;color:var(--rs-ink)!important;
+ box-shadow:inset 0 0 0 1px var(--rs-line)}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage::before{background:#6d5d4a!important;opacity:.22!important}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage::after{background:radial-gradient(90% 90% at 50% 45%,transparent 55%,rgba(90,70,45,.22) 100%)!important}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap,:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap span{color:var(--rs-muted)!important}
+:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap button{background:rgba(247,242,234,.85)!important;color:var(--rs-ink)!important;border-color:var(--rs-line-strong)!important}
+@media (hover:hover){:root[data-mode="light"][data-mode="light"] .rs3d-stage__cap button:hover{border-color:var(--rs-gold)!important}}
+/* modulo del preventivo: superficie della casa, angoli vivi come il resto */
+:root[data-mode][data-mode] #page-quote form.quote-form,:root[data-mode][data-mode] form.quote-form{background:var(--rs-bg-2)!important;border:1px solid var(--rs-line)!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important}
+:root[data-mode][data-mode] form.quote-form :is(input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select){background:var(--rs-bg)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line-strong)!important;border-radius:0!important}
+:root[data-mode][data-mode] form.quote-form :is(input,textarea)::placeholder{color:var(--rs-muted)!important;opacity:1}
+:root[data-mode][data-mode] form.quote-form :is(label,legend){color:var(--rs-ink)!important}
+/* pulsante «scegli file» del browser nei colori del sito */
+:root[data-mode][data-mode] input[type=file]{color:var(--rs-muted)!important;font:400 14px/1.3 var(--rs-font)!important}
+:root[data-mode][data-mode] input[type=file]::file-selector-button{margin-right:12px;padding:8px 14px;border:1px solid var(--rs-line-strong);border-radius:0;
+ background:var(--rs-bg-2);color:var(--rs-ink);font:600 13px/1 var(--rs-font);cursor:pointer;transition:border-color .2s}
+:root[data-mode][data-mode] input[type=file]::file-selector-button:hover{border-color:var(--rs-gold)}
+/* catalogo in vetrina: una riga chiara in cima allo shop, niente pannelli */
+:root[data-mode][data-mode] .cat-vetrina{background:var(--rs-bg-2);border-bottom:1px solid var(--rs-line)}
+:root[data-mode][data-mode] .cat-vetrina__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;max-width:var(--rs-max);margin:0 auto;padding:14px var(--rs-gutter)!important}
+:root[data-mode][data-mode] .cat-vetrina__testo{margin:0;max-width:75ch;color:var(--rs-muted)!important;font:400 15px/1.5 var(--rs-font)!important}
+:root[data-mode][data-mode] .cat-vetrina__testo strong{color:var(--rs-ink)!important;font-weight:700}
+:root[data-mode][data-mode] .cat-vetrina__azioni{display:flex;gap:18px;margin:0;font-size:15px}
+:root[data-mode][data-mode] .cat-vetrina__azioni :is(a,button){color:var(--rs-ink)!important;background:none!important;border:0!important;padding:0!important;font:600 15px/1.4 var(--rs-font)!important;
+ text-decoration:underline;text-decoration-color:var(--rs-gold);text-underline-offset:.3em;cursor:pointer}
+/* schede prodotto: superficie della casa (niente verde petrolio), etichette sobrie */
+:root[data-mode][data-mode] .pcard{background:var(--rs-bg-2)!important;background-image:none!important;border:1px solid var(--rs-line)!important;border-radius:0!important;box-shadow:none!important}
+@media (hover:hover){:root[data-mode][data-mode] .pcard:hover{border-color:var(--rs-gold)!important}}
+:root[data-mode][data-mode] .pcard .ptag{background:var(--rs-bg)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line)!important;border-radius:0!important}
+:root[data-mode][data-mode] .pcard .pimg{border-radius:0!important}
+/* telefono: due colonne come in ogni negozio moderno, testi compatti */
+@media (max-width:480px){
+ :root[data-mode][data-mode] .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ :root[data-mode][data-mode] .pgrid .pcard :is(h3,h4,.pname){font-size:14px!important;line-height:1.3!important}
+ :root[data-mode][data-mode] .pgrid .pcard .pbody{padding:10px!important}
+}

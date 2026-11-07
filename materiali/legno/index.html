@@ -3,7 +3,7 @@
 <head>
 <base href="../../">
 <base href="./">
-<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;})();</script>
+<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
@@ -16,7 +16,7 @@ html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:
 <meta name="keywords" content="incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali, Italia, made in Italy, laser CO2, fibra MOPA, plexiglass personalizzato">
 <meta name="author" content="INGLY DESIGN">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#211f2e">
+<meta name="theme-color" content="#13100d">
 
 <!-- Canonical + hreflang IT/EN -->
 <link rel="canonical" href="https://www.inglydesign.it/materiali/legno">
@@ -49,26 +49,8 @@ html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:
      il prerender lo sostituisce nelle pagine statiche, e appena parte
      l'applicazione seo.js lo rimuove prima di scrivere i propri.
      Tre LocalBusiness sulla stessa pagina = entità in conflitto per Google. -->
-<!-- GoatCounter Analytics — privacy-friendly, no cookie, gratuito
-     Alternativa a GA4. Registrati su goatcounter.com e sostituisci TUOCODICE.
-     Una volta configurato nell'Admin (Dashboard → Statistiche), questo script
-     si attiva automaticamente. -->
-<!--
-<script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
-<!-- Google Analytics 4 — sostituisci G-XXXXXXXXXX con il tuo Measurement ID -->
-<!-- Per attivare: vai su analytics.google.com → Crea proprietà → copia G-XXXXXXXXXX -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-XXXXXXXXXX',{page_path:location.pathname});
-  // Track page views on SPA navigation
-  addEventListener('popstate',()=>gtag('event','page_view',{page_path:location.pathname}));
-</script>
--->
+<!-- Statistiche: GoatCounter (senza cookie) si accende da assets/js/statistiche.js
+     quando nell'Admin c'è il codice del sito. Nessuno script finché è vuoto. -->
 <link rel="icon" type="image/svg+xml" href="assets/images/ingly-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
@@ -148,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=3293890d29">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=be4af3bb5b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -166,6 +148,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script defer src="assets/js/ingly-generator-draft.js"></script>
+<script defer src="assets/js/incisione-3d.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
      Con «defer» veniva scaricato da tutti, anche da chi stava già usando i
@@ -196,7 +179,7 @@ setTimeout(function(){
   document.head.appendChild(s);
 }, 7000);
 </script>
-<script type="application/ld+json" id="ld-prerender">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://www.inglydesign.it/#organizzazione","name":"INGLY DESIGN","description":"Laboratorio di incisione e taglio laser a Palermo: regali personalizzati, targhe e gadget aziendali. Host xTool Squad per Palermo, la Sicilia e il Sud Italia: demo, consigli sulla scelta, formazione, assistenza e riparazione.","url":"https://www.inglydesign.it/","logo":{"@type":"ImageObject","url":"https://www.inglydesign.it/assets/images/ingly-logo.svg"},"image":"https://www.inglydesign.it/assets/images/og-image.jpg","email":"inglydesign@gmail.com","telephone":"+393296904627","priceRange":"€€","address":{"@type":"PostalAddress","addressLocality":"Palermo","addressRegion":"Sicilia","addressCountry":"IT"},"sameAs":["https://instagram.com/ingly_design","https://facebook.com/inglydesign","https://tiktok.com/@ingly.design","https://pinterest.com/inglydesign","https://wa.me/393296904627","https://etsy.com/shop/inglydesign"]},{"@type":"WebSite","@id":"https://www.inglydesign.it/#sito","url":"https://www.inglydesign.it/","name":"INGLY DESIGN","description":"Laboratorio di incisione e taglio laser a Palermo: regali personalizzati, targhe e gadget aziendali. Host xTool Squad per Palermo, la Sicilia e il Sud Italia: demo, consigli sulla scelta, formazione, assistenza e riparazione.","inLanguage":"it","publisher":{"@id":"https://www.inglydesign.it/#organizzazione"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.inglydesign.it/shop?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"OfferCatalog","@id":"https://www.inglydesign.it/#catalogo","name":"Lavorazioni INGLY DESIGN","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser CO₂","description":"Legno, plexiglass, pelle, vetro e MDF. Taglia fino a 20 mm, incide dettagli fotografici.","serviceType":"CO₂ · 100W","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Fiber Laser F2","description":"Marcatura permanente e tattile su acciaio, alluminio, titanio e ottone.","serviceType":"Fiber · F2","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser MOPA","description":"Marcature a colori su acciaio e anodizzato, massimo controllo dell’impulso.","serviceType":"MOPA","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa DTF","description":"Transfer vividi e resistenti per abbigliamento, da 1 pezzo alle divise complete.","serviceType":"DTF · Textile","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa UV","description":"Stampa full color con bianco e lucido, direttamente su quasi ogni oggetto.","serviceType":"UV · Flatbed","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa 3D","description":"Prototipi, nomi 3D e oggetti di design in PLA/PETG, rifiniti a mano.","serviceType":"FDM / Resina","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}}]},{"@type":"Article","@id":"https://www.inglydesign.it/materiali/legno#article","headline":"Legno","description":"Rovere, noce, faggio, betulla. Il materiale che invecchia meglio di come nasce.","articleSection":"Materiali","url":"https://www.inglydesign.it/materiali/legno","isPartOf":{"@type":"WebSite","@id":"https://www.inglydesign.it/#website"},"publisher":{"@id":"https://www.inglydesign.it/#organizzazione"},"about":{"@type":"Thing","name":"Legno"},"mentions":[{"@type":"Thing","name":"Laser CO₂","url":"https://www.inglydesign.it/tecnologie/co2"},{"@type":"Thing","name":"Stampa UV diretta","url":"https://www.inglydesign.it/tecnologie/uv"}]},{"@type":"FAQPage","@id":"https://www.inglydesign.it/materiali/legno#faq","mainEntity":[{"@type":"Question","name":"Posso lavarlo in lavastoviglie?","acceptedAnswer":{"@type":"Answer","text":"Meglio di no. Il calore e la lunga esposizione all'acqua aprono le fibre e sbiadiscono l'incisione. A mano, asciugato subito, dura anni."}},{"@type":"Question","name":"Quale legno per un'incisione fine?","acceptedAnswer":{"@type":"Answer","text":"Betulla o acero: chiari, a fibra regolare, danno il contrasto più alto. Il rovere è bellissimo ma la venatura compete con il disegno."}}]},{"@type":"BreadcrumbList","@id":"https://www.inglydesign.it/materiali/legno#crumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.inglydesign.it/"},{"@type":"ListItem","position":2,"name":"Materiali","item":"https://www.inglydesign.it/materiali"},{"@type":"ListItem","position":3,"name":"Legno","item":"https://www.inglydesign.it/materiali/legno"}]}]}</script>
+<script type="application/ld+json" id="ld-prerender">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://www.inglydesign.it/#organizzazione","name":"INGLY DESIGN","description":"Laboratorio di incisione e taglio laser a Palermo: regali personalizzati, targhe e gadget aziendali. Host xTool Squad per Palermo, la Sicilia e il Sud Italia: demo, consigli sulla scelta, formazione, assistenza e riparazione.","url":"https://www.inglydesign.it/","logo":{"@type":"ImageObject","url":"https://www.inglydesign.it/assets/images/ingly-logo.svg"},"image":"https://www.inglydesign.it/assets/images/og-image.jpg","email":"inglydesign@gmail.com","telephone":"+393296904627","priceRange":"€€","address":{"@type":"PostalAddress","addressLocality":"Palermo","addressRegion":"Sicilia","addressCountry":"IT"},"sameAs":["https://instagram.com/ingly_design","https://facebook.com/inglydesign","https://tiktok.com/@ingly.design","https://pinterest.com/inglydesign","https://wa.me/393296904627","https://etsy.com/shop/inglydesign"]},{"@type":"WebSite","@id":"https://www.inglydesign.it/#sito","url":"https://www.inglydesign.it/","name":"INGLY DESIGN","description":"Laboratorio di incisione e taglio laser a Palermo: regali personalizzati, targhe e gadget aziendali. Host xTool Squad per Palermo, la Sicilia e il Sud Italia: demo, consigli sulla scelta, formazione, assistenza e riparazione.","inLanguage":"it","publisher":{"@id":"https://www.inglydesign.it/#organizzazione"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.inglydesign.it/shop?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"OfferCatalog","@id":"https://www.inglydesign.it/#catalogo","name":"Lavorazioni INGLY DESIGN","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser CO₂","description":"Legno, plexiglass, pelle, vetro e MDF. Taglia fino a 20 mm, incide dettagli fotografici.","serviceType":"CO₂ · 100W","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Fiber Laser F2","description":"Marcatura permanente e tattile su acciaio, alluminio, titanio e ottone.","serviceType":"Fiber · F2","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser MOPA","description":"Marcature a colori su acciaio e anodizzato, massimo controllo dell’impulso.","serviceType":"MOPA","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa DTF","description":"Transfer vividi e resistenti per abbigliamento, da 1 pezzo alle divise complete.","serviceType":"DTF · Textile","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa UV","description":"Stampa full color con bianco e lucido, direttamente su quasi ogni oggetto.","serviceType":"UV · Flatbed","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Stampa 3D","description":"Prototipi, nomi 3D e oggetti di design in PLA/PETG, rifiniti a mano.","serviceType":"FDM / Resina","provider":{"@id":"https://www.inglydesign.it/#organizzazione"},"areaServed":{"@type":"Country","name":"Italia"}}}]},{"@type":"Article","@id":"https://www.inglydesign.it/materiali/legno#article","headline":"Legno","description":"Rovere, noce, faggio, betulla. Il materiale che invecchia meglio di come nasce.","articleSection":"Materiali","url":"https://www.inglydesign.it/materiali/legno","isPartOf":{"@type":"WebSite","@id":"https://www.inglydesign.it/#website"},"publisher":{"@id":"https://www.inglydesign.it/#organizzazione"},"about":{"@type":"Thing","name":"Legno"},"mentions":[{"@type":"Thing","name":"Laser CO₂","url":"https://www.inglydesign.it/tecnologie/co2"},{"@type":"Thing","name":"Stampa UV diretta","url":"https://www.inglydesign.it/tecnologie/uv"}]},{"@type":"ItemList","@id":"https://www.inglydesign.it/materiali/legno#lista","name":"Creazioni in Legno","numberOfItems":6,"itemListElement":[{"@type":"ListItem","position":1,"name":"Quadro Ritratto Inciso su Legno","url":"https://www.inglydesign.it/product/3/"},{"@type":"ListItem","position":2,"name":"Orologio da Parete in Legno \"Albero della Vita\" - Design Elegante per Arredamento","url":"https://www.inglydesign.it/product/6/"},{"@type":"ListItem","position":3,"name":"Segnaposto Nozze in Legno ×20","url":"https://www.inglydesign.it/product/8/"},{"@type":"ListItem","position":4,"name":"Supereroi Ghibi","url":"https://www.inglydesign.it/product/20/"},{"@type":"ListItem","position":5,"name":"Portachiavi Albero della Vita in Legno a Doppio Strato Personalizzato | Bomboniera Ricordo per Battesimo, Comunione, Cresima, Matrimonio e Compleanno","url":"https://www.inglydesign.it/product/21/"},{"@type":"ListItem","position":6,"name":"Apribottiglie Inciso Personalizzato","url":"https://www.inglydesign.it/product/22/"}]},{"@type":"FAQPage","@id":"https://www.inglydesign.it/materiali/legno#faq","mainEntity":[{"@type":"Question","name":"Posso lavarlo in lavastoviglie?","acceptedAnswer":{"@type":"Answer","text":"Meglio di no. Il calore e la lunga esposizione all'acqua aprono le fibre e sbiadiscono l'incisione. A mano, asciugato subito, dura anni."}},{"@type":"Question","name":"Quale legno per un'incisione fine?","acceptedAnswer":{"@type":"Answer","text":"Betulla o acero: chiari, a fibra regolare, danno il contrasto più alto. Il rovere è bellissimo ma la venatura compete con il disegno."}}]},{"@type":"BreadcrumbList","@id":"https://www.inglydesign.it/materiali/legno#crumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.inglydesign.it/"},{"@type":"ListItem","position":2,"name":"Materiali","item":"https://www.inglydesign.it/materiali"},{"@type":"ListItem","position":3,"name":"Legno","item":"https://www.inglydesign.it/materiali/legno"}]}]}</script>
 </head>
 <body>
 <!-- MAINTENANCE MODE — controllato da data/config.json → maintenance.attivo -->
@@ -333,13 +316,13 @@ setTimeout(function(){
 <h2>Spessori</h2><ul><li>3 mm</li><li>5 mm</li><li>8 mm</li><li>12 mm</li><li>18 mm</li></ul>
 <h2>Finiture</h2><ul><li>Grezzo</li><li>Levigato</li><li>Olio naturale</li><li>Cera</li><li>Tinta a mordente</li></ul>
 <h2>Da sapere prima</h2><ul><li>Il legno si muove con l&#39;umidità: un pannello grande può imbarcarsi.</li><li>I nodi tagliano in modo diverso dal resto e si vedono.</li></ul>
+<h2>Creazioni in questo materiale</h2><ul><li><a href="https://www.inglydesign.it/product/3/">Quadro Ritratto Inciso su Legno</a> — €59,00</li><li><a href="https://www.inglydesign.it/product/6/">Orologio da Parete in Legno &quot;Albero della Vita&quot; - Design Elegante per Arredamento</a> — €59,99</li><li><a href="https://www.inglydesign.it/product/8/">Segnaposto Nozze in Legno ×20</a> — €38,00</li><li><a href="https://www.inglydesign.it/product/20/">Supereroi Ghibi</a> — €34,99</li><li><a href="https://www.inglydesign.it/product/21/">Portachiavi Albero della Vita in Legno a Doppio Strato Personalizzato | Bomboniera Ricordo per Battesimo, Comunione, Cresima, Matrimonio e Compleanno</a> — €9,99</li><li><a href="https://www.inglydesign.it/product/22/">Apribottiglie Inciso Personalizzato</a> — €3,99</li></ul>
 <h2>Domande frequenti</h2><h3>Posso lavarlo in lavastoviglie?</h3><p>Meglio di no. Il calore e la lunga esposizione all&#39;acqua aprono le fibre e sbiadiscono l&#39;incisione. A mano, asciugato subito, dura anni.</p><h3>Quale legno per un&#39;incisione fine?</h3><p>Betulla o acero: chiari, a fibra regolare, danno il contrasto più alto. Il rovere è bellissimo ma la venatura compete con il disegno.</p></div>
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
 <section class="page" id="page-home">
-  <div class="hero signature-hero">
+  <div class="hero signature-hero rs3d" id="rs3d">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
-    <!-- Hero deliberately text-only: no 3D scene or placeholder image. -->
     <div class="wrap hero-grid">
       <div class="signature-hero-copy">
         <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">INGLY DESIGN · CREAZIONI SU MISURA</span></span>
@@ -349,8 +332,29 @@ setTimeout(function(){
           <a class="btn btn-primary magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <span aria-hidden="true" class="arr">→</span></a>
           <a class="btn btn-ghost magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span></a>
         </div>
+        <form class="rs3d-form" id="rs3dForm" action="quote/" method="get" aria-label="Chiedi un preventivo">
+          <label class="rs3d-form__label" for="rs3dText" data-i18n="rs3dLabel">Scrivi cosa vuoi incidere</label>
+          <input id="rs3dText" type="text" maxlength="28" autocomplete="off" spellcheck="false" data-ph="rs3dPh" placeholder="Es. Casa Bianchi">
+          <fieldset class="rs3d-mats">
+            <legend data-i18n="rs3dMatLegend">Materiale</legend>
+            <label><input type="radio" name="rs3dMat" value="legno" checked><span data-i18n="rs3dMat0">Legno</span></label>
+            <label><input type="radio" name="rs3dMat" value="ardesia"><span data-i18n="rs3dMat1">Ardesia</span></label>
+            <label><input type="radio" name="rs3dMat" value="acrilico"><span data-i18n="rs3dMat2">Acrilico</span></label>
+            <label><input type="radio" name="rs3dMat" value="metallo"><span data-i18n="rs3dMat3">Metallo</span></label>
+          </fieldset>
+          <input type="hidden" name="idea" id="rs3dIdea" value="">
+          <div class="rs3d-form__azioni">
+            <button class="btn btn-primary" type="submit"><span data-i18n="heroQuoteBtn">Chiedi un preventivo</span></button>
+            <a class="rs3d-form__wa" id="rs3dWa" data-wa-keep href="https://wa.me/393296904627?text=Ciao%20INGLY%2C%20vorrei%20un%20preventivo" target="_blank" rel="noopener noreferrer" data-i18n="heroLinkWa">Scrivici su WhatsApp</a>
+          </div>
+        </form>
         <p class="signature-hero-assurance"><span class="signature-hero-assurance__line" aria-hidden="true"></span><span data-sig-it="Il tuo progetto, realizzato con cura in Italia." data-sig-en="Your project, crafted with care in Italy.">Il tuo progetto, realizzato con cura in Italia.</span></p>
       </div>
+      <figure class="rs3d-stage" id="rs3dStage">
+        <img class="rs3d-stage__foto" src="img/proj-1-1.webp" alt="Mappa di Palermo incisa e tagliata al laser su legno, con il mare in blu: un lavoro INGLY DESIGN" data-i18n-alt="heroImgAlt" width="1600" height="1200" decoding="async">
+        <canvas id="rs3dCanvas" role="img" aria-label="Anteprima 3D della targa che viene incisa dal laser. Trascina per ruotarla." data-i18n-aria="rs3dAria"></canvas>
+        <figcaption class="rs3d-stage__cap"><span data-i18n="rs3dNote">Anteprima indicativa · trascina per ruotare</span><button type="button" id="rs3dReplay" data-i18n="rs3dReplay">Incidi di nuovo</button></figcaption>
+      </figure>
       <aside class="ingly-hero-steps" aria-label="Il metodo INGLY: la tua idea, il nostro lavoro">
         <span class="ingly-hero-steps__overline" data-sig-it="TU + INGLY" data-sig-en="YOU + INGLY">TU + INGLY</span>
         <ol>

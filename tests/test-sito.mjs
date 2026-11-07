@@ -44,6 +44,10 @@ content.PORT[1][4] = 'https://www.instagram.com/p/ABC123/';
 config.whatsappFab = { attivo: true, numero: '393331234567', messaggio: 'Ciao INGLY!', etichetta: { it: 'Scrivici su WhatsApp', en: 'Chat on WhatsApp' } };
 
 const products = JSON.parse(readFileSync(ROOT + '/data/products.json', 'utf8'));
+/* Il prodotto 1 è il campione del test (galleria, descrizione, misure). Dal
+   2026-11 nei dati pubblicati è nascosto (nome con un marchio altrui): qui lo
+   si rende visibile, perché si verifica il meccanismo, non la scelta editoriale. */
+delete products[0].hidden;
 // SPORCA i dati come farebbe un backup vecchio o un import sbagliato
 products[0].mat = 'MaterialeInesistente';   // causava: Cannot read properties of undefined (reading 'bg')
 products[1].sub = 0;                        // sottocategoria fuori scala

@@ -1453,7 +1453,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <p class="hint" style="margin-bottom:14px">Scegli cosa si vede nello shop. Il resto del sito (Lab xTool, preventivi, pezzi su misura) resta sempre attivo.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px" role="radiogroup" aria-label="Stato del catalogo">
         <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="online" style="width:auto"> ✅ Catalogo online</label>
+        <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="vetrina" style="width:auto"> 🪟 Vetrina senza ordini</label>
         <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="aggiornamento" style="width:auto"> 🛠️ Catalogo in aggiornamento</label>
+      </div>
+      <div id="catVetCampi">
+        <p class="hint" style="margin:0 0 10px">Vetrina: i prodotti si vedono e Google li trova, ma non si ordina online. Prezzi «su richiesta», ogni pulsante diventa una richiesta di preventivo. Si vedono solo i prodotti con la foto caricata: appena la carichi, il prodotto compare. In cima allo shop compare l'avviso qui sotto (vuoto = testo standard).</p>
+        <div class="row c2" style="margin-bottom:14px">
+          <div><label>Avviso (IT)</label><textarea id="catVetAvvIT" rows="2" placeholder="Siamo in fiera fino a domenica: le richieste arrivano, rispondiamo al rientro."></textarea></div>
+          <div><label>Avviso (EN)</label><textarea id="catVetAvvEN" rows="2" placeholder="We are at a trade fair until Sunday: requests reach us, we reply when back."></textarea></div>
+        </div>
       </div>
       <div id="catAggCampi">
         <p class="hint" style="margin:0 0 10px">In aggiornamento: nessun prodotto è in vendita e lo shop mostra una schermata dedicata con WhatsApp e preventivo. Le pagine prodotto rimandano lì.</p>
@@ -1476,6 +1484,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <button class="btn" id="catStatoSave">💾 Salva e pubblica</button>
         <span class="hint" id="catStatoOut"></span>
+      </div>
+    </div>
+
+    <div class="card" id="statCard">
+      <h3>📈 Statistiche (GoatCounter)</h3>
+      <p class="hint" style="margin-bottom:12px">Senza cookie: non serve il banner del consenso. Crea un account gratuito su <b>goatcounter.com</b>, scegli il codice del sito (es. <span class="mono">inglydesign</span>) e scrivilo qui. Vuoto = statistiche spente. Oltre alle visite conta: preventivi inviati, click su WhatsApp, uso dell'anteprima 3D, richieste demo.</p>
+      <div class="row c2"><div><label>Codice del sito GoatCounter</label><input type="text" id="statGc" placeholder="inglydesign" autocomplete="off" spellcheck="false"></div>
+      <div><label>Dove vedere i numeri</label><p class="hint" id="statLink" style="margin:10px 0 0">—</p></div></div>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="statSave">💾 Salva e pubblica</button>
+        <span class="hint" id="statOut"></span>
       </div>
     </div>
 
@@ -5643,7 +5662,7 @@ $('pubGo').onclick=async()=>{
    ]);
    /* stesso filtro del sito: niente prodotti nascosti, di categorie spente o con il catalogo in aggiornamento */
    const VISIBILI_SITEMAP=JSON.parse(JSON.stringify(S.P||[]));
-   (await import('./assets/js/catalogo-stato.js')).applicaCatalogo({CONFIG:JSON.parse(JSON.stringify(S.CONFIG)),CATS:JSON.parse(JSON.stringify(S.CATS||[])),P:VISIBILI_SITEMAP});
+   (await import('./assets/js/catalogo-stato.js')).applicaCatalogo({CONFIG:JSON.parse(JSON.stringify(S.CONFIG)),CATS:JSON.parse(JSON.stringify(S.CATS||[])),P:VISIBILI_SITEMAP,MV:(S.C&&S.C.MV)||null});
    const sitemapPages=[
      ...PRE_SITEMAP.elenco({prodotti:VISIBILI_SITEMAP,verticali:(S.C&&S.C.VERTICALI)||[]}),
      ...LAB_SITEMAP.elencoPagine({MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR,CONFIG:S.CONFIG,PRODUCTS:S.P||[]})
@@ -6145,7 +6164,8 @@ function renderSet(){
  (function(){
   const cat=S.CONFIG.catalogo||{};
   const loc=(v,k)=>(v&&v[k])||'';
-  document.querySelectorAll('input[name=catStato]').forEach(r=>{r.checked=r.value===(cat.stato==='aggiornamento'?'aggiornamento':'online')});
+  document.querySelectorAll('input[name=catStato]').forEach(r=>{r.checked=r.value===(['aggiornamento','vetrina'].includes(cat.stato)?cat.stato:'online')});
+  $('catVetAvvIT').value=loc(cat.avviso,'it');$('catVetAvvEN').value=loc(cat.avviso,'en');
   $('catAggTitIT').value=loc(cat.titolo,'it');$('catAggTitEN').value=loc(cat.titolo,'en');
   $('catAggMsgIT').value=loc(cat.messaggio,'it');$('catAggMsgEN').value=loc(cat.messaggio,'en');
   $('catAggRiIT').value=loc(cat.rientro,'it');$('catAggRiEN').value=loc(cat.rientro,'en');
@@ -6154,21 +6174,38 @@ function renderSet(){
     const n=S.P.filter(p=>p.cat===c.id&&!p.hidden).length;
     return `<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0"><input type="checkbox" data-cat="${esc(c.id)}" ${nasc.has(String(c.id))?'':'checked'} style="width:18px;height:18px"> ${esc((c.n&&c.n.it)||c.id)} <span class="hint">(${n})</span></label>`;
   }).join('');
-  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').hidden=!(agg&&agg.value==='aggiornamento')};
+  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').hidden=!(agg&&agg.value==='aggiornamento');$('catVetCampi').hidden=!(agg&&agg.value==='vetrina')};
   campi();document.querySelectorAll('input[name=catStato]').forEach(r=>r.onchange=campi);
   $('catStatoSave').onclick=async()=>{
    const out=$('catStatoOut');
    const nascoste=[...$('catVisList').querySelectorAll('input[data-cat]')].filter(x=>!x.checked).map(x=>x.dataset.cat);
    if(nascoste.length&&nascoste.length>=S.CATS.length){out.innerHTML='<span style="color:var(--err)">✖ Lascia almeno una categoria visibile, oppure scegli «Catalogo in aggiornamento».</span>';return}
-   const agg=(document.querySelector('input[name=catStato]:checked')||{}).value==='aggiornamento';
+   const stato=(document.querySelector('input[name=catStato]:checked')||{}).value||'online';
+   const agg=stato==='aggiornamento';
    const bi=(a,b)=>{const it=$(a).value.trim(),en=$(b).value.trim();return (it||en)?{it,en:en||it}:undefined};
-   S.CONFIG.catalogo={stato:agg?'aggiornamento':'online',categorieNascoste:nascoste,
-     titolo:bi('catAggTitIT','catAggTitEN'),messaggio:bi('catAggMsgIT','catAggMsgEN'),rientro:bi('catAggRiIT','catAggRiEN')};
+   S.CONFIG.catalogo={stato:['aggiornamento','vetrina'].includes(stato)?stato:'online',categorieNascoste:nascoste,
+     titolo:bi('catAggTitIT','catAggTitEN'),messaggio:bi('catAggMsgIT','catAggMsgEN'),rientro:bi('catAggRiIT','catAggRiEN'),avviso:bi('catVetAvvIT','catVetAvvEN')};
    markDirty();out.textContent='Salvataggio…';
    try{
-    await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'🛍️ Catalogo: '+(agg?'in aggiornamento':'online')+(nascoste.length?' · nascoste: '+nascoste.join(', '):''));
+    await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'🛍️ Catalogo: '+({aggiornamento:'in aggiornamento',vetrina:'vetrina senza ordini'}[stato]||'online')+(nascoste.length?' · nascoste: '+nascoste.join(', '):''));
     out.innerHTML='<span style="color:var(--ok)">✔ Pubblicato! Online tra 1–2 minuti.</span>';
    }catch(e){out.innerHTML='<span style="color:var(--err)">✖ '+esc(e.message)+'</span>'}
+  };
+ })();
+ /* --- Statistiche: codice GoatCounter (config.analisi; config.statistiche sono i contatori del sito) --- */
+ (function(){
+  const st=S.CONFIG.analisi||{};
+  const ok=v=>/^[a-z0-9][a-z0-9-]{1,62}$/.test(v);
+  const link=()=>{const v=$('statGc').value.trim().toLowerCase();$('statLink').innerHTML=ok(v)?`<a href="https://${esc(v)}.goatcounter.com" target="_blank" rel="noopener">${esc(v)}.goatcounter.com</a>`:'—'};
+  $('statGc').value=st.goatcounter||'';link();$('statGc').oninput=link;
+  $('statSave').onclick=async()=>{
+   const out=$('statOut');const v=$('statGc').value.trim().toLowerCase();
+   if(v&&!ok(v)){out.innerHTML='<span style="color:var(--err)">✖ Solo lettere minuscole, numeri e trattini (es. inglydesign).</span>';return}
+   S.CONFIG.analisi={...(S.CONFIG.analisi||{}),goatcounter:v};
+   markDirty();out.textContent='Salvataggio…';
+   try{await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'📈 Statistiche: '+(v?'GoatCounter '+v:'spente'));
+    out.innerHTML='<span style="color:var(--ok)">✔ Pubblicato! Attive tra 1–2 minuti.</span>'}
+   catch(e){out.innerHTML='<span style="color:var(--err)">✖ '+esc(e.message)+'</span>'}
   };
  })();
  /* --- Repository / token --- */

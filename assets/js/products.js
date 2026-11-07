@@ -572,8 +572,26 @@ function renderCatalogoAgg(){
   </div></div>`;
   return true;
 }
+/* Catalogo in vetrina: prodotti visibili, nessun ordine online. Una riga in
+   cima allo shop lo dice chiaro e porta al preventivo o a WhatsApp. */
+function renderAvvisoVetrina(){
+  const pg=$('page-shop'); if(!pg) return;
+  const on=!!(window.INGLY.CATALOGO&&window.INGLY.CATALOGO.vetrina);
+  document.documentElement.classList.toggle('catalogo-vetrina',on);
+  let box=$('catVetrina');
+  if(!on){ if(box) box.remove(); return; }
+  const s=statoCatalogo(CONFIG,L);
+  const wa=String(CONFIG.whatsapp||'https://wa.me/393296904627');
+  const msg=encodeURIComponent(T('catAggWaMsg'));
+  if(!box){ box=document.createElement('aside'); box.id='catVetrina'; box.className='cat-vetrina'; box.setAttribute('aria-label',T('vetrinaEtichetta')); pg.prepend(box); }
+  box.innerHTML=`<div class="wrap cat-vetrina__in">
+    <p class="cat-vetrina__testo"><strong>${T('vetrinaTitolo')}</strong> ${escapeMarkup(s.avviso||T('vetrinaTesto'))}</p>
+    <p class="cat-vetrina__azioni"><a href="${escapeMarkup(wa)}${wa.includes('?')?'&':'?'}text=${msg}" target="_blank" rel="noopener">${T('catAggWa')}</a><button type="button" data-action="go" data-arg="quote">${T('catAggQuote')}</button></p>
+  </div>`;
+}
 export function renderShop(){
   if(renderCatalogoAgg()) return;
+  renderAvvisoVetrina();
   const res=filterProducts();
   if(SORT==='pa')res.sort((a,b)=>a.price-b.price);
   if(SORT==='pd')res.sort((a,b)=>b.price-a.price);

@@ -357,8 +357,10 @@
   }
  },
  "catalogo": {
-  "stato": "aggiornamento",
-  "categorieNascoste": [],
+  "stato": "vetrina",
+  "categorieNascoste": [
+   "nuova-ms3k34dc"
+  ],
   "titolo": {
    "it": "Catalogo in Aggiornamento",
    "en": "Our Catalog is being updated. stay tuned."
@@ -366,6 +368,13 @@
   "messaggio": {
    "it": "In aggiornamento con nuovi prodotti",
    "en": "We are preparing new products"
+  },
+  "avviso": {
+   "it": "Siamo in fiera: le richieste arrivano lo stesso e ti rispondiamo appena rientriamo in laboratorio.",
+   "en": "We are at a trade fair: requests still reach us and we reply as soon as we are back in the workshop."
   }
+ },
+ "analisi": {
+  "goatcounter": ""
  }
 }

@@ -46,7 +46,7 @@ for(const p of photos) {
 const html=readFileSync('index.html','utf8');
 const styles=html.match(/<link rel="stylesheet" href="([^"]+)"/g)||[];
 assert.ok(html.includes('class="ingly-photographic-lab"'),'Official xTool editorial photo gallery missing');
-assert.ok(bundleCaricato&&ultimo()==='assets/css/brand-system-2026.css','Last authoritive brand stylesheet must be preserved');
+assert.ok(bundleCaricato&&ultimo()==='assets/css/restyle-2026.css','Last authoritive brand stylesheet must be preserved');
 assert.ok(html.includes('Fotografie di repertorio a scopo illustrativo'),'Home labels genuine stock imagery');
 assert.ok(html.includes('Foto ufficiale xTool'),'xTool manufacturer images should be clearly attributed');
 assert.ok(existsSync('assets/css/real-photography.css'));

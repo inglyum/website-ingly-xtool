@@ -6,7 +6,7 @@ const html=read('index.html'),css=read('assets/css/brand-system-2026.css');
 const doc=new JSDOM(html).window.document,hero=doc.querySelector('#page-home .hero.signature-hero');
 assert.ok(hero&&hero.querySelector('#heroH1'));
 assert.ok(hero.querySelector('a[href="personalizza"]')&&hero.querySelector('a[href="shop"]'));
-assert.ok(!hero.querySelector('#inglyHeroSculpture, #heroVisual'),'Hero remains free of media');
+assert.ok(!hero.querySelector('#inglyHeroSculpture, #heroVisual'),'Old hero media/sculpture not reintroduced (restyle 2026 uses its own #rs3dStage)');
 assert.match(css,/Sprint 14 · actual first-screen conversion layout/);
 assert.match(css,/signature-hero #heroH1\{[\s\S]*?max-width:100%!important/);
 assert.match(css,/hero\.signature-hero\{\s*min-height:0!important/);

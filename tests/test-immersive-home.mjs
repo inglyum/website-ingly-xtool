@@ -8,7 +8,7 @@ const brand=readFileSync('assets/css/brand-system-2026.css','utf8');
 const doc=new JSDOM(html).window.document;
 const hero=doc.querySelector('#page-home .hero.signature-hero');
 assert.ok(hero,'Home hero must remain');
-assert.equal(hero.querySelector('#inglyHeroSculpture'),null,'No 3D object');
+assert.equal(hero.querySelector('#inglyHeroSculpture'),null,'Old CSS sculpture not reintroduced (restyle 2026 uses its own #rs3dStage)');
 assert.equal(hero.querySelector('#heroVisual'),null,'No image background or placeholder');
 assert.equal(hero.querySelector('.coin-scene'),null,'No rotating media');
 assert.equal(doc.querySelector('script[src="assets/js/ingly-hero-scroll.js"]'),null,'No scroll animation loaded');

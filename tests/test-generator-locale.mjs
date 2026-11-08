@@ -4,7 +4,7 @@ import {JSDOM,VirtualConsole} from 'jsdom';
 const html=readFileSync('generatori.html','utf8');
 const data=JSON.parse(readFileSync('data/content.json','utf8'));
 const js=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(x=>x[1]);
-assert.equal(js.length,2,'Unexpected generator scripts');
+assert.equal(js.length,3,'Unexpected generator scripts (tema prima del disegno, Studio, tema)');
 for(const s of js)assert.doesNotThrow(()=>new Function(s),'Inline script syntax');
 assert.ok(html.includes('--bg:#fff')&&html.includes('html[data-generator-mode="light"] body'),'Real white mode CSS');
 assert.ok(html.includes("const key='ingly_mode'"),'Theme preference must be shared with the website');

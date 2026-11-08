@@ -4687,6 +4687,86 @@
    "attivo": true,
    "ordine": 9,
    "url": "https://makorix.com/"
+  },
+  {
+   "id": "puzzle",
+   "modulo": "puzzle",
+   "nome": {
+    "it": "Puzzle personalizzato",
+    "en": "Custom jigsaw puzzle"
+   },
+   "descrizione": {
+    "it": "Puzzle a incastri classici: misure, numero di pezzi e variante del taglio.",
+    "en": "Classic jigsaw: size, number of pieces and cut variant."
+   },
+   "categoria": "Giochi e regali",
+   "icona": "◫",
+   "attivo": true,
+   "ordine": 11
+  },
+  {
+   "id": "sottobicchiere",
+   "modulo": "sottobicchiere",
+   "nome": {
+    "it": "Sottobicchieri",
+    "en": "Coasters"
+   },
+   "descrizione": {
+    "it": "Set di sottobicchieri con forma, testo e cornice incisa.",
+    "en": "Coaster sets with shape, text and engraved frame."
+   },
+   "categoria": "Casa e tavola",
+   "icona": "◎",
+   "attivo": true,
+   "ordine": 12
+  },
+  {
+   "id": "segnalibro",
+   "modulo": "segnalibro",
+   "nome": {
+    "it": "Segnalibri",
+    "en": "Bookmarks"
+   },
+   "descrizione": {
+    "it": "Segnalibri con punta, foro per la nappina e testo in verticale.",
+    "en": "Bookmarks with shaped tip, tassel hole and vertical text."
+   },
+   "categoria": "Giochi e regali",
+   "icona": "▯",
+   "attivo": true,
+   "ordine": 13
+  },
+  {
+   "id": "orecchini",
+   "modulo": "orecchini",
+   "nome": {
+    "it": "Orecchini",
+    "en": "Earrings"
+   },
+   "descrizione": {
+    "it": "Paia di orecchini in cinque forme, pieni, traforati o incisi.",
+    "en": "Earring pairs in five shapes: solid, cut-out or engraved."
+   },
+   "categoria": "Accessori",
+   "icona": "◇",
+   "attivo": true,
+   "ordine": 14
+  },
+  {
+   "id": "rosetta",
+   "modulo": "rosetta",
+   "nome": {
+    "it": "Rosetta guilloché",
+    "en": "Guilloché rosette"
+   },
+   "descrizione": {
+    "it": "Il disegno inciso firma di INGLY: anelli di linee intrecciate, da medaglione o sottobicchiere.",
+    "en": "INGLY’s signature engraving: interwoven line rings for medallions or coasters."
+   },
+   "categoria": "Incisioni decorative",
+   "icona": "✺",
+   "attivo": true,
+   "ordine": 15
   }
  ],
  "PORT_NASCOSTI": [

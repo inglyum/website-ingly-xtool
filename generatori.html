@@ -104,7 +104,7 @@ html[data-generator-mode="light"] input::placeholder{color:var(--muted)}
 <section class="panel mainpanel" aria-label="Area generatore">
 <div class="workhead"><div class="worktitle"><span class="tool-icon" id="activeIcon">⌁</span><div><h2 id="activeTitle">Portachiavi & tag</h2><p id="activeDesc">Nome, forma, foro e dimensioni.</p></div></div><div class="workactions"><button class="btn quiet" id="reset" data-gi18n="reset">↺ Ripristina</button><button class="btn" id="save" data-gi18n="save">▣ Salva bozza</button><button class="btn primary" id="download" data-gi18n="download">↓ Esporta SVG</button></div></div>
 <div class="workspace"><div class="preview-side"><div class="preview-top"><b data-gi18n="vectorPreview">Anteprima vettoriale</b><span class="unit" id="sizeLabel">80 × 35 mm</span></div><div class="canvas" id="canvas" aria-live="polite"></div><div class="canvas-note" data-gi18n="canvasNote">Preview schematica · 1 unità = 1 mm</div><div class="legend"><span><i style="background:#ff5d64"></i><span data-gi18n="cutLines">Linee di taglio</span></span><span><i style="background:#68d5ff"></i><span data-gi18n="engraveLines">Linee / testi incisi</span></span></div><div class="stats"><div class="stat"><b id="statW">80</b><span data-gi18n="statWidth">Larghezza mm</span></div><div class="stat"><b id="statH">35</b><span data-gi18n="statHeight">Altezza mm</span></div><div class="stat"><b id="statPaths">3</b><span data-gi18n="statPaths">Elementi vettoriali</span></div></div></div>
-<div class="controls"><h3 data-gi18n="params">Parametri di progetto</h3><p class="hint" data-gi18n="autoPreview">Le modifiche aggiornano l’anteprima automaticamente.</p><div id="fields"></div><div class="control-actions"><button class="btn primary" id="download2" data-gi18n="download2">Scarica SVG</button><button class="btn" id="png" data-gi18n="downloadPng">Esporta PNG</button></div><p class="hint" style="margin:13px 0 0" data-gi18n="laserNote">SVG con tracciati distinti per taglio (rosso) e incisione (azzurro). Il software macchina può richiedere l’assegnazione delle lavorazioni per colore.</p></div></div>
+<div class="controls"><h3 data-gi18n="params">Parametri di progetto</h3><p class="hint" data-gi18n="autoPreview">Le modifiche aggiornano l’anteprima automaticamente.</p><div id="fields"></div><div class="control-actions"><button class="btn primary" id="download2" data-gi18n="download2">Scarica SVG</button><button class="btn" id="png" data-gi18n="downloadPng">Esporta PNG</button></div><div id="genForn" class="gen-forn-box" aria-live="polite"></div><p class="hint" style="margin:13px 0 0" data-gi18n="laserNote">SVG con tracciati distinti per taglio (rosso) e incisione (azzurro). Il software macchina può richiedere l’assegnazione delle lavorazioni per colore.</p></div></div>
 </section>
 </main>
 <section class="more"><h2 data-gi18n="toolsTitle">Strumenti pensati per il laboratorio</h2><p data-gi18n="toolsDesc">Un catalogo che cresce per moduli indipendenti, guidato dalle esigenze dei maker.</p><div class="feature-grid"><article class="feature"><span class="tool-icon">⌘</span><b data-gi18n="privacyTitle">File tuoi, davvero</b><p data-gi18n="privacyDesc">Esportazione locale in SVG e PNG. Nessun upload automatico del progetto.</p></article><article class="feature"><span class="tool-icon">◈</span><b data-gi18n="paramsTitle">Parametri chiari</b><p data-gi18n="paramsDesc">Dimensioni e quantità visibili, con anteprima aggiornata mentre lavori.</p></article><article class="feature"><span class="tool-icon">✳</span><b data-gi18n="modulesTitle">Catalogo modulare</b><p data-gi18n="modulesDesc">La libreria può essere estesa nel tempo con nuovi generatori proprietari INGLY.</p></article></div></section>
@@ -236,6 +236,15 @@ const defaults=[
 ].concat(GN.catalogo.map((x,i)=>Object.assign({modulo:x.id,attivo:true,ordine:11+i},x)));
 /* pagine-strumento del sito apribili dal catalogo: elenco chiuso */
 const PAGINE_INTERNE=['print-cut.html','prova-incisione.html'];
+/* materiali consigliati per il generatore aperto: content.json → FORNITURE, logica in assets/js/forniture.js */
+let FORN=null,fornMod=null;
+function renderForn(){
+const box=$('genForn');if(!box)return;box.innerHTML='';if(!FORN)return;const per=active;
+(fornMod||(fornMod=import('./assets/js/forniture.js'))).then(M=>{
+if(per!==active)return;const D=M.dati({FORNITURE:FORN});const v=M.articoli(D,{generatore:per}).sort((x,y)=>(x.generatori||[]).length-(y.generatori||[]).length).slice(0,3);if(!v.length)return;
+box.innerHTML='<h4 class="gen-forn-tit">'+(G_LANG==='en'?'Recommended materials':'Materiali consigliati')+'</h4>'+v.map(a=>'<a class="gen-forn" href="'+esc(M.link(a,D))+'" target="_blank" rel="sponsored nofollow noopener" data-forn="'+esc(M.evento(a))+'"><b>'+esc(M.lingua(a.n,G_LANG))+'</b><span>'+esc(M.nomeNegozio(a,D))+' ↗</span></a>').join('')+'<p class="hint gen-forn-avviso">'+esc(M.avviso(D,G_LANG))+' <a href="forniture">'+(G_LANG==='en'?'All supplies':'Tutte le forniture')+' →</a></p>';
+}).catch(()=>{});
+}
 let catalogue=defaults.slice(),active='portachiavi',activeId='portachiavi',filter='Tutti',search='',settings={};
 const state={
 portachiavi:{text:'INGLY',shape:'rounded',w:80,h:35,hole:5,radius:5,margin:9},
@@ -484,7 +493,7 @@ if(item.modulo==='link-esterno'){const u=String(item.url||'');if(/^https?:\/\//i
 if(!state[item.modulo]){toast('Motore non ancora implementato: aggiungi prima il modulo software.');return;}
 activeId=item.id;active=item.modulo;
 $('activeIcon').textContent=item.icona||'✳';$('activeTitle').textContent=label(item);$('activeDesc').textContent=(item.descrizione&&(item.descrizione[G_LANG]||item.descrizione.it))||genT('Generatore parametrico INGLY DESIGN.');
-renderList();renderFields();renderPreview();
+renderList();renderFields();renderPreview();renderForn();
 }
 function safeName(s){return String(s||'ingly-design').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,48)||'ingly-design'}
 function downloadSvg(){const o=buildSvg();const blob=new Blob([o.svg],{type:'image/svg+xml;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='ingly-'+safeName(active)+'-'+Date.now()+'.svg';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1200);toast('SVG esportato. Controlla la scala e le lavorazioni prima del taglio.')}
@@ -508,6 +517,7 @@ fetch('data/content.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d
 if(data&&Array.isArray(data.GENERATORI)){
 catalogue=data.GENERATORI.filter(x=>x&&x.id&&x.modulo);
 }
+if(data&&data.FORNITURE&&typeof data.FORNITURE==='object')FORN=data.FORNITURE;
 }).catch(()=>{}).finally(()=>{if(!catalogue.some(x=>x.id===activeId&&x.attivo!==false))activeId=(activeModules()[0]||{id:''}).id;renderFilters();renderList();if(activeId)select(activeId);else{$('activeTitle').textContent='Nessun generatore attivo';$('activeDesc').textContent='Attiva un generatore dal pannello Admin oppure aggiungi una nuova voce.';$('activeIcon').textContent='✳';$('fields').innerHTML='<p class="hint">Nessun generatore disponibile in questo momento.</p>';$('canvas').innerHTML='<div style="text-align:center;color:var(--muted);padding:22px">Catalogo vuoto</div>';$('sizeLabel').textContent='—';$('statW').textContent='—';$('statH').textContent='—';$('statPaths').textContent='—';$('download').disabled=true;$('download2').disabled=true;$('png').disabled=true}});
 }
 init();

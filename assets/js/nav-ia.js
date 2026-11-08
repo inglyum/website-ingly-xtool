@@ -70,6 +70,7 @@ export const SECONDARIE = [
   { id: 'portfolio', rotta: 'portfolio', n: { it: 'Portfolio', en: 'Portfolio' } },
   { id: 'about', rotta: 'about', n: { it: 'Chi siamo', en: 'About' } },
   { id: 'faq', rotta: 'faq', n: { it: 'Domande frequenti', en: 'FAQ' } },
+  { id: 'forniture', rotta: 'forniture', n: { it: 'Forniture per il laser', en: 'Laser supplies' } },
   { id: 'quote', rotta: 'quote', n: { it: 'Contatti e preventivo', en: 'Contact and quote' } }
 ];
 

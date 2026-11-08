@@ -550,3 +550,29 @@
 :root[data-mode][data-mode] .ppf-garanzie .ic-svg{width:18px;height:18px;flex:none;color:var(--rs-gold);stroke:currentColor}
 /* dentro una raccolta il titolo è il suo: «Il catalogo.» si toglie (un solo h1 per pagina) */
 :root[data-mode][data-mode] #page-shop.coll-attiva .shop-testa{display:none!important}
+
+/* ---------- FORNITURE: materiali consigliati, venduti dai negozi ---------- */
+:root[data-mode][data-mode] .forn-avviso{font-size:.88rem;color:var(--rs-muted);border-left:3px solid var(--rs-gold);padding:.6rem .9rem;background:var(--rs-gold-soft);margin:1.2rem 0 0;max-width:70ch}
+:root[data-mode][data-mode] .forn-avviso a{color:var(--rs-ink);text-decoration:underline;text-underline-offset:3px}
+:root[data-mode][data-mode] .forn-filtri{display:flex;gap:8px;flex-wrap:wrap;margin:1.6rem 0 .4rem}
+:root[data-mode][data-mode] .forn-chip{border:1px solid var(--rs-line-strong);background:transparent;color:var(--rs-ink);padding:.5rem .9rem;font:600 .9rem/1.2 inherit;border-radius:0;cursor:pointer;min-height:40px}
+:root[data-mode][data-mode] .forn-chip:hover{background:var(--rs-gold-soft)}
+:root[data-mode][data-mode] .forn-chip.on{background:var(--rs-ink);color:var(--rs-bg);border-color:var(--rs-ink)}
+:root[data-mode][data-mode] .forn-sez{margin-top:2.6rem;text-align:left}
+:root[data-mode][data-mode] .forn-tit{font-size:clamp(1.3rem,2.4vw,1.7rem);margin:0 0 1rem;letter-spacing:-.01em}
+:root[data-mode][data-mode] .forn-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+:root[data-mode][data-mode] .forn-card{display:flex;flex-direction:column;border:1px solid var(--rs-line);background:var(--rs-bg);text-align:left;transition:border-color .2s}
+:root[data-mode][data-mode] .forn-card:hover{border-color:var(--rs-line-strong)}
+:root[data-mode][data-mode] .forn-tinta{position:relative;aspect-ratio:16/9;background:var(--forn-tinta);display:grid;place-items:center;overflow:hidden;isolation:isolate}
+:root[data-mode][data-mode] .forn-tinta::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(23,17,10,.16);-webkit-mask:url('../patterns/venature.svg') center/520px auto repeat;mask:url('../patterns/venature.svg') center/520px auto repeat}
+:root[data-mode][data-mode] .forn-tinta span{font-size:2.4rem;color:rgba(23,17,10,.55);line-height:1}
+:root[data-mode][data-mode] .forn-corpo{display:flex;flex-direction:column;gap:.5rem;padding:1rem 1.1rem 1.2rem;flex:1}
+:root[data-mode][data-mode] .forn-card .forn-corpo h3{font-size:1.18rem!important;line-height:1.25!important;margin:0;letter-spacing:-.005em}
+:root[data-mode][data-mode] .forn-corpo p{margin:0;color:var(--rs-muted);font-size:.93rem;line-height:1.5}
+:root[data-mode][data-mode] .forn-consiglio{border-top:1px solid var(--rs-line);padding-top:.6rem}
+:root[data-mode][data-mode] .forn-consiglio b{display:block;color:var(--rs-gold);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem}
+:root[data-mode][data-mode] .forn-prova{align-self:flex-start;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--rs-on-gold);background:var(--rs-gold);padding:.2rem .5rem}
+:root[data-mode][data-mode] .forn-vai{margin-top:auto;align-self:flex-start;border-radius:0}
+:root[data-mode][data-mode] .forn-card--mini .forn-tinta{aspect-ratio:3/1}
+:root[data-mode][data-mode] .forn-mat{margin-top:2.4rem}
+@media (max-width:640px){:root[data-mode][data-mode] .forn-grid{grid-template-columns:1fr}:root[data-mode][data-mode] .forn-tinta{aspect-ratio:3/1}:root[data-mode][data-mode] .forn-filtri{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}:root[data-mode][data-mode] .forn-chip{flex:0 0 auto;white-space:nowrap}}

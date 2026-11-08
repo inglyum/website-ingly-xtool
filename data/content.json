@@ -4797,5 +4797,675 @@
    "#f4f0ff,#d9ccf5",
    "img/port-9.webp"
   ]
- ]
+ ],
+ "FORNITURE": {
+  "_nota": "Vetrina dei consumabili con link di affiliazione. Il codice affiliato (es. il tag Amazon) è pubblico e si imposta dall'Admin. Ogni articolo indica il negozio che vende e spedisce. Vedi assets/js/forniture.js.",
+  "titolo": {
+   "it": "Forniture per il laser",
+   "en": "Laser supplies"
+  },
+  "intro": {
+   "it": "I materiali e gli accessori che consigliamo per incidere e tagliare: fogli, oggetti pronti da personalizzare, minuterie e finiture. Ogni scheda ha il consiglio del nostro laboratorio; si acquista direttamente dal negozio indicato.",
+   "en": "The materials and accessories we recommend for engraving and cutting: sheets, ready-to-personalise blanks, findings and finishes. Every card carries our workshop’s tip; you buy directly from the store shown."
+  },
+  "avviso": {
+   "it": "",
+   "en": ""
+  },
+  "negozi": [
+   {
+    "id": "amazon",
+    "nome": "Amazon.it",
+    "domini": [
+     "amazon.it"
+    ],
+    "parametro": "tag",
+    "codice": "",
+    "ricerca": "https://www.amazon.it/s?k={q}",
+    "attivo": true
+   },
+   {
+    "id": "xtool",
+    "nome": "xTool Store",
+    "domini": [
+     "xtool.com",
+     "xtool.eu"
+    ],
+    "parametro": "",
+    "codice": "",
+    "ricerca": "https://www.xtool.com/search?q={q}",
+    "affiliato": false,
+    "attivo": true
+   }
+  ],
+  "categorie": [
+   {
+    "id": "fogli",
+    "n": {
+     "it": "Fogli da tagliare e incidere",
+     "en": "Sheets to cut and engrave"
+    }
+   },
+   {
+    "id": "oggetti",
+    "n": {
+     "it": "Oggetti pronti da personalizzare",
+     "en": "Blanks to personalise"
+    }
+   },
+   {
+    "id": "minuterie",
+    "n": {
+     "it": "Minuterie e accessori",
+     "en": "Findings and accessories"
+    }
+   },
+   {
+    "id": "laboratorio",
+    "n": {
+     "it": "Laboratorio e finitura",
+     "en": "Workshop and finishing"
+    }
+   },
+   {
+    "id": "macchina",
+    "n": {
+     "it": "Ricambi e accessori xTool",
+     "en": "xTool parts and accessories"
+    }
+   }
+  ],
+  "articoli": [
+   {
+    "id": "compensato-pioppo-3mm",
+    "cat": "fogli",
+    "negozio": "amazon",
+    "ricerca": "compensato pioppo 3mm laser",
+    "url": "",
+    "tinta": "Legno",
+    "icona": "▦",
+    "n": {
+     "it": "Compensato di pioppo 3 mm per laser",
+     "en": "3 mm poplar plywood for lasers"
+    },
+    "desc": {
+     "it": "Fogli leggeri e chiari, il materiale più usato per puzzle, segnalibri, portachiavi e decorazioni.",
+     "en": "Light, pale sheets: the go-to material for puzzles, bookmarks, keychains and decorations."
+    },
+    "consiglio": {
+     "it": "Prendi quello indicato «per laser»: la colla interna è uniforme e il taglio non si blocca sui punti duri. Prima del lavoro vero fai la griglia test materiali dello Studio.",
+     "en": "Pick sheets sold “for laser”: the glue is even, so cuts don’t stall on hard spots. Run the Studio’s material test grid before the real job."
+    },
+    "materiali": [
+     "legno",
+     "mdf"
+    ],
+    "generatori": [
+     "puzzle",
+     "segnalibro",
+     "portachiavi",
+     "ornamento",
+     "cake-topper",
+     "orecchini",
+     "test-materiali"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 1
+   },
+   {
+    "id": "compensato-betulla-3mm",
+    "cat": "fogli",
+    "negozio": "amazon",
+    "ricerca": "compensato betulla 3mm laser",
+    "url": "",
+    "tinta": "Legno",
+    "icona": "▦",
+    "n": {
+     "it": "Compensato di betulla 3 mm",
+     "en": "3 mm birch plywood"
+    },
+    "desc": {
+     "it": "Più compatto e rigido del pioppo: incastri precisi e superfici lisce.",
+     "en": "Denser and stiffer than poplar: precise joints and smooth faces."
+    },
+    "consiglio": {
+     "it": "Bordi un po’ più scuri, ma è il migliore per scatole a incastri, ingranaggi e living hinge che devono piegarsi senza rompersi.",
+     "en": "Slightly darker edges, but it is the best choice for finger-joint boxes, gears and living hinges that must flex without cracking."
+    },
+    "materiali": [
+     "legno",
+     "mdf"
+    ],
+    "generatori": [
+     "scatola-incastri",
+     "living-hinge",
+     "ingranaggio",
+     "puzzle"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 2
+   },
+   {
+    "id": "mdf-3mm",
+    "cat": "fogli",
+    "negozio": "amazon",
+    "ricerca": "mdf 3mm fogli laser",
+    "url": "",
+    "tinta": "MDF",
+    "icona": "▤",
+    "n": {
+     "it": "Pannelli MDF 3 mm",
+     "en": "3 mm MDF sheets"
+    },
+    "desc": {
+     "it": "Economico e uniforme, ottimo per prototipi, sagome da dipingere e prove.",
+     "en": "Cheap and even: great for prototypes, shapes to paint and tests."
+    },
+    "consiglio": {
+     "it": "Si incide in modo regolare ma fa molto fumo: aspirazione sempre accesa. Non usarlo per oggetti a contatto con il cibo.",
+     "en": "It engraves evenly but smokes a lot: keep extraction on. Do not use it for food-contact items."
+    },
+    "materiali": [
+     "mdf"
+    ],
+    "generatori": [
+     "test-materiali",
+     "scatola-incastri",
+     "living-hinge",
+     "cake-topper"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 3
+   },
+   {
+    "id": "acrilico-colato-3mm",
+    "cat": "fogli",
+    "negozio": "amazon",
+    "ricerca": "plexiglass colato 3mm trasparente",
+    "url": "",
+    "tinta": "Plexiglass",
+    "icona": "◇",
+    "n": {
+     "it": "Plexiglass colato trasparente 3 mm",
+     "en": "3 mm clear cast acrylic"
+    },
+    "desc": {
+     "it": "Per targhe, insegne luminose, cake topper e portachiavi trasparenti.",
+     "en": "For plaques, light-up signs, cake toppers and clear keychains."
+    },
+    "consiglio": {
+     "it": "Scegli acrilico «colato» (cast): l’incisione viene bianca e nitida, quello estruso no. Il trasparente si taglia solo con laser CO2, non con il diodo.",
+     "en": "Choose “cast” acrylic: engraving turns crisp white, extruded does not. Clear acrylic can only be cut with a CO2 laser, not a diode."
+    },
+    "materiali": [
+     "plexiglass"
+    ],
+    "generatori": [
+     "cake-topper",
+     "portachiavi",
+     "orecchini",
+     "ornamento"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 4
+   },
+   {
+    "id": "acrilico-specchiato",
+    "cat": "fogli",
+    "negozio": "amazon",
+    "ricerca": "plexiglass specchiato oro 3mm",
+    "url": "",
+    "tinta": "Plexiglass",
+    "icona": "✦",
+    "n": {
+     "it": "Plexiglass specchiato oro e argento",
+     "en": "Gold and silver mirror acrylic"
+    },
+    "desc": {
+     "it": "L’effetto che fa brillare cake topper, scritte e decorazioni per feste.",
+     "en": "The finish that makes cake toppers, lettering and party décor shine."
+    },
+    "consiglio": {
+     "it": "Taglialo lasciando la pellicola protettiva sopra. Per incidere senza rovinare lo specchio si lavora dal retro.",
+     "en": "Cut it with the protective film on. To engrave without damaging the mirror, work from the back."
+    },
+    "materiali": [
+     "plexiglass"
+    ],
+    "generatori": [
+     "cake-topper",
+     "ornamento",
+     "orecchini"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 5
+   },
+   {
+    "id": "sottobicchieri-ardesia",
+    "cat": "oggetti",
+    "negozio": "amazon",
+    "ricerca": "sottobicchieri ardesia set",
+    "url": "",
+    "tinta": "Metallo",
+    "icona": "◎",
+    "n": {
+     "it": "Sottobicchieri in ardesia",
+     "en": "Slate coasters"
+    },
+    "desc": {
+     "it": "Pronti da incidere: il segno diventa grigio chiaro su fondo scuro.",
+     "en": "Ready to engrave: the mark turns light grey on a dark base."
+    },
+    "consiglio": {
+     "it": "L’ardesia si incide, non si taglia: nello Studio usa la rosetta guilloché con «Taglia il disco» spento, o i sottobicchieri solo per la grafica.",
+     "en": "Slate is engraved, not cut: in the Studio use the guilloché rosette with “Cut the disc” off, or the coaster generator for the artwork only."
+    },
+    "materiali": [],
+    "generatori": [
+     "rosetta",
+     "sottobicchiere"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 6
+   },
+   {
+    "id": "sottobicchieri-sughero",
+    "cat": "oggetti",
+    "negozio": "amazon",
+    "ricerca": "sottobicchieri sughero rotondi",
+    "url": "",
+    "tinta": "Bamboo",
+    "icona": "◎",
+    "n": {
+     "it": "Sottobicchieri in sughero",
+     "en": "Cork coasters"
+    },
+    "desc": {
+     "it": "Leggeri e caldi, perfetti per set regalo con nomi e iniziali.",
+     "en": "Light and warm: perfect for gift sets with names and initials."
+    },
+    "consiglio": {
+     "it": "Il sughero si incide in un attimo: tieni la potenza bassa per non bruciare il bordo.",
+     "en": "Cork engraves in seconds: keep power low so the edge doesn’t burn."
+    },
+    "materiali": [],
+    "generatori": [
+     "sottobicchiere",
+     "rosetta"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 7
+   },
+   {
+    "id": "sottobicchieri-bambu",
+    "cat": "oggetti",
+    "negozio": "amazon",
+    "ricerca": "sottobicchieri bambù set",
+    "url": "",
+    "tinta": "Bamboo",
+    "icona": "◎",
+    "n": {
+     "it": "Sottobicchieri e taglieri in bambù",
+     "en": "Bamboo coasters and boards"
+    },
+    "desc": {
+     "it": "Incisione scura e contrastata, finitura naturale.",
+     "en": "Dark, high-contrast engraving with a natural finish."
+    },
+    "consiglio": {
+     "it": "Il bambù dà un’incisione molto scura già a bassa potenza: fai una prova sul retro.",
+     "en": "Bamboo engraves very dark even at low power: test on the back first."
+    },
+    "materiali": [
+     "bamboo"
+    ],
+    "generatori": [
+     "sottobicchiere",
+     "rosetta"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 8
+   },
+   {
+    "id": "pelle-vegetale",
+    "cat": "fogli",
+    "negozio": "amazon",
+    "ricerca": "pelle conciata al vegetale 2mm",
+    "url": "",
+    "tinta": "Pelle",
+    "icona": "◈",
+    "n": {
+     "it": "Pelle conciata al vegetale",
+     "en": "Vegetable-tanned leather"
+    },
+    "desc": {
+     "it": "Per portachiavi, etichette, segnalibri e accessori.",
+     "en": "For keychains, labels, bookmarks and accessories."
+    },
+    "consiglio": {
+     "it": "Usa solo pelle conciata al vegetale: quella conciata al cromo, con il laser, libera fumi nocivi.",
+     "en": "Use vegetable-tanned leather only: chrome-tanned leather releases harmful fumes under the laser."
+    },
+    "materiali": [
+     "pelle"
+    ],
+    "generatori": [
+     "portachiavi",
+     "segnalibro"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 9
+   },
+   {
+    "id": "portachiavi-alluminio",
+    "cat": "oggetti",
+    "negozio": "amazon",
+    "ricerca": "portachiavi alluminio anodizzato da incidere",
+    "url": "",
+    "tinta": "Metallo",
+    "icona": "⌁",
+    "n": {
+     "it": "Portachiavi in alluminio anodizzato",
+     "en": "Anodised aluminium keychain blanks"
+    },
+    "desc": {
+     "it": "Basi colorate già pronte: basta incidere nome o logo.",
+     "en": "Coloured blanks ready to go: just engrave a name or logo."
+    },
+    "consiglio": {
+     "it": "Il laser toglie lo strato colorato e scopre l’alluminio chiaro: risultato netto anche con il laser a diodo.",
+     "en": "The laser removes the coloured layer and reveals bright aluminium: crisp results even with a diode laser."
+    },
+    "materiali": [
+     "metallo"
+    ],
+    "generatori": [
+     "portachiavi"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 10
+   },
+   {
+    "id": "bicchieri-inox",
+    "cat": "oggetti",
+    "negozio": "amazon",
+    "ricerca": "bicchiere termico acciaio inox da personalizzare",
+    "url": "",
+    "tinta": "Metallo",
+    "icona": "▯",
+    "n": {
+     "it": "Bicchieri e borracce in acciaio",
+     "en": "Steel tumblers and bottles"
+    },
+    "desc": {
+     "it": "Il regalo aziendale più richiesto, da incidere con nome o logo.",
+     "en": "The most requested corporate gift, engraved with a name or logo."
+    },
+    "consiglio": {
+     "it": "L’acciaio nudo si marca con laser a fibra o infrarosso; con il diodo serve uno spray di marcatura. Quelli verniciati si incidono con qualsiasi laser.",
+     "en": "Bare steel is marked with fibre or infrared lasers; a diode needs marking spray. Powder-coated ones engrave with any laser."
+    },
+    "materiali": [
+     "metallo"
+    ],
+    "generatori": [],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 11
+   },
+   {
+    "id": "nastro-mascheratura",
+    "cat": "laboratorio",
+    "negozio": "amazon",
+    "ricerca": "nastro mascheratura carta laser transfer tape",
+    "url": "",
+    "tinta": "Legno",
+    "icona": "▭",
+    "n": {
+     "it": "Nastro di mascheratura in carta",
+     "en": "Paper masking tape"
+    },
+    "desc": {
+     "it": "Il trucco per incisioni pulite su legno: niente aloni di fumo.",
+     "en": "The trick for clean wood engraving: no smoke stains."
+    },
+    "consiglio": {
+     "it": "Coprilo prima di incidere e toglilo alla fine: il fumo resta sul nastro, non sul legno.",
+     "en": "Apply it before engraving and peel it off afterwards: smoke stays on the tape, not the wood."
+    },
+    "materiali": [
+     "legno",
+     "mdf",
+     "bamboo"
+    ],
+    "generatori": [
+     "puzzle",
+     "segnalibro",
+     "cake-topper",
+     "rosetta"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 12
+   },
+   {
+    "id": "olio-cera-legno",
+    "cat": "laboratorio",
+    "negozio": "amazon",
+    "ricerca": "olio per legno cera finitura",
+    "url": "",
+    "tinta": "Legno",
+    "icona": "◍",
+    "n": {
+     "it": "Olio e cera per legno",
+     "en": "Wood oil and wax"
+    },
+    "desc": {
+     "it": "Ravvivano il contrasto dell’incisione e proteggono il legno.",
+     "en": "They bring out the engraving contrast and protect the wood."
+    },
+    "consiglio": {
+     "it": "Una mano sottile dopo l’incisione, poi asciuga con un panno: il segno diventa più scuro e profondo.",
+     "en": "One thin coat after engraving, then wipe: the mark gets darker and deeper."
+    },
+    "materiali": [
+     "legno",
+     "bamboo"
+    ],
+    "generatori": [
+     "sottobicchiere",
+     "segnalibro",
+     "puzzle"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 13
+   },
+   {
+    "id": "anelli-portachiavi",
+    "cat": "minuterie",
+    "negozio": "amazon",
+    "ricerca": "anelli portachiavi con catenella",
+    "url": "",
+    "tinta": "Metallo",
+    "icona": "○",
+    "n": {
+     "it": "Anelli per portachiavi",
+     "en": "Keyring hoops"
+    },
+    "desc": {
+     "it": "Anelli con catenella per completare i portachiavi tagliati al laser.",
+     "en": "Rings with chain to finish laser-cut keychains."
+    },
+    "consiglio": {
+     "it": "Prendi anelli da 25 mm con catenella: entrano nei fori da 5 mm del generatore di portachiavi.",
+     "en": "Choose 25 mm rings with a chain: they fit the 5 mm holes from the keychain generator."
+    },
+    "materiali": [],
+    "generatori": [
+     "portachiavi",
+     "ornamento"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 14
+   },
+   {
+    "id": "ganci-orecchini",
+    "cat": "minuterie",
+    "negozio": "amazon",
+    "ricerca": "ganci orecchini acciaio chirurgico monachelle anellini",
+    "url": "",
+    "tinta": "Metallo",
+    "icona": "◇",
+    "n": {
+     "it": "Ganci per orecchini e anellini",
+     "en": "Earring hooks and jump rings"
+    },
+    "desc": {
+     "it": "Monachelle e anellini per trasformare le sagome in orecchini.",
+     "en": "Hooks and jump rings to turn cut shapes into earrings."
+    },
+    "consiglio": {
+     "it": "Scegli ganci in acciaio chirurgico o argento 925: sono anallergici. Il foro del generatore è di 1,6 mm.",
+     "en": "Choose surgical steel or 925 silver hooks: they are hypoallergenic. The generator’s hole is 1.6 mm."
+    },
+    "materiali": [],
+    "generatori": [
+     "orecchini"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 15
+   },
+   {
+    "id": "nappine-segnalibri",
+    "cat": "minuterie",
+    "negozio": "amazon",
+    "ricerca": "nappine per segnalibri",
+    "url": "",
+    "tinta": "Pelle",
+    "icona": "✧",
+    "n": {
+     "it": "Nappine per segnalibri",
+     "en": "Bookmark tassels"
+    },
+    "desc": {
+     "it": "Il tocco finale per i segnalibri in legno o pelle.",
+     "en": "The finishing touch for wood or leather bookmarks."
+    },
+    "consiglio": {
+     "it": "Passano nel foro da 4 mm del generatore di segnalibri.",
+     "en": "They fit the 4 mm hole from the bookmark generator."
+    },
+    "materiali": [],
+    "generatori": [
+     "segnalibro"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 16
+   },
+   {
+    "id": "nastri-decorazioni",
+    "cat": "minuterie",
+    "negozio": "amazon",
+    "ricerca": "nastro raso per decorazioni natalizie",
+    "url": "",
+    "tinta": "Pelle",
+    "icona": "❋",
+    "n": {
+     "it": "Nastri per decorazioni e gift tag",
+     "en": "Ribbons for ornaments and gift tags"
+    },
+    "desc": {
+     "it": "Nastri in raso e juta per appendere ornamenti e chiudere i pacchetti.",
+     "en": "Satin and jute ribbons to hang ornaments and tie gifts."
+    },
+    "consiglio": {
+     "it": "Un nastro da 3–6 mm passa nel foro predefinito degli ornamenti (4 mm).",
+     "en": "A 3–6 mm ribbon fits the ornaments’ default 4 mm hole."
+    },
+    "materiali": [],
+    "generatori": [
+     "ornamento"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 17
+   },
+   {
+    "id": "xtool-nido-ape",
+    "cat": "macchina",
+    "negozio": "xtool",
+    "ricerca": "honeycomb panel",
+    "url": "",
+    "tinta": "Metallo",
+    "icona": "⬡",
+    "n": {
+     "it": "Piano a nido d’ape xTool",
+     "en": "xTool honeycomb panel"
+    },
+    "desc": {
+     "it": "Sostiene il pezzo e lascia passare il fumo: tagli più puliti sotto.",
+     "en": "Supports the workpiece and lets smoke through: cleaner cuts underneath."
+    },
+    "consiglio": {
+     "it": "Prendi quello del modello della tua macchina. Se il retro dei pezzi si sporca, è ora di pulirlo.",
+     "en": "Pick the one for your machine model. If the back of your parts gets dirty, it’s time to clean it."
+    },
+    "materiali": [],
+    "generatori": [
+     "puzzle",
+     "scatola-incastri",
+     "living-hinge"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 18
+   },
+   {
+    "id": "xtool-materiali",
+    "cat": "macchina",
+    "negozio": "xtool",
+    "ricerca": "material",
+    "url": "",
+    "tinta": "Legno",
+    "icona": "▦",
+    "n": {
+     "it": "Kit materiali xTool",
+     "en": "xTool material kits"
+    },
+    "desc": {
+     "it": "Materiali già provati con i parametri della libreria di xTool Creative Space.",
+     "en": "Materials already tested with the xTool Creative Space parameter library."
+    },
+    "consiglio": {
+     "it": "Utili per partire sicuri: i parametri pronti evitano le prime prove a vuoto.",
+     "en": "Handy to start safely: ready-made settings skip the first trial runs."
+    },
+    "materiali": [
+     "legno",
+     "plexiglass",
+     "pelle"
+    ],
+    "generatori": [
+     "test-materiali"
+    ],
+    "stato": "attivo",
+    "provato": false,
+    "ordine": 19
+   }
+  ]
+ }
 }

@@ -11,6 +11,7 @@
    - richiesta-carrello-whatsapp / -email      (elenco di richieste)
    - anteprima-3d-usata / preventivo-da-3d     (apertura della home)
    - demo-cliccata                             (link verso la demo xTool)
+   - fornitura-<negozio>-<articolo>            (clic verso un negozio dalle Forniture)
 
    Il codice del sito non è una chiave segreta: è l'indirizzo pubblico a cui
    il browser invia il conteggio (regola 6 rispettata). */
@@ -66,6 +67,7 @@ export function avvia(cfg = {}) {
     if (!el) return;
     const href = el.getAttribute('href') || '';
     if (/wa\.me\//.test(href)) evento('whatsapp');
+    else if (el.dataset.forn) evento(el.dataset.forn);
     else if (el.dataset.action === 'checkout-wa') evento('richiesta-carrello-whatsapp');
     else if (el.dataset.action === 'checkout-email') evento('richiesta-carrello-email');
     else if (/(^|\/)demo(\/|$)/.test(href) || el.dataset.nav === 'demo' || el.dataset.arg === 'demo') evento('demo-cliccata');

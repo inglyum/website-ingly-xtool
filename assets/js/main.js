@@ -24,6 +24,7 @@ import * as SFONDI from './sfondi.js';
 import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
 import * as STAT from './statistiche.js';
+import * as FORNUI from './forniture-ui.js';
 
 /* ---- config → DOM ---- */
 function initHeroVideo(){
@@ -680,6 +681,7 @@ function renderLab(){
     LABUI.renderCorsi(L);
     LABUI.renderDemo(L);
     LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
+    FORNUI.renderPerMateriale(currentScheda('materiali'),L);
     LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
     LABUI.renderMacchina(currentScheda('macchine'),L,p=>prod.card(p));
     LABUI.renderCorso(currentScheda('academy'),L);
@@ -811,7 +813,7 @@ function renderAll(){
     ['catalogo digitale',()=>DIGUI.renderTutto(L)],['ticker',renderTicker],['tecnologie home',renderTech],
     ['passaggi',renderSteps],['recensioni',renderReviews],['Business',renderBiz],['settori',renderVertStrip],
     ['pagina settore',()=>renderVerticale(currentVerticale())],['Lab',renderLab],['navigazione IA',renderNavIA],
-    ['contatori',renderContatori],['FAQ',renderFaq],['materiali home',renderMat],['portfolio',renderPort],
+    ['contatori',renderContatori],['FAQ',renderFaq],['forniture',()=>FORNUI.renderForniture(L)],['materiali home',renderMat],['portfolio',renderPort],
     ['social hub',renderSocialHub],['urgenza',renderUrg],['carrello',()=>prod.renderCart()],['animazioni',observeAll]
   ];
   jobs.forEach(([label,task])=>safeRun('render/'+label,task));
@@ -823,6 +825,7 @@ const actions={
      preventivo già nella forma aziendale, senza una seconda pagina da mantenere */
   'go':el=>go(el.dataset.arg, el.dataset.search||null),
   'go-shop':el=>goShop(el.dataset.arg),
+  'forn-cat':el=>FORNUI.filtra(el.dataset.arg),
   'open-product':el=>prod.openProduct(+el.dataset.id),
   'wish':(el,e)=>{e.stopPropagation();wish.toggleWishItem(+el.dataset.id,el)},
   'open-wish':()=>wish.openWish(),
@@ -1028,7 +1031,7 @@ document.addEventListener('ingly:pagina',e=>{
   if(e.detail && e.detail.pagina==='business') renderVerticale(currentVerticale());
   /* Le schede del Lab si aprono e si chiudono come i settori Business:
      l'indirizzo decide, non un bottone. */
-  if(e.detail && e.detail.pagina==='materiali') LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
+  if(e.detail && e.detail.pagina==='materiali'){ LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p)); FORNUI.renderPerMateriale(currentScheda('materiali'),L); }
   if(e.detail && e.detail.pagina==='tecnologie') LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
   if(e.detail && e.detail.pagina==='macchine') LABUI.renderMacchina(currentScheda('macchine'),L,p=>prod.card(p));
   if(e.detail && e.detail.pagina==='academy') LABUI.renderCorso(currentScheda('academy'),L);

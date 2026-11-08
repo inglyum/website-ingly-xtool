@@ -114,3 +114,14 @@ html[data-generator-mode] .canvas-note{position:static!important;display:inline-
  html[data-generator-mode] .tool span:last-child{white-space:nowrap}
  html[data-generator-mode] .sidebar .notice,html[data-generator-mode] .sidebar>.hint{font-size:12px}
 }
+
+/* materiali consigliati per il generatore aperto (link di affiliazione, con avviso) */
+html[data-generator-mode] .gen-forn-box:empty{display:none}
+html[data-generator-mode] .gen-forn-box{margin-top:22px;border-top:1px solid var(--rs-line);padding-top:16px}
+html[data-generator-mode] .gen-forn-tit{margin:0 0 10px;font:700 12px/1.2 var(--g-body);letter-spacing:.14em;text-transform:uppercase;color:var(--rs-ink)}
+html[data-generator-mode] .gen-forn{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--rs-line);margin-bottom:6px;color:var(--rs-ink);transition:border-color .2s,background .2s}
+html[data-generator-mode] .gen-forn:hover{border-color:var(--rs-gold);background:var(--rs-gold-soft)}
+html[data-generator-mode] .gen-forn b{font-weight:600;font-size:14px}
+html[data-generator-mode] .gen-forn span{flex:none;color:var(--rs-gold);font-size:13px;font-weight:600}
+html[data-generator-mode] .gen-forn-avviso{margin-top:8px!important}
+html[data-generator-mode] .gen-forn-avviso a{text-decoration:underline;text-underline-offset:3px;color:var(--rs-ink)}

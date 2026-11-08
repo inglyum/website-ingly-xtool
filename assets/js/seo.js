@@ -61,6 +61,7 @@ export function updateSeo(page, L, T, product){
     home:S.titolo||document.title, shop:T('shopH2'), digital:T('digEye'), business:T('bizH2'),
     portfolio:T('portH2'), about:T('abH2'), faq:T('faqH2'), quote:T('qH2'),
     materiali:(L==='en'?'Materials':'Materiali'),
+    forniture:(L==='en'?'Laser supplies: sheets, blanks and accessories':'Forniture per il laser: fogli, oggetti da personalizzare e accessori'),
     academy:'INGLY Academy',
     demo:(L==='en'?'Free demo':'Demo gratuita'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),

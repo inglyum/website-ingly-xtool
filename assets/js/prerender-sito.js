@@ -10,6 +10,7 @@
 import * as P from './prerender-engine.js';
 import * as SCH from './schema-engine.js';
 import * as FAQ from './faq-engine.js';
+import * as FORN from './forniture.js';
 import * as VERT from './verticali.js';
 import * as PR from './prezzi.js';
 import * as LAB from './lab.js';
@@ -50,6 +51,7 @@ export function generaSito(dati, guscio){
   const TITOLI = {
     shop:'Catalogo', digital:'Prodotti digitali', business:'B2B · Aziende',
     portfolio:'Portfolio', about:'Chi siamo', faq:'Domande frequenti', quote:'Richiedi un preventivo',
+    forniture:'Forniture per il laser',
   };
 
   function paginaProdotto(p){
@@ -94,6 +96,16 @@ export function generaSito(dati, guscio){
     const raccolte = pg === 'shop' ? CL.pubblicate(DCOLL).filter(c => c.gruppo === 'occasione' || c.gruppo === 'oggetto') : [];
     const contenutoPiu = raccolte.length ? contenuto + '\n<h2>Scegli per occasione o per oggetto</h2><ul>' +
       raccolte.map(c => `<li><a href="${base}/collezioni/${CL.rifDi(c)}">${esc(CL.lingua(c.n, L))}</a></li>`).join('') + '</ul>' : contenuto;
+    /* le forniture: schede con il consiglio INGLY, link al negozio e avviso di affiliazione */
+    if (pg === 'forniture') {
+      const DF = FORN.dati(contenuti);
+      const sez = FORN.categorieVive(DF).map(c => '<h2>' + esc(FORN.lingua(c.n, L)) + '</h2>' +
+        FORN.articoli(DF, { cat: c.id }).map(a => FORN.scheda(a, DF, { L, esc })).join('\n')).join('\n');
+      const av = FORN.avviso(DF, L);
+      return P.componi(guscio, { pagina: pg, titolo, descrizione: FORN.lingua(DF.intro, L) || desc, canonico,
+        contenuto: contenuto + '\n<p>' + esc(FORN.lingua(DF.intro, L)) + '</p>\n' + sez + (av ? '\n<p>' + esc(av) + '</p>' : ''),
+        jsonld: SCH.grafo([...entitaBase]) });
+    }
     const extra = pg === 'shop'
       ? [SCH.paginaCollezione(prodotti.filter(x => !x.hidden), { base, L, titolo: azienda + ' — Catalogo', url: canonico })]
       : [];

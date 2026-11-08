@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=ebf16e1245">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=408623a27c">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -1208,6 +1208,17 @@ setTimeout(function(){
     <span class="eyebrow eyebrow--c">❓ FAQ</span>
     <h1 class="h2" data-i18n="faqH2">Domande, risposte.</h1>
     <div class="faq" id="faqList" style="text-align:left"></div>
+  </div>
+</section>
+
+<!-- FORNITURE: materiali consigliati, venduti dai negozi (link di affiliazione) -->
+<section class="page" id="page-forniture">
+  <div class="wrap phero">
+    <h1 class="h2">Forniture per il laser</h1>
+    <p class="sub" id="fornIntro">I materiali e gli accessori che consigliamo per incidere e tagliare.</p>
+    <p class="forn-avviso" id="fornAvviso" hidden></p>
+    <div id="fornFiltri"></div>
+    <div id="fornGrid"></div>
   </div>
 </section>
 

@@ -525,6 +525,10 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
     <div class="card">
       <h3>🧺 Forniture per il laser — link di affiliazione</h3>
       <p class="hint">Materiali e accessori consigliati, venduti e spediti dal negozio (Amazon.it, xTool…). Tu non spedisci nulla: ricevi una commissione sugli acquisti fatti dai tuoi link. Le schede sono in stile INGLY con il tuo consiglio, ma <b>ogni scheda dice dove si compra e l'avviso di affiliazione resta sempre visibile</b>: lo richiede l'accordo Amazon (senza, l'account viene chiuso) e la legge sulla pubblicità trasparente.</p>
+      <label class="forn-switch" style="display:flex;gap:12px;align-items:center;margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:12px;font-weight:600;cursor:pointer">
+        <input type="checkbox" id="fornAttivo" style="width:22px;height:22px">
+        <span>Mostra la sezione Forniture sul sito<br><small class="hint" id="fornAttivoNota" style="font-weight:400"></small></span>
+      </label>
       <div id="fornProblemi"></div>
     </div>
     <div class="card">
@@ -5593,6 +5597,13 @@ function renderForn(){
     return;
   }
   const F=fornDati();
+  /* l'interruttore: spento di serie, si accende quando l'affiliazione è pronta */
+  const sw=$('fornAttivo');
+  if(sw){sw.checked=F.attivo===true;
+    $('fornAttivoNota').textContent=F.attivo===true
+      ?'Accesa: pagina /forniture, voce nel menu e nel piè di pagina, «Dove comprarlo» nei materiali e «Materiali consigliati» nel Generator Studio.'
+      :'Spenta: tutto nascosto dal sito e fuori dalla sitemap. Gli articoli restano qui pronti.';
+    sw.onchange=()=>{F.attivo=sw.checked;markDirty();renderForn();toast(sw.checked?'Forniture accese (da pubblicare)':'Forniture nascoste (da pubblicare)')}}
   const pr=FORN_MOD?FORN_MOD.problemi(FORN_MOD.dati({FORNITURE:F})):[];
   $('fornProblemi').innerHTML=pr.length?pr.map(x=>'<div class="chip '+(x.grave?'err':'hint')+'" style="display:block;margin:4px 0">'+(x.grave?'⛔ ':'⚠ ')+esc(x.testo)+'</div>').join(''):'<div class="chip ok">✔ Nessun problema nei link</div>';
   $('fornNegozi').innerHTML=F.negozi.map((n,i)=>'<div class="row c3" style="align-items:end;margin:8px 0">'
@@ -5780,7 +5791,7 @@ $('pubGo').onclick=async()=>{
      {file:'generatori.html',pagina:'tool',id:'generatori'},
      {file:'print-cut.html',pagina:'tool',id:'print-cut'},
      {file:'assistenza-xtool-palermo/index.html',pagina:'assistenza',id:'assistenza-xtool'}
-   ];
+   ].filter(v=>v.file!=='forniture/index.html'||(S.C&&S.C.FORNITURE&&S.C.FORNITURE.attivo===true));
    const sitemapRules={
      home:['weekly','1.0'],shop:['weekly','0.9'],digital:['weekly','0.8'],collezione:['weekly','0.8'],
      business:['monthly','0.8'],portfolio:['monthly','0.7'],faq:['monthly','0.7'],

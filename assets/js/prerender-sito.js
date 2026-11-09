@@ -97,6 +97,12 @@ export function generaSito(dati, guscio){
     const contenutoPiu = raccolte.length ? contenuto + '\n<h2>Scegli per occasione o per oggetto</h2><ul>' +
       raccolte.map(c => `<li><a href="${base}/collezioni/${CL.rifDi(c)}">${esc(CL.lingua(c.n, L))}</a></li>`).join('') + '</ul>' : contenuto;
     /* le forniture: schede con il consiglio INGLY, link al negozio e avviso di affiliazione */
+    if (pg === 'forniture' && !FORN.visibile(contenuti)) {
+      /* spenta dall'Admin: la pagina esiste (nessun 404) ma non va su Google */
+      return P.componi(guscio, { pagina: pg, titolo, descrizione: desc, canonico,
+        contenuto: contenuto + '\n<p>Questa sezione al momento non è disponibile.</p>', jsonld: SCH.grafo([...entitaBase]) })
+        .replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, follow">');
+    }
     if (pg === 'forniture') {
       const DF = FORN.dati(contenuti);
       const sez = FORN.categorieVive(DF).map(c => '<h2>' + esc(FORN.lingua(c.n, L)) + '</h2>' +

@@ -4800,6 +4800,7 @@
  ],
  "FORNITURE": {
   "_nota": "Vetrina dei consumabili con link di affiliazione. Il codice affiliato (es. il tag Amazon) è pubblico e si imposta dall'Admin. Ogni articolo indica il negozio che vende e spedisce. Vedi assets/js/forniture.js.",
+  "attivo": false,
   "titolo": {
    "it": "Forniture per il laser",
    "en": "Laser supplies"

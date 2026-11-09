@@ -22,6 +22,7 @@
    Funzioni pure: nessun DOM. Verificate in tests/test-nav-ia.mjs. */
 
 import * as CL from './collezioni.js';
+import * as FORN from './forniture.js';
 
 const esc = t => String(t == null ? '' : t)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -73,6 +74,9 @@ export const SECONDARIE = [
   { id: 'forniture', rotta: 'forniture', n: { it: 'Forniture per il laser', en: 'Laser supplies' } },
   { id: 'quote', rotta: 'quote', n: { it: 'Contatti e preventivo', en: 'Contact and quote' } }
 ];
+
+/** Le secondarie da mostrare: «Forniture» solo con l'interruttore dell'Admin acceso. */
+export const secondarieVive = (D = {}) => SECONDARIE.filter(v => v.id !== 'forniture' || FORN.visibile(D));
 
 /** Quanti prodotti si possono personalizzare, secondo i dati. */
 const quantiPersonalizzabili = D =>
@@ -274,7 +278,7 @@ export function destinazioni(D = {}, opt = {}) {
   /* Le secondarie contano: sono uscite dalla barra, non dal sito. Vivono
      nel cassetto mobile e nel piè di pagina, e se sparissero da qui una
      pagina indicizzata resterebbe senza nessun collegamento interno. */
-  for (const v of SECONDARIE) out.push('/' + v.rotta);
+  for (const v of secondarieVive(D)) out.push('/' + v.rotta);
   for (const f of famiglieVive(D)) {
     out.push('/' + f.rotta);
     const p = pannello(f.id, D, opt);
@@ -377,6 +381,6 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
     </div>`;
   }).join('') + `<div class="dr-sec">
     <p class="dr-col-tit">${L === 'en' ? 'The studio' : 'Lo studio'}</p>
-    ${SECONDARIE.map(v => `<a href="${esc(via(base, v.rotta))}" data-nav="${esc(v.rotta)}">${esc(L10n(v.n, L))}</a>`).join('')}
+    ${secondarieVive(D).map(v => `<a href="${esc(via(base, v.rotta))}" data-nav="${esc(v.rotta)}">${esc(L10n(v.n, L))}</a>`).join('')}
   </div>`;
 }

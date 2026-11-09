@@ -105,7 +105,8 @@ const pagine = [
   { file: 'prova-incisione.html', pagina: 'tool', id: 'prova-incisione' },
   /* pagina locale per chi cerca assistenza xTool a Palermo / in Sicilia */
   { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' }
-];
+/* Forniture: in sitemap solo se l'interruttore dell'Admin è acceso */
+].filter(v => v.file !== 'forniture/index.html' || (contenuti.FORNITURE && contenuti.FORNITURE.attivo === true));
 const mancanti = [];
 const righe = [];
 

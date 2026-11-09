@@ -576,3 +576,35 @@
 :root[data-mode][data-mode] .forn-card--mini .forn-tinta{aspect-ratio:3/1}
 :root[data-mode][data-mode] .forn-mat{margin-top:2.4rem}
 @media (max-width:640px){:root[data-mode][data-mode] .forn-grid{grid-template-columns:1fr}:root[data-mode][data-mode] .forn-tinta{aspect-ratio:3/1}:root[data-mode][data-mode] .forn-filtri{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}:root[data-mode][data-mode] .forn-chip{flex:0 0 auto;white-space:nowrap}}
+/* forniture: struttura ed effetti, gli stessi del catalogo */
+:root[data-mode][data-mode] .forn-passi{list-style:none;padding:0;margin:2rem 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rs-line);border-bottom:1px solid var(--rs-line);text-align:left}
+:root[data-mode][data-mode] .forn-passi:empty{display:none}
+:root[data-mode][data-mode] .forn-passi li{display:grid;grid-template-columns:auto 1fr;align-content:start;column-gap:.9rem;row-gap:.2rem;padding:1.2rem 1.2rem 1.2rem 0}
+:root[data-mode][data-mode] .forn-passi li+li{border-left:1px solid var(--rs-line);padding-left:1.2rem}
+:root[data-mode][data-mode] .forn-num{grid-row:span 2;font:700 2rem/1 var(--rs-font,inherit);color:var(--rs-gold);font-variant-numeric:tabular-nums}
+:root[data-mode][data-mode] .forn-passi b{font-size:1rem}
+:root[data-mode][data-mode] .forn-passi li>span:last-child{color:var(--rs-muted);font-size:.9rem;line-height:1.45}
+:root[data-mode][data-mode] .forn-conta{font-size:.9rem;font-weight:600;color:var(--rs-muted);vertical-align:middle;border:1px solid var(--rs-line);padding:.1rem .45rem;margin-left:.4rem;letter-spacing:0}
+:root[data-mode][data-mode] .forn-chiudi{margin-top:3.5rem;padding:2rem;display:flex;gap:2rem;align-items:center;justify-content:space-between;flex-wrap:wrap;text-align:left;
+ background:var(--rs-bg-2);border:1px solid var(--rs-line);position:relative;overflow:hidden;isolation:isolate}
+:root[data-mode][data-mode] .forn-chiudi::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--rs-pattern);-webkit-mask:url('../patterns/guilloche.svg') right center/520px auto no-repeat;mask:url('../patterns/guilloche.svg') right center/520px auto no-repeat}
+:root[data-mode][data-mode] .forn-chiudi h2{margin:0 0 .4rem;font-size:clamp(1.4rem,2.6vw,1.9rem)}
+:root[data-mode][data-mode] .forn-chiudi p{margin:0;color:var(--rs-muted);max-width:56ch}
+:root[data-mode][data-mode] .forn-chiudi-az{display:flex;gap:10px;flex-wrap:wrap}
+@media (hover:hover){
+ :root[data-mode][data-mode] .forn-card:hover .forn-tinta span{transform:scale(1.08)}
+ :root[data-mode][data-mode] .forn-card:hover .forn-vai{border-color:var(--rs-gold);background:var(--rs-gold-soft)}
+}
+:root[data-mode][data-mode] .forn-tinta span{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ :root[data-mode][data-mode] .forn-tinta::after{content:"";position:absolute;left:0;right:0;top:-12%;height:2px;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--rs-gold) 18%,#fff6e6 50%,var(--rs-gold) 82%,transparent);box-shadow:0 0 14px 2px rgba(255,140,60,.4)}
+ :root[data-mode][data-mode] .forn-card:hover .forn-tinta::after{animation:rs-scan .9s cubic-bezier(.45,0,.2,1) both}
+}
+@media (prefers-reduced-motion:reduce){:root[data-mode][data-mode] .forn-tinta span{transition:none}}
+@media (max-width:640px){
+ :root[data-mode][data-mode] .forn-passi{grid-template-columns:1fr}
+ :root[data-mode][data-mode] .forn-passi li{padding:1rem 0}
+ :root[data-mode][data-mode] .forn-passi li+li{border-left:0;border-top:1px solid var(--rs-line);padding-left:0}
+ :root[data-mode][data-mode] .forn-chiudi{padding:1.4rem}
+}

@@ -143,6 +143,8 @@ export function updateSeo(page, L, T, product){
   }
   /* direttiva per i motori: sempre indicizzabile salvo scelta esplicita */
   set('meta[name="robots"]','content',ENG.robots(page,S));
+  /* Forniture spente dall'Admin: la pagina resta raggiungibile ma Google non la indicizza */
+  if(page==='forniture'){const F=(window.INGLY||{}).FORNITURE;if(!(F&&F.attivo===true))set('meta[name="robots"]','content','noindex, follow')}
   /* URL canonico REALE della pagina.
      Prima era base()+'/#/'+page: indirizzi con '#' che Google collassa tutti
      sulla home, quindi canonical, og:url e hreflang puntavano di fatto a '/'.

@@ -6,12 +6,14 @@ import { readFileSync, existsSync } from 'node:fs';
 import * as F from '../assets/js/forniture.js';
 let ok = 0, ko = 0; const t = (n, c, x = '') => { c ? ok++ : ko++; console.log((c ? '  ✔ ' : '  ✘ ') + n + (c || !x ? '' : ' → ' + x)); };
 const content = JSON.parse(readFileSync('data/content.json', 'utf8'));
-const D = F.dati(content);
+const D0 = F.dati(content);
+/* le prove sulla selezione la guardano accesa; l'interruttore ha la sua sezione */
+const D = { ...D0, attivo: true };
 
 console.log('\n=== LINK SICURI ===');
 const neg = [{ id: 'amazon', nome: 'Amazon.it', domini: ['amazon.it'], parametro: 'tag', codice: 'inglydesign-21', ricerca: 'https://www.amazon.it/s?k={q}' },
   { id: 'xtool', nome: 'xTool', domini: ['xtool.com'], parametro: '', ricerca: '', affiliato: true }];
-const X = { negozi: neg, categorie: [{ id: 'c' }], articoli: [] };
+const X = { attivo: true, negozi: neg, categorie: [{ id: 'c' }], articoli: [] };
 t('dalla ricerca nasce il link al negozio con il codice affiliato', F.link({ negozio: 'amazon', ricerca: 'compensato 3mm' }, X) === 'https://www.amazon.it/s?k=compensato+3mm&tag=inglydesign-21');
 t('il link diretto riceve il codice', F.link({ negozio: 'amazon', url: 'https://www.amazon.it/dp/B0TEST' }, X) === 'https://www.amazon.it/dp/B0TEST?tag=inglydesign-21');
 t('un codice già presente nel link non viene sovrascritto', /tag=altro-21$/.test(F.link({ negozio: 'amazon', url: 'https://www.amazon.it/dp/B0?tag=altro-21' }, X)));
@@ -37,6 +39,18 @@ t('almeno 15 articoli visibili in almeno 4 categorie', F.articoli(D).length >= 1
 t('nessun problema grave nei dati', !F.problemi(D).some(p => p.grave), F.problemi(D).filter(p => p.grave).map(p => p.testo).join(' | '));
 t('ogni articolo ha nome, descrizione e consiglio in IT e EN', D.articoli.every(a => a.n.it && a.n.en && a.desc.it && a.desc.en && a.consiglio.it && a.consiglio.en));
 t('nessun «Lo usiamo» deciso al posto del titolare', D.articoli.every(a => a.provato === false));
+
+console.log('\n=== INTERRUTTORE DELL\'ADMIN ===');
+t('di serie la sezione è spenta (l\'affiliazione arriva dopo)', content.FORNITURE.attivo === false && !F.visibile(content));
+t('spenta: nessun articolo, nessun avviso, nessun link', F.articoli(D0).length === 0 && F.avviso(D0, 'it') === '' && F.articoli(D0, { generatore: 'orecchini' }).length === 0);
+t('accesa: tutto torna', F.visibile({ FORNITURE: { attivo: true } }) && F.articoli(D).length >= 15);
+const navIA = await import('../assets/js/nav-ia.js');
+t('voce di menu solo con la sezione accesa', !navIA.secondarieVive(content).some(v => v.id === 'forniture') && navIA.secondarieVive({ FORNITURE: { attivo: true } }).some(v => v.id === 'forniture'));
+t('spenta: fuori dalla sitemap, pagina statica non indicizzata', !/\/forniture<\/loc>/.test(readFileSync('sitemap.xml', 'utf8')) && /<meta name="robots" content="noindex, follow">/.test(readFileSync('forniture/index.html', 'utf8')));
+t('nel sito spenta resta un messaggio e il link al catalogo, non una pagina vuota', /Questa sezione al momento non è disponibile/.test(readFileSync('assets/js/forniture-ui.js', 'utf8')) && /\[data-forn-link\]/.test(readFileSync('assets/js/forniture-ui.js', 'utf8')));
+t('il piè di pagina ha la voce, nascosta finché la sezione è spenta', /<a href="forniture" data-nav="forniture" data-forn-link hidden>/.test(readFileSync('index.html', 'utf8')));
+t('Google non indicizza la pagina spenta neanche nel sito', /page==='forniture'\)\{const F=\(window\.INGLY\|\|\{\}\)\.FORNITURE;if\(!\(F&&F\.attivo===true\)\)set\('meta\[name="robots"\]','content','noindex, follow'\)/.test(readFileSync('assets/js/seo.js', 'utf8')));
+t('le due sitemap (script e Admin) seguono l\'interruttore', /FORNITURE\.attivo === true\)\)/.test(readFileSync('scripts/generate-sitemap.mjs', 'utf8')) && /forniture\/index\.html'\|\|\(S\.C&&S\.C\.FORNITURE&&S\.C\.FORNITURE\.attivo===true\)/.test(readFileSync('admin.html', 'utf8')));
 t('nessun prezzo scritto a mano (cambia ogni giorno sui negozi)', D.articoli.every(a => a.price === undefined && a.prezzo === undefined));
 const matLab = JSON.parse(readFileSync('data/materiali.json', 'utf8')).materiali.map(m => m.id);
 t('i materiali citati esistono nel Lab', D.articoli.every(a => (a.materiali || []).every(m => matLab.includes(m))));
@@ -49,8 +63,10 @@ console.log('\n=== SITO ===');
 const html = readFileSync('index.html', 'utf8');
 t('la pagina /forniture esiste nel sito', /id="page-forniture"/.test(html) && /id="fornGrid"/.test(html) && /id="fornAvviso"/.test(html));
 t('è una rotta vera e sta nel menu secondario', /id: 'forniture',\s+percorso: 'forniture',\s+menu: 'secondaria'/.test(readFileSync('assets/js/rotte.js', 'utf8')) && /id: 'forniture', rotta: 'forniture'/.test(readFileSync('assets/js/nav-ia.js', 'utf8')));
-t('pagina statica per Google con le schede e l\'avviso', existsSync('forniture/index.html') && (readFileSync('forniture/index.html', 'utf8').match(/class="forn-card/g) || []).length >= 15);
-t('nella sitemap', /\/forniture<\/loc>/.test(readFileSync('sitemap.xml', 'utf8')));
+t('la pagina statica esiste sempre (nessun 404 quando si riaccende)', existsSync('forniture/index.html'));
+const css2 = readFileSync('assets/css/restyle-2026.css', 'utf8');
+t('effetti come il catalogo: comparsa a scorrimento e riga laser al passaggio (rispetta «meno movimento»)', /reveal: true/.test(readFileSync('assets/js/forniture-ui.js', 'utf8')) && /prefers-reduced-motion:no-preference\)\{\s*:root\[data-mode\]\[data-mode\] \.forn-tinta::after/.test(css2));
+t('struttura: tre passi, conteggio per gruppo, chiusura con preventivo', /id="fornPassi"/.test(readFileSync('index.html', 'utf8')) && /id="fornChiusura"/.test(readFileSync('index.html', 'utf8')) && /\.forn-chiudi\{/.test(css2) && /forn-conta/.test(readFileSync('assets/js/forniture-ui.js', 'utf8')));
 const main = readFileSync('assets/js/main.js', 'utf8');
 t('disegnata all\'avvio e nelle schede dei materiali («Dove comprarlo»)', /\['forniture',\(\)=>FORNUI\.renderForniture\(L\)\]/.test(main) && (main.match(/FORNUI\.renderPerMateriale/g) || []).length === 2);
 t('i clic verso i negozi si contano nelle statistiche', /el\.dataset\.forn\) evento\(el\.dataset\.forn\)/.test(readFileSync('assets/js/statistiche.js', 'utf8')));
@@ -64,6 +80,7 @@ t('voce «Forniture (affiliati)» nel menu', /\['forn','🧺','Forniture \(affil
 t('codice affiliato e articoli modificabili', /data-forn-cod=/.test(admin) && /function editForn\(/.test(admin) && /id="fa_prova"/.test(admin));
 t('un link sbagliato blocca la pubblicazione', /FORN_MOD\.problemi\(FORN_MOD\.dati\(\{FORNITURE:S\.C\.FORNITURE\}\)\)\.forEach\(x=>\(x\.grave\?err:warn\)/.test(admin));
 t('se il sito pubblicato non ha forniture si parte dalla selezione di serie', /FORN_SEME/.test(admin));
+t('interruttore «Mostra la sezione Forniture sul sito»', /id="fornAttivo"/.test(admin) && /F\.attivo=sw\.checked/.test(admin));
 
 console.log(`\n=========== FORNITURE: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

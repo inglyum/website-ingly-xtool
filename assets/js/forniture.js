@@ -31,6 +31,17 @@ export function lingua(v, L = 'it') {
 }
 
 const vuoto = () => ({ negozi: [], categorie: [], articoli: [] });
+
+/**
+ * L'interruttore dell'Admin: FORNITURE.attivo === true accende la sezione.
+ * Spenta, sparisce tutto insieme: pagina, voce di menu, «Dove comprarlo»
+ * nei materiali e «Materiali consigliati» nello Studio. Il valore di serie è
+ * spento: l'affiliazione si attiva quando il titolare ha i codici.
+ */
+export const visibile = (D = {}) => {
+  const F = D && (D.FORNITURE || (D.C && D.C.FORNITURE));
+  return !!(F && typeof F === 'object' && F.attivo === true);
+};
 export const dati = (D = {}) => {
   const F = D && (D.FORNITURE || (D.C && D.C.FORNITURE));
   if (!F || typeof F !== 'object' || Array.isArray(F)) return vuoto();
@@ -85,6 +96,7 @@ export const affiliato = (a, F) => {
 /** Gli articoli che si vedono: attivi, con un link valido, filtrabili. */
 export function articoli(F, filtro = {}) {
   const { cat, materiale, generatore } = filtro;
+  if (!F || F.attivo !== true) return [];
   return (F.articoli || [])
     .filter(a => a.stato === 'attivo' && link(a, F))
     .filter(a => !cat || a.cat === cat)
@@ -147,14 +159,14 @@ export function problemi(F) {
 }
 
 /** HTML della scheda di un articolo (sito, pagine statiche e Studio usano lo stesso). */
-export function scheda(a, F, { L = 'it', esc, tinta = '', compatta = false } = {}) {
+export function scheda(a, F, { L = 'it', esc, tinta = '', compatta = false, reveal = false } = {}) {
   const e = esc || (s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])));
   const href = link(a, F);
   if (!href) return '';
   const vai = L === 'en' ? 'See it on ' : 'Vedi su ';
   const nostra = a.provato ? `<span class="forn-prova">${L === 'en' ? 'We use it in our workshop' : 'Lo usiamo in laboratorio'}</span>` : '';
   const consiglio = lingua(a.consiglio, L);
-  return `<article class="forn-card${compatta ? ' forn-card--mini' : ''}">
+  return `<article class="forn-card${compatta ? ' forn-card--mini' : ''}${reveal ? ' reveal' : ''}">
   <div class="forn-tinta" style="--forn-tinta:${e(tinta || 'var(--rs-bg-2)')}" aria-hidden="true"><span>${e(a.icona || '◇')}</span></div>
   <div class="forn-corpo">
     ${nostra}

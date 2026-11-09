@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=408623a27c">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=12a2290394">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -1225,9 +1225,11 @@ setTimeout(function(){
   <div class="wrap phero">
     <h1 class="h2">Forniture per il laser</h1>
     <p class="sub" id="fornIntro">I materiali e gli accessori che consigliamo per incidere e tagliare.</p>
+    <ol class="forn-passi" id="fornPassi"></ol>
     <p class="forn-avviso" id="fornAvviso" hidden></p>
     <div id="fornFiltri"></div>
     <div id="fornGrid"></div>
+    <div id="fornChiusura"></div>
   </div>
 </section>
 
@@ -1320,6 +1322,7 @@ setTimeout(function(){
         <a href="macchine" data-nav="macchine">Macchine</a>
         <a href="academy" data-nav="academy">Academy</a>
         <a href="demo" data-nav="demo">Demo gratuita</a>
+        <a href="forniture" data-nav="forniture" data-forn-link hidden>Forniture per il laser</a>
         <a href="assistenza-xtool-palermo/">Assistenza xTool Palermo</a></div>
       <div class="ft-col"><h4 data-i18n="ftCo">Studio</h4>
         <a href="about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>

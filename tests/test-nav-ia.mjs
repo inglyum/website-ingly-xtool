@@ -174,8 +174,9 @@ check('il cassetto mobile ha le stesse famiglie della barra',
    restano, in un gruppo a parte in fondo */
 check('il cassetto chiude con le voci secondarie',
   /class="dr-sec"/.test(IA.cassettoHtml(D, { base: '' })));
-check('e le contiene tutte e quattro',
-  IA.SECONDARIE.every(v => IA.cassettoHtml(D, { base: '' }).includes('data-nav="' + v.rotta + '"')));
+check('e le contiene tutte (Forniture solo se accese dall\'Admin)',
+  IA.secondarieVive(D).every(v => IA.cassettoHtml(D, { base: '' }).includes('data-nav="' + v.rotta + '"')) &&
+  IA.cassettoHtml(D, { base: '' }).includes('data-nav="forniture"') === Boolean(D.FORNITURE && D.FORNITURE.attivo === true));
 
 console.log('\n=== IL NOME PORTA ALLA PAGINA, LA FRECCIA APRE IL MENU ===');
 /* La regola: un clic sul nome deve aprire la landing, subito. Prima il

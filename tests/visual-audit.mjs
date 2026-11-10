@@ -24,7 +24,8 @@ const routes = [
   { name: 'admin', path: '/admin.html' },
   { name: 'admin-media', path: '/admin.html' },
   ...(CATALOGO_APERTO ? [
-    { name: 'product-with-photo', path: '/product/1/' },
+    /* il #1 è nascosto da novembre 2026 (marchio altrui): si usa il #2, foto vera */
+    { name: 'product-with-photo', path: '/product/2/' },
     { name: 'product-without-photo', path: '/product/9/' },
   ] : []),
 ];

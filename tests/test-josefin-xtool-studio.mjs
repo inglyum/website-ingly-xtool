@@ -13,7 +13,8 @@ const labJs=read('assets/js/lab-ui.js');
 const machines=JSON.parse(read('data/macchine.json')).macchine;
 assert(html.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
 assert(admin.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
-assert(generatorHtml.includes('fonts.googleapis.com/css2?family=Josefin+Sans'));
+/* Generator Studio, novembre 2026: stesso carattere del sito (Assistant servito in locale), niente Google Fonts */
+assert(generatorHtml.includes('assets/css/generatori-ingly.css')&&!generatorHtml.includes('fonts.googleapis.com'));
 assert(caricato('ingly-josefin-studio.css'));
 assert(generatorHtml.includes('assets/css/ingly-generator-theme.css'));
 assert(css.includes('#exitPopup #exitPopInner'), 'Premium popup treatment missing');

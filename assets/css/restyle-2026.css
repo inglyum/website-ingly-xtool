@@ -608,3 +608,14 @@
  :root[data-mode][data-mode] .forn-passi li+li{border-left:0;border-top:1px solid var(--rs-line);padding-left:0}
  :root[data-mode][data-mode] .forn-chiudi{padding:1.4rem}
 }
+
+/* logo ufficiale xTool Authorized Service Centre (fondo bianco nativo: sta su una tessera bianca in entrambi i temi) */
+.xtool-asc{margin:14px 0 18px;display:inline-flex;flex-direction:column;align-items:flex-start;gap:8px}
+.xtool-asc img{display:block;width:160px;height:auto;background:#fff;padding:8px;border:1px solid var(--rs-line,rgba(0,0,0,.12));border-radius:0!important}
+.xtool-asc figcaption{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--rs-muted,#6b6157)}
+.ft-asc{display:inline-block;margin-top:10px}
+.ft-asc img{display:block;width:96px;height:auto;background:#fff;padding:6px;border-radius:0!important}
+/* pagina Assistenza xTool: il marchio segue il tema (prima restava scuro su fondo scuro) */
+.ax-marchio--scuro{display:none}
+:root[data-mode="dark"] .ax-marchio--chiaro{display:none}
+:root[data-mode="dark"] .ax-marchio--scuro{display:block}

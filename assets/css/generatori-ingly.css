@@ -125,3 +125,39 @@ html[data-generator-mode] .gen-forn b{font-weight:600;font-size:14px}
 html[data-generator-mode] .gen-forn span{flex:none;color:var(--rs-gold);font-size:13px;font-weight:600}
 html[data-generator-mode] .gen-forn-avviso{margin-top:8px!important}
 html[data-generator-mode] .gen-forn-avviso a{text-decoration:underline;text-underline-offset:3px;color:var(--rs-ink)}
+
+/* ---------- strumenti professionali ---------- */
+html[data-generator-mode] .pro-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+html[data-generator-mode] .pro-btn{min-height:34px;min-width:34px;padding:0 10px;border:1px solid var(--rs-line-strong);background:transparent;color:var(--rs-ink);font:600 13px/1 var(--g-body);border-radius:0;cursor:pointer}
+html[data-generator-mode] .pro-btn:hover{background:var(--rs-gold-soft);border-color:var(--rs-ink)}
+html[data-generator-mode] .pro-btn[aria-pressed="true"]{background:var(--rs-ink);color:var(--rs-bg);border-color:var(--rs-ink)}
+html[data-generator-mode] .pro-zoom{min-width:46px;text-align:center;font:600 12px/1 var(--g-body);color:var(--rs-muted);font-variant-numeric:tabular-nums}
+html[data-generator-mode] .pro-sep{width:1px;height:22px;background:var(--rs-line);margin:0 4px}
+html[data-generator-mode] .pro-ico{min-width:44px;font-size:18px!important;padding:8px 10px!important}
+html[data-generator-mode] .pro-ico:disabled{opacity:.35}
+html[data-generator-mode] .canvas{overflow:hidden;touch-action:pan-y}
+html[data-generator-mode] .canvas svg{transform-origin:50% 50%;transition:transform .18s ease-out;user-select:none}
+html[data-generator-mode] .canvas svg .pro-ov text{stroke:none}
+@media (prefers-reduced-motion:reduce){html[data-generator-mode] .canvas svg{transition:none}}
+/* avvisi di produzione */
+html[data-generator-mode] .pro-avvisi{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px}
+html[data-generator-mode] .pro-avvisi:empty{display:none}
+html[data-generator-mode] .pro-avv{padding:8px 10px 8px 12px;border-left:3px solid var(--rs-line-strong);background:var(--rs-bg-2);color:var(--rs-ink);font:400 13px/1.45 var(--g-body)}
+html[data-generator-mode] .pro-avv--errore{border-left-color:#ff5d64;background:rgba(255,93,100,.1)}
+html[data-generator-mode] .pro-avv--attenzione{border-left-color:var(--rs-gold);background:var(--rs-gold-soft)}
+html[data-generator-mode] .pro-avv--info{border-left-color:#68d5ff;background:rgba(104,213,255,.08)}
+/* pannello Produzione */
+html[data-generator-mode] .pro-box{margin:18px 0 6px;border:1px solid var(--rs-line);padding:0 14px 14px;background:var(--rs-bg)}
+html[data-generator-mode] .pro-box summary{cursor:pointer;list-style:none;padding:12px 0;font:700 12px/1.2 var(--g-body);letter-spacing:.14em;text-transform:uppercase;color:var(--rs-ink);display:flex;justify-content:space-between;align-items:center}
+html[data-generator-mode] .pro-box summary::-webkit-details-marker{display:none}
+html[data-generator-mode] .pro-box summary::after{content:"+";font-size:18px;color:var(--rs-gold)}
+html[data-generator-mode] .pro-box[open] summary::after{content:"−"}
+html[data-generator-mode] .pro-box summary:focus-visible{outline:2px solid var(--rs-focus);outline-offset:2px}
+html[data-generator-mode] .pro-hint{margin:6px 0 0!important;font-size:12px!important;line-height:1.45}
+html[data-generator-mode] #p_riempi{margin-top:6px;width:100%}
+html[data-generator-mode] #p_riempi:disabled{opacity:.45;cursor:not-allowed}
+@media (max-width:760px){
+ html[data-generator-mode] .workactions{display:grid!important;grid-template-columns:auto auto 1fr;gap:6px}
+ html[data-generator-mode] .workactions #reset,html[data-generator-mode] .workactions #save,html[data-generator-mode] .workactions #download{grid-column:span 3}
+}
+html[data-generator-mode] .field .pair[hidden]{display:none!important}

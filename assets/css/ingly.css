@@ -10859,15 +10859,67 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
  :root[data-mode][data-mode] .forn-chiudi{padding:1.4rem}
 }
 
-/* logo ufficiale xTool Authorized Service Centre (fondo bianco nativo: sta su una tessera bianca in entrambi i temi) */
+/* logo ufficiale xTool Authorized Service Centre: trasparente, senza tessera; un'ombra
+   leggera lo stacca dal fondo in entrambi i temi */
 .xtool-asc{margin:14px 0 18px;display:inline-flex;flex-direction:column;align-items:flex-start;gap:8px}
-.xtool-asc img{display:block;width:160px;height:auto;background:#fff;padding:8px;border:1px solid var(--rs-line,rgba(0,0,0,.12));border-radius:0!important}
-.xtool-asc figcaption{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--rs-muted,#6b6157)}
+.xtool-asc img{display:block;width:150px;height:auto;background:none!important;padding:0;border:0;border-radius:0!important;filter:drop-shadow(0 6px 18px rgba(0,0,0,.28))}
+.xtool-asc figcaption{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--rs-muted,#6b6157)}
 .ft-asc{display:inline-block;margin-top:10px}
-.ft-asc img{display:block;width:96px;height:auto;background:#fff;padding:6px;border-radius:0!important}
+.ft-asc img{display:block;width:88px;height:auto;background:none!important;padding:0;border-radius:0!important}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ .xtool-asc img,.ft-asc img{transition:transform .5s cubic-bezier(.16,1,.3,1),filter .5s}
+ .xtool-asc:hover img,.ft-asc:hover img{transform:translateY(-3px) scale(1.03);filter:drop-shadow(0 10px 24px rgba(0,214,60,.28))}
+}
 /* pagina Assistenza xTool: il marchio segue il tema (prima restava scuro su fondo scuro) */
 .ax-marchio--scuro{display:none}
 :root[data-mode="dark"] .ax-marchio--chiaro{display:none}
 :root[data-mode="dark"] .ax-marchio--scuro{display:block}
 /* contrasto AA dello stato «Supportato» nel cercatore di materiali (tema chiaro) */
 :root[data-mode="light"] #page-macchine .ingly-finder-tile[data-status="yes"] small{color:#1d5537!important}
+
+/* ---------- FOTO UFFICIALI xTOOL: didascalie piccole, effetti come il catalogo ----------
+   Le didascalie erano a 16px con spaziatura larga (la regola «leggibilità minima»
+   del vecchio stile le gonfiava): ora sono piccole etichette in vetro scuro dentro
+   la foto, in basso a sinistra, leggibili su ogni sfondo. */
+:root[data-mode][data-mode] .page .ingly-machine-photo__source,
+:root[data-mode][data-mode] .page .xtool-lab-art>span{
+ position:absolute!important;left:12px!important;right:auto!important;top:auto!important;bottom:12px!important;
+ width:auto!important;max-width:calc(100% - 24px);z-index:2;
+ padding:5px 9px!important;border-radius:0!important;border:1px solid rgba(255,255,255,.14)!important;
+ background:rgba(12,10,8,.62)!important;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+ color:#f3ece1!important;font:600 10.5px/1.25 var(--rs-font)!important;letter-spacing:.08em!important;
+ text-transform:uppercase;text-align:left!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ box-shadow:none!important
+}
+:root[data-mode][data-mode] .page .machine-photo-label{
+ font:600 11px/1.3 var(--rs-font)!important;letter-spacing:.04em!important;
+ padding:3px 8px!important;border-radius:0!important;background:transparent!important;
+ border:1px solid var(--rs-line)!important;color:var(--rs-muted)!important;margin:10px 0 2px!important
+}
+/* le foto: contenitore che taglia lo zoom, riga laser dorata al passaggio */
+:root[data-mode][data-mode] .page :is(.ingly-machine-photo__media,.machine-explore-image,.xtool-lab-art){position:relative;overflow:hidden;isolation:isolate}
+:root[data-mode][data-mode] .page :is(.machine-explore-image,.xtool-lab-art) img{transition:transform .7s cubic-bezier(.16,1,.3,1)}
+:root[data-mode][data-mode] .page .ingly-machine-photo__media img{transition:transform .7s cubic-bezier(.16,1,.3,1)!important}
+@media (hover:hover){
+ :root[data-mode][data-mode] .page .ingly-machine-photo:hover .ingly-machine-photo__media img,
+ :root[data-mode][data-mode] .page .machine-explore-card:hover .machine-explore-image img,
+ :root[data-mode][data-mode] .page .xtool-lab-art:hover img{transform:scale(1.045)!important}
+ :root[data-mode][data-mode] .page .machine-explore-card:hover{border-color:var(--rs-gold)!important}
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+ :root[data-mode][data-mode] .page :is(.ingly-machine-photo__media,.machine-explore-image,.xtool-lab-art)::after{
+  content:"";position:absolute;left:0;right:0;top:-12%;height:2px;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--rs-gold) 18%,#fff6e6 50%,var(--rs-gold) 82%,transparent);box-shadow:0 0 14px 2px rgba(255,140,60,.4)}
+ :root[data-mode][data-mode] .page :is(.ingly-machine-photo:hover .ingly-machine-photo__media,.machine-explore-card:hover .machine-explore-image,.xtool-lab-art:hover)::after{animation:rs-scan .9s cubic-bezier(.45,0,.2,1) both}
+}
+@media (prefers-reduced-motion:reduce){
+ :root[data-mode][data-mode] .page :is(.ingly-machine-photo__media,.machine-explore-image,.xtool-lab-art) img{transition:none!important;transform:none!important}
+}
+@media (max-width:640px){
+ :root[data-mode][data-mode] .page .ingly-machine-photo__source,
+ :root[data-mode][data-mode] .page .xtool-lab-art>span{left:8px!important;bottom:8px!important;max-width:calc(100% - 16px);padding:4px 7px!important;font-size:10px!important}
+}
+/* blocchi xTool con gli angoli vivi del resto del sito */
+:root[data-mode][data-mode] .page :is(.xtool-lab-feature,.xtool-lab-art,.xtool-lab-art img,.ingly-service-centre,.machine-explore-card,.machine-explore-image,.machine-explore-image img){border-radius:0!important}
+/* la didascalia sta sulla tessera scura anche nel tema chiaro: testo chiaro sempre */
+:root[data-mode][data-mode] #page-macchine .ingly-service-centre__squad{color:#e9dfcf!important}

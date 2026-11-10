@@ -17,7 +17,7 @@ const hero=d.querySelector('#page-home .signature-hero');
 assert(hero,'Home hero missing');
 assert.equal(hero.querySelectorAll('#heroH1').length,1,'Existing Admin headline must remain');
 assert(!hero.querySelector('#heroVisual'),'Hero intentionally contains no background photo');
-assert(!hero.querySelector('#inglyHeroSculpture'),'Hero intentionally contains no 3D sculpture');
+assert(!hero.querySelector('#inglyHeroSculpture'),'Old CSS sculpture not reintroduced (restyle 2026 uses its own #rs3dStage)');
 assert(!hero.querySelector('.coin-scene'),'No leftover rotating media');
 const links=[...hero.querySelectorAll('.signature-benefits__inner .signature-benefit')];
 assert.equal(links.length,config.showcaseBenefits.length,'Every Admin feature should appear');
@@ -50,7 +50,9 @@ for(const phrase of ['function renderShowcaseStrip()','markDirty();renderShowcas
 assert(fallback.includes('showcaseBenefits'),'Legacy data fallback out of sync');
 assert(caricato('signature-showcase.css')&&html.includes('assets/js/signature-showcase.js'));
 assert(css.includes('@media(max-width:450px)')&&css.includes('prefers-reduced-motion:reduce'));
-assert(html.includes('Hero deliberately text-only'),'Static branded hero must be explicit');
+/* Restyle 2026 (scelta del titolare): l'apertura non è più solo testo ma la targa
+   incisa in 3D dal vivo, con la foto di un lavoro vero come riserva senza WebGL. */
+assert(html.includes('id="rs3dStage"')&&html.includes('class="rs3d-stage__foto"'),'Hero 3D esplicito con foto di riserva');
 assert(css.includes('--ss-night:#080e19')&&css.includes('--ss-gold:#e3ad62'),'Ink/gold identity missing');
 for(const link of ['shop','personalizza','materiali','tecnologie','faq'])assert(html.includes('href="'+link+'"'),'Missing live service link '+link);
 new Function(js);

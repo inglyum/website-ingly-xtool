@@ -29,6 +29,7 @@ const dati = {
   tecnologie: await leggi('data/tecnologie.json'),
   macchine: await leggi('data/macchine.json'),
   corsi: await leggi('data/corsi.json'),
+  collezioni: await leggi('data/collezioni.json'),
 };
 const guscio = await readFile(join(ROOT, 'index.html'), 'utf8');
 const { pagine, problemi, prodotti, verticali } = generaSito(dati, guscio);
@@ -42,7 +43,7 @@ if(!SOLO_VERIFICA && existsSync(join(ROOT, 'product'))) await rm(join(ROOT, 'pro
 /* stesso motivo per il Lab: un materiale tolto dai dati non deve lasciare
    la sua pagina sul disco, indicizzata e irraggiungibile dal sito */
 if(!SOLO_VERIFICA){
-  for(const sez of ['materiali','tecnologie','macchine','academy','demo']){
+  for(const sez of ['materiali','tecnologie','macchine','academy','demo','collezioni']){
     const dir = join(ROOT, sez);
     if(existsSync(dir)) await rm(dir, { recursive: true, force: true });
   }

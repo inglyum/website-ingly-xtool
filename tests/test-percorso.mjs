@@ -53,7 +53,7 @@ check('il passo attuale è marcato aria-current', /aria-current="page"/.test(src
 check('testi IT/EN in texts.json', [...src.matchAll(/'(pc[A-Z]\w+)'/g)].every(m => testi.it[m[1]] && testi.en[m[1]]));
 
 console.log('\n=== INDIRIZZI DELLO SHOP SOTTO LA BASE ===');
-check('i filtri scrivono l\'indirizzo sotto BASE, non dalla radice', /const next=BASE\+'shop'\+/.test(prod) && !/const next='\/shop'/.test(prod));
+check('i filtri scrivono l\'indirizzo sotto BASE, non dalla radice', /const next=soloColl\?BASE\+'collezioni\/'[^;]*:BASE\+'shop'\+/.test(prod) && !/const next='\/shop'/.test(prod));
 check('products.js importa BASE dal router', /import \{ go, BASE \} from '\.\/navigation\.js'/.test(prod));
 
 console.log(`\n=========== PERCORSO: ${pass} passati, ${fail} falliti ===========`);

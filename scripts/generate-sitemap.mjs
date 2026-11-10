@@ -31,7 +31,8 @@ const prodotti = JSON.parse(readFileSync(join(ROOT,'data/products.json'),'utf8')
    non hanno pagine, quindi non vanno nella sitemap */
 (await import('../assets/js/catalogo-stato.js')).applicaCatalogo({
   CONFIG: JSON.parse(JSON.stringify(config)),
-  CATS: JSON.parse(readFileSync(join(ROOT,'data/categories.json'),'utf8')), P: prodotti });
+  CATS: JSON.parse(readFileSync(join(ROOT,'data/categories.json'),'utf8')), P: prodotti,
+  MV: JSON.parse(readFileSync(join(ROOT,'data/content.json'),'utf8')).MV });
 const contenuti = JSON.parse(readFileSync(join(ROOT,'data/content.json'),'utf8'));
 const versioneDati = JSON.parse(readFileSync(join(ROOT,'data/version.json'),'utf8'));
 /* GitHub Actions estrae il repository in un filesystem nuovo: stat.mtime
@@ -51,6 +52,7 @@ const REGOLE = {
   home:      ['weekly',  '1.0'],
   assistenza: ['monthly', '0.9'],
   verticale: ['monthly', '0.8'],
+  collezione: ['weekly', '0.8'],
   shop:      ['weekly',  '0.9'],
   digital:   ['weekly',  '0.8'],
   business:  ['monthly', '0.8'],
@@ -88,8 +90,13 @@ const DLAB = {
   CONFIG: config,
   PRODUCTS: prodotti
 };
+const CL = await import('../assets/js/collezioni.js');
+const DCOLL = { P: prodotti, COLLEZIONI: JSON.parse(readFileSync(join(ROOT,'data/collezioni.json'),'utf8')) };
 const pagine = [
   ...PRE.elenco({ prodotti, verticali: contenuti.VERTICALI || [] }),
+  /* raccolte per occasione e per oggetto: le pagine che rispondono a
+     «segnaposto matrimonio» o «targhe personalizzate» */
+  ...CL.pubblicate(DCOLL).map(c => ({ file: 'collezioni/' + CL.rifDi(c) + '/index.html', pagina: 'collezione', id: c.id })),
   ...LAB.elencoPagine(DLAB).map(v => ({ file: v.file, pagina: 'lab', id: v.id })),
   /* Strumento autonomo: il Generator Studio è una pagina HTML indipendente,
      non una rotta SPA, quindi entra nella sitemap con il suo file reale. */
@@ -98,7 +105,8 @@ const pagine = [
   { file: 'prova-incisione.html', pagina: 'tool', id: 'prova-incisione' },
   /* pagina locale per chi cerca assistenza xTool a Palermo / in Sicilia */
   { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' }
-];
+/* Forniture: in sitemap solo se l'interruttore dell'Admin è acceso */
+].filter(v => v.file !== 'forniture/index.html' || (contenuti.FORNITURE && contenuti.FORNITURE.attivo === true));
 const mancanti = [];
 const righe = [];
 

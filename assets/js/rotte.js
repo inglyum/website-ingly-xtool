@@ -57,6 +57,8 @@ export const ROTTE = [
   { id: 'portfolio',  percorso: 'portfolio',   menu: 'secondaria' },
   { id: 'about',      percorso: 'about',       menu: 'secondaria' },
   { id: 'faq',        percorso: 'faq',         menu: 'secondaria' },
+  /* materiali e accessori consigliati, venduti dai negozi con link di affiliazione */
+  { id: 'forniture',  percorso: 'forniture',   menu: 'secondaria' },
   { id: 'quote',      percorso: 'quote',       menu: 'secondaria' },
   { id: 'product',    percorso: 'product',     menu: 'nascosta' },
 ];

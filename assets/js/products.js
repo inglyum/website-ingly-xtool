@@ -161,12 +161,16 @@ function stockBadge(x){
 function artIcona(x){const c=CATS.find(k=>k.id===x.cat);return icon(c&&c.icon,'','art-ic')}
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
+  /* la seconda foto vera del prodotto, se c'è: compare al passaggio del mouse.
+     Classe diversa da .pimgph (regola 1: niente animation sulle foto prodotto) */
+  const alt2=fotoDisponibili(x)[1];
+  const foto2=alt2?`<img class="pimg-alt" src="${imgV(alt2)}"${srcsetFor(alt2)}${focalOf(alt2)} alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.remove()">`:'';
   return `<article class="pcard reveal in" data-component="product-card" data-action="open-product" data-id="${x.id}">
     <button type="button" class="pcard-open" aria-label="${L==='it'?'Apri prodotto':'Open product'}: ${esc(x.n[L]||x.n.it)}" data-action="open-product" data-id="${x.id}"></button>
     <div class="pimg" style="background:${a.bg}">
       ${x.tag?`<span class="ptag ${x.tag==='Limited'?'y':x.tag==='B2B'?'b':''}">${x.tag}</span>`:''}
       <button class="wish ${lsWish().has(x.id)?'on':''}" aria-label="Wishlist" data-action="wish" data-id="${x.id}"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 2-3.2 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.8.5 3.5 2 5l7 7z"/></svg></button>
-      <div class="art">${artIcona(x)}</div>${foto}${stockBadge(x)}
+      <div class="art">${artIcona(x)}</div>${foto}${foto2}${stockBadge(x)}
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
     <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
@@ -352,15 +356,63 @@ function collSet(){
 /* L'intestazione della collezione: dice dove si è e come uscirne.
    Un filtro attivo che non si vede è il modo più rapido di far credere a
    qualcuno che il catalogo sia mezzo vuoto. */
+const GRUPPO_ALTRE={occasione:'collAltreOcc',oggetto:'collAltriOgg'};
 function renderCollBanner(){
   const box=$('shopCollBanner');
   if(!box) return;
   const c=F.coll?CL.trova(F.coll,window.INGLY):null;
-  if(!c){ box.hidden=true; box.innerHTML=''; return }
+  document.getElementById('page-shop')?.classList.toggle('coll-attiva',!!c);
+  if(!c){ box.hidden=true; box.innerHTML=''; box.className='shop-coll'; return }
+  const D=window.INGLY, g=c.gruppo||'vetrina';
+  const n=CL.conta(c,D);
+  const sorelle=CL.pubblicate(D).filter(x=>x.id!==c.id&&(x.gruppo||'vetrina')===g);
   box.hidden=false;
-  box.innerHTML=`<div class="scb-txt"><h2>${CL.lingua(c.n,L)}</h2>${
-    CL.lingua(c.s,L)?`<p>${CL.lingua(c.s,L)}</p>`:''}</div>
-    <button class="btn" data-action="coll-clear">${L==='it'?'Tutto il catalogo':'Full catalogue'}</button>`;
+  box.className='shop-coll shop-coll--'+g;
+  box.innerHTML=`<nav class="scb-briciole" aria-label="${L==='it'?'Percorso':'Breadcrumb'}"><button type="button" data-action="coll-clear">${T('collCatalogo')}</button><span aria-hidden="true">/</span><span>${esc(CL.lingua(c.n,L))}</span></nav>
+    <div class="scb-txt"><h1>${esc(CL.lingua(c.n,L))}</h1>
+    <p>${esc(CL.lingua(c.intro,L)||CL.lingua(c.s,L))}</p>
+    <p class="scb-azioni"><button type="button" class="btn btn-primary" data-action="go" data-arg="quote">${T('collQuote')}</button><button type="button" class="btn btn-ghost" data-action="coll-clear">${T('collTutto')}</button></p></div>
+    ${sorelle.length?`<div class="scb-sorelle"><h3>${T(GRUPPO_ALTRE[g]||'collAltre')}</h3><p>${sorelle.map(x=>`<a href="collezioni/${CL.rifDi(x)}/">${esc(CL.lingua(x.n,L))}</a>`).join('')}</p></div>`:''}`;
+  /* il titolo della scheda del browser e la descrizione seguono la raccolta */
+  if(document.querySelector('#page-shop.active')){
+    const seo=c.seo||{};
+    document.title=(CL.lingua(seo.titolo,L)||CL.lingua(c.n,L))+' | INGLY DESIGN';
+    const md=document.querySelector('meta[name="description"]');
+    if(md) md.setAttribute('content',CL.lingua(seo.descrizione,L)||CL.lingua(c.s,L)||md.getAttribute('content'));
+  }
+  void n;
+}
+
+/* Gli ingressi per occasione e per oggetto in cima al catalogo intero:
+   la prima domanda di chi cerca un regalo è «per cosa?», non «di che
+   materiale?». Spariscono appena c'è un filtro, per non spingere giù i
+   risultati di chi ha già scelto. Link veri: si aprono in una nuova scheda,
+   si condividono e Google li segue. */
+function renderOccasioni(){
+  const box=$('shopOcc'); if(!box) return;
+  const filtro=F.coll||F.cat.size||F.mat.size||F.sub.size||(($('q')&&$('q').value)||'').trim();
+  const D=window.INGLY;
+  const occ=CL.pubblicate(D).filter(c=>c.gruppo==='occasione');
+  const ogg=CL.pubblicate(D).filter(c=>c.gruppo==='oggetto');
+  if(filtro||(!occ.length&&!ogg.length)){ box.hidden=true; return }
+  /* ogni tessera la sua foto: un prodotto che sta in più occasioni non deve
+     ripetersi su tutte. Si prende la prima foto non ancora usata. */
+  const usate=new Set();
+  const copertina=c=>{
+    let src=c.cover;
+    if(!src){
+      const foto=CL.prodottiDi(c,D).map(p=>fotoDisponibili(p)[0]).filter(Boolean);
+      src=foto.find(f=>!usate.has(f))||'';
+    }
+    if(src) usate.add(src);
+    return src?`<img src="${imgV(src)}"${srcsetFor(src)}${focalOf(src)} alt="" loading="lazy" decoding="async" onerror="this.remove()">`:'';
+  };
+  const idee=n=>n+' '+T(n===1?'occIdee1':'occIdee');
+  box.hidden=false;
+  box.innerHTML=(occ.length?`<section class="occ" aria-labelledby="occH"><h2 id="occH">${T('occH')}</h2>
+    <div class="occ-grid">${occ.map(c=>`<a class="occ-tile" href="collezioni/${CL.rifDi(c)}/"><span class="occ-foto">${copertina(c)}</span><span class="occ-testo"><b>${esc(CL.lingua(c.n,L))}</b><small>${idee(CL.conta(c,D))}</small></span></a>`).join('')}</div></section>`:'')+
+    (ogg.length?`<section class="ogg" aria-labelledby="oggH"><h2 id="oggH">${T('oggH')}</h2>
+    <p class="ogg-righe">${ogg.map(c=>`<a href="collezioni/${CL.rifDi(c)}/">${esc(CL.lingua(c.n,L))} <i>${CL.conta(c,D)}</i></a>`).join('')}</p></section>`:'');
 }
 
 /* Apre lo shop su una collezione. */
@@ -572,8 +624,27 @@ function renderCatalogoAgg(){
   </div></div>`;
   return true;
 }
+/* Catalogo in vetrina: prodotti visibili, nessun ordine online. Una riga in
+   cima allo shop lo dice chiaro e porta al preventivo o a WhatsApp. */
+function renderAvvisoVetrina(){
+  const pg=$('page-shop'); if(!pg) return;
+  const on=!!(window.INGLY.CATALOGO&&window.INGLY.CATALOGO.vetrina);
+  document.documentElement.classList.toggle('catalogo-vetrina',on);
+  let box=$('catVetrina');
+  if(!on){ if(box) box.remove(); return; }
+  const s=statoCatalogo(CONFIG,L);
+  const wa=String(CONFIG.whatsapp||'https://wa.me/393296904627');
+  const msg=encodeURIComponent(T('catAggWaMsg'));
+  if(!box){ box=document.createElement('aside'); box.id='catVetrina'; box.className='cat-vetrina'; box.setAttribute('aria-label',T('vetrinaEtichetta')); pg.prepend(box); }
+  box.innerHTML=`<div class="wrap cat-vetrina__in">
+    <p class="cat-vetrina__testo"><strong>${T('vetrinaTitolo')}</strong> ${escapeMarkup(s.avviso||T('vetrinaTesto'))}</p>
+    <p class="cat-vetrina__azioni"><a href="${escapeMarkup(wa)}${wa.includes('?')?'&':'?'}text=${msg}" target="_blank" rel="noopener">${T('catAggWa')}</a><button type="button" data-action="go" data-arg="quote">${T('catAggQuote')}</button></p>
+  </div>`;
+}
 export function renderShop(){
   if(renderCatalogoAgg()) return;
+  renderAvvisoVetrina();
+  renderOccasioni();
   const res=filterProducts();
   if(SORT==='pa')res.sort((a,b)=>a.price-b.price);
   if(SORT==='pd')res.sort((a,b)=>b.price-a.price);
@@ -656,6 +727,16 @@ function renderMaterialDetails(){
     (Array.isArray(material.consigli&&material.consigli[L])&&material.consigli[L].length?'<div class="pp-material-note"><b>'+(L==='it'?'Consiglio di lavorazione':'Workshop note')+'</b><p>'+escapeMarkup(material.consigli[L][0])+'</p></div>':'')+
     (Array.isArray(material.limiti&&material.limiti[L])&&material.limiti[L].length?'<div class="pp-material-limit"><b>'+(L==='it'?'Da sapere':'Please note')+'</b><p>'+escapeMarkup(material.limiti[L][0])+'</p></div>':'')+
     '<p class="pp-material-foot">'+(L==='it'?'Spessore, finitura e disponibilità vengono confermati prima della produzione.':'Thickness, finish and availability are confirmed before production.')+'</p></section>';
+}
+/* «Perfetto per»: le occasioni e i tipi di oggetto in cui il prodotto
+   compare, come link alle loro pagine, più tre garanzie vere del laboratorio. */
+function renderPerfettoPer(){
+  const box=$('ppPerfetto'); if(!box||!cur) return;
+  const D=window.INGLY;
+  const dove=CL.collezioniDi(cur,D).filter(c=>c.gruppo==='occasione'||c.gruppo==='oggetto');
+  box.hidden=false;
+  box.innerHTML=(dove.length?`<p class="ppf-occ"><b>${T('ppPerfH')}</b> ${dove.map(c=>`<a href="collezioni/${CL.rifDi(c)}/">${esc(CL.lingua(c.n,L))}</a>`).join('')}</p>`:'')+
+    `<ul class="ppf-garanzie"><li>${icon('check')} ${T('ppTrust1')}</li><li>${icon('shield')} ${T('ppTrust2')}</li><li>${icon('whatsapp')} ${T('ppTrust3')}</li></ul>`;
 }
 function renderProductContactLinks(){
   const c=CONFIG.conversione||{};
@@ -763,6 +844,7 @@ export function renderPP(){
   $('ppMain').style.background=a.bg;
   renderMaterialDetails();
   renderProductContactLinks();
+  renderPerfettoPer();
 
   /* galleria principale con frecce */
   galShots=galleryOf(cur);
@@ -1382,13 +1464,19 @@ export function syncFiltersToURL(){
     /* sotto la base del sito: «/shop» dalla radice del dominio, su GitHub
        Pages (…/website-ingly-xtool/), era un indirizzo che non esiste —
        ricaricato o condiviso, ogni filtro dello Shop dava 404 */
-    const next=BASE+'shop'+(q.length?'?'+q.join('&'):'');
+    /* solo la raccolta, nessun altro filtro: l'indirizzo è la sua pagina vera */
+    const cAtt=F.coll?CL.trova(F.coll,window.INGLY):null;
+    const soloColl=cAtt&&q.length===1&&q[0].startsWith('coll=');
+    const next=soloColl?BASE+'collezioni/'+CL.rifDi(cAtt)+'/':BASE+'shop'+(q.length?'?'+q.join('&'):'');
     if(location.pathname+location.search!==next) history.replaceState(history.state,'',next);
   }catch(e){}
 }
 export function readFiltersFromURL(){
   try{
-    const raw=location.search.slice(1)||location.hash.split('?')[1]; if(!raw) return false;
+    const raw=location.search.slice(1)||location.hash.split('?')[1]||'';
+    /* /collezioni/matrimonio/ → la raccolta «matrimonio», anche senza query */
+    const mp=/\/collezioni\/([a-z0-9-]+)\/?$/.exec(location.pathname);
+    if(!raw&&!mp) return false;
     const pr=new URLSearchParams(raw);
     URL_LOCK=true;
     F.cat.clear(); F.mat.clear(); F.sub.clear(); F.coll='';
@@ -1396,6 +1484,7 @@ export function readFiltersFromURL(){
        parametro viene ignorato e si vede il catalogo intero. */
     const cPar=pr.get('coll')?CL.trova(pr.get('coll'),window.INGLY):null;
     if(cPar) F.coll=cPar.id;
+    if(mp){ const cPath=CL.trova(mp[1],window.INGLY); F.coll=cPath?cPath.id:''; }
     if(pr.get('cat')) pr.get('cat').split(',').filter(Boolean).forEach(v=>F.cat.add(v));
     if(pr.get('mat')) pr.get('mat').split(',').filter(Boolean).forEach(v=>F.mat.add(v));
     if(pr.get('sub')) pr.get('sub').split(',').filter(Boolean).forEach(v=>F.sub.add(+v));

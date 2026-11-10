@@ -23,6 +23,8 @@ import * as STATO from './stato-sito.js';
 import * as SFONDI from './sfondi.js';
 import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
+import * as STAT from './statistiche.js';
+import * as FORNUI from './forniture-ui.js';
 
 /* ---- config → DOM ---- */
 function initHeroVideo(){
@@ -204,6 +206,8 @@ function applyI18n(){
   document.documentElement.lang=L;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const v=D[L][el.dataset.i18n];if(v!==undefined)el.innerHTML=v});
   document.querySelectorAll('[data-ph]').forEach(el=>{const v=D[L][el.dataset.ph];if(v!==undefined)el.placeholder=v});
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>{const v=D[L][el.dataset.i18nAlt];if(v!==undefined)el.alt=v});
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const v=D[L][el.dataset.i18nAria];if(v!==undefined)el.setAttribute('aria-label',v)});
   renderTitoloHero();
   translateInline();
   $('langIT').classList.toggle('on',L==='it');
@@ -211,7 +215,7 @@ function applyI18n(){
   prod.fillSort();
   // The owner-supplied loader controls its own message cycle; translation must not overwrite it.
   const l=$('ldrTxt');if(l&&!document.querySelector('#loader.ingly-custom-loader'))l.textContent=T('ldr');
-  const sb=$('sbBtn');if(sb)sb.firstChild.textContent=T('ppAdd')+' ';
+  const sb=$('sbBtn');if(sb)sb.firstChild.textContent=(PREZZI.mostraPrezzi(CONFIG)?T('ppAdd'):PREZZI.etichettaAzione(CONFIG,L))+' ';
 }
 /* ===== TITOLO DELLA HERO =====
    Il titolo grande è la prima cosa che si legge del sito, e finora viveva
@@ -442,7 +446,6 @@ function bindMode(){
   const mobile=document.getElementById('mobileModeBtn');
   if(!btn && !mobile) return;
   const root=document.documentElement;
-  const sys=window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
   const stored=()=>{try{const v=localStorage.getItem('ingly_mode');return v==='light'||v==='dark'?v:null}catch(e){return null}};
   const labels=v=>v==='light'
     ? {next:'Passa alla modalità scura',current:'Modalità chiara attiva'}
@@ -451,16 +454,18 @@ function bindMode(){
     const v=value==='light'?'light':'dark';
     root.setAttribute('data-mode',v);
     const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute('content',v==='light'?'#f4f8fc':'#0b1221');
+    if(meta)meta.setAttribute('content',v==='light'?'#f7f2ea':'#13100d');
     if(persist){try{localStorage.setItem('ingly_mode',v)}catch(e){}}
     for(const el of [btn,mobile]){
       if(!el)continue;
       el.setAttribute('aria-pressed',v==='light'?'true':'false');
-      el.setAttribute('aria-label',labels(v).next);
+      /* il nome accessibile contiene il testo visibile («Tema») del pulsante mobile */
+      el.setAttribute('aria-label',(el===mobile?'Tema: ':'')+labels(v).next);
       el.title=labels(v).next;
     }
   };
-  set(stored() || (sys&&sys.matches?'light':'dark'));
+  /* restyle 2026: «notte calda + oro» è la base per tutti; il chiaro si sceglie col pulsante */
+  set(stored() || 'dark');
   const toggle=()=>{
     root.classList.add('theme-anim');
     set(root.getAttribute('data-mode')==='light'?'dark':'light',true);
@@ -468,7 +473,6 @@ function bindMode(){
   };
   btn?.addEventListener('click',toggle);
   mobile?.addEventListener('click',toggle);
-  try{sys?.addEventListener('change',e=>{if(!stored())set(e.matches?'light':'dark')})}catch(e){}
 }
 
 function bindLightbox(){
@@ -584,7 +588,10 @@ function renderWaFab(){
   const url=num?('https://wa.me/'+num+(w.messaggio?'?text='+encodeURIComponent(w.messaggio):'')):(CONFIG.whatsapp||'');
   if(w.attivo===false||!url){el.style.display='none';return}
   el.href=url;el.style.display='';
-  const lbl=el.querySelector('.wa-lbl');if(lbl)lbl.textContent=(w.etichetta&&w.etichetta[L])||(L==='it'?'Scrivici su WhatsApp':'Chat on WhatsApp');
+  const testo=(w.etichetta&&w.etichetta[L])||(L==='it'?'Scrivici su WhatsApp':'Chat on WhatsApp');
+  const lbl=el.querySelector('.wa-lbl');if(lbl)lbl.textContent=testo;
+  /* stesso testo dell'etichetta: sul telefono l'etichetta è nascosta e il nome resta */
+  el.setAttribute('aria-label',testo);
 }
 function renderAboutArt(){
   const box=document.querySelector('.about-art');if(!box)return;
@@ -678,6 +685,7 @@ function renderLab(){
     LABUI.renderCorsi(L);
     LABUI.renderDemo(L);
     LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
+    FORNUI.renderPerMateriale(currentScheda('materiali'),L);
     LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
     LABUI.renderMacchina(currentScheda('macchine'),L,p=>prod.card(p));
     LABUI.renderCorso(currentScheda('academy'),L);
@@ -809,7 +817,7 @@ function renderAll(){
     ['catalogo digitale',()=>DIGUI.renderTutto(L)],['ticker',renderTicker],['tecnologie home',renderTech],
     ['passaggi',renderSteps],['recensioni',renderReviews],['Business',renderBiz],['settori',renderVertStrip],
     ['pagina settore',()=>renderVerticale(currentVerticale())],['Lab',renderLab],['navigazione IA',renderNavIA],
-    ['contatori',renderContatori],['FAQ',renderFaq],['materiali home',renderMat],['portfolio',renderPort],
+    ['contatori',renderContatori],['FAQ',renderFaq],['forniture',()=>FORNUI.renderForniture(L)],['materiali home',renderMat],['portfolio',renderPort],
     ['social hub',renderSocialHub],['urgenza',renderUrg],['carrello',()=>prod.renderCart()],['animazioni',observeAll]
   ];
   jobs.forEach(([label,task])=>safeRun('render/'+label,task));
@@ -821,6 +829,7 @@ const actions={
      preventivo già nella forma aziendale, senza una seconda pagina da mantenere */
   'go':el=>go(el.dataset.arg, el.dataset.search||null),
   'go-shop':el=>goShop(el.dataset.arg),
+  'forn-cat':el=>FORNUI.filtra(el.dataset.arg),
   'open-product':el=>prod.openProduct(+el.dataset.id),
   'wish':(el,e)=>{e.stopPropagation();wish.toggleWishItem(+el.dataset.id,el)},
   'open-wish':()=>wish.openWish(),
@@ -974,6 +983,7 @@ safeRun('lazy loading',initLazy);
 safeRun('moduli contatto',initForms);
 safeRun('filtri catalogo',()=>prod.initShopControls());
 safeRun('delega eventi',initDelegation);
+safeRun('statistiche',()=>STAT.avvia(CONFIG));
 safeRun('condivisione',initShare);
 safeRun('FOMO',initFomo);
 safeRun('feed Instagram',()=>renderInstagramFeed('igFeedSection'));
@@ -1025,7 +1035,7 @@ document.addEventListener('ingly:pagina',e=>{
   if(e.detail && e.detail.pagina==='business') renderVerticale(currentVerticale());
   /* Le schede del Lab si aprono e si chiudono come i settori Business:
      l'indirizzo decide, non un bottone. */
-  if(e.detail && e.detail.pagina==='materiali') LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p));
+  if(e.detail && e.detail.pagina==='materiali'){ LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p)); FORNUI.renderPerMateriale(currentScheda('materiali'),L); }
   if(e.detail && e.detail.pagina==='tecnologie') LABUI.renderTecnologia(currentScheda('tecnologie'),L,p=>prod.card(p));
   if(e.detail && e.detail.pagina==='macchine') LABUI.renderMacchina(currentScheda('macchine'),L,p=>prod.card(p));
   if(e.detail && e.detail.pagina==='academy') LABUI.renderCorso(currentScheda('academy'),L);

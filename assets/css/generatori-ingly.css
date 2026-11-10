@@ -1,0 +1,127 @@
+/* ============ GENERATOR STUDIO · STILE INGLY 2026 ============
+   Stessa casa del sito: «notte calda + oro», carattere Assistant servito dal
+   sito, angoli vivi, nessun testo sfumato. L'anteprima sta su un piano laser
+   a nido d'ape (lo stesso pattern inciso del sito), scuro in entrambi i temi:
+   così le linee rosse (taglio) e azzurre (incisione) si leggono sempre.
+   Caricato dopo ingly-generator-theme.css: vince a parità di priorità. */
+
+@font-face{font-family:'Assistant';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/assistant/assistant-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/assistant/assistant-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Assistant';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/assistant/assistant-latin-700-normal.woff2') format('woff2')}
+
+html[data-generator-mode]{
+ --rs-bg:#13100d;--rs-bg-2:#1c1813;--rs-ink:#f3ece1;--rs-muted:#b7aa97;
+ --rs-line:rgba(243,236,225,.12);--rs-line-strong:rgba(243,236,225,.5);
+ --rs-gold:#d6ae6c;--rs-gold-hover:#e6c48c;--rs-on-gold:#17110a;--rs-gold-soft:rgba(214,174,108,.12);
+ --rs-focus:#e6c48c;--rs-pattern:rgba(214,174,108,.13);
+ --rs-bed:#100d0b;--rs-bed-cell:rgba(214,174,108,.16);
+ --bg:var(--rs-bg);--panel:var(--rs-bg);--panel2:var(--rs-bg-2);--line:var(--rs-line);
+ --ink:var(--rs-ink);--muted:var(--rs-muted);--gold:var(--rs-gold);--cyan:var(--rs-gold);--blue:var(--rs-gold);--green:var(--rs-gold);
+ --radius:0px;--g-body:'Assistant',system-ui,-apple-system,'Segoe UI',sans-serif;
+ color-scheme:dark;
+}
+html[data-generator-mode="light"]{
+ --rs-bg:#f7f2ea;--rs-bg-2:#eee6d8;--rs-ink:#1a140e;--rs-muted:#5a4e42;
+ --rs-line:rgba(26,20,14,.14);--rs-line-strong:rgba(26,20,14,.55);
+ --rs-gold:#8a5f1f;--rs-gold-hover:#6f4b16;--rs-on-gold:#fffaf2;--rs-gold-soft:rgba(138,95,31,.1);
+ --rs-focus:#6f4b16;--rs-pattern:rgba(138,95,31,.12);
+ --rs-bed:#1c1813;--rs-bed-cell:rgba(214,174,108,.2);
+ color-scheme:light;
+}
+
+/* ---------- base ---------- */
+html[data-generator-mode] body{background:var(--rs-bg)!important;color:var(--rs-ink)!important;font:400 16px/1.55 var(--g-body)!important}
+html[data-generator-mode] :where(button,a,input,select,textarea):focus-visible{outline:2px solid var(--rs-focus)!important;outline-offset:3px!important}
+html[data-generator-mode] .top{background:var(--rs-bg)!important;backdrop-filter:none!important;border-bottom:1px solid var(--rs-line)!important}
+html[data-generator-mode] .brand{font:700 18px/1.2 var(--g-body)!important;letter-spacing:.06em!important}
+html[data-generator-mode] .brand small{color:var(--rs-muted)!important;letter-spacing:.16em!important}
+html[data-generator-mode] .toplinks a:hover{color:var(--rs-ink)!important;text-decoration:underline;text-underline-offset:4px}
+
+/* pulsanti: oro pieno per l'azione principale, contorno per il resto */
+html[data-generator-mode] .btn{border-radius:0!important;background:transparent!important;color:var(--rs-ink)!important;
+ border:1px solid var(--rs-line-strong)!important;box-shadow:none!important;font:600 14px/1.2 var(--g-body)!important;letter-spacing:.02em;transform:none!important}
+html[data-generator-mode] .btn:hover{border-color:var(--rs-ink)!important;background:var(--rs-gold-soft)!important}
+html[data-generator-mode] .btn.primary,html[data-generator-mode] .btn.gold{background:var(--rs-gold)!important;color:var(--rs-on-gold)!important;border-color:var(--rs-gold)!important}
+html[data-generator-mode] .btn.primary:hover,html[data-generator-mode] .btn.gold:hover{background:var(--rs-gold-hover)!important;border-color:var(--rs-gold-hover)!important}
+html[data-generator-mode] .btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* ---------- apertura ---------- */
+html[data-generator-mode] .hero .eyebrow{display:none!important}
+html[data-generator-mode] .hero h1{font:700 clamp(2.3rem,4.6vw,4.2rem)/1.06 var(--g-body)!important;letter-spacing:-.03em!important;color:var(--rs-ink)!important;margin-top:0!important}
+html[data-generator-mode] .hero h1 span{background:none!important;-webkit-text-fill-color:currentColor!important;color:var(--rs-gold)!important}
+html[data-generator-mode] .hero p{color:var(--rs-muted)!important}
+html[data-generator-mode] .chip{border-radius:0!important;background:transparent!important;border:1px solid var(--rs-line)!important;color:var(--rs-muted)!important;letter-spacing:.04em}
+
+/* ---------- pannelli ---------- */
+html[data-generator-mode] .panel{border-radius:0!important;background:var(--rs-bg)!important;border:1px solid var(--rs-line)!important;box-shadow:none!important}
+html[data-generator-mode] .panel-title{color:var(--rs-ink)!important;letter-spacing:.14em!important}
+html[data-generator-mode] #count{color:var(--rs-gold)!important}
+html[data-generator-mode] .search,html[data-generator-mode] .field input,html[data-generator-mode] .field select{
+ border-radius:0!important;background:var(--rs-bg)!important;color:var(--rs-ink)!important;border:1px solid var(--rs-line-strong)!important;font-family:var(--g-body)!important}
+html[data-generator-mode] .field input[type=range]{border:0!important;accent-color:var(--rs-gold)!important}
+html[data-generator-mode] .checkrow{color:var(--rs-ink)!important}
+html[data-generator-mode] .checkrow input{accent-color:var(--rs-gold)!important}
+html[data-generator-mode] .filter{border-radius:0!important;background:transparent!important;color:var(--rs-muted)!important;border:1px solid var(--rs-line)!important}
+html[data-generator-mode] .filter.active{background:var(--rs-ink)!important;color:var(--rs-bg)!important;border-color:var(--rs-ink)!important}
+
+/* elenco degli strumenti */
+html[data-generator-mode] .tool{border-radius:0!important;background:transparent!important;color:var(--rs-ink)!important;border:1px solid transparent!important;border-bottom-color:var(--rs-line)!important;box-shadow:none!important}
+html[data-generator-mode] .tool:hover{background:var(--rs-gold-soft)!important}
+html[data-generator-mode] .tool.active{background:var(--rs-gold-soft)!important;box-shadow:inset 3px 0 var(--rs-gold)!important}
+html[data-generator-mode] .tool-icon{border-radius:0!important;background:var(--rs-bg-2)!important;color:var(--rs-gold)!important;border:1px solid var(--rs-line)}
+html[data-generator-mode] .tool small,html[data-generator-mode] .worktitle p,html[data-generator-mode] .hint,
+html[data-generator-mode] .unit,html[data-generator-mode] .legend,html[data-generator-mode] .feature p{color:var(--rs-muted)!important}
+html[data-generator-mode] .worktitle h2{font:700 24px/1.15 var(--g-body)!important;letter-spacing:-.02em!important;color:var(--rs-ink)!important}
+html[data-generator-mode] .workhead,html[data-generator-mode] .preview-side{border-color:var(--rs-line)!important}
+
+/* ---------- piano laser a nido d'ape ---------- */
+html[data-generator-mode] .canvas{border-radius:0!important;background:var(--rs-bed)!important;border:1px solid var(--rs-line)!important;isolation:isolate}
+html[data-generator-mode] .canvas::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--rs-bed-cell);pointer-events:none;
+ -webkit-mask:url('../patterns/nido-ape.svg') center/420px auto repeat;mask:url('../patterns/nido-ape.svg') center/420px auto repeat}
+html[data-generator-mode] .canvas svg{filter:drop-shadow(0 0 1.5px rgba(255,93,100,.35))!important}
+html[data-generator-mode] .canvas-note{border-radius:0!important;background:var(--rs-bg-2)!important;color:var(--rs-muted)!important}
+html[data-generator-mode] .stat,html[data-generator-mode] .feature{border-radius:0!important;background:transparent!important;border:1px solid var(--rs-line)!important;color:var(--rs-ink)!important}
+html[data-generator-mode] .stat b{font-variant-numeric:tabular-nums}
+html[data-generator-mode] .notice{border-radius:0!important;background:var(--rs-gold-soft)!important;border:0!important;border-left:3px solid var(--rs-gold)!important;color:var(--rs-ink)!important}
+html[data-generator-mode] .toast{border-radius:0!important;background:var(--rs-ink)!important;color:var(--rs-bg)!important;border:0!important}
+html[data-generator-mode] .foot a{text-decoration:underline;text-underline-offset:4px}
+html[data-generator-mode] .more h2{font:700 clamp(1.5rem,2.6vw,2rem)/1.15 var(--g-body)!important}
+
+/* libreria compatta: 16 strumenti stanno accanto all'anteprima senza spingerla giù */
+html[data-generator-mode] .tool{padding:8px 10px!important;gap:10px!important}
+html[data-generator-mode] .tool-list .tool-icon{width:34px!important;height:34px!important;flex-basis:34px!important;font-size:17px!important}
+html[data-generator-mode] .tool b{font-size:14px!important}
+html[data-generator-mode] .tool small{font-size:12px!important}
+@media (min-width:761px){
+ html[data-generator-mode] .sidebar{top:88px!important;max-height:calc(100vh - 104px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--rs-line-strong) transparent}
+}
+
+/* anteprima: linee sottili e nitide a ogni zoom (solo a schermo, il file resta 0,1 mm) */
+html[data-generator-mode] .canvas svg :is(path,circle,rect,ellipse,polygon){vector-effect:non-scaling-stroke}
+html[data-generator-mode] .canvas svg :is(#INGLY_CUT,#INGLY_ENGRAVE){stroke-width:1.2px}
+html[data-generator-mode] .canvas-note{position:static!important;display:inline-block;margin-top:10px}
+
+/* telefono: gli strumenti in una fila da scorrere col dito */
+@media (max-width:760px){
+ html[data-generator-mode] .layout>*{min-width:0;max-width:100%}
+ html[data-generator-mode] .sidebar{overflow:hidden}
+ html[data-generator-mode] .tool-list{display:flex!important;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px;margin:0 -16px;padding-inline:16px;scrollbar-width:none}
+ html[data-generator-mode] .tool-list::-webkit-scrollbar,html[data-generator-mode] .filters::-webkit-scrollbar{display:none}
+ html[data-generator-mode] .filters{flex-wrap:nowrap!important;overflow-x:auto;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+ html[data-generator-mode] .filter{flex:0 0 auto;white-space:nowrap;min-height:36px}
+ html[data-generator-mode] .tool{flex:0 0 auto;width:auto!important;min-width:0;max-width:220px;scroll-snap-align:start;border:1px solid var(--rs-line)!important}
+ html[data-generator-mode] .tool.active{border-color:var(--rs-gold)!important;box-shadow:inset 0 -3px var(--rs-gold)!important}
+ html[data-generator-mode] .tool span:last-child{white-space:nowrap}
+ html[data-generator-mode] .sidebar .notice,html[data-generator-mode] .sidebar>.hint{font-size:12px}
+}
+
+/* materiali consigliati per il generatore aperto (link di affiliazione, con avviso) */
+html[data-generator-mode] .gen-forn-box:empty{display:none}
+html[data-generator-mode] .gen-forn-box{margin-top:22px;border-top:1px solid var(--rs-line);padding-top:16px}
+html[data-generator-mode] .gen-forn-tit{margin:0 0 10px;font:700 12px/1.2 var(--g-body);letter-spacing:.14em;text-transform:uppercase;color:var(--rs-ink)}
+html[data-generator-mode] .gen-forn{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--rs-line);margin-bottom:6px;color:var(--rs-ink);transition:border-color .2s,background .2s}
+html[data-generator-mode] .gen-forn:hover{border-color:var(--rs-gold);background:var(--rs-gold-soft)}
+html[data-generator-mode] .gen-forn b{font-weight:600;font-size:14px}
+html[data-generator-mode] .gen-forn span{flex:none;color:var(--rs-gold);font-size:13px;font-weight:600}
+html[data-generator-mode] .gen-forn-avviso{margin-top:8px!important}
+html[data-generator-mode] .gen-forn-avviso a{text-decoration:underline;text-underline-offset:3px;color:var(--rs-ink)}

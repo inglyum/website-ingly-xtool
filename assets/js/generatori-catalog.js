@@ -7,7 +7,12 @@
     { id: 'cake-topper', label: 'Cake Topper', icon: '✦', category: 'Feste ed eventi', summary: 'Targhe con picchetto e testo personalizzato.' },
     { id: 'ornamento', label: 'Ornamenti e Gift Tag', icon: '❋', category: 'Feste e stagioni', summary: 'Sagome stagionali con foro e testo personalizzabile.' },
     { id: 'scatola-incastri', label: 'Scatola a incastri', icon: '▣', category: 'Scatole e packaging', summary: 'Pannelli con denti parametrici per prototipi laser.' },
-    { id: 'ingranaggio', label: 'Ingranaggio parametrico', icon: '⚙', category: 'Meccanica e design', summary: 'Ruota dentata decorativa con parametri regolabili.' }
+    { id: 'ingranaggio', label: 'Ingranaggio parametrico', icon: '⚙', category: 'Meccanica e design', summary: 'Ruota dentata decorativa con parametri regolabili.' },
+    { id: 'puzzle', label: 'Puzzle personalizzato', icon: '◫', category: 'Giochi e regali', summary: 'Puzzle a incastri: misure, pezzi e variante del taglio.' },
+    { id: 'sottobicchiere', label: 'Sottobicchieri', icon: '◎', category: 'Casa e tavola', summary: 'Set con forma, testo e cornice incisa.' },
+    { id: 'segnalibro', label: 'Segnalibri', icon: '▯', category: 'Giochi e regali', summary: 'Punta sagomata, foro per la nappina e testo in verticale.' },
+    { id: 'orecchini', label: 'Orecchini', icon: '◇', category: 'Accessori', summary: 'Paia in cinque forme: pieni, traforati o incisi.' },
+    { id: 'rosetta', label: 'Rosetta guilloché', icon: '✺', category: 'Incisioni decorative', summary: 'Anelli di linee intrecciate, il disegno firma di INGLY.' }
   ];
   w.INGLY_GENERATORI_MODULES = modules;
   w.INGLY_GENERATORI_DEFAULTS = modules.map(function (m, index) {
@@ -18,7 +23,12 @@
       'cake-topper': ['Cake Topper personalizzato', 'Custom Cake Topper', 'Feste ed eventi'],
       ornamento: ['Ornamenti e Gift Tag', 'Ornaments & Gift Tags', 'Feste e stagioni'],
       'scatola-incastri': ['Scatola a incastri', 'Finger-joint Box', 'Scatole e packaging'],
-      ingranaggio: ['Ingranaggio parametrico', 'Parametric Gear', 'Meccanica e design']
+      ingranaggio: ['Ingranaggio parametrico', 'Parametric Gear', 'Meccanica e design'],
+      puzzle: ['Puzzle personalizzato', 'Custom jigsaw puzzle', 'Giochi e regali'],
+      sottobicchiere: ['Sottobicchieri', 'Coasters', 'Casa e tavola'],
+      segnalibro: ['Segnalibri', 'Bookmarks', 'Giochi e regali'],
+      orecchini: ['Orecchini', 'Earrings', 'Accessori'],
+      rosetta: ['Rosetta guilloché', 'Guilloché rosette', 'Incisioni decorative']
     };
     const descriptions = {
       portachiavi: ['Crea portachiavi, targhette e piccoli gadget con foro, forma e misure regolabili.', 'Create keychains and tags with adjustable shape, hole and dimensions.'],
@@ -27,7 +37,12 @@
       'cake-topper': ['Personalizza una sagoma con picchetto integrato per feste e ricorrenze.', 'Personalize a topper silhouette with an integrated stake.'],
       ornamento: ['Genera ornamenti e gift tag in più sagome, con foro per nastro e testo inciso.', 'Generate ornament and gift-tag silhouettes with a hanging hole and custom engraved text.'],
       'scatola-incastri': ['Genera i cinque pannelli di una scatola con denti e cave parametriche. Controlla gli incastri sul tuo materiale prima del taglio definitivo.', 'Generate five box panels with parametric finger joints. Test fit and kerf on your material before final cutting.'],
-      ingranaggio: ['Genera una ruota dentata trapezoidale per prototipi e progetti decorativi; il profilo non è certificato per trasmissioni meccaniche.', 'Generate a trapezoidal-tooth gear for prototypes and decorative projects; the tooth profile is not certified for mechanical transmissions.']
+      ingranaggio: ['Genera una ruota dentata trapezoidale per prototipi e progetti decorativi; il profilo non è certificato per trasmissioni meccaniche.', 'Generate a trapezoidal-tooth gear for prototypes and decorative projects; the tooth profile is not certified for mechanical transmissions.'],
+      puzzle: ['Puzzle a incastri classici: misure, numero di pezzi e variante del taglio.', 'Classic jigsaw: size, number of pieces and cut variant.'],
+      sottobicchiere: ['Set di sottobicchieri con forma, testo e cornice incisa.', 'Coaster sets with shape, text and engraved frame.'],
+      segnalibro: ['Segnalibri con punta, foro per la nappina e testo in verticale.', 'Bookmarks with shaped tip, tassel hole and vertical text.'],
+      orecchini: ['Paia di orecchini in cinque forme, pieni, traforati o incisi.', 'Earring pairs in five shapes: solid, cut-out or engraved.'],
+      rosetta: ['Il disegno inciso firma di INGLY: anelli di linee intrecciate, da medaglione o sottobicchiere.', 'INGLY’s signature engraving: interwoven line rings for medallions or coasters.']
     };
     return {
       id: m.id,

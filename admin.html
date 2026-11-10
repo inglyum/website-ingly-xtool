@@ -366,7 +366,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
     <button type="button" class="btn adm-menu-btn" id="admMenuBtn" aria-controls="nav" aria-expanded="false">☰ Menu</button>
     <h1 id="vtitle">Dashboard</h1>
     <div class="sync" data-go="pub" role="button" tabindex="0" title="Vai a Pubblica" style="cursor:pointer"><span class="dot" id="syncDot"></span><span id="syncTxt">caricamento…</span></div>
-    <button type="button" class="btn admin-theme-switch" id="adminThemeSwitch" aria-label="Attiva modalità chiara" aria-pressed="false">☀ Chiaro</button>
+    <button type="button" class="btn admin-theme-switch" id="adminThemeSwitch" aria-label="Chiaro: attiva la modalità chiara" aria-pressed="false">☀ Chiaro</button>
     <button class="btn" id="goPrev" title="Apri il sito con i dati in bozza">👁 Anteprima</button>
   <button class="btn pri" data-ui="cta" id="goPub">🚀 Pubblica <span id="pubN" class="pill" style="background:rgba(0,0,0,.18);border:none"></span></button>
   </div>
@@ -517,6 +517,28 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <h3>🧩 Motori disponibili</h3>
       <div class="hint">Questi motori sono già eseguibili nella pagina pubblica. Una nuova voce può riutilizzarne uno oppure indirizzare l'utente a un servizio esterno. Il semplice inserimento di un nome non crea automaticamente un nuovo algoritmo.</div>
       <div id="genEngines" class="row c2"></div>
+    </div>
+  </section>
+
+  <!-- ============ FORNITURE (affiliati) ============ -->
+  <section class="view" id="v-forn">
+    <div class="card">
+      <h3>🧺 Forniture per il laser — link di affiliazione</h3>
+      <p class="hint">Materiali e accessori consigliati, venduti e spediti dal negozio (Amazon.it, xTool…). Tu non spedisci nulla: ricevi una commissione sugli acquisti fatti dai tuoi link. Le schede sono in stile INGLY con il tuo consiglio, ma <b>ogni scheda dice dove si compra e l'avviso di affiliazione resta sempre visibile</b>: lo richiede l'accordo Amazon (senza, l'account viene chiuso) e la legge sulla pubblicità trasparente.</p>
+      <label class="forn-switch" style="display:flex;gap:12px;align-items:center;margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:12px;font-weight:600;cursor:pointer">
+        <input type="checkbox" id="fornAttivo" style="width:22px;height:22px">
+        <span>Mostra la sezione Forniture sul sito<br><small class="hint" id="fornAttivoNota" style="font-weight:400"></small></span>
+      </label>
+      <div id="fornProblemi"></div>
+    </div>
+    <div class="card">
+      <h3>🔑 Codici affiliato dei negozi</h3>
+      <p class="hint"><b>Amazon.it</b>: iscriviti su <a href="https://programma-affiliazione.amazon.it/" target="_blank" rel="noopener">programma-affiliazione.amazon.it</a> e copia qui il tuo «ID negozio» (es. <span class="mono">inglydesign-21</span>): viene aggiunto da solo a tutti i link Amazon. <b>xTool</b>: il programma affiliati passa da piattaforme come Impact o Awin; incolla nell'articolo il link affiliato completo, aggiungi qui il dominio del link se è diverso da xtool.com e spunta «link già affiliati». Il codice è pubblico (non è una password).</p>
+      <div id="fornNegozi"></div>
+    </div>
+    <div class="card">
+      <div class="searchrow"><span class="hint">Articoli: <b>attivo</b> = visibile sul sito, <b>bozza</b> = nascosto. Le modifiche restano in bozza fino a <b>Pubblica</b>.</span><button class="btn pri" id="fornNew" style="margin-left:auto">➕ Nuovo articolo</button></div>
+      <div id="fornList"></div>
     </div>
   </section>
 
@@ -1453,7 +1475,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <p class="hint" style="margin-bottom:14px">Scegli cosa si vede nello shop. Il resto del sito (Lab xTool, preventivi, pezzi su misura) resta sempre attivo.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px" role="radiogroup" aria-label="Stato del catalogo">
         <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="online" style="width:auto"> ✅ Catalogo online</label>
+        <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="vetrina" style="width:auto"> 🪟 Vetrina senza ordini</label>
         <label class="chip" style="cursor:pointer;padding:10px 14px"><input type="radio" name="catStato" value="aggiornamento" style="width:auto"> 🛠️ Catalogo in aggiornamento</label>
+      </div>
+      <div id="catVetCampi">
+        <p class="hint" style="margin:0 0 10px">Vetrina: i prodotti si vedono e Google li trova, ma non si ordina online. Prezzi «su richiesta», ogni pulsante diventa una richiesta di preventivo. Si vedono solo i prodotti con la foto caricata: appena la carichi, il prodotto compare. In cima allo shop compare l'avviso qui sotto (vuoto = testo standard).</p>
+        <div class="row c2" style="margin-bottom:14px">
+          <div><label>Avviso (IT)</label><textarea id="catVetAvvIT" rows="2" placeholder="Siamo in fiera fino a domenica: le richieste arrivano, rispondiamo al rientro."></textarea></div>
+          <div><label>Avviso (EN)</label><textarea id="catVetAvvEN" rows="2" placeholder="We are at a trade fair until Sunday: requests reach us, we reply when back."></textarea></div>
+        </div>
       </div>
       <div id="catAggCampi">
         <p class="hint" style="margin:0 0 10px">In aggiornamento: nessun prodotto è in vendita e lo shop mostra una schermata dedicata con WhatsApp e preventivo. Le pagine prodotto rimandano lì.</p>
@@ -1476,6 +1506,17 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
       <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <button class="btn" id="catStatoSave">💾 Salva e pubblica</button>
         <span class="hint" id="catStatoOut"></span>
+      </div>
+    </div>
+
+    <div class="card" id="statCard">
+      <h3>📈 Statistiche (GoatCounter)</h3>
+      <p class="hint" style="margin-bottom:12px">Senza cookie: non serve il banner del consenso. Crea un account gratuito su <b>goatcounter.com</b>, scegli il codice del sito (es. <span class="mono">inglydesign</span>) e scrivilo qui. Vuoto = statistiche spente. Oltre alle visite conta: preventivi inviati, click su WhatsApp, uso dell'anteprima 3D, richieste demo.</p>
+      <div class="row c2"><div><label>Codice del sito GoatCounter</label><input type="text" id="statGc" placeholder="inglydesign" autocomplete="off" spellcheck="false"></div>
+      <div><label>Dove vedere i numeri</label><p class="hint" id="statLink" style="margin:10px 0 0">—</p></div></div>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="statSave">💾 Salva e pubblica</button>
+        <span class="hint" id="statOut"></span>
       </div>
     </div>
 
@@ -2082,7 +2123,7 @@ async function generaPagineStatiche(){
   const guscio=await fetch('index.html?t='+Date.now(),{cache:'no-store'}).then(r=>{
     if(!r.ok)throw new Error('index.html non leggibile');return r.text()});
   const r=generaSito({cfg:S.CONFIG,prodotti:S.P||[],categorie:S.CATS||[],contenuti:S.C||{},testi:S.D||{},
-    materiali:S.MAT||{},tecnologie:S.TEC||{},macchine:S.MAC||{},corsi:S.COR||{}},guscio);
+    materiali:S.MAT||{},tecnologie:S.TEC||{},macchine:S.MAC||{},corsi:S.COR||{},collezioni:S.COLL||{collezioni:[]}},guscio);
   if(r.problemi.length)throw new Error(r.problemi.slice(0,3).join('; '));
   const out={};for(const p in r.pagine)out[p]={text:r.pagine[p]};
   return out;
@@ -2141,7 +2182,7 @@ function syncSocialLinks(){if(!Array.isArray(S.SOCIALS))return;const map={instag
 /* Menu in 4 gruppi (prima 6 gruppi e 27 voci sparse). L'ordine segue il lavoro
    di tutti i giorni: controllo e pubblico → negozio → pagine del sito → impostazioni. */
 const NAV=[['Inizio',[['dash','📊','Dashboard'],['pub','🚀','Pubblica & Deploy'],['lancio','✅','Pronto al lancio']]],
- ['Negozio',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['prezzi','🏷','Prezzi in vetrina'],['dig','💾','Digitali'],['generators','✳','Generatori INGLY']]],
+ ['Negozio',[['prod','📦','Prodotti'],['cats','🗂','Categorie'],['prezzi','🏷','Prezzi in vetrina'],['dig','💾','Digitali'],['generators','✳','Generatori INGLY'],['forn','🧺','Forniture (affiliati)']]],
  ['Pagine del sito',[['hero','🎯','Home & Hero'],['media','🖼','Media Library'],['lab','🧪','Lab: materiali, macchine, corsi'],['port','🏆','Portfolio'],['biz','🏢','Sezione Business'],['tech','🔥','Tecnologie'],['faq','❓','FAQ & Recensioni'],['texts','✍️','Testi IT/EN'],['sponsor','🤝','Sponsor & Partner'],['themes','🎨','Temi stagionali'],['bg','🖌','Sfondo Sito'],['sochub','📱','Social Hub']]],
  ['Impostazioni',[['set','⚙️','Impostazioni'],['contacts','📞','Contatti & Social'],['seo','🔎','SEO'],['seoai','🧠','SEO & AI Engine'],['hist','🕘','Cronologia'],['backup','💾','Backup'],['health','🩺','Health Center'],['adv','🧩','Avanzate']]]];
 const TITLES={};let VIEW='dash';
@@ -2246,7 +2287,7 @@ function go(v){
  VIEW=v;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
  document.querySelectorAll('.nit').forEach(x=>x.classList.toggle('on',x.dataset.go===v));
  $('vtitle').textContent=TITLES[v]||'';
- const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:()=>{bindAll();const c=$('fsAttivo');if(c)c.checked=!!(S.CONFIG.moduli&&S.CONFIG.moduli.attivato);const a=$('fsAuto');if(a)a.checked=fsAutoAttiva();fsStato()},seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
+ const R={dash:renderDash,prod:renderProd,cats:renderCats,dig:renderDig,generators:renderGenerators,forn:renderForn,media:renderMedia,port:()=>{renderPort();bindAll()},biz:renderBiz,sponsor:renderSponsor,themes:renderThemes,tech:renderTech,sochub:renderSocialHub,lab:renderLab,hero:renderHero,texts:renderTexts,faq:renderFaq,adv:renderAdv,contacts:()=>{bindAll();const c=$('fsAttivo');if(c)c.checked=!!(S.CONFIG.moduli&&S.CONFIG.moduli.attivato);const a=$('fsAuto');if(a)a.checked=fsAutoAttiva();fsStato()},seo:()=>{bindAll();seoLen()},bg:renderSfondi,prezzi:renderPrezzi,pub:renderPub,hist:renderHist,set:renderSet,health:renderEcommerceQuality,lancio:renderLancio,backup:()=>{}};
  if(R[v])R[v]();window.scrollTo(0,0)}
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
 $('goPub').onclick=()=>go('pub');
@@ -4560,6 +4601,8 @@ function validaBozza(){
  if(S.CONFIG&&S.CONFIG.checkout&&S.CONFIG.checkout.stripe&&S.CONFIG.checkout.stripe.attivo===true&&!Object.keys(SL).length)
   warn.push('Stripe è acceso ma nessun prodotto ha un Payment Link: sul sito non cambia nulla.');
  try{FILES.forEach(f=>JSON.parse(jstr(S[KEY[f]])))}catch(e){err.push('Dati non serializzabili: '+e.message)}
+ /* forniture: un link che esce verso un dominio sbagliato blocca la pubblicazione */
+ if(FORN_MOD&&S.C&&S.C.FORNITURE)FORN_MOD.problemi(FORN_MOD.dati({FORNITURE:S.C.FORNITURE})).forEach(x=>(x.grave?err:warn).push('Forniture — '+x.testo));
  return {err,warn};
 }
 
@@ -5531,6 +5574,101 @@ function editGenerator(index){
 }
 
 
+/* ================== FORNITURE (link di affiliazione) ================== */
+/* logica condivisa con il sito: assets/js/forniture.js (link sicuri, avviso, controlli) */
+let FORN_MOD=null;
+import('./assets/js/forniture.js').then(m=>{FORN_MOD=m}).catch(e=>console.warn('[INGLY] forniture.js non caricato',e));
+function fornDati(){
+  S.C=S.C||{};
+  if(!S.C.FORNITURE||typeof S.C.FORNITURE!=='object')S.C.FORNITURE={negozi:[],categorie:[],articoli:[]};
+  const F=S.C.FORNITURE;['negozi','categorie','articoli'].forEach(k=>{if(!Array.isArray(F[k]))F[k]=[]});
+  return F;
+}
+const fornLista=v=>String(v||'').split(',').map(x=>x.trim()).filter(Boolean);
+let FORN_SEME=false;
+function renderForn(){
+  /* contenuto pubblicato senza forniture (sito vecchio): si parte dalla selezione
+     di serie servita accanto all'Admin, non da una lista vuota */
+  if(!(S.C&&S.C.FORNITURE)&&!FORN_SEME){
+    FORN_SEME=true;
+    fetch('data/content.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(c=>{
+      if(c&&c.FORNITURE&&!(S.C&&S.C.FORNITURE)){S.C=S.C||{};S.C.FORNITURE=JSON.parse(JSON.stringify(c.FORNITURE));markDirty();toast('Forniture: caricata la selezione di serie (da pubblicare)')}
+    }).catch(()=>{}).finally(()=>renderForn());
+    return;
+  }
+  const F=fornDati();
+  /* l'interruttore: spento di serie, si accende quando l'affiliazione è pronta */
+  const sw=$('fornAttivo');
+  if(sw){sw.checked=F.attivo===true;
+    $('fornAttivoNota').textContent=F.attivo===true
+      ?'Accesa: pagina /forniture, voce nel menu e nel piè di pagina, «Dove comprarlo» nei materiali e «Materiali consigliati» nel Generator Studio.'
+      :'Spenta: tutto nascosto dal sito e fuori dalla sitemap. Gli articoli restano qui pronti.';
+    sw.onchange=()=>{F.attivo=sw.checked;markDirty();renderForn();toast(sw.checked?'Forniture accese (da pubblicare)':'Forniture nascoste (da pubblicare)')}}
+  const pr=FORN_MOD?FORN_MOD.problemi(FORN_MOD.dati({FORNITURE:F})):[];
+  $('fornProblemi').innerHTML=pr.length?pr.map(x=>'<div class="chip '+(x.grave?'err':'hint')+'" style="display:block;margin:4px 0">'+(x.grave?'⛔ ':'⚠ ')+esc(x.testo)+'</div>').join(''):'<div class="chip ok">✔ Nessun problema nei link</div>';
+  $('fornNegozi').innerHTML=F.negozi.map((n,i)=>'<div class="row c3" style="align-items:end;margin:8px 0">'
+    +'<div><label>'+esc(n.nome||n.id)+(n.parametro?' · codice affiliato (<span class="mono">'+esc(n.parametro)+'=</span>)':' · link affiliati incollati negli articoli')+'</label>'
+    +(n.parametro?'<input data-forn-cod="'+i+'" value="'+esc(n.codice||'')+'" placeholder="es. inglydesign-21" autocomplete="off" spellcheck="false">':'<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" style="width:auto" data-forn-aff="'+i+'" '+(n.affiliato?'checked':'')+'> link già affiliati</label>')+'</div>'
+    +'<div><label>Domini ammessi (separati da virgola)</label><input data-forn-dom="'+i+'" value="'+esc((n.domini||[]).join(', '))+'"></div>'
+    +'<div><label style="display:flex;gap:8px;align-items:center"><input type="checkbox" style="width:auto" data-forn-on="'+i+'" '+(n.attivo!==false?'checked':'')+'> negozio attivo</label></div></div>').join('');
+  document.querySelectorAll('[data-forn-cod]').forEach(x=>x.onchange=()=>{F.negozi[+x.dataset.fornCod].codice=x.value.trim();markDirty();renderForn()});
+  document.querySelectorAll('[data-forn-aff]').forEach(x=>x.onchange=()=>{F.negozi[+x.dataset.fornAff].affiliato=x.checked;markDirty();renderForn()});
+  document.querySelectorAll('[data-forn-dom]').forEach(x=>x.onchange=()=>{F.negozi[+x.dataset.fornDom].domini=fornLista(x.value).map(d=>d.toLowerCase().replace(/^https?:\/\//,'').replace(/\/.*$/,''));markDirty();renderForn()});
+  document.querySelectorAll('[data-forn-on]').forEach(x=>x.onchange=()=>{F.negozi[+x.dataset.fornOn].attivo=x.checked;markDirty();renderForn()});
+  const D=FORN_MOD?FORN_MOD.dati({FORNITURE:F}):null;
+  $('fornList').innerHTML=F.articoli.length?F.articoli.map((a,i)=>{
+    const on=a.stato==='attivo',ok=!D||FORN_MOD.link(a,D);
+    const cat=(F.categorie.find(c=>c.id===a.cat)||{}).n;
+    return '<div class="list-it" style="align-items:center;gap:10px;flex-wrap:wrap;padding:12px;margin:8px 0">'
+      +'<span style="font-size:22px;width:30px;text-align:center">'+esc(a.icona||'◇')+'</span>'
+      +'<span style="flex:1;min-width:180px"><b>'+esc((a.n&&a.n.it)||a.id)+'</b><br><small class="hint">'+esc((cat&&cat.it)||a.cat||'—')+' · '+esc(((F.negozi.find(n=>n.id===a.negozio)||{}).nome)||a.negozio)+(a.url?' · link diretto':' · ricerca «'+esc(a.ricerca||'')+'»')+(ok?'':' · ⛔ link non valido')+'</small></span>'
+      +'<span class="chip '+(on?'ok':'hint')+'">'+(on?'Attivo':'Bozza')+'</span>'
+      +(a.provato?'<span class="chip laser">Lo usiamo</span>':'')
+      +'<button class="btn sm" data-fa-up="'+i+'" title="Sposta su">↑</button><button class="btn sm" data-fa-down="'+i+'" title="Sposta giù">↓</button>'
+      +'<button class="btn sm" data-fa-toggle="'+i+'">'+(on?'Metti in bozza':'Attiva')+'</button>'
+      +'<button class="btn sm" data-fa-edit="'+i+'">✎ Modifica</button><button class="btn sm err" data-fa-del="'+i+'">🗑</button></div>';
+  }).join(''):'<p class="hint">Nessun articolo. Aggiungine uno per iniziare.</p>';
+  const rinumera=()=>F.articoli.forEach((x,k)=>x.ordine=k+1);
+  document.querySelectorAll('[data-fa-toggle]').forEach(b=>b.onclick=()=>{const a=F.articoli[+b.dataset.faToggle];a.stato=a.stato==='attivo'?'bozza':'attivo';markDirty();renderForn()});
+  document.querySelectorAll('[data-fa-up],[data-fa-down]').forEach(b=>b.onclick=()=>{const i=+(b.dataset.faUp??b.dataset.faDown),j=i+(b.hasAttribute('data-fa-up')?-1:1);if(j<0||j>=F.articoli.length)return;[F.articoli[i],F.articoli[j]]=[F.articoli[j],F.articoli[i]];rinumera();markDirty();renderForn()});
+  document.querySelectorAll('[data-fa-del]').forEach(b=>b.onclick=()=>{const i=+b.dataset.faDel;if(!confirm('Rimuovere «'+((F.articoli[i].n&&F.articoli[i].n.it)||F.articoli[i].id)+'» dalle forniture?'))return;F.articoli.splice(i,1);rinumera();markDirty();renderForn();toast('Articolo rimosso dalla bozza')});
+  document.querySelectorAll('[data-fa-edit]').forEach(b=>b.onclick=()=>editForn(+b.dataset.faEdit));
+  $('fornNew').onclick=()=>editForn(-1);
+}
+function editForn(index){
+  const F=fornDati(),nuovo=index<0;
+  const a=JSON.parse(JSON.stringify(nuovo?{id:'',stato:'bozza',negozio:(F.negozi[0]||{}).id||'amazon',cat:(F.categorie[0]||{}).id||'',n:{it:'',en:''},desc:{it:'',en:''},consiglio:{it:'',en:''},ricerca:'',url:'',materiali:[],generatori:[],tinta:'Legno',icona:'◇',provato:false}:F.articoli[index]));
+  const MA=Object.keys((S.C&&S.C.MAT_ART)||{});
+  const gens=((S.C&&S.C.GENERATORI)||[]).filter(g=>g.modulo!=='link-esterno'&&g.modulo!=='link-interno').map(g=>g.id);
+  const mats=((S.MAT&&S.MAT.materiali)||[]).map(m=>m.id);
+  const opt=(lista,val)=>lista.map(x=>'<option value="'+esc(x[0])+'"'+(x[0]===val?' selected':'')+'>'+esc(x[1])+'</option>').join('');
+  modal('<h3>🧺 '+(nuovo?'Nuovo articolo':'Modifica articolo')+'</h3>'
+   +'<p class="hint">Metti un <b>link diretto</b> al prodotto (es. https://www.amazon.it/dp/…) oppure solo le <b>parole di ricerca</b>: il sito crea il link alla ricerca del negozio. Il codice affiliato si aggiunge da solo.</p>'
+   +'<div class="row c2"><div><label>ID univoco</label><input id="fa_id" value="'+esc(a.id)+'" placeholder="es. compensato-pioppo-3mm"></div><div><label>Negozio</label><select id="fa_neg">'+opt(F.negozi.map(n=>[n.id,n.nome||n.id]),a.negozio)+'</select></div></div>'
+   +'<div class="row c2"><div><label>Nome (IT)</label><input id="fa_it" value="'+esc((a.n&&a.n.it)||'')+'"></div><div><label>Name (EN)</label><input id="fa_en" value="'+esc((a.n&&a.n.en)||'')+'"></div></div>'
+   +'<div class="row c2"><div><label>Descrizione breve (IT)</label><textarea id="fa_dit" rows="2">'+esc((a.desc&&a.desc.it)||'')+'</textarea></div><div><label>Short description (EN)</label><textarea id="fa_den" rows="2">'+esc((a.desc&&a.desc.en)||'')+'</textarea></div></div>'
+   +'<div class="row c2"><div><label>Il consiglio INGLY (IT)</label><textarea id="fa_cit" rows="3">'+esc((a.consiglio&&a.consiglio.it)||'')+'</textarea></div><div><label>INGLY tip (EN)</label><textarea id="fa_cen" rows="3">'+esc((a.consiglio&&a.consiglio.en)||'')+'</textarea></div></div>'
+   +'<div class="row c2"><div><label>Link diretto (https)</label><input id="fa_url" type="url" value="'+esc(a.url||'')+'" placeholder="https://www.amazon.it/dp/..."></div><div><label>…oppure parole di ricerca</label><input id="fa_q" value="'+esc(a.ricerca||'')+'" placeholder="compensato pioppo 3mm laser"></div></div>'
+   +'<div class="row c3"><div><label>Categoria</label><select id="fa_cat">'+opt(F.categorie.map(c=>[c.id,(c.n&&c.n.it)||c.id]),a.cat)+'</select></div><div><label>Tinta della scheda</label><select id="fa_tinta">'+opt(MA.map(k=>[k,k]),a.tinta)+'</select></div><div><label>Icona</label><input id="fa_ic" value="'+esc(a.icona||'◇')+'"></div></div>'
+   +'<div class="row c2"><div><label>Materiali del Lab (virgola) <span class="hint">'+esc(mats.join(', '))+'</span></label><input id="fa_mat" value="'+esc((a.materiali||[]).join(', '))+'"></div><div><label>Generatori (virgola) <span class="hint">'+esc(gens.join(', '))+'</span></label><input id="fa_gen" value="'+esc((a.generatori||[]).join(', '))+'"></div></div>'
+   +'<div class="row c2"><label style="display:flex;gap:8px;align-items:center"><input id="fa_on" type="checkbox" style="width:auto" '+(a.stato==='attivo'?'checked':'')+'> Attivo sul sito</label><label style="display:flex;gap:8px;align-items:center"><input id="fa_prova" type="checkbox" style="width:auto" '+(a.provato?'checked':'')+'> «Lo usiamo in laboratorio» (solo se è vero)</label></div>'
+   +'<div class="hint" id="fa_err" style="margin-top:8px;color:var(--err)"></div><div style="display:flex;gap:8px;margin-top:16px"><button class="btn pri" id="fa_save">✔ Salva articolo</button><button class="btn" onclick="closeModal()">Annulla</button></div>');
+  $('fa_save').onclick=()=>{
+    const er=$('fa_err'),id=genSlug($('fa_id').value||$('fa_it').value);
+    if(!id){er.textContent='Inserisci un ID o un nome.';return}
+    if(!$('fa_it').value.trim()){er.textContent='Il nome italiano è obbligatorio.';return}
+    if(F.articoli.some((x,k)=>k!==index&&x.id===id)){er.textContent='Questo ID esiste già.';return}
+    const v={...a,id,negozio:$('fa_neg').value,cat:$('fa_cat').value,tinta:$('fa_tinta').value,icona:$('fa_ic').value.trim()||'◇',
+      n:{it:$('fa_it').value.trim(),en:$('fa_en').value.trim()},desc:{it:$('fa_dit').value.trim(),en:$('fa_den').value.trim()},
+      consiglio:{it:$('fa_cit').value.trim(),en:$('fa_cen').value.trim()},url:$('fa_url').value.trim(),ricerca:$('fa_q').value.trim(),
+      materiali:fornLista($('fa_mat').value),generatori:fornLista($('fa_gen').value),stato:$('fa_on').checked?'attivo':'bozza',provato:$('fa_prova').checked};
+    if(!v.url&&!v.ricerca){er.textContent='Serve un link diretto oppure le parole di ricerca.';return}
+    if(FORN_MOD&&!FORN_MOD.link(v,FORN_MOD.dati({FORNITURE:F}))){er.textContent='Il link non è https o non appartiene ai domini del negozio scelto.';return}
+    if(nuovo){v.ordine=F.articoli.length+1;F.articoli.push(v)}else F.articoli[index]=v;
+    markDirty();closeModal();renderForn();toast('Articolo salvato in bozza');
+  };
+}
+
 /* ================== AVANZATE (JSON validato) ================== */
 const ADV=['MAT_ART','MATN','MATERIALS','STEPS','FONTS','MOPT'];
 function renderAdv(){$('advSec').innerHTML=ADV.filter(k=>S.C[k]!==undefined).map(k=>`<option>${k}</option>`).join('');advLoad();
@@ -5643,17 +5781,19 @@ $('pubGo').onclick=async()=>{
    ]);
    /* stesso filtro del sito: niente prodotti nascosti, di categorie spente o con il catalogo in aggiornamento */
    const VISIBILI_SITEMAP=JSON.parse(JSON.stringify(S.P||[]));
-   (await import('./assets/js/catalogo-stato.js')).applicaCatalogo({CONFIG:JSON.parse(JSON.stringify(S.CONFIG)),CATS:JSON.parse(JSON.stringify(S.CATS||[])),P:VISIBILI_SITEMAP});
+   (await import('./assets/js/catalogo-stato.js')).applicaCatalogo({CONFIG:JSON.parse(JSON.stringify(S.CONFIG)),CATS:JSON.parse(JSON.stringify(S.CATS||[])),P:VISIBILI_SITEMAP,MV:(S.C&&S.C.MV)||null});
    const sitemapPages=[
      ...PRE_SITEMAP.elenco({prodotti:VISIBILI_SITEMAP,verticali:(S.C&&S.C.VERTICALI)||[]}),
+     ...await (async()=>{const CLS=await import('./assets/js/collezioni.js');const DC={P:VISIBILI_SITEMAP,COLLEZIONI:S.COLL||{collezioni:[]}};
+       return CLS.pubblicate(DC).map(c=>({file:'collezioni/'+CLS.rifDi(c)+'/index.html',pagina:'collezione',id:c.id}))})(),
      ...LAB_SITEMAP.elencoPagine({MATERIALI:S.MAT,TECNOLOGIE:S.TEC,MACCHINE:S.MAC,CORSI:S.COR,CONFIG:S.CONFIG,PRODUCTS:S.P||[]})
        .map(v=>({file:v.file,pagina:'lab',id:v.id})),
      {file:'generatori.html',pagina:'tool',id:'generatori'},
      {file:'print-cut.html',pagina:'tool',id:'print-cut'},
      {file:'assistenza-xtool-palermo/index.html',pagina:'assistenza',id:'assistenza-xtool'}
-   ];
+   ].filter(v=>v.file!=='forniture/index.html'||(S.C&&S.C.FORNITURE&&S.C.FORNITURE.attivo===true));
    const sitemapRules={
-     home:['weekly','1.0'],shop:['weekly','0.9'],digital:['weekly','0.8'],
+     home:['weekly','1.0'],shop:['weekly','0.9'],digital:['weekly','0.8'],collezione:['weekly','0.8'],
      business:['monthly','0.8'],portfolio:['monthly','0.7'],faq:['monthly','0.7'],
      quote:['monthly','0.6'],about:['yearly','0.5'],product:['monthly','0.6'],
      verticale:['monthly','0.8'],tool:['monthly','0.7'],assistenza:['monthly','0.9']
@@ -6145,7 +6285,8 @@ function renderSet(){
  (function(){
   const cat=S.CONFIG.catalogo||{};
   const loc=(v,k)=>(v&&v[k])||'';
-  document.querySelectorAll('input[name=catStato]').forEach(r=>{r.checked=r.value===(cat.stato==='aggiornamento'?'aggiornamento':'online')});
+  document.querySelectorAll('input[name=catStato]').forEach(r=>{r.checked=r.value===(['aggiornamento','vetrina'].includes(cat.stato)?cat.stato:'online')});
+  $('catVetAvvIT').value=loc(cat.avviso,'it');$('catVetAvvEN').value=loc(cat.avviso,'en');
   $('catAggTitIT').value=loc(cat.titolo,'it');$('catAggTitEN').value=loc(cat.titolo,'en');
   $('catAggMsgIT').value=loc(cat.messaggio,'it');$('catAggMsgEN').value=loc(cat.messaggio,'en');
   $('catAggRiIT').value=loc(cat.rientro,'it');$('catAggRiEN').value=loc(cat.rientro,'en');
@@ -6154,21 +6295,38 @@ function renderSet(){
     const n=S.P.filter(p=>p.cat===c.id&&!p.hidden).length;
     return `<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0"><input type="checkbox" data-cat="${esc(c.id)}" ${nasc.has(String(c.id))?'':'checked'} style="width:18px;height:18px"> ${esc((c.n&&c.n.it)||c.id)} <span class="hint">(${n})</span></label>`;
   }).join('');
-  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').hidden=!(agg&&agg.value==='aggiornamento')};
+  const campi=()=>{const agg=document.querySelector('input[name=catStato]:checked');$('catAggCampi').hidden=!(agg&&agg.value==='aggiornamento');$('catVetCampi').hidden=!(agg&&agg.value==='vetrina')};
   campi();document.querySelectorAll('input[name=catStato]').forEach(r=>r.onchange=campi);
   $('catStatoSave').onclick=async()=>{
    const out=$('catStatoOut');
    const nascoste=[...$('catVisList').querySelectorAll('input[data-cat]')].filter(x=>!x.checked).map(x=>x.dataset.cat);
    if(nascoste.length&&nascoste.length>=S.CATS.length){out.innerHTML='<span style="color:var(--err)">✖ Lascia almeno una categoria visibile, oppure scegli «Catalogo in aggiornamento».</span>';return}
-   const agg=(document.querySelector('input[name=catStato]:checked')||{}).value==='aggiornamento';
+   const stato=(document.querySelector('input[name=catStato]:checked')||{}).value||'online';
+   const agg=stato==='aggiornamento';
    const bi=(a,b)=>{const it=$(a).value.trim(),en=$(b).value.trim();return (it||en)?{it,en:en||it}:undefined};
-   S.CONFIG.catalogo={stato:agg?'aggiornamento':'online',categorieNascoste:nascoste,
-     titolo:bi('catAggTitIT','catAggTitEN'),messaggio:bi('catAggMsgIT','catAggMsgEN'),rientro:bi('catAggRiIT','catAggRiEN')};
+   S.CONFIG.catalogo={stato:['aggiornamento','vetrina'].includes(stato)?stato:'online',categorieNascoste:nascoste,
+     titolo:bi('catAggTitIT','catAggTitEN'),messaggio:bi('catAggMsgIT','catAggMsgEN'),rientro:bi('catAggRiIT','catAggRiEN'),avviso:bi('catVetAvvIT','catVetAvvEN')};
    markDirty();out.textContent='Salvataggio…';
    try{
-    await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'🛍️ Catalogo: '+(agg?'in aggiornamento':'online')+(nascoste.length?' · nascoste: '+nascoste.join(', '):''));
+    await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'🛍️ Catalogo: '+({aggiornamento:'in aggiornamento',vetrina:'vetrina senza ordini'}[stato]||'online')+(nascoste.length?' · nascoste: '+nascoste.join(', '):''));
     out.innerHTML='<span style="color:var(--ok)">✔ Pubblicato! Online tra 1–2 minuti.</span>';
    }catch(e){out.innerHTML='<span style="color:var(--err)">✖ '+esc(e.message)+'</span>'}
+  };
+ })();
+ /* --- Statistiche: codice GoatCounter (config.analisi; config.statistiche sono i contatori del sito) --- */
+ (function(){
+  const st=S.CONFIG.analisi||{};
+  const ok=v=>/^[a-z0-9][a-z0-9-]{1,62}$/.test(v);
+  const link=()=>{const v=$('statGc').value.trim().toLowerCase();$('statLink').innerHTML=ok(v)?`<a href="https://${esc(v)}.goatcounter.com" target="_blank" rel="noopener">${esc(v)}.goatcounter.com</a>`:'—'};
+  $('statGc').value=st.goatcounter||'';link();$('statGc').oninput=link;
+  $('statSave').onclick=async()=>{
+   const out=$('statOut');const v=$('statGc').value.trim().toLowerCase();
+   if(v&&!ok(v)){out.innerHTML='<span style="color:var(--err)">✖ Solo lettere minuscole, numeri e trattini (es. inglydesign).</span>';return}
+   S.CONFIG.analisi={...(S.CONFIG.analisi||{}),goatcounter:v};
+   markDirty();out.textContent='Salvataggio…';
+   try{await pubFile('data/config.json',JSON.stringify(S.CONFIG,null,1),'📈 Statistiche: '+(v?'GoatCounter '+v:'spente'));
+    out.innerHTML='<span style="color:var(--ok)">✔ Pubblicato! Attive tra 1–2 minuti.</span>'}
+   catch(e){out.innerHTML='<span style="color:var(--err)">✖ '+esc(e.message)+'</span>'}
   };
  })();
  /* --- Repository / token --- */

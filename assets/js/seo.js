@@ -61,6 +61,7 @@ export function updateSeo(page, L, T, product){
     home:S.titolo||document.title, shop:T('shopH2'), digital:T('digEye'), business:T('bizH2'),
     portfolio:T('portH2'), about:T('abH2'), faq:T('faqH2'), quote:T('qH2'),
     materiali:(L==='en'?'Materials':'Materiali'),
+    forniture:(L==='en'?'Laser supplies: sheets, blanks and accessories':'Forniture per il laser: fogli, oggetti da personalizzare e accessori'),
     academy:'INGLY Academy',
     demo:(L==='en'?'Free demo':'Demo gratuita'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),
@@ -142,6 +143,8 @@ export function updateSeo(page, L, T, product){
   }
   /* direttiva per i motori: sempre indicizzabile salvo scelta esplicita */
   set('meta[name="robots"]','content',ENG.robots(page,S));
+  /* Forniture spente dall'Admin: la pagina resta raggiungibile ma Google non la indicizza */
+  if(page==='forniture'){const F=(window.INGLY||{}).FORNITURE;if(!(F&&F.attivo===true))set('meta[name="robots"]','content','noindex, follow')}
   /* URL canonico REALE della pagina.
      Prima era base()+'/#/'+page: indirizzi con '#' che Google collassa tutti
      sulla home, quindi canonical, og:url e hreflang puntavano di fatto a '/'.

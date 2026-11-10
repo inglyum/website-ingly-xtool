@@ -2,7 +2,7 @@
    Router History API (pushState): URL puliti senza #.
    Compatibilità GitHub Pages: 404.html decodifica /shop → /?/shop → qui ripristinato. */
 import { observeAll } from './animations.js';
-import { F, renderRV, renderChips, renderShop, currentProduct } from './products.js';
+import { F, renderRV, renderChips, renderShop, currentProduct, readFiltersFromURL } from './products.js';
 import { updateSeo } from './seo.js';
 import { L, T } from './utils.js';
 import { openFocusLayer, closeFocusLayer } from './accessibility.js';
@@ -59,6 +59,9 @@ function relPath(){
 
 export function currentPage(){
   const p=relPath().split('?')[0].split('/')[0]||'home';
+  /* /collezioni/matrimonio è lo Shop aperto su una raccolta: una pagina vera
+     per Google, lo stesso catalogo per chi naviga */
+  if(p==='collezioni') return 'shop';
   return PAGES.includes(p)?p:'home';
 }
 
@@ -131,6 +134,9 @@ export function show(page){
     const fromMobileMenu=document.getElementById('mm')?.classList.contains('open');
     toggleMenu(false,{restoreFocus:false});
     document.body.classList.toggle('on-product',page==='product');
+    /* la barra d'acquisto fissa esiste solo sulla scheda prodotto: altrove è nascosta anche alla tastiera */
+    const sbar=document.querySelector('.stickybuy');
+    if(sbar){sbar.toggleAttribute('inert',page!=='product');sbar.setAttribute('aria-hidden',page==='product'?'false':'true');}
     /* Chi sceglie una pagina dal menu non deve restare con il focus
        su un link che è diventato inert dopo la navigazione. */
     if(fromMobileMenu){
@@ -194,7 +200,10 @@ export function initNav(){
   addEventListener('popstate',e=>{
     const y=e.state&&typeof e.state.y==='number'?e.state.y:null;
     _ripristinaY=y;
-    show(currentPage());
+    const pg=currentPage();
+    show(pg);
+    /* indietro/avanti fra raccolte e catalogo: i filtri seguono l'indirizzo */
+    if(pg==='shop'){ try{ readFiltersFromURL(); renderChips(); renderShop(); }catch(_){} }
   });
 
   document.addEventListener('click',e=>{
@@ -224,6 +233,15 @@ export function initNav(){
       if(location.pathname+location.search!==dest)
         { ricordaScroll(); history.pushState({page},'',dest); }
       show(page);
+      return;
+    }
+
+    /* Raccolte: /collezioni/<nome> apre lo Shop sulla raccolta senza ricaricare */
+    if(page==='collezioni'&&seg.length===2&&/^[a-z0-9-]+$/.test(seg[1])){
+      e.preventDefault();
+      const dest=target.path+(target.path.endsWith('/')?'':'/');
+      if(location.pathname!==dest){ ricordaScroll(); history.pushState({page:'shop'},'',dest); }
+      show('shop'); readFiltersFromURL(); renderChips(); renderShop();
       return;
     }
 

@@ -37,7 +37,7 @@
       ]
     ],
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "gallery": [
       "img/1-g3.webp"
     ],
@@ -2930,7 +2930,7 @@
     "icon": "✨",
     "rev": 0,
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "desc": {
       "it": "Action figure di Batman in legno, tagliata al laser e rifinita nei dettagli. Per chi colleziona o è fan del Cavaliere Oscuro; sta bene su una mensola, in camera, in ufficio o nello studio.",
       "en": "A wooden Batman action figure, laser cut and finished in detail. For collectors and Dark Knight fans; it suits a shelf, a bedroom, an office or a study."
@@ -2953,7 +2953,7 @@
     "icon": "✨",
     "rev": 0,
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "desc": {
       "it": "Action figure di Hulk in legno, tagliata al laser e rifinita nei dettagli. Per chi colleziona o è fan dell'eroe verde; sta bene su una mensola, in camera, in ufficio o nello studio.",
       "en": "A wooden Hulk action figure, laser cut and finished in detail. For collectors and fans of the green hero; it suits a shelf, a bedroom, an office or a study."
@@ -2975,7 +2975,7 @@
     "icon": "✨",
     "rev": 0,
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "desc": {
       "it": "Action figure di Spider-Man in legno, tagliata al laser e rifinita nei dettagli. Per chi colleziona o è fan dell'Uomo Ragno; sta bene su una mensola, in camera, in ufficio o nello studio.",
       "en": "A wooden Spider-Man action figure, laser cut and finished in detail. For collectors and Spider-Man fans; it suits a shelf, a bedroom, an office or a study."
@@ -2994,7 +2994,7 @@
     "icon": "✨",
     "rev": 0,
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "desc": {
       "it": "Action figure di Spider-Man in legno, in posa d'azione, tagliata al laser e rifinita nei dettagli. Per chi colleziona o è fan dell'Uomo Ragno; sta bene su una mensola, in camera, in ufficio o nello studio.",
       "en": "A wooden Spider-Man action figure in an action pose, laser cut and finished in detail. For collectors and Spider-Man fans; it suits a shelf, a bedroom, an office or a study."
@@ -3017,7 +3017,7 @@
     "icon": "✨",
     "rev": 0,
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "desc": {
       "it": "Action figure di Flash in legno, tagliata al laser e rifinita nei dettagli. Per chi colleziona o è fan dell'uomo più veloce del mondo; sta bene su una mensola, in camera, in ufficio o nello studio.",
       "en": "A wooden Flash action figure, laser cut and finished in detail. For collectors and fans of the fastest man alive; it suits a shelf, a bedroom, an office or a study."
@@ -3036,7 +3036,7 @@
     "icon": "✨",
     "rev": 0,
     "prod": 3,
-    "hidden": false,
+    "hidden": true,
     "desc": {
       "it": "Statuetta fatta su misura: il ritratto riprende la persona, e il pallone da calcio ha i colori della sua squadra. I dettagli sono rifiniti a mano, e si possono aggiungere nomi o un tema a scelta. Un regalo per compleanni, anniversari o ricorrenze.",
       "en": "A made-to-order figurine: the portrait follows the person, and the football is in their team's colours. Details are finished by hand, and names or a theme of your choice can be added. A gift for birthdays, anniversaries or celebrations."

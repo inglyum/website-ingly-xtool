@@ -11,7 +11,7 @@ const idx = readFileSync('index.html', 'utf8');
    regola del progetto è l'ultimo caricato */
 const css = readFileSync('assets/css/brand-system-2026.css', 'utf8');
 const fogli = bundleCaricato ? FOGLI : []; /* ordine reale dentro assets/css/ingly.css */
-check('il foglio del marchio (con le correzioni) è l\'ultimo caricato', fogli[fogli.length - 1] === 'assets/css/brand-system-2026.css', fogli.slice(-2).join(' , '));
+check('il foglio del marchio è seguito solo dal restyle 2026, ultimo caricato', fogli[fogli.length - 2] === 'assets/css/brand-system-2026.css' && fogli[fogli.length - 1] === 'assets/css/restyle-2026.css', fogli.slice(-2).join(' , '));
 check('contiene la sezione leggibilità', /INGLY — LEGGIBILITÀ \(WCAG 2\.2 AA\)/.test(css));
 check('le card con foto hanno un fondo scuro sotto il testo bianco', /\.bcard\.bcard--photo/.test(css) && /\.scat\.scat--photo/.test(css) && /#111318!important/.test(css));
 check('il bottone del pannello xTOOL ha un colore per ciascuna modalità', /data-mode="light"\] \.xtool-lab-feature \.btn-ghost/.test(css) && /data-mode="dark"\] \.xtool-lab-feature \.btn-ghost/.test(css));

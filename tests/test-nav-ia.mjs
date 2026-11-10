@@ -39,8 +39,9 @@ check('i file digitali sono raggiungibili dal menu Shop', IA.pannello('shop', D)
 check('le macchine hanno una voce propria', IA.FAMIGLIE.some(f => f.id === 'xtool'));
 check('lo studio è uscito dalla barra', !IA.FAMIGLIE.some(f => f.id === 'studio'));
 check('ed è finito fra le secondarie', IA.SECONDARIE.map(v => v.id).includes('about'));
-check('le secondarie sono le quattro attese',
-  IA.SECONDARIE.map(v => v.id).join() === 'portfolio,about,faq,quote');
+/* novembre 2026: «Forniture per il laser» (link di affiliazione) entra fra le secondarie */
+check('le secondarie sono le cinque attese',
+  IA.SECONDARIE.map(v => v.id).join() === 'portfolio,about,faq,forniture,quote');
 
 console.log('\n=== PERSONALIZZA COMPARE SOLO SE C\'È QUALCOSA ===');
 /* Una voce di menu verso una pagina vuota è peggio di una voce che non
@@ -133,7 +134,7 @@ for (const r of ['/shop', '/digital', '/business', '/portfolio', '/about', '/faq
 
 console.log('\n=== IL MENU NON PROMETTE PAGINE CHE NON ESISTONO ===');
 const rotte = new Set(['', 'personalizza', 'shop', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
-  'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product', 'generatori.html']);
+  'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product', 'generatori.html', 'forniture']);
 const idsMat = new Set(D.MATERIALI.materiali.map(m => m.id));
 const idsTec = new Set(D.TECNOLOGIE.tecnologie.map(t => t.id));
 const idsMac = new Set(D.MACCHINE.catalogo.map(m => m.id));
@@ -173,8 +174,9 @@ check('il cassetto mobile ha le stesse famiglie della barra',
    restano, in un gruppo a parte in fondo */
 check('il cassetto chiude con le voci secondarie',
   /class="dr-sec"/.test(IA.cassettoHtml(D, { base: '' })));
-check('e le contiene tutte e quattro',
-  IA.SECONDARIE.every(v => IA.cassettoHtml(D, { base: '' }).includes('data-nav="' + v.rotta + '"')));
+check('e le contiene tutte (Forniture solo se accese dall\'Admin)',
+  IA.secondarieVive(D).every(v => IA.cassettoHtml(D, { base: '' }).includes('data-nav="' + v.rotta + '"')) &&
+  IA.cassettoHtml(D, { base: '' }).includes('data-nav="forniture"') === Boolean(D.FORNITURE && D.FORNITURE.attivo === true));
 
 console.log('\n=== IL NOME PORTA ALLA PAGINA, LA FRECCIA APRE IL MENU ===');
 /* La regola: un clic sul nome deve aprire la landing, subito. Prima il

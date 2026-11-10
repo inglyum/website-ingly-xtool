@@ -17,7 +17,7 @@ assert.match(brand,/:root\[data-mode\] #nav \.ia-pannello \.ia-col-tit,/,
 assert.match(brand,/\.ia-pannello \.ia-evidenza\s*\{\s*background:var\(--brand-elevated\)!important;/,
   'Editorial column must follow theme');
 const css=FOGLI; /* ordine reale dei sorgenti dentro assets/css/ingly.css */
-assert.equal(css.at(-1)?.split('?')[0],'assets/css/brand-system-2026.css',
+assert.equal(css.at(-1)?.split('?')[0],'assets/css/restyle-2026.css',
   'The approved brand stylesheet must be the last loaded theme authority');
 const visual=read('tests/visual-audit.mjs');
 assert.match(visual,/nav-open-.*mode.*\.png/,'Audit captures open menu both themes');

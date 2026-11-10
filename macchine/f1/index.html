@@ -3,7 +3,7 @@
 <head>
 <base href="../../">
 <base href="./">
-<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;})();</script>
+<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
@@ -16,7 +16,7 @@ html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:
 <meta name="keywords" content="incisione laser, taglio laser, stampa UV, stampa DTF, stampa 3D, regali personalizzati, targhe personalizzate, gadget aziendali, Italia, made in Italy, laser CO2, fibra MOPA, plexiglass personalizzato">
 <meta name="author" content="INGLY DESIGN">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#211f2e">
+<meta name="theme-color" content="#13100d">
 
 <!-- Canonical + hreflang IT/EN -->
 <link rel="canonical" href="https://www.inglydesign.it/macchine/f1">
@@ -49,26 +49,8 @@ html.ingly-boot-pending #prerender{position:absolute!important;width:1px;height:
      il prerender lo sostituisce nelle pagine statiche, e appena parte
      l'applicazione seo.js lo rimuove prima di scrivere i propri.
      Tre LocalBusiness sulla stessa pagina = entità in conflitto per Google. -->
-<!-- GoatCounter Analytics — privacy-friendly, no cookie, gratuito
-     Alternativa a GA4. Registrati su goatcounter.com e sostituisci TUOCODICE.
-     Una volta configurato nell'Admin (Dashboard → Statistiche), questo script
-     si attiva automaticamente. -->
-<!--
-<script data-goatcounter="https://TUOCODICE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
--->
-<!-- Google Analytics 4 — sostituisci G-XXXXXXXXXX con il tuo Measurement ID -->
-<!-- Per attivare: vai su analytics.google.com → Crea proprietà → copia G-XXXXXXXXXX -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-XXXXXXXXXX',{page_path:location.pathname});
-  // Track page views on SPA navigation
-  addEventListener('popstate',()=>gtag('event','page_view',{page_path:location.pathname}));
-</script>
--->
+<!-- Statistiche: GoatCounter (senza cookie) si accende da assets/js/statistiche.js
+     quando nell'Admin c'è il codice del sito. Nessuno script finché è vuoto. -->
 <link rel="icon" type="image/svg+xml" href="assets/images/ingly-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
@@ -148,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=3293890d29">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=7624b10cfc">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -166,6 +148,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 <script defer src="assets/js/ingly-generator-presets.js"></script>
 <script defer src="assets/js/ingly-personalizza-studio.js"></script>
 <script defer src="assets/js/ingly-generator-draft.js"></script>
+<script defer src="assets/js/incisione-3d.js"></script>
 <script type="module" src="assets/js/app.js"></script>
 <!-- Bundle di riserva (87KB) per i browser che non conoscono i moduli ES.
      Con «defer» veniva scaricato da tutti, anche da chi stava già usando i
@@ -265,7 +248,7 @@ setTimeout(function(){
 
 <header class="nav scrolled" id="nav" data-component="site-header">
   <div class="wrap nav-in">
-    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
+    <a href="./" class="brand brand--identity" data-nav="home" aria-label="INGLY DESIGN · ITALY — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
     <nav class="ia-barra" id="iaBarra" aria-label="Navigazione principale" data-statica><span class="ia-gruppo"><a class="ia-voce" href="shop" data-nav="shop" data-fam="shop">Shop</a><button type="button" class="ia-freccia" data-apri="shop" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-shop" aria-label="Apri il menu Shop"><i class="ia-caret" aria-hidden="true"></i></button></span><span class="ia-gruppo"><a class="ia-voce" href="personalizza" data-nav="personalizza" data-fam="personalizza">Personalizza</a></span><span class="ia-gruppo"><a class="ia-voce" href="materiali" data-nav="materiali" data-fam="materiali">Materiali</a><button type="button" class="ia-freccia" data-apri="materiali" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-materiali" aria-label="Apri il menu Materiali"><i class="ia-caret" aria-hidden="true"></i></button></span><span class="ia-gruppo"><a class="ia-voce" href="business" data-nav="business" data-fam="business">Business</a><button type="button" class="ia-freccia" data-apri="business" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-business" aria-label="Apri il menu Business"><i class="ia-caret" aria-hidden="true"></i></button></span><span class="ia-gruppo"><a class="ia-voce" href="macchine" data-nav="macchine" data-fam="xtool">Lab</a><button type="button" class="ia-freccia" data-apri="xtool" aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-xtool" aria-label="Apri il menu Lab"><i class="ia-caret" aria-hidden="true"></i></button></span></nav>
     <!-- La barra piatta resta come rete: sparisce solo quando la nuova è montata. -->
     <nav class="nav-links" aria-label="Main">
@@ -294,7 +277,7 @@ setTimeout(function(){
 </header>
 
 <nav class="atelier-mobile-dock" aria-label="Azioni rapide">
-  <button type="button" id="mobileModeBtn" aria-label="Passa alla modalità chiara o scura" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.7 8.7 0 1 0 11 11Z"/></svg><span data-inline-i18n="theme">Tema</span></button>
+  <button type="button" id="mobileModeBtn" aria-label="Tema: passa alla modalità chiara o scura" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.6 8.6 0 0 1 9.5 3.5a8.7 8.7 0 1 0 11 11Z"/></svg><span data-inline-i18n="theme">Tema</span></button>
   <a href="shop" data-nav="shop" aria-label="Vai allo Shop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18l-2 12H5L3 8zm4 0V5a5 5 0 0 1 10 0v3"/></svg><span>Shop</span></a>
   <a href="personalizza" data-nav="personalizza" aria-label="Personalizza un prodotto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3z"/></svg><span>Personalizza</span></a>
   <a href="https://wa.me/393296904627?text=Ciao%20INGLY%21%20Vorrei%20informazioni%20su%20una%20creazione." target="_blank" rel="noopener noreferrer" aria-label="Scrivici su WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-4.7A8.5 8.5 0 1 1 20 11.5Z"/><path d="M9 9.5c.7 2 2 3.3 4 4l1.3-1.2 2.2 1.1c-.4 1.8-2.1 2.3-3.9 1.7a8.6 8.6 0 0 1-4.8-4.8c-.6-1.8-.1-3.5 1.7-3.9l1.1 2.2z"/></svg><span>WhatsApp</span></a>
@@ -332,9 +315,8 @@ setTimeout(function(){
 <span id="mainContent" tabindex="-1" class="ingly-main-target"></span>
 <!-- HOME -->
 <section class="page" id="page-home">
-  <div class="hero signature-hero">
+  <div class="hero signature-hero rs3d" id="rs3d">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
-    <!-- Hero deliberately text-only: no 3D scene or placeholder image. -->
     <div class="wrap hero-grid">
       <div class="signature-hero-copy">
         <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">INGLY DESIGN · CREAZIONI SU MISURA</span></span>
@@ -344,8 +326,29 @@ setTimeout(function(){
           <a class="btn btn-primary magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <span aria-hidden="true" class="arr">→</span></a>
           <a class="btn btn-ghost magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span></a>
         </div>
+        <form class="rs3d-form" id="rs3dForm" action="quote/" method="get" aria-label="Chiedi un preventivo">
+          <label class="rs3d-form__label" for="rs3dText" data-i18n="rs3dLabel">Scrivi cosa vuoi incidere</label>
+          <input id="rs3dText" type="text" maxlength="28" autocomplete="off" spellcheck="false" data-ph="rs3dPh" placeholder="Es. Casa Bianchi">
+          <fieldset class="rs3d-mats">
+            <legend data-i18n="rs3dMatLegend">Materiale</legend>
+            <label><input type="radio" name="rs3dMat" value="legno" checked><span data-i18n="rs3dMat0">Legno</span></label>
+            <label><input type="radio" name="rs3dMat" value="ardesia"><span data-i18n="rs3dMat1">Ardesia</span></label>
+            <label><input type="radio" name="rs3dMat" value="acrilico"><span data-i18n="rs3dMat2">Acrilico</span></label>
+            <label><input type="radio" name="rs3dMat" value="metallo"><span data-i18n="rs3dMat3">Metallo</span></label>
+          </fieldset>
+          <input type="hidden" name="idea" id="rs3dIdea" value="">
+          <div class="rs3d-form__azioni">
+            <button class="btn btn-primary" type="submit"><span data-i18n="heroQuoteBtn">Chiedi un preventivo</span></button>
+            <a class="rs3d-form__wa" id="rs3dWa" data-wa-keep href="https://wa.me/393296904627?text=Ciao%20INGLY%2C%20vorrei%20un%20preventivo" target="_blank" rel="noopener noreferrer" data-i18n="heroLinkWa">Scrivici su WhatsApp</a>
+          </div>
+        </form>
         <p class="signature-hero-assurance"><span class="signature-hero-assurance__line" aria-hidden="true"></span><span data-sig-it="Il tuo progetto, realizzato con cura in Italia." data-sig-en="Your project, crafted with care in Italy.">Il tuo progetto, realizzato con cura in Italia.</span></p>
       </div>
+      <figure class="rs3d-stage" id="rs3dStage">
+        <img class="rs3d-stage__foto" src="img/proj-1-1.webp" alt="Mappa di Palermo incisa e tagliata al laser su legno, con il mare in blu: un lavoro INGLY DESIGN" data-i18n-alt="heroImgAlt" width="1600" height="1200" decoding="async">
+        <canvas id="rs3dCanvas" role="img" aria-label="Anteprima 3D della targa che viene incisa dal laser. Trascina per ruotarla." data-i18n-aria="rs3dAria"></canvas>
+        <figcaption class="rs3d-stage__cap"><span data-i18n="rs3dNote">Anteprima indicativa · trascina per ruotare</span><button type="button" id="rs3dReplay" data-i18n="rs3dReplay">Incidi di nuovo</button></figcaption>
+      </figure>
       <aside class="ingly-hero-steps" aria-label="Il metodo INGLY: la tua idea, il nostro lavoro">
         <span class="ingly-hero-steps__overline" data-sig-it="TU + INGLY" data-sig-en="YOU + INGLY">TU + INGLY</span>
         <ol>
@@ -394,32 +397,32 @@ setTimeout(function(){
         <p data-maison-it="Scegli un mondo creativo: ogni progetto parte dalla tua idea." data-maison-en="Explore what we make: every project begins with your idea.">Scegli un mondo creativo: ogni progetto parte dalla tua idea.</p>
       </div>
       <div class="maison-worlds__grid">
-        <a class="maison-world" href="shop" data-nav="shop" aria-label="Legno">
+        <a class="maison-world" href="shop" data-nav="shop">
           <img src="img/material-legno.webp" alt="Vere tavole in legno di quercia: fotografia di repertorio, non un prodotto INGLY" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Legno" data-maison-en="Wood">Legno</strong><small data-maison-it="Calore naturale, dettagli incisi" data-maison-en="Natural warmth, engraved detail">Calore naturale, dettagli incisi</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
         </a>
-        <a class="maison-world" href="shop" data-nav="shop" aria-label="Acrilico">
+        <a class="maison-world" href="shop" data-nav="shop">
           <img src="img/material-plexiglass.webp" alt="Applicazione con lastre in acrilico: fotografia di repertorio, non un prodotto INGLY" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Acrilico" data-maison-en="Acrylic">Acrilico</strong><small data-maison-it="Luce, trasparenza, emozione" data-maison-en="Light, clarity, emotion">Luce, trasparenza, emozione</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
         </a>
-        <a class="maison-world" href="shop" data-nav="shop" aria-label="Metallo">
+        <a class="maison-world" href="shop" data-nav="shop">
           <img src="img/material-metallo.webp" alt="Superficie metallica: fotografia di repertorio, non una lavorazione INGLY" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Metallo" data-maison-en="Metal">Metallo</strong><small data-maison-it="Dettagli che restano" data-maison-en="Details made to last">Dettagli che restano</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
         </a>
-        <a class="maison-world" href="tecnologie" data-nav="tecnologie" aria-label="Stampa UV">
+        <a class="maison-world" href="tecnologie" data-nav="tecnologie">
           <img src="img/cat-tecnologie.webp" alt="Laser in lavorazione: fotografia di repertorio, non una realizzazione INGLY" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Stampa UV" data-maison-en="UV Printing">Stampa UV</strong><small data-maison-it="Colore per le tue idee" data-maison-en="Colour for your ideas">Colore per le tue idee</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
         </a>
-        <a class="maison-world" href="shop" data-nav="shop" aria-label="Stampa 3D">
+        <a class="maison-world" href="shop" data-nav="shop">
           <img src="img/material-pla.webp" alt="Bobine reali di filamento PLA per stampa 3D, fotografia di repertorio" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Stampa 3D" data-maison-en="3D Printing">Stampa 3D</strong><small data-maison-it="Dall'idea al volume" data-maison-en="From idea to object">Dall'idea al volume</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
         </a>
-        <a class="maison-world" href="shop" data-nav="shop" aria-label="Regali unici">
+        <a class="maison-world" href="shop" data-nav="shop">
           <img src="img/cat-eventi.webp" alt="Segnaposto reale per eventi: fotografia di repertorio, non una realizzazione INGLY" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Regali unici" data-maison-en="Unique Gifts">Regali unici</strong><small data-maison-it="Un pensiero per ogni occasione" data-maison-en="A thoughtful gift for every occasion">Un pensiero per ogni occasione</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
@@ -585,7 +588,7 @@ setTimeout(function(){
         <p data-sig-it="Tecnologia al servizio delle tue idee. Dopo le creazioni INGLY, scopri la nostra collaborazione tecnologica con xTool per approfondire macchine, applicazioni e demo." data-sig-en="Technology supporting your ideas. After exploring INGLY creations, discover our technology collaboration with xTool, including machines, applications and demos.">Tecnologia al servizio delle tue idee. Dopo le creazioni INGLY, scopri la nostra collaborazione tecnologica con xTool per approfondire macchine, applicazioni e demo.</p>
       </div>
       <div class="ingly-photographic-lab__grid">
-        <a href="macchine" data-nav="macchine" class="ingly-machine-photo ingly-machine-photo--lead" aria-label="xTool P3: scopri macchine e applicazioni">
+        <a href="macchine" data-nav="macchine" class="ingly-machine-photo ingly-machine-photo--lead">
           <span class="ingly-machine-photo__media">
             <img src="https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_p3_1219-5482_e4bbd1a7-6988-4465-b4de-e7be5b75330f.webp?v=1778491125" alt="Fotografia ufficiale xTool P3, macchina laser CO2 professionale" width="760" height="580" fetchpriority="low" decoding="async" onerror="this.onerror=null;this.src='assets/images/xtool-lab-default.svg'">
             <span class="ingly-machine-photo__source">Foto ufficiale xTool</span>
@@ -595,7 +598,7 @@ setTimeout(function(){
             <span class="ingly-machine-photo__arrow" aria-hidden="true">↗</span>
           </span>
         </a>
-        <a href="macchine" data-nav="macchine" class="ingly-machine-photo" aria-label="xTool F2: scopri macchine e applicazioni">
+        <a href="macchine" data-nav="macchine" class="ingly-machine-photo">
           <span class="ingly-machine-photo__media">
             <img src="https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_f2_1219-5500.webp?v=1778491125" alt="Fotografia ufficiale xTool F2 con cover arancione" width="480" height="360" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/xtool-lab-default.svg'">
             <span class="ingly-machine-photo__source">Foto ufficiale xTool</span>
@@ -605,7 +608,7 @@ setTimeout(function(){
             <span class="ingly-machine-photo__arrow" aria-hidden="true">↗</span>
           </span>
         </a>
-        <a href="macchine" data-nav="macchine" class="ingly-machine-photo" aria-label="xTool O1 Omni UV: scopri macchine e applicazioni">
+        <a href="macchine" data-nav="macchine" class="ingly-machine-photo">
           <span class="ingly-machine-photo__media">
             <img src="https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-guanwang_us_pc_uv_2034-6365_214b9e4c-82e3-4f84-8cf5-b6f1eb8cf445.webp?v=1783306125" alt="Fotografia ufficiale della stampante UV xTool O1 Omni" width="480" height="360" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/xtool-lab-default.svg'">
             <span class="ingly-machine-photo__source">Foto ufficiale xTool</span>
@@ -615,7 +618,7 @@ setTimeout(function(){
             <span class="ingly-machine-photo__arrow" aria-hidden="true">↗</span>
           </span>
         </a>
-        <a href="macchine" data-nav="macchine" class="ingly-machine-photo" aria-label="xTool WonderPress: scopri macchine e applicazioni">
+        <a href="macchine" data-nav="macchine" class="ingly-machine-photo">
           <span class="ingly-machine-photo__media">
             <img src="https://cdn.shopify.com/s/files/1/0467/7985/9095/files/mk-a-reyaji_us_pc_wonderpress_9476-24404_78b96c46-66bf-4d63-bedd-f7993e22cbe2.webp?v=1782372892" alt="Fotografia ufficiale della pressa a caldo xTool WonderPress" width="480" height="360" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/xtool-lab-default.svg'">
             <span class="ingly-machine-photo__source">Foto ufficiale xTool</span>
@@ -715,6 +718,9 @@ setTimeout(function(){
       <div>
         <!-- Intestazione della collezione attiva: compare solo quando una
              collezione filtra il catalogo, e offre la via d'uscita. -->
+        <!-- Ingressi per occasione e per oggetto: compaiono sul catalogo intero,
+             spariscono appena si filtra. Link veri a /collezioni/<nome>. -->
+        <div class="shop-occ" id="shopOcc" hidden></div>
         <div class="shop-coll" id="shopCollBanner" hidden></div>
         <div class="shop-colls" id="shopColls"></div>
         <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><div class="shop-attivi" id="shopAttivi"></div></div>
@@ -735,7 +741,7 @@ setTimeout(function(){
     </div>
     <div class="ingly-commerce-spots__grid">
       <button type="button" class="ingly-commerce-spot ingly-commerce-spot--gadgets"
-              data-action="go-shop" data-arg="b2b" data-inline-aria="shopGadgetsAria" aria-label="Esplora i gadget aziendali">
+              data-action="go-shop" data-arg="b2b">
         <span class="ingly-commerce-spot__image">
           <img src="img/cat-b2b.webp" alt="Immagine editoriale della categoria aziendale" width="680" height="440" loading="lazy">
         </span>
@@ -747,7 +753,7 @@ setTimeout(function(){
         </span>
       </button>
       <button type="button" class="ingly-commerce-spot ingly-commerce-spot--accessories"
-              data-action="go-shop" data-arg="accessori" data-inline-aria="shopAccessoriesAria" aria-label="Esplora gli accessori personalizzati">
+              data-action="go-shop" data-arg="accessori">
         <span class="ingly-commerce-spot__image">
           <img src="img/cat-accessori.webp" alt="Immagine editoriale della categoria accessori" width="680" height="440" loading="lazy">
         </span>
@@ -827,6 +833,7 @@ setTimeout(function(){
           </a>
           <a class="btn btn-ghost product-contact-email" id="productContactEmail" href="mailto:inglydesign@gmail.com"><span>Richiedi via email</span></a>
           <p class="product-contact-note" id="productContactNote">Raccontaci cosa hai in mente: ti aiutiamo a scegliere materiali, finiture e personalizzazione.</p>
+          <div class="pp-perfetto" id="ppPerfetto" hidden></div>
         </div>
         <!-- Tabs -->
         <div class="pp-tabs" role="tablist">
@@ -1083,6 +1090,8 @@ setTimeout(function(){
       </div>
       <div class="ingly-service-centre__copy">
         <span class="eyebrow">INGLY DESIGN × xTOOL</span>
+        <!-- logo ufficiale ricevuto da xTool (email al titolare, novembre 2026) -->
+        <figure class="xtool-asc"><img src="assets/images/xtool-authorized-service-centre-ufficiale-320.webp" srcset="assets/images/xtool-authorized-service-centre-ufficiale-320.webp 320w, assets/images/xtool-authorized-service-centre-ufficiale-640.webp 640w" sizes="160px" alt="xTool Authorized Service Centre" width="320" height="278" loading="lazy" decoding="async"><figcaption>Centro assistenza autorizzato xTool</figcaption></figure>
         <h2 id="inglyServiceTitle">xTool Squad<br><em>a Palermo.</em></h2>
         <p data-inline-i18n="serviceIntro">INGLY DESIGN è host di xTool Squad, la rete ufficiale di xTool per il supporto locale prima e dopo l'acquisto: demo delle macchine, test sui tuoi materiali, formazione, installazione e messa in servizio, manutenzione e riparazione. Raccontaci il modello e di cosa hai bisogno.</p>
         <p class="ingly-service-centre__scope" data-inline-i18n="serviceScope">Per assistenza o riparazione, disponibilità e tipo di intervento vengono confermati caso per caso. Garanzia, xToolCare e ricambi originali sono gestiti da xTool sui suoi canali ufficiali.</p>
@@ -1207,6 +1216,19 @@ setTimeout(function(){
   </div>
 </section>
 
+<!-- FORNITURE: materiali consigliati, venduti dai negozi (link di affiliazione) -->
+<section class="page" id="page-forniture">
+  <div class="wrap phero">
+    <h1 class="h2">Forniture per il laser</h1>
+    <p class="sub" id="fornIntro">I materiali e gli accessori che consigliamo per incidere e tagliare.</p>
+    <ol class="forn-passi" id="fornPassi"></ol>
+    <p class="forn-avviso" id="fornAvviso" hidden></p>
+    <div id="fornFiltri"></div>
+    <div id="fornGrid"></div>
+    <div id="fornChiusura"></div>
+  </div>
+</section>
+
 <!-- QUOTE / CUSTOM -->
 <section class="page" id="page-quote">
   <div class="wrap phero">
@@ -1257,7 +1279,7 @@ setTimeout(function(){
 </section>
 </main>
 
-<div class="stickybuy" aria-hidden="true"><div class="sb-i"><b id="sbPrice">€0,00</b><span id="sbName"></span></div><button class="btn btn-primary" id="sbBtn" data-action="pp-add">Aggiungi <span class="arr">→</span></button></div>
+<div class="stickybuy" aria-hidden="true" inert><div class="sb-i"><b id="sbPrice">€0,00</b><span id="sbName"></span></div><button class="btn btn-primary" id="sbBtn" data-action="pp-add">Aggiungi <span class="arr">→</span></button></div>
 <section class="sponsors reveal" id="sponsorSec" hidden>
   <div class="wrap">
     <div class="sp-head">
@@ -1281,7 +1303,7 @@ setTimeout(function(){
 
     <div class="ft-cols">
       <div class="ft-col ft-col--brand">
-        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
+        <a href="./" data-nav="home" class="brand brand--identity" aria-label="INGLY DESIGN · ITALY — homepage"><img class="brand-symbol" src="assets/images/ingly-logo.svg" alt="" width="44" height="44" loading="lazy"><span class="brand-lockup"><img class="brand-wordmark" src="assets/images/ingly-wordmark-light.svg?v=20261018n4" alt="" width="172" height="72" decoding="async"><small>DESIGN · ITALY</small></span></a>
         <p class="ft-desc" data-i18n="ftDesc">Creazioni personalizzate: incisione e taglio laser, stampa UV e DTF, stampa 3D. Fatte in Italia.</p>
         <div class="socials" id="soc3"></div>
       </div>
@@ -1296,7 +1318,9 @@ setTimeout(function(){
         <a href="macchine" data-nav="macchine">Macchine</a>
         <a href="academy" data-nav="academy">Academy</a>
         <a href="demo" data-nav="demo">Demo gratuita</a>
-        <a href="assistenza-xtool-palermo/">Assistenza xTool Palermo</a></div>
+        <a href="forniture" data-nav="forniture" data-forn-link hidden>Forniture per il laser</a>
+        <a href="assistenza-xtool-palermo/">Assistenza xTool Palermo</a>
+        <a class="ft-asc" href="assistenza-xtool-palermo/" aria-label="xTool Authorized Service Centre: assistenza xTool a Palermo"><img src="assets/images/xtool-authorized-service-centre-ufficiale-320.webp" srcset="assets/images/xtool-authorized-service-centre-ufficiale-320.webp 320w, assets/images/xtool-authorized-service-centre-ufficiale-640.webp 640w" sizes="96px" alt="" width="320" height="278" loading="lazy" decoding="async"></a></div>
       <div class="ft-col"><h4 data-i18n="ftCo">Studio</h4>
         <a href="about" data-nav="about" data-i18n="nAbout">Chi Siamo</a>
         <a href="portfolio" data-nav="portfolio">Portfolio</a>
@@ -1383,7 +1407,7 @@ setTimeout(function(){
 <!-- Promo popup: iniettato da JS solo quando attivo:true in admin (content.json → POPUP) -->
 
 <div id="promoBar"></div>
-<a id="waFab" class="wa-fab" href="#" target="_blank" rel="noopener" style="display:none" aria-label="WhatsApp">
+<a id="waFab" class="wa-fab" href="#" target="_blank" rel="noopener" style="display:none" aria-label="Scrivici su WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1s-.5-.1-.7.2-.8 1-.9 1.1-.3.2-.6.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4a3.2 3.2 0 0 0-1 2.4 5.6 5.6 0 0 0 1.2 3 12.7 12.7 0 0 0 4.9 4.3c.7.3 1.2.5 1.6.6a3.9 3.9 0 0 0 1.8.1 2.9 2.9 0 0 0 1.9-1.4 2.4 2.4 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.4zM12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
   <span class="wa-lbl">Scrivici su WhatsApp</span></a>
 <div id="projModal" class="proj-modal" hidden role="dialog" aria-modal="true" aria-label="Scheda progetto">

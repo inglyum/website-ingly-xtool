@@ -50,7 +50,7 @@ try{
    });
    await run(mode+' product lightbox via keyboard and Escape',async()=>{
     // The first Shop card may intentionally have no photo: use a known photographed SKU.
-    await p.goto(url+'/product/1/',{waitUntil:'domcontentloaded'});
+    await p.goto(url+'/product/2/',{waitUntil:'domcontentloaded'}); // #1 nascosto da novembre 2026 (marchio altrui)
     await p.addStyleTag({content:'#exitPopup{display:none!important;pointer-events:none!important}'});
     await p.waitForSelector('#page-product.active',{timeout:12000});
     const photo=p.locator('#ppArt[role="button"][aria-disabled="false"]');
@@ -78,7 +78,7 @@ try{
    await run(mode+' cart item quantity focus, explicit labels and removal',async()=>{
     await p.evaluate(async()=>{
       const mod=await import(new URL('/assets/js/products.js',location.origin).href);
-      mod.addToCart(1,1);
+      mod.addToCart(2,1);
     });
     await p.waitForSelector('#drawer.open #drItems .ditem',{timeout:6000});
     const count=p.locator('#drCount');

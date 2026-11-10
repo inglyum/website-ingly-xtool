@@ -134,6 +134,9 @@ export function show(page){
     const fromMobileMenu=document.getElementById('mm')?.classList.contains('open');
     toggleMenu(false,{restoreFocus:false});
     document.body.classList.toggle('on-product',page==='product');
+    /* la barra d'acquisto fissa esiste solo sulla scheda prodotto: altrove è nascosta anche alla tastiera */
+    const sbar=document.querySelector('.stickybuy');
+    if(sbar){sbar.toggleAttribute('inert',page!=='product');sbar.setAttribute('aria-hidden',page==='product'?'false':'true');}
     /* Chi sceglie una pagina dal menu non deve restare con il focus
        su un link che è diventato inert dopo la navigazione. */
     if(fromMobileMenu){

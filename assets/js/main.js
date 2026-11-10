@@ -459,7 +459,8 @@ function bindMode(){
     for(const el of [btn,mobile]){
       if(!el)continue;
       el.setAttribute('aria-pressed',v==='light'?'true':'false');
-      el.setAttribute('aria-label',labels(v).next);
+      /* il nome accessibile contiene il testo visibile («Tema») del pulsante mobile */
+      el.setAttribute('aria-label',(el===mobile?'Tema: ':'')+labels(v).next);
       el.title=labels(v).next;
     }
   };
@@ -587,7 +588,10 @@ function renderWaFab(){
   const url=num?('https://wa.me/'+num+(w.messaggio?'?text='+encodeURIComponent(w.messaggio):'')):(CONFIG.whatsapp||'');
   if(w.attivo===false||!url){el.style.display='none';return}
   el.href=url;el.style.display='';
-  const lbl=el.querySelector('.wa-lbl');if(lbl)lbl.textContent=(w.etichetta&&w.etichetta[L])||(L==='it'?'Scrivici su WhatsApp':'Chat on WhatsApp');
+  const testo=(w.etichetta&&w.etichetta[L])||(L==='it'?'Scrivici su WhatsApp':'Chat on WhatsApp');
+  const lbl=el.querySelector('.wa-lbl');if(lbl)lbl.textContent=testo;
+  /* stesso testo dell'etichetta: sul telefono l'etichetta è nascosta e il nome resta */
+  el.setAttribute('aria-label',testo);
 }
 function renderAboutArt(){
   const box=document.querySelector('.about-art');if(!box)return;

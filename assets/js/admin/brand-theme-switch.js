@@ -17,7 +17,7 @@
   if(persist){try{localStorage.setItem('ingly_mode',value)}catch(_){}}
   if(button){
    button.textContent=value==='light'?'☾ Scuro':'☀ Chiaro';
-   button.setAttribute('aria-label',value==='light'?'Attiva la modalità scura':'Attiva la modalità chiara');
+   button.setAttribute('aria-label',value==='light'?'Scuro: attiva la modalità scura':'Chiaro: attiva la modalità chiara');
    button.setAttribute('aria-pressed',value==='light'?'true':'false');
    button.title=button.getAttribute('aria-label');
   }

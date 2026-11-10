@@ -619,3 +619,5 @@
 .ax-marchio--scuro{display:none}
 :root[data-mode="dark"] .ax-marchio--chiaro{display:none}
 :root[data-mode="dark"] .ax-marchio--scuro{display:block}
+/* contrasto AA dello stato «Supportato» nel cercatore di materiali (tema chiaro) */
+:root[data-mode="light"] #page-macchine .ingly-finder-tile[data-status="yes"] small{color:#1d5537!important}

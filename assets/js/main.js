@@ -25,6 +25,7 @@ import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
 import * as STAT from './statistiche.js';
 import * as FORNUI from './forniture-ui.js';
+import * as S3DUI from './stampa3d-ui.js';
 import * as LINGUA from './lingua-statica.js';
 
 /* ---- config → DOM ---- */
@@ -820,7 +821,7 @@ function renderAll(){
     ['catalogo digitale',()=>DIGUI.renderTutto(L)],['ticker',renderTicker],['tecnologie home',renderTech],
     ['passaggi',renderSteps],['recensioni',renderReviews],['Business',renderBiz],['settori',renderVertStrip],
     ['pagina settore',()=>renderVerticale(currentVerticale())],['Lab',renderLab],['navigazione IA',renderNavIA],
-    ['contatori',renderContatori],['FAQ',renderFaq],['forniture',()=>FORNUI.renderForniture(L)],['materiali home',renderMat],['portfolio',renderPort],
+    ['contatori',renderContatori],['FAQ',renderFaq],['forniture',()=>FORNUI.renderForniture(L)],['stampa 3D',()=>S3DUI.renderStampa3D(L,p=>prod.card(p))],['materiali home',renderMat],['portfolio',renderPort],
     ['social hub',renderSocialHub],['urgenza',renderUrg],['carrello',()=>prod.renderCart()],['animazioni',observeAll]
   ];
   jobs.forEach(([label,task])=>safeRun('render/'+label,task));

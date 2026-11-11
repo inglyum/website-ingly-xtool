@@ -159,7 +159,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=b137dc9aeb">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=1bee295461">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -440,7 +440,7 @@ setTimeout(function(){
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Stampa UV" data-maison-en="UV Printing">Stampa UV</strong><small data-maison-it="Colore per le tue idee" data-maison-en="Colour for your ideas">Colore per le tue idee</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
         </a>
-        <a class="maison-world" href="shop" data-nav="shop">
+        <a class="maison-world" href="stampa-3d" data-nav="stampa-3d">
           <img src="img/material-pla.webp" alt="Bobine reali di filamento PLA per stampa 3D, fotografia di repertorio" width="570" height="420" loading="lazy" decoding="async">
           <span class="maison-world__shade" aria-hidden="true"></span>
           <span class="maison-world__content"><strong data-maison-it="Stampa 3D" data-maison-en="3D Printing">Stampa 3D</strong><small data-maison-it="Dall'idea al volume" data-maison-en="From idea to object">Dall'idea al volume</small><span class="maison-world__arrow" aria-hidden="true">↗</span></span>
@@ -1240,6 +1240,11 @@ setTimeout(function(){
 </section>
 
 <!-- FORNITURE: materiali consigliati, venduti dai negozi (link di affiliazione) -->
+<!-- STAMPA 3D: contenuti in assets/js/stampa3d.js, disegno in stampa3d-ui.js -->
+<section class="page" id="page-stampa-3d">
+  <div id="s3dPagina"><div class="wrap phero"><h1 class="h2">Stampa 3D su misura</h1><p class="sub">Prototipi, ricambi, oggetti personalizzati e lampade dalla tua foto, insieme al laser e alla stampa UV dello stesso laboratorio.</p></div></div>
+</section>
+
 <section class="page" id="page-forniture">
   <div class="wrap phero">
     <h1 class="h2">Forniture per il laser</h1>
@@ -1338,6 +1343,7 @@ setTimeout(function(){
       <div class="ft-col"><h4>Lab</h4>
         <a href="materiali" data-nav="materiali">Materiali</a>
         <a href="tecnologie" data-nav="tecnologie">Tecnologie</a>
+        <a href="stampa-3d" data-nav="stampa-3d">Stampa 3D</a>
         <a href="macchine" data-nav="macchine">Macchine</a>
         <a href="academy" data-nav="academy">Academy</a>
         <a href="demo" data-nav="demo">Demo gratuita</a>

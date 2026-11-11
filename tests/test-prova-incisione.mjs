@@ -46,7 +46,7 @@ t('nessun invio della foto a servizi esterni dalla pagina', !/fetch\(|XMLHttpReq
 t('anteprima dichiarata indicativa', /Anteprima indicativa/.test(page));
 const forms = readFileSync('assets/js/forms.js', 'utf8');
 t('preventivo: foto e anteprima allegate da sole', /export function allegaProvaIncisione/.test(forms) && /new DataTransfer\(\)/.test(forms) && /allegaProvaIncisione\(q\)/.test(forms));
-t('link dal modulo preventivo e dal catalogo generatori', /href="prova-incisione\.html"/.test(readFileSync('index.html', 'utf8')) && /PAGINE_INTERNE=\['print-cut\.html','prova-incisione\.html'\]/.test(readFileSync('generatori.html', 'utf8')));
+t('link dal modulo preventivo e dal catalogo generatori', /href="prova-incisione\.html"/.test(readFileSync('index.html', 'utf8')) && /PAGINE_INTERNE=\[[^\]]*'prova-incisione\.html'/.test(readFileSync('generatori.html', 'utf8')));
 t('nella sitemap', readFileSync('scripts/generate-sitemap.mjs', 'utf8').includes("file: 'prova-incisione.html'") && existsSync('prova-incisione.html'));
 console.log(`\n=========== PROVA INCISIONE: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

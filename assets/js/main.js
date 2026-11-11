@@ -25,6 +25,8 @@ import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
 import * as STAT from './statistiche.js';
 import * as FORNUI from './forniture-ui.js';
+import * as S3DUI from './stampa3d-ui.js';
+import * as LINGUA from './lingua-statica.js';
 
 /* ---- config → DOM ---- */
 function initHeroVideo(){
@@ -216,6 +218,7 @@ function applyI18n(){
   // The owner-supplied loader controls its own message cycle; translation must not overwrite it.
   const l=$('ldrTxt');if(l&&!document.querySelector('#loader.ingly-custom-loader'))l.textContent=T('ldr');
   const sb=$('sbBtn');if(sb)sb.firstChild.textContent=(PREZZI.mostraPrezzi(CONFIG)?T('ppAdd'):PREZZI.etichettaAzione(CONFIG,L))+' ';
+  LINGUA.applica(L);
 }
 /* ===== TITOLO DELLA HERO =====
    Il titolo grande è la prima cosa che si legge del sito, e finora viveva
@@ -282,7 +285,7 @@ function setLang(l){
  const next=l==='en'?'en':'it';
  setL(next);
  try{localStorage.setItem('ingly_lang',next)}catch(e){}
- applyI18n();renderAll();
+ applyI18n();renderAll();LINGUA.applica(L);
  for(const id of ['langIT','langEN']) document.getElementById(id)?.setAttribute('aria-pressed',String(id==='lang'+next.toUpperCase()));
  const pg=currentPage();updateSeo(pg,L,T,pg==='product'?prod.currentProduct():null);
  window.dispatchEvent(new CustomEvent('ingly:language-change',{detail:{language:next}}));
@@ -447,9 +450,9 @@ function bindMode(){
   if(!btn && !mobile) return;
   const root=document.documentElement;
   const stored=()=>{try{const v=localStorage.getItem('ingly_mode');return v==='light'||v==='dark'?v:null}catch(e){return null}};
-  const labels=v=>v==='light'
-    ? {next:'Passa alla modalità scura',current:'Modalità chiara attiva'}
-    : {next:'Passa alla modalità chiara',current:'Modalità scura attiva'};
+  const labels=v=>L==='en'
+    ? (v==='light'?{next:'Switch to dark mode',current:'Light mode on'}:{next:'Switch to light mode',current:'Dark mode on'})
+    : (v==='light'?{next:'Passa alla modalità scura',current:'Modalità chiara attiva'}:{next:'Passa alla modalità chiara',current:'Modalità scura attiva'});
   const set=(value,persist=false)=>{
     const v=value==='light'?'light':'dark';
     root.setAttribute('data-mode',v);
@@ -460,7 +463,7 @@ function bindMode(){
       if(!el)continue;
       el.setAttribute('aria-pressed',v==='light'?'true':'false');
       /* il nome accessibile contiene il testo visibile («Tema») del pulsante mobile */
-      el.setAttribute('aria-label',(el===mobile?'Tema: ':'')+labels(v).next);
+      el.setAttribute('aria-label',(el===mobile?(L==='en'?'Theme: ':'Tema: '):'')+labels(v).next);
       el.title=labels(v).next;
     }
   };
@@ -473,6 +476,7 @@ function bindMode(){
   };
   btn?.addEventListener('click',toggle);
   mobile?.addEventListener('click',toggle);
+  window.addEventListener('ingly:language-change',()=>set(root.getAttribute('data-mode')));
 }
 
 function bindLightbox(){
@@ -817,7 +821,7 @@ function renderAll(){
     ['catalogo digitale',()=>DIGUI.renderTutto(L)],['ticker',renderTicker],['tecnologie home',renderTech],
     ['passaggi',renderSteps],['recensioni',renderReviews],['Business',renderBiz],['settori',renderVertStrip],
     ['pagina settore',()=>renderVerticale(currentVerticale())],['Lab',renderLab],['navigazione IA',renderNavIA],
-    ['contatori',renderContatori],['FAQ',renderFaq],['forniture',()=>FORNUI.renderForniture(L)],['materiali home',renderMat],['portfolio',renderPort],
+    ['contatori',renderContatori],['FAQ',renderFaq],['forniture',()=>FORNUI.renderForniture(L)],['stampa 3D',()=>S3DUI.renderStampa3D(L,p=>prod.card(p))],['materiali home',renderMat],['portfolio',renderPort],
     ['social hub',renderSocialHub],['urgenza',renderUrg],['carrello',()=>prod.renderCart()],['animazioni',observeAll]
   ];
   jobs.forEach(([label,task])=>safeRun('render/'+label,task));

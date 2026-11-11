@@ -11,6 +11,7 @@ import * as P from './prerender-engine.js';
 import * as SCH from './schema-engine.js';
 import * as FAQ from './faq-engine.js';
 import * as FORN from './forniture.js';
+import * as S3D from './stampa3d.js';
 import * as VERT from './verticali.js';
 import * as PR from './prezzi.js';
 import * as LAB from './lab.js';
@@ -51,7 +52,7 @@ export function generaSito(dati, guscio){
   const TITOLI = {
     shop:'Catalogo', digital:'Prodotti digitali', business:'B2B · Aziende',
     portfolio:'Portfolio', about:'Chi siamo', faq:'Domande frequenti', quote:'Richiedi un preventivo',
-    forniture:'Forniture per il laser',
+    forniture:'Forniture per il laser', 'stampa-3d':'Stampa 3D su misura',
   };
 
   function paginaProdotto(p){
@@ -102,6 +103,13 @@ export function generaSito(dati, guscio){
       return P.componi(guscio, { pagina: pg, titolo, descrizione: desc, canonico,
         contenuto: contenuto + '\n<p>Questa sezione al momento non è disponibile.</p>', jsonld: SCH.grafo([...entitaBase]) })
         .replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, follow">');
+    }
+    if (pg === 'stampa-3d') {
+      const D3 = S3D.dati(contenuti);
+      return P.componi(guscio, { pagina: pg, titolo: 'Stampa 3D su misura: prototipi, ricambi, lampade e litofanie — ' + azienda,
+        descrizione: S3D.lingua(D3.intro, L), canonico,
+        contenuto: S3D.corpoStatico(D3, { L, base, esc, prodotti: S3D.prodotti3d(prodotti) }),
+        jsonld: SCH.grafo([...entitaBase, ...S3D.schema(D3, { L, base, idAzienda: SCH.ID.org })]) });
     }
     if (pg === 'forniture') {
       const DF = FORN.dati(contenuti);

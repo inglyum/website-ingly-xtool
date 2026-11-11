@@ -128,7 +128,7 @@ export function genera() {
 </header>
 <main class="ax-wrap page active">
  <nav aria-label="Percorso" style="font-size:14px;margin-bottom:18px"><a href="./">Home</a> / <a href="macchine">Macchine</a> / Assistenza xTool Palermo</nav>
- <figure class="xtool-asc"><img src="assets/images/xtool-authorized-service-centre-ufficiale-320.webp" srcset="assets/images/xtool-authorized-service-centre-ufficiale-320.webp 320w, assets/images/xtool-authorized-service-centre-ufficiale-640.webp 640w" sizes="160px" alt="xTool Authorized Service Centre" width="320" height="276" decoding="async"><figcaption>Centro assistenza autorizzato xTool</figcaption></figure>
+ <figure class="xtool-asc"><img src="assets/images/xtool-asc-trasparente-320.webp" srcset="assets/images/xtool-asc-trasparente-320.webp 320w, assets/images/xtool-asc-trasparente-640.webp 640w" sizes="160px" alt="xTool Authorized Service Centre" width="320" height="276" decoding="async"><figcaption>Centro assistenza autorizzato xTool</figcaption></figure>
  <h1>Assistenza xTool a Palermo e in Sicilia</h1>
  <p class="ax-lead">INGLY DESIGN è host di <a href="${SQUAD}" target="_blank" rel="noopener noreferrer">xTool Squad</a>, la rete ufficiale di xTool che porta le macchine vicino a chi le usa: le vedi lavorare dal vivo, ricevi consigli esperti e hai un supporto locale prima e dopo l'acquisto. Seguiamo clienti a Palermo, in tutta la Sicilia e nel Sud Italia.</p>
  <div class="ax-cta">

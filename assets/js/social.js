@@ -26,8 +26,8 @@ export function initShare(){
 
 function copyLink(url){
   navigator.clipboard?.writeText(url).then(()=>{
-    showShareToast('🔗 Link copiato!');
-  }).catch(()=>showShareToast('🔗 '+url));
+    showShareToast(L==='en'?'Link copied':'Link copiato');
+  }).catch(()=>showShareToast(url));
 }
 
 function showShareToast(msg){
@@ -142,10 +142,10 @@ export function renderInstagramFeed(containerId){
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         @${handle}
       </a>
-      <a href="${igUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Seguici →</a>
+      <a href="${igUrl}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">${L==='en'?'Follow us':'Seguici'} →</a>
     </div>
     <behold-widget feed-id="${handle}"></behold-widget>
-    <p class="ig-fallback">Segui <a href="${igUrl}" target="_blank" rel="noopener">@${handle}</a> su Instagram per le ultime creazioni!</p>`;
+    <p class="ig-fallback">${L==='en'?'Follow':'Segui'} <a href="${igUrl}" target="_blank" rel="noopener">@${handle}</a> ${L==='en'?'on Instagram for our latest creations.':'su Instagram per le ultime creazioni.'}</p>`;
 }
 
 /* ---------- GOOGLE REVIEWS (Places embed — nessun token richiesto) ---------- */

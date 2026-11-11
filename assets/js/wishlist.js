@@ -89,7 +89,7 @@ export function shareWish(){
   try{
     if(navigator.share){ navigator.share({ title:'La mia Wishlist INGLY', url }); return; }
     navigator.clipboard.writeText(url);
-    toast(L==='it'?'Link copiato! 🔗':'Link copied! 🔗');
+    toast(L==='it'?'Link copiato':'Link copied');
   }catch(e){ toast(url) }
 }
 

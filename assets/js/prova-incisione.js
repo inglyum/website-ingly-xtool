@@ -59,6 +59,7 @@ const scelta = name => (document.querySelector(`input[name="${name}"]:checked`) 
 
 function testi() {
   document.documentElement.lang = lingua;
+  document.title = lingua === 'en' ? 'Try your engraved photo — INGLY DESIGN' : 'Prova la tua foto incisa — INGLY DESIGN';
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const v = tx(el.dataset.i18n); if (typeof v !== 'string') return;
     if (el.dataset.i18n === 'title') el.innerHTML = v; else el.textContent = v; // titolo: markup statico nostro

@@ -26,8 +26,8 @@ export function initShare(){
 
 function copyLink(url){
   navigator.clipboard?.writeText(url).then(()=>{
-    showShareToast('🔗 Link copiato!');
-  }).catch(()=>showShareToast('🔗 '+url));
+    showShareToast(L==='en'?'Link copied':'Link copiato');
+  }).catch(()=>showShareToast(url));
 }
 
 function showShareToast(msg){

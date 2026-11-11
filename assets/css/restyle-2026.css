@@ -552,7 +552,7 @@
 :root[data-mode][data-mode] #page-shop.coll-attiva .shop-testa{display:none!important}
 
 /* ---------- FORNITURE: materiali consigliati, venduti dai negozi ---------- */
-:root[data-mode][data-mode] .forn-avviso{font-size:.88rem;color:var(--rs-muted);border-left:3px solid var(--rs-gold);padding:.6rem .9rem;background:var(--rs-gold-soft);margin:1.2rem 0 0;max-width:70ch}
+:root[data-mode][data-mode] .forn-avviso{font-size:.88rem;color:var(--rs-muted);border:1px solid var(--rs-line);padding:.6rem .9rem;background:var(--rs-gold-soft);margin:1.2rem 0 0;max-width:70ch}
 :root[data-mode][data-mode] .forn-avviso a{color:var(--rs-ink);text-decoration:underline;text-underline-offset:3px}
 :root[data-mode][data-mode] .forn-filtri{display:flex;gap:8px;flex-wrap:wrap;margin:1.6rem 0 .4rem}
 :root[data-mode][data-mode] .forn-chip{border:1px solid var(--rs-line-strong);background:transparent;color:var(--rs-ink);padding:.5rem .9rem;font:600 .9rem/1.2 inherit;border-radius:0;cursor:pointer;min-height:40px}
@@ -673,3 +673,41 @@
 :root[data-mode][data-mode] .page :is(.xtool-lab-feature,.xtool-lab-art,.xtool-lab-art img,.ingly-service-centre,.machine-explore-card,.machine-explore-image,.machine-explore-image img){border-radius:0!important}
 /* la didascalia sta sulla tessera scura anche nel tema chiaro: testo chiaro sempre */
 :root[data-mode][data-mode] #page-macchine .ingly-service-centre__squad{color:#e9dfcf!important}
+
+/* ===== Superfici del browser nei due temi (selezione, cursore, barre di scorrimento) ===== */
+:root[data-mode][data-mode]{caret-color:var(--rs-gold);accent-color:var(--rs-gold);scrollbar-color:var(--rs-line-strong) var(--rs-bg)}
+:root[data-mode][data-mode] ::selection{background:var(--rs-gold);color:var(--rs-on-gold)}
+:root[data-mode][data-mode] *::-webkit-scrollbar-thumb{background:var(--rs-line-strong);background-clip:content-box}
+:root[data-mode][data-mode] *::-webkit-scrollbar-thumb:hover{background:var(--rs-gold);background-clip:content-box}
+
+/* ===== Contrasto minimo 4,5:1 sui testi piccoli, in chiaro e in scuro ===== */
+:root[data-mode][data-mode] .page .vert-go{color:var(--rs-gold)!important}
+:root[data-mode][data-mode] .ig-fallback,
+:root[data-mode][data-mode] .ig-fallback a{color:var(--rs-muted)!important}
+:root[data-mode][data-mode] .ig-fallback a{text-decoration:underline;text-underline-offset:3px}
+:root[data-mode][data-mode] .academy-topic-index{color:var(--rs-gold)!important}
+[data-mode="light"][data-mode] .pp-badge.pp-badge-best{color:#5e4a00!important}
+
+/* ===== Note e avvisi: niente striscia colorata laterale, bordo sottile tutto intorno ===== */
+:root[data-mode][data-mode] :is(.pp-material-note,.pp-material-limit,.lab-nulla,#page-personalizza .ingly-studio-compat){border-left:0!important;border:1px solid var(--rs-line)!important;border-radius:0!important;padding:12px 14px!important}
+:root[data-mode][data-mode] .ingly-service-centre__scope{border-left:0!important;padding-left:0!important}
+/* ===== Niente etichette sopra i titoli: ripetono il nome della pagina e tolgono forza al titolo.
+   Restano @ingly.design (è un indirizzo) e la categoria nella scheda prodotto. ===== */
+:root[data-mode][data-mode] .page:not(#page-product) .eyebrow:not(#shEyebrow):has(+ :is(h1,h2)){display:none!important}
+
+/* ===== Schede tecniche ufficiali xTool: tabella leggibile (etichetta a sinistra, valore a destra) ===== */
+:root[data-mode][data-mode] .ingly-official-specs{margin:16px 0;padding:14px 16px;border:1px solid var(--rs-line);background:var(--rs-bg);color:var(--rs-ink)}
+:root[data-mode][data-mode] .ingly-official-specs__head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;margin:0 0 6px}
+:root[data-mode][data-mode] .ingly-official-specs__head span{color:var(--rs-muted)}
+:root[data-mode][data-mode] .ingly-official-specs__list{margin:0;display:grid}
+:root[data-mode][data-mode] .ingly-official-specs__list>div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:8px 0;border-top:1px solid var(--rs-line);font-size:14px;line-height:1.4}
+:root[data-mode][data-mode] .ingly-official-specs__list dt{color:var(--rs-muted)}
+:root[data-mode][data-mode] .ingly-official-specs__list dd{margin:0;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+:root[data-mode][data-mode] .ingly-official-specs__note{font-size:12.5px;line-height:1.5;color:var(--rs-muted);margin:10px 0 6px}
+:root[data-mode][data-mode] .ingly-official-specs__source{font-size:13px;color:var(--rs-gold);text-underline-offset:3px}
+/* ===== Angoli vivi ovunque, come Home e Shop (prima alcune pagine avevano riquadri arrotondati) ===== */
+:root[data-mode][data-mode] .page :is(.ingly-lab-facts,.ingly-lab-fact,.ingly-assistenza-banner,.ingly-novita-card,.mac-foto,.mac-foto img,.ingly-m2-duo,.ingly-m2-duo__photo,.ingly-m2-variant,.atelier-machine__photo,.atelier-compat-section,.ingly-material-finder-host,.ingly-finder-tile,.ingly-finder-result,.lab-blocco,.lab-material-cover,.lab-course-cover,.about-art,.about-media,.sw2--foto,.pp-main,.pp-info,.product-contact-actions,.pp-material-card,.ingly-parametric,.ingly-parametric__panel,.ingly-parametric__preview,.pv-t,.per-coda-in,.signature-b2b-visual,.ingly-biz-cover,.gtile,.digital-preview-card,.digital-preview-media,.ingly-official-specs){border-radius:0!important}
+:root[data-mode][data-mode] .page :is(.mac-foto,.ingly-m2-duo__photo,.lab-material-cover,.lab-course-cover,.ingly-biz-cover,.gtile,.digital-preview-media,.atelier-machine__photo) img{border-radius:0!important}
+
+/* la barra d'acquisto fuori dalla scheda prodotto è inerte: non deve neanche affacciarsi */
+:root[data-mode][data-mode] .stickybuy[inert]{visibility:hidden}

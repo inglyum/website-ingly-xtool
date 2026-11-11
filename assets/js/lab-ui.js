@@ -78,7 +78,7 @@ function tesseraMateriale(m, L, n) {
     <span class="vert-go">${(() => {
       const da = LAB.daPrezzo(m);
       if (LAB.inVendita(m) && da != null) return t2('da ', 'from ', L) + prezzoLab(da, L);
-      return n ? n + ' ' + t2('creazioni', 'creations', L) : t2('Scopri', 'Explore', L);
+      return n ? n + ' ' + (n === 1 ? t2('creazione', 'creation', L) : t2('creazioni', 'creations', L)) : t2('Scopri', 'Explore', L);
     })()} <i class="arr">→</i></span>
   </a>`;
 }
@@ -249,7 +249,7 @@ function fotoMac(m, L, grande) {
     return `<figure class="mac-foto${grande ? ' mac-foto--grande' : ''}">
       <img src="${esc(photoSrc)}" alt="${esc(alt)}" width="760" height="510"
         ${grande ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"
-        onerror="this.onerror=null;this.src='${esc(fallback)}'">
+        onerror="this.onerror=null;this.src='${esc(fallback)}';this.alt='';var c=this.parentNode.querySelector('.mac-credito');if(c)c.remove()">
       ${f.tipoAsset === 'admin' ? '' : `<figcaption class="mac-credito">${t2('Foto ufficiale', 'Official photograph', L)}: xTool · ${t2('Fonte produttore', 'Manufacturer source', L)}</figcaption>`}
     </figure>`;
   }
@@ -456,7 +456,7 @@ export function renderMacchine(L) {
             <div class="machine-explore-image"><img src="${esc(x.origine)}"
               alt="${esc((x.alt && (x.alt[L] || x.alt.it)) || x.modello)}"
               width="580" height="400" loading="lazy" decoding="async"
-              onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}'"></div>
+              onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}';var l=this.closest('a')&&this.closest('a').querySelector('.machine-photo-label');if(l)l.textContent='${t2('Illustrazione · foto non disponibile', 'Illustration · photo unavailable', L)}'"></div>
             <span class="machine-photo-label">${x.fotoVerificata ? t2('Foto ufficiale xTool', 'Official xTool image', L) : t2('Illustrazione generica · non foto del modello', 'Generic illustration · not a photo of this model', L)}</span>
             <b>${esc(x.modello)}</b>
             <small>${esc(LAB.lingua(x.ruolo,L))}</small>

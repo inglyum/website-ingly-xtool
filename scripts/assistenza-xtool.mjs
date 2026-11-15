@@ -32,6 +32,11 @@ const wa = String(cfg.whatsapp || 'https://wa.me/393296904627').split('?')[0];
 const waTesto = wa + '?text=' + encodeURIComponent('Ciao INGLY DESIGN, ho bisogno di assistenza per la mia xTool. Modello: … Problema: …');
 const modelli = (mac.catalogo || []).filter(m => m && /^[a-z0-9-]+$/.test(m.id) && m.stato !== 'bozza' && m.stato !== 'archiviato');
 const nome = m => (m.n && (m.n.it || m.n.en)) || m.id;
+/* le macchine accese in laboratorio, provabili in demo gratuita (Admin → Lab) */
+const inDemo = modelli.filter(m => m.inOfficina && m.demoDisponibile)
+  .sort((a, b) => ((a.demo && a.demo.ordine) || 99) - ((b.demo && b.demo.ordine) || 99));
+const versioni = m => ((m.demo && m.demo.varianti) || []).map(id => (m.variantiLaser || []).find(v => v && v.id === id)).filter(Boolean);
+const nomeDemo = m => nome(m) + (versioni(m).length ? ' ' + versioni(m).map(v => v.potenza.replace(/\s+/g, '')).join(' e ') : '');
 
 const SICILIA = ['Palermo e provincia', 'Trapani', 'Agrigento', 'Caltanissetta', 'Enna', 'Catania', 'Messina', 'Siracusa', 'Ragusa'];
 const SUD = ['Calabria', 'Campania', 'Puglia', 'Basilicata'];
@@ -46,7 +51,7 @@ const FAQ = [
   ['Arrivo da fuori Palermo: come faccio?', 'Puoi portarci la macchina in laboratorio a Palermo oppure spedirla. Seguiamo clienti in tutta la Sicilia e nel Sud Italia: scrivici il modello e il problema e ti diciamo come procedere.'],
   ['Quali modelli seguite?', 'Tutta la gamma xTool: laser a diodo, CO₂, fibra, MOPA e UV, stampanti UV, presse e le novità come X1 e C1. L\'elenco completo è più sotto, con il link alla scheda di ogni macchina.'],
   ['Quanto costa una riparazione?', 'Dipende dal modello e dal guasto. Prima facciamo la diagnosi e ti mandiamo un preventivo: si procede solo se lo approvi.'],
-  ['Posso provare una macchina prima di comprarla?', 'Sì, per le macchine che abbiamo in laboratorio organizziamo una demo: la vedi lavorare su un tuo pezzo prima di scegliere.']
+  ['Posso provare una macchina prima di comprarla?', 'Sì, con una demo gratuita nel nostro laboratorio di Palermo o online: la vedi lavorare su un tuo pezzo prima di scegliere. Puoi provare ' + inDemo.map(nomeDemo).join(', ') + '.']
 ];
 
 const schema = {
@@ -87,7 +92,7 @@ export function genera() {
 <base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assistenza xTool a Palermo e in Sicilia · host ufficiale xTool Squad | INGLY DESIGN</title>
+<title>Assistenza xTool a Palermo e in Sicilia · demo gratuita, host ufficiale xTool Squad | INGLY DESIGN</title>
 <meta name="description" content="INGLY DESIGN è host xTool Squad a Palermo: demo prima dell'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool in Sicilia e nel Sud Italia.">
 <link rel="canonical" href="${esc(url)}">
 <meta property="og:type" content="website"><meta property="og:url" content="${esc(url)}">
@@ -151,7 +156,14 @@ export function genera() {
  <h2>Garanzia, xToolCare e ricambi</h2>
  <p>La garanzia e i piani xToolCare sono gestiti da xTool: le richieste si aprono sul <a href="${SERVICE}" target="_blank" rel="noopener noreferrer">Service Center ufficiale xTool</a>. I ricambi originali si acquistano sullo <a href="${SHOP}" target="_blank" rel="noopener noreferrer">shop ufficiale xTool</a>: ti aiutiamo a trovare quello giusto e, se serve, lo sostituiamo durante la manutenzione o la riparazione.</p>
 
- <h2>Come funziona</h2>
+ <h2>Demo xTool gratuita a Palermo</h2>
+ <p>Prima di comprare, provala. Queste macchine sono accese nel nostro laboratorio e le puoi vedere lavorare con una demo gratuita, su appuntamento: prenoti dalla Demo Room di xTool Support oppure ci scrivi su WhatsApp.</p>
+ <ul class="ax-lista">
+  ${inDemo.map(m => `<li><a href="macchine/${esc(m.id)}">${esc(nomeDemo(m))}</a></li>`).join('\n  ')}
+ </ul>
+ <p><a class="btn btn-primary" href="demo">Vedi le macchine e prenota la demo <span class="arr">→</span></a></p>
+
+ <h2>Come funziona l'assistenza</h2>
  <ol class="ax-passi">
   <li>Scrivici su WhatsApp o via email il modello della macchina e cosa succede, meglio con una foto o un breve video.</li>
   <li>Ti diciamo se si risolve a distanza o se serve vederla, e ti mandiamo un preventivo.</li>

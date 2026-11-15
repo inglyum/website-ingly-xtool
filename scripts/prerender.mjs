@@ -28,6 +28,7 @@ const dati = {
   materiali: await leggi('data/materiali.json'),
   tecnologie: await leggi('data/tecnologie.json'),
   macchine: await leggi('data/macchine.json'),
+  immaginiMacchine: await leggi('data/immagini-macchine.json'),
   corsi: await leggi('data/corsi.json'),
   collezioni: await leggi('data/collezioni.json'),
 };

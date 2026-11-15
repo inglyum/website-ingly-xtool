@@ -630,21 +630,77 @@ export function corpoCorso(D, c, opt = {}) {
   return r.filter(Boolean).join('\n');
 }
 
+/* Domande sulla demo: le stesse nella pagina e nei dati per Google, così
+   chi cerca «demo xTool Palermo» o «provare xTool M2 20W» trova la risposta. */
+export const FAQ_DEMO = [
+  { d: { it: 'Dove posso provare una macchina xTool in Sicilia?', en: 'Where can I try an xTool machine in Sicily?' },
+    r: { it: 'A Palermo, nel laboratorio INGLY DESIGN, host ufficiale xTool Squad. Prenoti dalla Demo Room di xTool Support oppure ci scrivi su WhatsApp. Se non puoi venire, la demo si fa anche online, da tutta Italia.',
+         en: 'In Palermo, at the INGLY DESIGN workshop, an official xTool Squad host. Book through the xTool Support Demo Room or message us on WhatsApp. If you cannot come, the demo can also be done online from anywhere in Italy.' } },
+  { d: { it: 'La demo xTool è gratuita?', en: 'Is the xTool demo free?' },
+    r: { it: 'Sì. Dura circa un\'ora, su appuntamento, e non devi comprare niente. Se poi decidi di acquistare, l\'acquisto si fa sullo shop ufficiale xTool.',
+         en: 'Yes. It takes about an hour, by appointment, and you do not have to buy anything. If you then decide to buy, you buy on the official xTool shop.' } },
+  { d: { it: 'Posso provare la xTool M2 10 W e 20 W?', en: 'Can I try the xTool M2 10 W and 20 W?' },
+    r: { it: 'Sì. In laboratorio abbiamo la M2 con tutti e due i moduli diodo, 10 W e 20 W: vedi la differenza sullo stesso materiale prima di scegliere quale prendere.',
+         en: 'Yes. In the workshop we have the M2 with both diode modules, 10 W and 20 W: you see the difference on the same material before choosing.' } },
+  { d: { it: 'Posso vedere la nuova xTool C1 Color Cutter?', en: 'Can I see the new xTool C1 Color Cutter?' },
+    r: { it: 'Sì, la C1 è in laboratorio: ti mostriamo come scansiona, stampa a colori e taglia un adesivo in un solo passaggio.',
+         en: 'Yes, the C1 is in the workshop: we show you how it scans, prints in colour and cuts a sticker in one pass.' } },
+  { d: { it: 'Posso portare un mio disegno o un mio materiale?', en: 'Can I bring my own design or material?' },
+    r: { it: 'Sì. Quando si può lavoriamo un tuo pezzo: porta un file, una foto o il materiale e capisci subito se la macchina fa al caso tuo.',
+         en: 'Yes. Where possible we work on a piece of yours: bring a file, a photo or the material and you will know straight away whether the machine suits you.' } },
+  { d: { it: 'Fate assistenza sulle macchine xTool dopo l\'acquisto?', en: 'Do you support xTool machines after purchase?' },
+    r: { it: 'Sì. Come host xTool Squad diamo consigli, formazione, installazione, manutenzione e riparazione a Palermo, in Sicilia e nel Sud Italia.',
+         en: 'Yes. As an xTool Squad host we provide advice, training, commissioning, maintenance and repair in Palermo, Sicily and Southern Italy.' } }
+];
+
 export function corpoDemo(D, opt = {}) {
   const { L = 'it', base = '' } = opt;
   const dm = demo(D);
-  const r = ['<h1>' + esc(L === 'it' ? 'Prova la macchina prima di sceglierla' : 'Try the machine before choosing it') + '</h1>'];
-  r.push('<p>' + esc(L === 'it'
-    ? "Un'ora in officina con la macchina accesa: porti un'idea o un pezzo, si prova davvero, e alla fine sai se fa al caso tuo."
-    : 'An hour in the workshop with the machine running: bring an idea or a part, actually try it, and you will know.') + '</p>');
-  if (dm.gratuita) r.push('<p>' + esc(L === 'it' ? 'La demo è gratuita.' : 'The demo is free.') + '</p>');
+  const it = L === 'it';
+  const r = ['<h1>' + esc(it ? 'Demo xTool gratuita a Palermo, Sicilia' : 'Free xTool demo in Palermo, Sicily') + '</h1>'];
+  r.push('<p>' + esc(it
+    ? "Prova le macchine xTool prima di sceglierle: un'ora nel laboratorio INGLY DESIGN di Palermo, host ufficiale xTool Squad, con la macchina accesa. Porti un'idea o un pezzo, si prova davvero, e alla fine sai se fa al caso tuo. Demo anche online da tutta Italia."
+    : 'Try xTool machines before choosing: an hour at the INGLY DESIGN workshop in Palermo, an official xTool Squad host, with the machine running. Bring an idea or a part, actually try it, and you will know. Online demos across Italy too.') + '</p>');
+  if (dm.gratuita) r.push('<p>' + esc(it ? 'La demo è gratuita.' : 'The demo is free.') + '</p>');
   const prova = macchineDaProvare(D);
   if (prova.length) {
-    r.push('<h2>' + esc(L === 'it' ? 'Le macchine che puoi provare' : 'The machines you can try') + '</h2><ul>' +
-      prova.map(m => '<li><a href="' + esc(viaMacchina(m, base)) + '">' + esc(lingua(m.n, L)) + '</a> — ' +
-        esc(senzaTag(lingua(m.ruolo, L))) + '</li>').join('') + '</ul>');
+    r.push('<h2>' + esc(it ? 'Le macchine che puoi provare' : 'The machines you can try') + '</h2><ul>' +
+      prova.map(m => {
+        const f = fotoMacchina(D, m.id), nome = lingua(m.n, L);
+        const src = f.foto ? (/^https:\/\//.test(f.foto) ? f.foto : String(base).replace(/\/+$/, '') + '/' + f.foto) : '';
+        const vers = ((m.demo && m.demo.varianti) || []).map(id => (m.variantiLaser || []).find(v => v && v.id === id)).filter(Boolean);
+        return '<li>' + (src ? '<img src="' + esc(src) + '" alt="' + esc(nome + (it ? ': demo gratuita a Palermo' : ': free demo in Palermo')) + '" width="320" height="240" loading="lazy"> ' : '') +
+          '<a href="' + esc(viaMacchina(m, base)) + '">' + esc(nome + (vers.length ? ' ' + vers.map(v => v.potenza).join(' / ') : '')) + '</a> — ' +
+          esc(senzaTag(lingua(m.demo && m.demo.tag, L) || lingua(m.ruolo, L))) + '</li>';
+      }).join('') + '</ul>');
   }
+  r.push('<h2>' + esc(it ? 'Come si prenota' : 'How to book') + '</h2><ol>' + (it
+    ? ['Scegli la macchina che vuoi provare.', 'Prenota dalla Demo Room di xTool Support (pagina ufficiale xTool) oppure scrivici su WhatsApp.', 'Confermiamo giorno, ora e modalità: in laboratorio a Palermo oppure online.', 'Vieni con il tuo progetto: la provi, fai domande, decidi con calma.']
+    : ['Pick the machine you want to try.', 'Book through the xTool Support Demo Room (official xTool page) or message us on WhatsApp.', 'We confirm day, time and format: at the Palermo workshop or online.', 'Bring your project: try it, ask questions, decide in your own time.']
+  ).map(x => '<li>' + esc(x) + '</li>').join('') + '</ol>');
+  if (dm.url) r.push('<p><a href="' + esc(dm.url) + '" rel="noopener">' + esc(it ? 'Prenota la demo gratuita nella Demo Room xTool' : 'Book the free demo in the xTool Demo Room') + '</a></p>');
+  r.push(faqTesto(FAQ_DEMO, L));
   return r.join('\n');
+}
+
+/* La demo è un servizio gratuito con un luogo e un'area servita. */
+export function schemaDemo(D, opt = {}) {
+  const { L = 'it', base = '', idAzienda = '#org' } = opt;
+  const url = viaDemo(base);
+  const nomi = macchineDaProvare(D).map(m => lingua(m.n, L));
+  return [{
+    '@type': 'Service',
+    '@id': url + '#service',
+    name: L === 'it' ? 'Demo gratuita macchine xTool a Palermo' : 'Free xTool machine demo in Palermo',
+    serviceType: L === 'it' ? 'Demo prima dell\'acquisto, host xTool Squad' : 'Pre-purchase demo, xTool Squad host',
+    description: (L === 'it' ? 'Prova gratuita delle macchine xTool: ' : 'Free trial of xTool machines: ') + nomi.join(', ') + '.',
+    url,
+    provider: { '@id': base + idAzienda },
+    brand: { '@type': 'Brand', name: 'xTool' },
+    areaServed: [{ '@type': 'City', name: 'Palermo' }, { '@type': 'AdministrativeArea', name: 'Sicilia' }, { '@type': 'Country', name: 'Italia' }],
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'EUR', url },
+    isRelatedTo: macchineDaProvare(D).map(m => ({ '@type': 'Product', name: lingua(m.n, L), brand: { '@type': 'Brand', name: 'xTool' } }))
+  }, schemaFaq(FAQ_DEMO, url, L)];
 }
 
 /* Un corso è un Course; una macchina è un Product solo se la vendiamo, e
@@ -836,7 +892,8 @@ export function demo(D = {}) {
 }
 
 /** Le macchine su cui si può davvero prenotare: solo quelle in officina. */
-export const macchineDaProvare = (D) => catalogo(D).filter(m => m.inOfficina && m.demoDisponibile);
+export const macchineDaProvare = (D) => catalogo(D).filter(m => m.inOfficina && m.demoDisponibile)
+  .map((m, i) => [m, i]).sort((a, b) => ((a[0].demo && a[0].demo.ordine) || 99) - ((b[0].demo && b[0].demo.ordine) || 99) || a[1] - b[1]).map(x => x[0]);
 
 /* ---------- ricerca trasversale (§32) ---------- */
 

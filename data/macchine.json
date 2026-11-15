@@ -669,38 +669,38 @@
         "it": "Plotter da taglio che scansiona, stampa a colori e taglia in un solo passaggio: adesivi, etichette, biglietti.",
         "en": "A cutting plotter that scans, prints in colour and cuts in one pass: stickers, labels, cards."
       },
-      "inOfficina": false,
+      "inOfficina": true,
       "assistenza": true,
-      "demoDisponibile": false,
+      "demoDisponibile": true,
       "corso": null,
       "specs": {},
       "daCompletare": true,
       "stato": "pubblicato",
       "galleria": [
         {
-          "src": "img/xtool-c1.webp",
-          "alt": {
-            "it": "xTool C1 Color Cutter, immagine ufficiale xTool",
-            "en": "xTool C1 Color Cutter, official xTool image"
-          }
-        },
-        {
           "src": "img/xtool-c1-uso.webp",
           "alt": {
             "it": "xTool C1 in uso: stampa e taglio di adesivi, immagine ufficiale xTool",
             "en": "xTool C1 in use, printing and cutting stickers, official xTool image"
           }
+        },
+        {
+          "src": "img/xtool-c1.webp",
+          "alt": {
+            "it": "xTool C1 Color Cutter, immagine ufficiale xTool",
+            "en": "xTool C1 Color Cutter, official xTool image"
+          }
         }
       ],
       "novita": {
-        "stato": "preordine",
+        "stato": "disponibile",
         "etichetta": {
-          "it": "Novità xTool · in arrivo",
-          "en": "New from xTool · coming soon"
+          "it": "Novità xTool · provala da noi",
+          "en": "New from xTool · try it with us"
         },
         "testo": {
-          "it": "Appena presentata da xTool, che indica l'avvio delle consegne dal 5 novembre 2026. Come host xTool Squad ti aiutiamo a capire se fa per te.",
-          "en": "Just announced by xTool, which states shipping starts from 5 November 2026. As an xTool Squad host we help you work out whether it suits you."
+          "it": "L’ultima novità di xTool è già nel nostro laboratorio a Palermo: prenota una demo gratuita e guardala scansionare, stampare e tagliare un adesivo davanti a te.",
+          "en": "xTool’s latest release is already in our Palermo workshop: book a free demo and watch it scan, print and cut a sticker in front of you."
         },
         "video": [
           {
@@ -791,6 +791,13 @@
         "nome": "xTool",
         "url": "https://www.xtool.com/pages/xtool-c1-color-cutter-upcoming",
         "verificatoIl": "2026-10-23"
+      },
+      "demo": {
+        "tag": {
+          "it": "Plotter da taglio · scansiona, stampa e taglia",
+          "en": "Cutting plotter · scans, prints and cuts"
+        },
+        "ordine": 2
       }
     },
     {
@@ -854,9 +861,9 @@
         "it": "Laser a diodo, incisione IR e stampa CMYK: tre moduli intercambiabili per prototipi, decorazioni e Print & Cut.",
         "en": "Blue diode laser, IR engraving and CMYK printing: interchangeable modules for crafts, prototypes and Print & Cut."
       },
-      "inOfficina": false,
+      "inOfficina": true,
       "assistenza": true,
-      "demoDisponibile": false,
+      "demoDisponibile": true,
       "corso": null,
       "specs": {
         "sorgente": "Diodo blu 10/20 W (445 nm) · IR 3 W (1064 nm) · CMYK inkjet",
@@ -965,8 +972,8 @@
           }
         ],
         "note": {
-          "it": "Specifiche ufficiali xTool (non prove eseguite nel laboratorio INGLY). M2 è illustrata a scopo informativo: non dichiarata presente in officina o disponibile per demo. La lavorazione dipende dal modulo installato.",
-          "en": "Official xTool specifications, not measurements taken at INGLY. M2 is informational only; not claimed to be on-site or demo-ready. Capability depends on the installed module."
+          "it": "Specifiche ufficiali xTool, non prove eseguite nel laboratorio INGLY. In laboratorio a Palermo puoi provare la M2 con il modulo diodo 10 W e con il 20 W: la lavorazione dipende dal modulo installato.",
+          "en": "Official xTool specifications, not measurements taken at INGLY. At our Palermo workshop you can try the M2 with both the 10 W and the 20 W diode module: capability depends on the installed module."
         }
       },
       "fonte": {
@@ -998,7 +1005,18 @@
           "it": "Il modulo 20 W fornisce maggiore potenza, ma non indica automaticamente uno spessore di taglio certificato. Materiale, colore, parametri, aspirazione e verifica su campione restano obbligatori.",
           "en": "20W is higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
         },
-        "unavailable": "Modelli e moduli presentati a scopo informativo, non dichiarati nel laboratorio INGLY."
+        "unavailable": "Moduli 10 W e 20 W provabili in demo nel laboratorio INGLY a Palermo (dal 15 novembre 2026, indicazione del titolare)."
+      },
+      "demo": {
+        "tag": {
+          "it": "Laser diodo 10 W e 20 W · IR 3 W · stampa CMYK",
+          "en": "10 W and 20 W diode laser · 3 W IR · CMYK printing"
+        },
+        "ordine": 1,
+        "varianti": [
+          "m2-10w",
+          "m2-20w"
+        ]
       }
     },
     {
@@ -1060,7 +1078,7 @@
       ],
       "ruolo": {
         "it": "Doppia sorgente su un piano piccolo: il metallo lo marca, non lo taglia.",
-        "en": ""
+        "en": "Two laser sources on a small bed: it marks metal, it does not cut it."
       },
       "inOfficina": true,
       "assistenza": true,
@@ -1077,7 +1095,14 @@
         "velocitaMax": "6.000 mm/s"
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "demo": {
+        "tag": {
+          "it": "Laser IR 5 W + diodo 15 W · portatile",
+          "en": "5 W IR + 15 W diode laser · portable"
+        },
+        "ordine": 4
+      }
     },
     {
       "id": "f2-ultra",
@@ -1158,7 +1183,7 @@
       ],
       "ruolo": {
         "it": "CO₂ di punta: grande formato, taglio spesso, produzione in serie.",
-        "en": ""
+        "en": "Flagship CO₂: large format, thick cutting, batch production."
       },
       "inOfficina": true,
       "assistenza": true,
@@ -1176,7 +1201,14 @@
         "velocitaMax": "1.200 mm/s"
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "demo": {
+        "tag": {
+          "it": "Laser CO₂ 80 W · grande formato",
+          "en": "80 W CO₂ laser · large format"
+        },
+        "ordine": 3
+      }
     },
     {
       "id": "s1",
@@ -1212,7 +1244,7 @@
       ],
       "ruolo": {
         "it": "Stampa UV a colori su oggetti rigidi e su cilindri.",
-        "en": ""
+        "en": "Colour UV printing on rigid objects and cylinders."
       },
       "inOfficina": true,
       "assistenza": true,
@@ -1230,7 +1262,14 @@
         "velocitaMax": null
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "demo": {
+        "tag": {
+          "it": "Stampa UV a colori · doppia testa",
+          "en": "Colour UV printing · dual head"
+        },
+        "ordine": 5
+      }
     },
     {
       "id": "wonderpress",
@@ -1244,7 +1283,7 @@
       ],
       "ruolo": {
         "it": "Pressa a caldo: chiude il ciclo del DTF sui capi.",
-        "en": ""
+        "en": "Heat press: it completes the DTF cycle on garments."
       },
       "inOfficina": true,
       "assistenza": true,
@@ -1255,9 +1294,17 @@
         "velocitaMax": null
       },
       "daCompletare": false,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "demo": {
+        "tag": {
+          "it": "Pressa a caldo 3 in 1 · DTF sui capi",
+          "en": "3-in-1 heat press · DTF on garments"
+        },
+        "ordine": 6
+      }
     }
   ],
   "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
-  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori."
+  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori.",
+  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W) e xTool C1."
 }

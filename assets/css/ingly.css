@@ -11049,3 +11049,30 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 /* litofania d'esempio: foto vera del portfolio resa come pannello in controluce */
 :root[data-mode][data-mode] .s3d-lito__pannello img{display:block;width:100%;height:100%;aspect-ratio:4/5;height:auto;object-fit:cover;border:6px solid #3a2f24;filter:grayscale(1) sepia(.85) saturate(1.6) brightness(1.08) contrast(1.05);box-shadow:0 0 70px rgba(255,190,110,.32)}
 :root[data-mode][data-mode] .s3d-lito figcaption{margin-top:10px;font-size:13px;color:#b7aa97;text-align:center}
+
+/* ===== Demo: le macchine che puoi provare (riquadri con foto) =====
+   La foto sta in un riquadro a proporzione fissa, su fondo neutro, così ogni
+   macchina si riconosce a colpo d'occhio e la griglia resta allineata. */
+:root[data-mode][data-mode] .demo-macchine{margin:var(--rs-sec) 0 0}
+:root[data-mode][data-mode] .demo-mac-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:22px 0 18px}
+@media (max-width:980px){:root[data-mode][data-mode] .demo-mac-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+:root[data-mode][data-mode] .demo-mac{display:flex;flex-direction:column;border:1px solid var(--rs-line);background:var(--rs-bg);border-radius:var(--rs-radius);overflow:hidden;transition:border-color .25s ease}
+:root[data-mode][data-mode] .demo-mac:hover{border-color:var(--rs-line-strong)}
+:root[data-mode][data-mode] .demo-mac__foto{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:var(--rs-bg-2);border-bottom:1px solid var(--rs-line)}
+:root[data-mode][data-mode] .demo-mac__foto img{position:absolute;inset:0;display:block;width:100%;height:100%;max-height:none;min-height:0;object-fit:contain;padding:14px;box-sizing:border-box;transition:transform .4s ease}
+:root[data-mode][data-mode] .demo-mac:hover .demo-mac__foto img{transform:scale(1.03)}
+:root[data-mode][data-mode] .demo-mac__nuova{position:absolute;top:12px;left:12px;padding:4px 10px;background:var(--rs-gold);color:var(--rs-on-gold);font:700 12px/1.3 var(--rs-font);letter-spacing:.06em;text-transform:uppercase}
+:root[data-mode][data-mode] .demo-mac__corpo{display:flex;flex-direction:column;gap:8px;padding:18px 18px 20px;flex:1}
+:root[data-mode][data-mode] .demo-mac__tag{font:600 12.5px/1.35 var(--rs-font);letter-spacing:.04em;text-transform:uppercase;color:var(--rs-gold)}
+:root[data-mode][data-mode] .demo-mac h4{margin:0;font:600 22px/1.2 var(--rs-font);color:var(--rs-ink)}
+:root[data-mode][data-mode] .demo-mac h4 a{color:inherit;text-decoration:none}
+:root[data-mode][data-mode] .demo-mac h4 a:hover{text-decoration:underline;text-underline-offset:3px}
+:root[data-mode][data-mode] .demo-mac__versioni{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+:root[data-mode][data-mode] .demo-mac__versioni li{padding:3px 10px;border:1px solid var(--rs-gold);color:var(--rs-ink);font:600 13px/1.4 var(--rs-font)}
+:root[data-mode][data-mode] .demo-mac__corpo p{margin:0;color:var(--rs-muted);font-size:15px;line-height:1.5}
+:root[data-mode][data-mode] .demo-mac__azioni{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:auto;padding-top:10px}
+:root[data-mode][data-mode] .demo-mac__azioni .btn{padding:11px 18px;font-size:14px}
+:root[data-mode][data-mode] .demo-mac__link{color:var(--rs-ink);font:600 14px/1.3 var(--rs-font);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rs-line-strong)}
+:root[data-mode][data-mode] .demo-mac__link:hover{color:var(--rs-gold)}
+@media (prefers-reduced-motion:reduce){:root[data-mode][data-mode] .demo-mac:hover .demo-mac__foto img{transform:none}}
+@media (max-width:640px){:root[data-mode][data-mode] .demo-mac-grid{grid-template-columns:1fr}}

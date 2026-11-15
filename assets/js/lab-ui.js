@@ -396,7 +396,7 @@ export function renderMacchine(L) {
           <div>
             <span class="eyebrow">xTool M2 · 10W / 20W</span>
             <h3 id="inglyM2ChoicesHeading">${t2('Due varianti laser, una scelta chiara.','Two laser modules, one clear choice.',L)}</h3>
-            <p>${t2('Confronta i moduli diodo della M2. Scheda tecnica informativa: macchina non dichiarata presente in officina o disponibile per demo.','Compare M2 diode modules. Informational technical reference: not claimed to be owned or available for demo.',L)}</p>
+            <p>${t2('Confronta i moduli diodo della M2: in laboratorio a Palermo li puoi provare tutti e due con una demo gratuita.','Compare the M2 diode modules: you can try both at our Palermo workshop with a free demo.',L)}</p>
           </div>
           ${m2Src ? `<figure class="ingly-m2-duo__photo">
             <img src="${esc(m2Src)}" width="620" height="350" loading="lazy" decoding="async"
@@ -844,7 +844,8 @@ function paginaLancio(m, L) {
       <h1>${esc(nome)}</h1>
       <p class="lancio-hero__ruolo">${esc(LAB.lingua(m.ruolo, L))}</p>
       <div class="lancio-hero__azioni">
-        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(L)} <span class="arr">→</span></a>` : ''}
+        ${m.inOfficina && m.demoDisponibile ? `<a class="btn btn-primary" href="${via('/demo')}" data-nav="demo">${t2('Provala gratis a Palermo', 'Try it free in Palermo', L)} <span class="arr">→</span></a>` : ''}
+        ${wa ? `<a class="btn ${m.inOfficina && m.demoDisponibile ? 'btn-ghost' : 'btn-primary'}" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(L)} <span class="arr">→</span></a>` : ''}
         ${uff ? `<a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
       </div>
     </div>
@@ -994,6 +995,50 @@ function ctaDemo(dm, L) {
     <a class="btn btn-ghost magnetic" href="mailto:${esc(mail)}?subject=${subject}">${t2('Scrivi una email', 'Send an email', L)}</a>`;
 }
 
+/* Una macchina da provare: la foto in un riquadro, così si capisce subito di
+   quale si parla, e accanto la prenotazione già intestata a quella macchina. */
+function waDemo(m, L) {
+  const base = String((D().CONFIG || {}).whatsapp || '').split('?')[0];
+  if (!/^https:\/\/wa\.me\//.test(base)) return '';
+  const nome = LAB.lingua(m.n, L) + versioniDemo(m).map(v => ' ' + v.potenza).join(' /');
+  return base + '?text=' + encodeURIComponent(L === 'en'
+    ? `Hi INGLY DESIGN, I'd like to book a free demo of the ${nome} in Palermo.`
+    : `Ciao INGLY DESIGN, vorrei prenotare una demo gratuita della ${nome} a Palermo.`);
+}
+const versioniDemo = m => ((m.demo && m.demo.varianti) || [])
+  .map(id => (m.variantiLaser || []).find(v => v && v.id === id)).filter(Boolean);
+
+function cartaDemo(m, dm, L) {
+  const nome = LAB.lingua(m.n, L);
+  const scheda = via('/macchine/' + m.id);
+  const f = LAB.fotoMacchina(D(), m.id);
+  const src = f.foto ? (/^https:\/\//.test(f.foto) ? f.foto : via('/' + f.foto)) : '';
+  const alt = t2(`${nome}: macchina disponibile per la demo gratuita a Palermo`, `${nome}: machine available for a free demo in Palermo`, L);
+  const vers = versioniDemo(m);
+  const prenota = String(((D().CONFIG || {}).demo || {}).bookingUrl || dm.url || '').trim();
+  const wa = waDemo(m, L);
+  const primario = prenota || wa;
+  const tag = LAB.lingua(m.demo && m.demo.tag, L);
+  return `<article class="demo-mac reveal">
+    <a class="demo-mac__foto" href="${esc(scheda)}" data-nav="macchine" tabindex="-1">
+      ${src ? `<img src="${esc(src)}" alt="${esc(alt)}" width="640" height="480" loading="lazy" decoding="async"
+        onerror="this.onerror=null;this.src='${esc(via('/assets/images/xtool-lab-default.svg'))}'">` : ''}
+      ${m.novita && m.novita.stato ? `<span class="demo-mac__nuova">${t2('Novità', 'New', L)}</span>` : ''}
+    </a>
+    <div class="demo-mac__corpo">
+      ${tag ? `<span class="demo-mac__tag">${esc(tag)}</span>` : ''}
+      <h4><a href="${esc(scheda)}" data-nav="macchine">${esc(nome)}</a></h4>
+      ${vers.length ? `<ul class="demo-mac__versioni" aria-label="${t2('Versioni da provare', 'Versions to try', L)}">${vers.map(v => `<li>${esc(v.potenza)}</li>`).join('')}</ul>` : ''}
+      <p>${esc(LAB.lingua(m.ruolo, L))}</p>
+      <div class="demo-mac__azioni">
+        ${primario ? `<a class="btn btn-primary" href="${esc(primario)}" target="_blank" rel="noopener noreferrer">${t2('Prenota la demo', 'Book the demo', L)} <span class="arr">→</span></a>` : ''}
+        ${prenota && wa ? `<a class="demo-mac__link" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ''}
+        <a class="demo-mac__link" href="${esc(scheda)}" data-nav="macchine">${t2('La scheda', 'Details', L)} →</a>
+      </div>
+    </div>
+  </article>`;
+}
+
 export function renderDemo(L) {
   const box = $('labDemo');
   if (!box) return;
@@ -1003,7 +1048,7 @@ export function renderDemo(L) {
   const tecs = LAB.tecnologie(d);
 
   const passi = [
-    [t2('Prenota', 'Book', L), t2('Dici quale macchina ti interessa e quando puoi.', 'Tell us which machine interests you and when you can come.', L)],
+    [t2('Scegli e prenota', 'Pick and book', L), t2('Scegli la macchina qui sopra e prenota dalla Demo Room di xTool Support, la pagina ufficiale xTool, oppure scrivici su WhatsApp.', 'Pick the machine above and book through the xTool Support Demo Room, the official xTool page, or message us on WhatsApp.', L)],
     [t2('Organizziamo la demo', 'Arrange the demo', L), t2('Confermiamo disponibilità, modalità e luogo prima dell’incontro. Puoi portarci un disegno, una foto o un progetto.', 'We confirm availability, format and venue before the session. Bring a drawing, photo or project if you like.', L)],
     [t2('Prova', 'Try it', L), t2('La macchina lavora davanti a te, sul tuo materiale quando si può.', 'The machine works in front of you, on your material where possible.', L)],
     [t2('Chiedi', 'Ask', L), t2('Costi, tempi, cosa non sa fare. Soprattutto cosa non sa fare.', 'Costs, times, what it cannot do. Above all what it cannot do.', L)],
@@ -1021,15 +1066,16 @@ export function renderDemo(L) {
     ${chips([LAB.lingua(dm.luogo, L), LAB.lingua(dm.durata, L)].filter(Boolean))}
     ${LAB.lingua(dm.note, L) ? `<p class="lab-p">${esc(LAB.lingua(dm.note, L))}</p>` : ''}
 
-    ${prova.length ? `<h3 class="vert-tit">${t2('Le macchine che puoi provare', 'The machines you can try', L)}</h3>
-      <div class="vert-grid">${prova.map(m => `
-        <a class="vert-card lab-card reveal" href="${via('/macchine/' + esc(m.id))}">
-          <b>${esc(LAB.lingua(m.n, L))}</b>
-          <span class="vert-sub">${esc(LAB.lingua(m.ruolo, L))}</span>
-          <span class="vert-go">${t2('La scheda', 'Details', L)} <i class="arr">→</i></span></a>`).join('')}</div>
+    ${prova.length ? `<section class="demo-macchine" aria-labelledby="demoMacTit">
+      <h3 class="vert-tit" id="demoMacTit">${t2('Le macchine che puoi provare', 'The machines you can try', L)}</h3>
       <p class="lab-p">${t2(
-        'Sono le macchine che abbiamo in officina. Sul resto della gamma xTool diamo assistenza come host ufficiale xTool Squad, ma provarle qui non si può.',
-        'These are the machines we have in the workshop. On the rest of the xTool range we provide support as an official xTool Squad host.', L)}</p>` : ''}
+        `${prova.length} macchine xTool accese nel nostro laboratorio di Palermo. Guarda la foto, scegli quella che ti interessa e prenota: la demo è gratuita, in laboratorio oppure online.`,
+        `${prova.length} xTool machines running in our Palermo workshop. Look at the photo, pick the one you want and book: the demo is free, in the workshop or online.`, L)}</p>
+      <div class="demo-mac-grid">${prova.map(m => cartaDemo(m, dm, L)).join('')}</div>
+      <p class="lab-p">${t2(
+        'Sul resto della gamma xTool diamo consigli e assistenza come host ufficiale xTool Squad, ma provarle qui non si può.',
+        'On the rest of the xTool range we give advice and support as an official xTool Squad host, but those cannot be tried here.', L)}</p>
+    </section>` : ''}
 
     ${tecs.length ? `<h3 class="vert-tit">${t2('Cosa puoi vedere lavorare', 'What you can see working', L)}</h3>
       ${chips(tecs.map(t => LAB.lingua(t.n, L)))}` : ''}
@@ -1040,6 +1086,11 @@ export function renderDemo(L) {
         <span class="lab-n">${String(i + 1).padStart(2, '0')}</span>
         <h3 class="lab-h3">${esc(t)}</h3>
         <p class="lab-p">${esc(dd)}</p></div>`).join('')}</div>
+
+    ${faqHtml(LAB.FAQ_DEMO, L)}
+
+    <p class="lab-p">${t2('Cerchi assistenza su una macchina che hai già?', 'Need support on a machine you already own?', L)}
+      <a href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool a Palermo e in Sicilia', 'xTool support in Palermo and Sicily', L)} →</a></p>
 
     <div class="hero-ctas lab-ctas">${ctaDemo(dm, L)}</div>`;
 

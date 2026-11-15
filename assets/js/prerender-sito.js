@@ -27,7 +27,7 @@ export function generaSito(dati, guscio){
   const contenuti = dati.contenuti || {};
   applicaCatalogo({ CONFIG: cfg, CATS: categorie, P: prodotti, MV: contenuti.MV });
   const testi = dati.testi || {};
-  const DLAB = { MATERIALI: dati.materiali || {}, TECNOLOGIE: dati.tecnologie || {}, MACCHINE: dati.macchine || {}, CORSI: dati.corsi || {}, CONFIG: cfg, PRODUCTS: prodotti };
+  const DLAB = { MATERIALI: dati.materiali || {}, TECNOLOGIE: dati.tecnologie || {}, MACCHINE: dati.macchine || {}, IMMAGINI_MACCHINE: dati.immaginiMacchine || {}, CORSI: dati.corsi || {}, CONFIG: cfg, PRODUCTS: prodotti };
 
   const S = cfg.seo || {};
   const base = String(S.dominio || 'https://www.inglydesign.it').replace(/\/+$/, '');
@@ -186,7 +186,7 @@ export function generaSito(dati, guscio){
     tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
     macchine: { t: 'Macchine laser xTool a Palermo: demo, consigli e assistenza', d: 'Le macchine xTool che conosciamo come host xTool Squad a Palermo: demo, consigli sulla scelta, formazione, manutenzione e riparazione per la Sicilia e il Sud Italia.' },
     academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Palermo o collegati.' },
-    demo: { t: 'Demo gratuita', d: 'Un\'ora in officina con la macchina accesa: la provi davvero prima di sceglierla.' }
+    demo: { t: 'Demo xTool gratuita a Palermo, Sicilia: M2 10W/20W e C1', d: 'Prova gratis le macchine xTool a Palermo con INGLY DESIGN, host ufficiale xTool Squad: M2 10 W e 20 W, C1 Color Cutter, P3, F2, O1 UV e WonderPress. Prenoti dalla Demo Room xTool Support; demo anche online in tutta Italia.' }
   };
 
   function paginaLabSezione(sezione){
@@ -196,7 +196,8 @@ export function generaSito(dati, guscio){
     const contenuto = sezione === 'demo'
       ? LAB.corpoDemo(DLAB, { L, base })
       : LAB.corpoSezione(DLAB, sezione, { L, base, titolo: info.t, descrizione: info.d });
-    const jsonld = SCH.grafo([...entitaBase, LAB.briciole(sezione, null, { L, base })]);
+    const extra = sezione === 'demo' ? LAB.schemaDemo(DLAB, { L, base, idAzienda: SCH.ID.org }) : [];
+    const jsonld = SCH.grafo([...entitaBase, ...extra, LAB.briciole(sezione, null, { L, base })]);
     return P.componi(guscio, { pagina: sezione, titolo, descrizione: info.d, canonico, contenuto, jsonld });
   }
 
@@ -210,7 +211,7 @@ export function generaSito(dati, guscio){
     const meta = sezione === 'materiali' ? LAB.metaMateriale(e, { L, azienda })
       : sezione === 'tecnologie' ? LAB.metaTecnologia(e, { L, azienda })
       : sezione === 'macchine'
-        ? { titolo: `${nome} — ${e.inOfficina ? 'demo e assistenza a Palermo' : 'assistenza e riparazione a Palermo'} | ${azienda}`,
+        ? { titolo: `${nome} — ${e.inOfficina && e.demoDisponibile ? 'demo gratuita e assistenza a Palermo, Sicilia' : e.inOfficina ? 'demo e assistenza a Palermo' : 'assistenza e riparazione a Palermo'} | ${azienda}`,
             descrizione: LAB.lingua(e.ruolo, L) }
         : { titolo: `${nome} | ${azienda}`, descrizione: LAB.lingua(e.sommario, L) };
     const contenuto = sezione === 'materiali' ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: P.prezzo })

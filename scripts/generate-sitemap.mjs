@@ -103,6 +103,7 @@ const pagine = [
   { file: 'generatori.html', pagina: 'tool', id: 'generatori' },
   { file: 'print-cut.html', pagina: 'tool', id: 'print-cut' },
   { file: 'prova-incisione.html', pagina: 'tool', id: 'prova-incisione' },
+  { file: 'litofania.html', pagina: 'tool', id: 'litofania' },
   /* pagina locale per chi cerca assistenza xTool a Palermo / in Sicilia */
   { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' }
 /* Forniture: in sitemap solo se l'interruttore dell'Admin è acceso */

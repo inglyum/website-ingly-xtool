@@ -177,6 +177,7 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
           altre.map(m => ({ n: L10n(m.n, L), href: via(base, 'macchine/' + m.id) }))),
         col(t('Esplora il Lab', 'Explore the Lab'), [
           { n: t('Tecnologie di lavorazione', 'Technologies'), href: via(base, 'tecnologie') },
+          { n: t('Stampa 3D su misura', 'Custom 3D printing'), href: via(base, 'stampa-3d') },
           { n: t('Academy e corsi', 'Academy and courses'), href: via(base, 'academy') },
           { n: t('Prenota una demo gratuita', 'Book a free demo'), href: via(base, 'demo') },
           { n: t('Assistenza xTool Squad', 'xTool Squad support'), href: via(base, 'macchine') }

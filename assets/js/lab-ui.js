@@ -78,7 +78,7 @@ function tesseraMateriale(m, L, n) {
     <span class="vert-go">${(() => {
       const da = LAB.daPrezzo(m);
       if (LAB.inVendita(m) && da != null) return t2('da ', 'from ', L) + prezzoLab(da, L);
-      return n ? n + ' ' + t2('creazioni', 'creations', L) : t2('Scopri', 'Explore', L);
+      return n ? n + ' ' + (n === 1 ? t2('creazione', 'creation', L) : t2('creazioni', 'creations', L)) : t2('Scopri', 'Explore', L);
     })()} <i class="arr">→</i></span>
   </a>`;
 }
@@ -249,7 +249,7 @@ function fotoMac(m, L, grande) {
     return `<figure class="mac-foto${grande ? ' mac-foto--grande' : ''}">
       <img src="${esc(photoSrc)}" alt="${esc(alt)}" width="760" height="510"
         ${grande ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"
-        onerror="this.onerror=null;this.src='${esc(fallback)}'">
+        onerror="this.onerror=null;this.src='${esc(fallback)}';this.alt='';var c=this.parentNode.querySelector('.mac-credito');if(c)c.remove()">
       ${f.tipoAsset === 'admin' ? '' : `<figcaption class="mac-credito">${t2('Foto ufficiale', 'Official photograph', L)}: xTool · ${t2('Fonte produttore', 'Manufacturer source', L)}</figcaption>`}
     </figure>`;
   }
@@ -396,7 +396,7 @@ export function renderMacchine(L) {
           <div>
             <span class="eyebrow">xTool M2 · 10W / 20W</span>
             <h3 id="inglyM2ChoicesHeading">${t2('Due varianti laser, una scelta chiara.','Two laser modules, one clear choice.',L)}</h3>
-            <p>${t2('Confronta i moduli diodo della M2. Scheda tecnica informativa: macchina non dichiarata presente in officina o disponibile per demo.','Compare M2 diode modules. Informational technical reference: not claimed to be owned or available for demo.',L)}</p>
+            <p>${t2('Confronta i moduli diodo della M2: in laboratorio a Palermo li puoi provare tutti e due con una demo gratuita.','Compare the M2 diode modules: you can try both at our Palermo workshop with a free demo.',L)}</p>
           </div>
           ${m2Src ? `<figure class="ingly-m2-duo__photo">
             <img src="${esc(m2Src)}" width="620" height="350" loading="lazy" decoding="async"
@@ -456,7 +456,7 @@ export function renderMacchine(L) {
             <div class="machine-explore-image"><img src="${esc(x.origine)}"
               alt="${esc((x.alt && (x.alt[L] || x.alt.it)) || x.modello)}"
               width="580" height="400" loading="lazy" decoding="async"
-              onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}'"></div>
+              onerror="this.onerror=null;this.src='${via('/assets/images/xtool-lab-default.svg')}';var l=this.closest('a')&&this.closest('a').querySelector('.machine-photo-label');if(l)l.textContent='${t2('Illustrazione · foto non disponibile', 'Illustration · photo unavailable', L)}'"></div>
             <span class="machine-photo-label">${x.fotoVerificata ? t2('Foto ufficiale xTool', 'Official xTool image', L) : t2('Illustrazione generica · non foto del modello', 'Generic illustration · not a photo of this model', L)}</span>
             <b>${esc(x.modello)}</b>
             <small>${esc(LAB.lingua(x.ruolo,L))}</small>
@@ -844,7 +844,8 @@ function paginaLancio(m, L) {
       <h1>${esc(nome)}</h1>
       <p class="lancio-hero__ruolo">${esc(LAB.lingua(m.ruolo, L))}</p>
       <div class="lancio-hero__azioni">
-        ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(L)} <span class="arr">→</span></a>` : ''}
+        ${m.inOfficina && m.demoDisponibile ? `<a class="btn btn-primary" href="${via('/demo')}" data-nav="demo">${t2('Provala gratis a Palermo', 'Try it free in Palermo', L)} <span class="arr">→</span></a>` : ''}
+        ${wa ? `<a class="btn ${m.inOfficina && m.demoDisponibile ? 'btn-ghost' : 'btn-primary'}" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${tCta(L)} <span class="arr">→</span></a>` : ''}
         ${uff ? `<a class="btn btn-ghost" href="${esc(uff)}" target="_blank" rel="noopener noreferrer">${t2('Pagina ufficiale xTool', 'Official xTool page', L)} ↗</a>` : ''}
       </div>
     </div>
@@ -994,6 +995,132 @@ function ctaDemo(dm, L) {
     <a class="btn btn-ghost magnetic" href="mailto:${esc(mail)}?subject=${subject}">${t2('Scrivi una email', 'Send an email', L)}</a>`;
 }
 
+/* Una macchina da provare: la foto in un riquadro, così si capisce subito di
+   quale si parla, e accanto la prenotazione già intestata a quella macchina. */
+function waDemo(m, L) {
+  const base = String((D().CONFIG || {}).whatsapp || '').split('?')[0];
+  if (!/^https:\/\/wa\.me\//.test(base)) return '';
+  const nome = LAB.lingua(m.n, L) + versioniDemo(m).map(v => ' ' + v.potenza).join(' /');
+  return base + '?text=' + encodeURIComponent(L === 'en'
+    ? `Hi INGLY DESIGN, I'd like to book a free demo of the ${nome} in Palermo.`
+    : `Ciao INGLY DESIGN, vorrei prenotare una demo gratuita della ${nome} a Palermo.`);
+}
+const versioniDemo = m => ((m.demo && m.demo.varianti) || [])
+  .map(id => (m.variantiLaser || []).find(v => v && v.id === id)).filter(Boolean);
+
+function cartaDemo(m, dm, L) {
+  const nome = LAB.lingua(m.n, L);
+  const scheda = via('/macchine/' + m.id);
+  const foto = LAB.fotoDemo(D(), m);
+  const vers = versioniDemo(m);
+  const prenota = String(((D().CONFIG || {}).demo || {}).bookingUrl || dm.url || '').trim();
+  const wa = waDemo(m, L);
+  const primario = prenota || wa;
+  const tag = LAB.lingua(m.demo && m.demo.tag, L);
+  const n = foto.length;
+  const altDi = (x, i) => LAB.lingua(x.alt, L) || (i === 0
+    ? t2(`${nome}: macchina disponibile per la demo gratuita a Palermo`, `${nome}: machine available for a free demo in Palermo`, L)
+    : nome);
+  /* la prima foto è la macchina: se manca il file, al suo posto il disegno;
+     le altre, se non arrivano, spariscono dallo scorrimento insieme al loro punto */
+  const slides = foto.map((x, i) => {
+    const src = /^https:\/\//.test(x.src) ? x.src : via('/' + x.src);
+    const errore = i === 0
+      ? `this.onerror=null;this.src='${esc(via('/assets/images/xtool-lab-default.svg'))}'`
+      : `var s=this.closest('.demo-slide'),b=s&&s.closest('.demo-slider');if(b){var p=b.querySelector('[data-vai=&quot;${i}&quot;]');if(p)p.remove()}if(s)s.remove();if(b&&b.querySelectorAll(&quot;.demo-slide&quot;).length<2)b.classList.add(&quot;demo-slider--una&quot;)`;
+    return `<a class="demo-slide${x.copri ? ' demo-slide--copri' : ''}" data-i="${i}" href="${esc(scheda)}" data-nav="macchine" tabindex="-1"${n > 1 ? ` role="group" aria-roledescription="${t2('foto', 'slide', L)}" aria-label="${i + 1} / ${n}"` : ''}>
+        <img src="${esc(src)}" alt="${esc(altDi(x, i))}" width="640" height="480" loading="lazy" decoding="async" onerror="${errore}"></a>`;
+  }).join('');
+  const comandi = n > 1 ? `
+      <button type="button" class="demo-slider__freccia demo-slider__freccia--prima" data-action="demo-slide" data-dir="-1" aria-label="${t2('Foto precedente', 'Previous photo', L)}">‹</button>
+      <button type="button" class="demo-slider__freccia demo-slider__freccia--dopo" data-action="demo-slide" data-dir="1" aria-label="${t2('Foto successiva', 'Next photo', L)}">›</button>
+      <div class="demo-slider__punti">${foto.map((_, i) => `<button type="button" data-action="demo-slide" data-vai="${i}" aria-label="${t2('Foto', 'Photo', L)} ${i + 1}"${i === 0 ? ' aria-current="true"' : ''}></button>`).join('')}</div>` : '';
+  return `<article class="demo-mac reveal">
+    <div class="demo-mac__foto demo-slider"${n > 1 ? ` aria-roledescription="${t2('scorrimento foto', 'photo carousel', L)}" aria-label="${esc(t2('Foto della', 'Photos of the', L) + ' ' + nome)}"` : ''}>
+      <div class="demo-slider__pista">${slides || `<a class="demo-slide" href="${esc(scheda)}" data-nav="macchine" tabindex="-1"><img src="${esc(via('/assets/images/xtool-lab-default.svg'))}" alt="" width="640" height="480"></a>`}</div>${comandi}
+      ${m.novita && m.novita.stato ? `<span class="demo-mac__nuova">${t2('Novità', 'New', L)}</span>` : ''}
+    </div>
+    <div class="demo-mac__corpo">
+      ${tag ? `<span class="demo-mac__tag">${esc(tag)}</span>` : ''}
+      <h4><a href="${esc(scheda)}" data-nav="macchine">${esc(nome)}</a></h4>
+      ${vers.length ? `<ul class="demo-mac__versioni" aria-label="${t2('Versioni da provare', 'Versions to try', L)}">${vers.map(v => `<li>${esc(v.potenza)}</li>`).join('')}</ul>` : ''}
+      <p>${esc(LAB.lingua(m.ruolo, L))}</p>
+      <div class="demo-mac__azioni">
+        ${primario ? `<a class="btn btn-primary" href="${esc(primario)}" target="_blank" rel="noopener noreferrer">${t2('Prenota la demo', 'Book the demo', L)} <span class="arr">→</span></a>` : ''}
+        ${prenota && wa ? `<a class="demo-mac__link" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">WhatsApp</a>` : ''}
+        <a class="demo-mac__link" href="${esc(scheda)}" data-nav="macchine">${t2('La scheda', 'Details', L)} →</a>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ---------- scorrimento foto nei riquadri ----------
+   Frecce e punti passano dalla delega di main.js (data-action="demo-slide");
+   il dito scorre da solo grazie allo scroll-snap. Un solo ascoltatore per lo
+   scorrimento e un solo timer per l'avanzamento automatico, che si ferma con
+   il puntatore sopra, con il focus dentro, fuori schermo o con movimento ridotto. */
+const slidesDi = b => [...b.querySelectorAll('.demo-slide')];
+function indiceDi(b) {
+  const pista = b.querySelector('.demo-slider__pista'), sl = slidesDi(b);
+  if (!pista || !sl.length) return 0;
+  let k = 0, best = Infinity;
+  sl.forEach((s, i) => { const d = Math.abs(s.offsetLeft - pista.scrollLeft); if (d < best) { best = d; k = i; } });
+  return k;
+}
+function vaiA(b, k, morbido = true) {
+  const pista = b.querySelector('.demo-slider__pista'), sl = slidesDi(b);
+  if (!pista || !sl.length) return;
+  const i = ((k % sl.length) + sl.length) % sl.length;
+  const ridotto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  pista.scrollTo({ left: sl[i].offsetLeft, behavior: morbido && !ridotto ? 'smooth' : 'auto' });
+  /* il punto giusto si accende subito, senza aspettare la fine dello scorrimento */
+  b.querySelectorAll('.demo-slider__punti button').forEach(p => {
+    if (p.dataset.vai === sl[i].dataset.i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
+  });
+}
+function segnaPunto(b) {
+  const sl = slidesDi(b), att = sl[indiceDi(b)];
+  b.querySelectorAll('.demo-slider__punti button').forEach(p => {
+    if (att && p.dataset.vai === att.dataset.i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
+  });
+}
+export function scorriDemo(el) {
+  const b = el && el.closest('.demo-slider');
+  if (!b) return;
+  b.dataset.toccato = '1';
+  if (el.dataset.vai != null) {
+    const k = slidesDi(b).findIndex(s => s.dataset.i === el.dataset.vai);
+    if (k >= 0) vaiA(b, k);
+  } else vaiA(b, indiceDi(b) + (+el.dataset.dir || 1));
+}
+let timerDemo = null;
+function avviaScorrimento(box) {
+  if (!box.dataset.slider) {
+    box.dataset.slider = '1';
+    let t = null;
+    box.addEventListener('scroll', e => {
+      const b = e.target.closest && e.target.closest('.demo-slider');
+      if (!b) return;
+      clearTimeout(t); t = setTimeout(() => segnaPunto(b), 150);
+    }, true);
+    box.addEventListener('scrollend', e => {
+      const b = e.target.closest && e.target.closest('.demo-slider');
+      if (b) segnaPunto(b);
+    }, true);
+  }
+  const ridotto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (timerDemo || ridotto) return;
+  timerDemo = setInterval(() => {
+    if (document.hidden) return;
+    document.querySelectorAll('#labDemo .demo-slider').forEach(b => {
+      if (b.dataset.toccato || slidesDi(b).length < 2 || b.matches(':hover') || b.contains(document.activeElement)) return;
+      const r = b.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      vaiA(b, indiceDi(b) + 1);
+    });
+  }, 4500);
+}
+
 export function renderDemo(L) {
   const box = $('labDemo');
   if (!box) return;
@@ -1003,7 +1130,7 @@ export function renderDemo(L) {
   const tecs = LAB.tecnologie(d);
 
   const passi = [
-    [t2('Prenota', 'Book', L), t2('Dici quale macchina ti interessa e quando puoi.', 'Tell us which machine interests you and when you can come.', L)],
+    [t2('Scegli e prenota', 'Pick and book', L), t2('Scegli la macchina qui sopra e prenota dalla Demo Room di xTool Support, la pagina ufficiale xTool, oppure scrivici su WhatsApp.', 'Pick the machine above and book through the xTool Support Demo Room, the official xTool page, or message us on WhatsApp.', L)],
     [t2('Organizziamo la demo', 'Arrange the demo', L), t2('Confermiamo disponibilità, modalità e luogo prima dell’incontro. Puoi portarci un disegno, una foto o un progetto.', 'We confirm availability, format and venue before the session. Bring a drawing, photo or project if you like.', L)],
     [t2('Prova', 'Try it', L), t2('La macchina lavora davanti a te, sul tuo materiale quando si può.', 'The machine works in front of you, on your material where possible.', L)],
     [t2('Chiedi', 'Ask', L), t2('Costi, tempi, cosa non sa fare. Soprattutto cosa non sa fare.', 'Costs, times, what it cannot do. Above all what it cannot do.', L)],
@@ -1021,15 +1148,16 @@ export function renderDemo(L) {
     ${chips([LAB.lingua(dm.luogo, L), LAB.lingua(dm.durata, L)].filter(Boolean))}
     ${LAB.lingua(dm.note, L) ? `<p class="lab-p">${esc(LAB.lingua(dm.note, L))}</p>` : ''}
 
-    ${prova.length ? `<h3 class="vert-tit">${t2('Le macchine che puoi provare', 'The machines you can try', L)}</h3>
-      <div class="vert-grid">${prova.map(m => `
-        <a class="vert-card lab-card reveal" href="${via('/macchine/' + esc(m.id))}">
-          <b>${esc(LAB.lingua(m.n, L))}</b>
-          <span class="vert-sub">${esc(LAB.lingua(m.ruolo, L))}</span>
-          <span class="vert-go">${t2('La scheda', 'Details', L)} <i class="arr">→</i></span></a>`).join('')}</div>
+    ${prova.length ? `<section class="demo-macchine" aria-labelledby="demoMacTit">
+      <h3 class="vert-tit" id="demoMacTit">${t2('Le macchine che puoi provare', 'The machines you can try', L)}</h3>
       <p class="lab-p">${t2(
-        'Sono le macchine che abbiamo in officina. Sul resto della gamma xTool diamo assistenza come host ufficiale xTool Squad, ma provarle qui non si può.',
-        'These are the machines we have in the workshop. On the rest of the xTool range we provide support as an official xTool Squad host.', L)}</p>` : ''}
+        `${prova.length} macchine xTool accese nel nostro laboratorio di Palermo. Guarda la foto, scegli quella che ti interessa e prenota: la demo è gratuita, in laboratorio oppure online.`,
+        `${prova.length} xTool machines running in our Palermo workshop. Look at the photo, pick the one you want and book: the demo is free, in the workshop or online.`, L)}</p>
+      <div class="demo-mac-grid">${prova.map(m => cartaDemo(m, dm, L)).join('')}</div>
+      <p class="lab-p">${t2(
+        'Sul resto della gamma xTool diamo consigli e assistenza come host ufficiale xTool Squad, ma provarle qui non si può.',
+        'On the rest of the xTool range we give advice and support as an official xTool Squad host, but those cannot be tried here.', L)}</p>
+    </section>` : ''}
 
     ${tecs.length ? `<h3 class="vert-tit">${t2('Cosa puoi vedere lavorare', 'What you can see working', L)}</h3>
       ${chips(tecs.map(t => LAB.lingua(t.n, L)))}` : ''}
@@ -1041,7 +1169,13 @@ export function renderDemo(L) {
         <h3 class="lab-h3">${esc(t)}</h3>
         <p class="lab-p">${esc(dd)}</p></div>`).join('')}</div>
 
+    ${faqHtml(LAB.FAQ_DEMO, L)}
+
+    <p class="lab-p">${t2('Cerchi assistenza su una macchina che hai già?', 'Need support on a machine you already own?', L)}
+      <a href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool a Palermo e in Sicilia', 'xTool support in Palermo and Sicily', L)} →</a></p>
+
     <div class="hero-ctas lab-ctas">${ctaDemo(dm, L)}</div>`;
 
   observeAll();
+  avviaScorrimento(box);
 }

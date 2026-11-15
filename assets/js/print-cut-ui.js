@@ -47,6 +47,7 @@ let language='it',canvas=null,imageData=null,imageName='design',current=null,tri
 const getText=key=>translations[language][key];
 function localized(){
  document.documentElement.lang=language;
+ document.title=language==='en'?'INGLY Print & Cut — SVG outline generator':'INGLY Print & Cut — Generatore sagome SVG';
  document.querySelectorAll('[data-i18n]').forEach(el=>{
   const key=el.dataset.i18n,value=getText(key);
   if(!value)return;

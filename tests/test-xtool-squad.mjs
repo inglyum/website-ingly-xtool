@@ -14,9 +14,9 @@ const testi = ['index.html', 'assets/js/main.js', 'assets/js/nav-ia.js', 'assets
 /* 10 novembre 2026: il titolare ha ricevuto da xTool, via email, il logo
    «xTool Authorized Service Centre». Da qui la dicitura è ammessa, ma solo
    insieme al logo ufficiale (stesso file, non ridisegnato) e mai come testo libero. */
-const loghi = (testi.match(/xtool-authorized-service-centre-ufficiale-320\.webp/g) || []).length;
-const dicitura = (testi.replace(/<img[^>]*xtool-authorized-service-centre-ufficiale[^>]*>/g, '').replace(/aria-label="xTool Authorized Service Centre:[^"]*"/g, '').match(/Authorized Service Centre|Authorized<br>/g) || []).length;
-t('«Authorized Service Centre» solo accanto al logo ufficiale xTool', dicitura === 0 && loghi >= 2 && existsSync('assets/images/xtool-authorized-service-centre-ufficiale.png'));
+const loghi = (testi.match(/xtool-asc-trasparente-320\.webp/g) || []).length;
+const dicitura = (testi.replace(/<img[^>]*xtool-asc-trasparente[^>]*>/g, '').replace(/aria-label="xTool Authorized Service Centre:[^"]*"/g, '').match(/Authorized Service Centre|Authorized<br>/g) || []).length;
+t('«Authorized Service Centre» solo accanto al logo ufficiale xTool', dicitura === 0 && loghi >= 2 && existsSync('assets/images/xtool-asc-trasparente.png'));
 t('nessun «ricambi» offerto come servizio INGLY', !/riparazioni, ricambi|assistenza e ricambi|service and parts|Repairs, parts/i.test(testi));
 const C = JSON.parse(readFileSync('data/content.json', 'utf8'));
 t('FAQ del sito: centro ufficiale e ricambi/garanzia', C.FAQS.some(f => /centro ufficiale xTool/.test(f[0].it)) && C.FAQS.some(f => /ricambi/.test(f[0].it) && /support\.xtool\.com/.test(f[1].it)));

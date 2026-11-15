@@ -8,13 +8,13 @@ const check = (n, c) => { if (c) { pass++; console.log('  ✔ ' + n) } else { fa
 const M = JSON.parse(readFileSync('data/macchine.json', 'utf8'));
 const D = { MACCHINE: M };
 const x1 = LAB.modello(D, 'x1'), c1 = LAB.modello(D, 'c1');
-check('X1 disponibile, C1 in pre-ordine', x1?.novita?.stato === 'disponibile' && c1?.novita?.stato === 'preordine');
+check('X1 e C1 disponibili (C1 provabile in laboratorio dal 2026-11-15)', x1?.novita?.stato === 'disponibile' && c1?.novita?.stato === 'disponibile' && c1?.inOfficina === true);
 check('X1: specifiche ufficiali (area 615×320, 6.000 mm/s, 299 cm)', JSON.stringify(x1.specificheUfficiali).includes('615 × 320 mm') && JSON.stringify(x1.specificheUfficiali).includes('6.000 mm/s') && JSON.stringify(x1.specificheUfficiali).includes('299 cm'));
 check('nessun prezzo né ordine/prenotazione: INGLY non vende macchine', [x1, c1].every(m => !m.novita.configurazioni && !m.novita.notaPrezzi && !m.vendita && !m.shop) && !/Ordinala|Prenotala|Ordina questa|Prenota questa|prezzo di lancio/.test(readFileSync('assets/js/lab-ui.js', 'utf8')));
 check('pagina di lancio: consiglio di INGLY, demo e pagina ufficiale xTool', /Chiedi un consiglio a INGLY/.test(readFileSync('assets/js/lab-ui.js', 'utf8')) && /L\\'acquisto si fa sullo shop ufficiale xTool/.test(readFileSync('assets/js/lab-ui.js', 'utf8')));
 check('C1: si dice che non è un laser', /non è un laser/.test(c1.specificheUfficiali.note.it));
-check('foto presenti', ['img/xtool-x1.webp', 'img/xtool-c1.webp'].every(existsSync));
-check('foto della galleria usata dal sito', LAB.fotoMacchina(D, 'x1').foto === 'img/xtool-x1.webp');
+check('foto presenti', ['img/xtool-x1.webp', 'img/xtool-c1.webp', 'img/xtool-x1-prodotto.webp', 'img/xtool-c1-prodotto.webp'].every(existsSync));
+check('foto della galleria usata dal sito (foto originale del titolare, 2026-11-15)', LAB.fotoMacchina(D, 'x1').foto === 'img/xtool-x1-prodotto.webp' && LAB.fotoMacchina(D, 'c1').foto === 'img/xtool-c1-prodotto.webp');
 check('pagine statiche generate', existsSync('macchine/x1/index.html') && existsSync('macchine/c1/index.html'));
 const ui = readFileSync('assets/js/lab-ui.js', 'utf8');
 check('sezione «Novità xTool» e riquadro prezzi', /function sezioneNovita\(d, L\)/.test(ui) && /\$\{bloccoNovita\(m, L, true\)\}/.test(ui));

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="it" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#13100d">
+<title>Litofania dalla tua foto — file STL per stampa 3D | INGLY DESIGN</title>
+<meta name="description" content="Trasforma una foto in una litofania: un pannello stampato in 3D che si accende in controluce. Anteprima sul tuo dispositivo, file STL gratuito da scaricare o stampa fatta da INGLY DESIGN.">
+<link rel="canonical" href="https://www.inglydesign.it/litofania.html">
+<link rel="icon" type="image/svg+xml" href="assets/images/ingly-logo.svg">
+<style>
+@font-face{font-family:'Assistant';font-weight:400;font-display:swap;src:url('assets/fonts/assistant/assistant-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Assistant';font-weight:600;font-display:swap;src:url('assets/fonts/assistant/assistant-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Assistant';font-weight:700;font-display:swap;src:url('assets/fonts/assistant/assistant-latin-700-normal.woff2') format('woff2')}
+*{box-sizing:border-box}
+:root,:root[data-mode=dark]{color-scheme:dark;--bg:#13100d;--bg2:#1c1813;--ink:#f3ece1;--muted:#b7aa97;--line:rgba(243,236,225,.14);--line2:rgba(243,236,225,.5);--gold:#d6ae6c;--gold-h:#e6c48c;--on-gold:#17110a;--soft:rgba(214,174,108,.12);--err:#ff8a7a}
+:root[data-mode=light]{color-scheme:light;--bg:#f7f2ea;--bg2:#eee6d8;--ink:#1a140e;--muted:#5a4e42;--line:rgba(26,20,14,.14);--line2:rgba(26,20,14,.5);--gold:#8a5a1e;--gold-h:#74490f;--on-gold:#fff;--soft:rgba(138,90,30,.1);--err:#a3271a}
+html{caret-color:var(--gold);accent-color:var(--gold);scrollbar-color:var(--line2) var(--bg)}
+::selection{background:var(--gold);color:var(--on-gold)}
+body{min-height:100vh;margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Assistant,system-ui,-apple-system,'Segoe UI',sans-serif}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{width:min(1180px,calc(100% - 32px));margin-inline:auto}
+header{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:10}
+.header{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:68px}
+.brand{display:inline-flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.03em;text-decoration:none}
+.brand img{width:40px;height:40px}
+.brand small{display:block;font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--muted)}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line2);background:transparent;padding:10px 16px;font-weight:600;min-height:44px;text-decoration:none;transition:background-color .2s,color .2s,border-color .2s}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.btn.primary:hover{background:var(--gold-h);border-color:var(--gold-h)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.intro{padding:clamp(34px,6vw,72px) 0 26px;max-width:780px}
+h1{font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.04;letter-spacing:-.03em;margin:0 0 16px;font-weight:700}
+h1 span{color:var(--gold)}
+.intro p{color:var(--muted);font-size:clamp(1rem,1.4vw,1.14rem);margin:0}
+.workspace{display:grid;grid-template-columns:minmax(300px,.8fr) minmax(0,1.2fr);gap:20px;padding-bottom:56px;align-items:start}
+.panel{border:1px solid var(--line);background:var(--bg2);padding:clamp(18px,2.4vw,26px);min-width:0}
+.panel h2{font-size:1.3rem;line-height:1.2;margin:0 0 18px}
+.field{margin:0 0 18px;border:0;padding:0}
+.field>label,.field legend{display:block;font-weight:600;margin:0 0 7px;padding:0}
+.field input[type=file],.field select,.field input[type=number]{display:block;width:100%;background:var(--bg);border:1px solid var(--line2);padding:11px 12px;min-height:44px}
+.field input[type=range]{width:100%}
+.etichetta{display:block;font-weight:600;margin:0 0 7px}
+.scegli{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px dashed var(--line2);padding:10px}
+.scegli span{color:var(--muted);font-size:.92rem;overflow-wrap:anywhere}
+.scegli:has(+ .vh:focus-visible) .btn{outline:2px solid var(--gold);outline-offset:3px}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);border:0}
+.field small,.hint{display:block;color:var(--muted);font-size:.86rem;margin-top:5px}
+.inline{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{position:relative;border:1px solid var(--line2);padding:8px 14px;min-height:44px;display:inline-flex;align-items:center;cursor:pointer;font-weight:600}
+.seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.seg label:has(input:checked){background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.seg label:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:3px}
+output{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:400}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.stage{position:relative;min-height:420px;display:grid;place-items:center;border:1px solid var(--line);background:#0b0907;padding:22px;overflow:hidden}
+.stage canvas{display:block;max-width:100%;height:auto;max-height:600px;image-rendering:auto}
+.stage .empty{color:#b7aa97;text-align:center;max-width:300px;margin:0}
+.viste{display:flex;gap:8px;margin:0 0 12px}
+.dati{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0 0}
+.dati div{background:var(--bg2);padding:10px 12px}
+.dati b{display:block;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.dati span{font-size:.82rem;color:var(--muted)}
+.avvisi{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px}
+.avvisi li{border:1px solid var(--line);padding:9px 12px;font-size:.92rem}
+.avvisi li[data-livello=attenzione]{border-color:var(--gold);background:var(--soft)}
+.status{margin-top:14px;min-height:44px;border:1px solid var(--line);padding:10px 12px;font-size:.92rem;color:var(--muted)}
+.status[data-error=true]{border-color:var(--err);color:var(--ink)}
+.note{margin-top:18px;padding:14px 16px;border:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.come{border-top:1px solid var(--line);padding:42px 0 54px}
+.come h2{font-size:clamp(1.5rem,2.6vw,2rem);margin:0 0 18px;letter-spacing:-.01em}
+.passi{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);list-style:none;margin:0;padding:0;counter-reset:p}
+.passi li{background:var(--bg);padding:18px;counter-increment:p}
+.passi li::before{content:counter(p,decimal-leading-zero);display:block;font-weight:700;color:var(--gold);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.passi b{display:block;margin-bottom:4px}
+.passi span{color:var(--muted);font-size:.94rem}
+footer{border-top:1px solid var(--line);padding:22px 0 32px;color:var(--muted);font-size:.88rem}
+footer a{color:var(--gold)}
+@media(max-width:880px){.workspace{grid-template-columns:1fr}.stage{min-height:300px}}
+@media(max-width:520px){.header{padding:10px 0;flex-wrap:wrap}.actions{width:100%;justify-content:flex-end}.inline{grid-template-columns:1fr}.toolbar>.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<script>try{const s=localStorage.getItem('ingly_mode');if(s==='light'||s==='dark')document.documentElement.dataset.mode=s}catch(_){}</script>
+</head>
+<body>
+<header><div class="wrap header">
+ <a href="./" class="brand"><img src="assets/images/ingly-logo.svg" alt="" width="40" height="40"><span>INGLY DESIGN<small data-i18n="kicker">LITOFANIA · STAMPA 3D</small></span></a>
+ <div class="actions">
+  <a href="stampa-3d" class="btn" data-i18n="back3d">Stampa 3D</a>
+  <a href="generatori.html" class="btn" data-i18n="back">Tutti i generatori</a>
+  <button type="button" class="btn" id="langSwitch">EN</button>
+  <button type="button" class="btn" id="modeSwitch" aria-label="Passa alla modalità chiara">Chiaro</button>
+ </div>
+</div></header>
+<main class="wrap">
+ <div class="intro">
+  <h1 data-i18n="title">La tua foto,<br><span>accesa dalla luce.</span></h1>
+  <p data-i18n="intro">Una litofania è un pannello stampato in 3D: spento sembra un rilievo bianco, con una luce dietro diventa la tua foto. Carica l’immagine, regola gli spessori e scarica il file STL, oppure chiedi a noi di stamparla. La foto resta sul tuo dispositivo.</p>
+ </div>
+ <div class="workspace">
+  <section class="panel" aria-labelledby="setTitle">
+   <h2 id="setTitle" data-i18n="settings">Imposta il pannello</h2>
+   <div class="field"><span class="etichetta" id="fileLbl" data-i18n="file">1. La tua foto</span>
+    <div class="scegli"><label class="btn" for="photo" data-i18n="pick">Scegli una foto</label><span id="photoName" data-i18n="noPhoto">Nessuna foto scelta</span></div>
+    <input type="file" id="photo" class="vh" accept="image/jpeg,image/png,image/webp" aria-labelledby="fileLbl">
+    <small data-i18n="fileNote">JPG, PNG o WebP fino a 25 MB. Meglio un volto o un soggetto ben illuminato, senza sfondi confusi.</small>
+   </div>
+   <fieldset class="field"><legend data-i18n="shape">2. Forma</legend>
+    <div class="seg"><label><input type="radio" name="forma" value="piano" checked> <span data-i18n="flat">Piana</span></label><label><input type="radio" name="forma" value="curva"> <span data-i18n="curved">Curva</span></label></div>
+    <small data-i18n="shapeNote">La curva sta in piedi da sola ed è perfetta con una lucina LED dietro.</small>
+   </fieldset>
+   <div class="inline">
+    <div class="field"><label for="larghezza"><span data-i18n="width">Larghezza</span> · <output id="larghezzaOut">100 mm</output></label><input type="range" id="larghezza" min="50" max="200" step="5" value="100"></div>
+    <div class="field"><label for="cornice"><span data-i18n="frame">Cornice</span> · <output id="corniceOut">3 mm</output></label><input type="range" id="cornice" min="0" max="8" step="0.5" value="3"></div>
+   </div>
+   <div class="inline">
+    <div class="field"><label for="minimo"><span data-i18n="min">Spessore minimo</span> · <output id="minimoOut">0,8 mm</output></label><input type="range" id="minimo" min="0.6" max="1.6" step="0.1" value="0.8"></div>
+    <div class="field"><label for="massimo"><span data-i18n="max">Spessore massimo</span> · <output id="massimoOut">3,0 mm</output></label><input type="range" id="massimo" min="2" max="5" step="0.1" value="3"></div>
+   </div>
+   <div class="inline">
+    <div class="field"><label for="contrasto"><span data-i18n="contrast">Contrasto</span> · <output id="contrastoOut">0</output></label><input type="range" id="contrasto" min="-0.5" max="0.5" step="0.05" value="0"></div>
+    <div class="field"><label for="luminosita"><span data-i18n="bright">Luminosità</span> · <output id="luminositaOut">0</output></label><input type="range" id="luminosita" min="-0.3" max="0.3" step="0.02" value="0"></div>
+   </div>
+   <div class="field"><label for="risoluzione"><span data-i18n="detail">Dettaglio</span> · <output id="risoluzioneOut">0,3 mm</output></label><input type="range" id="risoluzione" min="0.2" max="0.6" step="0.05" value="0.3">
+    <small data-i18n="detailNote">Passo della griglia. Più fine = più dettaglio e file più pesante. 0,3 mm va bene con un ugello da 0,4.</small></div>
+   <div class="toolbar">
+    <button type="button" class="btn primary" id="scarica" disabled data-i18n="download">Scarica il file STL</button>
+    <button type="button" class="btn" id="preventivo" disabled data-i18n="quote">Stampala tu, INGLY</button>
+   </div>
+   <div class="note" data-i18n="notice">Stampa in piedi, riempimento 100%, filamento bianco (PLA). L’anteprima è indicativa: la resa dipende da stampante, filamento e luce.</div>
+  </section>
+  <section class="panel" aria-labelledby="prevTitle">
+   <h2 id="prevTitle" data-i18n="preview">Anteprima</h2>
+   <div class="viste seg" role="radiogroup" aria-labelledby="prevTitle"><label><input type="radio" name="vista" value="luce" checked> <span data-i18n="lit">Con la luce dietro</span></label><label><input type="radio" name="vista" value="spenta"> <span data-i18n="off">Luce spenta</span></label></div>
+   <div class="stage" id="stage" aria-live="polite"><p class="empty" data-i18n="empty">Carica una foto per vedere la tua litofania.</p></div>
+   <div class="dati"><div><b id="dMisure">—</b><span data-i18n="dSize">Misure</span></div><div><b id="dPeso">—</b><span data-i18n="dWeight">PLA indicativo</span></div><div><b id="dFile">—</b><span data-i18n="dFile">File STL</span></div></div>
+   <ul class="avvisi" id="avvisi"></ul>
+   <div class="status" id="status" role="status" aria-live="polite" data-i18n="ready">Pronto. La foto resta sul tuo dispositivo.</div>
+  </section>
+ </div>
+ <section class="come" aria-labelledby="comeTitle">
+  <h2 id="comeTitle" data-i18n="howTitle">Come si stampa una litofania</h2>
+  <ol class="passi">
+   <li><b data-i18n="s1t">Filamento bianco</b><span data-i18n="s1d">PLA bianco o naturale: i colori scuri non lasciano passare la luce.</span></li>
+   <li><b data-i18n="s2t">In piedi, pieno al 100%</b><span data-i18n="s2d">Il pannello si stampa verticale con riempimento pieno: così ogni spessore è quello calcolato.</span></li>
+   <li><b data-i18n="s3t">Strati sottili</b><span data-i18n="s3d">0,12–0,16 mm di altezza strato danno sfumature morbide; più alti mostrano gradini.</span></li>
+   <li><b data-i18n="s4t">Una luce calda dietro</b><span data-i18n="s4d">Una lucina LED o una candela elettrica a qualche centimetro: la foto compare.</span></li>
+  </ol>
+ </section>
+</main>
+<footer><div class="wrap">INGLY DESIGN · <span data-i18n="foot">Generatore originale INGLY: il file è tuo, anche per uso personale e regalo.</span> <a href="stampa-3d" data-i18n="footLink">Scopri la stampa 3D INGLY</a></div></footer>
+<script type="module" src="assets/js/litofania-ui.js"></script>
+</body>
+</html>

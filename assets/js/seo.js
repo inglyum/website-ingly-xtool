@@ -61,9 +61,10 @@ export function updateSeo(page, L, T, product){
     home:S.titolo||document.title, shop:T('shopH2'), digital:T('digEye'), business:T('bizH2'),
     portfolio:T('portH2'), about:T('abH2'), faq:T('faqH2'), quote:T('qH2'),
     materiali:(L==='en'?'Materials':'Materiali'),
+    'stampa-3d':(L==='en'?'Custom 3D printing: prototypes, spares, lamps and lithophanes':'Stampa 3D su misura: prototipi, ricambi, lampade e litofanie'),
     forniture:(L==='en'?'Laser supplies: sheets, blanks and accessories':'Forniture per il laser: fogli, oggetti da personalizzare e accessori'),
     academy:'INGLY Academy',
-    demo:(L==='en'?'Free demo':'Demo gratuita'),
+    demo:(L==='en'?'Free xTool demo in Palermo, Sicily: M2 10W/20W, C1, X1':'Demo xTool gratuita a Palermo, Sicilia: M2 10W/20W, C1, X1'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),
     macchine:(L==='en'?'xTool laser machines in Palermo: demos, advice and service':'Macchine laser xTool a Palermo: demo, consigli e assistenza')
   };
@@ -118,8 +119,11 @@ export function updateSeo(page, L, T, product){
         ? (L==='en' ? `${nome} — what it does and what it makes | ${azienda}`
                     : `${nome} — cosa fa e cosa realizza | ${azienda}`)
       : sez==='macchine'
-        ? (L==='en' ? `${nome} — service, repair and parts in Palermo, Sicily | ${azienda}`
-                    : `${nome} — assistenza e riparazione a Palermo | ${azienda}`)
+        ? (scheda.e.inOfficina && scheda.e.demoDisponibile
+            ? (L==='en' ? `${nome} — free demo and service in Palermo, Sicily | ${azienda}`
+                        : `${nome} — demo gratuita e assistenza a Palermo, Sicilia | ${azienda}`)
+            : (L==='en' ? `${nome} — service, repair and parts in Palermo, Sicily | ${azienda}`
+                        : `${nome} — assistenza e riparazione a Palermo | ${azienda}`))
         : `${nome} | ${azienda}`;
     desc = somm || LAB.lingua(scheda.e.ruolo, L);
   } else if(vert){
@@ -140,6 +144,10 @@ export function updateSeo(page, L, T, product){
     /* la home tiene il titolo scritto a mano, se c'è: è il più curato del sito */
     if(page==='home' && S.titolo) title=S.titolo;
     desc = S.descrizione||'';
+    /* la demo ha una descrizione sua: è la pagina che deve uscire per «demo xTool Palermo» */
+    if(page==='demo') desc = L==='en'
+      ? 'Try xTool machines for free in Palermo with INGLY DESIGN, official xTool Squad host: M2 10 W and 20 W, C1 Color Cutter, X1, P3, F2, O1 UV and WonderPress. Book via the xTool Support Demo Room; online demos across Italy.'
+      : 'Prova gratis le macchine xTool a Palermo con INGLY DESIGN, host ufficiale xTool Squad: M2 10 W e 20 W, C1 Color Cutter, X1, P3, F2, O1 UV e WonderPress. Prenoti dalla Demo Room xTool Support; demo anche online in tutta Italia.';
   }
   /* direttiva per i motori: sempre indicizzabile salvo scelta esplicita */
   set('meta[name="robots"]','content',ENG.robots(page,S));

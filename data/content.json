@@ -109,8 +109,8 @@
     "en": "Permanent, tactile marking on steel, aluminium, titanium and brass."
    },
    "s": [
-    "Deep engraving",
-    "Traceability"
+    "Incisione profonda",
+    "Tracciabilità"
    ],
    "lg": 1,
    "icon": "laser",
@@ -133,7 +133,7 @@
     "en": "Color marking on steel and anodized surfaces, full pulse control."
    },
    "s": [
-    "Color marking"
+    "Marcatura a colori"
    ],
    "icon": "laser",
    "badge": "MOPA",
@@ -198,7 +198,7 @@
     "en": "Prototypes, 3D names and design objects in PLA/PETG, hand finished."
    },
    "s": [
-    "0,05 mm layer"
+    "Strato 0,05 mm"
    ],
    "icon": "3d",
    "badge": "3D",
@@ -321,7 +321,7 @@
   {
    "it": [
     "Finitura & spedizione",
-    "Rifinito a mano, controllato e spedito. La maggior parte parte entro 3 giorni."
+    "Rifinito a mano, controllato e spedito. Quasi tutti gli ordini partono entro 3 giorni."
    ],
    "en": [
     "Finish & ship",
@@ -528,8 +528,8 @@
   [
    "🪵",
    {
-    "it": "Esclusiva Mappa Topografica a 5 Strati in Legno Pregiato",
-    "en": "Oak menu boards"
+    "it": "Mappa topografica a 5 strati in legno pregiato",
+    "en": "Five-layer topographic map in fine wood"
    },
    "#e8d5b0,#c9a876",
    "img/port-1.webp",
@@ -564,8 +564,8 @@
   [
    "✨",
    {
-    "it": "Festa della mammaRegalo frase incisione",
-    "en": "Festa della mammaRegalo frase incisione"
+    "it": "Festa della mamma: targa incisa con dedica",
+    "en": "Mother’s Day engraved plaque with a dedication"
    },
    "#ffeede,#f6cfa8",
    "img/port-4.webp"
@@ -573,8 +573,8 @@
   [
    "✨",
    {
-    "it": "Orecchini in legno",
-    "en": "Orecchini in legno"
+    "it": "Orecchini in legno traforati",
+    "en": "Cut-out wooden earrings"
    },
    "#e3f0e8,#bcd9c6",
    "img/port-5.webp"
@@ -582,8 +582,8 @@
   [
    "✨",
    {
-    "it": "Incisione Plexyglass personalizzata",
-    "en": "Incisione Plexyglass personalizzata"
+    "it": "Lampada LED in plexiglass per studio professionale",
+    "en": "LED acrylic lamp for a professional studio"
    },
    "#fde8ef,#f3c3d3",
    "img/port-6.webp"
@@ -591,8 +591,8 @@
   [
    "✨",
    {
-    "it": "Cornice con Incisione foto personalizzata su legno",
-    "en": "Cornice con Incisione foto personalizzata su legno"
+    "it": "Ritratto da foto inciso su legno, in cornice",
+    "en": "Photo portrait engraved on wood, framed"
    },
    "#ffeede,#f6cfa8",
    "img/port-10.webp"
@@ -600,8 +600,8 @@
   [
    "✨",
    {
-    "it": "Incisione e taglio con dedica",
-    "en": "Incisione e taglio con dedica"
+    "it": "Ritratto di famiglia inciso e sagomato, con dedica",
+    "en": "Engraved and cut family portrait with a dedication"
    },
    "#e3f0e8,#bcd9c6",
    "img/port-11.webp"
@@ -609,8 +609,8 @@
   [
    "✨",
    {
-    "it": "Canzone forma Chitarra personalizzata",
-    "en": "dwdadad"
+    "it": "Testo di una canzone a forma di chitarra",
+    "en": "Song lyrics in the shape of a guitar"
    },
    "#fde8ef,#f3c3d3",
    "img/port-12.webp"
@@ -618,8 +618,8 @@
   [
    "✨",
    {
-    "it": "inisione",
-    "en": "inisione"
+    "it": "Foto di famiglia incisa su legno, in cornice",
+    "en": "Family photo engraved on wood, framed"
    },
    "#e8d5b0,#c9a876",
    "img/port-13.webp",
@@ -628,8 +628,8 @@
   [
    "✨",
    {
-    "it": "Plant stand E0021299 file cdr and dxf free vector download for laser cut",
-    "en": "Plant stand E0021299 file cdr and dxf free vector download for laser cut"
+    "it": "Porta vaso in legno tagliato al laser",
+    "en": "Laser-cut wooden plant stand"
    },
    "#eef7f7,#cfe6e8",
    "img/port-14.webp",
@@ -638,49 +638,8 @@
   [
    "✨",
    {
-    "it": "Incisione Freddie Mercury",
-    "en": "Engraving Freddie Mercury"
-   },
-   "#f4f0ff,#d9ccf5",
-   "img/port-15.webp"
-  ],
-  [
-   "✨",
-   {
-    "it": "Supereroi",
-    "en": "Supereroi"
-   },
-   "#ffeede,#f6cfa8",
-   "img/port-16.webp"
-  ],
-  [
-   "✨",
-   {
-    "it": "Venom ",
-    "en": "Venom "
-   },
-   "#e3f0e8,#bcd9c6",
-   "img/port-17.webp",
-   "",
-   {
-    "cliente": "Vincenzo G."
-   }
-  ],
-  [
-   "✨",
-   {
-    "it": "Action Figure personalizzata",
-    "en": "Action Figure"
-   },
-   "#fde8ef,#f3c3d3",
-   "img/port-18.webp",
-   "https://www.instagram.com/p/DZDXQ6XEkEM/?img_index=1"
-  ],
-  [
-   "✨",
-   {
-    "it": "Sostituzione prodotto (26)",
-    "en": "Sostituzione prodotto (26)"
+    "it": "Ritratto illustrato personalizzato",
+    "en": "Custom illustrated portrait"
    },
    "#e8d5b0,#c9a876",
    "img/port-19.webp",
@@ -689,28 +648,8 @@
   [
    "✨",
    {
-    "it": "936bb560 a8ab 44f8 909d 25d839d94313",
-    "en": "936bb560 a8ab 44f8 909d 25d839d94313"
-   },
-   "#eef7f7,#cfe6e8",
-   "img/port-20.webp",
-   ""
-  ],
-  [
-   "✨",
-   {
-    "it": "Sostituzione prodotto (15)",
-    "en": "Sostituzione prodotto (15)"
-   },
-   "#f4f0ff,#d9ccf5",
-   "img/port-21.webp",
-   ""
-  ],
-  [
-   "✨",
-   {
-    "it": "Sostituzione prodotto (6)",
-    "en": "Sostituzione prodotto (6)"
+    "it": "Orologio da parete «Albero della vita»",
+    "en": "“Tree of Life” wall clock"
    },
    "#ffeede,#f6cfa8",
    "img/port-22.webp",
@@ -4796,6 +4735,67 @@
    },
    "#f4f0ff,#d9ccf5",
    "img/port-9.webp"
+  ],
+  [
+   "✨",
+   {
+    "it": "Incisione Freddie Mercury",
+    "en": "Engraving Freddie Mercury"
+   },
+   "#f4f0ff,#d9ccf5",
+   "img/port-15.webp"
+  ],
+  [
+   "✨",
+   {
+    "it": "Supereroi",
+    "en": "Supereroi"
+   },
+   "#ffeede,#f6cfa8",
+   "img/port-16.webp"
+  ],
+  [
+   "✨",
+   {
+    "it": "Venom ",
+    "en": "Venom "
+   },
+   "#e3f0e8,#bcd9c6",
+   "img/port-17.webp",
+   "",
+   {
+    "cliente": "Vincenzo G."
+   }
+  ],
+  [
+   "✨",
+   {
+    "it": "Action Figure personalizzata",
+    "en": "Action Figure"
+   },
+   "#fde8ef,#f3c3d3",
+   "img/port-18.webp",
+   "https://www.instagram.com/p/DZDXQ6XEkEM/?img_index=1"
+  ],
+  [
+   "✨",
+   {
+    "it": "936bb560 a8ab 44f8 909d 25d839d94313",
+    "en": "936bb560 a8ab 44f8 909d 25d839d94313"
+   },
+   "#eef7f7,#cfe6e8",
+   "img/port-20.webp",
+   ""
+  ],
+  [
+   "✨",
+   {
+    "it": "Sostituzione prodotto (15)",
+    "en": "Sostituzione prodotto (15)"
+   },
+   "#f4f0ff,#d9ccf5",
+   "img/port-21.webp",
+   ""
   ]
  ],
  "FORNITURE": {

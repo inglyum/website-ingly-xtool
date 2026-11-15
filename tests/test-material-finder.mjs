@@ -7,7 +7,7 @@ const m2=data.catalogo.find(x=>x.id==='m2');
 assert.deepEqual(m2.variantiLaser.map(x=>x.id),['m2-10w','m2-20w']);
 assert.ok(m2.variantiLaser.every(x=>x.area==='426 × 320 mm'));
 assert.ok(m2.variantiLaser.every(x=>x.source.startsWith('https://support.xtool.com/')));
-assert.equal(m2.inOfficina,false);
+assert.equal(m2.inOfficina,true);
 const index=read('index.html');
 assert.ok(index.indexOf('assets/js/ingly-material-finder.js')<index.indexOf('assets/js/notte-oro-ui.js'));
 const ui=read('assets/js/lab-ui.js');

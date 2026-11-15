@@ -53,6 +53,8 @@ export const ROTTE = [
   { id: 'macchine',   percorso: 'macchine',    menu: 'principale', lab: true },
   { id: 'business',   percorso: 'business',    menu: 'principale' },
   { id: 'tecnologie', percorso: 'tecnologie',  menu: 'secondaria', lab: true },
+  /* il mondo stampa 3D: servizi, combinazioni con laser e UV, invio file, litofania */
+  { id: 'stampa-3d',  percorso: 'stampa-3d',   menu: 'secondaria' },
   { id: 'demo',       percorso: 'demo',        menu: 'secondaria', lab: true },
   { id: 'portfolio',  percorso: 'portfolio',   menu: 'secondaria' },
   { id: 'about',      percorso: 'about',       menu: 'secondaria' },

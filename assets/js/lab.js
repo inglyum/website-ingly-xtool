@@ -500,6 +500,28 @@ export function fotoGalleria(x) {
   return null;
 }
 
+/* Le foto da far scorrere nel riquadro della demo: prima la foto della
+   macchina, poi le altre scelte nell'Admin (demo.altreFoto), poi la foto
+   ufficiale dal sito xTool se è diversa. Niente doppioni. */
+export function fotoDemo(D, m) {
+  if (!m) return [];
+  const out = [], visti = new Set();
+  const metti = (src, alt, copri) => {
+    src = String(src || '').trim();
+    if (!src || visti.has(src)) return;
+    if (!/^(?:img|assets\/(?:images|videos))\/[\w/.-]+\.(?:webp|jpe?g|png|avif)$/i.test(src) && !/^https:\/\/cdn\.shopify\.com\/[^\s"'<>()]+$/i.test(src)) return;
+    visti.add(src); out.push({ src, alt: (alt && typeof alt === 'object') ? alt : {}, copri: copri === true });
+  };
+  const f = fotoMacchina(D, m.id);
+  if (f.foto) metti(f.foto, f.alt);
+  for (const x of ((m.demo && m.demo.altreFoto) || [])) if (x) metti(x.src, x.alt, x.copri);
+  const r = ((((D && D.IMMAGINI_MACCHINE) || {}).macchine) || []).find(x => x && x.id === m.id);
+  if (r && (r.licenza || {}).stato === 'consentito' && r.immagineRemotaVerificata === true &&
+      /^https:\/\/cdn\.shopify\.com\/s\/files\/1\/0467\/7985\/9095\/files\/[A-Za-z0-9_\-.]+\.webp\?v=\d+$/.test(r.origine || ''))
+    metti(r.origine, r.alt, true);
+  return out;
+}
+
 export function fotoMacchina(D, id) {
   /* Prima la foto caricata dall'Admin sulla scheda della macchina: è il
      titolare a deciderla. Prima veniva ignorata e contava solo il manifest. */
@@ -507,7 +529,8 @@ export function fotoMacchina(D, id) {
     .find(x => x && x.id === String(id) && fotoGalleria(x));
   if (scheda) {
     const g = fotoGalleria(scheda);
-    return { foto: g.src, alt: g.alt, tipoAsset: 'admin', credito: '', ufficiale: (scheda.fonte && scheda.fonte.url) || '', sostituibile: true, motivo: '' };
+    const rm = (((D && D.IMMAGINI_MACCHINE) || {}).macchine || []).find(x => x && x.id === String(id)) || {};
+    return { foto: g.src, alt: g.alt, tipoAsset: 'admin', credito: '', ufficiale: (scheda.fonte && scheda.fonte.url) || rm.paginaUfficiale || '', sostituibile: true, motivo: '' };
   }
   const man = (D && D.IMMAGINI_MACCHINE) || {};
   const r = (man.macchine || []).find(x => x && x.id === String(id));
@@ -645,6 +668,9 @@ export const FAQ_DEMO = [
   { d: { it: 'Posso vedere la nuova xTool C1 Color Cutter?', en: 'Can I see the new xTool C1 Color Cutter?' },
     r: { it: 'Sì, la C1 è in laboratorio: ti mostriamo come scansiona, stampa a colori e taglia un adesivo in un solo passaggio.',
          en: 'Yes, the C1 is in the workshop: we show you how it scans, prints in colour and cuts a sticker in one pass.' } },
+  { d: { it: 'Posso provare la nuova xTool X1?', en: 'Can I try the new xTool X1?' },
+    r: { it: 'Sì, la X1 è in laboratorio: la laser tutto-in-uno di xTool con CO₂ 55 W di serie. Porta un tuo pezzo e la vedi lavorare prima di decidere.',
+         en: 'Yes, the X1 is in the workshop: xTool’s all-in-one laser with 55 W CO₂ as standard. Bring a piece of yours and see it work before deciding.' } },
   { d: { it: 'Posso portare un mio disegno o un mio materiale?', en: 'Can I bring my own design or material?' },
     r: { it: 'Sì. Quando si può lavoriamo un tuo pezzo: porta un file, una foto o il materiale e capisci subito se la macchina fa al caso tuo.',
          en: 'Yes. Where possible we work on a piece of yours: bring a file, a photo or the material and you will know straight away whether the machine suits you.' } },

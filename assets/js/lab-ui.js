@@ -1011,20 +1011,35 @@ const versioniDemo = m => ((m.demo && m.demo.varianti) || [])
 function cartaDemo(m, dm, L) {
   const nome = LAB.lingua(m.n, L);
   const scheda = via('/macchine/' + m.id);
-  const f = LAB.fotoMacchina(D(), m.id);
-  const src = f.foto ? (/^https:\/\//.test(f.foto) ? f.foto : via('/' + f.foto)) : '';
-  const alt = t2(`${nome}: macchina disponibile per la demo gratuita a Palermo`, `${nome}: machine available for a free demo in Palermo`, L);
+  const foto = LAB.fotoDemo(D(), m);
   const vers = versioniDemo(m);
   const prenota = String(((D().CONFIG || {}).demo || {}).bookingUrl || dm.url || '').trim();
   const wa = waDemo(m, L);
   const primario = prenota || wa;
   const tag = LAB.lingua(m.demo && m.demo.tag, L);
+  const n = foto.length;
+  const altDi = (x, i) => LAB.lingua(x.alt, L) || (i === 0
+    ? t2(`${nome}: macchina disponibile per la demo gratuita a Palermo`, `${nome}: machine available for a free demo in Palermo`, L)
+    : nome);
+  /* la prima foto è la macchina: se manca il file, al suo posto il disegno;
+     le altre, se non arrivano, spariscono dallo scorrimento insieme al loro punto */
+  const slides = foto.map((x, i) => {
+    const src = /^https:\/\//.test(x.src) ? x.src : via('/' + x.src);
+    const errore = i === 0
+      ? `this.onerror=null;this.src='${esc(via('/assets/images/xtool-lab-default.svg'))}'`
+      : `var s=this.closest('.demo-slide'),b=s&&s.closest('.demo-slider');if(b){var p=b.querySelector('[data-vai=&quot;${i}&quot;]');if(p)p.remove()}if(s)s.remove();if(b&&b.querySelectorAll(&quot;.demo-slide&quot;).length<2)b.classList.add(&quot;demo-slider--una&quot;)`;
+    return `<a class="demo-slide${x.copri ? ' demo-slide--copri' : ''}" data-i="${i}" href="${esc(scheda)}" data-nav="macchine" tabindex="-1"${n > 1 ? ` role="group" aria-roledescription="${t2('foto', 'slide', L)}" aria-label="${i + 1} / ${n}"` : ''}>
+        <img src="${esc(src)}" alt="${esc(altDi(x, i))}" width="640" height="480" loading="lazy" decoding="async" onerror="${errore}"></a>`;
+  }).join('');
+  const comandi = n > 1 ? `
+      <button type="button" class="demo-slider__freccia demo-slider__freccia--prima" data-action="demo-slide" data-dir="-1" aria-label="${t2('Foto precedente', 'Previous photo', L)}">‹</button>
+      <button type="button" class="demo-slider__freccia demo-slider__freccia--dopo" data-action="demo-slide" data-dir="1" aria-label="${t2('Foto successiva', 'Next photo', L)}">›</button>
+      <div class="demo-slider__punti">${foto.map((_, i) => `<button type="button" data-action="demo-slide" data-vai="${i}" aria-label="${t2('Foto', 'Photo', L)} ${i + 1}"${i === 0 ? ' aria-current="true"' : ''}></button>`).join('')}</div>` : '';
   return `<article class="demo-mac reveal">
-    <a class="demo-mac__foto" href="${esc(scheda)}" data-nav="macchine" tabindex="-1">
-      ${src ? `<img src="${esc(src)}" alt="${esc(alt)}" width="640" height="480" loading="lazy" decoding="async"
-        onerror="this.onerror=null;this.src='${esc(via('/assets/images/xtool-lab-default.svg'))}'">` : ''}
+    <div class="demo-mac__foto demo-slider"${n > 1 ? ` aria-roledescription="${t2('scorrimento foto', 'photo carousel', L)}" aria-label="${esc(t2('Foto della', 'Photos of the', L) + ' ' + nome)}"` : ''}>
+      <div class="demo-slider__pista">${slides || `<a class="demo-slide" href="${esc(scheda)}" data-nav="macchine" tabindex="-1"><img src="${esc(via('/assets/images/xtool-lab-default.svg'))}" alt="" width="640" height="480"></a>`}</div>${comandi}
       ${m.novita && m.novita.stato ? `<span class="demo-mac__nuova">${t2('Novità', 'New', L)}</span>` : ''}
-    </a>
+    </div>
     <div class="demo-mac__corpo">
       ${tag ? `<span class="demo-mac__tag">${esc(tag)}</span>` : ''}
       <h4><a href="${esc(scheda)}" data-nav="macchine">${esc(nome)}</a></h4>
@@ -1037,6 +1052,73 @@ function cartaDemo(m, dm, L) {
       </div>
     </div>
   </article>`;
+}
+
+/* ---------- scorrimento foto nei riquadri ----------
+   Frecce e punti passano dalla delega di main.js (data-action="demo-slide");
+   il dito scorre da solo grazie allo scroll-snap. Un solo ascoltatore per lo
+   scorrimento e un solo timer per l'avanzamento automatico, che si ferma con
+   il puntatore sopra, con il focus dentro, fuori schermo o con movimento ridotto. */
+const slidesDi = b => [...b.querySelectorAll('.demo-slide')];
+function indiceDi(b) {
+  const pista = b.querySelector('.demo-slider__pista'), sl = slidesDi(b);
+  if (!pista || !sl.length) return 0;
+  let k = 0, best = Infinity;
+  sl.forEach((s, i) => { const d = Math.abs(s.offsetLeft - pista.scrollLeft); if (d < best) { best = d; k = i; } });
+  return k;
+}
+function vaiA(b, k, morbido = true) {
+  const pista = b.querySelector('.demo-slider__pista'), sl = slidesDi(b);
+  if (!pista || !sl.length) return;
+  const i = ((k % sl.length) + sl.length) % sl.length;
+  const ridotto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  pista.scrollTo({ left: sl[i].offsetLeft, behavior: morbido && !ridotto ? 'smooth' : 'auto' });
+  /* il punto giusto si accende subito, senza aspettare la fine dello scorrimento */
+  b.querySelectorAll('.demo-slider__punti button').forEach(p => {
+    if (p.dataset.vai === sl[i].dataset.i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
+  });
+}
+function segnaPunto(b) {
+  const sl = slidesDi(b), att = sl[indiceDi(b)];
+  b.querySelectorAll('.demo-slider__punti button').forEach(p => {
+    if (att && p.dataset.vai === att.dataset.i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
+  });
+}
+export function scorriDemo(el) {
+  const b = el && el.closest('.demo-slider');
+  if (!b) return;
+  b.dataset.toccato = '1';
+  if (el.dataset.vai != null) {
+    const k = slidesDi(b).findIndex(s => s.dataset.i === el.dataset.vai);
+    if (k >= 0) vaiA(b, k);
+  } else vaiA(b, indiceDi(b) + (+el.dataset.dir || 1));
+}
+let timerDemo = null;
+function avviaScorrimento(box) {
+  if (!box.dataset.slider) {
+    box.dataset.slider = '1';
+    let t = null;
+    box.addEventListener('scroll', e => {
+      const b = e.target.closest && e.target.closest('.demo-slider');
+      if (!b) return;
+      clearTimeout(t); t = setTimeout(() => segnaPunto(b), 150);
+    }, true);
+    box.addEventListener('scrollend', e => {
+      const b = e.target.closest && e.target.closest('.demo-slider');
+      if (b) segnaPunto(b);
+    }, true);
+  }
+  const ridotto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (timerDemo || ridotto) return;
+  timerDemo = setInterval(() => {
+    if (document.hidden) return;
+    document.querySelectorAll('#labDemo .demo-slider').forEach(b => {
+      if (b.dataset.toccato || slidesDi(b).length < 2 || b.matches(':hover') || b.contains(document.activeElement)) return;
+      const r = b.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      vaiA(b, indiceDi(b) + 1);
+    });
+  }, 4500);
 }
 
 export function renderDemo(L) {
@@ -1095,4 +1177,5 @@ export function renderDemo(L) {
     <div class="hero-ctas lab-ctas">${ctaDemo(dm, L)}</div>`;
 
   observeAll();
+  avviaScorrimento(box);
 }

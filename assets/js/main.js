@@ -834,6 +834,7 @@ const actions={
   'go':el=>go(el.dataset.arg, el.dataset.search||null),
   'go-shop':el=>goShop(el.dataset.arg),
   'forn-cat':el=>FORNUI.filtra(el.dataset.arg),
+  'demo-slide':(el,e)=>{e.preventDefault();LABUI.scorriDemo(el)},
   'open-product':el=>prod.openProduct(+el.dataset.id),
   'wish':(el,e)=>{e.stopPropagation();wish.toggleWishItem(+el.dataset.id,el)},
   'open-wish':()=>wish.openWish(),

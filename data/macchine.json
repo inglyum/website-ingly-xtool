@@ -514,14 +514,21 @@
         "it": "Una piattaforma, cinque laser: CO₂ 55 W di serie, poi diodo, fibra, MOPA o UV a seconda della configurazione.",
         "en": "One platform, five lasers: 55 W CO₂ as standard, then diode, fibre, MOPA or UV depending on the configuration."
       },
-      "inOfficina": false,
+      "inOfficina": true,
       "assistenza": true,
-      "demoDisponibile": false,
+      "demoDisponibile": true,
       "corso": null,
       "specs": {},
       "daCompletare": true,
       "stato": "pubblicato",
       "galleria": [
+        {
+          "src": "img/xtool-x1-prodotto.webp",
+          "alt": {
+            "it": "xTool X1, foto originale della macchina (xTool)",
+            "en": "xTool X1, original machine photo (xTool)"
+          }
+        },
         {
           "src": "img/xtool-x1.webp",
           "alt": {
@@ -533,12 +540,12 @@
       "novita": {
         "stato": "disponibile",
         "etichetta": {
-          "it": "Novità xTool",
-          "en": "New from xTool"
+          "it": "Novità xTool · provala da noi",
+          "en": "New from xTool · try it with us"
         },
         "testo": {
-          "it": "La nuova laser tutto-in-uno di xTool: CO₂ 55 W di serie e, secondo la configurazione, diodo galvo, fibra, UV o MOPA. Come host xTool Squad ti aiutiamo a capire se è la macchina giusta per il tuo lavoro.",
-          "en": "xTool's new all-in-one laser: 55 W CO₂ as standard and, depending on the configuration, diode galvo, fibre, UV or MOPA. As an xTool Squad host we help you work out whether it is the right machine for your work."
+          "it": "La nuova laser tutto-in-uno di xTool: CO₂ 55 W di serie e, secondo la configurazione, diodo galvo, fibra, UV o MOPA. È nel nostro laboratorio a Palermo: prenota una demo gratuita e vedila lavorare su un tuo pezzo.",
+          "en": "xTool’s new all-in-one laser: 55 W CO₂ as standard and, depending on the configuration, diode galvo, fibre, UV or MOPA. It is in our Palermo workshop: book a free demo and see it work on a piece of yours."
         },
         "video": [
           {
@@ -653,6 +660,39 @@
         "nome": "xTool",
         "url": "https://www.xtool.eu/products/xtool-x1-laser-cutter-and-engraver",
         "verificatoIl": "2026-11-01"
+      },
+      "demo": {
+        "ordine": 3,
+        "tag": {
+          "it": "Laser all-in-one · CO₂ 55 W di serie",
+          "en": "All-in-one laser · 55 W CO₂ as standard"
+        },
+        "altreFoto": [
+          {
+            "src": "assets/videos/x1-cristallo.webp",
+            "alt": {
+              "it": "xTool X1: incisione dentro il cristallo",
+              "en": "xTool X1: engraving inside crystal"
+            },
+            "copri": true
+          },
+          {
+            "src": "assets/videos/x1-dettaglio.webp",
+            "alt": {
+              "it": "xTool X1: dettaglio fine a confronto",
+              "en": "xTool X1: fine detail comparison"
+            },
+            "copri": true
+          },
+          {
+            "src": "assets/videos/x1-hybrid-motion.webp",
+            "alt": {
+              "it": "xTool X1: moduli MOPA, UV e fibra",
+              "en": "xTool X1: MOPA, UV and fibre modules"
+            },
+            "copri": true
+          }
+        ]
       }
     },
     {
@@ -678,17 +718,17 @@
       "stato": "pubblicato",
       "galleria": [
         {
+          "src": "img/xtool-c1-prodotto.webp",
+          "alt": {
+            "it": "xTool C1 Color Cutter, foto originale della macchina (xTool)",
+            "en": "xTool C1 Color Cutter, original machine photo (xTool)"
+          }
+        },
+        {
           "src": "img/xtool-c1-uso.webp",
           "alt": {
             "it": "xTool C1 in uso: stampa e taglio di adesivi, immagine ufficiale xTool",
             "en": "xTool C1 in use, printing and cutting stickers, official xTool image"
-          }
-        },
-        {
-          "src": "img/xtool-c1.webp",
-          "alt": {
-            "it": "xTool C1 Color Cutter, immagine ufficiale xTool",
-            "en": "xTool C1 Color Cutter, official xTool image"
           }
         }
       ],
@@ -797,7 +837,25 @@
           "it": "Plotter da taglio · scansiona, stampa e taglia",
           "en": "Cutting plotter · scans, prints and cuts"
         },
-        "ordine": 2
+        "ordine": 2,
+        "altreFoto": [
+          {
+            "src": "img/xtool-c1-uso.webp",
+            "alt": {
+              "it": "xTool C1 in uso: stampa e taglio di adesivi",
+              "en": "xTool C1 in use: printing and cutting stickers"
+            },
+            "copri": true
+          },
+          {
+            "src": "assets/videos/c1-adesivi.webp",
+            "alt": {
+              "it": "xTool C1: adesivi con nomi stampati e tagliati",
+              "en": "xTool C1: printed and cut name stickers"
+            },
+            "copri": true
+          }
+        ]
       }
     },
     {
@@ -1017,7 +1075,16 @@
           "m2-10w",
           "m2-20w"
         ]
-      }
+      },
+      "galleria": [
+        {
+          "src": "img/xtool-m2.webp",
+          "alt": {
+            "it": "xTool M2, foto originale della macchina (xTool)",
+            "en": "xTool M2, original machine photo (xTool)"
+          }
+        }
+      ]
     },
     {
       "id": "f1",
@@ -1101,8 +1168,17 @@
           "it": "Laser IR 5 W + diodo 15 W · portatile",
           "en": "5 W IR + 15 W diode laser · portable"
         },
-        "ordine": 4
-      }
+        "ordine": 5
+      },
+      "galleria": [
+        {
+          "src": "img/xtool-f2.webp",
+          "alt": {
+            "it": "xTool F2, foto originale della macchina (xTool)",
+            "en": "xTool F2, original machine photo (xTool)"
+          }
+        }
+      ]
     },
     {
       "id": "f2-ultra",
@@ -1207,8 +1283,17 @@
           "it": "Laser CO₂ 80 W · grande formato",
           "en": "80 W CO₂ laser · large format"
         },
-        "ordine": 3
-      }
+        "ordine": 4
+      },
+      "galleria": [
+        {
+          "src": "img/xtool-p3.webp",
+          "alt": {
+            "it": "xTool P3, foto originale della macchina (xTool)",
+            "en": "xTool P3, original machine photo (xTool)"
+          }
+        }
+      ]
     },
     {
       "id": "s1",
@@ -1268,8 +1353,17 @@
           "it": "Stampa UV a colori · doppia testa",
           "en": "Colour UV printing · dual head"
         },
-        "ordine": 5
-      }
+        "ordine": 6
+      },
+      "galleria": [
+        {
+          "src": "img/xtool-o1-uv.webp",
+          "alt": {
+            "it": "xTool O1 Omni Dual UV, foto originale della macchina (xTool)",
+            "en": "xTool O1 Omni Dual UV, original machine photo (xTool)"
+          }
+        }
+      ]
     },
     {
       "id": "wonderpress",
@@ -1300,11 +1394,20 @@
           "it": "Pressa a caldo 3 in 1 · DTF sui capi",
           "en": "3-in-1 heat press · DTF on garments"
         },
-        "ordine": 6
-      }
+        "ordine": 7
+      },
+      "galleria": [
+        {
+          "src": "img/xtool-wonderpress.webp",
+          "alt": {
+            "it": "xTool WonderPress, foto originale della macchina (xTool)",
+            "en": "xTool WonderPress, original machine photo (xTool)"
+          }
+        }
+      ]
     }
   ],
   "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
   "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori.",
-  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W) e xTool C1."
+  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W), xTool C1 e xTool X1; foto originali delle macchine fornite dal titolare."
 }

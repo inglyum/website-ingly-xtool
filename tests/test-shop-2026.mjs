@@ -20,7 +20,9 @@ const main = readFileSync('assets/js/main.js', 'utf8');
 const css = readFileSync('assets/css/brand-system-2026.css', 'utf8');
 
 console.log('\n=== ORDINE DELLA PAGINA ===');
-const ordine = [...shop.children].map(e => e.className.split(' ').find(c => c.startsWith('shop-') || c === 'ingly-commerce-spots') || (e.querySelector('.shop-layout') ? 'catalogo' : e.className));
+/* Shop a tre porte: il catalogo sta dentro il pannello della porta Oggetti */
+const figli = [...shop.children].flatMap(e => e.dataset && e.dataset.portaPannello === 'oggetti' ? [...e.children] : [e]);
+const ordine = figli.map(e => e.className.split(' ').find(c => c.startsWith('shop-') || c === 'ingly-commerce-spots') || (e.querySelector('.shop-layout') ? 'catalogo' : e.className));
 const pos = k => ordine.indexOf(k);
 check('titolo → barra → categorie → catalogo → percorsi promozionali', pos('shop-testa') < pos('shop-barra') && pos('shop-barra') < pos('shop-intro') && pos('shop-intro') < pos('catalogo') && pos('catalogo') < pos('ingly-commerce-spots'), ordine.join(' > '));
 check('la ricerca è nella barra in alto, non nella colonna laterale', !!shop.querySelector('.shop-barra .shop-cerca #q') && !shop.querySelector('.filters #q'));

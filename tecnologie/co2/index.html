@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=b5049bd918">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=bbc3af4b82">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -679,11 +679,20 @@ setTimeout(function(){
        ricerca nascosta nella colonna laterale (primo prodotto a 1.820 px su
        computer, 2.925 su telefono). Ora: titolo, ricerca, categorie,
        prodotti. Stessi id e stessa logica dei filtri di prima. -->
-  <div class="wrap shop-testa">
-    <h1 class="shop-titolo" data-i18n="shopH2">Il <span class="hl on">catalogo.</span></h1>
-    <p class="sub shop-sotto" data-i18n="shopSub">Cerca per categoria, materiale o prezzo, oppure parti da una collezione.</p>
+  <!-- SHOP A TRE PORTE (novembre 2026): chi entra sceglie cosa comprare
+       (oggetti, file digitali, materiali) e come compra (privato o azienda).
+       Porte e pannelli li disegna shop-porte.js; il catalogo oggetti è
+       quello di sempre, con gli stessi id e la stessa logica dei filtri. -->
+  <div class="wrap shop-testa sp-testa">
+    <div class="sp-testa__titolo">
+      <h1 class="shop-titolo" data-i18n="shopH2">Lo <span class="hl on">Shop.</span></h1>
+      <p class="sub shop-sotto" id="shopSotto">Regali e oggetti incisi, tagliati e stampati su misura. Scegli, personalizza, chiedi il prezzo.</p>
+    </div>
+    <div class="sp-barra" id="shopPorte"></div>
   </div>
+  <div class="wrap" id="shopAzienda" hidden></div>
 
+  <div data-porta-pannello="oggetti" id="shopPannelloOggetti">
   <div class="wrap shop-barra">
     <div class="searchbar shop-cerca"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="q" type="search" data-ph="searchPh" placeholder="Cerca prodotti, materiali, idee regalo…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sugg"><div class="sugg" id="sugg" role="listbox" hidden></div></div>
     <button class="btn btn-ghost fbar-btn" data-action="filtri-apri" aria-expanded="false" aria-controls="shopFiltri">
@@ -733,6 +742,9 @@ setTimeout(function(){
       </div>
     </div>
   </div>
+  </div>
+  <div class="wrap sp-pannello" data-porta-pannello="file" id="shopPannelloFile" hidden></div>
+  <div class="wrap sp-pannello" data-porta-pannello="materiali" id="shopPannelloMateriali" hidden></div>
 
   <!-- Due percorsi reali: prodotti già presenti nelle categorie B2B e Accessori.
        Le copertine sono editoriali, NON fotografie dei singoli articoli. -->

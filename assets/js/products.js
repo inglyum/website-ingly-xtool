@@ -27,6 +27,7 @@ const suRichiesta = () => PR.etichetta(CONFIG, L);
 /* materiale sempre risolvibile: MAT_ART[mat] mancante faceva crollare l'intero sito */
 const matArt = m => MAT_ART[m] || MAT_ART[Object.keys(MAT_ART)[0]] || { bg:'#3a2f26,#6b543e' };
 import { go, BASE } from './navigation.js';
+import * as SP from './shop-porte.js';
 
 /* ---- stato ---- */
 export const F={cat:new Set(),mat:new Set(),sub:new Set(),coll:''};
@@ -174,6 +175,7 @@ export function card(x){const a=matArt(x.mat);
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
     <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
+    ${SP.modoAzienda()?`<span class="pcard-az">${L==='it'?'Quantità, logo e fattura su richiesta':'Quantities, logo and invoice on request'}</span>`:''}
     <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span>${(()=>{const rv=recensioniDi(x);return rv.length?`<span class="stars" aria-label="${mediaRecensioni(rv)}/5">${stelle(mediaRecensioni(rv))} <span>(${rv.length})</span></span>`:''})()}</div></div></article>`}
 
 export const currentProduct = () => cur;
@@ -650,6 +652,8 @@ export function renderShop(){
   if(SORT==='pd')res.sort((a,b)=>b.price-a.price);
   if(SORT==='rv')res.sort((a,b)=>recensioniDi(b).length-recensioniDi(a).length);
   if(SORT==='nw')res.sort((a,b)=>b.id-a.id);   /* novità: gli ID più alti sono i più recenti */
+  /* modalità Azienda: a parità di rilevanza vengono prima i prodotti per le aziende */
+  if(SP.modoAzienda()&&(!SORT||SORT==='rel')){const k=x=>x.cat==='b2b'||x.tag==='B2B'?0:1;res.sort((a,b)=>k(a)-k(b))}
   syncFiltersToURL();
   renderCollBanner();
   renderBarraFiltri(res.length);
@@ -1461,17 +1465,19 @@ export function syncFiltersToURL(){
     if(F.coll) q.push('coll='+encodeURIComponent(CL.rifDi(CL.trova(F.coll,window.INGLY))||F.coll));
     const pr=$('pRange'); if(pr && +pr.value<120) q.push('max='+pr.value);
     if(SORT&&SORT!=='rel') q.push('sort='+SORT);
+    q.push(...SP.parametriIndirizzo());   /* la porta dello Shop (file, materiali) resta nell'indirizzo */
     /* sotto la base del sito: «/shop» dalla radice del dominio, su GitHub
        Pages (…/website-ingly-xtool/), era un indirizzo che non esiste —
        ricaricato o condiviso, ogni filtro dello Shop dava 404 */
     /* solo la raccolta, nessun altro filtro: l'indirizzo è la sua pagina vera */
     const cAtt=F.coll?CL.trova(F.coll,window.INGLY):null;
-    const soloColl=cAtt&&q.length===1&&q[0].startsWith('coll=');
+    const soloColl=cAtt&&q.length===1&&q[0].startsWith('coll=')&&SP.portaAttiva()==='oggetti';
     const next=soloColl?BASE+'collezioni/'+CL.rifDi(cAtt)+'/':BASE+'shop'+(q.length?'?'+q.join('&'):'');
     if(location.pathname+location.search!==next) history.replaceState(history.state,'',next);
   }catch(e){}
 }
 export function readFiltersFromURL(){
+  try{ SP.leggiStato(); }catch(e){}   /* porta dello Shop e modalità Privato/Azienda */
   try{
     const raw=location.search.slice(1)||location.hash.split('?')[1]||'';
     /* /collezioni/matrimonio/ → la raccolta «matrimonio», anche senza query */

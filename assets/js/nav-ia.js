@@ -108,29 +108,37 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
   const corsi = (D.CORSI && D.CORSI.corsi) || [];
 
   if (id === 'shop') {
-    const cats = (D.CATS || []).filter(c => c && c.id);
+    /* Shop a tre porte (novembre 2026): cosa compri, e per chi.
+       Le categorie «digitale», «materiali», «tecnologie» e «custom» hanno
+       ora la loro colonna o la loro pagina: qui solo gli oggetti. */
+    const NON_OGGETTI = ['digitale', 'materiali', 'tecnologie', 'custom'];
+    const cats = (D.CATS || []).filter(c => c && c.id && !NON_OGGETTI.includes(c.id));
+    const F = FORN.dati(D);
+    const fcats = (F.categorie || []).filter(c => c.id !== 'macchina' && (F.articoli || []).some(a => a.cat === c.id && a.stato === 'attivo'));
+    const vert = (D.VERTICALI || []).filter(v => v && v.id && v.attivo !== false);
     return {
       colonne: [
-        col(t('Categorie', 'Categories'),
+        col(t('Oggetti personalizzati', 'Personalised objects'),
           cats.slice(0, max).map(c => ({ n: L10n(c.n, L), href: via(base, 'shop?cat=' + c.id) })),
-          { n: t('Tutto il catalogo', 'Full catalogue'), href: via(base, 'shop') }),
-        /* Le collezioni arrivano dai dati e sono garantite non vuote.
-           Prima questa colonna portava a `shop?coll=regalo` e
-           `shop?coll=limited`: due valori che nessun prodotto ha e che lo
-           shop non leggeva affatto, quindi due voci del menu principale
-           aprivano il catalogo intero come se il filtro non esistesse. */
-        col(t('Collezioni', 'Collections'),
-          CL.inEvidenza(D, max).map(c => ({
-            n: CL.lingua(c.n, L),
-            href: via(base, 'shop?coll=' + CL.rifDi(c)),
-            nota: String(CL.conta(c, D))
-          })),
-          { n: t('Tutto il catalogo', 'Full catalogue'), href: via(base, 'shop') }),
-        col(t('Oppure', 'Or'), [
-          { n: t('Personalizzati su misura', 'Made to measure'), href: via(base, 'quote') },
-          { n: t('File digitali', 'Digital files'), href: via(base, 'digital') },
-          { n: t('Generator Studio INGLY', 'INGLY Generator Studio'), href: via(base, 'generatori.html') }
-        ])
+          { n: t('Tutti gli oggetti', 'All objects'), href: via(base, 'shop') }),
+        /* le collezioni arrivano dai dati e sono garantite non vuote */
+        col(t('Per occasione', 'By occasion'),
+          CL.inEvidenza(D, max).map(c => ({ n: CL.lingua(c.n, L), href: via(base, 'shop?coll=' + CL.rifDi(c)), nota: String(CL.conta(c, D)) })),
+          { n: t('Tutte le occasioni', 'All occasions'), href: via(base, 'shop') }),
+        col(t('File digitali', 'Digital files'), [
+          { n: t('Generator Studio, gratis', 'Generator Studio, free'), href: via(base, 'generatori.html') },
+          { n: t('Prova la tua foto incisa', 'Preview your engraved photo'), href: via(base, 'prova-incisione.html') },
+          { n: t('Litofania', 'Lithophane'), href: via(base, 'litofania.html') },
+          { n: t('File su richiesta', 'Files on request'), href: via(base, 'shop?porta=file') },
+          { n: t('Licenze e domande', 'Licences and FAQ'), href: via(base, 'digital') }
+        ], { n: t('Tutti i file', 'All files'), href: via(base, 'shop?porta=file') }),
+        col(t('Materiali', 'Materials'),
+          fcats.slice(0, max).map(c => ({ n: FORN.lingua(c.n, L), href: via(base, 'shop?porta=materiali&mcat=' + c.id) })),
+          { n: t('Tutti i materiali', 'All materials'), href: via(base, 'shop?porta=materiali') }),
+        col(t('Per le aziende', 'For businesses'), [
+          ...vert.slice(0, max).map(v => ({ n: L10n(v.n, L), href: via(base, 'business/' + v.id) })),
+          { n: t('Shop in modalità Azienda', 'Shop in business mode'), href: via(base, 'shop?per=azienda') }
+        ], { n: t('Tutto per le aziende', 'Everything for businesses'), href: via(base, 'business') })
       ],
       evidenza: {
         occhiello: t('Non trovi quello che cerchi?', 'Not finding it?'),

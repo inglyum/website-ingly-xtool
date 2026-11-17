@@ -159,6 +159,13 @@ function stockBadge(x){
 /* Al posto dell'emoji del prodotto: l'icona disegnata della sua categoria
    (set SVG del sito). Si vede solo quando manca la foto. */
 function artIcona(x){const c=CATS.find(k=>k.id===x.cat);return icon(c&&c.icon,'','art-ic')}
+/* Il titolo nella scheda: la parte prima di « | » (e di « - » se resta lungo).
+   I titoli completi, scritti per Google, restano nella pagina prodotto. */
+export function titoloBreve(t){
+  let s=String(t||'').split(' | ')[0].trim();
+  if(s.length>48&&s.includes(' - ')) s=s.split(' - ')[0].trim();
+  return s;
+}
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
   /* la seconda foto vera del prodotto, se c'è: compare al passaggio del mouse.
@@ -173,7 +180,7 @@ export function card(x){const a=matArt(x.mat);
       <div class="art">${artIcona(x)}</div>${foto}${foto2}${stockBadge(x)}
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
-    <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
+    <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3 title="${esc(x.n[L])}">${titoloBreve(x.n[L])}</h3>
     <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span>${(()=>{const rv=recensioniDi(x);return rv.length?`<span class="stars" aria-label="${mediaRecensioni(rv)}/5">${stelle(mediaRecensioni(rv))} <span>(${rv.length})</span></span>`:''})()}</div></div></article>`}
 
 export const currentProduct = () => cur;
@@ -332,7 +339,8 @@ function countFor(dim, value){
 
 export function renderChips(){
   $('fCat').innerHTML=CATS.filter(c=>!c.go).map(c=>chip(F.cat.has(c.id),'tog-cat',c.id,c.n[L],countFor('cat',c.id))).join('');
-  $('fMat').innerHTML=MATKEYS.map(m=>chip(F.mat.has(m),'tog-mat',m,MATN[m][L],countFor('mat',m))).join('');
+  /* solo i materiali che danno risultati (o già scelti): un filtro a zero è un vicolo cieco */
+  $('fMat').innerHTML=MATKEYS.filter(m=>F.mat.has(m)||countFor('mat',m)>0).map(m=>chip(F.mat.has(m),'tog-mat',m,MATN[m][L],countFor('mat',m))).join('');
   const sw=$('subWrap');
   if(F.cat.size===1){const c=CATS.find(x=>x.id===[...F.cat][0]);
     if(c.sub.length){sw.classList.add('show');$('fSub').innerHTML=c.sub.map((s,i)=>chip(F.sub.has(i),'tog-sub',i,s[L],countFor('sub',i))).join('')}
@@ -457,7 +465,7 @@ export function renderShopIntro(){
     const v=variantsOf(src).includes(400)?src.replace(/\.webp$/,'-400.webp'):src;
     return `<img class="scp-img" src="${imgV(v)}" alt="" width="40" height="40" loading="lazy" decoding="async">`};
   const tutte=VIS().length;
-  cats.innerHTML=`<button type="button" class="scp${!F.cat.size?' on':''}" data-action="cat-sola" data-v="" aria-pressed="${!F.cat.size}"><span class="scp-ic" aria-hidden="true">✦</span><span class="scp-n">${L==='it'?'Tutte':'All'}</span><span class="scp-c">${tutte}</span></button>`+
+  cats.innerHTML=`<button type="button" class="scp${!F.cat.size?' on':''}" data-action="cat-sola" data-v="" aria-pressed="${!F.cat.size}"><span class="scp-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg></span><span class="scp-n">${L==='it'?'Tutte':'All'}</span><span class="scp-c">${tutte}</span></button>`+
     vive.map(c=>`<button type="button" class="scp${attiva===c.id?' on':''}" data-action="cat-sola" data-v="${esc(c.id)}" aria-pressed="${attiva===c.id}">${mini(c)}<span class="scp-n">${esc(c.n[L])}</span><span class="scp-c">${catCount(c.id)}</span></button>`).join('');
 
   /* Le collezioni: una riga piccola sopra i prodotti, non un secondo

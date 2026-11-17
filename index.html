@@ -159,7 +159,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=b5049bd918">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=e39f43d876">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -727,6 +727,7 @@ setTimeout(function(){
           <button class="filters-x" data-action="filtri-chiudi" aria-label="Chiudi i filtri">✕</button>
         </div>
         <div class="fgroup fgroup--cat" hidden><h4 data-i18n="fCatH">Categoria</h4><div id="fCat"></div></div>
+        <div class="fgroup fgroup--coll"><h4 data-i18n="fCollH">Collezioni</h4><div class="shop-colls" id="shopColls"></div></div>
         <div class="fgroup"><h4 data-i18n="fMatH">Materiale</h4><div id="fMat"></div></div>
         <div class="fgroup"><h4><span data-i18n="fPrH">Prezzo max</span> <span class="range-val" id="pv">€120</span></h4><input type="range" class="range" id="pRange" min="5" max="120" value="120"></div>
         <button class="btn btn-ghost" style="justify-content:center" data-action="reset-filters" data-i18n="fReset">Azzera filtri</button>
@@ -741,11 +742,7 @@ setTimeout(function(){
       <div>
         <!-- Intestazione della collezione attiva: compare solo quando una
              collezione filtra il catalogo, e offre la via d'uscita. -->
-        <!-- Ingressi per occasione e per oggetto: compaiono sul catalogo intero,
-             spariscono appena si filtra. Link veri a /collezioni/<nome>. -->
-        <div class="shop-occ" id="shopOcc" hidden></div>
         <div class="shop-coll" id="shopCollBanner" hidden></div>
-        <div class="shop-colls" id="shopColls"></div>
         <div class="shop-top"><span class="rescount"><b id="resN">0</b> <span data-i18n="resTxt">creazioni</span></span><div class="shop-attivi" id="shopAttivi"></div></div>
         <div class="subwrap" id="subWrap"><h5 data-i18n="subH">Sottocategorie</h5><div id="fSub"></div></div>
         <div class="rv-wrap" id="rvWrap"><h5 data-i18n="rvH">Visti di recente</h5><div class="rv-strip" id="rvStrip"></div></div>
@@ -753,6 +750,9 @@ setTimeout(function(){
       </div>
     </div>
   </div>
+  <!-- Ingressi per occasione e per oggetto: dopo i prodotti, per chi vuole
+       esplorare. Sopra spingevano il primo prodotto a oltre 1.400 px. -->
+  <div class="wrap shop-occ" id="shopOcc" hidden></div>
 
   <!-- Due percorsi reali: prodotti già presenti nelle categorie B2B e Accessori.
        Le copertine sono editoriali, NON fotografie dei singoli articoli. -->

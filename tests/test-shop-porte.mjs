@@ -64,5 +64,17 @@ t('menu Shop: oggetti, occasioni, file, materiali, aziende', pan.colonne.map(c =
 const css = leggi('assets/css/restyle-2026.css');
 t('porte con foto e stato attivo in oro, rispetto del movimento ridotto', /\.sp-porta\.on\{outline:2px solid var\(--rs-gold\)\}/.test(css) && /prefers-reduced-motion:reduce\)\{:root\[data-mode\]\[data-mode\] \.sp-porta:hover img\{transform:none\}/.test(css));
 t('nessuna animazione sulle foto prodotto (regola 1)', !/\.sp-[\w-]+[^{]*img\.(pimgph|gimg|bimg)/.test(css));
+console.log('\n=== REVISIONE: STRUTTURA E PRECISIONE ===');
+const pos = x => html.indexOf(x);
+t('il primo prodotto viene prima delle occasioni', pos('id="shopGrid"') < pos('id="shopOcc"') && pos('id="shopOcc"') < pos('data-porta-pannello="file"'));
+t('le collezioni sono un filtro nella colonna laterale', /<aside class="filters"[\s\S]*id="shopColls"[\s\S]*<\/aside>/.test(html));
+t('i materiali senza risultati non compaiono fra i filtri', /MATKEYS\.filter\(m=>F\.mat\.has\(m\)\|\|countFor\('mat',m\)>0\)/.test(prod));
+const PR = { titoloBreve: t => { let s = String(t || '').split(' | ')[0].trim(); if (s.length > 48 && s.includes(' - ')) s = s.split(' - ')[0].trim(); return s; } };
+t('titoli brevi nelle schede, completi nella pagina prodotto', /<h3 title="\$\{esc\(x\.n\[L\]\)\}">\$\{titoloBreve\(x\.n\[L\]\)\}<\/h3>/.test(prod) && PR.titoloBreve('Set Regalo Neonato Personalizzato in Legno - Body, Copertina e Accessori') === 'Set Regalo Neonato Personalizzato in Legno');
+t('le porte dicono quanto c’è dietro', d.querySelectorAll('.sp-porta__conta').length >= 2);
+t('niente simboli al posto delle icone (✓ ✦)', !/✦/.test(prod) && !/content:"✓/.test(css));
+t('forme coerenti: ricerca, ordinamento, filtri e categorie ad angoli vivi', /#page-shop :is\(\.shop-cerca,\.sortsel,\.chip,\.scoll,\.scp/.test(css));
+t('titoli dei pannelli più piccoli del titolo della pagina', /#page-shop \.sp-pannello \.sp-sez__testa h2\{font:700 clamp\(1\.4rem/.test(css));
+
 console.log(`\n=========== SHOP A TRE PORTE: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

@@ -11138,7 +11138,8 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode][data-mode] .sp-az__testa{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
 :root[data-mode][data-mode] .sp-az__tit{font:700 13px/1.2 var(--rs-font);letter-spacing:.1em;text-transform:uppercase;color:var(--rs-gold)}
 :root[data-mode][data-mode] .sp-az__punti{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none;font-size:15px;color:var(--rs-ink);flex:1}
-:root[data-mode][data-mode] .sp-az__punti li::before{content:"✓ ";color:var(--rs-gold);font-weight:700}
+:root[data-mode][data-mode] .sp-az__punti li{display:inline-flex;align-items:center;gap:7px}
+:root[data-mode][data-mode] .sp-az__punti li::before{content:"";flex:0 0 14px;height:14px;background:var(--rs-gold);-webkit-mask:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Cpath d=%27M2.5 8.5l3.5 3.5 7.5-8%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272%27/%3E%3C/svg%3E') center/contain no-repeat;mask:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Cpath d=%27M2.5 8.5l3.5 3.5 7.5-8%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272%27/%3E%3C/svg%3E') center/contain no-repeat}
 :root[data-mode][data-mode] .sp-az__settori{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--rs-line)}
 :root[data-mode][data-mode] .sp-az__settori span{font-size:13px;color:var(--rs-muted);margin-right:4px}
 :root[data-mode][data-mode] .sp-az__settori a{padding:7px 12px;border:1px solid var(--rs-line-strong);color:var(--rs-ink);text-decoration:none;font:600 14px/1.2 var(--rs-font)}
@@ -11214,3 +11215,64 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
   :root[data-mode][data-mode] .sp-az__punti{flex-direction:column}
   :root[data-mode][data-mode] .sp-az__testa .btn{width:100%;justify-content:center}
 }
+
+/* ===== SHOP: un solo vocabolario (novembre 2026, revisione) =====
+   Stessa forma per ricerca, ordinamento, filtri, categorie e collezioni:
+   angoli vivi come il resto del sito. Ritmo: stretto dentro i gruppi,
+   largo fra le sezioni. Il primo prodotto sale sopra la piega. */
+:root[data-mode][data-mode] #page-shop :is(.shop-cerca,.sortsel,.chip,.scoll,.scp,.scp-img,.scp-ic,.ogg-righe a,.occ-tile,.occ-foto,.fbar-btn){border-radius:var(--rs-radius)!important}
+:root[data-mode][data-mode] #page-shop .shop-barra{margin-top:30px!important;padding-top:0!important;padding-bottom:0!important}
+:root[data-mode][data-mode] #page-shop .shop-cerca,:root[data-mode][data-mode] #page-shop .sortsel{height:50px!important;border:1px solid var(--rs-line-strong)!important;background:var(--rs-bg)!important;box-shadow:none!important}
+:root[data-mode][data-mode] #page-shop .shop-intro{padding-top:14px!important;padding-bottom:0!important}
+:root[data-mode][data-mode] #page-shop .shop-layout{margin-top:26px!important}
+:root[data-mode][data-mode] #page-shop .scp{border:1px solid var(--rs-line-strong)!important;background:var(--rs-bg)!important;box-shadow:none!important}
+:root[data-mode][data-mode] #page-shop .scp.on{background:var(--rs-ink)!important;border-color:var(--rs-ink)!important;color:var(--rs-bg)!important}
+:root[data-mode][data-mode] #page-shop .scp-ic svg{display:block}
+:root[data-mode][data-mode] #page-shop .filters .chip{border:1px solid var(--rs-line-strong)!important;background:transparent!important;box-shadow:none!important}
+:root[data-mode][data-mode] #page-shop .filters .chip.on{background:var(--rs-ink)!important;border-color:var(--rs-ink)!important;color:var(--rs-bg)!important}
+:root[data-mode][data-mode] #page-shop .filters .chip.on i{color:inherit!important;opacity:.75}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .shop-colls{display:flex!important;flex-wrap:wrap;gap:8px;margin:0!important;padding:0!important;border:0!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll-et{display:none!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll{height:auto!important;padding:8px 12px!important;border:1px solid var(--rs-line-strong)!important;background:transparent!important;color:var(--rs-ink)!important;font:500 14px/1.2 var(--rs-font)!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll.on{background:var(--rs-ink)!important;border-color:var(--rs-ink)!important;color:var(--rs-bg)!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll i{font-style:normal;color:var(--rs-muted);margin-left:4px}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll.on i{color:inherit;opacity:.75}
+:root[data-mode][data-mode] #page-shop .shop-occ{margin-top:72px!important;padding-top:48px!important;border-top:1px solid var(--rs-line)}
+:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))!important}
+:root[data-mode][data-mode] #page-shop .pcard h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* porte: conteggio dei contenuti */
+:root[data-mode][data-mode] .sp-porta__conta{margin-top:6px;font:600 12px/1.2 var(--rs-font);letter-spacing:.08em;text-transform:uppercase;color:var(--rs-gold-hover,#e6c48c)}
+:root[data-mode][data-mode] .sp-porta .sp-porta__conta{color:#f0d9ac}
+:root[data-mode][data-mode] #page-shop .wrap.shop-occ{box-sizing:border-box;width:100%!important;max-width:var(--rs-max)!important;margin-left:auto!important;margin-right:auto!important;padding-left:var(--rs-gutter)!important;padding-right:var(--rs-gutter)!important;display:grid;gap:48px}
+:root[data-mode][data-mode] #page-shop .wrap.shop-occ[hidden]{display:none!important}
+:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:16px!important}
+:root[data-mode][data-mode] #page-shop .shop-occ :is(.occ,.ogg){margin:0!important;display:grid;gap:18px}
+:root[data-mode][data-mode] #page-shop .shop-occ h2{margin:0!important}
+@media (max-width:980px){:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media (max-width:640px){:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+:root[data-mode][data-mode] #page-shop .wrap.shop-occ{border-top:0!important;padding-top:0!important;margin-top:72px!important}
+:root[data-mode][data-mode] #page-shop .shop-occ > :first-child{padding-top:44px;border-top:1px solid var(--rs-line)}
+:root[data-mode][data-mode] #page-shop .shop-occ :is(.occ,.ogg) > h2{font:600 clamp(1.35rem,1.1rem + .9vw,1.75rem)/1.2 var(--rs-font)!important;letter-spacing:-.005em}
+:root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe{max-width:none!important;display:flex;flex-wrap:wrap;gap:8px;margin:0}
+:root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe a{margin:0!important;border:1px solid var(--rs-line-strong)!important}
+:root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe a:hover{border-color:var(--rs-gold)!important;color:var(--rs-gold)!important}
+@media (max-width:640px){
+  :root[data-mode][data-mode] .sp-porta{min-height:128px;flex-basis:72%}
+  :root[data-mode][data-mode] .sp-porta small{display:none}
+  :root[data-mode][data-mode] .sp-porta__testo{padding:14px 16px}
+  :root[data-mode][data-mode] .sp-az{padding:16px}
+  :root[data-mode][data-mode] .sp-az__settori{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+  :root[data-mode][data-mode] .sp-az__settori::-webkit-scrollbar{display:none}
+  :root[data-mode][data-mode] .sp-az__settori a{flex:0 0 auto;white-space:nowrap}
+}
+:root[data-mode][data-mode] #page-shop .scp .scp-ic{background:transparent!important;display:grid;place-items:center;width:28px;height:28px}
+/* titoli dei pannelli: secondi al titolo «Lo Shop.», non suoi rivali */
+:root[data-mode][data-mode] #page-shop .sp-pannello .sp-sez__testa h2{font:700 clamp(1.4rem,1.15rem + .9vw,1.85rem)/1.2 var(--rs-font)!important;letter-spacing:-.005em;max-width:none}
+:root[data-mode][data-mode] #page-shop .sp-pannello h3{font-size:18px!important}
+
+:root[data-mode][data-mode] .sp-mat__corpo summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+:root[data-mode][data-mode] .sp-mat__corpo summary::-webkit-details-marker{display:none}
+:root[data-mode][data-mode] .sp-mat__corpo summary::after{content:"+";font:400 20px/1 var(--rs-font);color:var(--rs-gold)}
+:root[data-mode][data-mode] .sp-mat__corpo details[open] summary::after{content:"\2212"}
+:root[data-mode][data-mode] .sp-porte{position:relative}
+@media (max-width:640px){:root[data-mode][data-mode] .sp-porte{scroll-padding-inline:var(--rs-gutter,16px)}}

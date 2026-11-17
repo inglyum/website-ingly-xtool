@@ -90,6 +90,16 @@ function testiPorta(id, L) {
   }[id];
 }
 
+/* quanto c'è dietro ogni porta: numeri veri, dai dati */
+function conteggio(id, L) {
+  const D = I();
+  if (id === 'oggetti') { const n = (D.P || []).filter(x => x && !x.hidden).length; return n ? `${n} ${n === 1 ? t2('creazione', 'piece', L) : t2('creazioni', 'pieces', L)}` : ''; }
+  if (id === 'file') { const c = ((D.DIGITALE || {}).categorie || []).length; return `${STRUMENTI.length} ${t2('strumenti gratuiti', 'free tools', L)}${c ? ' · ' + c + ' ' + t2('categorie su richiesta', 'categories on request', L) : ''}`; }
+  const F = D.FORNITURE || {};
+  const n = (F.articoli || []).filter(a => a && a.stato === 'attivo' && a.cat !== 'macchina').length;
+  return n ? `${n} ${t2('materiali', 'materials', L)}` : '';
+}
+
 function sottotitolo(L) {
   const az = modoAzienda();
   if (porta === 'file') return az
@@ -120,14 +130,15 @@ export function renderPorte(L = 'it') {
         const href = via('shop' + (id === 'oggetti' ? '' : '?porta=' + id));
         return `<a class="sp-porta${porta === id ? ' on' : ''}" href="${esc(href)}" data-action="shop-porta" data-arg="${id}" data-no-spa${porta === id ? ' aria-current="page"' : ''}>
           <img src="${esc(via(FOTO[id]))}" alt="" width="800" height="800" loading="eager" decoding="async">
-          <span class="sp-porta__testo"><b>${esc(n)}</b><small>${esc(s)}</small></span>
+          <span class="sp-porta__testo"><b>${esc(n)}</b><small>${esc(s)}</small>${conteggio(id, L) ? `<span class="sp-porta__conta">${esc(conteggio(id, L))}</span>` : ''}</span>
         </a>`;
       }).join('')}
     </nav>`;
   /* sul telefono le porte scorrono: quella attiva deve essere in vista */
   const nav = box.querySelector('.sp-porte'), on = nav && nav.querySelector('.sp-porta.on');
-  if (nav && on && nav.scrollWidth > nav.clientWidth + 4) {
-    try { nav.scrollLeft += on.getBoundingClientRect().left - nav.getBoundingClientRect().left - 16; } catch (e) {}
+  if (nav && on) {
+    const centra = () => { if (nav.scrollWidth > nav.clientWidth + 4) nav.scrollLeft = Math.max(0, on.offsetLeft - (parseFloat(getComputedStyle(nav).paddingLeft) || 16)); };
+    try { requestAnimationFrame(centra); setTimeout(centra, 350); } catch (e) {}
   }
   renderAzienda(L);
   mostraPannello();
@@ -258,7 +269,7 @@ export function renderMateriali(L = 'it') {
         : t2(`Ciao INGLY DESIGN, vorrei prezzo e disponibilità di: ${nome}.`, `Hi INGLY DESIGN, I'd like price and availability for: ${nome}.`, L));
       const cons = lingua(a.consiglio, L);
       return `<article class="sp-mat__voce">
-        <div class="sp-mat__tinta" style="--tinta:${esc(tinta(a) || 'var(--rs-bg-2)')}"><span>${esc(lingua((cats.find(c => c.id === a.cat) || {}).n, L))}</span></div>
+        <div class="sp-mat__tinta" style="--tinta:${esc(tinta(a) || 'var(--rs-bg-2)')}">${a.tinta ? `<span>${esc(lingua(((I().MATN || {})[a.tinta]) || a.tinta, L))}</span>` : ''}</div>
         <div class="sp-mat__corpo">
           <h3>${esc(nome)}</h3>
           <p>${esc(lingua(a.desc, L))}</p>

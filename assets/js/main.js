@@ -27,6 +27,7 @@ import * as STAT from './statistiche.js';
 import * as FORNUI from './forniture-ui.js';
 import * as S3DUI from './stampa3d-ui.js';
 import * as LINGUA from './lingua-statica.js';
+import * as SP from './shop-porte.js';
 
 /* ---- config → DOM ---- */
 function initHeroVideo(){
@@ -817,7 +818,7 @@ function renderAll(){
     ['promo',renderPromo],['sponsor',renderSponsors],['WhatsApp flottante',renderWaFab],
     ['media Chi siamo',renderAboutArt],['hero',()=>prod.renderHero()],['categorie',()=>prod.renderCats()],
     ['collezioni',()=>prod.renderColl()],['personalizzazione',()=>prod.renderPersonalizza()],
-    ['chip catalogo',()=>prod.renderChips()],['catalogo',()=>prod.renderShop()],['scheda prodotto',()=>prod.renderPP()],
+    ['chip catalogo',()=>prod.renderChips()],['shop porte',()=>SP.renderTutto(L)],['catalogo',()=>prod.renderShop()],['scheda prodotto',()=>prod.renderPP()],
     ['catalogo digitale',()=>DIGUI.renderTutto(L)],['ticker',renderTicker],['tecnologie home',renderTech],
     ['passaggi',renderSteps],['recensioni',renderReviews],['Business',renderBiz],['settori',renderVertStrip],
     ['pagina settore',()=>renderVerticale(currentVerticale())],['Lab',renderLab],['navigazione IA',renderNavIA],
@@ -834,6 +835,10 @@ const actions={
   'go':el=>go(el.dataset.arg, el.dataset.search||null),
   'go-shop':el=>goShop(el.dataset.arg),
   'forn-cat':el=>FORNUI.filtra(el.dataset.arg),
+  /* Shop a tre porte: oggetti, file digitali, materiali; privato o azienda */
+  'shop-porta':(el,e)=>{e.preventDefault();SP.scegliPorta(el.dataset.arg,()=>{SP.renderTutto(L);prod.renderShop()})},
+  'shop-modo':el=>SP.scegliModo(el.dataset.arg,()=>{SP.renderTutto(L);prod.renderShop()}),
+  'shop-mat-cat':el=>SP.filtraMateriali(el.dataset.arg),
   'demo-slide':(el,e)=>{e.preventDefault();LABUI.scorriDemo(el)},
   'open-product':el=>prod.openProduct(+el.dataset.id),
   'wish':(el,e)=>{e.stopPropagation();wish.toggleWishItem(+el.dataset.id,el)},
@@ -1038,6 +1043,7 @@ function markScrollableCompatibility(){
 document.addEventListener('ingly:pagina',e=>{
   requestAnimationFrame(markScrollableCompatibility);
   if(e.detail && e.detail.pagina==='business') renderVerticale(currentVerticale());
+  if(e.detail && e.detail.pagina==='shop'){ safeRun('shop porte',()=>{SP.leggiStato();SP.renderTutto(L)}); }
   /* Le schede del Lab si aprono e si chiudono come i settori Business:
      l'indirizzo decide, non un bottone. */
   if(e.detail && e.detail.pagina==='materiali'){ LABUI.renderMateriale(currentScheda('materiali'),L,p=>prod.card(p)); FORNUI.renderPerMateriale(currentScheda('materiali'),L); }

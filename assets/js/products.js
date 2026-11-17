@@ -27,6 +27,7 @@ const suRichiesta = () => PR.etichetta(CONFIG, L);
 /* materiale sempre risolvibile: MAT_ART[mat] mancante faceva crollare l'intero sito */
 const matArt = m => MAT_ART[m] || MAT_ART[Object.keys(MAT_ART)[0]] || { bg:'#3a2f26,#6b543e' };
 import { go, BASE } from './navigation.js';
+import * as SP from './shop-porte.js';
 
 /* ---- stato ---- */
 export const F={cat:new Set(),mat:new Set(),sub:new Set(),coll:''};
@@ -159,6 +160,13 @@ function stockBadge(x){
 /* Al posto dell'emoji del prodotto: l'icona disegnata della sua categoria
    (set SVG del sito). Si vede solo quando manca la foto. */
 function artIcona(x){const c=CATS.find(k=>k.id===x.cat);return icon(c&&c.icon,'','art-ic')}
+/* Il titolo nella scheda: la parte prima di « | » (e di « - » se resta lungo).
+   I titoli completi, scritti per Google, restano nella pagina prodotto. */
+export function titoloBreve(t){
+  let s=String(t||'').split(' | ')[0].trim();
+  if(s.length>48&&s.includes(' - ')) s=s.split(' - ')[0].trim();
+  return s;
+}
 export function card(x){const a=matArt(x.mat);
   const foto=imgTag(x);
   /* la seconda foto vera del prodotto, se c'è: compare al passaggio del mouse.
@@ -173,7 +181,8 @@ export function card(x){const a=matArt(x.mat);
       <div class="art">${artIcona(x)}</div>${foto}${foto2}${stockBadge(x)}
       ${(x.stock===0||!prezziVisibili())?'':`<button class="qadd" data-action="quick-add" data-id="${x.id}">+ ${eur(x.price)}</button>`}
     </div>
-    <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3>${x.n[L]}</h3>
+    <div class="pbody"><span class="mat">${(MATN[x.mat]&&MATN[x.mat][L])||x.mat|| (L==='it'?'Materiale da definire':'Material to be confirmed')} · ${((CATS.find(c=>c.id===x.cat)||{}).n||{})[L]||''}</span><h3 title="${esc(x.n[L])}">${titoloBreve(x.n[L])}</h3>
+    ${SP.modoAzienda()?`<span class="pcard-az">${L==='it'?'Quantità, logo e fattura su richiesta':'Quantities, logo and invoice on request'}</span>`:''}
     <div class="prow"><span class="price${prezziVisibili()?'':' price--rich'}">${prezzo(x.price)}</span>${(()=>{const rv=recensioniDi(x);return rv.length?`<span class="stars" aria-label="${mediaRecensioni(rv)}/5">${stelle(mediaRecensioni(rv))} <span>(${rv.length})</span></span>`:''})()}</div></div></article>`}
 
 export const currentProduct = () => cur;
@@ -332,7 +341,8 @@ function countFor(dim, value){
 
 export function renderChips(){
   $('fCat').innerHTML=CATS.filter(c=>!c.go).map(c=>chip(F.cat.has(c.id),'tog-cat',c.id,c.n[L],countFor('cat',c.id))).join('');
-  $('fMat').innerHTML=MATKEYS.map(m=>chip(F.mat.has(m),'tog-mat',m,MATN[m][L],countFor('mat',m))).join('');
+  /* solo i materiali che danno risultati (o già scelti): un filtro a zero è un vicolo cieco */
+  $('fMat').innerHTML=MATKEYS.filter(m=>F.mat.has(m)||countFor('mat',m)>0).map(m=>chip(F.mat.has(m),'tog-mat',m,MATN[m][L],countFor('mat',m))).join('');
   const sw=$('subWrap');
   if(F.cat.size===1){const c=CATS.find(x=>x.id===[...F.cat][0]);
     if(c.sub.length){sw.classList.add('show');$('fSub').innerHTML=c.sub.map((s,i)=>chip(F.sub.has(i),'tog-sub',i,s[L],countFor('sub',i))).join('')}
@@ -457,7 +467,7 @@ export function renderShopIntro(){
     const v=variantsOf(src).includes(400)?src.replace(/\.webp$/,'-400.webp'):src;
     return `<img class="scp-img" src="${imgV(v)}" alt="" width="40" height="40" loading="lazy" decoding="async">`};
   const tutte=VIS().length;
-  cats.innerHTML=`<button type="button" class="scp${!F.cat.size?' on':''}" data-action="cat-sola" data-v="" aria-pressed="${!F.cat.size}"><span class="scp-ic" aria-hidden="true">✦</span><span class="scp-n">${L==='it'?'Tutte':'All'}</span><span class="scp-c">${tutte}</span></button>`+
+  cats.innerHTML=`<button type="button" class="scp${!F.cat.size?' on':''}" data-action="cat-sola" data-v="" aria-pressed="${!F.cat.size}"><span class="scp-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg></span><span class="scp-n">${L==='it'?'Tutte':'All'}</span><span class="scp-c">${tutte}</span></button>`+
     vive.map(c=>`<button type="button" class="scp${attiva===c.id?' on':''}" data-action="cat-sola" data-v="${esc(c.id)}" aria-pressed="${attiva===c.id}">${mini(c)}<span class="scp-n">${esc(c.n[L])}</span><span class="scp-c">${catCount(c.id)}</span></button>`).join('');
 
   /* Le collezioni: una riga piccola sopra i prodotti, non un secondo
@@ -650,6 +660,8 @@ export function renderShop(){
   if(SORT==='pd')res.sort((a,b)=>b.price-a.price);
   if(SORT==='rv')res.sort((a,b)=>recensioniDi(b).length-recensioniDi(a).length);
   if(SORT==='nw')res.sort((a,b)=>b.id-a.id);   /* novità: gli ID più alti sono i più recenti */
+  /* modalità Azienda: a parità di rilevanza vengono prima i prodotti per le aziende */
+  if(SP.modoAzienda()&&(!SORT||SORT==='rel')){const k=x=>x.cat==='b2b'||x.tag==='B2B'?0:1;res.sort((a,b)=>k(a)-k(b))}
   syncFiltersToURL();
   renderCollBanner();
   renderBarraFiltri(res.length);
@@ -1461,17 +1473,19 @@ export function syncFiltersToURL(){
     if(F.coll) q.push('coll='+encodeURIComponent(CL.rifDi(CL.trova(F.coll,window.INGLY))||F.coll));
     const pr=$('pRange'); if(pr && +pr.value<120) q.push('max='+pr.value);
     if(SORT&&SORT!=='rel') q.push('sort='+SORT);
+    q.push(...SP.parametriIndirizzo());   /* la porta dello Shop (file, materiali) resta nell'indirizzo */
     /* sotto la base del sito: «/shop» dalla radice del dominio, su GitHub
        Pages (…/website-ingly-xtool/), era un indirizzo che non esiste —
        ricaricato o condiviso, ogni filtro dello Shop dava 404 */
     /* solo la raccolta, nessun altro filtro: l'indirizzo è la sua pagina vera */
     const cAtt=F.coll?CL.trova(F.coll,window.INGLY):null;
-    const soloColl=cAtt&&q.length===1&&q[0].startsWith('coll=');
+    const soloColl=cAtt&&q.length===1&&q[0].startsWith('coll=')&&SP.portaAttiva()==='oggetti';
     const next=soloColl?BASE+'collezioni/'+CL.rifDi(cAtt)+'/':BASE+'shop'+(q.length?'?'+q.join('&'):'');
     if(location.pathname+location.search!==next) history.replaceState(history.state,'',next);
   }catch(e){}
 }
 export function readFiltersFromURL(){
+  try{ SP.leggiStato(); }catch(e){}   /* porta dello Shop e modalità Privato/Azienda */
   try{
     const raw=location.search.slice(1)||location.hash.split('?')[1]||'';
     /* /collezioni/matrimonio/ → la raccolta «matrimonio», anche senza query */

@@ -41,12 +41,14 @@ t('ogni articolo ha nome, descrizione e consiglio in IT e EN', D.articoli.every(
 t('nessun «Lo usiamo» deciso al posto del titolare', D.articoli.every(a => a.provato === false));
 
 console.log('\n=== INTERRUTTORE DELL\'ADMIN ===');
-t('di serie la sezione è spenta (l\'affiliazione arriva dopo)', content.FORNITURE.attivo === false && !F.visibile(content));
-t('spenta: nessun articolo, nessun avviso, nessun link', F.articoli(D0).length === 0 && F.avviso(D0, 'it') === '' && F.articoli(D0, { generatore: 'orecchini' }).length === 0);
+/* 2026-11-17: il titolare accende la sezione («i materiali devono essere venduti da noi in affiliazione») */
+t('sezione accesa per scelta del titolare', content.FORNITURE.attivo === true && F.visibile(content));
+const Doff = { ...D0, attivo: false };
+t('spenta: nessun articolo, nessun avviso, nessun link', F.articoli(Doff).length === 0 && F.avviso(Doff, 'it') === '' && F.articoli(Doff, { generatore: 'orecchini' }).length === 0);
 t('accesa: tutto torna', F.visibile({ FORNITURE: { attivo: true } }) && F.articoli(D).length >= 15);
 const navIA = await import('../assets/js/nav-ia.js');
-t('voce di menu solo con la sezione accesa', !navIA.secondarieVive(content).some(v => v.id === 'forniture') && navIA.secondarieVive({ FORNITURE: { attivo: true } }).some(v => v.id === 'forniture'));
-t('spenta: fuori dalla sitemap, pagina statica non indicizzata', !/\/forniture<\/loc>/.test(readFileSync('sitemap.xml', 'utf8')) && /<meta name="robots" content="noindex, follow">/.test(readFileSync('forniture/index.html', 'utf8')));
+t('voce di menu solo con la sezione accesa', !navIA.secondarieVive({ FORNITURE: { attivo: false } }).some(v => v.id === 'forniture') && navIA.secondarieVive(content).some(v => v.id === 'forniture'));
+t('accesa: nella sitemap e indicizzabile', /\/forniture<\/loc>/.test(readFileSync('sitemap.xml', 'utf8')) && !/<meta name="robots" content="noindex, follow">/.test(readFileSync('forniture/index.html', 'utf8')));
 t('nel sito spenta resta un messaggio e il link al catalogo, non una pagina vuota', /Questa sezione al momento non è disponibile/.test(readFileSync('assets/js/forniture-ui.js', 'utf8')) && /\[data-forn-link\]/.test(readFileSync('assets/js/forniture-ui.js', 'utf8')));
 t('il piè di pagina ha la voce, nascosta finché la sezione è spenta', /<a href="forniture" data-nav="forniture" data-forn-link hidden>/.test(readFileSync('index.html', 'utf8')));
 t('Google non indicizza la pagina spenta neanche nel sito', /page==='forniture'\)\{const F=\(window\.INGLY\|\|\{\}\)\.FORNITURE;if\(!\(F&&F\.attivo===true\)\)set\('meta\[name="robots"\]','content','noindex, follow'\)/.test(readFileSync('assets/js/seo.js', 'utf8')));

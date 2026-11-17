@@ -40,6 +40,9 @@
 .ia-colonne[data-col="1"]{grid-template-columns:1fr}
 .ia-colonne[data-col="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ia-colonne[data-col="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ia-colonne[data-col="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ia-colonne[data-col="5"]{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--sp-lg)}
+@media (max-width:1160px){.ia-colonne[data-col="5"]{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
 .ia-col-tit{font-family:var(--fd);font-size:11.5px;font-weight:700;letter-spacing:var(--ls-caps);
   text-transform:uppercase;opacity:.5;margin:0 0 var(--sp-md)}

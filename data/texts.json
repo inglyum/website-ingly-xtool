@@ -35,7 +35,7 @@
     "nlSub": "Nuove collezioni e lavori recenti, quando ci sono. Niente spam, ti cancelli quando vuoi.",
     "nlBtn": "Iscriviti",
     "nlOk": "Iscrizione fatta. Controlla la tua email.",
-    "shopH2": "Il <span class=\"hl on\">catalogo.</span>",
+    "shopH2": "Lo <span class=\"hl on\">Shop.</span>",
     "shopSub": "Cerca per categoria, materiale o prezzo, oppure parti da una collezione.",
     "searchPh": "Cerca prodotti, materiali, idee regalo…",
     "fCatH": "Categoria",
@@ -241,8 +241,8 @@
     "vetrinaEtichetta": "Come ordinare",
     "vetrinaTitolo": "Catalogo in vetrina.",
     "vetrinaTesto": "I prezzi sono su richiesta e non si ordina online: scegli i pezzi che ti piacciono e chiedici un preventivo.",
-    "occH": "Scegli per occasione",
-    "oggH": "Per tipo di oggetto",
+    "occH": "Esplora per occasione",
+    "oggH": "Esplora per tipo di oggetto",
     "occIdee1": "idea",
     "occIdee": "idee",
     "collAltreOcc": "Altre occasioni",
@@ -254,7 +254,8 @@
     "ppPerfH": "Perfetto per",
     "ppTrust1": "Bozza da approvare prima della produzione",
     "ppTrust2": "Realizzato nel nostro laboratorio a Palermo",
-    "ppTrust3": "Rispondiamo su WhatsApp o via email"
+    "ppTrust3": "Rispondiamo su WhatsApp o via email",
+    "fCollH": "Collezioni"
   },
   "en": {
     "topline": "Custom creations and design · Made in Italy",
@@ -292,7 +293,7 @@
     "nlSub": "New collections and recent work, when there are some. No spam, unsubscribe any time.",
     "nlBtn": "Subscribe",
     "nlOk": "You're subscribed. Check your inbox.",
-    "shopH2": "The <span class=\"hl on\">catalog.</span>",
+    "shopH2": "The <span class=\"hl on\">Shop.</span>",
     "shopSub": "Search by category, material or price, or start from a collection.",
     "searchPh": "Search products, materials, gift ideas…",
     "fCatH": "Category",
@@ -498,8 +499,8 @@
     "vetrinaEtichetta": "How to order",
     "vetrinaTitolo": "Showcase catalogue.",
     "vetrinaTesto": "Prices are on request and there is no online ordering: pick the pieces you like and ask us for a quote.",
-    "occH": "Shop by occasion",
-    "oggH": "By type of object",
+    "occH": "Explore by occasion",
+    "oggH": "Explore by type of object",
     "occIdee1": "idea",
     "occIdee": "ideas",
     "collAltreOcc": "Other occasions",
@@ -511,7 +512,8 @@
     "ppPerfH": "Perfect for",
     "ppTrust1": "Proof to approve before production",
     "ppTrust2": "Made in our Palermo workshop",
-    "ppTrust3": "We reply on WhatsApp or by email"
+    "ppTrust3": "We reply on WhatsApp or by email",
+    "fCollH": "Collections"
   },
   "wOpen": {
     "it": "Apri Wishlist",

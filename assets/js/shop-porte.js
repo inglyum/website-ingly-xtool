@@ -16,6 +16,7 @@
      gli strumenti gratuiti che funzionano già e il file su richiesta.
 
    Tutto ciò che arriva dai dati passa da esc. */
+import * as FORN from './forniture.js';
 /* la base del sito, calcolata come in navigation.js: importarla da lì
    legherebbe questo modulo al catalogo intero (navigation → products) */
 const BASE = (() => {
@@ -86,7 +87,7 @@ function testiPorta(id, L) {
   return {
     oggetti: [t2('Oggetti personalizzati', 'Personalised objects', L), t2('Li realizziamo noi, nel laboratorio di Palermo', 'Made by us in our Palermo workshop', L)],
     file: [t2('File digitali', 'Digital files', L), t2('Strumenti gratuiti e file pronti per il tuo laser', 'Free tools and files ready for your laser', L)],
-    materiali: [t2('Materiali', 'Materials', L), t2('Fogli e oggetti da personalizzare, scelti da noi', 'Sheets and blanks, picked by us', L)]
+    materiali: [t2('Materiali', 'Materials', L), t2('Scelti da noi, venduti dai migliori negozi online', 'Picked by us, sold by trusted online stores', L)]
   }[id];
 }
 
@@ -95,9 +96,8 @@ function conteggio(id, L) {
   const D = I();
   if (id === 'oggetti') { const n = (D.P || []).filter(x => x && !x.hidden).length; return n ? `${n} ${n === 1 ? t2('creazione', 'piece', L) : t2('creazioni', 'pieces', L)}` : ''; }
   if (id === 'file') { const c = ((D.DIGITALE || {}).categorie || []).length; return `${STRUMENTI.length} ${t2('strumenti gratuiti', 'free tools', L)}${c ? ' · ' + c + ' ' + t2('categorie su richiesta', 'categories on request', L) : ''}`; }
-  const F = D.FORNITURE || {};
-  const n = (F.articoli || []).filter(a => a && a.stato === 'attivo' && a.cat !== 'macchina').length;
-  return n ? `${n} ${t2('materiali', 'materials', L)}` : '';
+  const n = FORN.articoli(FORN.dati(D)).length;
+  return n ? `${n} ${t2('articoli da acquistare online', 'items to buy online', L)}` : '';
 }
 
 function sottotitolo(L) {
@@ -106,8 +106,8 @@ function sottotitolo(L) {
     ? t2('File con licenza commerciale per produrre e vendere: crea i tuoi con gli strumenti gratuiti o chiedi il file che ti serve.', 'Files with a commercial licence to produce and sell: build your own with the free tools or ask for the file you need.', L)
     : t2('Crea il tuo file gratis con i nostri strumenti, oppure chiedici il file pronto da incidere.', 'Build your file for free with our tools, or ask us for a file ready to engrave.', L);
   if (porta === 'materiali') return az
-    ? t2('Materiali per la tua produzione: chiedi prezzo, quantità e tempi per la tua azienda.', 'Materials for your production: ask for price, quantities and lead times for your business.', L)
-    : t2('I materiali che usiamo ogni giorno, con il consiglio per lavorarli. Prezzo e disponibilità su richiesta.', 'The materials we use every day, with tips on working them. Price and availability on request.', L);
+    ? t2('Materiali per la tua produzione, scelti da noi: li acquisti dal negozio indicato. Per forniture continuative scrivici.', 'Materials for your production, picked by us: buy them from the store shown. For ongoing supplies, message us.', L)
+    : t2('I materiali che usiamo ogni giorno, scelti da noi e con il consiglio per lavorarli. Li acquisti dal negozio indicato, che te li spedisce.', 'The materials we use every day, picked by us with tips on working them. Buy them from the store shown, which ships them to you.', L);
   return az
     ? t2('Gadget, targhe e oggetti con il tuo logo: quantità, campione e fattura su richiesta.', 'Gadgets, signs and objects with your logo: quantities, sample and invoice on request.', L)
     : t2('Regali e oggetti incisi, tagliati e stampati su misura. Scegli, personalizza, chiedi il prezzo.', 'Gifts and objects engraved, cut and printed to order. Choose, personalise, ask for the price.', L);
@@ -233,8 +233,12 @@ export function renderFile(L = 'it') {
     </section>` : ''}`;
 }
 
-/* ---------- pannello Materiali ---------- */
-const CAT_ESCLUSE = ['macchina'];   /* accessori originali xTool: si comprano da xTool */
+/* ---------- pannello Materiali (affiliazione) ----------
+   I materiali si scelgono qui e si comprano dal negozio indicato (Amazon.it,
+   xTool Store…), che vende e spedisce. Il link porta il codice affiliato
+   dell'Admin: la logica è quella di forniture.js, la stessa della pagina
+   /forniture. L'avviso di affiliazione è sempre visibile e ogni scheda dice
+   chi vende. Niente prezzi copiati dai negozi: cambiano ogni giorno. */
 function tinta(a) {
   const M = I().MAT_ART || {};
   const t = (a && a.tinta && M[a.tinta]) || null;
@@ -248,38 +252,44 @@ export function filtraMateriali(cat) {
 export function renderMateriali(L = 'it') {
   const box = $('shopPannelloMateriali');
   if (!box) return;
-  const F = I().FORNITURE || {};
-  const cats = (F.categorie || []).filter(c => c && c.id && !CAT_ESCLUSE.includes(c.id));
-  const tutti = (F.articoli || []).filter(a => a && a.id && a.stato === 'attivo' && cats.some(c => c.id === a.cat))
-    .sort((a, b) => (a.ordine || 99) - (b.ordine || 99));
+  const D = FORN.dati(I());
+  const tutti = FORN.articoli(D);
+  const cats = FORN.categorieVive(D);
   if (matCat && !cats.some(c => c.id === matCat)) matCat = '';
   const az = modoAzienda();
-  const lista = matCat ? tutti.filter(a => a.cat === matCat) : tutti;
+  const lista = matCat ? FORN.articoli(D, { cat: matCat }) : tutti;
+  const avviso = FORN.avviso(D, L);
+  const wa = az ? waTesto(t2('Ciao INGLY DESIGN, per la mia azienda mi servono materiali per il laser in quantità.', 'Hi INGLY DESIGN, my business needs laser materials in quantity.', L)) : '';
+  if (!tutti.length) {
+    box.innerHTML = `<div class="sp-sez__testa"><h2>${t2('Materiali per il laser', 'Laser materials', L)}</h2>
+      <p>${t2('La selezione è in preparazione.', 'The selection is being prepared.', L)}</p></div>`;
+    return;
+  }
   box.innerHTML = `
     <div class="sp-sez__testa"><h2>${t2('Materiali per il laser', 'Laser materials', L)}</h2>
-      <p>${t2('Quelli che usiamo in laboratorio, con il consiglio per lavorarli bene. Scrivici: ti rispondiamo con prezzo, disponibilità e tempi.', 'The ones we use in the workshop, with tips for working them well. Message us: we reply with price, availability and timing.', L)}</p></div>
+      ${avviso ? `<p class="sp-avviso" role="note">${esc(avviso)}</p>` : ''}</div>
+    ${az && wa ? `<p class="sp-nota sp-nota--az">${t2('Ti servono forniture continuative per la tua produzione?', 'Need ongoing supplies for your production?', L)} <a href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${t2('Scrivici', 'Message us', L)} →</a></p>` : ''}
     ${cats.length > 1 ? `<div class="sp-chips" role="group" aria-label="${t2('Filtra per tipo', 'Filter by type', L)}">
       <button type="button" data-action="shop-mat-cat" data-arg="" aria-pressed="${!matCat}">${t2('Tutti', 'All', L)} <span>${tutti.length}</span></button>
-      ${cats.map(c => { const n = tutti.filter(a => a.cat === c.id).length; return n ? `<button type="button" data-action="shop-mat-cat" data-arg="${esc(c.id)}" aria-pressed="${matCat === c.id}">${esc(lingua(c.n, L))} <span>${n}</span></button>` : ''; }).join('')}
+      ${cats.map(c => `<button type="button" data-action="shop-mat-cat" data-arg="${esc(c.id)}" aria-pressed="${matCat === c.id}">${esc(lingua(c.n, L))} <span>${FORN.articoli(D, { cat: c.id }).length}</span></button>`).join('')}
     </div>` : ''}
     <div class="sp-mat">${lista.map(a => {
       const nome = lingua(a.n, L);
-      const wa = waTesto(az
-        ? t2(`Ciao INGLY DESIGN, per la mia azienda vorrei prezzo e disponibilità per quantità di: ${nome}.`, `Hi INGLY DESIGN, for my business I'd like price and availability in quantity for: ${nome}.`, L)
-        : t2(`Ciao INGLY DESIGN, vorrei prezzo e disponibilità di: ${nome}.`, `Hi INGLY DESIGN, I'd like price and availability for: ${nome}.`, L));
+      const href = FORN.link(a, D);
+      const neg = FORN.nomeNegozio(a, D);
       const cons = lingua(a.consiglio, L);
       return `<article class="sp-mat__voce">
         <div class="sp-mat__tinta" style="--tinta:${esc(tinta(a) || 'var(--rs-bg-2)')}">${a.tinta ? `<span>${esc(lingua(((I().MATN || {})[a.tinta]) || a.tinta, L))}</span>` : ''}</div>
         <div class="sp-mat__corpo">
+          ${a.provato ? `<span class="sp-mat__prova">${t2('Lo usiamo in laboratorio', 'We use it in our workshop', L)}</span>` : ''}
           <h3>${esc(nome)}</h3>
           <p>${esc(lingua(a.desc, L))}</p>
           ${cons ? `<details><summary>${t2('Il consiglio INGLY', 'The INGLY tip', L)}</summary><p>${esc(cons)}</p></details>` : ''}
-          <span class="sp-prezzo">${esc(lingua(((I().CONFIG || {}).prezzi || {}).testo, L) || t2('Prezzo su richiesta', 'Price on request', L))}</span>
-          ${wa ? `<a class="btn btn-primary" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">${az ? t2('Chiedi un’offerta per quantità', 'Ask for a volume offer', L) : t2('Chiedi prezzo e disponibilità', 'Ask for price and availability', L)}</a>` : ''}
+          <span class="sp-venditore">${t2('Venduto e spedito da', 'Sold and shipped by', L)} <b>${esc(neg)}</b></span>
+          <a class="btn btn-primary sp-compra" href="${esc(href)}" target="_blank" rel="sponsored nofollow noopener" data-forn="${esc(FORN.evento(a))}">${t2('Acquista su', 'Buy on', L)} ${esc(neg)} <svg class="sp-esterno" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3h7v7M13 3 5 11M11 9v4H3V5h4"/></svg></a>
         </div>
       </article>`;
-    }).join('') || `<p class="sp-nota">${t2('La selezione è in preparazione.', 'The selection is being prepared.', L)}</p>`}</div>
-    <p class="sp-nota">${t2('Accessori e ricambi originali xTool:', 'Original xTool accessories and spare parts:', L)} <a href="https://www.xtool.eu/" target="_blank" rel="noopener noreferrer">${t2('shop ufficiale xTool', 'official xTool shop', L)} ↗</a></p>`;
+    }).join('')}</div>`;
 }
 
 /* ---------- azioni (dalla delega di main.js) ---------- */

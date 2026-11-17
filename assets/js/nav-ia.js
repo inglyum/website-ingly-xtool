@@ -114,7 +114,7 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
     const NON_OGGETTI = ['digitale', 'materiali', 'tecnologie', 'custom'];
     const cats = (D.CATS || []).filter(c => c && c.id && !NON_OGGETTI.includes(c.id));
     const F = FORN.dati(D);
-    const fcats = (F.categorie || []).filter(c => c.id !== 'macchina' && (F.articoli || []).some(a => a.cat === c.id && a.stato === 'attivo'));
+    const fcats = FORN.categorieVive(F);   /* solo se la sezione è accesa e ha articoli */
     const vert = (D.VERTICALI || []).filter(v => v && v.id && v.attivo !== false);
     return {
       colonne: [
@@ -132,7 +132,7 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
           { n: t('File su richiesta', 'Files on request'), href: via(base, 'shop?porta=file') },
           { n: t('Licenze e domande', 'Licences and FAQ'), href: via(base, 'digital') }
         ], { n: t('Tutti i file', 'All files'), href: via(base, 'shop?porta=file') }),
-        col(t('Materiali', 'Materials'),
+        col(t('Materiali da acquistare', 'Materials to buy'),
           fcats.slice(0, max).map(c => ({ n: FORN.lingua(c.n, L), href: via(base, 'shop?porta=materiali&mcat=' + c.id) })),
           { n: t('Tutti i materiali', 'All materials'), href: via(base, 'shop?porta=materiali') }),
         col(t('Per le aziende', 'For businesses'), [

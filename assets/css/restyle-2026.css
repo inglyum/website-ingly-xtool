@@ -1023,3 +1023,18 @@
 :root[data-mode][data-mode] .sp-mat__corpo details[open] summary::after{content:"\2212"}
 :root[data-mode][data-mode] .sp-porte{position:relative}
 @media (max-width:640px){:root[data-mode][data-mode] .sp-porte{scroll-padding-inline:var(--rs-gutter,16px)}}
+/* Materiali in affiliazione: chi vende è sempre scritto, l'avviso sempre in vista */
+:root[data-mode][data-mode] .sp-avviso{margin:0;padding:12px 16px;border:1px solid var(--rs-line-strong);background:var(--rs-bg-2);color:var(--rs-ink);font-size:14.5px;line-height:1.5;max-width:90ch}
+:root[data-mode][data-mode] .sp-nota--az a{font-weight:600;color:var(--rs-gold)}
+:root[data-mode][data-mode] .sp-venditore{margin-top:auto;font-size:13.5px;color:var(--rs-muted)}
+:root[data-mode][data-mode] .sp-venditore b{color:var(--rs-ink);font-weight:600}
+:root[data-mode][data-mode] .sp-mat__prova{align-self:flex-start;padding:3px 8px;border:1px solid var(--rs-gold);color:var(--rs-gold);font:700 11.5px/1.2 var(--rs-font);letter-spacing:.06em;text-transform:uppercase}
+:root[data-mode][data-mode] .sp-compra{display:inline-flex!important;align-items:center;justify-content:center;gap:8px}
+:root[data-mode][data-mode] .sp-esterno{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8}
+:root[data-mode][data-mode] #page-shop:is(#page-shop) :is(#shopPannelloFile,#shopPannelloMateriali) .sp-sez__testa h2{font-size:clamp(1.4rem,1.15rem + .9vw,1.85rem)!important;line-height:1.2!important;font-weight:700!important}
+:root[data-mode][data-mode] #page-shop:is(#page-shop) #shopOcc :is(.occ,.ogg) > h2{font-size:clamp(1.35rem,1.1rem + .9vw,1.75rem)!important;line-height:1.2!important}
+@media (max-width:640px){
+  :root[data-mode][data-mode] .sp-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--rs-gutter,16px));padding-inline:var(--rs-gutter,16px)}
+  :root[data-mode][data-mode] .sp-chips::-webkit-scrollbar{display:none}
+  :root[data-mode][data-mode] .sp-chips button{flex:0 0 auto;white-space:nowrap}
+}

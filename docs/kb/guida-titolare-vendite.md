@@ -64,9 +64,15 @@ convince di più chi non ti conosce.
 
 **Risposta a una richiesta per Natale**
 
-> Ciao {nome}, grazie! Per {prodotto} ci servono circa {giorni} giorni di
-> lavorazione più la spedizione: se confermi entro {data}, arriva prima di
-> Natale. Ti mando la bozza da approvare appena mi dai testo/foto.
+> Ciao {nome}, grazie! Per {prodotto} ci servono 7 giorni lavorativi di
+> produzione più la spedizione: se approvi la bozza entro mercoledì 9
+> dicembre, arriva prima di Natale. Ti mando la bozza appena mi dai
+> testo/foto.
+
+La stessa scadenza (9 dicembre) è scritta nella barra in alto del sito e
+nell'introduzione della raccolta Natale. La barra torna da sola al testo
+normale dal 10 dicembre; l'introduzione della raccolta va aggiornata a
+mano dopo quella data (è in `data/collezioni.json`, raccolta `natale`).
 
 **Preventivo inviato, nessuna risposta dopo 3 giorni**
 
@@ -81,8 +87,12 @@ prodotto, materiale, quantità, testo da incidere, link e la riga
 ## Cosa manca ancora (da te)
 
 - **Foto**: 44 prodotti su 56 sono scritti ma senza foto, quindi non si
-  vedono. Elenco in `docs/CATALOGO-FOTO-DA-CARICARE.md`.
-- **Spedizione**: costo per l'Italia e tempi di produzione e consegna
-  (Admin → Contatti & Social → Spedizioni). Oggi la pagina dice «da definire».
-- **Avviso in cima allo Shop**: dice «Siamo in fiera». Se non è più vero,
-  cambialo da Admin → Impostazioni → Catalogo online.
+  vedono. Da quali partire, categoria per categoria:
+  `docs/kb/priorita-prodotti-foto.md` (le prime 12 entro fine novembre,
+  per Natale). Elenco completo dei file in `docs/CATALOGO-FOTO-DA-CARICARE.md`.
+- **Costo di spedizione** per l'Italia (Admin → Contatti & Social →
+  Spedizioni). I tempi di produzione sono già impostati a 7 giorni
+  lavorativi.
+- **«Supereroi Ghibi» (ID 20)**: la foto mostra un personaggio Marvel.
+  Vendere personaggi con licenza senza autorizzazione è rischioso: decidi
+  se tenerlo, cambiarlo o nasconderlo.

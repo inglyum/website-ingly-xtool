@@ -28,7 +28,7 @@ const euro = n => '€' + Number(n || 0).toFixed(2).replace('.', ',');
 
 /* Domande costruite sui dati che il prodotto possiede davvero. */
 export function automatiche(p = {}, opt = {}){
-  const { L = 'it', materiale = '', categoria = '', azienda = 'INGLY DESIGN' } = opt;
+  const { L = 'it', materiale = '', categoria = '', azienda = 'INGLY DESIGN', prezziNascosti = false } = opt;
   const nome = (p.n && p.n[L]) || '';
   if(!nome) return [];
   const out = [];
@@ -39,7 +39,14 @@ export function automatiche(p = {}, opt = {}){
       `${nome} è realizzato in ${materiale}, lavorato e rifinito a mano nel laboratorio ${azienda} di Palermo.`,
     ]);
   }
-  if(p.price != null && p.price > 0){
+  /* prezzi spenti dall'Admin: la risposta non può scrivere la cifra che il
+     sito non mostra (Google segnala i prezzi che non corrispondono) */
+  if(prezziNascosti){
+    out.push([
+      `Quanto costa ${nome}?`,
+      `Il prezzo di ${nome} è su richiesta: dipende dalla personalizzazione e dalla quantità. Scrivici su WhatsApp o chiedi un preventivo e ti rispondiamo con prezzo e tempi.`,
+    ]);
+  } else if(p.price != null && p.price > 0){
     out.push([
       `Quanto costa ${nome}?`,
       `${nome} parte da ${euro(p.price)}. Il prezzo comprende la personalizzazione; per quantità elevate si può richiedere un preventivo dedicato.`,

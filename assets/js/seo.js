@@ -236,7 +236,8 @@ export function updateSeo(page, L, T, product){
     const faqs=FAQ.perProdotto(product,(window.INGLY.FAQS)||[],{L,
       azienda:S.azienda||'INGLY DESIGN',
       categoria:(cat&&cat.n&&cat.n[L])||'',
-      materiale:(MATNx[product.mat]&&MATNx[product.mat][L])||product.mat||''});
+      materiale:(MATNx[product.mat]&&MATNx[product.mat][L])||product.mat||'',
+      prezziNascosti:!PR.mostraPrezzi(CONFIG)});
     const fs=FAQ.schema(faqs,{url});
     if(fs) jsonld('ld-pfaq',Object.assign({"@context":"https://schema.org"},fs));
     else { const e=document.getElementById('ld-pfaq'); if(e) e.remove() }

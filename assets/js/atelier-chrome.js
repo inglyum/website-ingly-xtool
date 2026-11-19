@@ -25,8 +25,10 @@
     const oggi = new Date();
     const mese = oggi.getMonth(), giorno = oggi.getDate();
     if ((mese === 10 && giorno >= 15) || (mese === 11 && giorno <= 24)) {
-      captions.it.unshift({ testo: 'Regali di Natale personalizzati: scopri le idee →', href: 'collezioni/natale/' });
-      captions.en.unshift({ testo: 'Personalised Christmas gifts: see the ideas →', href: 'collezioni/natale/' });
+      /* 7 giorni lavorativi + spedizione: fino al 9 dicembre si arriva prima di Natale */
+      const inTempo = mese === 10 || giorno <= 9;
+      captions.it.unshift({ testo: inTempo ? 'Regali di Natale personalizzati: ordina entro il 9 dicembre →' : 'Regali di Natale personalizzati: scopri le idee →', href: 'collezioni/natale/' });
+      captions.en.unshift({ testo: inTempo ? 'Personalised Christmas gifts: order by 9 December →' : 'Personalised Christmas gifts: see the ideas →', href: 'collezioni/natale/' });
     }
     let position = 0;
     let timer = null;

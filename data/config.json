@@ -298,7 +298,7 @@
   "_nota": "Usati dal carrello e dalla pagina Spedizioni e resi. Tempi e costi vanno confermati dal titolare: un campo vuoto compare come «da definire».",
   "sogliaGratis": 79,
   "costoItalia": null,
-  "tempiProduzione": "",
+  "tempiProduzione": "7 giorni lavorativi",
   "tempiConsegna": "",
   "corriere": "",
   "esteroAttivo": false
@@ -370,11 +370,11 @@
    "en": "We are preparing new products"
   },
   "avviso": {
-   "it": "Siamo in fiera: le richieste arrivano lo stesso e ti rispondiamo appena rientriamo in laboratorio.",
-   "en": "We are at a trade fair: requests still reach us and we reply as soon as we are back in the workshop."
+   "it": "I prezzi sono su richiesta: scrivici su WhatsApp o chiedi un preventivo e ti rispondiamo con prezzo e tempi. Produzione in 7 giorni lavorativi.",
+   "en": "Prices are on request: message us on WhatsApp or ask for a quote and we reply with price and timing. Production takes 7 working days."
   }
  },
  "analisi": {
-  "goatcounter": ""
+  "goatcounter": "ingly"
  }
 }

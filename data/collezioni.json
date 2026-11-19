@@ -544,16 +544,16 @@
       "id": "natale",
       "slug": "natale",
       "n": {
-        "it": "Natale",
-        "en": "Christmas"
+        "it": "Regali di Natale",
+        "en": "Christmas gifts"
       },
       "s": {
-        "it": "Decorazioni e regali di Natale con il nome.",
-        "en": "Christmas decorations and gifts with a name."
+        "it": "Regali personalizzati da incidere con un nome, una data o una foto.",
+        "en": "Personalised gifts engraved with a name, a date or a photo."
       },
       "intro": {
-        "it": "Palline, decorazioni e regali di Natale con i nomi della famiglia, per casa e per i clienti dell'azienda. Prima della produzione ti mandiamo la bozza da approvare.",
-        "en": "Baubles, decorations and Christmas gifts with the family's names, for home and for business clients. Before production we send you a proof to approve."
+        "it": "Un ritratto inciso, una lampada, un orologio o un portachiavi con il nome di chi lo riceve: regali fatti a mano nel nostro laboratorio di Palermo. Prima della produzione ti mandiamo la bozza da approvare. La produzione richiede 7 giorni lavorativi più la spedizione: per riceverlo prima di Natale ordina e approva la bozza entro mercoledì 9 dicembre.",
+        "en": "An engraved portrait, a lamp, a clock or a keychain with the recipient’s name: gifts handmade in our Palermo workshop. Before production we send you a proof to approve. Production takes 7 working days plus shipping: to receive it before Christmas, order and approve the proof by Wednesday 9 December."
       },
       "query": {
         "parole": [
@@ -564,23 +564,40 @@
           "pallin"
         ]
       },
-      "ordine": "rilevanza",
-      "cover": "",
+      "ordine": "manuale",
+      "cover": "img/3.webp",
       "hero": "",
-      "evidenza": false,
-      "posizione": 16,
+      "evidenza": true,
+      "posizione": 1,
       "stato": "pubblicata",
       "gruppo": "occasione",
       "seo": {
         "titolo": {
-          "it": "Decorazioni e regali di Natale personalizzati",
-          "en": "Personalised Christmas decorations and gifts"
+          "it": "Regali di Natale personalizzati incisi al laser | Palermo",
+          "en": "Personalised Christmas gifts, laser engraved | Palermo"
         },
         "descrizione": {
-          "it": "Palline, decorazioni e regali di Natale con i nomi, incisi al laser a Palermo. Anche per aziende. Preventivo su richiesta.",
-          "en": "Christmas baubles, decorations and gifts with names, laser engraved in Palermo. Also for businesses."
+          "it": "Regali di Natale personalizzati con nome, data o foto: ritratti incisi, lampade, orologi, portachiavi. Fatti a mano a Palermo, con bozza da approvare.",
+          "en": "Personalised Christmas gifts with a name, date or photo: engraved portraits, lamps, clocks, keychains. Handmade in Palermo, with a proof to approve."
         }
-      }
+      },
+      "prodotti": [
+        3,
+        2,
+        6,
+        14,
+        21,
+        22,
+        17,
+        4,
+        5,
+        58,
+        35,
+        74,
+        59,
+        84,
+        90
+      ]
     },
     {
       "id": "amore",

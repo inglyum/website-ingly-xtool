@@ -50,7 +50,8 @@ t('nessun cookie né servizio esterno oltre GoatCounter', /https:\/\/gc\.zgo\.at
 t('conta preventivi, WhatsApp, anteprima 3D e demo', ['preventivo-inviato', 'whatsapp', 'anteprima-3d-usata', 'preventivo-da-3d', 'demo-cliccata'].every(e => st.includes(e)));
 t('avviato all\'apertura del sito', /STAT\.avvia\(CONFIG\)/.test(readFileSync('assets/js/main.js', 'utf8')));
 t('il codice si imposta dall\'Admin', /id="statGc"/.test(admin) && /S\.CONFIG\.analisi=/.test(admin));
-t('codice predefinito vuoto: statistiche spente finché non lo scrivi', conf.analisi && conf.analisi.goatcounter === '');
+/* 2026-11-19: il titolare ha creato il sito GoatCounter «ingly» */
+t('codice del titolare valido (ingly.goatcounter.com)', conf.analisi && conf.analisi.goatcounter === 'ingly' && /^[a-z0-9][a-z0-9-]{1,62}$/.test(conf.analisi.goatcounter));
 
 console.log(`\n=========== VETRINA E STATISTICHE: ${ok} passati, ${ko} falliti ===========`);
 process.exit(ko ? 1 : 0);

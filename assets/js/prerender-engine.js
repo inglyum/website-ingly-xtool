@@ -49,7 +49,9 @@ export function indirizzo(pagina, opt = {}){
    Deve contenere i FATTI che un motore AI cita: cosa è, di che materiale,
    quanto costa, quanto ci vuole, che misure ha. */
 export function corpoProdotto(p = {}, opt = {}){
-  const { L = 'it', categoria = '', materiale = '', azienda = 'INGLY DESIGN' } = opt;
+  /* `prezzo`: come scrivere il prezzo. Con i prezzi spenti dall'Admin diventa
+     «Prezzo su richiesta», come nel sito: testo e dati per Google concordano */
+  const { L = 'it', categoria = '', materiale = '', azienda = 'INGLY DESIGN', prezzo: scriviPrezzo = prezzo } = opt;
   const nome = (p.n && p.n[L]) || '';
   const desc = testo((p.desc && p.desc[L]) || '');
   const righe = [];
@@ -59,8 +61,8 @@ export function corpoProdotto(p = {}, opt = {}){
   const fatti = [];
   if(materiale) fatti.push(['Materiale', materiale]);
   if(categoria) fatti.push(['Categoria', categoria]);
-  if(p.price != null) fatti.push(['Prezzo', prezzo(p.price)]);
-  if(p.prod) fatti.push(['Tempo di produzione', p.prod + (p.prod === 1 ? ' giorno' : ' giorni')]);
+  if(p.price != null) fatti.push(['Prezzo', scriviPrezzo(p.price)]);
+  if(p.prod) fatti.push(['Tempo di produzione', p.prod + (p.prod === 1 ? ' giorno lavorativo' : ' giorni lavorativi')]);
   if(p.sku) fatti.push(['Codice', p.sku]);
   if(fatti.length){
     righe.push('<dl>' + fatti.map(([k, v]) =>
@@ -78,14 +80,14 @@ export function corpoProdotto(p = {}, opt = {}){
 
 /* Il corpo di una pagina del sito: elenco leggibile di ciò che contiene. */
 export function corpoPagina(pagina, opt = {}){
-  const { L = 'it', titolo = '', descrizione = '', prodotti = [], categorie = [], base = '' } = opt;
+  const { L = 'it', titolo = '', descrizione = '', prodotti = [], categorie = [], base = '', prezzo: scriviPrezzo = prezzo } = opt;
   const righe = ['<h1>' + esc(titolo || pagina) + '</h1>'];
   if(descrizione) righe.push('<p>' + esc(testo(descrizione)) + '</p>');
 
   if(pagina === 'shop' && prodotti.length){
     righe.push('<h2>Catalogo</h2><ul>' + prodotti.map(p =>
       '<li><a href="' + esc(indirizzo('product', { base, id: p.id })) + '">' +
-      esc((p.n && p.n[L]) || '') + '</a> — ' + esc(prezzo(p.price)) + '</li>').join('') + '</ul>');
+      esc((p.n && p.n[L]) || '') + '</a> — ' + esc(scriviPrezzo(p.price)) + '</li>').join('') + '</ul>');
   }
   if(pagina === 'shop' && categorie.length){
     righe.push('<h2>Categorie</h2><ul>' + categorie.map(c =>

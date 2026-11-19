@@ -55,11 +55,14 @@ export function generaSito(dati, guscio){
     forniture:'Forniture per il laser', 'stampa-3d':'Stampa 3D su misura',
   };
 
+  /* il prezzo come lo vede il visitatore: cifra o «Prezzo su richiesta» */
+  const prezzoVisibile = n => PR.testoPrezzo(n, cfg, { L, eur: P.prezzo });
+
   function paginaProdotto(p){
     const canonico = P.indirizzo('product', { base, id: p.id });
     const titolo = (p.n && p.n[L]) + ' — ' + azienda;
     const desc = P.soloTesto((p.desc && p.desc[L]) || S.descrizione || '').slice(0, 300);
-    const ctx = { L, azienda, categoria: nomeCategoria(p.cat), materiale: nomeMateriale(p.mat) };
+    const ctx = { L, azienda, categoria: nomeCategoria(p.cat), materiale: nomeMateriale(p.mat), prezzo: prezzoVisibile, prezziNascosti: !PR.mostraPrezzi(cfg) };
     /* Le domande sono la parte che i motori AI citano più volentieri: vanno
        nell'HTML statico, non solo nei dati strutturati. */
     const faqs = FAQ.perProdotto(p, contenuti.FAQS || [], ctx);
@@ -91,6 +94,7 @@ export function generaSito(dati, guscio){
       L, base, titolo: pg === 'home' ? azienda : (TITOLI[pg] || pg), descrizione: desc,
       prodotti: pg === 'shop' ? prodotti.filter(x => !x.hidden) : [],
       categorie: pg === 'shop' ? categorie : [],
+      prezzo: prezzoVisibile,
     });
     /* il catalogo statico porta anche le raccolte: è da qui che un crawler
        scopre le pagine per occasione e per oggetto */
@@ -133,7 +137,7 @@ export function generaSito(dati, guscio){
   function paginaVerticale(v){
     const canonico = VERT.indirizzo(v, base);
     const { titolo, descrizione } = VERT.meta(v, { L, azienda, citta: S.citta || '' });
-    const contenuto = VERT.corpo(v, { L, base, prodotti, prezzo: P.prezzo });
+    const contenuto = VERT.corpo(v, { L, base, prodotti, prezzo: prezzoVisibile });
     const jsonld = SCH.grafo([
       ...entitaBase,
       ...VERT.schema(v, { L, base, azienda, idAzienda: SCH.ID.org }),
@@ -214,8 +218,8 @@ export function generaSito(dati, guscio){
         ? { titolo: `${nome} — ${e.inOfficina && e.demoDisponibile ? 'demo gratuita e assistenza a Palermo, Sicilia' : e.inOfficina ? 'demo e assistenza a Palermo' : 'assistenza e riparazione a Palermo'} | ${azienda}`,
             descrizione: LAB.lingua(e.ruolo, L) }
         : { titolo: `${nome} | ${azienda}`, descrizione: LAB.lingua(e.sommario, L) };
-    const contenuto = sezione === 'materiali' ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: P.prezzo })
-      : sezione === 'tecnologie' ? LAB.corpoTecnologia(DLAB, e, { L, base, prezzo: P.prezzo })
+    const contenuto = sezione === 'materiali' ? LAB.corpoMateriale(DLAB, e, { L, base, prezzo: prezzoVisibile })
+      : sezione === 'tecnologie' ? LAB.corpoTecnologia(DLAB, e, { L, base, prezzo: prezzoVisibile })
       : sezione === 'macchine' ? LAB.corpoMacchina(DLAB, e, { L, base })
       : LAB.corpoCorso(DLAB, e, { L, base });
     const schema = sezione === 'materiali' ? LAB.schemaMateriale(DLAB, e, { L, base, azienda, idAzienda: SCH.ID.org })

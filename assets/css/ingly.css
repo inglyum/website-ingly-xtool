@@ -11093,3 +11093,42 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode][data-mode] .demo-mac__link:hover{color:var(--rs-gold)}
 @media (prefers-reduced-motion:reduce){:root[data-mode][data-mode] .demo-mac:hover .demo-slide img{transform:none}}
 @media (max-width:640px){:root[data-mode][data-mode] .demo-mac-grid{grid-template-columns:1fr}}
+
+/* ===== SHOP: rifinitura (novembre 2026) =====
+   Un solo vocabolario: ricerca, ordinamento, categorie, filtri e collezioni
+   ad angoli vivi come il resto del sito, stato attivo in inchiostro pieno.
+   Il primo prodotto sale: occasioni e tipi di oggetto dopo la griglia,
+   collezioni fra i filtri. Titoli di sezione sotto il titolo della pagina. */
+:root[data-mode][data-mode] #page-shop :is(.shop-cerca,.sortsel,.chip,.scoll,.scp,.scp-img,.scp-ic,.ogg-righe a,.occ-tile,.occ-foto,.fbar-btn){border-radius:var(--rs-radius)!important}
+:root[data-mode][data-mode] #page-shop .shop-cerca,:root[data-mode][data-mode] #page-shop .sortsel{height:50px!important;border:1px solid var(--rs-line-strong)!important;background:var(--rs-bg)!important;box-shadow:none!important}
+:root[data-mode][data-mode] #page-shop .shop-intro{padding-top:14px!important;padding-bottom:0!important}
+:root[data-mode][data-mode] #page-shop .shop-layout{margin-top:26px!important}
+:root[data-mode][data-mode] #page-shop .scp{border:1px solid var(--rs-line-strong)!important;background:var(--rs-bg)!important;box-shadow:none!important}
+:root[data-mode][data-mode] #page-shop .scp.on{background:var(--rs-ink)!important;border-color:var(--rs-ink)!important;color:var(--rs-bg)!important}
+:root[data-mode][data-mode] #page-shop .scp .scp-ic{background:transparent!important;display:grid;place-items:center;width:28px;height:28px}
+:root[data-mode][data-mode] #page-shop .scp-ic svg{display:block}
+:root[data-mode][data-mode] #page-shop .filters .chip{border:1px solid var(--rs-line-strong)!important;background:transparent!important;box-shadow:none!important}
+:root[data-mode][data-mode] #page-shop .filters .chip.on{background:var(--rs-ink)!important;border-color:var(--rs-ink)!important;color:var(--rs-bg)!important}
+:root[data-mode][data-mode] #page-shop .filters .chip.on i{color:inherit!important;opacity:.75}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .shop-colls{display:flex!important;flex-wrap:wrap;gap:8px;margin:0!important;padding:0!important;border:0!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll-et{display:none!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll{height:auto!important;padding:8px 12px!important;border:1px solid var(--rs-line-strong)!important;background:transparent!important;color:var(--rs-ink)!important;font:500 14px/1.2 var(--rs-font)!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll.on{background:var(--rs-ink)!important;border-color:var(--rs-ink)!important;color:var(--rs-bg)!important}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll i{font-style:normal;color:var(--rs-muted);margin-left:4px}
+:root[data-mode][data-mode] #page-shop .fgroup--coll .scoll.on i{color:inherit;opacity:.75}
+:root[data-mode][data-mode] #page-shop .pcard h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+:root[data-mode][data-mode] #page-shop .wrap.shop-occ{box-sizing:border-box;width:100%!important;max-width:var(--rs-max)!important;margin:72px auto 0!important;padding:0 var(--rs-gutter)!important;border:0!important;display:grid;gap:48px}
+:root[data-mode][data-mode] #page-shop .wrap.shop-occ[hidden]{display:none!important}
+:root[data-mode][data-mode] #page-shop .shop-occ > :first-child{padding-top:44px;border-top:1px solid var(--rs-line)}
+:root[data-mode][data-mode] #page-shop .shop-occ :is(.occ,.ogg){margin:0!important;display:grid;gap:18px}
+:root[data-mode][data-mode] #page-shop:is(#page-shop) #shopOcc :is(.occ,.ogg) > h2{margin:0!important;font:600 clamp(1.35rem,1.1rem + .9vw,1.75rem)/1.2 var(--rs-font)!important;font-size:clamp(1.35rem,1.1rem + .9vw,1.75rem)!important;letter-spacing:-.005em}
+:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:16px!important}
+:root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe{max-width:none!important;display:flex;flex-wrap:wrap;gap:8px;margin:0}
+:root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe a{margin:0!important;border:1px solid var(--rs-line-strong)!important}
+:root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe a:hover{border-color:var(--rs-gold)!important;color:var(--rs-gold)!important}
+@media (max-width:980px){:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media (max-width:640px){:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* avviso stagionale nella barra in alto: è un link, deve sembrarlo */
+:root[data-mode][data-mode] .atelier-announcement__link{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+:root[data-mode][data-mode] .atelier-announcement__link:hover{text-decoration-thickness:2px}

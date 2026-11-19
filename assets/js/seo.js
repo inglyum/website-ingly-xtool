@@ -8,6 +8,7 @@ import * as FAQ from './faq-engine.js';
 import * as LAB from './lab.js';
 import * as VERT from './verticali.js';
 import * as PR from './prezzi.js';
+import * as CL from './collezioni.js';
 const { CONFIG } = window.INGLY;
 const S = CONFIG.seo || {};
 const base = () => (S.dominio || location.origin).replace(/\/+$/,'');
@@ -94,6 +95,13 @@ export function updateSeo(page, L, T, product){
     return e ? { sezione:page, e } : null;
   })();
 
+  const raccolta = (() => {
+    if(page!=='shop') return null;
+    const m=/\/collezioni\/([a-z0-9-]+)\/?$/.exec(location.pathname);
+    let rif=m?m[1]:'';
+    if(!rif){ try{ rif=new URLSearchParams(location.search).get('coll')||''; }catch(e){} }
+    return rif ? CL.trova(rif, window.INGLY) : null;
+  })();
   const vert = (() => {
     if(page!=='business') return null;
     const seg=location.pathname.split('?')[0].split('/').filter(Boolean);
@@ -126,6 +134,12 @@ export function updateSeo(page, L, T, product){
                         : `${nome} — assistenza e riparazione a Palermo | ${azienda}`))
         : `${nome} | ${azienda}`;
     desc = somm || LAB.lingua(scheda.e.ruolo, L);
+  } else if(page==='shop' && raccolta){
+    /* /collezioni/<nome>/ o ?coll=: titolo e descrizione della raccolta.
+       Prima il sito, appena carico, li sostituiva con «Il catalogo.» */
+    const seoC=raccolta.seo||{};
+    title=(CL.lingua(seoC.titolo,L)||CL.lingua(raccolta.n,L))+' | '+azienda;
+    desc=CL.lingua(seoC.descrizione,L)||CL.lingua(raccolta.s,L)||S.descrizione||'';
   } else if(vert){
     const m=VERT.meta(vert,{L,azienda,citta:S.citta||''});
     title=m.titolo; desc=m.descrizione;
@@ -161,6 +175,7 @@ export function updateSeo(page, L, T, product){
      dichiarano lo stesso canonico e Google ne indicizza una sola. */
   const url = page==='home' ? base()+'/'
             : scheda        ? base()+'/'+scheda.sezione+'/'+scheda.e.id
+            : raccolta      ? base()+'/collezioni/'+CL.rifDi(raccolta)+'/'
             : vert          ? VERT.indirizzo(vert, base())
             : isProd        ? base()+'/product/'+product.id+'/'
             :                 base()+'/'+page;

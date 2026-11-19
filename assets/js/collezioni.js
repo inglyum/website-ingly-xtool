@@ -55,7 +55,10 @@ export const lingua = (v, L = 'it') =>
 /* Il testo in cui cercare le parole di una raccolta: nome e descrizione in
    tutte e due le lingue, minuscolo e senza accenti («papà» = «papa»). */
 const pulisci = t => str(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+/* `keywords`: le parole chiave del prodotto (Admin → prodotto). Non si
+   vedono, ma tengono il prodotto nelle raccolte e nella ricerca */
 const testoDi = p => pulisci([p.n && p.n.it, p.n && p.n.en, p.desc && p.desc.it, p.desc && p.desc.en,
+  ...(Array.isArray(p.keywords) ? p.keywords : []),
   typeof p.n === 'string' ? p.n : '', typeof p.desc === 'string' ? p.desc : ''].filter(Boolean).join(' '));
 /* «nozze» trova «Nozze» e «nozze,» ma «anni» non trova «pannello»: la parola
    deve cominciare lì, non stare a metà di un'altra. */

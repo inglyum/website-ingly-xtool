@@ -20,13 +20,30 @@
         'Personalization for people and businesses'
       ]
     };
+    /* Stagione: dal 15 novembre al 24 dicembre il primo avviso porta ai
+       regali di Natale; poi sparisce da solo, senza toccare il codice. */
+    const oggi = new Date();
+    const mese = oggi.getMonth(), giorno = oggi.getDate();
+    if ((mese === 10 && giorno >= 15) || (mese === 11 && giorno <= 24)) {
+      captions.it.unshift({ testo: 'Regali di Natale personalizzati: scopri le idee →', href: 'collezioni/natale/' });
+      captions.en.unshift({ testo: 'Personalised Christmas gifts: see the ideas →', href: 'collezioni/natale/' });
+    }
     let position = 0;
     let timer = null;
     function language() {
       return document.getElementById('langEN')?.classList.contains('on') ? 'en' : 'it';
     }
     function update() {
-      message.textContent = captions[language()][position];
+      const voce = captions[language()][position];
+      if (voce && typeof voce === 'object') {
+        const link = document.createElement('a');
+        link.href = voce.href;
+        link.textContent = voce.testo;
+        link.className = 'atelier-announcement__link';
+        message.replaceChildren(link);
+      } else {
+        message.textContent = voce;
+      }
       close.setAttribute('aria-label', language() === 'en' ? 'Dismiss announcements' : 'Chiudi gli avvisi');
     }
     /* Lo spostamento serve solo a un header «fixed», che non occupa spazio

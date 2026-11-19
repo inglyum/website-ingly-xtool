@@ -47,8 +47,8 @@
   {
     "id": 2,
     "n": {
-      "it": "Lampada Quadro Luna 3D in Stampa 3D PLA e Legno | Riproduzione Topografica Realistica con Luce LED Warm Light o Colori a Richiesta (30-50 cm e Custom)",
-      "en": "3D Printed PLA & Wood Moon Wall Light | Hyper-Detailed Lunar Relief Lamp with Warm Light LED or Custom Colors (30-50 cm & Custom Sizes)"
+      "it": "Lampada Luna 3D in PLA e Legno con Luce LED",
+      "en": "3D Moon Wall Lamp in PLA and Wood with LED Light"
     },
     "cat": "casa",
     "sub": 4,
@@ -83,7 +83,18 @@
     ],
     "prod": 5,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "keywords": [
+      "Lampada Quadro Luna 3D in Stampa 3D PLA e Legno",
+      "Riproduzione Topografica Realistica con Luce LED Warm Light o Colori a Richiesta (30-50 cm e Custom)",
+      "3D Printed PLA & Wood Moon Wall Light",
+      "Hyper-Detailed Lunar Relief Lamp with Warm Light LED or Custom Colors (30-50 cm & Custom Sizes)"
+    ],
+    "rel": [
+      6,
+      3,
+      5
+    ]
   },
   {
     "id": 3,
@@ -119,13 +130,18 @@
     ],
     "prod": 4,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "rel": [
+      14,
+      2,
+      6
+    ]
   },
   {
     "id": 4,
     "n": {
-      "it": "Set Regalo Neonato Personalizzato in Legno - Body, Copertina e Accessori",
-      "en": "Personalized Wooden Baby Gift Set - Onesie, Blanket & Accessories"
+      "it": "Set Regalo Neonato Personalizzato in Legno",
+      "en": "Personalised Wooden Baby Gift Set"
     },
     "cat": "bambini",
     "sub": 1,
@@ -161,13 +177,26 @@
       "img/4-g1.webp",
       "img/4-g2.webp"
     ],
-    "personalizzabile": true
+    "personalizzabile": true,
+    "keywords": [
+      "Set Regalo Neonato Personalizzato in Legno",
+      "Body",
+      "Copertina e Accessori",
+      "Personalized Wooden Baby Gift Set",
+      "Onesie",
+      "Blanket & Accessories"
+    ],
+    "rel": [
+      5,
+      21,
+      20
+    ]
   },
   {
     "id": 5,
     "n": {
-      "it": "Targa Nascita Personalizzata 1:1 Silhouette Neonato | Lampada LED in Plexiglass o Targa in Legno con Dati di Nascita | Regalo Battesimo e Cameretta",
-      "en": "Newborn Silhouette Birth Announcement Sign | Wood or LED Acrylic Night Light with Birth Stats (Name, Date, Weight, Height)"
+      "it": "Targa Nascita Personalizzata con Silhouette 1:1",
+      "en": "Personalised Birth Sign with 1:1 Silhouette"
     },
     "cat": "casa",
     "sub": 5,
@@ -197,13 +226,28 @@
       "img/5-g1.webp",
       "img/5-g2.webp"
     ],
-    "personalizzabile": true
+    "personalizzabile": true,
+    "keywords": [
+      "Targa Nascita Personalizzata 1:1 Silhouette Neonato",
+      "Lampada LED in Plexiglass o Targa in Legno con Dati di Nascita",
+      "Regalo Battesimo e Cameretta",
+      "Newborn Silhouette Birth Announcement Sign",
+      "Wood or LED Acrylic Night Light with Birth Stats (Name",
+      "Date",
+      "Weight",
+      "Height)"
+    ],
+    "rel": [
+      4,
+      21,
+      2
+    ]
   },
   {
     "id": 6,
     "n": {
-      "it": "Orologio da Parete in Legno \"Albero della Vita\" - Design Elegante per Arredamento",
-      "en": "\"Tree of Life\" Wooden Wall Clock - Elegant Design for Home Decor"
+      "it": "Orologio da Parete in Legno «Albero della Vita»",
+      "en": "“Tree of Life” Wooden Wall Clock"
     },
     "cat": "casa",
     "sub": 6,
@@ -236,6 +280,17 @@
     "gallery": [
       "img/6-g1.webp",
       "img/6-g2.webp"
+    ],
+    "keywords": [
+      "Orologio da Parete in Legno \"Albero della Vita\"",
+      "Design Elegante per Arredamento",
+      "\"Tree of Life\" Wooden Wall Clock",
+      "Elegant Design for Home Decor"
+    ],
+    "rel": [
+      3,
+      2,
+      14
     ]
   },
   {
@@ -272,7 +327,12 @@
     ],
     "prod": 2,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "rel": [
+      8,
+      21,
+      22
+    ]
   },
   {
     "id": 8,
@@ -304,7 +364,12 @@
     ],
     "prod": 4,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "rel": [
+      7,
+      21,
+      22
+    ]
   },
   {
     "id": 9,
@@ -486,7 +551,12 @@
     "sku": "INGLY-014",
     "prod": 3,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "rel": [
+      3,
+      6,
+      2
+    ]
   },
   {
     "id": 15,
@@ -591,7 +661,12 @@
       "img/17-g1.webp",
       "img/17-g2.webp"
     ],
-    "personalizzabile": true
+    "personalizzabile": true,
+    "rel": [
+      21,
+      22,
+      3
+    ]
   },
   {
     "id": 18,
@@ -698,13 +773,18 @@
       "img/20-g1.webp",
       "img/20-g2.webp",
       "img/20-g3.webp"
+    ],
+    "rel": [
+      4,
+      5,
+      17
     ]
   },
   {
     "id": 21,
     "n": {
-      "it": "Portachiavi Albero della Vita in Legno a Doppio Strato Personalizzato | Bomboniera Ricordo per Battesimo, Comunione, Cresima, Matrimonio e Compleanno",
-      "en": "Custom Double-Layer Wooden Tree of Life Keychain | Personalized Favor & Keepsake for Baptism, Communion, Wedding, Birthday & Special Events"
+      "it": "Portachiavi Albero della Vita Personalizzato in Legno",
+      "en": "Personalised Tree of Life Wooden Keychain"
     },
     "cat": "accessori",
     "sub": 1,
@@ -734,7 +814,24 @@
     ],
     "prod": 1,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "keywords": [
+      "Portachiavi Albero della Vita in Legno a Doppio Strato Personalizzato",
+      "Bomboniera Ricordo per Battesimo",
+      "Comunione",
+      "Cresima",
+      "Matrimonio e Compleanno",
+      "Custom Double-Layer Wooden Tree of Life Keychain",
+      "Personalized Favor & Keepsake for Baptism",
+      "Communion",
+      "Wedding",
+      "Birthday & Special Events"
+    ],
+    "rel": [
+      8,
+      7,
+      22
+    ]
   },
   {
     "id": 22,
@@ -766,7 +863,12 @@
     ],
     "prod": 1,
     "hidden": false,
-    "personalizzabile": true
+    "personalizzabile": true,
+    "rel": [
+      21,
+      17,
+      8
+    ]
   },
   {
     "id": 23,

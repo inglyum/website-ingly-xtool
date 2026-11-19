@@ -436,7 +436,7 @@ function filterProducts(){
   const q=$('q').value.trim().toLowerCase(),max=+$('pRange').value;
   return VIS().filter(x=>{
     const c=CATS.find(k=>k.id===x.cat), sub=c.sub[x.sub];
-    const hay=(x.n.it+' '+x.n.en+' '+c.n.it+' '+c.n.en+' '+MATN[x.mat].it+' '+MATN[x.mat].en+(sub?' '+sub.it+' '+sub.en:'')).toLowerCase();
+    const hay=(x.n.it+' '+x.n.en+' '+(Array.isArray(x.keywords)?x.keywords.join(' '):'')+' '+c.n.it+' '+c.n.en+' '+MATN[x.mat].it+' '+MATN[x.mat].en+(sub?' '+sub.it+' '+sub.en:'')).toLowerCase();
     /* La collezione è un filtro come gli altri, non una pagina a parte:
        restano validi ricerca, categorie, materiali e fascia di prezzo, e
        si torna al catalogo pieno senza cambiare pagina. */
@@ -760,7 +760,9 @@ function renderProductContactLinks(){
   let template=String(c.messaggioProdotto||'Ciao INGLY DESIGN! Vorrei informazioni su: {prodotto}. Materiale: {materiale}. Quantità: {quantita}. Link: {url}');
   const persTxt=cur.personalizzabile===true?String(sel.pers||'').trim():'';
   const persRiga=persTxt?'\n'+T('persMsg')+': «'+persTxt+'»':'';
-  const message=template.replaceAll('{prodotto}',cur.n[L]||cur.n.it||'Prodotto').replaceAll('{materiale}',material).replaceAll('{quantita}',qty).replaceAll('{url}',url)+'\nCategoria: '+catName+persRiga;
+  /* «entro quando» è la prima cosa da sapere per dire sì o no a un ordine */
+  const entro='\n'+(L==='it'?'Mi serve entro: ':'I need it by: ');
+  const message=template.replaceAll('{prodotto}',cur.n[L]||cur.n.it||'Prodotto').replaceAll('{materiale}',material).replaceAll('{quantita}',qty).replaceAll('{url}',url)+'\nCategoria: '+catName+persRiga+entro;
   const raw=String((CONFIG.whatsappFab&&CONFIG.whatsappFab.numero)||CONFIG.whatsapp||'').replace(/\D/g,'');
   const waUrl=raw?'https://wa.me/'+raw+'?text='+encodeURIComponent(message):'';
   const email=String(CONFIG.email||'').trim();
@@ -901,7 +903,7 @@ export function renderPP(){
   ppTabShow('desc');
 
   /* correlati: prima manuale, poi auto, fino a 6 */
-  const manual=(cur.rel||[]).map(id=>P.find(x=>x.id===id)).filter(Boolean);
+  const manual=(cur.rel||[]).map(id=>P.find(x=>x.id===id)).filter(x=>x&&!x.hidden&&x.id!==cur.id);   /* mai un prodotto nascosto */
   const auto=VIS().filter(x=>x.id!==cur.id&&!manual.some(m=>m.id===x.id)&&(x.cat===cur.cat||x.mat===cur.mat));
   const rel=[...manual,...auto].slice(0,6);
   const rs=$('relSec');

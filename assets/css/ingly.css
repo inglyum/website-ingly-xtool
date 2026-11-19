@@ -11128,3 +11128,7 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode][data-mode] #page-shop .shop-occ .ogg-righe a:hover{border-color:var(--rs-gold)!important;color:var(--rs-gold)!important}
 @media (max-width:980px){:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media (max-width:640px){:root[data-mode][data-mode] #page-shop .shop-occ .occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* avviso stagionale nella barra in alto: è un link, deve sembrarlo */
+:root[data-mode][data-mode] .atelier-announcement__link{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+:root[data-mode][data-mode] .atelier-announcement__link:hover{text-decoration-thickness:2px}

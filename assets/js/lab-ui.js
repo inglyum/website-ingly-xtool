@@ -394,9 +394,9 @@ export function renderMacchine(L) {
       <section class="ingly-m2-duo" aria-labelledby="inglyM2ChoicesHeading">
         <div class="ingly-m2-duo__intro">
           <div>
-            <span class="eyebrow">xTool M2 · 10W / 20W</span>
-            <h3 id="inglyM2ChoicesHeading">${t2('Due varianti laser, una scelta chiara.','Two laser modules, one clear choice.',L)}</h3>
-            <p>${t2('Confronta i moduli diodo della M2: in laboratorio a Palermo li puoi provare tutti e due con una demo gratuita.','Compare the M2 diode modules: you can try both at our Palermo workshop with a free demo.',L)}</p>
+            <span class="eyebrow">xTool M2 · ${esc(m2.variantiLaser.map(v=>v.potenza.replace(/\s+/g,'')).join(' / '))}</span>
+            <h3 id="inglyM2ChoicesHeading">${t2((m2.variantiLaser.length===3?'Tre':'Due')+' moduli laser, una scelta chiara.',(m2.variantiLaser.length===3?'Three':'Two')+' laser modules, one clear choice.',L)}</h3>
+            <p>${t2('Confronta i moduli diodo della M2: in laboratorio a Palermo li puoi provare tutti con una demo gratuita.','Compare the M2 diode modules: you can try all of them at our Palermo workshop with a free demo.',L)}</p>
           </div>
           ${m2Src ? `<figure class="ingly-m2-duo__photo">
             <img src="${esc(m2Src)}" width="620" height="350" loading="lazy" decoding="async"

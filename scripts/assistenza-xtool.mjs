@@ -36,7 +36,9 @@ const nome = m => (m.n && (m.n.it || m.n.en)) || m.id;
 const inDemo = modelli.filter(m => m.inOfficina && m.demoDisponibile)
   .sort((a, b) => ((a.demo && a.demo.ordine) || 99) - ((b.demo && b.demo.ordine) || 99));
 const versioni = m => ((m.demo && m.demo.varianti) || []).map(id => (m.variantiLaser || []).find(v => v && v.id === id)).filter(Boolean);
-const nomeDemo = m => nome(m) + (versioni(m).length ? ' ' + versioni(m).map(v => v.potenza.replace(/\s+/g, '')).join(' e ') : '');
+/* «10W, 20W e 40W»: virgole e «e» solo prima dell'ultima */
+const elenco = xs => xs.length > 1 ? xs.slice(0, -1).join(', ') + ' e ' + xs[xs.length - 1] : xs.join('');
+const nomeDemo = m => nome(m) + (versioni(m).length ? ' ' + elenco(versioni(m).map(v => v.potenza.replace(/\s+/g, ''))) : '');
 
 const SICILIA = ['Palermo e provincia', 'Trapani', 'Agrigento', 'Caltanissetta', 'Enna', 'Catania', 'Messina', 'Siracusa', 'Ragusa'];
 const SUD = ['Calabria', 'Campania', 'Puglia', 'Basilicata'];

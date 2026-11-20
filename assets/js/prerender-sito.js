@@ -190,7 +190,7 @@ export function generaSito(dati, guscio){
     tecnologie: { t: 'Tecnologie', d: 'Laser CO₂, fibra, MOPA, stampa UV, DTF e stampa 3D: cosa fa ognuna e quando conviene.' },
     macchine: { t: 'Macchine laser xTool a Palermo: demo, consigli e assistenza', d: 'Le macchine xTool che conosciamo come host xTool Squad a Palermo: demo, consigli sulla scelta, formazione, manutenzione e riparazione per la Sicilia e il Sud Italia.' },
     academy: { t: 'INGLY Academy', d: 'Imparare a usare le macchine da chi ci produce tutti i giorni, in officina a Palermo o collegati.' },
-    demo: { t: 'Demo xTool gratuita a Palermo, Sicilia: M2 10W/20W, C1, X1', d: 'Prova gratis le macchine xTool a Palermo con INGLY DESIGN, host ufficiale xTool Squad: M2 10 W e 20 W, C1 Color Cutter, X1, P3, F2, O1 UV e WonderPress. Prenoti dalla Demo Room xTool Support; demo anche online in tutta Italia.' }
+    demo: { t: 'Demo xTool gratuita a Palermo, Sicilia: M2 10/20/40W, C1, X1', d: 'Prova gratis le macchine xTool a Palermo con INGLY DESIGN, host ufficiale xTool Squad: M2 10, 20 e 40 W, C1 Color Cutter, X1, P3, F2, O1 UV e WonderPress. Prenoti dalla Demo Room xTool Support; demo anche online in tutta Italia.' }
   };
 
   function paginaLabSezione(sezione){

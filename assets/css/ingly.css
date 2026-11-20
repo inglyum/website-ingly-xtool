@@ -8909,7 +8909,7 @@ button,a,input,select{ -webkit-tap-highlight-color:transparent }
  color:var(--brand-gold)!important;text-decoration:underline;text-underline-offset:4px;
 }
 :root[data-mode] #page-macchine .ingly-m2-duo__grid{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;
 }
 :root[data-mode] #page-macchine .ingly-m2-variant{
  padding:clamp(18px,2vw,28px);border:1px solid var(--brand-border);
@@ -11132,3 +11132,19 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 /* avviso stagionale nella barra in alto: è un link, deve sembrarlo */
 :root[data-mode][data-mode] .atelier-announcement__link{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 :root[data-mode][data-mode] .atelier-announcement__link:hover{text-decoration-thickness:2px}
+
+/* HOME · INGLY DESIGN × xTool: M2 e C1 (in laboratorio) in una riga larga sotto il lead */
+.ingly-machine-photo--wide{grid-column:span 6;flex-direction:row}
+.ingly-machine-photo--wide .ingly-machine-photo__media{flex:1.25;min-width:0;aspect-ratio:auto;min-height:clamp(220px,20vw,280px)}
+.ingly-machine-photo--wide .ingly-machine-photo__meta{flex:.75;min-width:0;border-top:0;border-left:1px solid rgba(28,57,48,.10);align-content:center}
+:root[data-mode="dark"] .ingly-machine-photo--wide .ingly-machine-photo__meta{border-left-color:rgba(225,207,159,.15)}
+@media(max-width:1000px){
+ .ingly-machine-photo--wide{grid-column:span 4;flex-direction:column}
+ .ingly-machine-photo--wide .ingly-machine-photo__media{aspect-ratio:4/3;min-height:0}
+ .ingly-machine-photo--wide .ingly-machine-photo__meta{border-left:0;border-top:1px solid rgba(28,57,48,.10)}
+}
+@media(max-width:720px){
+ .ingly-machine-photo--wide{grid-column:span 6}
+ /* numero dispari di schede: l’ultima prende tutta la riga, niente buco a destra */
+ .ingly-photographic-lab__grid>.ingly-machine-photo:last-child:nth-child(odd){grid-column:span 12}
+}

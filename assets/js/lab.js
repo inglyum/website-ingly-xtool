@@ -654,7 +654,7 @@ export function corpoCorso(D, c, opt = {}) {
 }
 
 /* Domande sulla demo: le stesse nella pagina e nei dati per Google, così
-   chi cerca «demo xTool Palermo» o «provare xTool M2 20W» trova la risposta. */
+   chi cerca «demo xTool Palermo» o «provare xTool M2 40W» trova la risposta. */
 export const FAQ_DEMO = [
   { d: { it: 'Dove posso provare una macchina xTool in Sicilia?', en: 'Where can I try an xTool machine in Sicily?' },
     r: { it: 'A Palermo, nel laboratorio INGLY DESIGN, host ufficiale xTool Squad. Prenoti dalla Demo Room di xTool Support oppure ci scrivi su WhatsApp. Se non puoi venire, la demo si fa anche online, da tutta Italia.',
@@ -662,8 +662,8 @@ export const FAQ_DEMO = [
   { d: { it: 'La demo xTool è gratuita?', en: 'Is the xTool demo free?' },
     r: { it: 'Sì. Dura circa un\'ora, su appuntamento, e non devi comprare niente. Se poi decidi di acquistare, l\'acquisto si fa sullo shop ufficiale xTool.',
          en: 'Yes. It takes about an hour, by appointment, and you do not have to buy anything. If you then decide to buy, you buy on the official xTool shop.' } },
-  { d: { it: 'Posso provare la xTool M2 10 W e 20 W?', en: 'Can I try the xTool M2 10 W and 20 W?' },
-    r: { it: 'Sì. In laboratorio abbiamo la M2 con tutti e due i moduli diodo, 10 W e 20 W: vedi la differenza sullo stesso materiale prima di scegliere quale prendere.',
+  { d: { it: 'Posso provare la xTool M2 10 W, 20 W e 40 W?', en: 'Can I try the xTool M2 10 W, 20 W and 40 W?' },
+    r: { it: 'Sì. In laboratorio abbiamo la M2 con tutti e tre i moduli diodo, 10 W, 20 W e 40 W: vedi la differenza sullo stesso materiale prima di scegliere quale prendere.',
          en: 'Yes. In the workshop we have the M2 with both diode modules, 10 W and 20 W: you see the difference on the same material before choosing.' } },
   { d: { it: 'Posso vedere la nuova xTool C1 Color Cutter?', en: 'Can I see the new xTool C1 Color Cutter?' },
     r: { it: 'Sì, la C1 è in laboratorio: ti mostriamo come scansiona, stampa a colori e taglia un adesivo in un solo passaggio.',

@@ -20,8 +20,9 @@
     const m2=(data.catalogo||[]).find(m=>m.id==='m2');
     if(!m2)return owned;
     const choices=[
-      {id:'m2-10w',it:'xTool M2 · Laser 10 W',en:'xTool M2 · 10W laser',module:'Diodo 10/20W'},
-      {id:'m2-20w',it:'xTool M2 · Laser 20 W',en:'xTool M2 · 20W laser',module:'Diodo 10/20W'},
+      {id:'m2-10w',it:'xTool M2 · Laser 10 W',en:'xTool M2 · 10W laser',module:'Diodo 10/20/40W'},
+      {id:'m2-20w',it:'xTool M2 · Laser 20 W',en:'xTool M2 · 20W laser',module:'Diodo 10/20/40W'},
+      {id:'m2-40w',it:'xTool M2 · Laser 40 W',en:'xTool M2 · 40W laser',module:'Diodo 10/20/40W'},
       {id:'m2-ir',it:'xTool M2 · IR 3 W',en:'xTool M2 · 3W IR',module:'IR 3W'},
       {id:'m2-cmyk',it:'xTool M2 · CMYK',en:'xTool M2 · CMYK',module:'CMYK inkjet'}
     ];
@@ -45,7 +46,7 @@
     const knownCut=operation==='cut'&&matches.some(m=>typeof m.taglio==='string'&&!/test|da verificare|non/i.test(m.taglio));
     const state=trueMatch||knownCut?'yes':conditional?'test':'none';
     // Neither a diode nor IR module may cut metal, even if a record is malformed.
-    if(materialId==='metal'&&operation==='cut'&&/m2-(?:10w|20w|ir)|^f2$/.test(model.selectorId||''))
+    if(materialId==='metal'&&operation==='cut'&&/m2-(?:10w|20w|40w|ir)|^f2$/.test(model.selectorId||''))
       return {state:'none',matches};
     return {state,matches};
   }

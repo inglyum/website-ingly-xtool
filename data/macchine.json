@@ -916,15 +916,15 @@
         "inkjet"
       ],
       "ruolo": {
-        "it": "Laser a diodo, incisione IR e stampa CMYK: tre moduli intercambiabili per prototipi, decorazioni e Print & Cut.",
-        "en": "Blue diode laser, IR engraving and CMYK printing: interchangeable modules for crafts, prototypes and Print & Cut."
+        "it": "Laser a diodo (moduli 10, 20 e 40 W), incisione IR e stampa CMYK: moduli intercambiabili per prototipi, decorazioni e Print & Cut.",
+        "en": "Blue diode laser (10, 20 and 40 W modules), IR engraving and CMYK printing: interchangeable modules for crafts, prototypes and Print & Cut."
       },
       "inOfficina": true,
       "assistenza": true,
       "demoDisponibile": true,
       "corso": null,
       "specs": {
-        "sorgente": "Diodo blu 10/20 W (445 nm) · IR 3 W (1064 nm) · CMYK inkjet",
+        "sorgente": "Diodo blu 10/20 W (445 nm) o 40 W · IR 3 W (1064 nm) · CMYK inkjet",
         "piano": {
           "x": 426,
           "y": 320,
@@ -945,7 +945,7 @@
           "m": "Legno",
           "taglio": true,
           "incisione": true,
-          "modulo": "Diodo 10/20W"
+          "modulo": "Diodo 10/20/40W"
         },
         {
           "m": "Legno",
@@ -956,7 +956,7 @@
           "m": "Acrilico opaco compatibile",
           "taglio": "da verificare per colore/spessore",
           "incisione": true,
-          "modulo": "Diodo 10/20W",
+          "modulo": "Diodo 10/20/40W",
           "note": "Il diodo blu non taglia acrilico trasparente"
         },
         {
@@ -968,14 +968,14 @@
           "m": "Pelle senza PVC",
           "taglio": true,
           "incisione": true,
-          "modulo": "Diodo 10/20W",
+          "modulo": "Diodo 10/20/40W",
           "note": "Verificare composizione materiale"
         },
         {
           "m": "Carta e cartoncino",
           "taglio": true,
           "incisione": true,
-          "modulo": "Diodo 10/20W"
+          "modulo": "Diodo 10/20/40W"
         },
         {
           "m": "Carta / etichette",
@@ -1014,6 +1014,11 @@
             "value": "426 × 320 mm"
           },
           {
+            "it": "Modulo diodo 40W",
+            "en": "40W diode module",
+            "value": "alimentatore 25 V · 8 A"
+          },
+          {
             "it": "Modulo IR 3W",
             "en": "3W IR module",
             "value": "412,5 × 310 mm"
@@ -1030,8 +1035,8 @@
           }
         ],
         "note": {
-          "it": "Specifiche ufficiali xTool, non prove eseguite nel laboratorio INGLY. In laboratorio a Palermo puoi provare la M2 con il modulo diodo 10 W e con il 20 W: la lavorazione dipende dal modulo installato.",
-          "en": "Official xTool specifications, not measurements taken at INGLY. At our Palermo workshop you can try the M2 with both the 10 W and the 20 W diode module: capability depends on the installed module."
+          "it": "Specifiche ufficiali xTool, non prove eseguite nel laboratorio INGLY. In laboratorio a Palermo puoi provare la M2 con i moduli diodo 10 W, 20 W e 40 W: la lavorazione dipende dal modulo installato.",
+          "en": "Official xTool specifications, not measurements taken at INGLY. At our Palermo workshop you can try the M2 with the 10 W, 20 W and 40 W diode modules: capability depends on the installed module."
         }
       },
       "fonte": {
@@ -1056,24 +1061,34 @@
           "area": "426 × 320 mm",
           "power": "25 V · 3,4 A",
           "source": "https://support.xtool.com/academy/lesson/2778?courseId=319"
+        },
+        {
+          "id": "m2-40w",
+          "label": "xTool M2 · 40W",
+          "potenza": "40 W",
+          "tecnologia": "Diodo blu",
+          "area": "da confermare con xTool",
+          "power": "25 V · 8 A",
+          "source": "https://www.xtool.com/products/xtool-m2-40w-455nm-diode-laser-module"
         }
       ],
       "compatibilityPolicy": {
         "note": {
-          "it": "Il modulo 20 W fornisce maggiore potenza, ma non indica automaticamente uno spessore di taglio certificato. Materiale, colore, parametri, aspirazione e verifica su campione restano obbligatori.",
-          "en": "20W is higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
+          "it": "I moduli 20 W e 40 W forniscono maggiore potenza, ma non indicano automaticamente uno spessore di taglio certificato. Materiale, colore, parametri, aspirazione e verifica su campione restano obbligatori.",
+          "en": "20W and 40W are higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
         },
-        "unavailable": "Moduli 10 W e 20 W provabili in demo nel laboratorio INGLY a Palermo (dal 15 novembre 2026, indicazione del titolare)."
+        "unavailable": "Moduli 10 W, 20 W e 40 W provabili in demo nel laboratorio INGLY a Palermo (10 W e 20 W dal 15 novembre 2026, 40 W dal 20 novembre 2026, indicazione del titolare)."
       },
       "demo": {
         "tag": {
-          "it": "Laser diodo 10 W e 20 W · IR 3 W · stampa CMYK",
-          "en": "10 W and 20 W diode laser · 3 W IR · CMYK printing"
+          "it": "Laser diodo 10, 20 e 40 W · IR 3 W · stampa CMYK",
+          "en": "10, 20 and 40 W diode laser · 3 W IR · CMYK printing"
         },
         "ordine": 1,
         "varianti": [
           "m2-10w",
-          "m2-20w"
+          "m2-20w",
+          "m2-40w"
         ]
       },
       "galleria": [
@@ -1409,5 +1424,5 @@
   ],
   "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
   "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori.",
-  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W), xTool C1 e xTool X1; foto originali delle macchine fornite dal titolare."
+  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W), xTool C1 e xTool X1; foto originali delle macchine fornite dal titolare. 2026-11-20: il titolare indica anche il modulo diodo 40 W della M2 (modulo ufficiale xTool, https://www.xtool.com/products/xtool-m2-40w-455nm-diode-laser-module)."
 }

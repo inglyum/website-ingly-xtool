@@ -414,6 +414,48 @@
     }
   },
   {
+    "id": "stampa-3d",
+    "ic": "🧊",
+    "n": {
+      "it": "Stampa 3D su misura",
+      "en": "Custom 3D printing"
+    },
+    "s": {
+      "it": "Portachiavi NFC, gadget, prototipi",
+      "en": "NFC keyrings, gadgets, prototypes"
+    },
+    "sub": [
+      {
+        "it": "Portachiavi NFC",
+        "en": "NFC keyrings"
+      },
+      {
+        "it": "Gadget aziendali",
+        "en": "Corporate gadgets"
+      },
+      {
+        "it": "Personalizzati con nome",
+        "en": "Personalised with a name"
+      },
+      {
+        "it": "Lampade e litofanie",
+        "en": "Lamps and lithophanes"
+      },
+      {
+        "it": "Prototipi e ricambi",
+        "en": "Prototypes and spare parts"
+      },
+      {
+        "it": "Miniature e mascotte",
+        "en": "Miniatures and mascots"
+      }
+    ],
+    "icon": "3d",
+    "img": "",
+    "big": "",
+    "bg": "linear-gradient(150deg,#e9f3f6,#cfe3ea)"
+  },
+  {
     "id": "digitale",
     "ic": "💾",
     "n": {

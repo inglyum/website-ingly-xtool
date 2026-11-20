@@ -13,7 +13,7 @@ const prova = LAB.macchineDaProvare(D), ids = prova.map(m => m.id);
 t('M2, C1 e X1 tra le macchine provabili, in testa', ids[0] === 'm2' && ids[1] === 'c1' && ids[2] === 'x1', ids.join());
 t('restano P3, F2, O1 UV e WonderPress', ['p3', 'f2', 'o1-uv', 'wonderpress'].every(id => ids.includes(id)));
 const m2 = prova.find(m => m.id === 'm2');
-t('M2 in due versioni: 10 W e 20 W', m2.demo.varianti.map(id => m2.variantiLaser.find(v => v.id === id).potenza).join() === '10 W,20 W');
+t('M2 in tre versioni: 10 W, 20 W e 40 W (40 W dal 2026-11-20)', m2.demo.varianti.map(id => m2.variantiLaser.find(v => v.id === id).potenza).join() === '10 W,20 W,40 W');
 t('ogni macchina ha una foto da mettere nel riquadro', prova.every(m => LAB.fotoMacchina(D, m.id).foto), prova.filter(m => !LAB.fotoMacchina(D, m.id).foto).map(m => m.id).join());
 t('ogni macchina ha la riga che dice cosa fa, in italiano e inglese', prova.every(m => m.demo.tag.it && m.demo.tag.en && m.ruolo.it && m.ruolo.en));
 t('solo macchine in laboratorio', prova.every(m => m.inOfficina && m.demoDisponibile));
@@ -32,19 +32,19 @@ t('scorrimento: frecce e punti dalla delega centrale, si ferma con movimento rid
 const css = readFileSync('assets/css/restyle-2026.css', 'utf8');
 t('riquadro foto a proporzione fissa, foto intera, fondo bianco come le foto', /\.demo-mac__foto\{[^}]*aspect-ratio:4\/3[^}]*background:var\(--rs-foto-bg\)/.test(css) && /\.demo-mac__foto img\{[^}]*object-fit:contain/.test(css) && /scroll-snap-type:x mandatory/.test(css));
 const html = readFileSync('index.html', 'utf8');
-t('titolo con Palermo e le macchine', /Prova le xTool a Palermo/.test(html) && /M2 10 W e 20 W, C1 Color Cutter/.test(html));
+t('titolo con Palermo e le macchine', /Prova le xTool a Palermo/.test(html) && /M2 10, 20 e 40 W, C1 Color Cutter/.test(html));
 t('titolo tradotto in inglese', /'Prova le xTool a Palermo,': 'Try xTool machines in Palermo,'/.test(readFileSync('assets/js/lingua-statica.js', 'utf8')));
 
 console.log('\n=== GOOGLE ===');
 t('domande in italiano e inglese', LAB.FAQ_DEMO.length >= 5 && LAB.FAQ_DEMO.every(f => f.d.it && f.d.en && f.r.it && f.r.en));
 const s = readFileSync('demo/index.html', 'utf8');
 t('pagina statica: titolo con Palermo e Sicilia', /<title>Demo xTool gratuita a Palermo, Sicilia/.test(s));
-t('pagina statica: M2 10 W / 20 W e C1 con immagine', /xTool M2 10 W \/ 20 W/.test(s) && /alt="xTool C1 Color Cutter: demo gratuita a Palermo"/.test(s));
+t('pagina statica: M2 10 W / 20 W / 40 W e C1 con immagine', /xTool M2 10 W \/ 20 W \/ 40 W/.test(s) && /alt="xTool C1 Color Cutter: demo gratuita a Palermo"/.test(s));
 t('dati strutturati: servizio gratuito a Palermo e domande', /"@type":"Service"/.test(s) && /"price":0/.test(s) && /"name":"Palermo"/.test(s) && /"@type":"FAQPage"/.test(s));
 t('link alla Demo Room xTool', /support\.xtool\.com\/demo-room/.test(s));
 t('scheda M2 statica: «demo gratuita» nel titolo', /<title>xTool M2 — demo gratuita e assistenza a Palermo, Sicilia/.test(readFileSync('macchine/m2/index.html', 'utf8')));
 const ax = readFileSync('assistenza-xtool-palermo/index.html', 'utf8');
-t('pagina assistenza: elenco demo e link', /Demo xTool gratuita a Palermo<\/h2>/.test(ax) && /xTool M2 10W e 20W/.test(ax) && /href="demo"/.test(ax));
+t('pagina assistenza: elenco demo e link', /Demo xTool gratuita a Palermo<\/h2>/.test(ax) && /xTool M2 10W, 20W e 40W/.test(ax) && /href="demo"/.test(ax));
 t('nessuna promessa di vendita', !/Ordinala|Compra da noi|acquistala da noi/i.test(s));
 
 console.log(`\n=========== DEMO xTOOL: ${ok} passati, ${ko} falliti ===========`);

@@ -1,0 +1,17 @@
+{
+  "name": "ingly-file-laser-natale",
+  "private": true,
+  "description": "Generatore dei file laser di Natale INGLY DESIGN (non fa parte del sito)",
+  "type": "module",
+  "scripts": {
+    "esempi": "node genera.mjs esempi",
+    "anteprima": "node anteprima.cjs 2 anteprima.png"
+  },
+  "dependencies": {
+    "@fontsource/great-vibes": "5.3.0",
+    "@fontsource/montserrat": "5.3.0",
+    "@fontsource/playfair-display": "5.3.0",
+    "clipper-lib": "^6.4.2",
+    "opentype.js": "1.3.4"
+  }
+}

@@ -879,7 +879,12 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "archiviato",
+      "fuoriProduzione": {
+        "data": "2026-11-20",
+        "sostituitaDa": "m2",
+        "nota": "Non più venduta nuova sul sito ufficiale xTool (indicazione del titolare e verifica del 2026-11-20). Tenuta in archivio, non mostrata."
+      }
     },
     {
       "id": "m1-ultra",
@@ -901,7 +906,12 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "archiviato",
+      "fuoriProduzione": {
+        "data": "2026-11-20",
+        "sostituitaDa": "m2",
+        "nota": "Non più venduta nuova sul sito ufficiale xTool (indicazione del titolare e verifica del 2026-11-20). Tenuta in archivio, non mostrata."
+      }
     },
     {
       "id": "m2",
@@ -916,15 +926,15 @@
         "inkjet"
       ],
       "ruolo": {
-        "it": "Laser a diodo, incisione IR e stampa CMYK: tre moduli intercambiabili per prototipi, decorazioni e Print & Cut.",
-        "en": "Blue diode laser, IR engraving and CMYK printing: interchangeable modules for crafts, prototypes and Print & Cut."
+        "it": "Laser a diodo (moduli 10, 20 e 40 W), incisione IR e stampa CMYK: moduli intercambiabili per prototipi, decorazioni e Print & Cut.",
+        "en": "Blue diode laser (10, 20 and 40 W modules), IR engraving and CMYK printing: interchangeable modules for crafts, prototypes and Print & Cut."
       },
       "inOfficina": true,
       "assistenza": true,
       "demoDisponibile": true,
       "corso": null,
       "specs": {
-        "sorgente": "Diodo blu 10/20 W (445 nm) · IR 3 W (1064 nm) · CMYK inkjet",
+        "sorgente": "Diodo blu 10/20 W (445 nm) o 40 W · IR 3 W (1064 nm) · CMYK inkjet",
         "piano": {
           "x": 426,
           "y": 320,
@@ -945,7 +955,7 @@
           "m": "Legno",
           "taglio": true,
           "incisione": true,
-          "modulo": "Diodo 10/20W"
+          "modulo": "Diodo 10/20/40W"
         },
         {
           "m": "Legno",
@@ -956,7 +966,7 @@
           "m": "Acrilico opaco compatibile",
           "taglio": "da verificare per colore/spessore",
           "incisione": true,
-          "modulo": "Diodo 10/20W",
+          "modulo": "Diodo 10/20/40W",
           "note": "Il diodo blu non taglia acrilico trasparente"
         },
         {
@@ -968,14 +978,14 @@
           "m": "Pelle senza PVC",
           "taglio": true,
           "incisione": true,
-          "modulo": "Diodo 10/20W",
+          "modulo": "Diodo 10/20/40W",
           "note": "Verificare composizione materiale"
         },
         {
           "m": "Carta e cartoncino",
           "taglio": true,
           "incisione": true,
-          "modulo": "Diodo 10/20W"
+          "modulo": "Diodo 10/20/40W"
         },
         {
           "m": "Carta / etichette",
@@ -1014,6 +1024,11 @@
             "value": "426 × 320 mm"
           },
           {
+            "it": "Modulo diodo 40W",
+            "en": "40W diode module",
+            "value": "alimentatore 25 V · 8 A"
+          },
+          {
             "it": "Modulo IR 3W",
             "en": "3W IR module",
             "value": "412,5 × 310 mm"
@@ -1030,8 +1045,8 @@
           }
         ],
         "note": {
-          "it": "Specifiche ufficiali xTool, non prove eseguite nel laboratorio INGLY. In laboratorio a Palermo puoi provare la M2 con il modulo diodo 10 W e con il 20 W: la lavorazione dipende dal modulo installato.",
-          "en": "Official xTool specifications, not measurements taken at INGLY. At our Palermo workshop you can try the M2 with both the 10 W and the 20 W diode module: capability depends on the installed module."
+          "it": "Specifiche ufficiali xTool, non prove eseguite nel laboratorio INGLY. In laboratorio a Palermo puoi provare la M2 con i moduli diodo 10 W, 20 W e 40 W: la lavorazione dipende dal modulo installato.",
+          "en": "Official xTool specifications, not measurements taken at INGLY. At our Palermo workshop you can try the M2 with the 10 W, 20 W and 40 W diode modules: capability depends on the installed module."
         }
       },
       "fonte": {
@@ -1056,24 +1071,34 @@
           "area": "426 × 320 mm",
           "power": "25 V · 3,4 A",
           "source": "https://support.xtool.com/academy/lesson/2778?courseId=319"
+        },
+        {
+          "id": "m2-40w",
+          "label": "xTool M2 · 40W",
+          "potenza": "40 W",
+          "tecnologia": "Diodo blu",
+          "area": "da confermare con xTool",
+          "power": "25 V · 8 A",
+          "source": "https://www.xtool.com/products/xtool-m2-40w-455nm-diode-laser-module"
         }
       ],
       "compatibilityPolicy": {
         "note": {
-          "it": "Il modulo 20 W fornisce maggiore potenza, ma non indica automaticamente uno spessore di taglio certificato. Materiale, colore, parametri, aspirazione e verifica su campione restano obbligatori.",
-          "en": "20W is higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
+          "it": "I moduli 20 W e 40 W forniscono maggiore potenza, ma non indicano automaticamente uno spessore di taglio certificato. Materiale, colore, parametri, aspirazione e verifica su campione restano obbligatori.",
+          "en": "20W and 40W are higher output power, not a certified cutting-thickness promise. Check actual material, color, settings, ventilation and a test piece."
         },
-        "unavailable": "Moduli 10 W e 20 W provabili in demo nel laboratorio INGLY a Palermo (dal 15 novembre 2026, indicazione del titolare)."
+        "unavailable": "Moduli 10 W, 20 W e 40 W provabili in demo nel laboratorio INGLY a Palermo (10 W e 20 W dal 15 novembre 2026, 40 W dal 20 novembre 2026, indicazione del titolare)."
       },
       "demo": {
         "tag": {
-          "it": "Laser diodo 10 W e 20 W · IR 3 W · stampa CMYK",
-          "en": "10 W and 20 W diode laser · 3 W IR · CMYK printing"
+          "it": "Laser diodo 10, 20 e 40 W · IR 3 W · stampa CMYK",
+          "en": "10, 20 and 40 W diode laser · 3 W IR · CMYK printing"
         },
         "ordine": 1,
         "varianti": [
           "m2-10w",
-          "m2-20w"
+          "m2-20w",
+          "m2-40w"
         ]
       },
       "galleria": [
@@ -1107,7 +1132,12 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "archiviato",
+      "fuoriProduzione": {
+        "data": "2026-11-20",
+        "sostituitaDa": "f2",
+        "nota": "Non più venduta nuova sul sito ufficiale xTool (indicazione del titolare e verifica del 2026-11-20). Tenuta in archivio, non mostrata."
+      }
     },
     {
       "id": "f1-ultra",
@@ -1122,7 +1152,7 @@
       ],
       "ruolo": {
         "it": "Il passo avanti della F1: fibra per il metallo, diodo per il resto.",
-        "en": ""
+        "en": "The step up from the F1: fibre for metal, diode for everything else."
       },
       "inOfficina": false,
       "assistenza": true,
@@ -1130,7 +1160,17 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "confronto": {
+        "tecnologia": {
+          "it": "Fibra + diodo, portatile",
+          "en": "Fibre + diode, portable"
+        },
+        "idealePer": {
+          "it": "Incisione veloce su metallo, gioielli e piccoli oggetti",
+          "en": "Fast engraving on metal, jewellery and small items"
+        }
+      }
     },
     {
       "id": "f2",
@@ -1193,7 +1233,7 @@
       ],
       "ruolo": {
         "it": "Il colore sul metallo e la potenza per i materiali difficili.",
-        "en": ""
+        "en": "Colour on metal and the power for difficult materials."
       },
       "inOfficina": false,
       "assistenza": true,
@@ -1201,7 +1241,17 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "confronto": {
+        "tecnologia": {
+          "it": "MOPA + diodo",
+          "en": "MOPA + diode"
+        },
+        "idealePer": {
+          "it": "Colore su acciaio, marcature profonde, produzione di gadget in metallo",
+          "en": "Colour on steel, deep marking, metal gadget production"
+        }
+      }
     },
     {
       "id": "f2-ultra-uv",
@@ -1215,7 +1265,7 @@
       ],
       "ruolo": {
         "it": "Sorgente UV: incide a freddo dove il calore rovinerebbe il pezzo.",
-        "en": ""
+        "en": "A UV source: cold engraving where heat would ruin the piece."
       },
       "inOfficina": false,
       "assistenza": true,
@@ -1223,7 +1273,17 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "confronto": {
+        "tecnologia": {
+          "it": "UV",
+          "en": "UV"
+        },
+        "idealePer": {
+          "it": "Vetro, plastiche, elettronica e materiali sensibili al calore",
+          "en": "Glass, plastics, electronics and heat-sensitive materials"
+        }
+      }
     },
     {
       "id": "p2",
@@ -1245,7 +1305,48 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "archiviato",
+      "fuoriProduzione": {
+        "data": "2026-11-20",
+        "sostituitaDa": "p2s",
+        "nota": "Non più venduta nuova sul sito ufficiale xTool (indicazione del titolare e verifica del 2026-11-20). Tenuta in archivio, non mostrata."
+      }
+    },
+    {
+      "inOfficina": false,
+      "assistenza": true,
+      "demoDisponibile": false,
+      "corso": null,
+      "specs": {},
+      "daCompletare": true,
+      "stato": "pubblicato",
+      "id": "p2s",
+      "n": {
+        "it": "xTool P2S",
+        "en": "xTool P2S"
+      },
+      "serie": "P",
+      "famiglie": [
+        "co2"
+      ],
+      "ruolo": {
+        "it": "Laser CO₂ 55 W da banco con telecamere: il successore della P2, per tagliare e incidere legno e acrilico in formato grande.",
+        "en": "55 W desktop CO₂ laser with cameras: the successor to the P2, for cutting and engraving wood and acrylic in a large format."
+      },
+      "confronto": {
+        "tecnologia": {
+          "it": "CO₂ 55 W",
+          "en": "55 W CO₂"
+        },
+        "idealePer": {
+          "it": "Taglio di legno e acrilico, insegne, produzione in serie",
+          "en": "Cutting wood and acrylic, signs, batch production"
+        }
+      },
+      "fonte": {
+        "nome": "xTool",
+        "url": "https://www.xtool.com/collections/xtool-p2"
+      }
     },
     {
       "id": "p3",
@@ -1307,7 +1408,7 @@
       ],
       "ruolo": {
         "it": "Diodo chiuso: sicuro, silenzioso, pensato per stare in casa.",
-        "en": ""
+        "en": "Enclosed diode: safe, quiet and made to live indoors."
       },
       "inOfficina": false,
       "assistenza": true,
@@ -1315,7 +1416,17 @@
       "corso": null,
       "specs": {},
       "daCompletare": true,
-      "stato": "pubblicato"
+      "stato": "pubblicato",
+      "confronto": {
+        "tecnologia": {
+          "it": "Diodo, macchina chiusa",
+          "en": "Diode, enclosed machine"
+        },
+        "idealePer": {
+          "it": "Legno, pelle, acrilico opaco: hobby e piccola produzione in casa",
+          "en": "Wood, leather, opaque acrylic: hobby and small-batch work at home"
+        }
+      }
     },
     {
       "id": "o1-uv",
@@ -1405,9 +1516,42 @@
           }
         }
       ]
+    },
+    {
+      "inOfficina": false,
+      "assistenza": true,
+      "demoDisponibile": false,
+      "corso": null,
+      "specs": {},
+      "daCompletare": true,
+      "stato": "pubblicato",
+      "id": "metalfab",
+      "n": {
+        "it": "xTool MetalFab",
+        "en": "xTool MetalFab"
+      },
+      "serie": "MetalFab",
+      "famiglie": [
+        "fibra",
+        "saldatura"
+      ],
+      "ruolo": {
+        "it": "Saldatrice laser a fibra con taglio CNC: per officine e lavorazioni su lamiera.",
+        "en": "Fibre laser welder with CNC cutting: for workshops and sheet-metal work."
+      },
+      "confronto": {
+        "tecnologia": {
+          "it": "Fibra: saldatura e taglio CNC",
+          "en": "Fibre: welding and CNC cutting"
+        },
+        "idealePer": {
+          "it": "Saldatura e taglio del metallo in officina",
+          "en": "Welding and cutting metal in a workshop"
+        }
+      }
     }
   ],
   "_catalogoNota": "Ogni modello su cui diamo assistenza come centro ufficiale. inOfficina distingue le macchine che abbiamo davvero — le uniche su cui si può prenotare una demo — da quelle che ripariamo e basta. daCompletare segnala le schede senza specifiche verificate: la pagina lo dice, invece di riempire con numeri plausibili.",
-  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori.",
-  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W), xTool C1 e xTool X1; foto originali delle macchine fornite dal titolare."
+  "_fontiAggiornate": "2026-10-15: dati selezionati dal sito e manuali ufficiali xTool. La sezione specificheUfficiali non sostituisce il test sul materiale né conferma la dotazione degli accessori. 2026-11-20: gamma allineata al sito ufficiale xTool. Archiviate (fuori produzione): M1, M1 Ultra, F1, P2. Aggiunte: P2S (successore della P2) e MetalFab.",
+  "_demoAggiornate": "2026-11-15: il titolare indica in laboratorio, provabili in demo, anche xTool M2 (moduli 10 W e 20 W), xTool C1 e xTool X1; foto originali delle macchine fornite dal titolare. 2026-11-20: il titolare indica anche il modulo diodo 40 W della M2 (modulo ufficiale xTool, https://www.xtool.com/products/xtool-m2-40w-455nm-diode-laser-module)."
 }

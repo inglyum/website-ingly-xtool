@@ -50,7 +50,7 @@
       "it": "Lampada Luna 3D in PLA e Legno con Luce LED",
       "en": "3D Moon Wall Lamp in PLA and Wood with LED Light"
     },
-    "cat": "casa",
+    "cat": "stampa-3d",
     "sub": 4,
     "mat": "PLA",
     "price": 79.99,
@@ -3148,5 +3148,336 @@
       "img/107-g2.webp"
     ],
     "personalizzabile": true
+  },
+  {
+    "id": 108,
+    "n": {
+      "it": "Portachiavi NFC personalizzato con logo",
+      "en": "Custom NFC keyring with your logo"
+    },
+    "cat": "stampa-3d",
+    "sub": 1,
+    "mat": "PLA",
+    "price": 12,
+    "icon": "📲",
+    "img": "",
+    "desc": {
+      "it": "Un portachiavi stampato in 3D con dentro un chip NFC: avvicini lo smartphone e si apre il link che scegli tu, come il sito, il profilo Instagram, il biglietto da visita digitale o il modulo delle recensioni.\n\nPerché sceglierlo\n• Funziona con la maggior parte degli smartphone recenti, senza app.\n• Logo o nome in rilievo, nei colori del tuo marchio.\n• Il link si può cambiare anche dopo la consegna.\n\nCome si personalizza\n1. Mandaci il logo, i colori e il link da aprire, e dicci quanti pezzi ti servono.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA o PETG stampato in 3D, chip NFC integrato.\nIdeale per: aziende, negozi, eventi, agenti e liberi professionisti.",
+      "en": "A 3D-printed keyring with an NFC chip inside: hold a smartphone near it and it opens the link you choose, such as your website, Instagram profile, digital business card or review page.\n\nWhy choose it\n• Works with most recent smartphones, no app needed.\n• Logo or name in relief, in your brand colours.\n• The link can be changed even after delivery.\n\nHow to personalise it\n1. Send us your logo, colours and the link to open, and tell us how many you need.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: 3D-printed PLA or PETG, built-in NFC chip.\nGreat for: businesses, shops, events, agents and freelancers."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-108",
+    "misure": [
+      [
+        "Misura",
+        "circa 5 × 3 cm"
+      ],
+      [
+        "Chip",
+        "NFC programmato"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "portachiavi NFC",
+      "gadget NFC aziendale",
+      "NFC keyring",
+      "biglietto da visita NFC"
+    ],
+    "rel": []
+  },
+  {
+    "id": 109,
+    "n": {
+      "it": "Espositore NFC per recensioni Google",
+      "en": "NFC stand for Google reviews"
+    },
+    "cat": "stampa-3d",
+    "sub": 1,
+    "mat": "PLA",
+    "price": 29,
+    "icon": "⭐",
+    "img": "",
+    "desc": {
+      "it": "Un espositore da banco stampato in 3D con chip NFC e QR code: il cliente avvicina il telefono o inquadra il codice e arriva direttamente alla pagina per lasciarti una recensione su Google.\n\nPerché sceglierlo\n• Più recensioni, senza dover spiegare dove cliccare.\n• NFC e QR insieme: funziona con ogni telefono.\n• Nei colori e con il logo del tuo locale.\n\nCome si personalizza\n1. Mandaci il logo e il link alle recensioni del tuo profilo Google.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA o PETG stampato in 3D, chip NFC integrato, QR code inciso o stampato.\nIdeale per: ristoranti, bar, negozi, studi e hotel.",
+      "en": "A 3D-printed counter stand with an NFC chip and a QR code: customers tap their phone or scan the code and land straight on the page to leave you a Google review.\n\nWhy choose it\n• More reviews, without explaining where to click.\n• NFC and QR together: works with every phone.\n• In your venue’s colours, with your logo.\n\nHow to personalise it\n1. Send us your logo and the review link of your Google profile.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: 3D-printed PLA or PETG, built-in NFC chip, engraved or printed QR code.\nGreat for: restaurants, bars, shops, practices and hotels."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-109",
+    "misure": [
+      [
+        "Misura",
+        "circa 10 × 10 cm"
+      ],
+      [
+        "Chip",
+        "NFC + QR code"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "espositore recensioni Google",
+      "NFC recensioni",
+      "Google review stand",
+      "tap recensioni"
+    ],
+    "rel": []
+  },
+  {
+    "id": 110,
+    "n": {
+      "it": "Gadget aziendali stampati in 3D con logo",
+      "en": "3D-printed corporate gadgets with your logo"
+    },
+    "cat": "stampa-3d",
+    "sub": 2,
+    "mat": "PLA",
+    "price": 3.5,
+    "icon": "🏷️",
+    "img": "",
+    "desc": {
+      "it": "Piccoli oggetti utili con il tuo logo in rilievo, stampati in 3D nei colori del marchio: portachiavi, segnalibri, ganci per borse, porta cavi, apri-lattine. Si ordinano in quantità per fiere, eventi e clienti.\n\nPerché sceglierlo\n• Il logo è parte dell’oggetto, non un adesivo.\n• Colori del marchio e forme su misura.\n• Prezzo per pezzo che scende con la quantità.\n\nCome si personalizza\n1. Mandaci il logo e dicci che oggetto vuoi, quanti pezzi e per quando.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA o PETG stampato in 3D.\nQuantità: da 20 pezzi.",
+      "en": "Small useful objects with your logo in relief, 3D printed in your brand colours: keyrings, bookmarks, bag hooks, cable holders, can openers. Ordered in quantity for fairs, events and clients.\n\nWhy choose it\n• The logo is part of the object, not a sticker.\n• Brand colours and custom shapes.\n• Price per piece that goes down with quantity.\n\nHow to personalise it\n1. Send us your logo and tell us which object, how many and by when.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: 3D-printed PLA or PETG.\nQuantity: from 20 pieces."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-110",
+    "misure": [
+      [
+        "Misura",
+        "da 4 a 8 cm"
+      ],
+      [
+        "Quantità minima",
+        "20 pezzi"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "gadget aziendali 3D",
+      "gadget personalizzati logo",
+      "gadget fiera",
+      "corporate 3D printed gifts"
+    ],
+    "rel": []
+  },
+  {
+    "id": 111,
+    "n": {
+      "it": "Organizer da scrivania con logo",
+      "en": "Desk organiser with your logo"
+    },
+    "cat": "stampa-3d",
+    "sub": 2,
+    "mat": "PLA",
+    "price": 19,
+    "icon": "🗂️",
+    "img": "",
+    "desc": {
+      "it": "Un organizer da scrivania stampato in 3D, con scomparti per penne, telefono e biglietti da visita e il tuo logo in rilievo: un regalo aziendale che resta sotto gli occhi ogni giorno.\n\nPerché sceglierlo\n• Utile davvero, quindi si usa e si vede.\n• Forma e scomparti adattabili.\n• Colori del marchio.\n\nCome si personalizza\n1. Mandaci il logo, i colori e quanti pezzi ti servono.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA o PETG stampato in 3D.",
+      "en": "A 3D-printed desk organiser with compartments for pens, phone and business cards and your logo in relief: a corporate gift that stays in sight every day.\n\nWhy choose it\n• Genuinely useful, so it gets used and seen.\n• Shape and compartments can be adapted.\n• Brand colours.\n\nHow to personalise it\n1. Send us your logo, colours and how many you need.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: 3D-printed PLA or PETG."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-111",
+    "misure": [
+      [
+        "Misura",
+        "circa 18 × 10 × 9 cm"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "organizer scrivania logo",
+      "regalo aziendale 3D",
+      "desk organiser logo"
+    ],
+    "rel": []
+  },
+  {
+    "id": 112,
+    "n": {
+      "it": "Portachiavi 3D con nome",
+      "en": "3D name keyring"
+    },
+    "cat": "stampa-3d",
+    "sub": 3,
+    "mat": "PLA",
+    "price": 8,
+    "icon": "🔑",
+    "img": "",
+    "desc": {
+      "it": "Il nome in rilievo, stampato in 3D in due colori: un portachiavi leggero e resistente, da regalare o da usare come segnaposto, bomboniera o ricordo di squadra.\n\nPerché sceglierlo\n• Due colori a scelta, nome e font a scelta.\n• Leggero e resistente agli urti.\n• Perfetto in quantità per feste e squadre.\n\nCome si personalizza\n1. Scrivi il nome o i nomi e scegli i due colori.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA stampato in 3D, anello in metallo.",
+      "en": "The name in relief, 3D printed in two colours: a light, tough keyring to give as a gift or use as a place card, party favour or team keepsake.\n\nWhy choose it\n• Two colours and the font of your choice.\n• Light and impact resistant.\n• Ideal in quantity for parties and teams.\n\nHow to personalise it\n1. Give us the name or names and choose the two colours.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: 3D-printed PLA, metal ring."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-112",
+    "misure": [
+      [
+        "Misura",
+        "circa 6 × 2 cm"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "portachiavi nome 3D",
+      "portachiavi personalizzato",
+      "bomboniere 3D",
+      "name keyring"
+    ],
+    "rel": []
+  },
+  {
+    "id": 113,
+    "n": {
+      "it": "Lampada litofania con la tua foto",
+      "en": "Lithophane lamp with your photo"
+    },
+    "cat": "stampa-3d",
+    "sub": 4,
+    "mat": "PLA",
+    "price": 45,
+    "icon": "💡",
+    "img": "",
+    "desc": {
+      "it": "Da spenta sembra un pannello bianco; quando si accende la luce, compare la tua foto in tutte le sfumature. È una litofania: lo spessore della stampa 3D cambia punto per punto e la luce fa il resto.\n\nPerché sceglierlo\n• Un regalo che sorprende ogni volta che si accende.\n• Puoi vedere l’anteprima con il generatore Litofania nella pagina Stampa 3D.\n• Base con luce LED inclusa.\n\nCome si personalizza\n1. Mandaci la foto, meglio se nitida e con buon contrasto.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA bianco stampato in 3D, base con LED.",
+      "en": "Switched off it looks like a plain white panel; when the light comes on, your photo appears in every shade. It is a lithophane: the thickness of the 3D print changes point by point and the light does the rest.\n\nWhy choose it\n• A gift that surprises every time it is switched on.\n• You can preview it with the Lithophane generator on the 3D printing page.\n• Base with LED light included.\n\nHow to personalise it\n1. Send us the photo, ideally sharp and with good contrast.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: white 3D-printed PLA, LED base."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-113",
+    "misure": [
+      [
+        "Misura",
+        "circa 15 × 10 cm"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "litofania",
+      "lampada foto 3D",
+      "lithophane lamp",
+      "regalo foto luce"
+    ],
+    "rel": []
+  },
+  {
+    "id": 114,
+    "n": {
+      "it": "Prototipo o ricambio su misura stampato in 3D",
+      "en": "Custom 3D-printed prototype or spare part"
+    },
+    "cat": "stampa-3d",
+    "sub": 5,
+    "mat": "PLA",
+    "price": 25,
+    "icon": "⚙️",
+    "img": "",
+    "desc": {
+      "it": "Ti serve un pezzo che non si trova più, un supporto su misura o il prototipo di un prodotto? Partiamo dal tuo file STL o da un disegno con le misure e lo stampiamo in 3D.\n\nPerché sceglierlo\n• Dal file al pezzo in pochi giorni.\n• PLA per prototipi, PETG per pezzi più resistenti.\n• Ti consigliamo il materiale adatto all’uso.\n\nCome si personalizza\n1. Mandaci il file STL, oppure foto e misure del pezzo, e dicci a cosa serve.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriali: PLA o PETG.\nPer file e richieste: pagina Stampa 3D.",
+      "en": "Need a part you can no longer find, a custom bracket or a product prototype? We start from your STL file or a sketch with measurements and 3D print it.\n\nWhy choose it\n• From file to part in a few days.\n• PLA for prototypes, PETG for tougher parts.\n• We advise on the right material for the job.\n\nHow to personalise it\n1. Send us the STL file, or photos and measurements of the part, and tell us what it is for.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterials: PLA or PETG.\nFor files and requests: the 3D printing page."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-114",
+    "misure": [
+      [
+        "Misura",
+        "su misura"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "prototipo 3D",
+      "ricambio stampato 3D",
+      "stampa 3D su misura Palermo",
+      "custom 3D printing"
+    ],
+    "rel": []
+  },
+  {
+    "id": 115,
+    "n": {
+      "it": "Mascotte aziendale in 3D",
+      "en": "3D company mascot"
+    },
+    "cat": "stampa-3d",
+    "sub": 6,
+    "mat": "PLA",
+    "price": 59,
+    "icon": "🗿",
+    "img": "",
+    "desc": {
+      "it": "La mascotte o il logo della tua azienda trasformati in un oggetto 3D da scrivania, da vetrina o da regalare a clienti e dipendenti.\n\nPerché sceglierlo\n• Un oggetto che nessun altro ha.\n• Dal disegno al modello 3D, con anteprima da approvare.\n• Dimensioni e colori su misura.\n\nCome si personalizza\n1. Mandaci il disegno o il logo e dicci misura e quantità.\n2. Ti mandiamo la bozza (o l'anteprima 3D) da approvare.\n3. Lo stampiamo in 7 giorni lavorativi e lo spediamo in tutta Italia.\n\nDettagli\nMateriale: PLA stampato in 3D, rifinito a mano.\nSolo personaggi originali o di tua proprietà.",
+      "en": "Your company mascot or logo turned into a 3D object for the desk, the shop window or as a gift for clients and staff.\n\nWhy choose it\n• An object nobody else has.\n• From drawing to 3D model, with a preview to approve.\n• Custom size and colours.\n\nHow to personalise it\n1. Send us the drawing or logo and tell us the size and quantity.\n2. We send you a proof (or a 3D preview) to approve.\n3. We print it in 7 working days and ship it across Italy.\n\nDetails\nMaterial: 3D-printed PLA, hand finished.\nOnly original characters or ones you own."
+    },
+    "tag": "New",
+    "coll": [
+      "new"
+    ],
+    "hero": false,
+    "rev": 0,
+    "sku": "INGLY-3D-115",
+    "misure": [
+      [
+        "Misura",
+        "da 8 a 20 cm"
+      ]
+    ],
+    "prod": 7,
+    "hidden": false,
+    "personalizzabile": true,
+    "keywords": [
+      "mascotte 3D",
+      "statuetta logo",
+      "gadget mascotte",
+      "company mascot figure"
+    ],
+    "rel": []
   }
 ]

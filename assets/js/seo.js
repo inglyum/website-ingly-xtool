@@ -65,7 +65,7 @@ export function updateSeo(page, L, T, product){
     'stampa-3d':(L==='en'?'Custom 3D printing: prototypes, spares, lamps and lithophanes':'Stampa 3D su misura: prototipi, ricambi, lampade e litofanie'),
     forniture:(L==='en'?'Laser supplies: sheets, blanks and accessories':'Forniture per il laser: fogli, oggetti da personalizzare e accessori'),
     academy:'INGLY Academy',
-    demo:(L==='en'?'Free xTool demo in Palermo, Sicily: M2 10W/20W, C1, X1':'Demo xTool gratuita a Palermo, Sicilia: M2 10W/20W, C1, X1'),
+    demo:(L==='en'?'Free xTool demo in Palermo, Sicily: M2 10/20/40W, C1, X1':'Demo xTool gratuita a Palermo, Sicilia: M2 10/20/40W, C1, X1'),
     tecnologie:(L==='en'?'Technologies':'Tecnologie'),
     macchine:(L==='en'?'xTool laser machines in Palermo: demos, advice and service':'Macchine laser xTool a Palermo: demo, consigli e assistenza')
   };
@@ -160,8 +160,8 @@ export function updateSeo(page, L, T, product){
     desc = S.descrizione||'';
     /* la demo ha una descrizione sua: è la pagina che deve uscire per «demo xTool Palermo» */
     if(page==='demo') desc = L==='en'
-      ? 'Try xTool machines for free in Palermo with INGLY DESIGN, official xTool Squad host: M2 10 W and 20 W, C1 Color Cutter, X1, P3, F2, O1 UV and WonderPress. Book via the xTool Support Demo Room; online demos across Italy.'
-      : 'Prova gratis le macchine xTool a Palermo con INGLY DESIGN, host ufficiale xTool Squad: M2 10 W e 20 W, C1 Color Cutter, X1, P3, F2, O1 UV e WonderPress. Prenoti dalla Demo Room xTool Support; demo anche online in tutta Italia.';
+      ? 'Try xTool machines for free in Palermo with INGLY DESIGN, official xTool Squad host: M2 10, 20 and 40 W, C1 Color Cutter, X1, P3, F2, O1 UV and WonderPress. Book via the xTool Support Demo Room; online demos across Italy.'
+      : 'Prova gratis le macchine xTool a Palermo con INGLY DESIGN, host ufficiale xTool Squad: M2 10, 20 e 40 W, C1 Color Cutter, X1, P3, F2, O1 UV e WonderPress. Prenoti dalla Demo Room xTool Support; demo anche online in tutta Italia.';
   }
   /* direttiva per i motori: sempre indicizzabile salvo scelta esplicita */
   set('meta[name="robots"]','content',ENG.robots(page,S));

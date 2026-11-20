@@ -4,9 +4,13 @@ import {JSDOM} from 'jsdom';
 const read=p=>readFileSync(p,'utf8');
 const data=JSON.parse(read('data/macchine.json'));
 const m2=data.catalogo.find(x=>x.id==='m2');
-assert.deepEqual(m2.variantiLaser.map(x=>x.id),['m2-10w','m2-20w']);
-assert.ok(m2.variantiLaser.every(x=>x.area==='426 × 320 mm'));
-assert.ok(m2.variantiLaser.every(x=>x.source.startsWith('https://support.xtool.com/')));
+assert.deepEqual(m2.variantiLaser.map(x=>x.id),['m2-10w','m2-20w','m2-40w']);
+const m210_20=m2.variantiLaser.filter(x=>x.id!=='m2-40w');
+assert.ok(m210_20.every(x=>x.area==='426 × 320 mm'));
+assert.ok(m210_20.every(x=>x.source.startsWith('https://support.xtool.com/')));
+/* 40 W: modulo ufficiale xTool; area utile non ancora verificata, quindi non promessa */
+const m240=m2.variantiLaser.find(x=>x.id==='m2-40w');
+assert.ok(m240.source.startsWith('https://www.xtool.com/')&&!/426/.test(m240.area));
 assert.equal(m2.inOfficina,true);
 const index=read('index.html');
 assert.ok(index.indexOf('assets/js/ingly-material-finder.js')<index.indexOf('assets/js/notte-oro-ui.js'));
@@ -22,12 +26,13 @@ win.eval(read('assets/js/ingly-material-finder.js'));
 const finder=win.INGLY_MATERIAL_FINDER;
 assert.ok(finder&&typeof finder.mount==='function');
 const models=finder.models(data);
-assert.equal(models.filter(x=>x.selectorId.startsWith('m2-')).length,4);
+assert.equal(models.filter(x=>x.selectorId.startsWith('m2-')).length,5);
 const laser10=models.find(x=>x.selectorId==='m2-10w');
 const laser20=models.find(x=>x.selectorId==='m2-20w');
+const laser40=models.find(x=>x.selectorId==='m2-40w');
 const ir=models.find(x=>x.selectorId==='m2-ir');
 const cmyk=models.find(x=>x.selectorId==='m2-cmyk');
-for(const laser of [laser10,laser20]){
+for(const laser of [laser10,laser20,laser40]){
  assert.equal(finder.status(laser,'wood','cut').state,'yes');
  assert.equal(finder.status(laser,'metal','cut').state,'none');
  assert.equal(finder.status(laser,'acrylic','cut').state,'test');
@@ -43,7 +48,7 @@ assert.equal(finder.status(models.find(x=>x.id==='f2'),'metal','cut').state,'non
 assert.equal(finder.status(models.find(x=>x.id==='wonderpress'),'fabric','transfer').state,'yes');
 const view=finder.mount(win.document.getElementById('target'),data,'it');
 assert.ok(view);
-assert.equal(view.machine.querySelectorAll('option').length,data.macchine.length+4);
+assert.equal(view.machine.querySelectorAll('option').length,data.macchine.length+5);
 view.machine.value='m2-20w';view.machine.dispatchEvent(new win.Event('change'));
 view.material.value='metal';view.material.dispatchEvent(new win.Event('change'));
 assert.equal(view.result.dataset.result,'none');
@@ -75,4 +80,4 @@ op.click();
 assert.equal(op.getAttribute('aria-pressed'),'true','Operation chips are interactive');
 assert.equal(guide.querySelectorAll('.ingly-finder-tile[aria-pressed="true"]').length,1);
 win.close();
-console.log('✔ INGLY finder: 10W/20W separately selectable, safe materials, clear statuses, collapsible full matrix');
+console.log('✔ INGLY finder: 10W/20W/40W separately selectable, safe materials, clear statuses, collapsible full matrix');

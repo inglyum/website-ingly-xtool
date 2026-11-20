@@ -287,7 +287,7 @@ console.log('\n=== CORPI STATICI ===');
 const cm = LAB.corpoMacchina(D, LAB.modello(D, 'p3'), { base: '' });
 check('la scheda macchina ha un h1 e del testo', /<h1>/.test(cm) && cm.length > 200);
 check('una macchina non posseduta dichiara l\'assistenza',
-  /assistenza/i.test(LAB.corpoMacchina(D, LAB.modello(D, 'm1'), { base: '' })));
+  /assistenza/i.test(LAB.corpoMacchina(D, LAB.modello(D, 'f2-ultra'), { base: '' })));
 const cd = LAB.corpoDemo(D, { base: '' });
 check('la pagina demo ha un h1 e nomina le macchine provabili',
   /<h1>/.test(cd) && /P3/.test(cd));

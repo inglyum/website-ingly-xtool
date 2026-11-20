@@ -131,3 +131,23 @@ Non sono nel catalogo, ma le stesse fonti li indicano tra i più venduti:
 - Una seconda foto in uso o in mano, che dà la misura.
 - Formato quadrato, almeno 1200 × 1200 px.
 - Il nome inciso deve leggersi: usa un nome di esempio (es. «Giulia»).
+
+## Nuova categoria «Stampa 3D su misura» (20 novembre 2026)
+
+Otto prodotti 3D nuovi, scritti ma senza foto (non si vedono finché non
+carichi la foto). Nella categoria oggi c'è solo la Lampada Luna (ID 2),
+spostata da Casa. Ordine consigliato:
+
+| Priorità | ID | Prodotto | Perché |
+|---|---|---|---|
+| A | 109 | Espositore NFC per recensioni Google | ogni locale lo vuole, e porta recensioni anche a te |
+| A | 108 | Portachiavi NFC personalizzato con logo | gadget aziendale moderno, si vende in quantità |
+| A | 113 | Lampada litofania con la tua foto | regalo di Natale, c'è già il generatore sul sito |
+| B | 110 | Gadget aziendali stampati in 3D con logo | fiere ed eventi |
+| B | 112 | Portachiavi 3D con nome | bomboniere, squadre, feste |
+| B | 111 | Organizer da scrivania con logo | regalo aziendale |
+| C | 114 | Prototipo o ricambio su misura | servizio: basta una foto di esempio |
+| C | 115 | Mascotte aziendale in 3D | su richiesta |
+
+I prezzi in questi prodotti sono valori interni provvisori (il sito mostra
+«prezzo su richiesta»): correggili dall'Admin quando li decidi.

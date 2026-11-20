@@ -382,7 +382,7 @@ export function renderMacchine(L) {
     '<p class="lab-n"><b>'+esc(titolo)+'</b></p><ul class="lab-lista">'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';};
   box.innerHTML = `
     <a class="ingly-assistenza-banner" href="${via('/assistenza-xtool-palermo/')}">
-      <span><b>${t2('Assistenza xTool a Palermo · host ufficiale xTool Squad', 'xTool support in Palermo · official xTool Squad host', L)}</b>
+      <span><b>${t2('Assistenza xTool · host ufficiale xTool Squad · Palermo, Catania, Messina, Sicilia e Calabria', 'xTool support · official xTool Squad host · Palermo, Catania, Messina, Sicily and Calabria', L)}</b>
       <small>${t2('Demo prima dell\'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione.', 'Pre-sale demos, material tests, training, commissioning, maintenance and repair.', L)}</small></span>
       <span class="arr" aria-hidden="true">→</span></a>
     ${sezioneNovita(d, L)}
@@ -447,7 +447,7 @@ export function renderMacchine(L) {
       <div class="machine-section-label">
         <span class="eyebrow">${t2('Confronta altri modelli xTool', 'Explore other xTool models', L)}</span>
         <h3 class="vert-tit">${t2('Altre macchine, altre possibilità.', 'More machines, more possibilities.', L)}</h3>
-        <p class="lab-p">${t2('Modelli mostrati a scopo informativo: non significa che siano presenti nel laboratorio INGLY o disponibili per una demo.', 'Models shown for information only: this does not mean they are owned by INGLY or available for demos.', L)}</p>
+        <p class="lab-p">${t2('Gli altri modelli in vendita oggi sul sito ufficiale xTool, che non abbiamo in laboratorio: cosa fanno e come si confrontano. Non sono disponibili per la demo. I modelli fuori produzione non sono in elenco.', 'The other models on sale today on the official xTool site, which we do not have in our workshop: what they do and how they compare. They are not available for demos. Discontinued models are not listed.', L)}</p>
       </div>
       <label class="lab-p">${t2('Filtra per tecnologia','Filter by technology',L)} <select data-machine-tech><option value="">${t2('Tutte','All',L)}</option>${techOptions}</select></label>
       <div class="machine-explore-grid">${informative.map(x => `
@@ -471,7 +471,15 @@ export function renderMacchine(L) {
           </a>
           <label class="lab-p"><input type="checkbox" data-machine-compare="${esc(x.id)}"> ${t2('Confronta','Compare',L)}</label>
         </article>`).join('')}</div>
-        <div class="lab-blocco" data-machine-comparison aria-live="polite"></div>` : ''}
+        <div class="lab-blocco" data-machine-comparison aria-live="polite"></div>
+        ${informative.some(x => x.confronto) ? `<div class="machine-compare-wrap" role="region" aria-label="${t2('Confronto rapido dei modelli','Quick model comparison',L)}" tabindex="0">
+          <table class="machine-compare-table">
+            <caption>${t2('Confronto rapido','Quick comparison',L)}</caption>
+            <thead><tr><th scope="col">${t2('Modello','Model',L)}</th><th scope="col">${t2('Tecnologia','Technology',L)}</th><th scope="col">${t2('Ideale per','Best for',L)}</th></tr></thead>
+            <tbody>${informative.filter(x => x.confronto).map(x => `<tr><th scope="row"><a href="${esc(via('/macchine/' + x.id))}">${esc(x.modello)}</a></th><td>${esc(LAB.lingua(x.confronto.tecnologia, L))}</td><td>${esc(LAB.lingua(x.confronto.idealePer, L))}</td></tr>`).join('')}</tbody>
+          </table>
+          <p class="lab-nulla">${t2('Dati dal sito ufficiale xTool. Potenze, aree di lavoro e configurazioni cambiano: prima di acquistare controlla la scheda xTool del modello.', 'Data from the official xTool site. Power, work areas and configurations change: check the model page on xTool before buying.', L)}</p>
+        </div>` : ''}` : ''}
 
     ${combi.length ? `<h3 class="vert-tit">${t2('Cosa si sblocca mettendole insieme', 'What combining them unlocks', L)}</h3>
       <div class="b2b-cards">${combi.map((c, i) => `
@@ -1172,7 +1180,7 @@ export function renderDemo(L) {
     ${faqHtml(LAB.FAQ_DEMO, L)}
 
     <p class="lab-p">${t2('Cerchi assistenza su una macchina che hai già?', 'Need support on a machine you already own?', L)}
-      <a href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool a Palermo e in Sicilia', 'xTool support in Palermo and Sicily', L)} →</a></p>
+      <a href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool in Sicilia e Calabria', 'xTool support in Sicily and Calabria', L)} →</a></p>
 
     <div class="hero-ctas lab-ctas">${ctaDemo(dm, L)}</div>`;
 

@@ -118,6 +118,7 @@ export const DIZIONARIO = {
   'Forniture per il laser': 'Laser supplies',
   'I materiali e gli accessori che consigliamo per incidere e tagliare.': 'The materials and accessories we recommend for engraving and cutting.',
   'Centro assistenza autorizzato xTool': 'xTool authorised service centre',
+  'Sicilia e Calabria.': 'Sicily and Calabria.',
   'Tipo di richiesta': 'Request type',
   'Email': 'Email',
 

@@ -40,8 +40,11 @@ const versioni = m => ((m.demo && m.demo.varianti) || []).map(id => (m.variantiL
 const elenco = xs => xs.length > 1 ? xs.slice(0, -1).join(', ') + ' e ' + xs[xs.length - 1] : xs.join('');
 const nomeDemo = m => nome(m) + (versioni(m).length ? ' ' + elenco(versioni(m).map(v => v.potenza.replace(/\s+/g, ''))) : '');
 
-const SICILIA = ['Palermo e provincia', 'Trapani', 'Agrigento', 'Caltanissetta', 'Enna', 'Catania', 'Messina', 'Siracusa', 'Ragusa'];
-const SUD = ['Calabria', 'Campania', 'Puglia', 'Basilicata'];
+/* 2026-11-20, indicazione del titolare: assistenza anche a Catania, Messina, in tutta la Sicilia e in Calabria.
+   Il laboratorio resta a Palermo: fuori Palermo si lavora con ritiro, spedizione o online. */
+const SICILIA = ['Palermo e provincia', 'Catania', 'Messina', 'Trapani', 'Agrigento', 'Siracusa', 'Ragusa', 'Caltanissetta', 'Enna'];
+const CALABRIA = ['Reggio Calabria', 'Cosenza', 'Catanzaro', 'Crotone', 'Vibo Valentia'];
+const SUD = ['Campania', 'Puglia', 'Basilicata'];
 
 const SQUAD = 'https://support.xtool.com/xtool-squad';
 const SERVICE = 'https://support.xtool.com/all-services';
@@ -50,7 +53,7 @@ const FAQ = [
   ['Siete un centro ufficiale xTool?', 'Sì: INGLY DESIGN è host di xTool Squad, il programma ufficiale di xTool con cui host locali offrono demo, test sui materiali, formazione, installazione e assistenza prima e dopo l\'acquisto. Lavoriamo ogni giorno con le macchine xTool nel nostro laboratorio di Palermo.'],
   ['Vendete i ricambi xTool?', 'No: i ricambi originali li vende xTool sul suo shop ufficiale (xtool.eu). Ti aiutiamo a capire quale serve e, durante la manutenzione o la riparazione, possiamo sostituirlo noi.'],
   ['La garanzia la gestite voi?', 'La garanzia e i piani xToolCare sono di xTool: la richiesta si apre sul Service Center ufficiale (support.xtool.com). Possiamo aiutarti a preparare foto e descrizione del problema.'],
-  ['Arrivo da fuori Palermo: come faccio?', 'Puoi portarci la macchina in laboratorio a Palermo oppure spedirla. Seguiamo clienti in tutta la Sicilia e nel Sud Italia: scrivici il modello e il problema e ti diciamo come procedere.'],
+  ['Seguite anche Catania, Messina e la Calabria?', 'Sì. Il laboratorio è a Palermo e seguiamo clienti a Catania, Messina, in tutta la Sicilia e in Calabria: puoi portarci la macchina, spedircela o, per formazione e consigli, collegarti online. Scrivici il modello e il problema e ti diciamo come procedere.'],
   ['Quali modelli seguite?', 'Tutta la gamma xTool: laser a diodo, CO₂, fibra, MOPA e UV, stampanti UV, presse e le novità come X1 e C1. L\'elenco completo è più sotto, con il link alla scheda di ogni macchina.'],
   ['Quanto costa una riparazione?', 'Dipende dal modello e dal guasto. Prima facciamo la diagnosi e ti mandiamo un preventivo: si procede solo se lo approvi.'],
   ['Posso provare una macchina prima di comprarla?', 'Sì, con una demo gratuita nel nostro laboratorio di Palermo o online: la vedi lavorare su un tuo pezzo prima di scegliere. Puoi provare ' + inDemo.map(nomeDemo).join(', ') + '.']
@@ -62,20 +65,21 @@ const schema = {
     {
       '@type': ['LocalBusiness', 'ProfessionalService'],
       '@id': url + '#assistenza',
-      name: 'INGLY DESIGN — Assistenza xTool Palermo, host xTool Squad',
+      name: 'INGLY DESIGN — Assistenza xTool Palermo, Catania, Messina, Sicilia e Calabria, host xTool Squad',
       url, telephone: tel.replace(/\s+/g, ''), email,
       image: dom + '/assets/images/xtool-authorized-service-centre-premium.svg',
       address: { '@type': 'PostalAddress', addressLocality: 'Palermo', addressRegion: 'Sicilia', addressCountry: 'IT' },
       areaServed: [
-        { '@type': 'City', name: 'Palermo' },
+        ...['Palermo', 'Catania', 'Messina', 'Reggio Calabria'].map(c => ({ '@type': 'City', name: c })),
         { '@type': 'AdministrativeArea', name: 'Sicilia' },
+        { '@type': 'AdministrativeArea', name: 'Calabria' },
         ...SUD.map(r => ({ '@type': 'AdministrativeArea', name: r })),
         { '@type': 'Country', name: 'Italia' }
       ],
       brand: { '@type': 'Brand', name: 'xTool' },
       knowsAbout: ['xTool', 'incisione laser', 'taglio laser', 'laser CO2', 'laser a fibra', 'laser MOPA', 'stampa UV'],
       makesOffer: ['Demo delle macchine xTool prima dell\'acquisto', 'Test sui materiali con le impostazioni consigliate', 'Formazione sull\'uso delle macchine xTool', 'Installazione e messa in servizio di macchine xTool', 'Manutenzione e riparazione di macchine xTool']
-        .map(s => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s, areaServed: 'Sicilia' } })),
+        .map(s => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s, areaServed: ['Sicilia', 'Calabria'] } })),
       sameAs: Object.values(cfg.social || {}).filter(u => /^https:\/\//.test(u) && !/wa\.me/.test(u))
     },
     { '@type': 'FAQPage', mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
@@ -94,12 +98,12 @@ export function genera() {
 <base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Assistenza xTool a Palermo e in Sicilia · demo gratuita, host ufficiale xTool Squad | INGLY DESIGN</title>
-<meta name="description" content="INGLY DESIGN è host xTool Squad a Palermo: demo prima dell'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool in Sicilia e nel Sud Italia.">
+<title>Assistenza xTool a Palermo, Catania, Messina · Sicilia e Calabria, host xTool Squad | INGLY DESIGN</title>
+<meta name="description" content="INGLY DESIGN è host xTool Squad a Palermo: demo prima dell'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool a Palermo, Catania, Messina, in tutta la Sicilia e in Calabria.">
 <link rel="canonical" href="${esc(url)}">
 <meta property="og:type" content="website"><meta property="og:url" content="${esc(url)}">
-<meta property="og:title" content="Assistenza xTool a Palermo · host xTool Squad — INGLY DESIGN">
-<meta property="og:description" content="Demo, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool a Palermo, in Sicilia e nel Sud Italia.">
+<meta property="og:title" content="Assistenza xTool in Sicilia e Calabria · host xTool Squad — INGLY DESIGN">
+<meta property="og:description" content="Demo, test sui materiali, formazione, installazione, manutenzione e riparazione delle macchine xTool a Palermo, Catania, Messina, in Sicilia e in Calabria.">
 <meta property="og:image" content="${esc(dom)}/assets/images/og-image.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <script>(function(){try{var m=localStorage.getItem("ingly_mode");if(m==="dark"||m==="light")document.documentElement.dataset.mode=m}catch(e){}})();</script>
@@ -136,8 +140,8 @@ export function genera() {
 <main class="ax-wrap page active">
  <nav aria-label="Percorso" style="font-size:14px;margin-bottom:18px"><a href="./">Home</a> / <a href="macchine">Macchine</a> / Assistenza xTool Palermo</nav>
  <figure class="xtool-asc"><img src="assets/images/xtool-asc-trasparente-320.webp" srcset="assets/images/xtool-asc-trasparente-320.webp 320w, assets/images/xtool-asc-trasparente-640.webp 640w" sizes="160px" alt="xTool Authorized Service Centre" width="320" height="276" decoding="async"><figcaption>Centro assistenza autorizzato xTool</figcaption></figure>
- <h1>Assistenza xTool a Palermo e in Sicilia</h1>
- <p class="ax-lead">INGLY DESIGN è host di <a href="${SQUAD}" target="_blank" rel="noopener noreferrer">xTool Squad</a>, la rete ufficiale di xTool che porta le macchine vicino a chi le usa: le vedi lavorare dal vivo, ricevi consigli esperti e hai un supporto locale prima e dopo l'acquisto. Seguiamo clienti a Palermo, in tutta la Sicilia e nel Sud Italia.</p>
+ <h1>Assistenza xTool a Palermo, in Sicilia e in Calabria</h1>
+ <p class="ax-lead">INGLY DESIGN è host di <a href="${SQUAD}" target="_blank" rel="noopener noreferrer">xTool Squad</a>, la rete ufficiale di xTool che porta le macchine vicino a chi le usa: le vedi lavorare dal vivo, ricevi consigli esperti e hai un supporto locale prima e dopo l'acquisto. Laboratorio a Palermo; seguiamo clienti a Catania, Messina, in tutta la Sicilia e in Calabria.</p>
  <div class="ax-cta">
   <a class="btn btn-primary" href="${esc(waTesto)}" target="_blank" rel="noopener noreferrer">Chiedi assistenza su WhatsApp <span class="arr">→</span></a>
   <a class="btn btn-ghost" href="mailto:${esc(email)}?subject=${encodeURIComponent('Assistenza xTool')}">Scrivi una email</a>
@@ -169,7 +173,7 @@ export function genera() {
  <ol class="ax-passi">
   <li>Scrivici su WhatsApp o via email il modello della macchina e cosa succede, meglio con una foto o un breve video.</li>
   <li>Ti diciamo se si risolve a distanza o se serve vederla, e ti mandiamo un preventivo.</li>
-  <li>Porti la macchina in laboratorio a Palermo, oppure ce la spedisci da qualunque parte della Sicilia o del Sud Italia.</li>
+  <li>Porti la macchina in laboratorio a Palermo, oppure ce la spedisci da Catania, Messina, da qualunque parte della Sicilia o dalla Calabria.</li>
   <li>La ripariamo, la proviamo su un lavoro vero e te la riconsegniamo.</li>
  </ol>
 
@@ -181,7 +185,9 @@ export function genera() {
  <h2>Dove arriviamo</h2>
  <p>In laboratorio a Palermo e, con ritiro o spedizione, in tutta la Sicilia:</p>
  <ul class="ax-zone">${SICILIA.map(z => `<li>${esc(z)}</li>`).join('')}</ul>
- <p>Seguiamo anche clienti nel Sud Italia:</p>
+ <p>In Calabria, con ritiro, spedizione o assistenza online:</p>
+ <ul class="ax-zone">${CALABRIA.map(z => `<li>${esc(z)}</li>`).join('')}</ul>
+ <p>Seguiamo anche clienti nel resto del Sud Italia:</p>
  <ul class="ax-zone">${SUD.map(z => `<li>${esc(z)}</li>`).join('')}</ul>
 
  <h2>Domande frequenti</h2>

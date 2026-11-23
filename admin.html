@@ -429,10 +429,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
     <div class="card admin-launchpad">
       <div class="vs-head"><div><div class="vs-eyebrow">Azioni rapide</div><h3 class="vs-title">Gestisci il sito in pochi click</h3><p class="vs-intro">Carica una foto, crea o modifica prodotti e categorie, oppure cambia la stagione del sito.</p></div><span class="vs-status">Admin · controllo visuale</span></div>
       <div class="admin-launch-grid">
-        <button type="button" class="admin-launch" data-shortcut-view="media"><span>🖼</span><b>Carica / rimuovi foto</b><small>Media Library, assegnazione e sostituzione</small></button>
-        <button type="button" class="admin-launch" data-shortcut-view="prod" data-shortcut-action="pNew"><span>📦</span><b>Nuovo prodotto</b><small>Aggiungi, modifica, nascondi o elimina</small></button>
-        <button type="button" class="admin-launch" data-shortcut-view="cats" data-shortcut-action="cNew"><span>🗂</span><b>Nuova categoria</b><small>Modifica categorie e sottocategorie</small></button>
-        <button type="button" class="admin-launch" data-shortcut-view="themes"><span>🎨</span><b>Visual Studio</b><small>Sfondi, colori, Natale, Estate e campagne</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="media"><span>🖼</span><b>Foto e Media Library</b><small>Carica, sostituisci, assegna o rimuovi immagini</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="prod"><span>📦</span><b>Gestisci prodotti</b><small>Cerca, modifica, duplica, nascondi o elimina</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="prod" data-shortcut-action="pNew"><span>＋</span><b>Nuovo prodotto</b><small>Apri l’editor prodotto guidato</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="cats"><span>🗂</span><b>Gestisci categorie</b><small>Foto, nomi, sottocategorie e ordine</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="cats" data-shortcut-action="cNew"><span>＋</span><b>Nuova categoria</b><small>Crea una categoria e le sue sottocategorie</small></button>
+        <button type="button" class="admin-launch" data-shortcut-view="themes"><span>🎨</span><b>Temi e sfondi</b><small>Natale, Estate, eventi, colori e atmosfera</small></button>
       </div>
     </div>
     <div class="card"><h3>⚡ Stato del sistema <button class="btn sm sp" data-go="health">Health Center →</button></h3><div class="hlog" id="dashHealth">…</div></div>
@@ -441,6 +443,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 
   <!-- ============ PRODOTTI ============ -->
   <section class="view" id="v-prod">
+    <div class="admin-workflow-hint"><b>Gestione prodotti</b><span>Clicca una riga o il pulsante Modifica per aprire la scheda. Da lì puoi cambiare foto, gallery, prezzi e descrizioni; puoi duplicare, nascondere o eliminare. Le modifiche restano in bozza fino a Pubblica.</span></div>
     <div class="searchrow" style="flex-wrap:wrap;gap:8px">
       <input type="text" id="pSearch" placeholder="Cerca prodotto…" style="min-width:160px;flex:1">
       <select id="pCatF"></select>
@@ -495,7 +498,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 
   <!-- ============ CATEGORIE ============ -->
   <section class="view" id="v-cats">
-    <div class="searchrow"><span class="hint">Le categorie e sottocategorie sono completamente dinamiche. L'integrità dei prodotti collegati è controllata automaticamente.</span><button class="btn pri" id="cNew" style="margin-left:auto">➕ Nuova categoria</button></div>
+    <div class="admin-workflow-hint"><b>Gestione categorie</b><span>Apri Modifica per cambiare nomi IT/EN, immagine, colori, icona e sottocategorie. Puoi riordinare con le frecce. Una categoria collegata a prodotti non viene eliminata: prima sposta i prodotti interessati.</span></div>
+    <div class="searchrow"><span class="hint">Le categorie e sottocategorie sono dinamiche; le relazioni ai prodotti vengono controllate automaticamente.</span><button class="btn pri" id="cNew" style="margin-left:auto">➕ Nuova categoria</button></div>
     <div id="catList"></div>
   </section>
 
@@ -944,7 +948,15 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
         <button class="btn sm" data-vs-shortcut="cats">🗂 Categorie</button>
         <button class="btn sm" data-vs-shortcut="bg">🌌 Sfondo base</button>
       </div>
-      <div class="vs-presets" id="vsPresetGrid" aria-label="Preset visivi stagionali"></div>
+      <div class="vs-quick-panel">
+        <div class="vs-quick-heading">
+          <div><b>Eventi pronti da applicare</b><span>Un click per caricare la palette in anteprima. Il calendario viene aggiornato solo scegliendo Programma.</span></div>
+          <span class="vs-quick-note">10 preset stagionali</span>
+        </div>
+        <div id="vsQuickGrid" class="vs-quick-grid" aria-label="Scelte rapide per temi stagionali"></div>
+        <p class="vs-quick-foot" id="vsQuickStatus" role="status" aria-live="polite">Scegli un evento per personalizzarne colori e sfondo. Nessuna modifica è pubblicata automaticamente.</p>
+      </div>
+      <div class="vs-presets" id="vsPresetGrid" aria-label="Libreria completa dei preset visivi"></div>
       <div class="vs-body">
         <div class="vs-controls">
           <h4>Personalizza il preset selezionato</h4>

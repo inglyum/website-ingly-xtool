@@ -4806,12 +4806,80 @@ const vsHex=(v,fb)=>/^#[0-9a-f]{6}$/i.test(String(v||''))?String(v):fb;
 const vsTheme=id=>(S.C.THEMES.temi||[]).find(t=>t.id===id)||null;
 function vsColors(t){const p=Array.isArray(t&&t.palette)?t.palette:[];return [vsHex(p[0],'#0c0e10'),vsHex(p[1],'#30343b'),vsHex(p[2],'#c3a46b')]}
 function vsPatternName(id){try{return window.INGLY_ART.label(id).it}catch(e){return id}}
+
+/* Scorciatoie stagionali: usano i dati reali della libreria temi.
+   Anteprima = sola selezione locale. Programma = aggiorna bozza/calendario,
+   poi porta esplicitamente l'utente alla schermata Pubblica. */
+const VS_QUICK_EVENTS=[
+ {id:'christmas',icon:'🎄'},
+ {id:'summer',icon:'☀️'},
+ {id:'spring',icon:'🌿'},
+ {id:'autumn',icon:'🍂'},
+ {id:'halloween',icon:'🎃'},
+ {id:'blackfriday',icon:'✦'},
+ {id:'easter',icon:'🐣'},
+ {id:'valentine',icon:'♥'},
+ {id:'newyear',icon:'✨'},
+ {id:'backtoschool',icon:'✏️'}
+];
+function vsQuickDate(value){
+ const parts=String(value||'').split('-');
+ if(parts.length!==2)return '';
+ const months=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+ const m=Number(parts[0]),d=Number(parts[1]);
+ return m>=1&&m<=12&&d>=1&&d<=31?d+' '+months[m-1]:'';
+}
+function renderQuickThemes(list){
+ const grid=$('vsQuickGrid');if(!grid)return;
+ const available=VS_QUICK_EVENTS.map(q=>({q,t:list.find(x=>x.id===q.id)})).filter(x=>x.t);
+ if(!available.length){grid.innerHTML='<span class="hint">Nessun preset stagionale disponibile.</span>';return}
+ grid.innerHTML=available.map(({q,t})=>{
+  const dates=t.dal&&t.al?vsQuickDate(t.dal)+' — '+vsQuickDate(t.al):'Date da impostare';
+  const scheduled=t.stato==='attivo';
+  const selected=t.id===VS_DRAFT_ID;
+  const canSchedule=vsValidRange(t.dal,t.al);
+  return `<article class="vs-quick-event ${selected?'selected':''}">
+    <button type="button" class="vs-quick-preview" data-vs-quick-preview="${esc(t.id)}"
+      aria-pressed="${selected?'true':'false'}" title="Carica ${esc(t.n&&t.n.it||t.id)} nell'anteprima">
+      <span class="vs-quick-icon" aria-hidden="true">${q.icon}</span>
+      <span class="vs-quick-copy"><b>${esc(t.n&&t.n.it||t.id)}</b><small>${esc(dates)}</small></span>
+      <span class="vs-quick-state">${scheduled?'In calendario':'Preset'}</span>
+    </button>
+    <button type="button" class="vs-quick-schedule" data-vs-quick-schedule="${esc(t.id)}"
+      ${canSchedule?'':'disabled'}
+      title="${canSchedule?'Programma '+esc(t.n&&t.n.it||t.id)+' con le date già impostate':'Apri il tema e imposta un intervallo valido'}">
+      ${scheduled?'Aggiorna calendario':'Programma'} <span aria-hidden="true">→</span>
+    </button>
+  </article>`;
+ }).join('');
+ grid.querySelectorAll('[data-vs-quick-preview]').forEach(b=>b.onclick=()=>{
+  const id=b.dataset.vsQuickPreview;if(!vsTheme(id))return;
+  VS_DRAFT_ID=id;renderVisualStudio();
+  const t=vsTheme(id),status=$('vsQuickStatus');
+  if(status)status.textContent='Anteprima locale: '+(t.n&&t.n.it||t.id)+'. Puoi modificare colori, texture e date qui sotto; il sito pubblico non cambia.';
+ });
+ grid.querySelectorAll('[data-vs-quick-schedule]').forEach(b=>b.onclick=()=>{
+  const id=b.dataset.vsQuickSchedule,t=vsTheme(id);
+  if(!t||!vsValidRange(t.dal,t.al)){toast('Questo preset non ha ancora un intervallo di date valido. Apri l’anteprima e completa le date.');return}
+  VS_DRAFT_ID=id;renderVisualStudio();
+  $('vsDal').value=t.dal;$('vsAl').value=t.al;$('vsPriority').value=Math.max(1,Math.min(99,Number(t.prio)||10));
+  const saved=saveVisualDraft(true);if(!saved)return;
+  saved.dal=t.dal;saved.al=t.al;saved.prio=Math.max(1,Math.min(99,Number(t.prio)||10));saved.stato='attivo';
+  S.C.THEMES.auto=true;
+  markDirty();renderThemes();
+  const status=$('vsQuickStatus');
+  if(status)status.textContent=(t.n&&t.n.it||t.id)+' inserito nel calendario in bozza. La pubblicazione resta da confermare.';
+  toast((t.n&&t.n.it||t.id)+' aggiunto al calendario. In caso di sovrapposizione prevale il tema con priorità più alta. Controlla e pubblica.');
+  go('pub');
+ });
+}
 function renderVisualStudio(){
  const grid=$('vsPresetGrid');if(!grid)return;
  const TH=S.C.THEMES,list=Array.isArray(TH.temi)?TH.temi:[];
  if(!list.length){grid.innerHTML='<span class="hint">Nessun tema disponibile. Crea un tema per iniziare.</span>';return}
  if(!VS_DRAFT_ID||!list.some(t=>t.id===VS_DRAFT_ID))VS_DRAFT_ID=list.some(t=>t.id===TH.attivo)?TH.attivo:(list[0]||{}).id;
  const t=vsTheme(VS_DRAFT_ID);if(!t)return;
+ renderQuickThemes(list);
  const ids=[...VS_PRESET_IDS.filter(id=>list.some(x=>x.id===id)),...list.filter(x=>!VS_PRESET_IDS.includes(x.id)).slice(0,3).map(x=>x.id)];
  grid.innerHTML=ids.map(id=>{
   const x=vsTheme(id),p=vsColors(x);

@@ -1,3 +1,14 @@
+## 2026-11 — Admin Visual Control (in revisione)
+### Migliorato
+- Dashboard con azioni separate per aprire la gestione prodotti/categorie e avviare direttamente la creazione.
+- Istruzioni contestuali nelle viste Prodotti e Categorie.
+- Selettore rapido nel Visual Studio che legge i preset stagionali esistenti e consente anteprima o programmazione.
+- Schede evento responsive con date e stato del calendario; nessuna pubblicazione automatica.
+
+### Test
+- Aggiunte verifiche DOM per accessi rapidi, selezione Natale/Estate e caricamento delle date reali nel Visual Studio.
+- La pubblicazione resta protetta dal flusso bozza → validazione → commit.
+
 # CHANGELOG — INGLY
 
 ## v4.2 — Correzione Salva + lancio

@@ -224,6 +224,35 @@ check('dashboard con scorciatoie per foto, prodotti, categorie e temi',
   !!doc.querySelector('[data-shortcut-view="media"]') && !!doc.querySelector('[data-shortcut-view="prod"]')
   && !!doc.querySelector('[data-shortcut-view="cats"]') && !!doc.querySelector('[data-shortcut-view="themes"]'));
 
+check('dashboard con scorciatoie dedicate a foto, prodotti, categorie e temi',
+  !!doc.querySelector('[data-shortcut-view="media"]')
+  && !!doc.querySelector('[data-shortcut-view="prod"]:not([data-shortcut-action])')
+  && !!doc.querySelector('[data-shortcut-view="prod"][data-shortcut-action="pNew"]')
+  && !!doc.querySelector('[data-shortcut-view="cats"]:not([data-shortcut-action])')
+  && !!doc.querySelector('[data-shortcut-view="cats"][data-shortcut-action="cNew"]')
+  && !!doc.querySelector('[data-shortcut-view="themes"]'));
+check('istruzioni operative presenti in Prodotti e Categorie',
+  /Gestione prodotti/.test(doc.getElementById('v-prod').textContent)
+  && /Gestione categorie/.test(doc.getElementById('v-cats').textContent));
+check('selettore rapido stagionale presente e collegato al Visual Studio',
+  !!$('vsQuickGrid') && !!$('vsQuickStatus') && $('vsQuickGrid').querySelectorAll('[data-vs-quick-preview]').length >= 8);
+check('scelte rapide includono Natale, Estate e Black Friday',
+  !!doc.querySelector('[data-vs-quick-preview="christmas"]')
+  && !!doc.querySelector('[data-vs-quick-preview="summer"]')
+  && !!doc.querySelector('[data-vs-quick-preview="blackfriday"]'));
+doc.querySelector('[data-vs-quick-preview="christmas"]').click(); await wait(80);
+check('un click su Natale carica palette e date reali nell anteprima',
+  $('vsThemePick').value === 'christmas' && $('vsDal').value === '11-20' && $('vsAl').value === '12-27'
+  && /Anteprima locale/.test($('vsQuickStatus').textContent));
+check('programmazione Natale usa il calendario esistente e non pubblica da sola',
+  !!doc.querySelector('[data-vs-quick-schedule="christmas"]:not(:disabled)')
+  && /Pubblica/.test($('vsQuickStatus').textContent) === false);
+doc.querySelector('[data-vs-quick-preview="summer"]').click(); await wait(80);
+check('un click su Estate carica il preset e la finestra corretta',
+  $('vsThemePick').value === 'summer' && $('vsDal').value === '06-01' && $('vsAl').value === '08-31');
+check('il selettore rapido non modifica direttamente il tema live',
+  $('thNow').textContent !== 'Estate' || $('vsQuickStatus').textContent.includes('Anteprima locale'));
+
 console.log('\n=== 3f. Fase 2.1 — campi prodotto ===');
 doc.querySelector('.nit[data-go="prod"]').click(); await wait(80);
 doc.querySelector('tr[data-pid] [data-edit]').click(); await wait(100);

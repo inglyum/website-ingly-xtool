@@ -55,33 +55,3 @@ I pannelli autonomi **Gadget**, **Accessori**, gli editor completi di ogni testo
 5. Apri le GitHub Actions del repository: una QA verde deve precedere il merge di codice. Per le modifiche a `assets/js/` esegui `npm run build`, seguita da `npm test`.
 
 **Nota tecnica:** il pannello carica i JSON e pubblica i dati, mentre gli interventi ai generatori e al sito richiedono una revisione del codice tramite pull request, non si aggiornano modificando l'Admin.
-
-
-## Dashboard visuale: foto, prodotti e categorie
-
-In **Dashboard → Azioni rapide** trovi collegamenti distinti:
-
-- **Foto e Media Library**: carica immagini, cerca quelle esistenti, assegna ai contenuti e rimuovi solo gli asset non più utilizzati.
-- **Gestisci prodotti**: apre l'elenco con ricerca e filtri; seleziona una riga per modificare la scheda, cambiare copertina/gallery, prezzo, descrizione, visibilità o duplicare.
-- **Nuovo prodotto**: apre direttamente l'editor guidato.
-- **Gestisci categorie**: apre l'elenco; da **Modifica** cambi nome IT/EN, descrizione, immagine, icona, palette e sottocategorie.
-- **Nuova categoria**: apre la scheda di creazione.
-- **Temi e sfondi**: apre il Visual Studio stagionale.
-
-Le istruzioni brevi in cima alle viste **Prodotti** e **Categorie** spiegano il percorso di modifica e i controlli di sicurezza. Una categoria collegata a prodotti non può essere eliminata finché non vengono spostati i riferimenti. Un'immagine in uso viene protetta dalla validazione delle eliminazioni.
-
-## Eventi rapidi nel Visual Studio
-
-Vai in **Pagine del sito → Temi stagionali**. La fascia **Eventi pronti da applicare** legge i temi già presenti nella libreria: Natale, Estate, Primavera, Autunno, Halloween, Black Friday, Pasqua, San Valentino, Capodanno e Back to School.
-
-- **Nome del tema / anteprima**: carica il preset esistente nell'editor locale; puoi modificare i tre colori, lo sfondo generato e le date.
-- **Programma**: usa le date e la priorità già registrate nel tema, lo inserisce nel calendario in bozza e porta alla schermata **Pubblica**.
-- **Pubblica tutto**: è il passaggio esplicito che rende la modifica visibile sul sito.
-
-Il comando rapido non inventa palette o date, non carica automaticamente artwork e non pubblica da solo. Se un tema non ha un intervallo valido, il tasto Programma resta disattivato: apri il preset, completa le date in formato MM-GG e salva. In caso di sovrapposizione, il calendario esistente sceglie il tema con priorità maggiore.
-
-## Sfondo e atmosfera
-
-Per il fondo base usa **Pagine del sito → Sfondo Sito**. Puoi scegliere separatamente il fondo per modalità scura e chiara, vedere le anteprime, oppure abilitare una fotografia dalla Media Library. I controlli di posizione e velatura servono a mantenere leggibili testi e schede.
-
-Per una campagna stagionale completa usa invece **Temi stagionali → Visual Studio**: palette, texture/artwork per categoria e calendario fanno parte dello stesso preset. Prima di pubblicare, controlla sia la modalità scura sia quella chiara e la resa mobile.

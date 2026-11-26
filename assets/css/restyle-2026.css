@@ -908,3 +908,65 @@
 .machine-compare-table tbody th a{color:inherit;font-weight:700;text-underline-offset:3px}
 .machine-compare-wrap>.lab-nulla{padding:0 16px 14px;margin:6px 0 0}
 .lab-blocco[data-machine-comparison]:empty{display:none}
+
+/* ============================================================
+   AURORA MEDITERRANEA — modalità scura (scelta del titolare, 2026-11-26)
+   Blu petrolio profondo con aloni di luce (mare / ambra del laser),
+   vetro smerigliato su intestazione, schede e campi, pulsanti ambra con
+   alone. Solo modalità scura: il tema chiaro resta com'è.
+   Regola 1: nessuna animazione sulle immagini; si muovono solo le schede.
+   ============================================================ */
+:root[data-mode="dark"]{
+ --rs-bg:#0b1b1f;--rs-bg-2:#10262b;--rs-ink:#f2f1ec;--rs-muted:#a9bebc;
+ --rs-line:rgba(242,241,236,.10);--rs-line-strong:rgba(242,241,236,.38);
+ --rs-gold:#eaa95c;--rs-gold-hover:#f4c48b;--rs-on-gold:#1b1206;--rs-gold-soft:rgba(234,169,92,.12);
+ --rs-bar-bg:#06161a;--rs-bar-ink:#e9efe9;--rs-focus:#f4c48b;--rs-pattern:rgba(234,169,92,.12);
+ --au-glass:rgba(255,255,255,.045);--au-glass-2:rgba(255,255,255,.075);--au-line:rgba(255,255,255,.10);
+ --au-glow:rgba(234,169,92,.28);--au-r:14px;--au-r-card:18px;
+ --brand-glass:rgba(11,27,31,.86);
+}
+:root[data-mode="dark"][data-mode][data-mode] body{background:
+ radial-gradient(1100px 620px at 8% -6%,rgba(38,140,140,.30),transparent 62%),
+ radial-gradient(900px 600px at 102% 8%,rgba(234,150,72,.16),transparent 60%),
+ radial-gradient(1200px 800px at 50% 115%,rgba(20,90,100,.28),transparent 60%),
+ #0b1b1f fixed!important}
+:root[data-mode="dark"][data-mode][data-mode] body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.06;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root[data-mode="dark"][data-mode][data-mode] :is(.page,.page .sec,.page section,main,.ingly-photographic-lab){background-color:transparent!important;background-image:none!important}
+/* intestazione e barra in vetro */
+:root[data-mode="dark"][data-mode][data-mode] header#nav.nav{background:rgba(9,24,28,.62)!important;backdrop-filter:blur(18px) saturate(1.5)!important;-webkit-backdrop-filter:blur(18px) saturate(1.5)!important;border-bottom:1px solid var(--au-line)!important}
+:root[data-mode="dark"][data-mode][data-mode] .topbar{background:rgba(4,14,16,.72)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important}
+/* pulsanti */
+:root[data-mode="dark"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta){border-radius:12px!important;border:0!important;
+ background:linear-gradient(180deg,#f3bb78,#e29a4c)!important;color:var(--rs-on-gold)!important;
+ box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 10px 28px -8px var(--au-glow)!important;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important}
+:root[data-mode="dark"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost){border-radius:12px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media (hover:hover) and (pointer:fine){
+ :root[data-mode="dark"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta):hover{transform:translateY(-1px)!important;filter:brightness(1.05);
+  box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 16px 36px -8px rgba(234,169,92,.45)!important}
+ :root[data-mode="dark"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost):hover{background:var(--au-glass-2)!important;color:var(--rs-ink)!important;border-color:rgba(234,169,92,.45)!important}
+}
+/* schede prodotto in vetro */
+:root[data-mode="dark"][data-mode][data-mode] .pcard{border-radius:var(--au-r-card)!important;overflow:hidden;
+ background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025))!important;border:1px solid var(--au-line)!important;
+ box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 18px 40px -24px rgba(0,0,0,.7)!important;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important}
+@media (hover:hover) and (pointer:fine){
+ :root[data-mode="dark"][data-mode][data-mode] .pcard:hover{transform:translateY(-6px)!important;border-color:rgba(234,169,92,.45)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 28px 60px -22px rgba(0,0,0,.8),0 0 0 1px rgba(234,169,92,.15),0 0 40px -6px rgba(234,169,92,.25)!important}
+}
+/* campi, filtri e categorie */
+:root[data-mode="dark"][data-mode][data-mode] :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select){border-radius:var(--au-r)!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
+:root[data-mode="dark"][data-mode][data-mode] :is(input,textarea,select):focus{border-color:rgba(234,169,92,.7)!important;box-shadow:0 0 0 3px rgba(234,169,92,.18)!important}
+:root[data-mode="dark"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip){border-radius:999px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
+:root[data-mode="dark"][data-mode][data-mode] #page-shop button.scp{border-radius:var(--au-r)!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
+:root[data-mode="dark"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip,button.scp):is(.on,[aria-pressed="true"]){background:rgba(234,169,92,.16)!important;border-color:rgba(234,169,92,.6)!important;color:var(--rs-ink)!important}
+/* pannelli e riquadri: angoli morbidi, vetro */
+:root[data-mode="dark"][data-mode][data-mode] :is(.rs3d,.ingly-machine-photo,.machine-explore-card,.rcard,.demo-mac,.machine-compare-wrap,.ingly-m2-variant){border-radius:20px!important;overflow:hidden}
+:root[data-mode="dark"][data-mode][data-mode] :is(.ingly-machine-photo,.machine-explore-card,.rcard,.ingly-m2-variant){background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))!important;border:1px solid var(--au-line)!important}
+/* titolo: la parola evidenziata in ambra sfumata */
+:root[data-mode="dark"][data-mode][data-mode] body .page :is(h1,.h1) :is(em,.hl,.engrave){background:linear-gradient(90deg,#f6c98f,#e8964a)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}
+@media (prefers-reduced-motion:reduce){
+ :root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.btn){transition:none!important;transform:none!important}
+}
+:root[data-mode="dark"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo{border-radius:20px!important;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))!important;border:1px solid var(--au-line)!important}
+@media (hover:hover) and (pointer:fine){:root[data-mode="dark"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo:hover{border-color:rgba(234,169,92,.45)!important;box-shadow:0 0 40px -8px rgba(234,169,92,.25)!important}}

@@ -1,4 +1,14 @@
 {
+ "atmosfera": {
+  "modo": "auto",
+  "fissa": "aurora",
+  "calendario": [
+   {"id": "natale", "dal": "12-01", "al": "01-06"},
+   {"id": "sanvalentino", "dal": "02-01", "al": "02-15"},
+   {"id": "primavera", "dal": "03-20", "al": "05-31"},
+   {"id": "estate", "dal": "06-15", "al": "09-15"}
+  ]
+ },
  "titolo": "INGLY DESIGN — Incisione laser a Palermo e centro assistenza xTool in Sicilia",
  "descrizione": "Laboratorio di incisione e taglio laser a Palermo: regali personalizzati, targhe e gadget aziendali. Host xTool Squad per Palermo, la Sicilia e il Sud Italia: demo, consigli sulla scelta, formazione, assistenza e riparazione.",
  "email": "inglydesign@gmail.com",

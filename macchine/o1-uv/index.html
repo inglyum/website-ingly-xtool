@@ -3,7 +3,7 @@
 <head>
 <base href="../../">
 <base href="./">
-<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
+<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;try{var at=localStorage.getItem("ingly_atmo");if(at&&/^[a-z]+$/.test(at)&&at!=="aurora")document.documentElement.setAttribute("data-atmosfera",at);}catch(e){}if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=de8b0f4fbc">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=1e559cdacc">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">

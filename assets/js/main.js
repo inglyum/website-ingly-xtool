@@ -903,6 +903,21 @@ function initDelegation(){
       if(img)prod.openLightbox(img.getAttribute('src'));
     }
   });
+  /* Aurora: la luce delle schede segue il puntatore. Un solo ascoltatore,
+     solo mouse/penna, aggiornato una volta per fotogramma; con «riduci
+     movimento» non parte. Scrive solo --mx/--my sulla scheda (regola 11). */
+  if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    let raf=0,ultimo=null;
+    document.addEventListener('pointermove',e=>{
+      ultimo=e;if(raf)return;
+      raf=requestAnimationFrame(()=>{raf=0;const ev=ultimo;
+        const card=ev.target&&ev.target.closest&&ev.target.closest('.pcard,.ingly-machine-photo,.machine-explore-card');
+        if(!card)return;const r=card.getBoundingClientRect();
+        card.style.setProperty('--mx',Math.round(ev.clientX-r.left)+'px');
+        card.style.setProperty('--my',Math.round(ev.clientY-r.top)+'px');
+      });
+    },{passive:true});
+  }
 }
 
 /* ===== BACKGROUND PICKER ===== */

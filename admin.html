@@ -935,6 +935,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
 
   <!-- ============ TEMI STAGIONALI ============ -->
   <section class="view" id="v-themes">
+    <div class="card" id="atmoCard" aria-live="polite"><h3>🌗 Atmosfera del sito</h3><p class="hint">Caricamento…</p></div>
     <div class="card vs-studio" id="vsStudio">
       <div class="vs-head">
         <div><div class="vs-eyebrow">INGLY DESIGN · Creative Control</div>
@@ -4958,7 +4959,45 @@ function saveVisualDraft(saveDates){
  return t;
 }
 
-function renderThemes(){const TH=S.C.THEMES,list=TH.temi;bindAll();promoPreview();renderVisualStudio();
+/* ===== ATMOSFERA DEL SITO =====
+   Colori della modalità scura secondo la stagione. I colori veri e i contrasti
+   stanno nel sito (restyle-2026.css + assets/js/atmosfere.js); qui si sceglie
+   solo quale atmosfera e quando. Salvato in CONFIG.atmosfera. */
+let ATMO=null;
+async function renderAtmosfera(){
+ const box=$('atmoCard');if(!box)return;
+ if(!ATMO){try{ATMO=await import('./assets/js/atmosfere.js')}catch(e){box.innerHTML='<h3>🌗 Atmosfera del sito</h3><p class="hint">Atmosfere non disponibili: ricarica la pagina.</p>';return}}
+ const C=S.CONFIG;if(!C)return;
+ const base=()=>ATMO.CALENDARIO_BASE.map(v=>({...v}));
+ if(!C.atmosfera||typeof C.atmosfera!=='object')C.atmosfera={modo:'auto',fissa:ATMO.BASE,calendario:base()};
+ const A=C.atmosfera;if(!Array.isArray(A.calendario))A.calendario=base();if(A.modo!=='fissa')A.modo='auto';
+ const nome=id=>{const a=ATMO.ATMOSFERE.find(x=>x.id===id);return a?a.n.it:id};
+ const oggi=ATMO.atmosferaDi(C);
+ const opts=sel=>ATMO.ATMOSFERE.map(a=>'<option value="'+a.id+'"'+(a.id===sel?' selected':'')+'>'+esc(a.n.it)+'</option>').join('');
+ const ok=s=>/^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(s||'');
+ const sito=(S.CONFIG.dominio||'https://www.inglydesign.it').replace(/\/+$/,'');
+ box.innerHTML='<h3>🌗 Atmosfera del sito</h3>'+
+  '<p class="hint">I colori della <b>modalità scura</b> cambiano con la stagione: sfondo, luci, vetro e pulsanti. Logo, testi e foto restano gli stessi. Oggi il sito mostra: <b>'+esc(nome(oggi))+'</b>.</p>'+
+  '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px">'+ATMO.ATMOSFERE.map(a=>'<a href="'+esc(sito)+'/?atmosfera='+a.id+'" target="_blank" rel="noopener" title="Apri il sito con questa atmosfera (solo anteprima)" style="display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;border:1px solid '+(a.id===oggi?'var(--accent,#d6ae6c)':'var(--line,#333)')+';text-decoration:none;color:inherit;font-size:13px"><span style="display:inline-flex;gap:3px">'+a.colori.map(c=>'<i style="width:14px;height:14px;border-radius:4px;display:inline-block;background:'+c+'"></i>').join('')+'</span>'+esc(a.n.it)+' ↗</a>').join('')+'</div>'+
+  '<label>Come scegliere</label><select id="atmoModo"><option value="auto"'+(A.modo==='auto'?' selected':'')+'>Automatica, secondo il calendario qui sotto</option><option value="fissa"'+(A.modo==='fissa'?' selected':'')+'>Sempre la stessa atmosfera</option></select>'+
+  '<div id="atmoFissaBox"'+(A.modo==='fissa'?'':' hidden')+'><label>Atmosfera fissa</label><select id="atmoFissa">'+opts(A.fissa||ATMO.BASE)+'</select></div>'+
+  '<div id="atmoCalBox"'+(A.modo==='auto'?'':' hidden')+'><label>Calendario: date in formato mese-giorno (12-01 = 1 dicembre). Fuori da questi periodi vale <b>Aurora mediterranea</b>.</label>'+
+  '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:14px"><thead><tr><th style="text-align:left">Atmosfera</th><th style="text-align:left">Dal</th><th style="text-align:left">Al</th><th></th></tr></thead><tbody>'+
+  A.calendario.map((v,i)=>'<tr><td><select data-atmo-i="'+i+'" data-atmo-k="id">'+opts(v.id)+'</select></td>'+
+   '<td><input data-atmo-i="'+i+'" data-atmo-k="dal" value="'+esc(v.dal||'')+'" placeholder="MM-GG" maxlength="5" style="max-width:120px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#ccc)'+(ok(v.dal)?'':';border-color:#e5484d')+'"></td>'+
+   '<td><input data-atmo-i="'+i+'" data-atmo-k="al" value="'+esc(v.al||'')+'" placeholder="MM-GG" maxlength="5" style="max-width:120px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#ccc)'+(ok(v.al)?'':';border-color:#e5484d')+'"></td>'+
+   '<td><button type="button" class="btn sm" data-atmo-del="'+i+'">Togli</button></td></tr>').join('')+
+  '</tbody></table></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button type="button" class="btn sm" id="atmoAdd">+ Aggiungi periodo</button><button type="button" class="btn sm" id="atmoReset">Ripristina calendario consigliato</button></div></div>'+
+  '<p class="hint" style="margin-top:10px">Ogni atmosfera ha contrasti di leggibilità già verificati. I link qui sopra aprono il sito pubblicato in anteprima, senza cambiare nulla per i visitatori. Le modifiche diventano pubbliche quando pubblichi.</p>';
+ const ridisegna=()=>{markDirty();renderAtmosfera()};
+ $('atmoModo').onchange=e=>{A.modo=e.target.value;ridisegna()};
+ const fx=$('atmoFissa');if(fx)fx.onchange=e=>{A.fissa=e.target.value;ridisegna()};
+ box.querySelectorAll('[data-atmo-i]').forEach(el=>{el.onchange=()=>{const v=A.calendario[+el.dataset.atmoI];if(!v)return;v[el.dataset.atmoK]=el.value.trim();ridisegna()}});
+ box.querySelectorAll('[data-atmo-del]').forEach(el=>{el.onclick=()=>{A.calendario.splice(+el.dataset.atmoDel,1);ridisegna()}});
+ $('atmoAdd').onclick=()=>{A.calendario.push({id:'autunno',dal:'10-01',al:'11-30'});ridisegna()};
+ $('atmoReset').onclick=()=>{A.calendario=base();ridisegna()};
+}
+function renderThemes(){const TH=S.C.THEMES,list=TH.temi;renderAtmosfera();bindAll();promoPreview();renderVisualStudio();
  const act=themeActive();
  $('thNow').textContent=act.t?act.t.n.it:'nessuno';
  $('thWhy').innerHTML=act.t?`In questo momento il sito userebbe <b>${esc(act.t.n.it)}</b> — ${esc(act.why)}.`

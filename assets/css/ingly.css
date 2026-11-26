@@ -11160,63 +11160,136 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 .lab-blocco[data-machine-comparison]:empty{display:none}
 
 /* ============================================================
-   AURORA MEDITERRANEA — modalità scura (scelta del titolare, 2026-11-26)
-   Blu petrolio profondo con aloni di luce (mare / ambra del laser),
-   vetro smerigliato su intestazione, schede e campi, pulsanti ambra con
-   alone. Solo modalità scura: il tema chiaro resta com'è.
-   Regola 1: nessuna animazione sulle immagini; si muovono solo le schede.
+   AURORA MEDITERRANEA + ATMOSFERE STAGIONALI — modalità scura
+   (scelta del titolare 2026-11-26; colori per stagione dall'Admin:
+   Temi → «Atmosfera del sito», attributo data-atmosfera su <html>).
+   - Fondo con luci che si muovono piano (aurora), grana leggera.
+   - Vetro: intestazione, schede, campi, filtri; bordi a sfumatura di luce,
+     riflesso sul bordo alto, luce che segue il puntatore sulle schede.
+   - Pulsanti con riflesso che scorre; tutto fermo con «riduci movimento».
+   Regola 1: nessuna animazione sulle immagini (si muovono le schede e lo sfondo).
+   Contrasti di ogni atmosfera verificati da tests/test-atmosfere.mjs.
    ============================================================ */
 :root[data-mode="dark"]{
  --rs-bg:#0b1b1f;--rs-bg-2:#10262b;--rs-ink:#f2f1ec;--rs-muted:#a9bebc;
- --rs-line:rgba(242,241,236,.10);--rs-line-strong:rgba(242,241,236,.38);
- --rs-gold:#eaa95c;--rs-gold-hover:#f4c48b;--rs-on-gold:#1b1206;--rs-gold-soft:rgba(234,169,92,.12);
- --rs-bar-bg:#06161a;--rs-bar-ink:#e9efe9;--rs-focus:#f4c48b;--rs-pattern:rgba(234,169,92,.12);
- --au-glass:rgba(255,255,255,.045);--au-glass-2:rgba(255,255,255,.075);--au-line:rgba(255,255,255,.10);
- --au-glow:rgba(234,169,92,.28);--au-r:14px;--au-r-card:18px;
- --brand-glass:rgba(11,27,31,.86);
+ --rs-line:rgba(242,241,236,0.1);--rs-line-strong:rgba(242,241,236,0.38);
+ --rs-gold:#eaa95c;--rs-gold-hover:#f4c48b;--rs-on-gold:#1b1206;--rs-gold-soft:rgba(234,169,92,0.12);
+ --rs-focus:#f4c48b;--rs-pattern:rgba(234,169,92,0.12);
+ --au-acc2:#e29a4c;--au-g1:38,140,140;--au-g2:234,150,72;--au-g3:20,90,100;--au-acc-rgb:234,169,92;
+ --brand-glass:rgba(11,27,31,0.86);
+ --rs-bar-bg:#06161a;--rs-bar-ink:#e9efe9;
+ --au-glass:rgba(255,255,255,.05);--au-glass-2:rgba(255,255,255,.085);--au-line:rgba(255,255,255,.11);
+ --au-r:14px;--au-r-card:20px;
+ --au-edge:linear-gradient(150deg,rgba(255,255,255,.26),rgba(255,255,255,.05) 38%,rgba(255,255,255,.03) 62%,rgba(var(--au-acc-rgb),.38));
 }
-:root[data-mode="dark"][data-mode][data-mode] body{background:
- radial-gradient(1100px 620px at 8% -6%,rgba(38,140,140,.30),transparent 62%),
- radial-gradient(900px 600px at 102% 8%,rgba(234,150,72,.16),transparent 60%),
- radial-gradient(1200px 800px at 50% 115%,rgba(20,90,100,.28),transparent 60%),
- #0b1b1f fixed!important}
-:root[data-mode="dark"][data-mode][data-mode] body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.06;mix-blend-mode:overlay;
+:root[data-mode="dark"][data-atmosfera="natale"]{
+ --rs-bg:#0b1a14;--rs-bg-2:#11261d;--rs-ink:#f4f1ea;--rs-muted:#adc2b5;
+ --rs-line:rgba(244,241,234,0.1);--rs-line-strong:rgba(244,241,234,0.38);
+ --rs-gold:#e6b65e;--rs-gold-hover:#f1cd8a;--rs-on-gold:#1b1206;--rs-gold-soft:rgba(230,182,94,0.12);
+ --rs-focus:#f1cd8a;--rs-pattern:rgba(230,182,94,0.12);
+ --au-acc2:#d69a3c;--au-g1:24,120,72;--au-g2:200,52,52;--au-g3:230,180,90;--au-acc-rgb:230,182,94;
+ --brand-glass:rgba(11,26,20,0.86);
+}
+:root[data-mode="dark"][data-atmosfera="inverno"]{
+ --rs-bg:#0c1726;--rs-bg-2:#122036;--rs-ink:#f1f5fa;--rs-muted:#a9b9cc;
+ --rs-line:rgba(241,245,250,0.1);--rs-line-strong:rgba(241,245,250,0.38);
+ --rs-gold:#9dd2f7;--rs-gold-hover:#bfe2fb;--rs-on-gold:#06182a;--rs-gold-soft:rgba(157,210,247,0.12);
+ --rs-focus:#bfe2fb;--rs-pattern:rgba(157,210,247,0.12);
+ --au-acc2:#78bdea;--au-g1:70,130,210;--au-g2:180,220,255;--au-g3:40,70,140;--au-acc-rgb:157,210,247;
+ --brand-glass:rgba(12,23,38,0.86);
+}
+:root[data-mode="dark"][data-atmosfera="sanvalentino"]{
+ --rs-bg:#17122a;--rs-bg-2:#201a36;--rs-ink:#f6f1f3;--rs-muted:#bdb2c6;
+ --rs-line:rgba(246,241,243,0.1);--rs-line-strong:rgba(246,241,243,0.38);
+ --rs-gold:#ff9aa8;--rs-gold-hover:#ffb9c3;--rs-on-gold:#2a0710;--rs-gold-soft:rgba(255,154,168,0.12);
+ --rs-focus:#ffb9c3;--rs-pattern:rgba(255,154,168,0.12);
+ --au-acc2:#f57c8e;--au-g1:130,60,170;--au-g2:255,110,130;--au-g3:200,70,110;--au-acc-rgb:255,154,168;
+ --brand-glass:rgba(23,18,42,0.86);
+}
+:root[data-mode="dark"][data-atmosfera="primavera"]{
+ --rs-bg:#0d1c18;--rs-bg-2:#132822;--rs-ink:#f3f4ee;--rs-muted:#aec3b8;
+ --rs-line:rgba(243,244,238,0.1);--rs-line-strong:rgba(243,244,238,0.38);
+ --rs-gold:#f2a7bf;--rs-gold-hover:#f7c3d3;--rs-on-gold:#2a0a16;--rs-gold-soft:rgba(242,167,191,0.12);
+ --rs-focus:#f7c3d3;--rs-pattern:rgba(242,167,191,0.12);
+ --au-acc2:#e98aa8;--au-g1:60,150,110;--au-g2:240,150,180;--au-g3:150,200,120;--au-acc-rgb:242,167,191;
+ --brand-glass:rgba(13,28,24,0.86);
+}
+:root[data-mode="dark"][data-atmosfera="estate"]{
+ --rs-bg:#081f2a;--rs-bg-2:#0e2b38;--rs-ink:#f2f6f6;--rs-muted:#a8c2c9;
+ --rs-line:rgba(242,246,246,0.1);--rs-line-strong:rgba(242,246,246,0.38);
+ --rs-gold:#f6c254;--rs-gold-hover:#f9d686;--rs-on-gold:#1d1404;--rs-gold-soft:rgba(246,194,84,0.12);
+ --rs-focus:#f9d686;--rs-pattern:rgba(246,194,84,0.12);
+ --au-acc2:#eaa93a;--au-g1:20,140,170;--au-g2:250,190,80;--au-g3:10,90,130;--au-acc-rgb:246,194,84;
+ --brand-glass:rgba(8,31,42,0.86);
+}
+:root[data-mode="dark"][data-atmosfera="autunno"]{
+ --rs-bg:#17110e;--rs-bg-2:#221915;--rs-ink:#f6ede4;--rs-muted:#c0af9f;
+ --rs-line:rgba(246,237,228,0.1);--rs-line-strong:rgba(246,237,228,0.38);
+ --rs-gold:#ec8a52;--rs-gold-hover:#f4a57a;--rs-on-gold:#1b0c05;--rs-gold-soft:rgba(236,138,82,0.12);
+ --rs-focus:#f4a57a;--rs-pattern:rgba(236,138,82,0.12);
+ --au-acc2:#dc6f3a;--au-g1:170,80,40;--au-g2:230,150,60;--au-g3:110,60,40;--au-acc-rgb:236,138,82;
+ --brand-glass:rgba(23,17,14,0.86);
+}
+/* fondo: colore pieno su <html>, luci fisse + luci in movimento dietro ai contenuti */
+:root[data-mode="dark"][data-mode]{background:
+ radial-gradient(1100px 620px at 8% -6%,rgba(var(--au-g1),.30),transparent 62%),
+ radial-gradient(900px 600px at 102% 8%,rgba(var(--au-g2),.15),transparent 60%),
+ radial-gradient(1200px 800px at 50% 115%,rgba(var(--au-g3),.26),transparent 60%),
+ var(--rs-bg) fixed!important}
+:root[data-mode="dark"][data-mode][data-mode] body{background:transparent!important}
+:root[data-mode="dark"][data-mode][data-mode] body::after{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;
+ background:radial-gradient(38% 32% at 30% 35%,rgba(var(--au-g1),.22),transparent 70%),
+ radial-gradient(30% 28% at 72% 62%,rgba(var(--au-g2),.14),transparent 70%);
+ filter:blur(30px);animation:au-deriva 38s ease-in-out infinite alternate;will-change:transform}
+@keyframes au-deriva{0%{transform:translate3d(-4%,-2%,0) scale(1)}50%{transform:translate3d(3%,2%,0) scale(1.06)}100%{transform:translate3d(5%,-3%,0) scale(1.02)}}
+:root[data-mode="dark"][data-mode][data-mode] body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.055;mix-blend-mode:overlay;
  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 :root[data-mode="dark"][data-mode][data-mode] :is(.page,.page .sec,.page section,main,.ingly-photographic-lab){background-color:transparent!important;background-image:none!important}
 /* intestazione e barra in vetro */
-:root[data-mode="dark"][data-mode][data-mode] header#nav.nav{background:rgba(9,24,28,.62)!important;backdrop-filter:blur(18px) saturate(1.5)!important;-webkit-backdrop-filter:blur(18px) saturate(1.5)!important;border-bottom:1px solid var(--au-line)!important}
-:root[data-mode="dark"][data-mode][data-mode] .topbar{background:rgba(4,14,16,.72)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important}
-/* pulsanti */
-:root[data-mode="dark"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta){border-radius:12px!important;border:0!important;
- background:linear-gradient(180deg,#f3bb78,#e29a4c)!important;color:var(--rs-on-gold)!important;
- box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 10px 28px -8px var(--au-glow)!important;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important}
-:root[data-mode="dark"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost){border-radius:12px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+:root[data-mode="dark"][data-mode][data-mode] header#nav.nav{background:rgba(8,20,24,.55)!important;background:color-mix(in srgb,var(--rs-bg) 58%,transparent)!important;
+ backdrop-filter:blur(20px) saturate(1.6)!important;-webkit-backdrop-filter:blur(20px) saturate(1.6)!important;
+ border-bottom:1px solid var(--au-line)!important;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 10px 30px -20px rgba(0,0,0,.6)!important}
+:root[data-mode="dark"][data-mode][data-mode] .topbar{background:color-mix(in srgb,var(--rs-bg) 70%,black)!important;backdrop-filter:blur(10px)!important;-webkit-backdrop-filter:blur(10px)!important}
+/* pulsanti: ambra (o colore di stagione) con riflesso che scorre al passaggio */
+:root[data-mode="dark"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta){border-radius:12px!important;border:0!important;color:var(--rs-on-gold)!important;
+ background:linear-gradient(110deg,var(--rs-gold) 0%,var(--au-acc2) 42%,var(--rs-gold-hover) 50%,var(--au-acc2) 58%,var(--rs-gold) 100%)!important;background-size:260% 100%!important;background-position:100% 0!important;
+ box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 10px 28px -8px rgba(var(--au-acc-rgb),.42)!important;
+ transition:background-position .7s ease,transform .2s ease,box-shadow .25s ease!important}
+:root[data-mode="dark"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost){border-radius:12px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 @media (hover:hover) and (pointer:fine){
- :root[data-mode="dark"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta):hover{transform:translateY(-1px)!important;filter:brightness(1.05);
-  box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 16px 36px -8px rgba(234,169,92,.45)!important}
- :root[data-mode="dark"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost):hover{background:var(--au-glass-2)!important;color:var(--rs-ink)!important;border-color:rgba(234,169,92,.45)!important}
+ :root[data-mode="dark"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta):hover{background-position:0 0!important;transform:translateY(-1px)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 16px 38px -8px rgba(var(--au-acc-rgb),.55)!important}
+ :root[data-mode="dark"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost):hover{background:var(--au-glass-2)!important;color:var(--rs-ink)!important;border-color:rgba(var(--au-acc-rgb),.5)!important}
 }
-/* schede prodotto in vetro */
-:root[data-mode="dark"][data-mode][data-mode] .pcard{border-radius:var(--au-r-card)!important;overflow:hidden;
- background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025))!important;border:1px solid var(--au-line)!important;
- box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 18px 40px -24px rgba(0,0,0,.7)!important;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important}
+/* vetro con bordo di luce: schede prodotto, schede macchina, pannelli */
+:root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card,.rcard,.ingly-m2-variant,.demo-mac),
+:root[data-mode="dark"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo{position:relative;overflow:hidden;
+ border:1px solid transparent!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.025)) padding-box,var(--au-edge) border-box!important;
+ -webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);
+ box-shadow:0 1px 0 rgba(255,255,255,.10) inset,0 22px 48px -26px rgba(0,0,0,.75)!important;
+ transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease!important}
+:root[data-mode="dark"][data-mode][data-mode] .pcard{border-radius:var(--au-r-card)!important}
+:root[data-mode="dark"][data-mode][data-mode] :is(.rs3d,.ingly-machine-photo,.machine-explore-card,.rcard,.demo-mac,.machine-compare-wrap,.ingly-m2-variant),
+:root[data-mode="dark"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo{border-radius:20px!important}
+/* luce che segue il puntatore (coordinate --mx/--my da main.js) */
+:root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card)::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;
+ background:radial-gradient(280px circle at var(--mx,50%) var(--my,0%),rgba(var(--au-acc-rgb),.16),transparent 62%);opacity:0;transition:opacity .35s ease}
 @media (hover:hover) and (pointer:fine){
- :root[data-mode="dark"][data-mode][data-mode] .pcard:hover{transform:translateY(-6px)!important;border-color:rgba(234,169,92,.45)!important;
-  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 28px 60px -22px rgba(0,0,0,.8),0 0 0 1px rgba(234,169,92,.15),0 0 40px -6px rgba(234,169,92,.25)!important}
+ :root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card):hover{transform:translateY(-6px)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 30px 60px -24px rgba(0,0,0,.85),0 0 46px -10px rgba(var(--au-acc-rgb),.32)!important}
+ :root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card):hover::after{opacity:1}
 }
 /* campi, filtri e categorie */
-:root[data-mode="dark"][data-mode][data-mode] :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select){border-radius:var(--au-r)!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
-:root[data-mode="dark"][data-mode][data-mode] :is(input,textarea,select):focus{border-color:rgba(234,169,92,.7)!important;box-shadow:0 0 0 3px rgba(234,169,92,.18)!important}
+:root[data-mode="dark"][data-mode][data-mode] :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select){border-radius:var(--au-r)!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+:root[data-mode="dark"][data-mode][data-mode] :is(input,textarea,select):focus{border-color:rgba(var(--au-acc-rgb),.75)!important;box-shadow:0 0 0 3px rgba(var(--au-acc-rgb),.2)!important}
 :root[data-mode="dark"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip){border-radius:999px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
 :root[data-mode="dark"][data-mode][data-mode] #page-shop button.scp{border-radius:var(--au-r)!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
-:root[data-mode="dark"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip,button.scp):is(.on,[aria-pressed="true"]){background:rgba(234,169,92,.16)!important;border-color:rgba(234,169,92,.6)!important;color:var(--rs-ink)!important}
-/* pannelli e riquadri: angoli morbidi, vetro */
-:root[data-mode="dark"][data-mode][data-mode] :is(.rs3d,.ingly-machine-photo,.machine-explore-card,.rcard,.demo-mac,.machine-compare-wrap,.ingly-m2-variant){border-radius:20px!important;overflow:hidden}
-:root[data-mode="dark"][data-mode][data-mode] :is(.ingly-machine-photo,.machine-explore-card,.rcard,.ingly-m2-variant){background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))!important;border:1px solid var(--au-line)!important}
-/* titolo: la parola evidenziata in ambra sfumata */
-:root[data-mode="dark"][data-mode][data-mode] body .page :is(h1,.h1) :is(em,.hl,.engrave){background:linear-gradient(90deg,#f6c98f,#e8964a)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}
+:root[data-mode="dark"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip,button.scp):is(.on,[aria-pressed="true"]){background:rgba(var(--au-acc-rgb),.16)!important;border-color:rgba(var(--au-acc-rgb),.65)!important;color:var(--rs-ink)!important}
+:root[data-mode="dark"][data-mode][data-mode] #page-shop aside.filters{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015))!important;border:1px solid var(--au-line)!important;border-radius:20px!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+/* titolo: la parola evidenziata con la sfumatura del colore di stagione */
+:root[data-mode="dark"][data-mode][data-mode] body .page :is(h1,.h1) :is(em,.hl,.engrave){background:linear-gradient(90deg,var(--rs-gold-hover),var(--au-acc2))!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}
 @media (prefers-reduced-motion:reduce){
- :root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.btn){transition:none!important;transform:none!important}
+ :root[data-mode="dark"][data-mode][data-mode] body::after{animation:none!important}
+ :root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.btn,.ingly-machine-photo,.machine-explore-card){transition:none!important;transform:none!important}
 }
-:root[data-mode="dark"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo{border-radius:20px!important;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))!important;border:1px solid var(--au-line)!important}
-@media (hover:hover) and (pointer:fine){:root[data-mode="dark"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo:hover{border-color:rgba(234,169,92,.45)!important;box-shadow:0 0 40px -8px rgba(234,169,92,.25)!important}}

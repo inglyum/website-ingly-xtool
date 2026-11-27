@@ -1043,3 +1043,22 @@
  :root[data-mode="dark"][data-mode][data-mode] body::after{animation:none!important}
  :root[data-mode="dark"][data-mode][data-mode] :is(.pcard,.btn,.ingly-machine-photo,.machine-explore-card){transition:none!important;transform:none!important}
 }
+
+/* ============================================================
+   EFFETTI PRO — sfondo vivo (WebGL) e titoli incisi dal laser
+   (assets/js/effetti-pro.js). Senza JS o WebGL resta tutto com'è sopra.
+   ============================================================ */
+#fxSfondo{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;display:block}
+:root.fx-sfondo[data-mode="dark"][data-mode][data-mode] body::after{display:none!important}
+/* titolo in attesa del laser: nascosto solo finché è fuori schermo */
+:root[data-mode] h2.lz-pronto{position:relative;--lz:0;--lzg:0;
+ clip-path:inset(-70% calc((1 - var(--lz)) * (100% + 44px) - 44px) -70% -4%);
+ text-shadow:0 0 calc(var(--lzg) * 22px) rgba(var(--au-acc-rgb,234,169,92),calc(var(--lzg) * .95)),0 0 calc(var(--lzg) * 4px) rgba(255,240,210,calc(var(--lzg) * .8))!important}
+/* il raggio: una linea calda verticale con scintilla, che corre col testo */
+:root[data-mode] h2.lz-pronto .lz-raggio{position:absolute;top:-22%;bottom:-22%;left:calc(var(--lz) * (100% + 44px) - 30px);width:3px;margin-left:-1px;pointer-events:none;
+ background:linear-gradient(180deg,transparent,#fff6e6 30%,#fff 50%,#fff6e6 70%,transparent);
+ box-shadow:0 0 10px 2px rgba(var(--au-acc-rgb,234,169,92),.9),0 0 22px 6px rgba(var(--au-acc-rgb,234,169,92),.4);
+ opacity:calc(1 - (var(--lz) * var(--lz) * var(--lz)))}
+:root[data-mode] h2.lz-pronto .lz-raggio::after{content:"";position:absolute;top:50%;left:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;
+ background:radial-gradient(circle,#fff 0,rgba(255,236,200,.9) 25%,rgba(var(--au-acc-rgb,234,169,92),.5) 50%,transparent 70%)}
+@media (prefers-reduced-motion:reduce){:root[data-mode] h2.lz-pronto{clip-path:none!important;text-shadow:none!important}:root[data-mode] .lz-raggio{display:none!important}}

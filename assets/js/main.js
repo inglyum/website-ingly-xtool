@@ -21,6 +21,7 @@ import * as DIGUI from './digitale-ui.js';
 import { initNavIA } from './nav-mega.js';
 import * as STATO from './stato-sito.js';
 import * as SFONDI from './sfondi.js';
+import { initEffettiPro } from './effetti-pro.js';
 import * as APPEARANCE from './appearance.js';
 import * as PREZZI from './prezzi.js';
 import * as STAT from './statistiche.js';
@@ -814,6 +815,7 @@ function safeRun(label, task){
 function renderAll(){
   const jobs=[
     ['accento tema',()=>prod.applyThemeAccent()],
+    ['effetti pro',()=>initEffettiPro()],
     ['promo',renderPromo],['sponsor',renderSponsors],['WhatsApp flottante',renderWaFab],
     ['media Chi siamo',renderAboutArt],['hero',()=>prod.renderHero()],['categorie',()=>prod.renderCats()],
     ['collezioni',()=>prod.renderColl()],['personalizzazione',()=>prod.renderPersonalizza()],

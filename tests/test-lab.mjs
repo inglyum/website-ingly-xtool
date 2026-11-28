@@ -215,7 +215,13 @@ console.log('\n=== ACADEMY ===');
 check('l\'Academy è accesa', LAB.academyAttiva(D));
 /* Vuota di proposito: un corso ha durata, programma e prezzo che decide chi
    lo eroga. Inventarli vuol dire pubblicare un\'offerta che non esiste. */
-check('nessun corso inventato', LAB.corsi(D).length === 0);
+/* 2026-11-28: il titolare chiede un corso per ogni macchina in laboratorio.
+   Restano vietati prezzi e durate inventati: li decide lui dall'Admin. */
+{ const inLab = new Set([...(D.MACCHINE.catalogo || []).filter(m => m.inOfficina && m.stato !== 'archiviato').map(m => m.id)]);
+  check('corsi solo per macchine che sono in laboratorio', LAB.corsi(D).every(c => !c.macchina || inLab.has(c.macchina)));
+  check('nessun prezzo inventato nei corsi', LAB.corsi(D).every(c => c.prezzo == null));
+  check('nessuna durata inventata nei corsi', LAB.corsi(D).every(c => /su misura|tailored/i.test(JSON.stringify(c.durata || ''))));
+}
 const conCorso = JSON.parse(JSON.stringify(D));
 conCorso.CORSI.corsi = [{ id: 'p3-base', n: { it: 'Corso P3' }, sommario: { it: 'x' },
   macchina: 'p3', tecnologia: 'co2', prezzo: 180, stato: 'pubblicato' },

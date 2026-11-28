@@ -3,7 +3,7 @@
 <head>
 <base href="../">
 <base href="./">
-<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
+<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;try{var at=localStorage.getItem("ingly_atmo");if(at&&/^[a-z]+$/.test(at)&&at!=="aurora")document.documentElement.setAttribute("data-atmosfera",at);}catch(e){}if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=3f6e7cb6c0">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=7cb950683e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -662,6 +662,90 @@ setTimeout(function(){
             <span class="ingly-machine-photo__arrow" aria-hidden="true">↗</span>
           </span>
         </a>
+      </div>
+
+      <!-- LAB INGLY: le macchine in laboratorio con demo, corsi e assistenza (richiesta del titolare, 2026-11-28) -->
+      <div class="ilab" id="lab">
+        <div class="ilab-testa">
+          <h3>Il laboratorio, macchina per macchina</h3>
+          <p>Le xTool che usiamo ogni giorno a Palermo: per ognuna puoi provarla gratis, seguire un corso pratico o chiedere assistenza. Seguiamo clienti in tutta la Sicilia e in Calabria, anche online.</p>
+        </div>
+        <ul class="ilab-servizi">
+          <li><b>Demo gratuita</b><span>La vedi lavorare su un tuo pezzo prima di scegliere.</span></li>
+          <li><b>Corsi pratici</b><span>Dall’installazione al primo pezzo da vendere, in laboratorio o online.</span></li>
+          <li><b>Test sui materiali</b><span>Proviamo i tuoi materiali e ti diamo le impostazioni.</span></li>
+          <li><b>Installazione</b><span>Messa in servizio della macchina nuova, hardware e software.</span></li>
+          <li><b>Manutenzione e riparazione</b><span>Per tenere la macchina al massimo, con ricambi originali xTool.</span></li>
+        </ul>
+        <ul class="ilab-macchine">
+          <li class="ilab-mac">
+            <img src="img/xtool-m2.webp" alt="xTool M2" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool M2</h4><p>Laser a diodo 10, 20 e 40 W, IR e stampa a colori</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/m2-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+          <li class="ilab-mac">
+            <img src="img/xtool-c1-prodotto.webp" alt="xTool C1 Color Cutter" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool C1 Color Cutter</h4><p>Stampa e taglio di adesivi ed etichette</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/c1-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+          <li class="ilab-mac">
+            <img src="img/xtool-x1-prodotto.webp" alt="xTool X1" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool X1</h4><p>Laser tutto-in-uno: CO₂ e altre sorgenti</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/x1-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+          <li class="ilab-mac">
+            <img src="img/xtool-p3.webp" alt="xTool P3" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool P3</h4><p>Taglio e incisione CO₂ in formato grande</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/p3-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+          <li class="ilab-mac">
+            <img src="img/xtool-f2.webp" alt="xTool F2" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool F2</h4><p>Incisione rapida su metallo e oggetti piccoli</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/f2-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+          <li class="ilab-mac">
+            <img src="img/xtool-o1-uv.webp" alt="xTool O1 Omni UV" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool O1 Omni UV</h4><p>Stampa UV a colori su oggetti</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/o1-uv-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+          <li class="ilab-mac">
+            <img src="img/xtool-wonderpress.webp" alt="xTool WonderPress" width="96" height="72" loading="lazy" decoding="async">
+            <div class="ilab-mac__testo"><h4>xTool WonderPress</h4><p>Pressa per trasferimenti su tessuto</p></div>
+            <div class="ilab-mac__azioni">
+              <a href="demo" data-nav="demo">Prova gratis</a>
+              <a href="academy/wonderpress-base">Corso</a>
+              <a href="assistenza-xtool-palermo/">Assistenza</a>
+            </div>
+          </li>
+        </ul>
+        <div class="ilab-host">
+          <div><h4>Host ufficiale xTool Squad</h4><p>Il nostro profilo di host è pubblicato sul sito di assistenza xTool: lì trovi i servizi che offriamo e le recensioni dei clienti, scritte sulla piattaforma ufficiale.</p></div>
+          <div class="ilab-host__azioni"><a class="btn btn-primary" href="xtool/">Tutto sul mondo xTool</a><a class="btn btn-ghost" href="https://support.xtool.com/demo-room/host-instruction?id=2528&amp;name=Giuseppe+Inglima" target="_blank" rel="noopener noreferrer">Profilo e recensioni su xTool</a></div>
+        </div>
       </div>
       <div class="ingly-photographic-lab__footer">
         <p data-sig-it="Fotografie ufficiali xTool. Il modello raffigurato non garantisce uno slot demo: ogni disponibilità va confermata." data-sig-en="Official xTool photographs. A pictured model does not guarantee a demo booking; availability must be confirmed.">Fotografie ufficiali xTool. Il modello raffigurato non garantisce uno slot demo: ogni disponibilità va confermata.</p>

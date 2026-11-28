@@ -1,0 +1,3 @@
+GSAP 3.15.1 (GreenSock / Webflow)
+Licenza: Standard "No Charge" License, uso commerciale gratuito: https://gsap.com/standard-license
+File copiati senza modifiche dal pacchetto npm "gsap" (dist/gsap.min.js).

@@ -15,6 +15,7 @@ import * as CM from './commerce.js';
 import {canAddUnits,reconcileStock,trackedStock,reservedUnits} from './stock-guards.js';
 import * as CL from './collezioni.js';
 import { statoCatalogo } from './catalogo-stato.js';
+import { applicaAtmosfera } from './atmosfere.js';
 const { MAT_ART, MATN, CATS, P, DIG, CONFIG } = window.INGLY;
 
 /* Con l'interruttore dei prezzi spento ogni cifra diventa «Prezzo su
@@ -67,6 +68,8 @@ export function activeTheme(){
 export function applyThemeAccent(){
   const t=activeTheme();
   const root=document.documentElement;
+  /* colori della modalità scura secondo la stagione (Admin → Temi → Atmosfera del sito) */
+  try { applicaAtmosfera(CONFIG, root); } catch (e) { console.error('[INGLY] atmosfera', e); }
   /* Il tema stagionale può cambiare artwork e decorazioni, mai l'identità.
      La palette principale resta INGLY: blu notte, blu luce, oro champagne.
      Questo evita che Halloween/Natale o una campagna cambino il colore di

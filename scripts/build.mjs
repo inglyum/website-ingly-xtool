@@ -8,6 +8,7 @@ execFileSync(process.execPath, ['scripts/css-bundle.mjs'], { stdio: 'inherit' })
 execFileSync(process.execPath, ['scripts/legal-pages.mjs'], { stdio: 'inherit' });
 /* e la pagina «Centro assistenza xTool a Palermo» */
 execFileSync(process.execPath, ['scripts/assistenza-xtool.mjs'], { stdio: 'inherit' });
+execFileSync(process.execPath, ['scripts/mondo-xtool.mjs'], { stdio: 'inherit' });
 import { cpSync, mkdirSync, rmSync, readdirSync, existsSync, readFileSync, writeFileSync } from 'fs';
 
 const J = f => JSON.parse(readFileSync('data/'+f+'.json','utf8'));

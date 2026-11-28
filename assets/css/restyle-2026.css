@@ -1106,3 +1106,38 @@
 .ilab-rec blockquote{margin:0;color:var(--rs-ink);line-height:1.55;font-size:.95rem}
 .ilab-rec figcaption{color:var(--rs-muted);font-size:.85rem}
 @media(max-width:980px){.ilab-recensioni{grid-template-columns:1fr}}
+
+/* ============================================================
+   PROFILO HOST (#host) — Giuseppe Inglima, host xTool Squad Pro Hub
+   ============================================================ */
+.ihost{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:center;
+ margin:0 0 clamp(26px,3.5vw,44px);padding:clamp(18px,2.6vw,30px);border:1px solid var(--rs-line);border-radius:24px}
+.ihost__foto{width:220px;height:auto;aspect-ratio:960/1006;object-fit:contain;display:block;background:none;
+ filter:drop-shadow(0 16px 22px rgba(0,0,0,.22))}
+.ihost__testo{display:grid;gap:8px;min-width:0}
+.ihost__badge{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.ihost__badge>span{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;border:1px solid var(--rs-line-strong);font-size:.82rem;font-weight:600;color:var(--rs-ink)}
+.ihost__pro{background:var(--rs-gold-soft);border-color:var(--rs-gold)!important}
+.ihost__stelle{display:inline-flex;gap:1px;color:#f5b301}
+.ihost h3{margin:2px 0 0;font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);line-height:1.1;color:var(--rs-ink)}
+.ihost__ruolo{margin:0;color:var(--rs-muted);font-weight:600}
+.ihost__voto{margin:0;color:var(--rs-muted)}
+.ihost__voto b{color:var(--rs-ink)}
+.ihost__voto .ilab-stelle{margin-right:6px}
+.ihost__bio{margin:4px 0 0;color:var(--rs-muted);line-height:1.65;max-width:68ch}
+.ihost__fatti{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0 4px}
+.ihost__fatti>div{padding:10px 12px;border:1px solid var(--rs-line);border-radius:12px}
+.ihost__fatti dt{font-size:.78rem;color:var(--rs-muted);margin:0}
+.ihost__fatti dd{margin:2px 0 0;font-weight:700;color:var(--rs-ink);font-size:.95rem}
+.ihost__azioni{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+:root[data-mode="dark"][data-mode][data-mode] .ihost{border:1px solid transparent!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)) padding-box,var(--au-edge) border-box!important;
+ -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+@media(max-width:980px){.ihost__fatti{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.ihost{grid-template-columns:1fr;text-align:left}.ihost__foto{width:168px;justify-self:center}}
+/* il sito azzera gli angoli di immagini ed etichette: il profilo li vuole tondi */
+/* la foto è già un badge scontornato (cerchio bianco e nero nell'immagine): niente ritagli né cornici */
+:root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__foto{border-radius:0!important;box-shadow:none!important;background:none!important;border:0!important}
+:root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__badge>span{border-radius:999px!important}
+:root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__fatti>div{border-radius:12px!important}
+:root[data-mode][data-mode] .ihost{border-radius:24px!important}

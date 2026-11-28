@@ -98,6 +98,9 @@ const schema = {
       hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Corsi xTool', itemListElement: corsi.map(c => ({ '@type': 'Offer', itemOffered: { '@type': 'Course', name: it(c.n), description: it(c.sommario), url: dom + '/academy/' + c.id, provider: { '@type': 'Organization', name: 'INGLY DESIGN', sameAs: dom } } })) },
       sameAs: [prenota, ...Object.values(cfg.social || {}).filter(u => /^https:\/\//.test(u) && !/wa\.me/.test(u))]
     },
+    { '@type': 'Person', '@id': url + '#giuseppe-inglima', name: 'Giuseppe Inglima', jobTitle: 'Host xTool Squad Pro Hub',
+      image: dom + '/img/giuseppe-inglima-host.webp', worksFor: { '@id': url + '#xtool-lab' },
+      knowsAbout: ['xTool', 'xTool Studio', 'incisione laser', 'taglio laser', 'stampa UV'], sameAs: [prenota] },
     { '@type': 'ItemList', name: 'Macchine xTool nel laboratorio INGLY DESIGN', itemListElement: inLab.map((m, i) => ({ '@type': 'ListItem', position: i + 1, name: it(m.n), url: dom + '/macchine/' + m.id })) },
     { '@type': 'FAQPage', mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
     { '@type': 'BreadcrumbList', itemListElement: [
@@ -141,6 +144,7 @@ export function genera() {
  .mx-wrap h1{margin:8px 0 14px;font-size:clamp(2.1rem,1.4rem + 3vw,3.6rem)!important;line-height:1.08}
  .mx-wrap h2{font-size:clamp(1.4rem,1rem + 1.3vw,2rem)!important;margin:56px 0 14px}
  .mx-wrap h3{margin:0 0 4px;font-size:1.1rem}
+ .mx-wrap .ihost h3{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem)!important;margin:2px 0 0}
  .mx-wrap a{color:inherit;text-underline-offset:3px}
  .mx-lead{font-size:18px;color:var(--rs-muted);max-width:66ch}
  .mx-cta{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 8px}
@@ -192,6 +196,28 @@ export function genera() {
   <a class="btn btn-ghost" href="${esc(waDemo)}" target="_blank" rel="noopener noreferrer">Scrivici su WhatsApp</a>
   <a class="btn btn-ghost" href="academy">Vedi i corsi</a>
  </div>
+
+ <h2>Il tuo host xTool a Palermo</h2>
+ <article class="ihost" id="host" aria-labelledby="ihostNome">
+  <img class="ihost__foto" src="img/giuseppe-inglima-host-480.webp" srcset="img/giuseppe-inglima-host-480.webp 480w, img/giuseppe-inglima-host.webp 960w" sizes="(max-width: 640px) 168px, 220px" width="480" height="503" alt="Giuseppe Inglima, host xTool Squad Pro Hub, INGLY DESIGN Palermo" decoding="async">
+  <div class="ihost__testo">
+   <p class="ihost__badge"><span>Host ufficiale xTool Squad</span><span class="ihost__pro">Pro Hub <span class="ihost__stelle" role="img" aria-label="2 stelle">${STELLA.repeat(2)}</span></span></p>
+   <h3 id="ihostNome">Giuseppe Inglima</h3>
+   <p class="ihost__ruolo">Fondatore di INGLY DESIGN · Palermo</p>
+   ${recensioni.length ? `<p class="ihost__voto">${stelle(Math.round(media))} <b>${voto(media)} su 5</b> · <a href="xtool/#recensioni">${recensioni.length} recensioni</a> sul profilo host xTool</p>` : ''}
+   <p class="ihost__bio">Lavoro ogni giorno con le macchine xTool nel laboratorio INGLY DESIGN: le uso per produrre, le faccio provare in demo gratuita e insegno a usarle, dal primo avvio al primo pezzo da vendere. Seguo clienti in Sicilia e in Calabria, anche online.</p>
+   <dl class="ihost__fatti">
+    <div><dt>Macchine in laboratorio</dt><dd>${inLab.length} xTool</dd></div>
+    <div><dt>Demo</dt><dd>Gratuite, dal vivo o online</dd></div>
+    <div><dt>Corsi</dt><dd>Uno per ogni macchina</dd></div>
+    <div><dt>Zone</dt><dd>Sicilia e Calabria</dd></div>
+   </dl>
+   <div class="ihost__azioni">
+    <a class="btn btn-primary" href="${esc(prenota)}" target="_blank" rel="noopener noreferrer">Prenota una demo con me</a>
+    <a class="btn btn-ghost" href="${esc(waDemo)}" target="_blank" rel="noopener noreferrer">Scrivimi su WhatsApp</a>
+   </div>
+  </div>
+ </article>
 
  <h2>Le macchine xTool nel nostro laboratorio</h2>
  <p>Le stesse che usiamo per produrre: per ognuna trovi la scheda, la demo gratuita, il corso e l’assistenza.</p>

@@ -21,5 +21,5 @@ assert.ok(brand.includes('intentionally empty of visuals'),'Brand CSS protects t
 assert.ok(css.includes('--ingly-continuous'),'Continuous surface retained');
 assert.ok(doc.querySelector('script[src="assets/js/ingly-generator-draft.js"]'),'Generator features retained');
 const home=html.slice(html.indexOf('id="page-home"'),html.indexOf('<!-- SHOP -->'));
-assert.ok(home.indexOf('id="gal1"')<home.indexOf('class="ingly-photographic-lab"'),'INGLY first, xTool second');
+assert.ok(home.indexOf('id="atelierConfig"')<home.indexOf('class="ingly-photographic-lab"'),'INGLY personalization first, xTool second (scelta del titolare 2026-11-28)');
 console.log('✔ Home: no 3D, no visual placeholder, premium copy and CTA preserved');

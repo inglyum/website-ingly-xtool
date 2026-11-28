@@ -49,6 +49,13 @@ const citate = [...home.matchAll(/<figure class="ilab-rec">[^]*?<blockquote>([^<
 t('in home solo recensioni presenti nei dati', citate.length > 0 && citate.every(q => rec.some(r => r.testo.replace(/&/g, '&amp;') === q)));
 t('modelli fuori produzione esclusi', !/macchine\/(m1|m1-ultra|f1|p2)"/.test(h));
 
+console.log('\n=== PROFILO HOST ===');
+const homeH = readFileSync('index.html', 'utf8');
+t('foto dell\'host presente in due misure', existsSync('img/giuseppe-inglima-host-480.webp') && existsSync('img/giuseppe-inglima-host.webp'));
+t('profilo in home e nella pagina Mondo xTool', /id="host"[^]*Giuseppe Inglima/.test(homeH) && /id="host"[^]*Giuseppe Inglima/.test(h));
+t('Google: la persona collegata all\'attività', /"@type":"Person"[^]*"name":"Giuseppe Inglima"[^]*"worksFor"/.test(h));
+t('nel profilo il numero di recensioni corrisponde ai dati', new RegExp('id="host"[^]*?' + rec.length + ' recensioni').test(homeH));
+
 console.log('\n=== COLLEGAMENTI INTERNI ===');
 t('dalla home (blocco Lab)', /href="xtool\/"/.test(readFileSync('index.html', 'utf8')));
 t('dalla pagina assistenza', /href="xtool\/"/.test(readFileSync('assistenza-xtool-palermo/index.html', 'utf8')));

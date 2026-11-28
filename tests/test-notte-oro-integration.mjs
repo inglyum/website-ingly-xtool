@@ -22,7 +22,7 @@ assert(ui.includes('preview.textContent'),'Never inject untrusted names as inner
 assert(ui.includes('window.INGLY?.MACCHINE?.macchine'),'Capabilities must come from the actual catalog');
 assert(!ui.includes('innerHTML = name.value'),'Prevent HTML injection in preview');
 assert(html.includes('href="personalizza" data-nav="personalizza"'),'Actual personalization link');
-assert(config.slogan.it.includes('idee'),'Hero copy must remain catalog-backed');
+assert(config.slogan.it.includes('creazione'),'Hero copy must remain catalog-backed (slogan dal pannello)');
 assert(!html.includes('<div class="socials" id="soc1">'),'Socials must not crowd the announcement bar');
 assert(!html.includes('class="hero-image-note"'),'No large demo caption below hero image');
 console.log('Notte & Oro phases 1–8 structural integration: PASS');

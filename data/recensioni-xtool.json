@@ -1,0 +1,21 @@
+{
+  "_nota": "Recensioni dei clienti sul profilo host ufficiale di Giuseppe Inglima (INGLY DESIGN) nella Demo Room di xTool Support. Copiate parola per parola dagli screenshot del titolare del 28/11/2026, ore 09:23. Nome ridotto a nome + iniziale per riservatezza. Data: il profilo mostra solo tempi relativi («1 mese fa»): qui il mese corrispondente. Due testi sono tagliati nello screenshot e finiscono con «…». Non sono recensioni di prodotti del negozio: non vanno nei dati strutturati Review/AggregateRating (sarebbero autoreferenziali).",
+  "fonte": {
+    "nome": "Profilo host xTool Squad su xTool Support",
+    "url": "https://support.xtool.com/demo-room/host-instruction?id=2528&name=Giuseppe+Inglima",
+    "lettoIl": "2026-11-28"
+  },
+  "recensioni": [
+    { "nome": "Vincenzo P.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-11", "testo": "Esperienza top con Giuseppe per l'acquisto della mia X TL. Mi ha seguito passo passo, mi ha spiegato ogni cosa all'istante, senza fretta e senza farmi sentire domande stupide. Tutto trasparente, tutto…", "evidenza": true },
+    { "nome": "Mariano C.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-11", "testo": "Persona davvero competente, sa come consigliarti su cosa fare in base alle tue esigenze ed è molto cordiale e cordiale" },
+    { "nome": "Antonio Giovanni M.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-11", "testo": "Molto gentile e disponibile a mostrarmi tutte le funzionalità dell'Xtool, ero titubante ma grazie a lui ho subito deciso che era il prodotto giusto per me!", "evidenza": true },
+    { "nome": "Alessio P.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-11", "testo": "Servizio impeccabile esperienza da consigliare a tutti delucidazioni e demo prodotto interessante" },
+    { "nome": "Luigi", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-11", "testo": "Host molto preparato e disponibile. Tutti i dubbi e le richieste sono stati affrontati con professionalità. Complimenti!" },
+    { "nome": "Luca", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-11", "testo": "Ottima esperienza nell'acquisto della mia stampante xTool O1 Dual UV! Giuseppe era competente, gentile e professionale. Lo raccomando vivamente per il suo eccellente supporto e la guida esperta sui prodotti!", "evidenza": true },
+    { "nome": "Alessandro V.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-10", "testo": "Persona molto preparata, disponibile e professionale. Mi ha spiegato il funzionamento della UV in maniera eccellente, con grande chiarezza, pazienza e competenza, rispondendo a tutte le mie domande" },
+    { "nome": "Cliente anonimo", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-10", "testo": "Ragazzo veramente competente e di grandi ambizioni,di offre una grandissima personalità e non solo un ragazzo che merita molto ,e soprattutto molto professionale grazie mille ancora per averci accolto" },
+    { "nome": "Cliente xTool", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-10", "testo": "Puntuale, preciso e cortese. Persona eccezionale che chiarisce i dubbi con passione e metodo efficace. Consiglio" },
+    { "nome": "Giovanni T.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-10", "testo": "Ragazzo molto appassionato, competente, serio e disponibile. Ha saputo chiarire tutti i dubbi sulla macchina e sulle eventuali lavorazioni in maniera chiara ed esaustiva. Super consigliato" },
+    { "nome": "Alessio P.", "voto": 5, "servizio": "Demo del prodotto", "mese": "2026-08", "testo": "Tutto OK ha soddisfatto tutte le mie aspettative e risposto alle mie domande. Ho testato vari materiali e fatto parecchie prove per vedere la resa soprattutto su un colore di legno problematico." }
+  ]
+}

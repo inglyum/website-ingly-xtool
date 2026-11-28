@@ -33,7 +33,20 @@ t('ogni macchina in laboratorio con scheda e demo', inLab.every(m => h.includes(
 t('ogni corso collegato', corsi.every(c => h.includes('href="academy/' + c.id + '"')));
 t('collegamento all\'assistenza e alla prenotazione demo xTool', h.includes('href="assistenza-xtool-palermo/"') && /support\.xtool\.com\/demo-room\/host-instruction\?id=2528/.test(h));
 t('niente prezzi né sconti inventati', !/€\s*\d|sconto|scontat/i.test(h.replace(/<script[^]*?<\/script>/g, '')));
-t('nessuna recensione scritta da noi: si rimanda al profilo ufficiale', !/"@type":"Review"|aggregateRating/.test(h));
+t('niente dati strutturati Review/AggregateRating (recensioni autoreferenziali)', !/"@type":"Review"|aggregateRating/i.test(h));
+
+console.log('\n=== RECENSIONI VERE (profilo host xTool, 28/11/2026) ===');
+const REC = J('data/recensioni-xtool.json');
+const rec = REC.recensioni || [];
+const escH = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+t('fonte dichiarata: profilo host ufficiale', /support\.xtool\.com\/demo-room\/host-instruction\?id=2528/.test(REC.fonte && REC.fonte.url || ''));
+t('ogni recensione con nome, voto 1–5, testo e mese', rec.length > 0 && rec.every(r => r.nome && r.testo && r.voto >= 1 && r.voto <= 5 && /^\d{4}-\d{2}$/.test(r.mese)));
+t('nomi ridotti: mai un cognome intero', rec.every(r => !/^[A-Za-zÀ-ÿ]+ [A-Za-zÀ-ÿ]{2,}$/.test(r.nome) || /^Cliente /.test(r.nome)));
+t('tutte nella pagina Mondo xTool, testo identico', rec.every(r => h.includes(escH(r.testo))));
+t('il numero e la media scritti corrispondono ai dati', h.includes(rec.length + ' recensioni') && h.includes((rec.reduce((a, r) => a + r.voto, 0) / rec.length).toFixed(1).replace('.', ',') + ' su 5'));
+const home = readFileSync('index.html', 'utf8');
+const citate = [...home.matchAll(/<figure class="ilab-rec">[^]*?<blockquote>([^<]*)<\/blockquote>/g)].map(m => m[1]);
+t('in home solo recensioni presenti nei dati', citate.length > 0 && citate.every(q => rec.some(r => r.testo.replace(/&/g, '&amp;') === q)));
 t('modelli fuori produzione esclusi', !/macchine\/(m1|m1-ultra|f1|p2)"/.test(h));
 
 console.log('\n=== COLLEGAMENTI INTERNI ===');

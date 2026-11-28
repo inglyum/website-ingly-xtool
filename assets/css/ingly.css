@@ -11391,3 +11391,126 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 :root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__badge>span{border-radius:999px!important}
 :root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__fatti>div{border-radius:12px!important}
 :root[data-mode][data-mode] .ihost{border-radius:24px!important}
+
+/* ============================================================
+   GIORNO — il tema chiaro è la base (scelta del titolare, 2026-11-28)
+   e ha gli stessi effetti della notte: luci di stagione sul fondo,
+   vetro con bordo di luce, pulsanti con riflesso, luce che segue il
+   puntatore. Testi e oro restano quelli del tema chiaro (contrasti AA).
+   ============================================================ */
+:root[data-mode="light"]{
+ --au-acc2:#9c6a26;--au-g1:58,150,150;--au-g2:226,150,72;--au-g3:120,170,190;--au-acc-rgb:166,110,40;
+ --au-glass:rgba(255,255,255,.58);--au-glass-2:rgba(255,255,255,.82);--au-line:rgba(26,20,14,.11);
+ --au-r:14px;--au-r-card:20px;
+ --au-edge:linear-gradient(150deg,rgba(255,255,255,.98),rgba(255,255,255,.4) 40%,rgba(26,20,14,.07) 64%,rgba(var(--au-acc-rgb),.38));
+}
+:root[data-mode="light"][data-atmosfera="natale"]{--au-g1:30,130,80;--au-g2:200,52,52;--au-g3:230,180,90}
+:root[data-mode="light"][data-atmosfera="inverno"]{--au-g1:70,130,210;--au-g2:150,200,255;--au-g3:40,70,140}
+:root[data-mode="light"][data-atmosfera="sanvalentino"]{--au-g1:170,80,190;--au-g2:255,110,130;--au-g3:200,70,110}
+:root[data-mode="light"][data-atmosfera="primavera"]{--au-g1:60,150,110;--au-g2:240,150,180;--au-g3:150,200,120}
+:root[data-mode="light"][data-atmosfera="estate"]{--au-g1:20,140,170;--au-g2:250,190,80;--au-g3:10,90,130}
+:root[data-mode="light"][data-atmosfera="autunno"]{--au-g1:170,80,40;--au-g2:230,150,60;--au-g3:110,60,40}
+:root[data-mode="light"][data-mode]{background:
+ radial-gradient(1100px 620px at 8% -6%,rgba(var(--au-g1),.16),transparent 62%),
+ radial-gradient(900px 600px at 102% 8%,rgba(var(--au-g2),.15),transparent 60%),
+ radial-gradient(1200px 800px at 50% 115%,rgba(var(--au-g3),.14),transparent 60%),
+ var(--rs-bg) fixed!important}
+:root[data-mode="light"][data-mode][data-mode] body{background:transparent!important}
+:root[data-mode="light"][data-mode][data-mode] body::after{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;
+ background:radial-gradient(38% 32% at 30% 35%,rgba(var(--au-g1),.13),transparent 70%),
+ radial-gradient(30% 28% at 72% 62%,rgba(var(--au-g2),.12),transparent 70%);
+ filter:blur(30px);animation:au-deriva 38s ease-in-out infinite alternate;will-change:transform}
+:root[data-mode="light"][data-mode][data-mode] :is(.page,.page .sec,.page section,main,.ingly-photographic-lab){background-color:transparent!important;background-image:none!important}
+:root[data-mode="light"][data-mode][data-mode] header#nav.nav{background:rgba(247,242,234,.62)!important;background:color-mix(in srgb,var(--rs-bg) 64%,transparent)!important;
+ backdrop-filter:blur(20px) saturate(1.6)!important;-webkit-backdrop-filter:blur(20px) saturate(1.6)!important;
+ border-bottom:1px solid var(--au-line)!important;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 10px 30px -22px rgba(60,40,20,.35)!important}
+:root[data-mode="light"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta){border-radius:12px!important;border:0!important;color:#fff!important;
+ background:linear-gradient(110deg,var(--rs-gold) 0%,var(--au-acc2) 42%,#7a4e14 50%,var(--au-acc2) 58%,var(--rs-gold) 100%)!important;background-size:260% 100%!important;background-position:100% 0!important;
+ box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 10px 26px -10px rgba(var(--au-acc-rgb),.55)!important;
+ transition:background-position .7s ease,transform .2s ease,box-shadow .25s ease!important}
+:root[data-mode="light"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost){border-radius:12px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+@media (hover:hover) and (pointer:fine){
+ :root[data-mode="light"][data-mode][data-mode] :is(.btn.btn-primary,.btn.pri,.btn-blue,.atelier-nav-cta,.nav-cta):hover{background-position:0 0!important;transform:translateY(-1px)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 16px 34px -10px rgba(var(--au-acc-rgb),.6)!important}
+ :root[data-mode="light"][data-mode][data-mode] :is(.btn-ghost,.btn-secondary,.btn.btn-ghost):hover{background:var(--au-glass-2)!important;color:var(--rs-ink)!important;border-color:rgba(var(--au-acc-rgb),.5)!important}
+}
+:root[data-mode="light"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card,.rcard,.ingly-m2-variant,.demo-mac,.ihost),
+:root[data-mode="light"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo{position:relative;overflow:hidden;
+ border:1px solid transparent!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.52)) padding-box,var(--au-edge) border-box!important;
+ -webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);
+ box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 20px 44px -28px rgba(60,40,20,.45)!important;
+ transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease!important}
+:root[data-mode="light"][data-mode][data-mode] .pcard{border-radius:var(--au-r-card)!important}
+:root[data-mode="light"][data-mode][data-mode] :is(.rs3d,.ingly-machine-photo,.machine-explore-card,.rcard,.demo-mac,.machine-compare-wrap,.ingly-m2-variant),
+:root[data-mode="light"][data-mode][data-mode] #page-home .ingly-photographic-lab__grid>a.ingly-machine-photo{border-radius:20px!important}
+:root[data-mode="light"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card)::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;
+ background:radial-gradient(280px circle at var(--mx,50%) var(--my,0%),rgba(var(--au-acc-rgb),.14),transparent 62%);opacity:0;transition:opacity .35s ease}
+@media (hover:hover) and (pointer:fine){
+ :root[data-mode="light"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card):hover{transform:translateY(-6px)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 28px 56px -26px rgba(60,40,20,.55),0 0 40px -12px rgba(var(--au-acc-rgb),.35)!important}
+ :root[data-mode="light"][data-mode][data-mode] :is(.pcard,.ingly-machine-photo,.machine-explore-card):hover::after{opacity:1}
+}
+:root[data-mode="light"][data-mode][data-mode] :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select){border-radius:var(--au-r)!important;background:var(--au-glass-2)!important;border:1px solid var(--au-line)!important}
+:root[data-mode="light"][data-mode][data-mode] :is(input,textarea,select):focus{border-color:rgba(var(--au-acc-rgb),.75)!important;box-shadow:0 0 0 3px rgba(var(--au-acc-rgb),.18)!important}
+:root[data-mode="light"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip){border-radius:999px!important;background:var(--au-glass)!important;border:1px solid var(--au-line)!important}
+:root[data-mode="light"][data-mode][data-mode] #page-shop :is(button.scoll,button.chip,button.scp):is(.on,[aria-pressed="true"]){background:rgba(var(--au-acc-rgb),.14)!important;border-color:rgba(var(--au-acc-rgb),.6)!important;color:var(--rs-ink)!important}
+:root[data-mode="light"][data-mode][data-mode] body .page :is(h1,.h1) :is(em,.hl,.engrave){background:linear-gradient(90deg,#8a5a1e,#b0621c)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important}
+:root.fx-sfondo[data-mode="light"][data-mode][data-mode] body::after{display:none!important}
+@media (prefers-reduced-motion:reduce){
+ :root[data-mode="light"][data-mode][data-mode] body::after{animation:none!important}
+ :root[data-mode="light"][data-mode][data-mode] :is(.pcard,.btn,.ingly-machine-photo,.machine-explore-card){transition:none!important;transform:none!important}
+}
+
+/* ============================================================
+   HERO — mosaico di foto, firma del marchio, porte xTool
+   (assets/js/hero-mosaico.js; foto scelte in Admin → Temi e sfondi).
+   Le foto non si animano (regola 1): scorre piano il contenitore.
+   ============================================================ */
+:root[data-mode][data-mode] #page-home .signature-hero.rs3d{position:relative!important;overflow:hidden!important;overflow:clip!important;isolation:isolate!important}
+.hmosaico{position:absolute;inset:-22% -14%;z-index:-2;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:clamp(10px,1.2vw,18px);
+ transform:rotate(-8deg) scale(1.06);pointer-events:none;animation:hm-scorri 70s ease-in-out infinite alternate;will-change:transform}
+.hmosaico[hidden],.hmosaico[hidden]+.hmosaico-velo{display:none}
+.hmosaico__t{display:block;aspect-ratio:4/5;overflow:hidden;background:#fff}
+.hmosaico__t:nth-child(even){transform:translateY(-34%)}
+.hmosaico__t img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes hm-scorri{from{transform:rotate(-8deg) scale(1.06) translate3d(0,0,0)}to{transform:rotate(-8deg) scale(1.06) translate3d(-3%,-7%,0)}}
+.hmosaico-velo{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+ radial-gradient(75% 70% at 32% 42%,color-mix(in srgb,var(--rs-bg) 90%,transparent),color-mix(in srgb,var(--rs-bg) 64%,transparent) 72%),
+ linear-gradient(180deg,color-mix(in srgb,var(--rs-bg) 30%,transparent) 0%,color-mix(in srgb,var(--rs-bg) 55%,transparent) 70%,var(--rs-bg) 100%)}
+:root[data-mode="dark"] .hmosaico-velo{background:
+ radial-gradient(75% 70% at 32% 42%,color-mix(in srgb,var(--rs-bg) 86%,transparent),color-mix(in srgb,var(--rs-bg) 66%,transparent) 72%),
+ linear-gradient(180deg,color-mix(in srgb,var(--rs-bg) 30%,transparent) 0%,color-mix(in srgb,var(--rs-bg) 55%,transparent) 70%,var(--rs-bg) 100%)}
+:root[data-mode][data-mode] #page-home .hmosaico .hmosaico__t{border-radius:22px!important;box-shadow:0 14px 34px -20px rgba(0,0,0,.55)!important}
+@media(max-width:980px){.hmosaico{grid-template-columns:repeat(6,minmax(0,1fr))}}@media(max-width:640px){.hmosaico{grid-template-columns:repeat(5,minmax(0,1fr));inset:-10% -30%}}
+@media (prefers-reduced-motion:reduce){.hmosaico{animation:none}}
+
+.hero-firma{display:flex;align-items:center;flex-wrap:wrap;gap:12px 14px;margin:0 0 20px}
+.hero-firma__logo{width:68px;height:68px;display:block;background:#fff}
+.hero-firma__x{font-size:1.5rem;line-height:1;color:var(--rs-muted);font-weight:300}
+.hero-firma__asc{display:block;line-height:0}
+.hero-firma__asc img{height:68px;width:auto;display:block}
+.hero-firma__host{display:inline-flex;align-items:center;gap:10px;text-align:left;padding:5px 16px 5px 6px;border:1px solid var(--au-line,var(--rs-line));background:var(--au-glass,transparent);
+ -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);text-decoration:none;color:var(--rs-ink)}
+.hero-firma__host img{width:48px;height:auto;display:block}
+.hero-firma__host b{display:block;font-size:.95rem;line-height:1.15;color:var(--rs-ink)}
+.hero-firma__host small{display:block;font-size:.8rem;color:var(--rs-muted);line-height:1.3}
+.hero-firma__host i{font-style:normal;color:#e0a000;letter-spacing:1px}
+:root[data-mode][data-mode] #page-home .hero-firma .hero-firma__logo{border-radius:50%!important;box-shadow:0 0 0 2px #fff,0 10px 24px -12px rgba(0,0,0,.5)!important}
+:root[data-mode][data-mode] #page-home .hero-firma .hero-firma__host{border-radius:999px!important}
+:root[data-mode][data-mode] #page-home .hero-firma .hero-firma__host img{border-radius:0!important;box-shadow:none!important}
+.hero-xtool{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.hero-xtool a{display:inline-flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;padding:10px 14px;border:1px solid var(--au-line,var(--rs-line));background:var(--au-glass,transparent);
+ -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--rs-ink);text-decoration:none;font-size:.92rem;transition:border-color .2s ease,background .2s ease}
+.hero-xtool b{color:var(--rs-gold)}
+.hero-xtool a:hover{border-color:rgba(var(--au-acc-rgb,166,110,40),.6);background:var(--au-glass-2,transparent)}
+:root[data-mode][data-mode] #page-home .hero-xtool a{border-radius:12px!important}
+@media(max-width:640px){.hero-firma__logo,.hero-firma__asc img{width:auto;height:54px}.hero-firma__logo{width:54px}.hero-firma__host{flex:1 1 100%;max-width:max-content}}
+/* firma (b) e porte xTool (x) nella griglia dell'hero: subito sopra e sotto al titolo */
+:root[data-mode][data-mode] #page-home .rs3d .hero-grid{grid-template-rows:1fr auto auto auto auto auto 1fr!important;
+ grid-template-areas:". s" "b s" "t s" "p s" "x s" "f s" ". s"!important}
+:root[data-mode][data-mode] #page-home .rs3d .hero-firma{grid-area:b}
+:root[data-mode][data-mode] #page-home .rs3d .hero-xtool{grid-area:x;margin:0 0 24px}
+@media (max-width:980px){
+ :root[data-mode][data-mode] #page-home .rs3d .hero-grid{grid-template-rows:auto!important;grid-template-areas:"b" "t" "p" "x" "s" "f"!important}
+}

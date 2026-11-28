@@ -936,6 +936,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <!-- ============ TEMI STAGIONALI ============ -->
   <section class="view" id="v-themes">
     <div class="card" id="atmoCard" aria-live="polite"><h3>🌗 Atmosfera del sito</h3><p class="hint">Caricamento…</p></div>
+    <div class="card" id="mosaicoCard" aria-live="polite"><h3>🧩 Mosaico foto della home</h3><p class="hint">Caricamento…</p></div>
     <div class="card vs-studio" id="vsStudio">
       <div class="vs-head">
         <div><div class="vs-eyebrow">INGLY DESIGN · Creative Control</div>
@@ -4997,7 +4998,36 @@ async function renderAtmosfera(){
  $('atmoAdd').onclick=()=>{A.calendario.push({id:'autunno',dal:'10-01',al:'11-30'});ridisegna()};
  $('atmoReset').onclick=()=>{A.calendario=base();ridisegna()};
 }
-function renderThemes(){const TH=S.C.THEMES,list=TH.temi;renderAtmosfera();bindAll();promoPreview();renderVisualStudio();
+/* ===== MOSAICO FOTO DELLA HOME =====
+   Le foto che scorrono velate dietro al titolo della home. Salvato in
+   CONFIG.heroMosaico = {attivo, foto:[img/…]}; il sito lo legge con
+   assets/js/hero-mosaico.js. Solo percorsi img/… già caricati dalla Media Library. */
+let MOSA=null;
+async function renderMosaico(){
+ const box=$('mosaicoCard');if(!box)return;
+ if(!MOSA){try{MOSA=await import('./assets/js/hero-mosaico.js')}catch(e){box.innerHTML='<h3>🧩 Mosaico foto della home</h3><p class="hint">Non disponibile: ricarica la pagina.</p>';return}}
+ const C=S.CONFIG;if(!C)return;
+ if(!C.heroMosaico||typeof C.heroMosaico!=='object')C.heroMosaico={attivo:true,foto:MOSA.MOSAICO_BASE.slice()};
+ const M=C.heroMosaico;if(!Array.isArray(M.foto))M.foto=MOSA.MOSAICO_BASE.slice();
+ const src=p=>{const st=MEDIA.find(m=>m.path===p);return st?st.url:(LOADED_FROM==='GitHub'?LIVE():'')+p};
+ const ok=p=>/^img\/[\w\-./]+\.(webp|jpe?g|png)$/i.test(p)&&!p.includes('..');
+ box.innerHTML='<h3>🧩 Mosaico foto della home</h3>'+
+  '<p class="hint">Le foto che si intravedono dietro al titolo della home, in tema chiaro e scuro. Usa solo foto tue (lavori, laboratorio, macchine xTool): niente personaggi o marchi di altri. Ne servono almeno 8; ne mostriamo fino a 32 ripetendole se sono meno.</p>'+
+  '<label style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="mosAttivo"'+(M.attivo!==false?' checked':'')+'> Mostra il mosaico</label>'+
+  '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin:10px 0">'+M.foto.map((p,i)=>'<figure style="margin:0;position:relative;border:1px solid var(--line,#333);border-radius:10px;overflow:hidden;background:#fff"><img src="'+esc(src(p))+'" alt="" loading="lazy" style="width:100%;aspect-ratio:4/5;object-fit:cover;display:block" onerror="this.style.opacity=.15"><figcaption style="font-size:11px;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis'+(ok(p)?'':';color:#e5484d')+'" title="'+esc(p)+'">'+esc(p.replace(/^img\//,''))+'</figcaption>'+
+   '<div style="position:absolute;top:4px;right:4px;display:flex;gap:3px"><button type="button" class="btn sm" data-mos-mv="'+i+',-1" aria-label="Sposta prima"'+(i===0?' disabled':'')+'>←</button><button type="button" class="btn sm" data-mos-mv="'+i+',1" aria-label="Sposta dopo"'+(i===M.foto.length-1?' disabled':'')+'>→</button><button type="button" class="btn sm" data-mos-del="'+i+'" aria-label="Togli dal mosaico">✕</button></div></figure>').join('')+'</div>'+
+  '<label for="mosNuova">Aggiungi una foto (percorso dalla Media Library, es. <code>img/port-1.webp</code>)</label>'+
+  '<div style="display:flex;gap:8px;flex-wrap:wrap"><input type="text" id="mosNuova" placeholder="img/…webp" autocomplete="off" style="flex:1 1 220px"><button type="button" class="btn sm" id="mosAdd">+ Aggiungi</button><button type="button" class="btn sm" id="mosMedia">🖼 Apri Media Library</button><button type="button" class="btn sm" id="mosReset">Ripristina selezione consigliata</button></div>'+
+  '<p class="hint" id="mosMsg" style="margin-top:8px">'+M.foto.length+' foto nel mosaico.'+(M.foto.length<8?' <b>Aggiungine almeno '+(8-M.foto.length)+'.</b>':'')+' Le modifiche diventano pubbliche quando pubblichi.</p>';
+ const ridisegna=()=>{markDirty();renderMosaico()};
+ $('mosAttivo').onchange=e=>{M.attivo=e.target.checked;ridisegna()};
+ box.querySelectorAll('[data-mos-del]').forEach(b=>{b.onclick=()=>{M.foto.splice(+b.dataset.mosDel,1);ridisegna()}});
+ box.querySelectorAll('[data-mos-mv]').forEach(b=>{b.onclick=()=>{const[i,d]=b.dataset.mosMv.split(',').map(Number);const j=i+d;if(j<0||j>=M.foto.length)return;[M.foto[i],M.foto[j]]=[M.foto[j],M.foto[i]];ridisegna()}});
+ $('mosAdd').onclick=()=>{const v=$('mosNuova').value.trim().replace(/^\/+/,'');if(!ok(v)){$('mosMsg').textContent='Percorso non valido: usa una foto della Media Library, es. img/port-1.webp';return}if(M.foto.includes(v)){$('mosMsg').textContent='Questa foto è già nel mosaico.';return}M.foto.push(v);ridisegna()};
+ $('mosMedia').onclick=()=>go('media');
+ $('mosReset').onclick=()=>{M.foto=MOSA.MOSAICO_BASE.slice();M.attivo=true;ridisegna()};
+}
+function renderThemes(){const TH=S.C.THEMES,list=TH.temi;renderAtmosfera();bindAll();renderMosaico();promoPreview();renderVisualStudio();
  const act=themeActive();
  $('thNow').textContent=act.t?act.t.n.it:'nessuno';
  $('thWhy').innerHTML=act.t?`In questo momento il sito userebbe <b>${esc(act.t.n.it)}</b> — ${esc(act.why)}.`

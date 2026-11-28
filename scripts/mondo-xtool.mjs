@@ -120,7 +120,7 @@ const carta = m => {
 
 export function genera() {
   return `<!DOCTYPE html>
-<html lang="it" data-mode="dark">
+<html lang="it" data-mode="light">
 <head>
 <base href="../">
 <meta charset="UTF-8">

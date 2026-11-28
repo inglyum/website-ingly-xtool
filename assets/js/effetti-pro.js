@@ -1,7 +1,7 @@
 /* EFFETTI PRO — «laboratorio laser di notte» (richiesta del titolare, 2026-11-27).
    Due cose sole, fatte bene (skill frontend-design: una sola idea memorabile):
 
-   1. SFONDO VIVO (solo modalità scura): un piccolo shader WebGL disegna luci
+   1. SFONDO VIVO (chiaro e scuro): un piccolo shader WebGL disegna luci
       che scorrono piano nei colori dell'atmosfera di stagione, più una luce
       calda che segue il mouse come una lampada sul banco. Mezza risoluzione,
       massimo 30 fotogrammi al secondo, fermo quando la scheda non è visibile.
@@ -21,7 +21,7 @@ const scuro = () => document.documentElement.dataset.mode === 'dark';
 /* ---------------- 1. sfondo vivo ---------------- */
 const VERT = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
 const FRAG = `precision mediump float;
-uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 c0,c1,c2,c3,ca;
+uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 c0,c1,c2,c3,ca;uniform float lm;
 float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
  return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
@@ -36,16 +36,25 @@ void main(){
  float band=smoothstep(.35,.95,a)*smoothstep(.05,.75,uv.y);
  float warm=smoothstep(.45,1.,b)*smoothstep(.2,1.,uv.x)*.85;
  float deep=smoothstep(.55,1.,1.-uv.y)*fbm(q*.9+tt)*.9;
- vec3 col=c0;
- col=mix(col,c1,band*.55);
- col=mix(col,c3,deep*.45);
- col+=c2*warm*.22;
- /* lampada: luce calda che segue il mouse */
  vec2 mm=m;mm.x*=r.x/r.y;float d=distance(q,mm);
- col+=ca*.16*exp(-d*d*7.);
- /* vignetta */
  float v=smoothstep(1.25,.25,distance(uv,vec2(.5,.55)));
- col*=mix(.72,1.,v);
+ vec3 col=c0;
+ if(lm>.5){
+  /* giorno: velature leggere sul fondo avorio, lampada appena dorata */
+  col=mix(col,c1,band*.17);
+  col=mix(col,c3,deep*.13);
+  col=mix(col,c2,warm*.14);
+  col=mix(col,ca,.10*exp(-d*d*7.));
+  col*=mix(.965,1.,v);
+ }else{
+  col=mix(col,c1,band*.55);
+  col=mix(col,c3,deep*.45);
+  col+=c2*warm*.22;
+  /* lampada: luce calda che segue il mouse */
+  col+=ca*.16*exp(-d*d*7.);
+  /* vignetta */
+  col*=mix(.72,1.,v);
+ }
  gl_FragColor=vec4(col,1.);
 }`;
 
@@ -65,7 +74,7 @@ function colori() {
 }
 
 function avviaSfondo() {
-  if (SF || riduci() || !scuro()) return;
+  if (SF || riduci()) return;
   const cv = document.createElement('canvas');
   cv.id = 'fxSfondo'; cv.setAttribute('aria-hidden', 'true');
   const gl = cv.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'low-power', preserveDrawingBuffer: false });
@@ -79,7 +88,7 @@ function avviaSfondo() {
   const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const U = {}; ['r', 't', 'm', 'c0', 'c1', 'c2', 'c3', 'ca'].forEach(k => { U[k] = gl.getUniformLocation(pr, k); });
+  const U = {}; ['r', 't', 'm', 'c0', 'c1', 'c2', 'c3', 'ca', 'lm'].forEach(k => { U[k] = gl.getUniformLocation(pr, k); });
   const tocco = matchMedia('(pointer:coarse)').matches;
   const scala = tocco ? .32 : .5, passo = 1000 / (tocco ? 20 : 30);
   const st = { cv, gl, U, raf: 0, ultimo: 0, t0: performance.now(), mx: .72, my: .7, tx: .72, ty: .7, col: colori() };
@@ -91,7 +100,7 @@ function avviaSfondo() {
     st.mx += (st.tx - st.mx) * .06; st.my += (st.ty - st.my) * .06;
     const c = st.col;
     gl.uniform2f(U.r, cv.width, cv.height); gl.uniform1f(U.t, (ora - st.t0) / 1000); gl.uniform2f(U.m, st.mx, st.my);
-    gl.uniform3fv(U.c0, c.c0); gl.uniform3fv(U.c1, c.c1); gl.uniform3fv(U.c2, c.c2); gl.uniform3fv(U.c3, c.c3); gl.uniform3fv(U.ca, c.ca);
+    gl.uniform3fv(U.c0, c.c0); gl.uniform3fv(U.c1, c.c1); gl.uniform3fv(U.c2, c.c2); gl.uniform3fv(U.c3, c.c3); gl.uniform3fv(U.ca, c.ca); gl.uniform1f(U.lm, scuro() ? 0 : 1);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   };
   st.muovi = e => { st.tx = e.clientX / innerWidth; st.ty = 1 - e.clientY / innerHeight; };
@@ -114,7 +123,7 @@ function fermaSfondo() {
 
 /* modalità o atmosfera cambiate: riaccendi, spegni o ricolora */
 function aggiornaSfondo() {
-  if (!scuro() || riduci()) { fermaSfondo(); return; }
+  if (riduci()) { fermaSfondo(); return; }
   if (!SF) avviaSfondo(); else SF.col = colori();
 }
 

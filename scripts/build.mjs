@@ -12,6 +12,17 @@ execFileSync(process.execPath, ['scripts/mondo-xtool.mjs'], { stdio: 'inherit' }
 import { cpSync, mkdirSync, rmSync, readdirSync, existsSync, readFileSync, writeFileSync } from 'fs';
 
 const J = f => JSON.parse(readFileSync('data/'+f+'.json','utf8'));
+
+/* mosaico di foto dell'hero: la copia nella pagina segue CONFIG.heroMosaico
+   (primo disegno veloce; nel browser lo ridisegna assets/js/hero-mosaico.js) */
+{
+  const { fotoMosaico, htmlMosaico } = await import('../assets/js/hero-mosaico.js');
+  const lista = fotoMosaico(J('config')), mv = J('content').MV || {};
+  const h = readFileSync('index.html', 'utf8');
+  const re = /<div class="hmosaico" id="heroMosaico"([^>]*)>[^]*?<\/div><div class="hmosaico-velo"/;
+  const nuovo = '<div class="hmosaico" id="heroMosaico" aria-hidden="true" data-firma="' + lista.join('|') + '"' + (lista.length ? '' : ' hidden') + '>' + htmlMosaico(lista.length ? lista : [], mv) + '</div><div class="hmosaico-velo"';
+  if (re.test(h)) { const out = h.replace(re, lista.length ? nuovo : nuovo.replace(/>[^]*<\/div><div class="hmosaico-velo"$/, '></div><div class="hmosaico-velo"')); if (out !== h) writeFileSync('index.html', out); }
+}
 const cfg=J('config'), D=J('texts'), SOC=J('social'), P=J('products'), CATS=J('categories'), C=J('content');
 /* Il Lab viaggia con la riserva: senza, su file:// o quando i JSON non si
    caricano le sezioni Materiali/Tecnologie/Macchine sparirebbero in silenzio

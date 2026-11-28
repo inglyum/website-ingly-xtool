@@ -446,12 +446,12 @@ if (plainTile) {
 console.log('\n=== MODALITÀ CHIARA ===');
 const modeBtn = doc.getElementById('modeBtn');
 check('interruttore tema presente', !!modeBtn);
-check('tema scuro attivo di partenza', doc.documentElement.getAttribute('data-mode') === 'dark');
+check('tema chiaro attivo di partenza', doc.documentElement.getAttribute('data-mode') === 'light');
 modeBtn.click(); await wait(80);
-check('passa al tema chiaro', doc.documentElement.getAttribute('data-mode') === 'light');
-check('la scelta viene ricordata', win.localStorage.getItem('ingly_mode') === 'light');
+check('passa al tema scuro', doc.documentElement.getAttribute('data-mode') === 'dark');
+check('la scelta viene ricordata', win.localStorage.getItem('ingly_mode') === 'dark');
 modeBtn.click(); await wait(80);
-check('torna al tema scuro', doc.documentElement.getAttribute('data-mode') === 'dark');
+check('torna al tema chiaro', doc.documentElement.getAttribute('data-mode') === 'light');
 // verifica reale sul CSS sorgente: il tema chiaro ridefinisce le variabili di colore
 const varsCss = readFileSync(ROOT + '/assets/css/variables.css', 'utf8');
 check('il tema chiaro ridefinisce le variabili colore', /\[data-mode="light"\][^}]*--ink:/.test(varsCss));

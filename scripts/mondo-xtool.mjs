@@ -199,7 +199,7 @@ export function genera() {
 
  <h2>Il tuo host xTool a Palermo</h2>
  <article class="ihost" id="host" aria-labelledby="ihostNome">
-  <img class="ihost__foto" src="img/giuseppe-inglima-host-480.webp" srcset="img/giuseppe-inglima-host-480.webp 480w, img/giuseppe-inglima-host.webp 960w" sizes="(max-width: 640px) 140px, 200px" width="480" height="480" alt="Giuseppe Inglima, host xTool Squad Pro Hub, INGLY DESIGN Palermo" decoding="async">
+  <img class="ihost__foto" src="img/giuseppe-inglima-host-480.webp" srcset="img/giuseppe-inglima-host-480.webp 480w, img/giuseppe-inglima-host.webp 960w" sizes="(max-width: 640px) 168px, 220px" width="480" height="503" alt="Giuseppe Inglima, host xTool Squad Pro Hub, INGLY DESIGN Palermo" decoding="async">
   <div class="ihost__testo">
    <p class="ihost__badge"><span>Host ufficiale xTool Squad</span><span class="ihost__pro">Pro Hub <span class="ihost__stelle" role="img" aria-label="2 stelle">${STELLA.repeat(2)}</span></span></p>
    <h3 id="ihostNome">Giuseppe Inglima</h3>

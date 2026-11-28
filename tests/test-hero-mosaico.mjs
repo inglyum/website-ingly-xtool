@@ -35,6 +35,8 @@ t('ridisegnato dai dati pubblicati dal pannello', /applicaMosaico\(CONFIG\)/.tes
 const adm = readFileSync('admin.html', 'utf8');
 t('Admin: card «Mosaico foto della home» con aggiungi, togli, ordina, ripristina', /id="mosaicoCard"/.test(adm) && /function renderMosaico/.test(adm) && /data-mos-del/.test(adm) && /data-mos-mv/.test(adm) && /mosReset/.test(adm) && /renderAtmosfera\(\);bindAll\(\);renderMosaico\(\);/.test(adm));
 
+t('Admin: card «Immagini del menu» (CONFIG.menuImmagini)', /id="menuImgCard"/.test(adm) && /async function renderMenuImg/.test(adm) && /data-menu-img/.test(adm) && /renderMosaico\(\);renderMenuImg\(\);/.test(adm));
+
 console.log('\n=== FIRMA E PORTE xTOOL ===');
 const hero = home.slice(home.indexOf('id="rs3d"'), home.indexOf('class="signature-benefits"'));
 t('logo INGLY, badge xTool Authorized Service Centre e foto dell\'host nell\'hero', /hero-firma__logo" src="assets\/images\/ingly-logo\.svg"/.test(hero) && /xtool-asc-trasparente/.test(hero) && /giuseppe-inglima-host-480\.webp/.test(hero) && /href="#host"/.test(hero));

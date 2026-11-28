@@ -23,7 +23,7 @@ const cats = JSON.parse(readFileSync('data/categories.json', 'utf8'));
 
 console.log('\n=== MENU GIUSTO DAL PRIMO ISTANTE ===');
 const barra = doc.getElementById('iaBarra');
-check('la barra a 5 voci è scritta nell\'HTML', barra && barra.hasAttribute('data-statica') && barra.querySelectorAll('a.ia-voce').length === 5);
+check('la barra a 6 voci è scritta nell\'HTML', barra && barra.hasAttribute('data-statica') && barra.querySelectorAll('a.ia-voce').length === 6);
 const voci = [...barra.querySelectorAll('a.ia-voce')].map(a => a.textContent.trim() + '→' + a.getAttribute('href'));
 const atteso = new JSDOM('<nav>' + barraHtml({ CATS: cats }, { L: 'it', base: '' }) + '</nav>').window.document;
 const voceAttese = [...atteso.querySelectorAll('a.ia-voce')].map(a => a.textContent.trim() + '→' + a.getAttribute('href').replace(/^\//, ''));

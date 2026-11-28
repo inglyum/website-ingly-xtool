@@ -937,6 +937,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 
   <section class="view" id="v-themes">
     <div class="card" id="atmoCard" aria-live="polite"><h3>🌗 Atmosfera del sito</h3><p class="hint">Caricamento…</p></div>
     <div class="card" id="mosaicoCard" aria-live="polite"><h3>🧩 Mosaico foto della home</h3><p class="hint">Caricamento…</p></div>
+    <div class="card" id="menuImgCard" aria-live="polite"><h3>🧭 Immagini del menu</h3><p class="hint">Caricamento…</p></div>
     <div class="card vs-studio" id="vsStudio">
       <div class="vs-head">
         <div><div class="vs-eyebrow">INGLY DESIGN · Creative Control</div>
@@ -4998,6 +4999,34 @@ async function renderAtmosfera(){
  $('atmoAdd').onclick=()=>{A.calendario.push({id:'autunno',dal:'10-01',al:'11-30'});ridisegna()};
  $('atmoReset').onclick=()=>{A.calendario=base();ridisegna()};
 }
+/* ===== IMMAGINI DEL MENU =====
+   Una foto per ogni voce del menu (cassetto del telefono e pannelli della
+   barra). Salvate in CONFIG.menuImmagini = {shop:"img/…", …}; il sito le
+   legge con assets/js/nav-ia.js (immagineMenu). Campo vuoto = foto di partenza. */
+let NAVIA=null;
+async function renderMenuImg(){
+ const box=$('menuImgCard');if(!box)return;
+ if(!NAVIA){try{NAVIA=await import('./assets/js/nav-ia.js')}catch(e){box.innerHTML='<h3>🧭 Immagini del menu</h3><p class="hint">Non disponibile: ricarica la pagina.</p>';return}}
+ const C=S.CONFIG;if(!C)return;
+ if(!C.menuImmagini||typeof C.menuImmagini!=='object')C.menuImmagini={};
+ const M=C.menuImmagini;
+ const src=p=>{const st=MEDIA.find(m=>m.path===p);return st?st.url:(LOADED_FROM==='GitHub'?LIVE():'')+p};
+ const ok=p=>/^img\/[\w\-./]+\.(webp|jpe?g|png)$/i.test(p)&&!p.includes('..');
+ box.innerHTML='<h3>🧭 Immagini del menu</h3>'+
+  '<p class="hint">La foto accanto a ogni voce del menu: nel cassetto del telefono e nei pannelli che si aprono dalla barra. Carica prima la foto nella Media Library, poi scrivi qui il percorso. Campo vuoto = foto di partenza. Meglio foto quadrate, tue o ufficiali xTool.</p>'+
+  '<div style="display:grid;gap:10px;margin-top:10px">'+NAVIA.FAMIGLIE.map(f=>{const v=M[f.id]||'';const eff=NAVIA.immagineMenu(f.id,{CONFIG:C});
+   return '<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;border:1px solid var(--line,#333);border-radius:12px;padding:8px">'+
+    '<img src="'+esc(src(eff))+'" alt="" loading="lazy" style="width:64px;height:64px;object-fit:cover;border-radius:12px;background:#fff" onerror="this.style.opacity=.15">'+
+    '<div style="flex:1 1 220px;min-width:0"><b>'+esc(f.n.it)+'</b> <span class="hint">· '+esc(f.claim.it)+'</span>'+
+    '<div style="display:flex;gap:6px;margin-top:6px"><input type="text" data-menu-img="'+esc(f.id)+'" value="'+esc(v)+'" placeholder="'+esc(NAVIA.IMMAGINI_MENU[f.id]||'img/…webp')+'" autocomplete="off" style="flex:1;min-width:0'+(v&&!ok(v)?';border-color:#e5484d':'')+'">'+
+    (v?'<button type="button" class="btn sm" data-menu-reset="'+esc(f.id)+'">Foto di partenza</button>':'')+'</div></div></div>'}).join('')+'</div>'+
+  '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button type="button" class="btn sm" id="menuImgMedia">🖼 Apri Media Library</button></div>'+
+  '<p class="hint" id="menuImgMsg" style="margin-top:8px">Le modifiche diventano pubbliche quando pubblichi.</p>';
+ box.querySelectorAll('[data-menu-img]').forEach(el=>{el.onchange=()=>{const v=el.value.trim().replace(/^\/+/,'');if(v&&!ok(v)){$('menuImgMsg').textContent='Percorso non valido: usa una foto della Media Library, es. img/port-1.webp';el.style.borderColor='#e5484d';return}
+  if(v)M[el.dataset.menuImg]=v;else delete M[el.dataset.menuImg];markDirty();renderMenuImg()}});
+ box.querySelectorAll('[data-menu-reset]').forEach(b=>{b.onclick=()=>{delete M[b.dataset.menuReset];markDirty();renderMenuImg()}});
+ $('menuImgMedia').onclick=()=>go('media');
+}
 /* ===== MOSAICO FOTO DELLA HOME =====
    Le foto che scorrono velate dietro al titolo della home. Salvato in
    CONFIG.heroMosaico = {attivo, foto:[img/…]}; il sito lo legge con
@@ -5027,7 +5056,7 @@ async function renderMosaico(){
  $('mosMedia').onclick=()=>go('media');
  $('mosReset').onclick=()=>{M.foto=MOSA.MOSAICO_BASE.slice();M.attivo=true;ridisegna()};
 }
-function renderThemes(){const TH=S.C.THEMES,list=TH.temi;renderAtmosfera();bindAll();renderMosaico();promoPreview();renderVisualStudio();
+function renderThemes(){const TH=S.C.THEMES,list=TH.temi;renderAtmosfera();bindAll();renderMosaico();renderMenuImg();promoPreview();renderVisualStudio();
  const act=themeActive();
  $('thNow').textContent=act.t?act.t.n.it:'nessuno';
  $('thWhy').innerHTML=act.t?`In questo momento il sito userebbe <b>${esc(act.t.n.it)}</b> — ${esc(act.why)}.`

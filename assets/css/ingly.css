@@ -11539,3 +11539,29 @@ a.xsquad:focus-visible{outline:2px solid #03d403;outline-offset:3px}
 .hero-firma__host small{margin-bottom:0}
 .hero-firma__host>span{display:flex;flex-direction:column;align-items:flex-start}
 :root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__badge a.xsquad{border-radius:8px!important;overflow:hidden!important}
+
+/* ============================================================
+   MENU CON IMMAGINI (cassetto mobile e pannelli) — 2026-11-28
+   Una foto per voce (Admin → Temi e sfondi → «Immagini del menu»),
+   nome grande e una frase che dice dove si va. Foto decorative,
+   nessuna animazione sulle immagini (regola 1).
+   ============================================================ */
+:root[data-mode][data-mode] #mm .dr-item--img{border-bottom:1px solid var(--au-line,var(--rs-line))!important}
+:root[data-mode][data-mode] #mm .dr-item--img .dr-riga{gap:12px}
+:root[data-mode][data-mode] #mm .dr-item--img .dr-fam{display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:14px!important;
+ padding:9px 0!important;font-size:inherit!important;text-decoration:none!important;color:var(--rs-ink)!important}
+:root[data-mode][data-mode] #mm .dr-img{width:58px!important;height:58px!important;flex:none;object-fit:cover;display:block;background:var(--rs-bg-2);
+ border-radius:14px!important;box-shadow:0 0 0 1px var(--au-line,var(--rs-line)),0 10px 22px -14px rgba(0,0,0,.6)!important;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+:root[data-mode][data-mode] #mm .dr-txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+:root[data-mode][data-mode] #mm .dr-nome{font-size:clamp(1.2rem,1.05rem + 1vw,1.45rem);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+:root[data-mode][data-mode] #mm .dr-frase{font-size:.86rem;font-weight:400;line-height:1.35;letter-spacing:0;color:var(--rs-muted)!important;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+:root[data-mode][data-mode] #mm .dr-item--img .dr-fam:hover .dr-nome{color:var(--rs-gold)}
+@media (hover:hover){:root[data-mode][data-mode] #mm .dr-item--img .dr-fam:hover .dr-img{transform:scale(1.04)}}
+@media (prefers-reduced-motion:reduce){:root[data-mode][data-mode] #mm .dr-img{transition:none}}
+/* pannelli della barra: la foto in testa alla colonna in evidenza */
+:root[data-mode][data-mode] #nav .ia-evidenza--img{padding-top:12px!important}
+:root[data-mode][data-mode] #nav .ia-ev-img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;margin:0 0 14px;border-radius:12px!important;
+ box-shadow:0 0 0 1px var(--au-line,var(--rs-line))!important}
+:root[data-mode][data-mode] #mm .dr-testa{padding-top:8px!important;padding-bottom:4px!important;margin:0!important}
+@media (max-width:980px){:root[data-mode][data-mode] #mm.mobile-menu{padding-top:64px!important}}

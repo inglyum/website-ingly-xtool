@@ -5,7 +5,7 @@
    raggiunge più. Qui si verifica che ogni destinazione del sito sia ancora
    a portata di clic, e che il menu non prometta pagine inesistenti. */
 import * as IA from '../assets/js/nav-ia.js';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -30,7 +30,12 @@ console.log('\n=== LE CINQUE FAMIGLIE, PER OBIETTIVO ===');
    commerciali in una tendina — mentre i file digitali, che si vendono, non
    avevano voce propria. «Studio» occupava una delle cinque posizioni per
    contenuti che nessuno cerca prima di aver deciso di comprare. */
-check('la barra ha cinque voci principali', IA.FAMIGLIE.length === 5, String(IA.FAMIGLIE.length));
+check('la barra ha sei voci principali (2026-11-28: anche Corsi)', IA.FAMIGLIE.length === 6, String(IA.FAMIGLIE.length));
+check('Corsi ha una voce propria che porta all\'Academy', IA.FAMIGLIE.some(f => f.id === 'academy' && f.rotta === 'academy' && f.n.it === 'Corsi'));
+check('il pannello Corsi elenca i corsi pubblicati', IA.pannello('academy', D).colonne[0].voci.length === D.CORSI.corsi.filter(c => c.stato !== 'bozza' && c.stato !== 'archiviato').length);
+check('ogni voce ha la sua immagine, e le immagini di partenza esistono', IA.FAMIGLIE.every(f => IA.immagineMenu(f.id, D)) && Object.values(IA.IMMAGINI_MENU).every(p => existsSync(p)));
+check('le immagini si cambiano dal pannello (CONFIG.menuImmagini), solo percorsi img/', IA.immagineMenu('shop', { CONFIG: { menuImmagini: { shop: 'img/port-1.webp' } } }) === 'img/port-1.webp' && IA.immagineMenu('shop', { CONFIG: { menuImmagini: { shop: 'https://x.it/a.webp' } } }) === IA.IMMAGINI_MENU.shop);
+check('cassetto: foto decorativa e frase per ogni voce', (IA.cassettoHtml(D, { base: '' }).match(/class="dr-img"[^>]*alt=""/g) || []).length === IA.FAMIGLIE.length && (IA.cassettoHtml(D, { base: '' }).match(/class="dr-frase"/g) || []).length === IA.FAMIGLIE.length);
 check('ogni famiglia porta a una pagina sua', IA.FAMIGLIE.every(f => f.rotta && /^[a-z-]+$/.test(f.rotta)));
 /* Un gruppo che si apre soltanto è una trappola per chi usa la tastiera. */
 check('nessuna famiglia è un contenitore vuoto',
@@ -53,7 +58,7 @@ check('con un prodotto marcato compare',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
 check('la voce rimane visibile anche con prodotto nascosto',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
-check('rimangono cinque landing principali', IA.famiglieVive({ ...D, P: [] }).length === 5);
+check('rimangono sei landing principali', IA.famiglieVive({ ...D, P: [] }).length === 6);
 check('la barra contiene Personalizza anche senza prodotti',
   /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
 check('e la contiene quando c\'è', 

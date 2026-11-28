@@ -30,7 +30,8 @@ console.log('\n=== LE CINQUE FAMIGLIE, PER OBIETTIVO ===');
    commerciali in una tendina — mentre i file digitali, che si vendono, non
    avevano voce propria. «Studio» occupava una delle cinque posizioni per
    contenuti che nessuno cerca prima di aver deciso di comprare. */
-check('la barra ha sei voci principali (2026-11-28: anche Corsi)', IA.FAMIGLIE.length === 6, String(IA.FAMIGLIE.length));
+check('la barra ha sette voci principali (2026-11-28: anche Corsi e Mondo xTool)', IA.FAMIGLIE.length === 7, String(IA.FAMIGLIE.length));
+check('Mondo xTool porta alla pagina /xtool/ senza passare dal router', IA.FAMIGLIE.some(f => f.id === 'mondo' && f.url === 'xtool/' && f.statica) && /href="\/xtool\/"(?![^>]*data-nav)/.test(IA.barraHtml(D, { base: '' })) && existsSync('xtool/index.html'));
 check('Corsi ha una voce propria che porta all\'Academy', IA.FAMIGLIE.some(f => f.id === 'academy' && f.rotta === 'academy' && f.n.it === 'Corsi'));
 check('il pannello Corsi elenca i corsi pubblicati', IA.pannello('academy', D).colonne[0].voci.length === D.CORSI.corsi.filter(c => c.stato !== 'bozza' && c.stato !== 'archiviato').length);
 check('ogni voce ha la sua immagine, e le immagini di partenza esistono', IA.FAMIGLIE.every(f => IA.immagineMenu(f.id, D)) && Object.values(IA.IMMAGINI_MENU).every(p => existsSync(p)));
@@ -58,7 +59,7 @@ check('con un prodotto marcato compare',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true }] }).some(f => f.id === 'personalizza'));
 check('la voce rimane visibile anche con prodotto nascosto',
   IA.famiglieVive({ ...D, P: [{ id: 1, personalizzabile: true, hidden: true }] }).some(f => f.id === 'personalizza'));
-check('rimangono sei landing principali', IA.famiglieVive({ ...D, P: [] }).length === 6);
+check('rimangono sette landing principali', IA.famiglieVive({ ...D, P: [] }).length === 7);
 check('la barra contiene Personalizza anche senza prodotti',
   /data-fam="personalizza"/.test(IA.barraHtml({ ...D, P: [] }, { L: 'it', base: '' })));
 check('e la contiene quando c\'è', 
@@ -141,7 +142,8 @@ for (const r of ['/shop', '/digital', '/business', '/portfolio', '/about', '/faq
 
 console.log('\n=== IL MENU NON PROMETTE PAGINE CHE NON ESISTONO ===');
 const rotte = new Set(['', 'personalizza', 'shop', 'digital', 'business', 'portfolio', 'about', 'faq', 'quote',
-  'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product', 'generatori.html', 'forniture', 'stampa-3d']);
+  'materiali', 'tecnologie', 'macchine', 'academy', 'demo', 'product', 'generatori.html', 'forniture', 'stampa-3d',
+  /* pagine statiche generate dalla build */ 'xtool', 'assistenza-xtool-palermo']);
 const idsMat = new Set(D.MATERIALI.materiali.map(m => m.id));
 const idsTec = new Set(D.TECNOLOGIE.tecnologie.map(t => t.id));
 const idsMac = new Set(D.MACCHINE.catalogo.map(m => m.id));
@@ -150,7 +152,7 @@ const rotti = [];
 for (const h of IA.destinazioni(D)) {
   const seg = h.split('?')[0].replace(/^\/+/, '').split('/');
   if (!rotte.has(seg[0])) { rotti.push(h); continue; }
-  if (seg[1]) {
+  if (seg[1] && !seg[1].startsWith('#')) {
     const ok = seg[0] === 'materiali' ? idsMat.has(seg[1])
       : seg[0] === 'tecnologie' ? idsTec.has(seg[1])
       : seg[0] === 'macchine' ? idsMac.has(seg[1])
@@ -192,8 +194,8 @@ console.log('\n=== IL NOME PORTA ALLA PAGINA, LA FRECCIA APRE IL MENU ===');
    il nome era un BOTTONE che espandeva soltanto: dal cassetto alla pagina
    Shop non ci si arrivava affatto. */
 const barraHtm = IA.barraHtml(D, { L: 'it', base: '' });
-check('ogni voce della barraHtm è un link', (barraHtm.match(/<a class="ia-voce"/g) || []).length === IA.famiglieVive(D).length);
-check('ogni link porta alla sua rotta', IA.famiglieVive(D).every(f => barraHtm.includes('href="/' + f.rotta + '"')));
+check('ogni voce della barraHtm è un link', (barraHtm.match(/<a class="ia-voce[ "]/g) || []).length === IA.famiglieVive(D).length);
+check('ogni link porta alla sua rotta', IA.famiglieVive(D).every(f => barraHtm.includes('href="/' + (f.url || f.rotta) + '"')));
 check('la freccia è un pulsante separato', /<button type="button" class="ia-freccia"/.test(barraHtm));
 /* un bottone dentro un link non è markup valido e i lettori di schermo lo
    annunciano a caso */
@@ -223,7 +225,7 @@ check('la freccia è un pulsante a parte', /<button type="button" class="dr-frec
 check('la freccia dice cosa fa', /class="dr-freccia"[^>]*aria-label="/.test(cassHtm));
 check('la freccia è collegata al pannello che apre', /class="dr-freccia"[^>]*aria-controls="dr-/.test(cassHtm));
 check('ogni nome porta alla sua rotta',
-  IA.famiglieVive(D).every(f => cassHtm.includes('href="/' + f.rotta + '"')));
+  IA.famiglieVive(D).every(f => cassHtm.includes('href="/' + (f.url || f.rotta) + '"')));
 check('il pannello non perde il listener al cambio lingua', /let mobileLegato = false/.test(megaJs)
   && /if \(mobileLegato\) return/.test(megaJs));
 

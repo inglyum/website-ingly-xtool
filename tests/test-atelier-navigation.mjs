@@ -8,7 +8,7 @@ const chrome=read('assets/js/atelier-chrome.js');
 const css=read('assets/css/atelier-foundation.css');
 const nav=read('assets/js/nav-mega.js');
 const routes=IA.FAMIGLIE.map(f=>f.rotta);
-assert.deepEqual(routes,['shop','personalizza','materiali','business','macchine','academy'],'Six clear top-level destinations (2026-11-28: anche Corsi)');
+assert.deepEqual(routes,['shop','personalizza','materiali','business','macchine','academy','xtool'],'Seven clear top-level destinations (2026-11-28: anche Corsi e Mondo xTool)');
 const D={MATERIALI:JSON.parse(read('data/materiali.json')),TECNOLOGIE:JSON.parse(read('data/tecnologie.json')),MACCHINE:JSON.parse(read('data/macchine.json')),CORSI:JSON.parse(read('data/corsi.json')),CATS:JSON.parse(read('data/categories.json'))};
 const shop=IA.pannello('shop',D);
 const lab=IA.pannello('xtool',D);

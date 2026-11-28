@@ -64,7 +64,11 @@ export const FAMIGLIE = [
     claim: { it: 'Macchine xTool, demo e assistenza.', en: 'xTool machines, demos and support.' } },
   /* 2026-11-28, richiesta del titolare: i corsi hanno una voce propria. */
   { id: 'academy', rotta: 'academy', n: { it: 'Corsi', en: 'Courses' },
-    claim: { it: 'Impara le xTool, passo dopo passo.', en: 'Learn xTool machines, step by step.' } }
+    claim: { it: 'Impara le xTool, passo dopo passo.', en: 'Learn xTool machines, step by step.' } },
+  /* Mondo xTool: la pagina pilastro /xtool/ (statica, generata dalla build):
+     `url` è il vero indirizzo, `statica` evita che il router della SPA la intercetti. */
+  { id: 'mondo', rotta: 'xtool', url: 'xtool/', statica: true, n: { it: 'Mondo xTool', en: 'xTool world' },
+    claim: { it: 'Pro Hub xTool Squad: demo, assistenza, recensioni.', en: 'xTool Squad Pro Hub: demos, support, reviews.' } }
 ];
 
 /* IMMAGINI DEL MENU (cassetto mobile e pannelli): una per famiglia.
@@ -78,8 +82,12 @@ export const IMMAGINI_MENU = {
   materiali: 'img/material-legno.webp',
   business: 'img/cat-b2b.webp',
   xtool: 'img/cat-custom.webp',
-  academy: 'img/xtool-c1-uso.webp'
+  academy: 'img/xtool-c1-uso.webp',
+  mondo: 'img/xtool-x1.webp'
 };
+/** Dove porta il nome di una famiglia (le pagine statiche hanno il loro indirizzo). */
+const indirizzo = (f, base) => via(base, f.url || f.rotta);
+const navAttr = f => f.statica ? '' : ` data-nav="${esc(f.rotta)}"`;
 const percorsoValido = s => typeof s === 'string' && /^img\/[\w\-./]+\.(webp|jpe?g|png)$/i.test(s) && !s.includes('..');
 /** L'immagine di una famiglia: quella scelta nel pannello o quella di partenza. */
 export function immagineMenu(id, D = {}) {
@@ -275,6 +283,28 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
     };
   }
 
+  if (id === 'mondo') {
+    return {
+      colonne: [
+        col(t('Il tuo Pro Hub a Palermo', 'Your Pro Hub in Palermo'), [
+          { n: t('Profilo host e recensioni', 'Host profile and reviews'), href: via(base, 'xtool/#host') },
+          { n: t('Prenota una demo gratuita', 'Book a free demo'), href: via(base, 'demo') },
+          { n: t('Corsi su ogni macchina', 'Courses on every machine'), href: via(base, 'academy') }
+        ], { n: t('Tutto il Mondo xTool', 'The whole xTool world'), href: via(base, 'xtool/') }),
+        col(t('Assistenza xTool', 'xTool support'), [
+          { n: t('In tutta Italia e in Europa', 'Across Italy and Europe'), href: via(base, 'assistenza-xtool-palermo/') },
+          { n: t('Le macchine del laboratorio', 'The machines in our workshop'), href: via(base, 'macchine') }
+        ])
+      ],
+      evidenza: {
+        occhiello: t('xTool Squad · Pro Hub', 'xTool Squad · Pro Hub'),
+        titolo: t('Il mondo xTool, da vicino.', 'The xTool world, up close.'),
+        testo: t('Demo, corsi e assistenza da chi usa le xTool ogni giorno. Recensioni vere sul profilo ufficiale.', 'Demos, courses and support from people who use xTool every day. Real reviews on the official profile.'),
+        cta: { n: t('Scopri il Mondo xTool', 'Explore the xTool world'), href: via(base, 'xtool/') }
+      }
+    };
+  }
+
   if (id === 'personalizza') {
     /* Nessuna colonna: è un collegamento diretto. La voce compare solo se
        c'è qualcosa da personalizzare (famiglieVive), quindi qui non serve
@@ -346,7 +376,7 @@ export function barraHtml(D, { L = 'it', base = '', attiva = '' } = {}) {
        aprire il pannello: chi voleva lo Shop doveva prima scegliere una
        sottosezione. */
     return `<span class="ia-gruppo${qui ? ' qui' : ''}">
-      <a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"
+      <a class="ia-voce${f.statica ? ' ia-voce--xtool' : ''}" href="${esc(indirizzo(f, base))}"${navAttr(f)} data-fam="${esc(f.id)}"
         ${qui ? 'aria-current="page"' : ''}>${esc(L10n(f.n, L))}</a>
       ${apribile ? `<button type="button" class="ia-freccia" data-apri="${esc(f.id)}"
         aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-${esc(f.id)}"
@@ -402,7 +432,7 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
     const p = pannello(f.id, D, { L, base });
     const voci = p.colonne.flatMap(c => [...c.voci, ...(c.tutto ? [c.tutto] : [])]);
     if (!voci.length) {
-      return `<div class="dr-item dr-item--img"><a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${nome(f)}</a></div>`;
+      return `<div class="dr-item dr-item--img"><a class="dr-fam" href="${esc(indirizzo(f, base))}"${navAttr(f)}>${nome(f)}</a></div>`;
     }
     /* Due controlli distinti, affiancati: il NOME porta alla pagina, la
        freccia apre i sottolink. Prima il nome era un pulsante che apriva
@@ -410,7 +440,7 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
        arrivava affatto — si poteva solo scendere in una sottosezione. */
     return `<div class="dr-item dr-item--img">
       <div class="dr-riga">
-        <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${nome(f)}</a>
+        <a class="dr-fam" href="${esc(indirizzo(f, base))}"${navAttr(f)}>${nome(f)}</a>
         <button type="button" class="dr-freccia" aria-expanded="false" data-apri="dr-${esc(f.id)}"
           aria-controls="dr-${esc(f.id)}"
           aria-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"

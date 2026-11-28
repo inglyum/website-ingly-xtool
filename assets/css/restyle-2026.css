@@ -1315,3 +1315,57 @@ a.xsquad:focus-visible{outline:2px solid #03d403;outline-offset:3px}
  box-shadow:0 0 0 1px var(--au-line,var(--rs-line))!important}
 :root[data-mode][data-mode] #mm .dr-testa{padding-top:8px!important;padding-bottom:4px!important;margin:0!important}
 @media (max-width:980px){:root[data-mode][data-mode] #mm.mobile-menu{padding-top:64px!important}}
+/* «Mondo xTool» nella barra: il pallino verde xTool la fa riconoscere al volo */
+:root[data-mode][data-mode] #nav .ia-voce--xtool::before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;vertical-align:.12em;
+ border-radius:50%!important;background:#03d403;box-shadow:0 0 0 3px rgba(3,212,3,.18)}
+/* barra a 7 voci: più compatta sugli schermi medi, così non sborda mai */
+@media (max-width:1360px){
+ :root[data-mode][data-mode] #iaBarra .ia-voce{padding-left:8px!important;padding-right:8px!important}
+ :root[data-mode][data-mode] #iaBarra .ia-freccia{width:26px!important;min-width:26px!important}
+ :root[data-mode][data-mode] #nav .atelier-nav-cta{padding-left:13px!important;padding-right:13px!important;font-size:14px!important}
+}
+@media (max-width:1280px){
+ :root[data-mode][data-mode] #nav > div{padding-left:24px!important;padding-right:24px!important}
+ :root[data-mode][data-mode] #nav .atelier-nav-cta .arr{display:none!important}
+}
+
+/* STAMPA 3D — strumenti professionali (2026-11-28) */
+.s3d-pro__griglia{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.s3d-pro__griglia a{position:relative;display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto 1fr;column-gap:14px;row-gap:4px;height:100%;padding:18px;
+ text-decoration:none;color:var(--rs-ink);border:1px solid transparent;
+ background:linear-gradient(180deg,color-mix(in srgb,var(--rs-bg) 70%,#fff 30%),color-mix(in srgb,var(--rs-bg) 92%,transparent)) padding-box,var(--au-edge,linear-gradient(var(--rs-line),var(--rs-line))) border-box;
+ transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease}
+.s3d-pro__ico{grid-row:1/3;display:grid;place-items:center;width:44px;height:44px;font-size:1.3rem;color:var(--rs-gold);background:var(--rs-gold-soft)}
+.s3d-pro__griglia b{font-size:1rem;line-height:1.3}
+.s3d-pro__griglia b i{font-style:normal;color:var(--rs-muted);font-size:.85em}
+.s3d-pro__griglia a>span:last-child{color:var(--rs-muted);font-size:.9rem;line-height:1.5}
+@media (hover:hover){.s3d-pro__griglia a:hover{transform:translateY(-4px);box-shadow:0 22px 44px -28px rgba(0,0,0,.55),0 0 34px -14px rgba(var(--au-acc-rgb,166,110,40),.45)}}
+.s3d-pro__nota{margin-top:12px;font-size:.85rem;color:var(--rs-muted)}
+:root[data-mode="dark"] .s3d-pro__griglia a{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)) padding-box,var(--au-edge) border-box}
+:root[data-mode][data-mode] .s3d-pro__griglia a{border-radius:18px!important}
+:root[data-mode][data-mode] .s3d-pro__ico{border-radius:12px!important}
+@media (prefers-reduced-motion:reduce){.s3d-pro__griglia a{transition:none}}
+
+/* ============================================================
+   RIFINITURE (2026-11-28): barra di lettura, mosaico che segue il
+   puntatore, nastro dei servizi. Tutto fermo con «riduci movimento».
+   ============================================================ */
+#fxProgresso{position:fixed;top:0;left:0;right:0;height:3px;z-index:9999;pointer-events:none;transform-origin:0 50%;transform:scaleX(var(--fx-p,0));
+ background:linear-gradient(90deg,var(--rs-gold),var(--au-acc2,var(--rs-gold)),#03d403);box-shadow:0 0 12px rgba(var(--au-acc-rgb,166,110,40),.55)}
+.hmosaico{translate:calc(var(--hm-x,0) * -26px) calc(var(--hm-y,0) * -18px);transition:translate .9s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){#fxProgresso{display:none}.hmosaico{translate:none;transition:none}}
+
+/* nastro dei servizi sotto l'hero */
+.inastro{position:relative;overflow:hidden;border-block:1px solid var(--au-line,var(--rs-line));background:color-mix(in srgb,var(--rs-bg) 70%,transparent);
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.inastro__binario{display:flex;width:max-content;animation:inastro-scorri 46s linear infinite}
+.inastro:hover .inastro__binario{animation-play-state:paused}
+.inastro__lista{display:flex;align-items:center;gap:0;margin:0;padding:14px 0;list-style:none;flex:none}
+.inastro__lista li{display:inline-flex;align-items:center;gap:12px;padding:0 22px;font-size:.92rem;font-weight:600;letter-spacing:.02em;color:var(--rs-ink);white-space:nowrap}
+.inastro__lista li::after{content:"";width:6px;height:6px;margin-left:22px;transform:rotate(45deg);background:var(--rs-gold)}
+.inastro__lista li.inastro--xtool{color:var(--rs-ink)}
+.inastro__lista li.inastro--xtool b{color:#03a803}
+:root[data-mode="dark"] .inastro__lista li.inastro--xtool b{color:#2ee82e}
+@keyframes inastro-scorri{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.inastro__binario{animation:none}.inastro{overflow-x:auto}}
+:root[data-mode][data-mode] #page-home > .inastro{order:1}

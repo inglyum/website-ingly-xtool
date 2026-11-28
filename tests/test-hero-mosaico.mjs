@@ -53,7 +53,7 @@ t('testi nuovi tradotti in inglese', ['Host ufficiale xTool Squad', 'macchine, d
 console.log('\n=== RIFINITURE, GENERATORI PRO, STAMPA 3D ===');
 const fxjs = readFileSync('assets/js/effetti-pro.js', 'utf8');
 t('barra di lettura e mosaico che segue il puntatore, solo variabili CSS e mai con «riduci movimento»', /function avviaRifiniture\(\) \{\n  if \(riduci\(\)\) return;/.test(fxjs) && /setProperty\('--fx-p'/.test(fxjs) && /setProperty\('--hm-x'/.test(fxjs) && /#fxProgresso\{/.test(css) && /prefers-reduced-motion:reduce\)\{#fxProgresso\{display:none\}/.test(css));
-t('nastro dei servizi: copia per il ciclo nascosta ai lettori di schermo, fermo con «riduci movimento»', /class="inastro"[^]*class="inastro__lista" aria-hidden="true"/.test(home) && /prefers-reduced-motion:reduce\)\{\.inastro__binario\{animation:none\}/.test(css));
+t('nastro dei servizi: copia per il ciclo nascosta ai lettori di schermo, fermo con «riduci movimento»', /class="inastro"[^]*class="inastro__lista" aria-hidden="true"/.test(home) && /prefers-reduced-motion:reduce\)\{\.inastro__binario\{animation:none;width:auto\}/.test(css) && /\.inastro\{position:relative;overflow:hidden;overflow:clip;/.test(css));
 const gen = readFileSync('generatori.html', 'utf8');
 const pro = ['boxes.hackerspace-bamberg.de', 'makercase.com', 'templatemaker.nl', 'makerworld.com/en/makerlab/parametricModelMaker', 'gridfinity.perplexinglabs.com', 'openscad.org', 'printables.com', 'xtool.com/pages/software'];
 t('generatori professionali del web nel Generator Studio (laser e stampa 3D)', pro.every(u => gen.includes(u)) && /'Pro esterni · Stampa 3D':'Pro external · 3D printing'/.test(gen));

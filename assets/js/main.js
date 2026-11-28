@@ -468,8 +468,9 @@ function bindMode(){
       el.title=labels(v).next;
     }
   };
-  /* restyle 2026: «notte calda + oro» è la base per tutti; il chiaro si sceglie col pulsante */
-  set(stored() || 'dark');
+  /* 2026-11-28 (scelta del titolare): il tema chiaro, con tutti gli effetti, è la base per tutti;
+     lo scuro si sceglie col pulsante Tema e resta ricordato */
+  set(stored() || 'light');
   const toggle=()=>{
     root.classList.add('theme-anim');
     set(root.getAttribute('data-mode')==='light'?'dark':'light',true);

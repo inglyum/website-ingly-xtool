@@ -3,7 +3,7 @@
 <head>
 <base href="../">
 <base href="./">
-<script>(function(){var m="dark";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;try{var at=localStorage.getItem("ingly_atmo");if(at&&/^[a-z]+$/.test(at)&&at!=="aurora")document.documentElement.setAttribute("data-atmosfera",at);}catch(e){}if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
+<script>(function(){var m="light";try{var saved=localStorage.getItem("ingly_mode");if(saved==="light"||saved==="dark")m=saved;}catch(e){}document.documentElement.dataset.mode=m;try{var at=localStorage.getItem("ingly_atmo");if(at&&/^[a-z]+$/.test(at)&&at!=="aurora")document.documentElement.setAttribute("data-atmosfera",at);}catch(e){}if(window.WebGLRenderingContext)document.documentElement.classList.add("gl");})();</script>
 <script>document.documentElement.classList.add('ingly-boot-pending');setTimeout(function(){document.documentElement.classList.remove('ingly-boot-pending')},8500);</script>
 <style>/* Il menu e la Hero sono già giusti nell'HTML: si vedono subito.
    Restano nascoste solo le parti riempite dai dati, finché non sono pronte. */
@@ -130,7 +130,7 @@ var url=base.replace(/\/$/,'')+p+(rest?'?'+rest:'');history.replaceState(null,''
 
 <script defer src="assets/js/artwork.js"></script>
 <!-- Un solo foglio: i 22 sorgenti in assets/css/ uniti in ordine da scripts/css-bundle.mjs -->
-<link rel="stylesheet" href="assets/css/ingly.min.css?v=3f6f137ffd">
+<link rel="stylesheet" href="assets/css/ingly.min.css?v=9f9fc569ec">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -314,8 +314,19 @@ setTimeout(function(){
 <section class="page" id="page-home">
   <div class="hero signature-hero rs3d" id="rs3d">
     <div class="hero-bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div></div>
+    <!-- Mosaico di foto dietro al titolo: si cambia da Admin → Temi e sfondi (CONFIG.heroMosaico) -->
+    <div class="hmosaico" id="heroMosaico" aria-hidden="true" data-firma="img/port-1.webp|img/xtool-c1-uso.webp|img/port-22.webp|img/port-10.webp|img/xtool-m2.webp|img/port-5.webp|img/21.webp|img/cat-custom.webp|img/port-14.webp|img/xtool-x1-prodotto.webp|img/2.webp|img/port-3.webp|img/proj-1-1.webp|img/xtool-o1-uv.webp|img/6.webp|img/port-4.webp|img/3.webp|img/xtool-f2.webp|img/8.webp|img/port-6.webp|img/4.webp|img/port-13.webp|img/93.webp|img/port-18.webp|img/5.webp|img/xtool-p3.webp|img/port-20.webp|img/14.webp|img/proj-1-2.webp|img/xtool-wonderpress.webp|img/port-19.webp|img/7.webp"><span class="hmosaico__t"><img src="img/port-1-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/xtool-c1-uso.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/port-22-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/port-10-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/xtool-m2.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/port-5-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/21-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/cat-custom-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/port-14-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/xtool-x1-prodotto.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/2-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/port-3-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/proj-1-1-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/xtool-o1-uv.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/6-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/port-4-400.webp" alt="" width="400" height="500" decoding="async"></span><span class="hmosaico__t"><img src="img/3-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/xtool-f2.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/8-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/port-6-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/4-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/port-13-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/93-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/port-18-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/5-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/xtool-p3.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/port-20-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/14-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/proj-1-2-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/xtool-wonderpress.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/port-19-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span><span class="hmosaico__t"><img src="img/7-400.webp" alt="" width="400" height="500" decoding="async" loading="lazy"></span></div><div class="hmosaico-velo" aria-hidden="true"></div>
     <div class="wrap hero-grid">
       <div class="signature-hero-copy">
+        <div class="hero-firma">
+          <img class="hero-firma__logo" src="assets/images/ingly-logo.svg" alt="INGLY DESIGN" width="500" height="500" fetchpriority="high">
+          <span class="hero-firma__x" aria-hidden="true">×</span>
+          <a class="hero-firma__asc" href="assistenza-xtool-palermo/" aria-label="xTool Authorized Service Centre: assistenza xTool a Palermo"><img src="assets/images/xtool-asc-trasparente-320.webp" alt="xTool Authorized Service Centre" width="320" height="276"></a>
+          <a class="hero-firma__host" href="#host">
+            <img src="img/giuseppe-inglima-host-480.webp" alt="Giuseppe Inglima, host xTool Squad" width="480" height="503">
+            <span><b>Giuseppe Inglima</b><small>Host ufficiale xTool Squad · Pro Hub <i aria-hidden="true">★★</i></small></span>
+          </a>
+        </div>
         <span class="hero-tag"><span class="dot"></span> <span data-i18n="heroTag">INGLY DESIGN · CREAZIONI SU MISURA</span></span>
         <h1 id="heroH1"><span class="w"><span>Diamo</span></span> <span class="w"><span>forma</span></span> <span class="w"><span>alle</span></span> <span class="w"><span>tue</span></span> <span class="w"><span class="engrave" data-parola="idee.">idee.</span></span> </h1>
         <p class="sub" data-i18n="heroSub">Con precisione, dall'idea al pezzo finito. Creazioni personalizzate, materiali selezionati e cura artigianale in Italia.</p>
@@ -323,6 +334,10 @@ setTimeout(function(){
           <a class="btn btn-primary magnetic" href="personalizza" data-nav="personalizza"><span data-i18n="navCreate">Crea il tuo pezzo</span> <span aria-hidden="true" class="arr">→</span></a>
           <a class="btn btn-ghost magnetic" href="shop" data-nav="shop"><span data-i18n="ctaShop">Scopri lo Shop</span></a>
         </div>
+        <ul class="hero-xtool" aria-label="INGLY DESIGN e xTool in Sicilia e Calabria">
+          <li><a href="xtool/"><b>Mondo xTool</b> macchine, demo gratuite e corsi</a></li>
+          <li><a href="assistenza-xtool-palermo/"><b>Assistenza xTool</b> Palermo, Catania, Messina e Calabria</a></li>
+        </ul>
         <form class="rs3d-form" id="rs3dForm" action="quote/" method="get" aria-label="Chiedi un preventivo">
           <label class="rs3d-form__label" for="rs3dText" data-i18n="rs3dLabel">Scrivi cosa vuoi incidere</label>
           <input id="rs3dText" type="text" maxlength="28" autocomplete="off" spellcheck="false" data-ph="rs3dPh" placeholder="Es. Casa Bianchi">

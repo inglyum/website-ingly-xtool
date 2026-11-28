@@ -9,7 +9,7 @@ const css = readFileSync('assets/css/restyle-2026.css', 'utf8');
 const fx = css.slice(css.indexOf('EFFETTI PRO'));
 
 console.log('\n=== SFONDO VIVO ===');
-t('solo in modalità scura e mai con «riduci movimento»', /if \(SF \|\| riduci\(\) \|\| !scuro\(\)\) return;/.test(js));
+t('in chiaro e in scuro, mai con «riduci movimento»', /if \(SF \|\| riduci\(\)\) return;/.test(js) && /uniform float lm/.test(js) && /gl\.uniform1f\(U\.lm, scuro\(\) \? 0 : 1\)/.test(js));
 t('mezza risoluzione e al massimo 30 fotogrammi al secondo', /\.5/.test(js) && /1000 \/ \(tocco \? 20 : 30\)/.test(js));
 t('fermo quando la scheda non è visibile', /document\.hidden/.test(js));
 t('senza WebGL non succede niente (resta lo sfondo CSS)', /if \(!gl\) return;/.test(js));

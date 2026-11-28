@@ -10,7 +10,7 @@ const main = readFileSync('assets/js/main.js', 'utf8');
 
 console.log('\n=== BASE ===');
 t('carattere Assistant servito dal sito (niente servizi esterni)', ['400', '600', '700'].every(w => existsSync(`assets/fonts/assistant/assistant-latin-${w}-normal.woff2`)) && /src:url\('\.\.\/fonts\/assistant\//.test(css));
-t('notte calda di serie, chiaro avorio come variante', /var m="dark"/.test(html) && /set\(stored\(\) \|\| 'dark'\)/.test(main) && /:root\[data-mode="light"\]\{/.test(css) && /:root\[data-mode="dark"\]\{\s*--rs-bg:#13100d/.test(css));
+t('chiaro avorio di serie (2026-11-28), notte calda come variante', /var m="light"/.test(html) && /set\(stored\(\) \|\| 'light'\)/.test(main) && /:root\[data-mode="light"\]\{/.test(css) && /:root\[data-mode="dark"\]\{\s*--rs-bg:#13100d/.test(css));
 t('oro per le azioni: pulsante principale oro', /\.btn\.btn-primary[^{]*\{\s*background:var\(--rs-gold\)/.test(css));
 t('arancio brace solo come token del laser', /--rs-ember:/.test(css) && (css.match(/var\(--rs-ember\)/g) || []).length <= 2);
 t('la home si riorganizza solo quando è la pagina aperta', /#page-home\.page\.active\{display:flex/.test(css) && !/#page-home\{display:flex/.test(css));

@@ -11606,7 +11606,7 @@ a.xsquad:focus-visible{outline:2px solid #03d403;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){#fxProgresso{display:none}.hmosaico{translate:none;transition:none}}
 
 /* nastro dei servizi sotto l'hero */
-.inastro{position:relative;overflow:hidden;border-block:1px solid var(--au-line,var(--rs-line));background:color-mix(in srgb,var(--rs-bg) 70%,transparent);
+.inastro{position:relative;overflow:hidden;overflow:clip;border-block:1px solid var(--au-line,var(--rs-line));background:color-mix(in srgb,var(--rs-bg) 70%,transparent);
  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .inastro__binario{display:flex;width:max-content;animation:inastro-scorri 46s linear infinite}
 .inastro:hover .inastro__binario{animation-play-state:paused}
@@ -11617,5 +11617,5 @@ a.xsquad:focus-visible{outline:2px solid #03d403;outline-offset:3px}
 .inastro__lista li.inastro--xtool b{color:#03a803}
 :root[data-mode="dark"] .inastro__lista li.inastro--xtool b{color:#2ee82e}
 @keyframes inastro-scorri{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.inastro__binario{animation:none}.inastro{overflow-x:auto}}
+@media (prefers-reduced-motion:reduce){.inastro__binario{animation:none;width:auto}.inastro__lista{flex-wrap:wrap;justify-content:center;row-gap:6px}.inastro__lista[aria-hidden]{display:none}.inastro{-webkit-mask-image:none;mask-image:none}}
 :root[data-mode][data-mode] #page-home > .inastro{order:1}

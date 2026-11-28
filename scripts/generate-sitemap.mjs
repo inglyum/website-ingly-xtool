@@ -105,7 +105,9 @@ const pagine = [
   { file: 'prova-incisione.html', pagina: 'tool', id: 'prova-incisione' },
   { file: 'litofania.html', pagina: 'tool', id: 'litofania' },
   /* pagina locale per chi cerca assistenza xTool a Palermo / in Sicilia */
-  { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' }
+  { file: 'assistenza-xtool-palermo/index.html', pagina: 'assistenza', id: 'assistenza-xtool' },
+  /* pagina pilastro «Mondo xTool»: macchine, demo, corsi, assistenza (2026-11-28) */
+  { file: 'xtool/index.html', pagina: 'assistenza', id: 'mondo-xtool' }
 /* Forniture: in sitemap solo se l'interruttore dell'Admin è acceso */
 ].filter(v => v.file !== 'forniture/index.html' || (contenuti.FORNITURE && contenuti.FORNITURE.attivo === true));
 const mancanti = [];

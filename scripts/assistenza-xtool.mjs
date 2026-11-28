@@ -195,7 +195,7 @@ export function genera() {
   ${FAQ.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('\n  ')}
  </div>
 
- <p class="ax-piede">INGLY DESIGN · Palermo, Sicilia · <a href="tel:${esc(tel.replace(/\s+/g, ''))}">${esc(tel)}</a> · <a href="mailto:${esc(email)}">${esc(email)}</a> · <a href="demo">Demo gratuita</a> · <a href="academy">Academy</a></p>
+ <p class="ax-piede">INGLY DESIGN · Palermo, Sicilia · <a href="tel:${esc(tel.replace(/\s+/g, ''))}">${esc(tel)}</a> · <a href="mailto:${esc(email)}">${esc(email)}</a> · <a href="xtool/">Mondo xTool</a> · <a href="demo">Demo gratuita</a> · <a href="academy">Academy</a></p>
 </main>
 </body>
 </html>

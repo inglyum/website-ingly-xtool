@@ -11342,3 +11342,4 @@ html .bcard.bcard--photo h3,html .bcard.bcard--photo p{color:#fff!important;text
 @media(max-width:980px){.ilab-servizi{grid-template-columns:repeat(2,minmax(0,1fr))}.ilab-servizi li:last-child{grid-column:1/-1}.ilab-testa{grid-template-columns:1fr}}
 @media(max-width:640px){.ilab-mac{grid-template-columns:72px minmax(0,1fr)}.ilab-mac img{width:72px;height:56px}.ilab-mac__azioni{grid-column:1/-1;justify-content:flex-start}}
 .ilab-mac__azioni a{border-radius:999px!important}
+.ilab-host__azioni{display:flex;gap:10px;flex-wrap:wrap}

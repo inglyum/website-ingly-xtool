@@ -1062,3 +1062,33 @@
 :root[data-mode] h2.lz-pronto .lz-raggio::after{content:"";position:absolute;top:50%;left:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;
  background:radial-gradient(circle,#fff 0,rgba(255,236,200,.9) 25%,rgba(var(--au-acc-rgb,234,169,92),.5) 50%,transparent 70%)}
 @media (prefers-reduced-motion:reduce){:root[data-mode] h2.lz-pronto{clip-path:none!important;text-shadow:none!important}:root[data-mode] .lz-raggio{display:none!important}}
+
+/* ============================================================
+   LAB INGLY (#lab) — macchine in laboratorio con demo, corsi e assistenza
+   ============================================================ */
+.ilab{margin:clamp(36px,5vw,64px) 0 8px;display:grid;gap:clamp(18px,2.4vw,28px)}
+.ilab-testa{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(14px,3vw,48px);align-items:end}
+.ilab-testa h3{margin:0;font-size:clamp(1.5rem,1.1rem + 1.4vw,2.3rem);line-height:1.12;color:var(--rs-ink)}
+.ilab-testa p{margin:0;color:var(--rs-muted);line-height:1.65;max-width:62ch}
+.ilab-servizi{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.ilab-servizi li{padding:16px 16px 18px;border:1px solid var(--rs-line);border-radius:14px;display:grid;gap:6px;align-content:start}
+.ilab-servizi b{color:var(--rs-ink);font-size:1rem}
+.ilab-servizi span{color:var(--rs-muted);font-size:.88rem;line-height:1.5}
+.ilab-macchine{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ilab-mac{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:18px;align-items:center;padding:12px 14px 12px 12px;border:1px solid var(--rs-line);border-radius:16px}
+.ilab-mac img{width:96px;height:72px;object-fit:contain;background:#fff;border-radius:10px;padding:4px}
+.ilab-mac h4{margin:0 0 2px;font-size:1.05rem;color:var(--rs-ink)}
+.ilab-mac p{margin:0;color:var(--rs-muted);font-size:.92rem;line-height:1.45}
+.ilab-mac__azioni{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.ilab-mac__azioni a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--rs-line-strong);color:var(--rs-ink)!important;text-decoration:none;font-size:.9rem;font-weight:600;white-space:nowrap}
+.ilab-mac__azioni a:first-child{background:var(--rs-gold);border-color:var(--rs-gold);color:var(--rs-on-gold)!important}
+@media (hover:hover){.ilab-mac__azioni a:hover{border-color:var(--rs-gold)}.ilab-mac__azioni a:first-child:hover{background:var(--rs-gold-hover)}}
+.ilab-host{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:18px 20px;border:1px solid var(--rs-line);border-radius:16px}
+.ilab-host h4{margin:0 0 4px;color:var(--rs-ink)}
+.ilab-host p{margin:0;color:var(--rs-muted);max-width:70ch;line-height:1.55}
+:root[data-mode="dark"][data-mode][data-mode] :is(.ilab-servizi li,.ilab-mac,.ilab-host){border:1px solid transparent!important;
+ background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) padding-box,var(--au-edge) border-box!important;
+ -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+@media(max-width:980px){.ilab-servizi{grid-template-columns:repeat(2,minmax(0,1fr))}.ilab-servizi li:last-child{grid-column:1/-1}.ilab-testa{grid-template-columns:1fr}}
+@media(max-width:640px){.ilab-mac{grid-template-columns:72px minmax(0,1fr)}.ilab-mac img{width:72px;height:56px}.ilab-mac__azioni{grid-column:1/-1;justify-content:flex-start}}
+.ilab-mac__azioni a{border-radius:999px!important}

@@ -593,6 +593,8 @@ export function renderScheda(sezione, id, L, cardProdotto) {
 /* Il prezzo si scrive come lo scrive il resto del sito: una cifra quando
    c'è, «su richiesta» quando non c'è. Non si mette uno zero al posto di un
    prezzo che nessuno ha ancora deciso. */
+/* livello e formato con il loro nome («Base», «Online + officina»), non l'id */
+const nomeCorso = (d, lista, id, L) => { const v = ((d && d.CORSI && d.CORSI[lista]) || []).find(x => x && x.id === id); return v ? LAB.lingua(v.n, L) : (id || ''); };
 const prezzoLab = (n, L) => n == null
   ? t2('Prezzo su richiesta', 'Price on request', L)
   : '€' + Number(n).toFixed(2).replace('.', ',');
@@ -757,7 +759,7 @@ export function renderCorsi(L) {
 
   box.innerHTML = '<div class="vert-grid">' + lista.map(c => `
     <a class="vert-card lab-card reveal" href="${via('/academy/' + esc(c.id))}">
-      <span class="lab-n">${esc([LAB.lingua(c.durata, L), c.livello].filter(Boolean).join(' · '))}</span>
+      <span class="lab-n">${esc([LAB.lingua(c.durata, L), nomeCorso(D(), 'livelli', c.livello, L)].filter(Boolean).join(' · '))}</span>
       <b>${esc(LAB.lingua(c.n, L))}</b>
       <span class="vert-sub">${esc(LAB.lingua(c.sommario, L))}</span>
       <span class="vert-go">${esc(prezzoLab(c.prezzo, L))} <i class="arr">→</i></span>
@@ -782,7 +784,7 @@ export function renderCorso(id, L) {
     <h1 class="h2" style="font-size:clamp(2.2rem,5vw,3.6rem)">${esc(LAB.lingua(c.n, L))}</h1>
     <p class="sub">${esc(LAB.lingua(c.sommario, L))}</p>
     ${LAB.lingua(c.descrizione, L) ? `<p class="vert-intro">${esc(LAB.lingua(c.descrizione, L))}</p>` : ''}
-    ${chips([LAB.lingua(c.durata, L), c.livello, c.formato, c.lezioni ? c.lezioni + ' ' + t2('lezioni', 'lessons', L) : ''].filter(Boolean))}
+    ${chips([LAB.lingua(c.durata, L), nomeCorso(D(), 'livelli', c.livello, L), nomeCorso(D(), 'formati', c.formato, L), c.lezioni ? c.lezioni + ' ' + t2('lezioni', 'lessons', L) : ''].filter(Boolean))}
 
     <div class="lab-griglia">
       ${elenco(t2('A chi è rivolto', 'Who it is for', L), LAB.listaLingua(c.aChi, L))}

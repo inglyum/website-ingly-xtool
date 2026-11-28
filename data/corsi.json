@@ -1,5 +1,5 @@
 {
-  "_nota": "INGLY ACADEMY. Il catalogo è VUOTO di proposito: un corso ha una durata, un programma e un prezzo che decide chi lo eroga, e inventarli significherebbe pubblicare un'offerta che non esiste. Qui c'è la struttura perché l'Admin possa riempirla: aggiungere una voce a `corsi` fa comparire da sola la scheda, i collegamenti da macchina e tecnologia, la voce in sitemap e la pagina statica. Lo schema di un corso è documentato in `_modello`.",
+  "_nota": "INGLY ACADEMY. Il catalogo è VUOTO di proposito: un corso ha una durata, un programma e un prezzo che decide chi lo eroga, e inventarli significherebbe pubblicare un'offerta che non esiste. Qui c'è la struttura perché l'Admin possa riempirla: aggiungere una voce a `corsi` fa comparire da sola la scheda, i collegamenti da macchina e tecnologia, la voce in sitemap e la pagina statica. Lo schema di un corso è documentato in `_modello`. 2026-11-28: su richiesta del titolare, un corso base per ciascuna macchina in laboratorio (M2, C1, X1, P3, F2, O1 UV, WonderPress); durata e prezzo «su misura / su richiesta» finché il titolare non li decide.",
   "attiva": true,
   "intro": {
     "eyebrow": {
@@ -198,7 +198,1085 @@
       "descrizione": ""
     }
   },
-  "corsi": [],
+  "corsi": [
+    {
+      "id": "m2-base",
+      "n": {
+        "it": "xTool M2 — laser, IR e stampa a colori",
+        "en": "xTool M2 — laser, IR and colour printing"
+      },
+      "sommario": {
+        "it": "Usare i tre moduli della M2 (diodo 10, 20 o 40 W, IR e stampa CMYK) e passare dall’idea al pezzo finito.",
+        "en": "Use the M2’s three modules (10, 20 or 40 W diode, IR and CMYK printing) and go from idea to finished piece."
+      },
+      "descrizione": {
+        "it": "Un corso pratico sulla xTool M2 che abbiamo in laboratorio con i moduli 10, 20 e 40 W: quando usare il diodo, quando l’IR per marcare il metallo, come stampare a colori e poi tagliare.",
+        "en": "A hands-on course on the xTool M2 we have in the workshop with the 10, 20 and 40 W modules: when to use the diode, when to use IR to mark metal, how to print in colour and then cut."
+      },
+      "tipo": "macchina",
+      "macchina": "m2",
+      "tecnologia": null,
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 5,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Scegliere il modulo giusto per ogni materiale",
+          "Incidere e tagliare legno, pelle e carta",
+          "Marcare il metallo con il modulo IR",
+          "Stampare a colori e tagliare il contorno (Print & Cut)"
+        ],
+        "en": [
+          "Choose the right module for each material",
+          "Engrave and cut wood, leather and paper",
+          "Mark metal with the IR module",
+          "Print in colour and cut the outline (Print & Cut)"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "xTool Studio passo per passo",
+            "en": "xTool Studio step by step"
+          },
+          "d": {
+            "it": "Importare un file, scegliere il materiale, posizionare con la telecamera, avviare il lavoro.",
+            "en": "Importing a file, choosing the material, positioning with the camera, starting the job."
+          }
+        },
+        {
+          "t": {
+            "it": "I moduli 10, 20 e 40 W a confronto",
+            "en": "The 10, 20 and 40 W modules compared"
+          },
+          "d": {
+            "it": "Stesso materiale, tre moduli: velocità, dettaglio e spessori a confronto.",
+            "en": "Same material, three modules: speed, detail and thickness compared."
+          }
+        },
+        {
+          "t": {
+            "it": "IR e stampa CMYK",
+            "en": "IR and CMYK printing"
+          },
+          "d": {
+            "it": "Marcatura su metallo e stampa a colori con taglio del contorno.",
+            "en": "Marking on metal and colour printing with outline cutting."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Un portachiavi stampato a colori e tagliato, e una targhetta in metallo marcata.",
+        "en": "A colour-printed, cut keyring and a marked metal tag."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": true,
+      "seo": {
+        "titolo": "Corso xTool M2 a Palermo: diodo 10/20/40 W, IR e stampa",
+        "descrizione": "Corso pratico sulla xTool M2 a Palermo o online: moduli diodo 10, 20 e 40 W, IR per il metallo, stampa CMYK e Print & Cut. INGLY DESIGN, host xTool Squad."
+      }
+    },
+    {
+      "id": "c1-base",
+      "n": {
+        "it": "xTool C1 — adesivi ed etichette che si vendono",
+        "en": "xTool C1 — stickers and labels that sell"
+      },
+      "sommario": {
+        "it": "Scansionare, stampare a colori e tagliare adesivi ed etichette con la C1, pronti da vendere.",
+        "en": "Scan, print in colour and cut stickers and labels with the C1, ready to sell."
+      },
+      "descrizione": {
+        "it": "Con la xTool C1 Color Cutter si fa tutto in un passaggio: impari a preparare il file, a scegliere il supporto e a ottenere tagli puliti, foglio dopo foglio.",
+        "en": "With the xTool C1 Color Cutter everything happens in one pass: you learn to prepare the file, choose the media and get clean cuts, sheet after sheet."
+      },
+      "tipo": "macchina",
+      "macchina": "c1",
+      "tecnologia": null,
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 5,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Preparare file per stampa e taglio",
+          "Scegliere carta, vinile e supporti",
+          "Fare adesivi, etichette e biglietti in serie"
+        ],
+        "en": [
+          "Prepare files for printing and cutting",
+          "Choose paper, vinyl and media",
+          "Make stickers, labels and cards in batches"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "xTool Studio passo per passo",
+            "en": "xTool Studio step by step"
+          },
+          "d": {
+            "it": "Importare un file, scegliere il materiale, posizionare con la telecamera, avviare il lavoro.",
+            "en": "Importing a file, choosing the material, positioning with the camera, starting the job."
+          }
+        },
+        {
+          "t": {
+            "it": "Dal disegno all’adesivo",
+            "en": "From drawing to sticker"
+          },
+          "d": {
+            "it": "Colori, margini, linee di taglio e scansione di un disegno a mano.",
+            "en": "Colours, margins, cut lines and scanning a hand drawing."
+          }
+        },
+        {
+          "t": {
+            "it": "Produzione in serie",
+            "en": "Batch production"
+          },
+          "d": {
+            "it": "Fogli pieni, rotolo e controllo qualità.",
+            "en": "Full sheets, roll and quality control."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Un foglio di adesivi con il tuo logo, pronto da vendere.",
+        "en": "A sheet of stickers with your logo, ready to sell."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": false,
+      "seo": {
+        "titolo": "Corso xTool C1 Color Cutter a Palermo: adesivi ed etichette",
+        "descrizione": "Corso pratico sulla xTool C1 a Palermo o online: scansione, stampa a colori e taglio di adesivi ed etichette. INGLY DESIGN, host xTool Squad."
+      }
+    },
+    {
+      "id": "x1-base",
+      "n": {
+        "it": "xTool X1 — una piattaforma, tanti laser",
+        "en": "xTool X1 — one platform, many lasers"
+      },
+      "sommario": {
+        "it": "Capire e usare la X1: CO₂ di serie e, secondo la configurazione, gli altri laser.",
+        "en": "Understand and use the X1: CO₂ as standard and, depending on configuration, the other lasers."
+      },
+      "descrizione": {
+        "it": "La X1 cambia sorgente laser secondo il lavoro. Nel corso vedi quando conviene il CO₂ e quando gli altri moduli, sulla macchina che abbiamo in laboratorio.",
+        "en": "The X1 changes laser source depending on the job. In the course you see when CO₂ is best and when the other modules are, on the machine in our workshop."
+      },
+      "tipo": "macchina",
+      "macchina": "x1",
+      "tecnologia": "co2",
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 5,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Scegliere la sorgente giusta per il materiale",
+          "Tagliare e incidere legno e acrilico con il CO₂",
+          "Impostare lavori ripetibili"
+        ],
+        "en": [
+          "Choose the right source for the material",
+          "Cut and engrave wood and acrylic with CO₂",
+          "Set up repeatable jobs"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "xTool Studio passo per passo",
+            "en": "xTool Studio step by step"
+          },
+          "d": {
+            "it": "Importare un file, scegliere il materiale, posizionare con la telecamera, avviare il lavoro.",
+            "en": "Importing a file, choosing the material, positioning with the camera, starting the job."
+          }
+        },
+        {
+          "t": {
+            "it": "CO₂: taglio e incisione",
+            "en": "CO₂: cutting and engraving"
+          },
+          "d": {
+            "it": "Legno, acrilico, pelle: parametri e prove su campione.",
+            "en": "Wood, acrylic, leather: settings and sample tests."
+          }
+        },
+        {
+          "t": {
+            "it": "Gli altri laser della X1",
+            "en": "The X1’s other lasers"
+          },
+          "d": {
+            "it": "Quando e perché cambiare sorgente, secondo la configurazione.",
+            "en": "When and why to switch source, depending on configuration."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Una targa in legno incisa e tagliata con il tuo testo.",
+        "en": "An engraved, cut wooden plaque with your text."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": false,
+      "seo": {
+        "titolo": "Corso xTool X1 a Palermo: CO₂ e laser intercambiabili",
+        "descrizione": "Corso pratico sulla xTool X1 a Palermo o online: taglio e incisione CO₂ e uso delle altre sorgenti laser. INGLY DESIGN, host xTool Squad."
+      }
+    },
+    {
+      "id": "p3-base",
+      "n": {
+        "it": "xTool P3 — dal file al pezzo finito",
+        "en": "xTool P3 — from file to finished piece"
+      },
+      "sommario": {
+        "it": "Tagliare e incidere con la P3 in modo preciso e ripetibile, anche in piccola serie.",
+        "en": "Cut and engrave with the P3 precisely and repeatably, even in small batches."
+      },
+      "descrizione": {
+        "it": "La P3 è la macchina CO₂ con cui produciamo ogni giorno: impari a preparare i file, a fare i test sui materiali e a organizzare una produzione senza sprechi.",
+        "en": "The P3 is the CO₂ machine we produce with every day: you learn to prepare files, test materials and organise waste-free production."
+      },
+      "tipo": "macchina",
+      "macchina": "p3",
+      "tecnologia": "co2",
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 5,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Tarare su un materiale nuovo",
+          "Tagliare legno e acrilico con bordi puliti",
+          "Organizzare una piccola serie"
+        ],
+        "en": [
+          "Calibrate on a new material",
+          "Cut wood and acrylic with clean edges",
+          "Organise a small batch"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "xTool Studio passo per passo",
+            "en": "xTool Studio step by step"
+          },
+          "d": {
+            "it": "Importare un file, scegliere il materiale, posizionare con la telecamera, avviare il lavoro.",
+            "en": "Importing a file, choosing the material, positioning with the camera, starting the job."
+          }
+        },
+        {
+          "t": {
+            "it": "Test sui materiali",
+            "en": "Material tests"
+          },
+          "d": {
+            "it": "Griglie di prova, potenza e velocità, scelta dei parametri.",
+            "en": "Test grids, power and speed, choosing settings."
+          }
+        },
+        {
+          "t": {
+            "it": "Produzione in serie",
+            "en": "Batch production"
+          },
+          "d": {
+            "it": "Disposizione sul piano, sprechi minimi, controllo qualità.",
+            "en": "Bed layout, minimal waste, quality control."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Un set di sottobicchieri incisi e tagliati.",
+        "en": "A set of engraved, cut coasters."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": false,
+      "seo": {
+        "titolo": "Corso xTool P3 a Palermo: taglio e incisione CO₂",
+        "descrizione": "Corso pratico sulla xTool P3 a Palermo o online: file, test sui materiali, taglio e incisione CO₂ e produzione in serie. INGLY DESIGN, host xTool Squad."
+      }
+    },
+    {
+      "id": "f2-base",
+      "n": {
+        "it": "xTool F2 — incisione rapida e precisa",
+        "en": "xTool F2 — fast, precise engraving"
+      },
+      "sommario": {
+        "it": "Incidere oggetti piccoli, metallo e gadget in serie con la F2.",
+        "en": "Engrave small objects, metal and gadgets in batches with the F2."
+      },
+      "descrizione": {
+        "it": "La F2 è veloce e precisa sugli oggetti piccoli: impari a centrare il lavoro, a marcare il metallo e a personalizzare gadget uno dopo l’altro.",
+        "en": "The F2 is fast and precise on small objects: you learn to centre the job, mark metal and personalise gadgets one after another."
+      },
+      "tipo": "macchina",
+      "macchina": "f2",
+      "tecnologia": null,
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 5,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Posizionare con precisione su oggetti piccoli",
+          "Marcare metallo e materiali compatibili",
+          "Personalizzare gadget in serie"
+        ],
+        "en": [
+          "Position precisely on small objects",
+          "Mark metal and compatible materials",
+          "Personalise gadgets in batches"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "xTool Studio passo per passo",
+            "en": "xTool Studio step by step"
+          },
+          "d": {
+            "it": "Importare un file, scegliere il materiale, posizionare con la telecamera, avviare il lavoro.",
+            "en": "Importing a file, choosing the material, positioning with the camera, starting the job."
+          }
+        },
+        {
+          "t": {
+            "it": "Metallo e materiali piccoli",
+            "en": "Metal and small items"
+          },
+          "d": {
+            "it": "Medagliette, penne, portachiavi: parametri e posizionamento.",
+            "en": "Tags, pens, keyrings: settings and positioning."
+          }
+        },
+        {
+          "t": {
+            "it": "Personalizzazione in serie",
+            "en": "Batch personalisation"
+          },
+          "d": {
+            "it": "Nomi diversi su pezzi uguali, senza rifare il lavoro.",
+            "en": "Different names on identical pieces, without redoing the job."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Una medaglietta in acciaio incisa con nome e telefono.",
+        "en": "A steel tag engraved with name and phone number."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": false,
+      "seo": {
+        "titolo": "Corso xTool F2 a Palermo: incisione su metallo e gadget",
+        "descrizione": "Corso pratico sulla xTool F2 a Palermo o online: incisione rapida su metallo e oggetti piccoli, personalizzazione in serie. INGLY DESIGN, host xTool Squad."
+      }
+    },
+    {
+      "id": "o1-uv-base",
+      "n": {
+        "it": "xTool O1 Omni UV — stampa UV su oggetti",
+        "en": "xTool O1 Omni UV — UV printing on objects"
+      },
+      "sommario": {
+        "it": "Stampare a colori su legno, acrilico, metallo e oggetti con la stampante UV.",
+        "en": "Print in colour on wood, acrylic, metal and objects with the UV printer."
+      },
+      "descrizione": {
+        "it": "La stampa UV porta il colore dove il laser non arriva: impari a preparare la grafica, a scegliere il supporto e a ottenere colori brillanti e resistenti.",
+        "en": "UV printing brings colour where the laser cannot: you learn to prepare artwork, choose the substrate and get bright, durable colours."
+      },
+      "tipo": "macchina",
+      "macchina": "o1-uv",
+      "tecnologia": "uv",
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 5,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Preparare grafica e colori per la stampa UV",
+          "Stampare su materiali diversi",
+          "Unire stampa UV e taglio laser"
+        ],
+        "en": [
+          "Prepare artwork and colours for UV printing",
+          "Print on different materials",
+          "Combine UV printing and laser cutting"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "xTool Studio passo per passo",
+            "en": "xTool Studio step by step"
+          },
+          "d": {
+            "it": "Importare un file, scegliere il materiale, posizionare con la telecamera, avviare il lavoro.",
+            "en": "Importing a file, choosing the material, positioning with the camera, starting the job."
+          }
+        },
+        {
+          "t": {
+            "it": "Grafica e colore",
+            "en": "Artwork and colour"
+          },
+          "d": {
+            "it": "Risoluzione, bianco di fondo, vernice e profili colore.",
+            "en": "Resolution, white base, varnish and colour profiles."
+          }
+        },
+        {
+          "t": {
+            "it": "Stampa su oggetti",
+            "en": "Printing on objects"
+          },
+          "d": {
+            "it": "Legno, acrilico, metallo, oggetti di forma: posizionamento e prove.",
+            "en": "Wood, acrylic, metal, shaped objects: positioning and tests."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Un quadretto in acrilico stampato a colori con la tua foto.",
+        "en": "A colour-printed acrylic panel with your photo."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": false,
+      "seo": {
+        "titolo": "Corso stampa UV xTool O1 a Palermo",
+        "descrizione": "Corso pratico sulla xTool O1 Omni UV a Palermo o online: grafica, colore e stampa UV su legno, acrilico e metallo. INGLY DESIGN, host xTool Squad."
+      }
+    },
+    {
+      "id": "wonderpress-base",
+      "n": {
+        "it": "xTool WonderPress — trasferimenti su tessuto",
+        "en": "xTool WonderPress — transfers on fabric"
+      },
+      "sommario": {
+        "it": "Trasferire stampe e grafiche su magliette, borse e tessuti con la pressa.",
+        "en": "Transfer prints and graphics onto T-shirts, bags and fabrics with the press."
+      },
+      "descrizione": {
+        "it": "Con la WonderPress personalizzi capi e accessori: impari temperature, tempi e pressione giusti per ogni supporto, e a ottenere trasferimenti che durano ai lavaggi.",
+        "en": "With the WonderPress you personalise garments and accessories: you learn the right temperature, time and pressure for each item, and transfers that last through washes."
+      },
+      "tipo": "macchina",
+      "macchina": "wonderpress",
+      "tecnologia": null,
+      "area": "macchine-settaggi",
+      "livello": "base",
+      "formato": "misto",
+      "durata": {
+        "it": "Durata su misura",
+        "en": "Tailored length"
+      },
+      "lezioni": 4,
+      "aChi": {
+        "it": [
+          "Chi ha appena comprato la macchina o sta per farlo",
+          "Chi la usa già ma vuole risultati costanti e vendibili"
+        ],
+        "en": [
+          "People who have just bought the machine or are about to",
+          "People who already use it but want consistent, sellable results"
+        ]
+      },
+      "obiettivi": {
+        "it": [
+          "Impostare temperatura, tempo e pressione",
+          "Trasferire su cotone, poliestere e borse",
+          "Evitare i difetti più comuni"
+        ],
+        "en": [
+          "Set temperature, time and pressure",
+          "Transfer onto cotton, polyester and bags",
+          "Avoid the most common defects"
+        ]
+      },
+      "programma": [
+        {
+          "t": {
+            "it": "Installazione e sicurezza",
+            "en": "Setup and safety"
+          },
+          "d": {
+            "it": "Montaggio, collegamento, aspirazione e le regole per lavorare sicuri.",
+            "en": "Assembly, connection, extraction and the rules for working safely."
+          }
+        },
+        {
+          "t": {
+            "it": "Preparare il trasferimento",
+            "en": "Preparing the transfer"
+          },
+          "d": {
+            "it": "Stampa, taglio e posizionamento della grafica.",
+            "en": "Printing, cutting and positioning the artwork."
+          }
+        },
+        {
+          "t": {
+            "it": "Pressatura sui diversi tessuti",
+            "en": "Pressing on different fabrics"
+          },
+          "d": {
+            "it": "Parametri e prove su cotone, poliestere e borse.",
+            "en": "Settings and tests on cotton, polyester and bags."
+          }
+        },
+        {
+          "t": {
+            "it": "Manutenzione e problemi comuni",
+            "en": "Maintenance and common issues"
+          },
+          "d": {
+            "it": "Pulizia, controlli periodici e cosa fare quando qualcosa non va.",
+            "en": "Cleaning, routine checks and what to do when something goes wrong."
+          }
+        }
+      ],
+      "requisiti": {
+        "it": [
+          "Nessuno: si parte da zero",
+          "Se ce l’hai, porta il tuo computer con xTool Studio installato"
+        ],
+        "en": [
+          "None: we start from scratch",
+          "If you have one, bring your laptop with xTool Studio installed"
+        ]
+      },
+      "materiali": {
+        "it": [
+          "Materiali di prova del laboratorio compresi",
+          "Puoi portare i tuoi materiali da testare"
+        ],
+        "en": [
+          "Workshop test materials included",
+          "You can bring your own materials to test"
+        ]
+      },
+      "progetto": {
+        "it": "Una maglietta personalizzata con la tua grafica.",
+        "en": "A T-shirt personalised with your artwork."
+      },
+      "prezzo": null,
+      "compareAt": null,
+      "posti": null,
+      "faq": [
+        {
+          "d": {
+            "it": "Si può fare online?",
+            "en": "Can it be done online?"
+          },
+          "r": {
+            "it": "Sì: la parte su software e file si fa anche collegati; le prove sulla macchina si fanno in laboratorio a Palermo o sulla tua macchina, con te davanti.",
+            "en": "Yes: the software and file part can be done online; machine tests take place in our Palermo workshop or on your own machine, with you in front of it."
+          }
+        },
+        {
+          "d": {
+            "it": "Quanto dura e quanto costa?",
+            "en": "How long is it and how much does it cost?"
+          },
+          "r": {
+            "it": "Dipende da cosa ti serve: scrivici e ti proponiamo durata, date e prezzo. Prima, se vuoi, una demo gratuita.",
+            "en": "It depends on what you need: write to us and we propose length, dates and price. If you like, start with a free demo."
+          }
+        }
+      ],
+      "stato": "pubblicato",
+      "inEvidenza": false,
+      "seo": {
+        "titolo": "Corso xTool WonderPress a Palermo: trasferimenti su tessuto",
+        "descrizione": "Corso pratico sulla xTool WonderPress a Palermo o online: trasferimenti su magliette, borse e tessuti. INGLY DESIGN, host xTool Squad."
+      }
+    }
+  ],
   "aree": [
     {
       "id": "macchine-settaggi",

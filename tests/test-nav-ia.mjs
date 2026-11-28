@@ -112,7 +112,9 @@ check('un materiale nuovo entrerebbe nel menu da solo',
     .colonne[0].voci[0].n === 'Nuovo');
 
 console.log('\n=== ACADEMY VUOTA ===');
-const ac = IA.pannello('academy', D);
+/* dati di prova vuoti: dal 2026-11-28 il sito ha i corsi delle macchine in laboratorio */
+const ac = IA.pannello('academy', { ...D, CORSI: { ...(D.CORSI || {}), corsi: [] } });
+check('con i corsi veri il menu Academy li elenca', IA.pannello('academy', D).colonne[0].voci.length >= 7);
 check('senza corsi la colonna resta vuota', ac.colonne[0].voci.length === 0);
 /* Un menu che mostra «Corsi» e non porta a niente è peggio di un menu che
    dice che il calendario non è aperto. */

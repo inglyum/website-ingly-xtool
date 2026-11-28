@@ -24,5 +24,6 @@ const htmlCacheVersion=html.match(/CACHE_WANT='ingly-v(\d+)'/)?.[1];
 assert.ok(Number(cacheVersion)>=15,'Brand files must invalidate stale cache generation');
 assert.equal(cacheVersion,htmlCacheVersion,'HTML and Service Worker cache generation must match');
 assert.ok(cfg.demo.bookingUrl.includes('id=2528'));
-assert.equal(corsi.corsi.length,0,'Do not fabricate published courses');
+/* 2026-11-28: corsi richiesti dal titolare, uno per macchina in laboratorio; prezzi e durate restano suoi */
+assert.ok(corsi.corsi.every(c=>c.prezzo==null&&/su misura/i.test((c.durata&&c.durata.it)||'')),'Do not fabricate course prices or durations');
 console.log('INGLY brand/xTool Lab/Academy regression: PASS');

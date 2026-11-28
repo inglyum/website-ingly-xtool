@@ -15,7 +15,7 @@ for(const page of [home,business]){
   assert.ok(page.includes('href="materiali" data-nav="materiali" data-i18n="bizCta2"'),'Secondary business CTA misrouted');
 }
 assert.ok(it.it.bizSub.includes('aziende'),'B2B copy missing');
-assert.ok(cfg.slogan.it.includes('idee'),'New homepage headline missing');
+assert.ok(/\*\*[^*]+\*\*/.test(cfg.slogan.it)&&cfg.slogan.it.includes('creazione'),'Homepage headline missing (2026-11-28: «Ispiriamo la **creazione.**»)');
 const js=read('data/config.js');
 assert.ok(js.includes(cfg.slogan.it.replaceAll('\n','\\n')),'Fallback headline must match JSON');
 assert.ok(!js.includes('00000000000'),'Invalid placeholder VAT leaked into config fallback');

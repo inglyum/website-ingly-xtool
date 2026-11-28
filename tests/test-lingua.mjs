@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 let ok = 0, ko = 0; const t = (n, c, x = '') => { c ? ok++ : ko++; console.log((c ? '  ✔ ' : '  ✘ ') + n + (c || !x ? '' : ' → ' + x)); };
 
-const dom = new JSDOM('<!doctype html><html><head><title>INGLY DESIGN — Incisione laser a Palermo e centro assistenza xTool in Sicilia</title></head><body></body></html>', { url: 'https://example.test/' });
+const dom = new JSDOM('<!doctype html><html><head><title>INGLY DESIGN — Laser a Palermo e xTool Squad Pro Hub in Italia ed Europa</title></head><body></body></html>', { url: 'https://example.test/' });
 const w = dom.window;
 for (const k of ['document', 'NodeFilter', 'MutationObserver']) globalThis[k] = w[k];
 const L = await import('../assets/js/lingua-statica.js');
@@ -26,7 +26,7 @@ L.applica('en');
 const [btn, fermo, inp] = [d.querySelector('button'), d.querySelector('p'), d.querySelector('input')];
 t('testo tradotto in inglese', btn.textContent === 'Cart');
 t('aria-label e placeholder tradotti', btn.getAttribute('aria-label') === 'Cart' && inp.placeholder === 'Cart');
-t('titolo della scheda tradotto', d.title === 'INGLY DESIGN — Laser engraving in Palermo and xTool service centre in Sicily', d.title);
+t('titolo della scheda tradotto', d.title === 'INGLY DESIGN — Laser studio in Palermo and xTool Squad Pro Hub in Italy and Europe', d.title);
 t('translate="no" rispettato', fermo.textContent === 'Carrello');
 const nuovo = d.createElement('span'); nuovo.textContent = 'Carrello'; d.body.appendChild(nuovo);
 await new Promise(r => setTimeout(r, 20));

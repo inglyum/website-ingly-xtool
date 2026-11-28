@@ -24,7 +24,9 @@ const ld = JSON.parse((h.match(/<script type="application\/ld\+json">([^]*?)<\/s
 const tipi = (ld['@graph'] || []).map(x => [].concat(x['@type']).join('+'));
 t('dati strutturati: attività locale, elenco macchine, FAQ, percorso', ['LocalBusiness+ProfessionalService', 'ItemList', 'FAQPage', 'BreadcrumbList'].every(x => tipi.includes(x)));
 const biz = (ld['@graph'] || [])[0] || {};
-t('zone servite: Palermo, Catania, Messina, Sicilia, Calabria', ['Palermo', 'Catania', 'Messina', 'Sicilia', 'Calabria'].every(n => JSON.stringify(biz.areaServed || []).includes(n)));
+t('zone servite: Palermo, Catania, Messina, Sicilia, Calabria, Italia, Europa', ['Palermo', 'Catania', 'Messina', 'Sicilia', 'Calabria', 'Italia', 'Europa'].every(n => JSON.stringify(biz.areaServed || []).includes(n)));
+t('H1 e testi: anche tutta Italia ed Europa', /<h1>[^<]*Italia[^<]*Europa/.test(h) && /<dd>Italia ed Europa<\/dd>/.test(h));
+t('badge Pro Hub: livello xTool Squad spiegato, non un voto a stelle', /class="xsquad"[^]*Pro Hub/.test(h) && /Pro Hub è il livello più completo/.test(h) && /Cosa vuol dire Pro Hub\?/.test(h) && !/aria-label="2 stelle"/.test(h));
 t('i corsi come Course nel catalogo', (biz.hasOfferCatalog && biz.hasOfferCatalog.itemListElement || []).length === corsi.length && corsi.length > 0);
 t('nella sitemap', /<loc>https:\/\/www\.inglydesign\.it\/xtool\/?<\/loc>/.test(readFileSync('sitemap.xml', 'utf8')));
 

@@ -1264,3 +1264,28 @@
 @media (max-width:980px){
  :root[data-mode][data-mode] #page-home .rs3d .hero-grid{grid-template-rows:auto!important;grid-template-areas:"b" "t" "p" "x" "s" "f"!important}
 }
+
+/* ============================================================
+   BADGE xTool Squad · Pro Hub — livello della rete ufficiale,
+   NON un voto: stelle vuote nel segmento verde xTool (#03D403,
+   lo stesso del logo xTool Authorized Service Centre).
+   Pro Hub = il livello più completo (Demo Room · Service Station · Pro Hub).
+   ============================================================ */
+.xsquad{display:inline-flex;align-items:stretch;vertical-align:middle;font-family:var(--rs-font);font-size:.76rem;line-height:1;font-weight:700;
+ letter-spacing:.08em;text-transform:uppercase;text-decoration:none!important;overflow:hidden;white-space:nowrap;
+ box-shadow:0 0 0 1px #0b0b0b,0 8px 20px -12px rgba(0,0,0,.65);transition:transform .2s ease,box-shadow .2s ease}
+.xsquad__marchio{display:inline-flex;align-items:center;gap:.35em;padding:.62em .8em .62em .85em;background:#0b0b0b;color:#fff;letter-spacing:.04em;text-transform:none;font-weight:700}
+.xsquad__marchio b{color:#03d403;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.92em}
+.xsquad__livello{display:inline-flex;align-items:center;gap:.5em;padding:.62em .85em;background:linear-gradient(180deg,#1ef01e,#03d403);color:#041a04}
+.xsquad__stelle{display:inline-flex;gap:2px}
+.xsquad__stelle svg{display:block;width:1.05em;height:1.05em}
+a.xsquad:hover{transform:translateY(-1px);box-shadow:0 0 0 1px #0b0b0b,0 12px 26px -12px rgba(3,212,3,.55)}
+a.xsquad:focus-visible{outline:2px solid #03d403;outline-offset:3px}
+.xsquad--mini{font-size:.64rem;margin-top:5px;box-shadow:0 0 0 1px #0b0b0b}
+.ihost__livello{margin:2px 0 0;font-size:.85rem;color:var(--rs-muted);max-width:62ch;line-height:1.5}
+:root[data-mode][data-mode] :is(#page-home,main,body) .xsquad{border-radius:8px!important}
+:root[data-mode][data-mode] :is(#page-home,main,body) .xsquad :is(.xsquad__marchio,.xsquad__livello){border-radius:0!important}
+:root[data-mode][data-mode] :is(#page-home,main,body) .xsquad--mini{border-radius:6px!important}
+.hero-firma__host small{margin-bottom:0}
+.hero-firma__host>span{display:flex;flex-direction:column;align-items:flex-start}
+:root[data-mode][data-mode] :is(#page-home,main) .ihost .ihost__badge a.xsquad{border-radius:8px!important;overflow:hidden!important}

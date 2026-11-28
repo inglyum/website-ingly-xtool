@@ -133,16 +133,16 @@ const STATIC_UI_TRANSLATIONS={
   portfolio:{it:'Portfolio',en:'Portfolio'},
   theme:{it:'Tema',en:'Theme'},
   serviceIntro:{
-    it:'INGLY DESIGN è host di xTool Squad, la rete ufficiale di xTool per il supporto locale prima e dopo l\'acquisto: demo delle macchine, test sui tuoi materiali, formazione, installazione e messa in servizio, manutenzione e riparazione. Laboratorio a Palermo; seguiamo clienti a Catania, Messina, in tutta la Sicilia e in Calabria. Raccontaci il modello e di cosa hai bisogno.',
-    en:'INGLY DESIGN is an xTool Squad host, xTool\'s official network for local support before and after purchase: machine demos, tests on your materials, training, installation and commissioning, maintenance and repair. Workshop in Palermo; we support customers in Catania, Messina, across Sicily and in Calabria. Tell us which model you have and what you need.'
+    it:'INGLY DESIGN è host di xTool Squad, la rete ufficiale di xTool per il supporto locale prima e dopo l\'acquisto: demo delle macchine, test sui tuoi materiali, formazione, installazione e messa in servizio, manutenzione e riparazione. Laboratorio a Palermo; seguiamo clienti in tutta Italia e in Europa, dal vivo o online. Raccontaci il modello e di cosa hai bisogno.',
+    en:'INGLY DESIGN is an xTool Squad host, xTool\'s official network for local support before and after purchase: machine demos, tests on your materials, training, installation and commissioning, maintenance and repair. Workshop in Palermo; we support customers across Italy and Europe, in person or online. Tell us which model you have and what you need.'
   },
   serviceScope:{
     it:'Per assistenza o riparazione, disponibilità e tipo di intervento vengono confermati caso per caso. Garanzia, xToolCare e ricambi originali sono gestiti da xTool sui suoi canali ufficiali.',
     en:'For service or repair, availability and the type of work are confirmed case by case. Warranty, xToolCare and original spare parts are handled by xTool through its official channels.'
   },
   serviceBadgeCaption:{
-    it:'INGLY DESIGN · host xTool Squad · Sicilia e Calabria',
-    en:'INGLY DESIGN · xTool Squad host · Sicily and Calabria'
+    it:'INGLY DESIGN · xTool Squad Pro Hub · Italia ed Europa',
+    en:'INGLY DESIGN · xTool Squad Pro Hub · Italy and Europe'
   },
   serviceContact:{it:'Chiedi assistenza xTool',en:'Ask for xTool support'},
   bookDemo:{it:'Prenota una demo xTool',en:'Book an xTool demo'},

@@ -382,7 +382,7 @@ export function renderMacchine(L) {
     '<p class="lab-n"><b>'+esc(titolo)+'</b></p><ul class="lab-lista">'+items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'';};
   box.innerHTML = `
     <a class="ingly-assistenza-banner" href="${via('/assistenza-xtool-palermo/')}">
-      <span><b>${t2('Assistenza xTool · host ufficiale xTool Squad · Palermo, Catania, Messina, Sicilia e Calabria', 'xTool support · official xTool Squad host · Palermo, Catania, Messina, Sicily and Calabria', L)}</b>
+      <span><b>${t2('Assistenza xTool · xTool Squad Pro Hub · laboratorio a Palermo, clienti in tutta Italia e in Europa', 'xTool support · xTool Squad Pro Hub · workshop in Palermo, customers across Italy and Europe', L)}</b>
       <small>${t2('Demo prima dell\'acquisto, test sui materiali, formazione, installazione, manutenzione e riparazione.', 'Pre-sale demos, material tests, training, commissioning, maintenance and repair.', L)}</small></span>
       <span class="arr" aria-hidden="true">→</span></a>
     ${sezioneNovita(d, L)}
@@ -1182,7 +1182,7 @@ export function renderDemo(L) {
     ${faqHtml(LAB.FAQ_DEMO, L)}
 
     <p class="lab-p">${t2('Cerchi assistenza su una macchina che hai già?', 'Need support on a machine you already own?', L)}
-      <a href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool in Sicilia e Calabria', 'xTool support in Sicily and Calabria', L)} →</a></p>
+      <a href="${via('/assistenza-xtool-palermo/')}">${t2('Assistenza xTool in Italia e in Europa', 'xTool support in Italy and Europe', L)} →</a></p>
 
     <div class="hero-ctas lab-ctas">${ctaDemo(dm, L)}</div>`;
 

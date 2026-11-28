@@ -38,11 +38,15 @@ t('Admin: card «Mosaico foto della home» con aggiungi, togli, ordina, ripristi
 console.log('\n=== FIRMA E PORTE xTOOL ===');
 const hero = home.slice(home.indexOf('id="rs3d"'), home.indexOf('class="signature-benefits"'));
 t('logo INGLY, badge xTool Authorized Service Centre e foto dell\'host nell\'hero', /hero-firma__logo" src="assets\/images\/ingly-logo\.svg"/.test(hero) && /xtool-asc-trasparente/.test(hero) && /giuseppe-inglima-host-480\.webp/.test(hero) && /href="#host"/.test(hero));
-t('porte verso Mondo xTool e Assistenza xTool (Palermo, Catania, Messina, Calabria)', /href="xtool\/"/.test(hero) && /href="assistenza-xtool-palermo\/"[^]*Palermo, Catania, Messina e Calabria/.test(hero));
+t('porte verso Mondo xTool e Assistenza xTool (tutta Italia ed Europa)', /href="xtool\/"/.test(hero) && /href="assistenza-xtool-palermo\/"[^]*in tutta Italia e in Europa/.test(hero));
+t('titolo dell\'home: «Ispiriamo la creazione.» (Admin → slogan) e copia nella pagina', cfg.slogan.it === 'Ispiriamo la **creazione.**' && cfg.slogan.en === 'We inspire **creation.**' && /data-parola="creazione\."/.test(hero));
+t('badge Pro Hub come livello xTool Squad, non come voto', /class="xsquad xsquad--mini"[^]*Pro Hub[^]*fill="none"/.test(hero) && !/Pro Hub <i aria-hidden="true">★★/.test(home));
+const card = home.slice(home.indexOf('id="host"'), home.indexOf('</article>', home.indexOf('id="host"')));
+t('profilo: badge Pro Hub collegato al profilo ufficiale, spiegazione del livello, zone Italia ed Europa', /<a class="xsquad" href="https:\/\/support\.xtool\.com\/demo-room\/host-instruction\?id=2528/.test(card) && /ihost__livello">Pro Hub è il livello più completo della rete ufficiale xTool Squad/.test(card) && /<dd>Italia ed Europa<\/dd>/.test(card) && !/aria-label="2 stelle"/.test(card));
 t('titolo modificabile dal pannello invariato (#heroH1)', (hero.match(/id="heroH1"/g) || []).length === 1);
 t('firma e porte nella griglia dell\'hero, prima del modulo', /grid-template-areas:"\. s" "b s" "t s" "p s" "x s" "f s" "\. s"/.test(css) && /grid-template-areas:"b" "t" "p" "x" "s" "f"/.test(css));
 const diz = readFileSync('assets/js/lingua-statica.js', 'utf8');
-t('testi nuovi tradotti in inglese', ['Host ufficiale xTool Squad · Pro Hub', 'macchine, demo gratuite e corsi', 'Palermo, Catania, Messina e Calabria'].every(k => diz.includes("'" + k + "'")));
+t('testi nuovi tradotti in inglese', ['Host ufficiale xTool Squad', 'macchine, demo gratuite e corsi', 'in tutta Italia e in Europa', 'Italia ed Europa', 'Pro Hub è il livello più completo della rete ufficiale xTool Squad: demo, manutenzione, installazione, soluzioni per aziende ed eventi.'].every(k => diz.includes("'" + k + "'")));
 
 console.log(`\n=========== HERO E MOSAICO: ${ok} passati, ${ko} falliti ===========`);
 if (ko) process.exit(1);

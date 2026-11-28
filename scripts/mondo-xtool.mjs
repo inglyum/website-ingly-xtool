@@ -59,6 +59,10 @@ const tag = m => it(m.demo && m.demo.tag) || it(m.ruolo);
 
 const SICILIA = ['Palermo', 'Catania', 'Messina', 'Trapani', 'Agrigento', 'Siracusa', 'Ragusa', 'Caltanissetta', 'Enna'];
 const CALABRIA = ['Reggio Calabria', 'Cosenza', 'Catanzaro', 'Crotone', 'Vibo Valentia'];
+/* 2026-11-28, indicazione del titolare: non solo Sicilia e Calabria, ma tutta Italia e l'Europa */
+const ITALIA = ['Roma', 'Milano', 'Napoli', 'Torino', 'Bologna', 'Firenze', 'Bari', 'Venezia'];
+const EUROPA = ['Malta', 'Spagna', 'Francia', 'Germania', 'Svizzera', 'Austria'];
+const STELLA_VUOTA = '<svg viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M10 2.2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L10 14.6l-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z"/></svg>';
 
 const SERVIZI = [
   ['Demo gratuita', 'Vedi la macchina lavorare su un tuo pezzo, in laboratorio a Palermo oppure online, prima di scegliere. Si prenota dalla Demo Room di xTool Support.'],
@@ -72,9 +76,11 @@ const SERVIZI = [
 const FAQ = [
   ['Dove posso provare una macchina xTool in Sicilia?', 'Nel laboratorio INGLY DESIGN a Palermo, con una demo gratuita: la prenoti dalla Demo Room di xTool Support o ci scrivi su WhatsApp. In laboratorio ci sono ' + inLab.map(m => it(m.n)).join(', ') + '.'],
   ['Fate corsi sulle macchine xTool?', 'Sì: un corso pratico per ogni macchina che abbiamo in laboratorio, in officina a Palermo oppure online. Durata e calendario si concordano in base a quello che ti serve.'],
+  ['Seguite clienti in tutta Italia e in Europa?', 'Sì. Il laboratorio è a Palermo; per il resto d’Italia e per l’Europa facciamo demo, corsi e consigli online, diagnosi a distanza con foto e video e, quando serve, ci spedisci la macchina. Garanzia e ricambi restano sui canali ufficiali xTool del tuo Paese.'],
+  ['Cosa vuol dire Pro Hub?', 'Nella rete xTool Squad ci sono tre tipi di spazi: Demo Room, Service Station e Pro Hub. Il Pro Hub è il più completo: demo, manutenzione, installazione, soluzioni per aziende ed eventi della community. INGLY DESIGN è Pro Hub a Palermo.'],
   ['Seguite anche Catania, Messina e la Calabria?', 'Sì. Il laboratorio è a Palermo e seguiamo clienti a Catania, Messina, in tutta la Sicilia e in Calabria: demo e corsi anche online, assistenza con ritiro o spedizione della macchina.'],
   ['Vendete le macchine xTool?', 'No: le macchine si acquistano sullo shop ufficiale xTool. Noi ti aiutiamo a scegliere il modello giusto, con una demo, un test sui tuoi materiali o un consiglio, e poi ti seguiamo con corsi e assistenza.'],
-  ['Cos’è xTool Squad?', 'È il programma ufficiale di xTool con cui gli host locali offrono demo, test sui materiali, formazione, installazione e assistenza. INGLY DESIGN è host xTool Squad a Palermo.'],
+  ['Cos’è xTool Squad?', 'È il programma ufficiale di xTool con cui gli host locali offrono demo, test sui materiali, formazione, installazione e assistenza. INGLY DESIGN è host xTool Squad, livello Pro Hub, a Palermo.'],
   ['Quale xTool scegliere per iniziare?', 'Dipende da cosa vuoi realizzare e su quali materiali. Il modo più semplice per deciderlo è una demo gratuita: porti un’idea o un pezzo e lo provi sulle macchine che abbiamo in laboratorio.'],
   ['Cos’è xTool Studio e lo insegnate?', 'È il software di xTool con cui si preparano e si avviano i lavori. Lo usiamo ogni giorno e lo spieghiamo in tutti i corsi, dal primo file al pezzo finito.'],
   ['Dove leggo le recensioni?', 'In questa pagina e sul nostro profilo di host nel sito di assistenza ufficiale xTool, dove le lascia chi ha prenotato una demo o un servizio.'],
@@ -85,16 +91,16 @@ const schema = {
   '@graph': [
     {
       '@type': ['LocalBusiness', 'ProfessionalService'], '@id': url + '#xtool-lab',
-      name: 'INGLY DESIGN — xTool Lab Palermo, host xTool Squad', url,
-      description: 'Demo gratuite, corsi, test sui materiali, installazione, manutenzione e riparazione delle macchine xTool a Palermo, in Sicilia e in Calabria.',
+      name: 'INGLY DESIGN — xTool Lab Palermo, xTool Squad Pro Hub', url,
+      description: 'Demo gratuite, corsi, test sui materiali, installazione, manutenzione e riparazione delle macchine xTool: dal vivo a Palermo, online in tutta Italia e in Europa.',
       telephone: tel.replace(/\s+/g, ''), email,
       image: dom + '/assets/images/xtool-authorized-service-centre-premium.svg',
       address: { '@type': 'PostalAddress', addressLocality: 'Palermo', addressRegion: 'Sicilia', addressCountry: 'IT' },
       areaServed: [...['Palermo', 'Catania', 'Messina', 'Reggio Calabria'].map(n => ({ '@type': 'City', name: n })),
-        { '@type': 'AdministrativeArea', name: 'Sicilia' }, { '@type': 'AdministrativeArea', name: 'Calabria' }, { '@type': 'Country', name: 'Italia' }],
+        { '@type': 'AdministrativeArea', name: 'Sicilia' }, { '@type': 'AdministrativeArea', name: 'Calabria' }, { '@type': 'Country', name: 'Italia' }, { '@type': 'Place', name: 'Europa' }],
       brand: { '@type': 'Brand', name: 'xTool' },
       knowsAbout: ['xTool', 'xTool Studio', 'incisione laser', 'taglio laser', 'laser CO2', 'laser a diodo', 'stampa UV', 'Print & Cut'],
-      makesOffer: SERVIZI.map(([n, d]) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n + ' xTool', description: d, areaServed: ['Sicilia', 'Calabria'] } })),
+      makesOffer: SERVIZI.map(([n, d]) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: n + ' xTool', description: d, areaServed: ['Sicilia', 'Calabria', 'Italia', 'Europa'] } })),
       hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Corsi xTool', itemListElement: corsi.map(c => ({ '@type': 'Offer', itemOffered: { '@type': 'Course', name: it(c.n), description: it(c.sommario), url: dom + '/academy/' + c.id, provider: { '@type': 'Organization', name: 'INGLY DESIGN', sameAs: dom } } })) },
       sameAs: [prenota, ...Object.values(cfg.social || {}).filter(u => /^https:\/\//.test(u) && !/wa\.me/.test(u))]
     },
@@ -125,12 +131,12 @@ export function genera() {
 <base href="../">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>xTool in Sicilia: demo gratis, corsi e assistenza a Palermo | INGLY DESIGN</title>
-<meta name="description" content="Mondo xTool di INGLY DESIGN, host xTool Squad a Palermo: demo gratuite, corsi su ogni macchina, test materiali e assistenza in Sicilia e Calabria.">
+<title>xTool a Palermo, in Sicilia e in Italia: demo gratis, corsi e assistenza | INGLY DESIGN</title>
+<meta name="description" content="Mondo xTool di INGLY DESIGN, xTool Squad Pro Hub a Palermo: demo gratuite, corsi su ogni macchina e assistenza in tutta Italia e in Europa.">
 <link rel="canonical" href="${esc(url)}">
 <meta property="og:type" content="website"><meta property="og:url" content="${esc(url)}">
 <meta property="og:title" content="Mondo xTool a Palermo: demo, corsi e assistenza — INGLY DESIGN">
-<meta property="og:description" content="Prova le xTool gratis, impara a usarle e falle assistere da un host xTool Squad: Palermo, Catania, Messina, Sicilia e Calabria.">
+<meta property="og:description" content="Prova le xTool gratis, impara a usarle e falle assistere da un xTool Squad Pro Hub: dal vivo a Palermo, online in tutta Italia e in Europa.">
 <meta property="og:image" content="${esc(dom)}/assets/images/og-image.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
 <script>(function(){try{var m=localStorage.getItem("ingly_mode");if(m==="dark"||m==="light")document.documentElement.dataset.mode=m;var a=localStorage.getItem("ingly_atmo");if(a&&/^[a-z]+$/.test(a)&&a!=="aurora")document.documentElement.setAttribute("data-atmosfera",a)}catch(e){}})();</script>
@@ -188,7 +194,7 @@ export function genera() {
 </header>
 <main class="mx-wrap page active">
  <nav aria-label="Percorso" style="font-size:14px;margin-bottom:14px"><a href="./">Home</a> / Mondo xTool</nav>
- <h1>xTool a Palermo, in Sicilia e in Calabria: demo gratuite, corsi e assistenza</h1>
+ <h1>xTool a Palermo, in Sicilia, in Calabria, in tutta Italia e in Europa: demo gratuite, corsi e assistenza</h1>
  <p class="mx-lead">INGLY DESIGN è host di <a href="${SQUAD}" target="_blank" rel="noopener noreferrer">xTool Squad</a>, il programma ufficiale di xTool. Nel nostro laboratorio di Palermo lavoriamo ogni giorno con ${inLab.length} macchine xTool: puoi provarle gratis, imparare a usarle con un corso pratico e avere un’assistenza vicina prima e dopo l’acquisto.</p>
  ${recensioni.length ? `<p class="mx-voto">${stelle(Math.round(media))} <b>${voto(media)} su 5</b> · <a href="xtool/#recensioni">${recensioni.length} recensioni</a> dei clienti delle demo, sul profilo host ufficiale xTool</p>` : ''}
  <div class="mx-cta">
@@ -201,16 +207,17 @@ export function genera() {
  <article class="ihost" id="host" aria-labelledby="ihostNome">
   <img class="ihost__foto" src="img/giuseppe-inglima-host-480.webp" srcset="img/giuseppe-inglima-host-480.webp 480w, img/giuseppe-inglima-host.webp 960w" sizes="(max-width: 640px) 168px, 220px" width="480" height="503" alt="Giuseppe Inglima, host xTool Squad Pro Hub, INGLY DESIGN Palermo" decoding="async">
   <div class="ihost__testo">
-   <p class="ihost__badge"><span>Host ufficiale xTool Squad</span><span class="ihost__pro">Pro Hub <span class="ihost__stelle" role="img" aria-label="2 stelle">${STELLA.repeat(2)}</span></span></p>
+   <p class="ihost__badge"><a class="xsquad" href="${esc(prenota)}" target="_blank" rel="noopener noreferrer" aria-label="xTool Squad Pro Hub, livello due stelle: profilo ufficiale su xTool Support"><span class="xsquad__marchio">xTool <b>Squad</b></span><span class="xsquad__livello">Pro Hub <span class="xsquad__stelle">${STELLA_VUOTA.repeat(2)}</span></span></a></p>
+   <p class="ihost__livello">Pro Hub è il livello più completo della rete ufficiale xTool Squad: demo, manutenzione, installazione, soluzioni per aziende ed eventi.</p>
    <h3 id="ihostNome">Giuseppe Inglima</h3>
    <p class="ihost__ruolo">Fondatore di INGLY DESIGN · Palermo</p>
    ${recensioni.length ? `<p class="ihost__voto">${stelle(Math.round(media))} <b>${voto(media)} su 5</b> · <a href="xtool/#recensioni">${recensioni.length} recensioni</a> sul profilo host xTool</p>` : ''}
-   <p class="ihost__bio">Lavoro ogni giorno con le macchine xTool nel laboratorio INGLY DESIGN: le uso per produrre, le faccio provare in demo gratuita e insegno a usarle, dal primo avvio al primo pezzo da vendere. Seguo clienti in Sicilia e in Calabria, anche online.</p>
+   <p class="ihost__bio">Lavoro ogni giorno con le macchine xTool nel laboratorio INGLY DESIGN: le uso per produrre, le faccio provare in demo gratuita e insegno a usarle, dal primo avvio al primo pezzo da vendere. Seguo clienti in tutta Italia e in Europa: dal vivo a Palermo, online ovunque.</p>
    <dl class="ihost__fatti">
     <div><dt>Macchine in laboratorio</dt><dd>${inLab.length} xTool</dd></div>
     <div><dt>Demo</dt><dd>Gratuite, dal vivo o online</dd></div>
     <div><dt>Corsi</dt><dd>Uno per ogni macchina</dd></div>
-    <div><dt>Zone</dt><dd>Sicilia e Calabria</dd></div>
+    <div><dt>Zone</dt><dd>Italia ed Europa</dd></div>
    </dl>
    <div class="ihost__azioni">
     <a class="btn btn-primary" href="${esc(prenota)}" target="_blank" rel="noopener noreferrer">Prenota una demo con me</a>
@@ -251,6 +258,8 @@ export function genera() {
  <p>Laboratorio a Palermo; demo e corsi anche online; assistenza con ritiro o spedizione della macchina.</p>
  <p><b>Sicilia</b></p><ul class="mx-zone">${SICILIA.map(z => `<li>${esc(z)}</li>`).join('')}</ul>
  <p><b>Calabria</b></p><ul class="mx-zone">${CALABRIA.map(z => `<li>${esc(z)}</li>`).join('')}</ul>
+ <p><b>Tutta Italia</b> · online, con spedizione della macchina quando serve</p><ul class="mx-zone">${ITALIA.map(z => `<li>${esc(z)}</li>`).join('')}<li>e ogni altra città</li></ul>
+ <p><b>Europa</b> · online, con spedizione della macchina quando serve</p><ul class="mx-zone">${EUROPA.map(z => `<li>${esc(z)}</li>`).join('')}<li>e gli altri Paesi europei</li></ul>
 
  <h2>Il resto della gamma xTool</h2>
  <p>Modelli in vendita oggi sul sito ufficiale xTool che non abbiamo in laboratorio: ti aiutiamo comunque a capire se fanno per te e li seguiamo in assistenza.</p>

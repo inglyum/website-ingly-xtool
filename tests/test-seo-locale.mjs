@@ -9,7 +9,7 @@ const check = (n, c, x = '') => { if (c) { pass++; console.log('  ✔ ' + n) } e
 const F = 'assistenza-xtool-palermo/index.html';
 check('pagina «Centro assistenza xTool a Palermo» generata', existsSync(F));
 const doc = new JSDOM(readFileSync(F, 'utf8')).window.document;
-check('titolo e H1 con xTool, assistenza, Palermo, Catania, Messina, Sicilia, Calabria', /assistenza xTool a Palermo, Catania, Messina/i.test(doc.title) && /Sicilia e Calabria/.test(doc.title) && /Palermo, in Sicilia e in Calabria/.test(doc.querySelector('h1').textContent));
+check('titolo e H1 con xTool, assistenza, Palermo, Catania, Messina, Sicilia, Italia, Europa', /assistenza xTool a Palermo, Catania, Messina/i.test(doc.title) && /Italia ed Europa/.test(doc.title) && /Palermo, in Sicilia, in tutta Italia e in Europa/.test(doc.querySelector('h1').textContent));
 const ld = JSON.parse(doc.querySelector('script[type="application/ld+json"]').textContent)['@graph'];
 const lb = ld.find(g => [].concat(g['@type']).includes('LocalBusiness'));
 check('dati per Google: attività locale a Palermo con zone servite', lb && lb.address.addressLocality === 'Palermo' && lb.areaServed.some(a => a.name === 'Sicilia'));

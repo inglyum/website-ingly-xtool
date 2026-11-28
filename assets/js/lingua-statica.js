@@ -123,13 +123,20 @@ export const DIZIONARIO = {
   'Host ufficiale xTool Squad · Pro Hub': 'Official xTool Squad host · Pro Hub',
   'Giuseppe Inglima, host xTool Squad': 'Giuseppe Inglima, xTool Squad host',
   'xTool Authorized Service Centre: assistenza xTool a Palermo': 'xTool Authorized Service Centre: xTool support in Palermo',
-  'INGLY DESIGN e xTool in Sicilia e Calabria': 'INGLY DESIGN and xTool in Sicily and Calabria',
+  'INGLY DESIGN e xTool in Italia e in Europa': 'INGLY DESIGN and xTool in Italy and Europe',
+  'in tutta Italia e in Europa': 'across Italy and Europe',
+  'Italia ed Europa': 'Italy and Europe',
+  'Italia ed Europa.': 'Italy and Europe.',
+  'Host ufficiale xTool Squad': 'Official xTool Squad host',
+  'Pro Hub è il livello più completo della rete ufficiale xTool Squad: demo, manutenzione, installazione, soluzioni per aziende ed eventi.': 'Pro Hub is the most complete level of the official xTool Squad network: demos, maintenance, installation, business solutions and events.',
+  'xTool Squad Pro Hub, livello due stelle: profilo ufficiale su xTool Support': 'xTool Squad Pro Hub, two-star level: official profile on xTool Support',
+  'xTool Squad Pro Hub, livello due stelle': 'xTool Squad Pro Hub, two-star level',
   'macchine, demo gratuite e corsi': 'machines, free demos and courses',
   'Assistenza xTool': 'xTool support',
   'Palermo, Catania, Messina e Calabria': 'Palermo, Catania, Messina and Calabria',
   'Tecnologia al servizio delle tue idee. Scopri la nostra collaborazione con xTool: le macchine che usiamo ogni giorno, le demo gratuite, i corsi e l’assistenza.': 'Technology supporting your ideas. Discover our collaboration with xTool: the machines we use every day, free demos, courses and support.',
   'Fondatore di INGLY DESIGN · Palermo': 'Founder of INGLY DESIGN · Palermo',
-  'Lavoro ogni giorno con le macchine xTool nel laboratorio INGLY DESIGN: le uso per produrre, le faccio provare in demo gratuita e insegno a usarle, dal primo avvio al primo pezzo da vendere. Seguo clienti in Sicilia e in Calabria, anche online.': 'I work with xTool machines every day in the INGLY DESIGN workshop: I use them for production, let people try them in free demos and teach how to use them, from first start-up to the first piece to sell. I support customers in Sicily and Calabria, online too.',
+  'Lavoro ogni giorno con le macchine xTool nel laboratorio INGLY DESIGN: le uso per produrre, le faccio provare in demo gratuita e insegno a usarle, dal primo avvio al primo pezzo da vendere. Seguo clienti in tutta Italia e in Europa: dal vivo a Palermo, online ovunque.': 'I work with xTool machines every day in the INGLY DESIGN workshop: I use them for production, let people try them in free demos and teach how to use them, from first start-up to the first piece to sell. I support customers across Italy and Europe: in person in Palermo, online everywhere.',
   'Macchine in laboratorio': 'Machines in the workshop',
   '7 xTool': '7 xTool',
   'Demo': 'Demo',
@@ -144,7 +151,7 @@ export const DIZIONARIO = {
   'Demo del prodotto': 'Product demo',
   'Tutto sul mondo xTool': 'Everything about the xTool world',
   'Il laboratorio, macchina per macchina': 'The workshop, machine by machine',
-  'Le xTool che usiamo ogni giorno a Palermo: per ognuna puoi provarla gratis, seguire un corso pratico o chiedere assistenza. Seguiamo clienti in tutta la Sicilia e in Calabria, anche online.': 'The xTool machines we use every day in Palermo: for each one you can try it for free, take a hands-on course or ask for support. We serve customers across Sicily and Calabria, online too.',
+  'Le xTool che usiamo ogni giorno a Palermo: per ognuna puoi provarla gratis, seguire un corso pratico o chiedere assistenza. Seguiamo clienti in tutta Italia e in Europa: dal vivo a Palermo, online ovunque.': 'The xTool machines we use every day in Palermo: for each one you can try it for free, take a hands-on course or ask for support. We serve customers across Italy and Europe: in person in Palermo, online everywhere.',
   'La vedi lavorare su un tuo pezzo prima di scegliere.': 'See it work on your own piece before you choose.',
   'Corsi pratici': 'Hands-on courses',
   'Dall’installazione al primo pezzo da vendere, in laboratorio o online.': 'From setup to your first piece to sell, in the workshop or online.',
@@ -498,7 +505,7 @@ export const DIZIONARIO = {
   'Prova la tua foto incisa — INGLY DESIGN': 'Try your engraved photo — INGLY DESIGN',
 
   /* --- titoli della scheda del browser --- */
-  'INGLY DESIGN — Incisione laser a Palermo e centro assistenza xTool in Sicilia': 'INGLY DESIGN — Laser engraving in Palermo and xTool service centre in Sicily',
+  'INGLY DESIGN — Laser a Palermo e xTool Squad Pro Hub in Italia ed Europa': 'INGLY DESIGN — Laser studio in Palermo and xTool Squad Pro Hub in Italy and Europe',
   'INGLY Academy — INGLY DESIGN': 'INGLY Academy — INGLY DESIGN'
 };
 

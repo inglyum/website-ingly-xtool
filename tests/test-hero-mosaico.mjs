@@ -35,6 +35,8 @@ t('ridisegnato dai dati pubblicati dal pannello', /applicaMosaico\(CONFIG\)/.tes
 const adm = readFileSync('admin.html', 'utf8');
 t('Admin: card «Mosaico foto della home» con aggiungi, togli, ordina, ripristina', /id="mosaicoCard"/.test(adm) && /function renderMosaico/.test(adm) && /data-mos-del/.test(adm) && /data-mos-mv/.test(adm) && /mosReset/.test(adm) && /renderAtmosfera\(\);bindAll\(\);renderMosaico\(\);/.test(adm));
 
+t('Admin: card «Immagini del menu» (CONFIG.menuImmagini)', /id="menuImgCard"/.test(adm) && /async function renderMenuImg/.test(adm) && /data-menu-img/.test(adm) && /renderMosaico\(\);renderMenuImg\(\);/.test(adm));
+
 console.log('\n=== FIRMA E PORTE xTOOL ===');
 const hero = home.slice(home.indexOf('id="rs3d"'), home.indexOf('class="signature-benefits"'));
 t('logo INGLY, badge xTool Authorized Service Centre e foto dell\'host nell\'hero', /hero-firma__logo" src="assets\/images\/ingly-logo\.svg"/.test(hero) && /xtool-asc-trasparente/.test(hero) && /giuseppe-inglima-host-480\.webp/.test(hero) && /href="#host"/.test(hero));
@@ -47,6 +49,17 @@ t('titolo modificabile dal pannello invariato (#heroH1)', (hero.match(/id="heroH
 t('firma e porte nella griglia dell\'hero, prima del modulo', /grid-template-areas:"\. s" "b s" "t s" "p s" "x s" "f s" "\. s"/.test(css) && /grid-template-areas:"b" "t" "p" "x" "s" "f"/.test(css));
 const diz = readFileSync('assets/js/lingua-statica.js', 'utf8');
 t('testi nuovi tradotti in inglese', ['Host ufficiale xTool Squad', 'macchine, demo gratuite e corsi', 'in tutta Italia e in Europa', 'Italia ed Europa', 'Pro Hub è il livello più completo della rete ufficiale xTool Squad: demo, manutenzione, installazione, soluzioni per aziende ed eventi.'].every(k => diz.includes("'" + k + "'")));
+
+console.log('\n=== RIFINITURE, GENERATORI PRO, STAMPA 3D ===');
+const fxjs = readFileSync('assets/js/effetti-pro.js', 'utf8');
+t('barra di lettura e mosaico che segue il puntatore, solo variabili CSS e mai con «riduci movimento»', /function avviaRifiniture\(\) \{\n  if \(riduci\(\)\) return;/.test(fxjs) && /setProperty\('--fx-p'/.test(fxjs) && /setProperty\('--hm-x'/.test(fxjs) && /#fxProgresso\{/.test(css) && /prefers-reduced-motion:reduce\)\{#fxProgresso\{display:none\}/.test(css));
+t('nastro dei servizi: copia per il ciclo nascosta ai lettori di schermo, fermo con «riduci movimento»', /class="inastro"[^]*class="inastro__lista" aria-hidden="true"/.test(home) && /prefers-reduced-motion:reduce\)\{\.inastro__binario\{animation:none\}/.test(css));
+const gen = readFileSync('generatori.html', 'utf8');
+const pro = ['boxes.hackerspace-bamberg.de', 'makercase.com', 'templatemaker.nl', 'makerworld.com/en/makerlab/parametricModelMaker', 'gridfinity.perplexinglabs.com', 'openscad.org', 'printables.com', 'xtool.com/pages/software'];
+t('generatori professionali del web nel Generator Studio (laser e stampa 3D)', pro.every(u => gen.includes(u)) && /'Pro esterni · Stampa 3D':'Pro external · 3D printing'/.test(gen));
+t('elenco del pannello unito ai nuovi strumenti, non sostituito', /defaults\.forEach\(d=>\{if\(!catalogue\.some\(x=>x\.id===d\.id\)\)catalogue\.push\(d\)\}\)/.test(gen) && J('data/content.json').GENERATORI.some(g => g.id === 'pro-boxes-py'));
+const s3d = readFileSync('assets/js/stampa3d-ui.js', 'utf8');
+t('Stampa 3D: strumenti professionali con link esterni sicuri', /STRUMENTI_3D/.test(s3d) && /target="_blank" rel="noopener noreferrer"/.test(s3d) && /litofania\.html/.test(s3d));
 
 console.log(`\n=========== HERO E MOSAICO: ${ok} passati, ${ko} falliti ===========`);
 if (ko) process.exit(1);

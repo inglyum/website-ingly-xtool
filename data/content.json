@@ -4706,6 +4706,193 @@
    "icona": "✺",
    "attivo": true,
    "ordine": 15
+  },
+  {
+   "id": "litofania",
+   "modulo": "link-interno",
+   "nome": {
+    "it": "Litofania 3D dalla tua foto",
+    "en": "3D lithophane from your photo"
+   },
+   "descrizione": {
+    "it": "La foto diventa un pannello da stampare in 3D che si accende in controluce. Scarichi il file STL o la stampiamo noi.",
+    "en": "Your photo becomes a 3D-printable panel that lights up when backlit. Download the STL file or have us print it."
+   },
+   "categoria": "Stampa 3D",
+   "icona": "◫",
+   "attivo": true,
+   "ordine": 1,
+   "url": "litofania.html"
+  },
+  {
+   "id": "pro-boxes-py",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "Boxes.py — scatole e strutture",
+    "en": "Boxes.py — boxes and structures"
+   },
+   "descrizione": {
+    "it": "Il generatore open source più completo per il taglio laser: scatole, cassetti, vassoi, cerniere e incastri, con test del kerf. Esporta SVG. Strumento esterno: account e licenze sono del servizio.",
+    "en": "The most complete open-source laser generator: boxes, drawers, trays, hinges and joints, with kerf tests. Exports SVG. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Laser",
+   "icona": "▣",
+   "attivo": true,
+   "ordine": 40,
+   "url": "https://boxes.hackerspace-bamberg.de/"
+  },
+  {
+   "id": "pro-makercase",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "MakerCase — scatole su misura",
+    "en": "MakerCase — custom boxes"
+   },
+   "descrizione": {
+    "it": "Scatole con giunti a dita, piatti o a T, misura interna o esterna e spessore del materiale. Esporta SVG e DXF. Strumento esterno: account e licenze sono del servizio.",
+    "en": "Boxes with finger, flat or T-slot joints, inner or outer size and material thickness. Exports SVG and DXF. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Laser",
+   "icona": "⊞",
+   "attivo": true,
+   "ordine": 41,
+   "url": "https://en.makercase.com/"
+  },
+  {
+   "id": "pro-jigsaw",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "Generatore di puzzle",
+    "en": "Jigsaw puzzle generator"
+   },
+   "descrizione": {
+    "it": "Tracciati di puzzle in SVG con numero di pezzi, forma degli incastri e casualità regolabili. Strumento esterno: account e licenze sono del servizio.",
+    "en": "SVG jigsaw paths with adjustable piece count, tab shape and randomness. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Laser",
+   "icona": "⧉",
+   "attivo": true,
+   "ordine": 42,
+   "url": "https://draradech.github.io/jigsaw/jigsaw.html"
+  },
+  {
+   "id": "pro-templatemaker",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "Templatemaker — packaging",
+    "en": "Templatemaker — packaging"
+   },
+   "descrizione": {
+    "it": "Fustelle di scatole, buste e confezioni con le tue misure: ottime per carta, cartoncino e taglio laser. Strumento esterno: account e licenze sono del servizio.",
+    "en": "Dielines for boxes, envelopes and packaging at your size: great for paper, card and laser cutting. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Laser",
+   "icona": "◳",
+   "attivo": true,
+   "ordine": 43,
+   "url": "https://www.templatemaker.nl/"
+  },
+  {
+   "id": "pro-xtool-studio",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "xTool Studio (software ufficiale)",
+    "en": "xTool Studio (official software)"
+   },
+   "descrizione": {
+    "it": "Il software gratuito di xTool per preparare e avviare i lavori, con strumenti AI per immagini e contorni. Lo insegniamo nei corsi. Strumento esterno: account e licenze sono del servizio.",
+    "en": "xTool's free software to prepare and run jobs, with AI tools for images and outlines. We teach it in our courses. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Laser",
+   "icona": "✕",
+   "attivo": true,
+   "ordine": 44,
+   "url": "https://www.xtool.com/pages/software"
+  },
+  {
+   "id": "pro-inkscape",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "Inkscape — disegno vettoriale",
+    "en": "Inkscape — vector design"
+   },
+   "descrizione": {
+    "it": "Il programma vettoriale gratuito per rifinire gli SVG prima del laser: testi in tracciati, nodi, vettorializzazione. Strumento esterno: account e licenze sono del servizio.",
+    "en": "The free vector editor to refine SVGs before lasering: text to paths, nodes, tracing. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Laser",
+   "icona": "✎",
+   "attivo": true,
+   "ordine": 45,
+   "url": "https://inkscape.org/"
+  },
+  {
+   "id": "pro-makerworld-parametric",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "MakerWorld · Parametric Model Maker",
+    "en": "MakerWorld · Parametric Model Maker"
+   },
+   "descrizione": {
+    "it": "Modelli 3D parametrici nel browser (OpenSCAD), senza installare nulla: personalizzi misure e testi e scarichi lo STL. Strumento esterno: account e licenze sono del servizio.",
+    "en": "Parametric 3D models in the browser (OpenSCAD), no install: customise sizes and text and download the STL. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Stampa 3D",
+   "icona": "⬡",
+   "attivo": true,
+   "ordine": 46,
+   "url": "https://makerworld.com/en/makerlab/parametricModelMaker"
+  },
+  {
+   "id": "pro-gridfinity",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "Gridfinity Generator",
+    "en": "Gridfinity Generator"
+   },
+   "descrizione": {
+    "it": "Contenitori e basi modulari Gridfinity su misura per cassetti e banchi da lavoro, pronti da stampare. Strumento esterno: account e licenze sono del servizio.",
+    "en": "Custom modular Gridfinity bins and baseplates for drawers and workbenches, ready to print. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Stampa 3D",
+   "icona": "▦",
+   "attivo": true,
+   "ordine": 47,
+   "url": "https://gridfinity.perplexinglabs.com/"
+  },
+  {
+   "id": "pro-openscad",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "OpenSCAD — CAD parametrico",
+    "en": "OpenSCAD — parametric CAD"
+   },
+   "descrizione": {
+    "it": "Il CAD gratuito a codice per pezzi tecnici precisi e parametrici: lo standard dei generatori 3D. Strumento esterno: account e licenze sono del servizio.",
+    "en": "The free code-based CAD for precise, parametric technical parts: the standard behind 3D generators. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Stampa 3D",
+   "icona": "◇",
+   "attivo": true,
+   "ordine": 48,
+   "url": "https://openscad.org/"
+  },
+  {
+   "id": "pro-printables",
+   "modulo": "link-esterno",
+   "nome": {
+    "it": "Printables — modelli 3D",
+    "en": "Printables — 3D models"
+   },
+   "descrizione": {
+    "it": "Una delle librerie di modelli 3D più curate, con licenze chiare per ogni file. Strumento esterno: account e licenze sono del servizio.",
+    "en": "One of the best-curated 3D model libraries, with a clear licence on every file. External tool: accounts and licences belong to the service."
+   },
+   "categoria": "Pro esterni · Stampa 3D",
+   "icona": "◫",
+   "attivo": true,
+   "ordine": 49,
+   "url": "https://www.printables.com/"
   }
  ],
  "PORT_NASCOSTI": [

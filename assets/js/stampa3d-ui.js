@@ -27,6 +27,16 @@ function vaso() {
     <g class="s3d-ugello"><rect x="108" y="20" width="24" height="16"/><path d="M114 36h12l-6 10z"/></g></svg>`;
 }
 
+/* 2026-11-28: i migliori strumenti per creare modelli 3D (esterni) + i nostri */
+const STRUMENTI_3D = [
+  { ico: '◫', url: 'litofania.html', interno: true, n: { it: 'Litofania INGLY', en: 'INGLY Lithophane' }, d: { it: 'La tua foto in un pannello 3D che si accende in controluce. STL gratuito.', en: 'Your photo as a 3D panel that glows when backlit. Free STL.' } },
+  { ico: '⬡', url: 'https://makerworld.com/en/makerlab/parametricModelMaker', n: { it: 'MakerWorld · Parametric Model Maker', en: 'MakerWorld · Parametric Model Maker' }, d: { it: 'Modelli parametrici nel browser: cambi misure e testi, scarichi lo STL.', en: 'Parametric models in the browser: change sizes and text, download the STL.' } },
+  { ico: '▦', url: 'https://gridfinity.perplexinglabs.com/', n: { it: 'Gridfinity Generator', en: 'Gridfinity Generator' }, d: { it: 'Contenitori modulari su misura per cassetti e banchi da lavoro.', en: 'Custom modular bins for drawers and workbenches.' } },
+  { ico: '◇', url: 'https://openscad.org/', n: { it: 'OpenSCAD', en: 'OpenSCAD' }, d: { it: 'CAD parametrico gratuito per pezzi tecnici precisi.', en: 'Free parametric CAD for precise technical parts.' } },
+  { ico: '⧉', url: 'https://www.printables.com/', n: { it: 'Printables', en: 'Printables' }, d: { it: 'Libreria di modelli 3D curata, con la licenza su ogni file.', en: 'A curated 3D model library, with the licence on every file.' } },
+  { ico: '✳', url: 'generatori.html', interno: true, n: { it: 'Generator Studio INGLY', en: 'INGLY Generator Studio' }, d: { it: 'I nostri generatori e i migliori del web, per laser e stampa 3D.', en: 'Our generators and the best on the web, for laser and 3D printing.' } }
+];
+
 export function renderStampa3D(L = 'it', card = null) {
   const box = document.getElementById('s3dPagina');
   if (!box) return;
@@ -70,6 +80,13 @@ export function renderStampa3D(L = 'it', card = null) {
       <a class="btn btn-primary" href="${via('litofania.html')}">${t2('Apri il generatore', 'Open the generator')}</a>
     </div>
     <figure class="s3d-lito__pannello"><img src="${via('img/port-10-400.webp')}" alt="${t2('Esempio: una foto di famiglia resa come litofania in controluce', 'Example: a family photo rendered as a backlit lithophane')}" width="400" height="500" loading="lazy" decoding="async"><figcaption>${t2('Esempio di resa in controluce', 'Backlit rendering example')}</figcaption></figure>
+  </div>
+
+  <div class="wrap s3d-sez s3d-pro">
+    <h2 class="h2">${t2('Strumenti 3D <span class="hl">professionali</span>', 'Professional <span class="hl">3D tools</span>')}</h2>
+    <p class="sub">${t2('Crea o personalizza il tuo modello con i generatori migliori del web, poi mandacelo: lo stampiamo noi, anche insieme a laser e stampa UV.', 'Create or customise your model with the best generators on the web, then send it to us: we print it, even together with laser and UV printing.')}</p>
+    <ul class="s3d-pro__griglia">${STRUMENTI_3D.map(x => `<li><a href="${x.interno ? via(x.url) : esc(x.url)}"${x.interno ? '' : ' target="_blank" rel="noopener noreferrer"'}><span class="s3d-pro__ico" aria-hidden="true">${x.ico}</span><b>${esc(l(x.n))}${x.interno ? '' : ' <i aria-hidden="true">↗</i>'}</b><span>${esc(l(x.d))}</span></a></li>`).join('')}</ul>
+    <p class="s3d-pro__nota">${t2('Gli strumenti esterni sono servizi di terzi, con i loro account e le loro licenze.', 'External tools are third-party services, with their own accounts and licences.')}</p>
   </div>
 
   <div class="wrap s3d-sez">

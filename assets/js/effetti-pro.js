@@ -182,12 +182,50 @@ function preparaTitoli() {
   }), 8000);
 }
 
+/* ---------------- 3. barra di lettura e mosaico che respira ----------------
+   2026-11-28: una linea dorata in cima che segue lo scorrimento della pagina e
+   il mosaico dell'hero che si sposta appena col puntatore (proprietà CSS
+   `translate`, indipendente dall'animazione del contenitore). Solo variabili
+   CSS (regola 11); niente sulle immagini (regola 1); fermi con «riduci movimento». */
+function avviaRifiniture() {
+  if (riduci()) return;
+  let barra = document.getElementById('fxProgresso');
+  if (!barra) {
+    barra = document.createElement('div');
+    barra.id = 'fxProgresso'; barra.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(barra);
+  }
+  let rafP = 0;
+  const progresso = () => {
+    rafP = 0;
+    const h = document.documentElement.scrollHeight - innerHeight;
+    barra.style.setProperty('--fx-p', h > 0 ? Math.min(1, Math.max(0, scrollY / h)).toFixed(4) : '0');
+  };
+  addEventListener('scroll', () => { if (!rafP) rafP = requestAnimationFrame(progresso); }, { passive: true });
+  progresso();
+  if (matchMedia('(pointer:coarse)').matches) return;
+  let rafM = 0, ev = null;
+  addEventListener('pointermove', e => {
+    ev = e;
+    if (rafM) return;
+    rafM = requestAnimationFrame(() => {
+      rafM = 0;
+      const m = document.getElementById('heroMosaico');
+      if (!m || !ev) return;
+      const r = m.parentElement.getBoundingClientRect();
+      if (ev.clientY > r.bottom || ev.clientY < r.top) return;
+      m.style.setProperty('--hm-x', ((ev.clientX / innerWidth) - .5).toFixed(3));
+      m.style.setProperty('--hm-y', (((ev.clientY - r.top) / Math.max(1, r.height)) - .5).toFixed(3));
+    });
+  }, { passive: true });
+}
+
 /* ---------------- avvio ---------------- */
 let avviato = false;
 export function initEffettiPro() {
   if (avviato) { aggiornaSfondo(); return; }
   avviato = true;
-  const parti = () => { aggiornaSfondo(); preparaTitoli(); };
+  const parti = () => { aggiornaSfondo(); preparaTitoli(); avviaRifiniture(); };
   ('requestIdleCallback' in window) ? requestIdleCallback(parti, { timeout: 1500 }) : setTimeout(parti, 300);
   new MutationObserver(() => aggiornaSfondo()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-mode', 'data-atmosfera'] });
   document.addEventListener('ingly:pagina', () => setTimeout(preparaTitoli, 120));

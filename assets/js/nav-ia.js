@@ -61,8 +61,45 @@ export const FAMIGLIE = [
   { id: 'business', rotta: 'business', n: { it: 'Business', en: 'Business' },
     claim: { it: 'Creazioni e lavorazioni per le aziende.', en: 'Corporate personalization and production.' } },
   { id: 'xtool', rotta: 'macchine', n: { it: 'Lab', en: 'Lab' },
-    claim: { it: 'Macchine, tecnologie, corsi e demo.', en: 'Machines, technology, courses and demos.' } }
+    claim: { it: 'Macchine xTool, demo e assistenza.', en: 'xTool machines, demos and support.' } },
+  /* 2026-11-28, richiesta del titolare: i corsi hanno una voce propria. */
+  { id: 'academy', rotta: 'academy', n: { it: 'Corsi', en: 'Courses' },
+    claim: { it: 'Impara le xTool, passo dopo passo.', en: 'Learn xTool machines, step by step.' } },
+  /* Mondo xTool: la pagina pilastro /xtool/ (statica, generata dalla build):
+     `url` è il vero indirizzo, `statica` evita che il router della SPA la intercetti. */
+  { id: 'mondo', rotta: 'xtool', url: 'xtool/', statica: true, n: { it: 'Mondo xTool', en: 'xTool world' },
+    claim: { it: 'Pro Hub xTool Squad: demo, assistenza, recensioni.', en: 'xTool Squad Pro Hub: demos, support, reviews.' } }
 ];
+
+/* IMMAGINI DEL MENU (cassetto mobile e pannelli): una per famiglia.
+   Si cambiano dal pannello, Admin → Temi e sfondi → «Immagini del menu»,
+   salvate in CONFIG.menuImmagini = { shop: "img/…webp", … }. Finché il
+   titolare non carica le sue, valgono queste: lavori INGLY e foto
+   ufficiali xTool già presenti nel sito. Solo percorsi img/… */
+export const IMMAGINI_MENU = {
+  shop: 'img/port-22.webp',
+  personalizza: 'img/port-10.webp',
+  materiali: 'img/material-legno.webp',
+  business: 'img/cat-b2b.webp',
+  xtool: 'img/cat-custom.webp',
+  academy: 'img/xtool-c1-uso.webp',
+  mondo: 'img/xtool-x1.webp'
+};
+/** Dove porta il nome di una famiglia (le pagine statiche hanno il loro indirizzo). */
+const indirizzo = (f, base) => via(base, f.url || f.rotta);
+const navAttr = f => f.statica ? '' : ` data-nav="${esc(f.rotta)}"`;
+const percorsoValido = s => typeof s === 'string' && /^img\/[\w\-./]+\.(webp|jpe?g|png)$/i.test(s) && !s.includes('..');
+/** L'immagine di una famiglia: quella scelta nel pannello o quella di partenza. */
+export function immagineMenu(id, D = {}) {
+  const m = D && D.CONFIG && D.CONFIG.menuImmagini;
+  const v = m && m[id];
+  return percorsoValido(v) ? v : (IMMAGINI_MENU[id] || '');
+}
+/** Variante 400px solo se esiste davvero (mappa MV, regola 2). */
+const piccola = (p, D) => {
+  const w = D && D.MV && D.MV[p];
+  return Array.isArray(w) && w.includes(400) ? p.replace(/\.(\w+)$/, '-400.$1') : p;
+};
 
 /* Le voci che NON stanno nella barra: piè di pagina e cassetto mobile.
    Non sono meno importanti, sono di un altro momento — si cercano dopo
@@ -193,19 +230,28 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
   }
 
   if (id === 'academy') {
-    const pubblicati = corsi.filter(c => c && c.stato !== 'bozza');
+    const pubblicati = corsi.filter(c => c && c.stato !== 'bozza' && c.stato !== 'archiviato');
     return {
       colonne: [
-        col(t('Corsi', 'Courses'),
+        col(t('Un corso per ogni xTool', 'A course for every xTool'),
           pubblicati.slice(0, max).map(c => ({ n: L10n(c.n, L), href: via(base, 'academy/' + c.id) })),
           { n: t('Tutti i corsi', 'All courses'), href: via(base, 'academy') }),
+        col(t('Come funziona', 'How it works'), [
+          { n: t('In laboratorio a Palermo o online', 'In the Palermo workshop or online'), href: via(base, 'academy') },
+          { n: t('Prova prima con una demo gratuita', 'Try first with a free demo'), href: via(base, 'demo') },
+          { n: t('Le macchine xTool del laboratorio', 'The xTool machines in our workshop'), href: via(base, 'macchine') }
+        ]),
         col(t('Impara da qui', 'Start here'), [
           { n: t('Come si lavora ogni tecnologia', 'How each technology works'), href: via(base, 'tecnologie') },
-          { n: t('Cosa regge ogni materiale', 'What each material can take'), href: via(base, 'materiali') },
-          { n: t('Quello che non lavoriamo, e perché', 'What we do not work, and why'), href: via(base, 'macchine') }
+          { n: t('Cosa regge ogni materiale', 'What each material can take'), href: via(base, 'materiali') }
         ])
       ],
-      evidenza: pubblicati.length ? null : {
+      evidenza: pubblicati.length ? {
+        occhiello: t('xTool Squad Pro Hub', 'xTool Squad Pro Hub'),
+        titolo: t('Impari sulla tua macchina.', 'Learn on your own machine.'),
+        testo: t('Dal primo avvio con xTool Studio al primo pezzo da vendere, con chi le usa ogni giorno.', 'From first start-up in xTool Studio to your first piece to sell, with people who use them every day.'),
+        cta: { n: t('Scegli il tuo corso', 'Choose your course'), href: via(base, 'academy') }
+      } : {
         occhiello: t('In preparazione', 'Coming'),
         titolo: t('Il calendario non è ancora aperto.', 'The calendar is not open yet.'),
         testo: t('I primi percorsi nascono dalle richieste che arrivano.', 'The first courses come from the requests we receive.'),
@@ -233,6 +279,28 @@ export function pannello(id, D = {}, { L = 'it', base = '', max = 8 } = {}) {
         titolo: t('Dicci quantità e tempi.', 'Tell us quantity and timing.'),
         testo: t('Il preventivo aziendale è un modulo diverso: chiede quello che serve davvero.', 'The business quote asks what actually matters.'),
         cta: { n: t('Preventivo aziendale', 'Business quote'), href: via(base, 'quote?tipo=azienda') }
+      }
+    };
+  }
+
+  if (id === 'mondo') {
+    return {
+      colonne: [
+        col(t('Il tuo Pro Hub a Palermo', 'Your Pro Hub in Palermo'), [
+          { n: t('Profilo host e recensioni', 'Host profile and reviews'), href: via(base, 'xtool/#host') },
+          { n: t('Prenota una demo gratuita', 'Book a free demo'), href: via(base, 'demo') },
+          { n: t('Corsi su ogni macchina', 'Courses on every machine'), href: via(base, 'academy') }
+        ], { n: t('Tutto il Mondo xTool', 'The whole xTool world'), href: via(base, 'xtool/') }),
+        col(t('Assistenza xTool', 'xTool support'), [
+          { n: t('In tutta Italia e in Europa', 'Across Italy and Europe'), href: via(base, 'assistenza-xtool-palermo/') },
+          { n: t('Le macchine del laboratorio', 'The machines in our workshop'), href: via(base, 'macchine') }
+        ])
+      ],
+      evidenza: {
+        occhiello: t('xTool Squad · Pro Hub', 'xTool Squad · Pro Hub'),
+        titolo: t('Il mondo xTool, da vicino.', 'The xTool world, up close.'),
+        testo: t('Demo, corsi e assistenza da chi usa le xTool ogni giorno. Recensioni vere sul profilo ufficiale.', 'Demos, courses and support from people who use xTool every day. Real reviews on the official profile.'),
+        cta: { n: t('Scopri il Mondo xTool', 'Explore the xTool world'), href: via(base, 'xtool/') }
       }
     };
   }
@@ -308,7 +376,7 @@ export function barraHtml(D, { L = 'it', base = '', attiva = '' } = {}) {
        aprire il pannello: chi voleva lo Shop doveva prima scegliere una
        sottosezione. */
     return `<span class="ia-gruppo${qui ? ' qui' : ''}">
-      <a class="ia-voce" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}" data-fam="${esc(f.id)}"
+      <a class="ia-voce${f.statica ? ' ia-voce--xtool' : ''}" href="${esc(indirizzo(f, base))}"${navAttr(f)} data-fam="${esc(f.id)}"
         ${qui ? 'aria-current="page"' : ''}>${esc(L10n(f.n, L))}</a>
       ${apribile ? `<button type="button" class="ia-freccia" data-apri="${esc(f.id)}"
         aria-haspopup="true" aria-expanded="false" aria-controls="ia-pan-${esc(f.id)}"
@@ -330,8 +398,10 @@ export function pannelloHtml(f, D, { L = 'it', base = '' } = {}) {
       ${c.tutto ? `<a class="ia-tutto" href="${esc(c.tutto.href)}">${esc(c.tutto.n)} <i class="arr">→</i></a>` : ''}
     </div>`).join('');
 
+  const evImg = immagineMenu(f.id, D);
   const ev = p.evidenza ? `
-    <aside class="ia-evidenza">
+    <aside class="ia-evidenza${evImg ? ' ia-evidenza--img' : ''}">
+      ${evImg ? `<img class="ia-ev-img" src="${esc(via(base, piccola(evImg, D)))}" alt="" width="400" height="300" loading="lazy" decoding="async">` : ''}
       <p class="ia-ev-occhiello">${esc(p.evidenza.occhiello)}</p>
       <p class="ia-ev-tit">${esc(p.evidenza.titolo)}</p>
       <p class="ia-ev-testo">${esc(p.evidenza.testo)}</p>
@@ -353,19 +423,24 @@ export function pannelloHtml(f, D, { L = 'it', base = '' } = {}) {
 /** Il cassetto mobile: le stesse famiglie, aperte a fisarmonica, più le
  *  voci secondarie che nella barra non entrano. */
 export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
+  /* Ogni famiglia ha la sua immagine (decorativa: il nome è già nel link)
+     e la sua frase: chi apre il menu dal telefono capisce dove va prima di
+     toccare. Il NOME resta il link, come prima. */
+  const img = f => { const s = immagineMenu(f.id, D); return s ? `<img class="dr-img" src="${esc(via(base, piccola(s, D)))}" alt="" width="400" height="400" loading="lazy" decoding="async">` : ''; };
+  const nome = f => `${img(f)}<span class="dr-txt"><span class="dr-nome">${esc(L10n(f.n, L))}</span><small class="dr-frase">${esc(L10n(f.claim, L))}</small></span>`;
   return famiglieVive(D).map(f => {
     const p = pannello(f.id, D, { L, base });
     const voci = p.colonne.flatMap(c => [...c.voci, ...(c.tutto ? [c.tutto] : [])]);
     if (!voci.length) {
-      return `<div class="dr-item"><a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a></div>`;
+      return `<div class="dr-item dr-item--img"><a class="dr-fam" href="${esc(indirizzo(f, base))}"${navAttr(f)}>${nome(f)}</a></div>`;
     }
     /* Due controlli distinti, affiancati: il NOME porta alla pagina, la
        freccia apre i sottolink. Prima il nome era un pulsante che apriva
        soltanto: dal cassetto del telefono alla pagina Shop non ci si
        arrivava affatto — si poteva solo scendere in una sottosezione. */
-    return `<div class="dr-item">
+    return `<div class="dr-item dr-item--img">
       <div class="dr-riga">
-        <a class="dr-fam" href="${esc(via(base, f.rotta))}" data-nav="${esc(f.rotta)}">${esc(L10n(f.n, L))}</a>
+        <a class="dr-fam" href="${esc(indirizzo(f, base))}"${navAttr(f)}>${nome(f)}</a>
         <button type="button" class="dr-freccia" aria-expanded="false" data-apri="dr-${esc(f.id)}"
           aria-controls="dr-${esc(f.id)}"
           aria-label="${esc(L === 'en' ? 'Show the ' + L10n(f.n, L) + ' sections' : 'Mostra le sezioni di ' + L10n(f.n, L))}"
@@ -373,7 +448,6 @@ export function cassettoHtml(D, { L = 'it', base = '' } = {}) {
           data-close-label="${esc(L === 'en' ? 'Hide the ' + L10n(f.n, L) + ' sections' : 'Nascondi le sezioni di ' + L10n(f.n, L))}"><i class="dr-piu" aria-hidden="true"></i></button>
       </div>
       <div class="dr-sub" id="dr-${esc(f.id)}">
-        <p class="dr-claim">${esc(L10n(f.claim, L))}</p>
         ${p.colonne.map(c => `
           <p class="dr-col-tit">${esc(c.titolo)}</p>
           ${c.voci.map(v => `<a href="${esc(v.href)}">${esc(v.n)}</a>`).join('')}

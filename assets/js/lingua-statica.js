@@ -119,6 +119,7 @@ export const DIZIONARIO = {
   'I materiali e gli accessori che consigliamo per incidere e tagliare.': 'The materials and accessories we recommend for engraving and cutting.',
   'Centro assistenza autorizzato xTool': 'xTool authorised service centre',
   'Sicilia e Calabria.': 'Sicily and Calabria.',
+  'Demo del prodotto': 'Product demo',
   'Tutto sul mondo xTool': 'Everything about the xTool world',
   'Il laboratorio, macchina per macchina': 'The workshop, machine by machine',
   'Le xTool che usiamo ogni giorno a Palermo: per ognuna puoi provarla gratis, seguire un corso pratico o chiedere assistenza. Seguiamo clienti in tutta la Sicilia e in Calabria, anche online.': 'The xTool machines we use every day in Palermo: for each one you can try it for free, take a hands-on course or ask for support. We serve customers across Sicily and Calabria, online too.',

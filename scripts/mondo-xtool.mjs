@@ -21,6 +21,15 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 export const FILE = 'xtool/index.html';
 const J = f => JSON.parse(readFileSync(f, 'utf8'));
 const cfg = J('data/config.json'), mac = J('data/macchine.json'), cor = J('data/corsi.json');
+/* recensioni vere dal profilo host xTool (data/recensioni-xtool.json): mai nei dati strutturati */
+const REC = existsSync('data/recensioni-xtool.json') ? J('data/recensioni-xtool.json') : { recensioni: [] };
+const recensioni = (REC.recensioni || []).filter(r => r && r.testo && Number(r.voto) >= 1 && Number(r.voto) <= 5);
+const media = recensioni.length ? recensioni.reduce((a, r) => a + Number(r.voto), 0) / recensioni.length : 0;
+const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+const mese = m => { const x = /^(\d{4})-(\d{2})$/.exec(m || ''); return x ? MESI[+x[2] - 1] + ' ' + x[1] : ''; };
+const STELLA = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg>';
+const stelle = n => '<span class="mx-stelle" role="img" aria-label="' + n + ' stelle su 5">' + STELLA.repeat(n) + '</span>';
+const voto = n => n.toFixed(1).replace('.', ',');
 const man = J('assets/css/ingly.manifest.json');
 const esc = t => String(t == null ? '' : t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const it = v => (v && typeof v === 'object') ? (v.it || v.en || '') : (v || '');
@@ -68,7 +77,7 @@ const FAQ = [
   ['Cos’è xTool Squad?', 'È il programma ufficiale di xTool con cui gli host locali offrono demo, test sui materiali, formazione, installazione e assistenza. INGLY DESIGN è host xTool Squad a Palermo.'],
   ['Quale xTool scegliere per iniziare?', 'Dipende da cosa vuoi realizzare e su quali materiali. Il modo più semplice per deciderlo è una demo gratuita: porti un’idea o un pezzo e lo provi sulle macchine che abbiamo in laboratorio.'],
   ['Cos’è xTool Studio e lo insegnate?', 'È il software di xTool con cui si preparano e si avviano i lavori. Lo usiamo ogni giorno e lo spieghiamo in tutti i corsi, dal primo file al pezzo finito.'],
-  ['Dove leggo le recensioni?', 'Sul nostro profilo di host nel sito di assistenza ufficiale xTool, dove i clienti lasciano la recensione dopo la demo o il servizio.'],
+  ['Dove leggo le recensioni?', 'In questa pagina e sul nostro profilo di host nel sito di assistenza ufficiale xTool, dove le lascia chi ha prenotato una demo o un servizio.'],
 ];
 
 const schema = {
@@ -152,6 +161,17 @@ export function genera() {
  .mx-faq details{border-bottom:1px solid var(--rs-line);padding:14px 0}
  .mx-faq summary{cursor:pointer;font-weight:600}
  .mx-faq p{color:var(--rs-muted);margin:8px 0 0}
+ .mx-voto{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 0;color:var(--rs-muted)}
+ .mx-voto b{color:var(--rs-ink)}
+ .mx-stelle{display:inline-flex;gap:2px;color:#f5b301;vertical-align:-2px}
+ .mx-recensioni{list-style:none;padding:0;margin:14px 0;columns:3 300px;column-gap:14px}
+ .mx-recensioni li{break-inside:avoid;margin:0 0 14px}
+ .mx-recensioni figure{margin:0;padding:18px;border:1px solid var(--rs-line);border-radius:18px}
+ .mx-rec-testa{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+ .mx-rec-testa>span:not(.mx-stelle){font-size:12.5px;color:var(--rs-muted);border:1px solid var(--rs-line);border-radius:999px;padding:2px 10px}
+ .mx-recensioni blockquote{margin:0;color:var(--rs-ink);line-height:1.6}
+ .mx-recensioni figcaption{margin-top:10px;font-size:14px;color:var(--rs-muted)}
+ :root[data-mode="dark"] .mx-recensioni figure{border:1px solid transparent;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) padding-box,var(--au-edge,linear-gradient(#ffffff22,#ffffff22)) border-box}
  .mx-piede{margin-top:56px;padding-top:20px;border-top:1px solid var(--rs-line);font-size:14px;color:var(--rs-muted)}
  :root[data-mode="dark"] :is(.mx-griglia>li,.mx-box,.mx-mac,.mx-passi li){border:1px solid transparent;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)) padding-box,var(--au-edge,linear-gradient(#ffffff22,#ffffff22)) border-box;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
  @media(max-width:640px){.mx-mac{grid-template-columns:96px minmax(0,1fr)}.mx-mac img{width:96px;height:72px}}
@@ -166,6 +186,7 @@ export function genera() {
  <nav aria-label="Percorso" style="font-size:14px;margin-bottom:14px"><a href="./">Home</a> / Mondo xTool</nav>
  <h1>xTool a Palermo, in Sicilia e in Calabria: demo gratuite, corsi e assistenza</h1>
  <p class="mx-lead">INGLY DESIGN è host di <a href="${SQUAD}" target="_blank" rel="noopener noreferrer">xTool Squad</a>, il programma ufficiale di xTool. Nel nostro laboratorio di Palermo lavoriamo ogni giorno con ${inLab.length} macchine xTool: puoi provarle gratis, imparare a usarle con un corso pratico e avere un’assistenza vicina prima e dopo l’acquisto.</p>
+ ${recensioni.length ? `<p class="mx-voto">${stelle(Math.round(media))} <b>${voto(media)} su 5</b> · <a href="xtool/#recensioni">${recensioni.length} recensioni</a> dei clienti delle demo, sul profilo host ufficiale xTool</p>` : ''}
  <div class="mx-cta">
   <a class="btn btn-primary" href="${esc(prenota)}" target="_blank" rel="noopener noreferrer">Prenota una demo gratuita</a>
   <a class="btn btn-ghost" href="${esc(waDemo)}" target="_blank" rel="noopener noreferrer">Scrivici su WhatsApp</a>
@@ -209,9 +230,13 @@ export function genera() {
  <p>Modelli in vendita oggi sul sito ufficiale xTool che non abbiamo in laboratorio: ti aiutiamo comunque a capire se fanno per te e li seguiamo in assistenza.</p>
  <ul class="mx-zone">${gamma.map(m => `<li><a href="macchine/${esc(m.id)}">${esc(it(m.n))}</a></li>`).join('')}</ul>
 
- <h2>Recensioni</h2>
- <div class="mx-box"><p style="margin:0 0 12px">Le recensioni dei clienti sono pubblicate sul nostro profilo di host nel sito di assistenza ufficiale xTool, dove si prenotano anche le demo.</p>
- <a class="btn btn-ghost" href="${esc(prenota)}" target="_blank" rel="noopener noreferrer">Profilo e recensioni su xTool Support</a></div>
+ <h2 id="recensioni">Cosa dicono i clienti delle demo</h2>
+ ${recensioni.length ? `<p class="mx-voto">${stelle(Math.round(media))} <b>${voto(media)} su 5</b> · ${recensioni.length} recensioni sul nostro profilo di host nel sito ufficiale xTool Support. Le riportiamo come le hanno scritte i clienti.</p>
+ <ul class="mx-recensioni">
+  ${recensioni.map(r => `<li><figure><div class="mx-rec-testa">${stelle(Number(r.voto))}<span>${esc(r.servizio || 'Demo')}</span></div><blockquote>${esc(r.testo)}</blockquote><figcaption><b>${esc(r.nome)}</b>${mese(r.mese) ? ' · ' + esc(mese(r.mese)) : ''}</figcaption></figure></li>`).join('\n  ')}
+ </ul>` : ''}
+ <div class="mx-box"><p style="margin:0 0 12px">Le recensioni sono pubblicate sul nostro profilo di host nel sito di assistenza ufficiale xTool, dove si prenotano anche le demo: le può lasciare solo chi ha prenotato un servizio.</p>
+ <a class="btn btn-ghost" href="${esc(prenota)}" target="_blank" rel="noopener noreferrer">Leggi tutte le recensioni su xTool Support</a></div>
 
  <h2>Domande frequenti</h2>
  <div class="mx-faq">
